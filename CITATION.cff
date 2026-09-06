@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use HGFX in research, please cite the software and associated paper once available."
+title: "HGFX: A GPU-Native Python Toolbox for Hierarchical Gaussian Filters"
+type: software
+authors:
+  - family-names: "TBD"
+    given-names: "TBD"
+version: "0.0.0"
+date-released: "2026-09-07"
+repository-code: "https://github.com/TBD/hgfx"
+license: MIT
