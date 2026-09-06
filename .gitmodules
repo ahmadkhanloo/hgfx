@@ -1,0 +1,3 @@
+[submodule "external/hgf-toolbox"]
+	path = external/hgf-toolbox
+	url = https://github.com/ComputationalPsychiatry/hgf-toolbox.git

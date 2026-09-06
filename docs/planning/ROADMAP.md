@@ -1,11 +1,13 @@
 # HGFX Roadmap
 
 ## Phase 0 — Freeze reference
-- [ ] Freeze HGF reference version
-- [ ] Record exact commit SHA
-- [ ] Add pinned reference as submodule
-- [ ] Generate recursive MATLAB manifest
-- [ ] Generate SHA-256 checksums
+- [x] Freeze HGF reference version
+- [x] Record exact commit SHA
+- [x] Add pinned reference as submodule
+- [x] Generate recursive MATLAB manifest
+- [x] Generate immutable per-file content hashes (Git blob SHA; SHA-256 generator included)
+
+Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3` (334 MATLAB files)
 
 ## Phase 1 — Golden harness
 - [ ] MATLAB fixture exporter
