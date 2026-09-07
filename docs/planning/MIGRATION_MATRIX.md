@@ -666,6 +666,21 @@ tapas_sgm.m
 | UT15 | `tapas_logit` | `math/transforms.py` | H | JIT | Critical | P0 |
 | UT16 | `tapas_sgm` | `math/transforms.py` | H | JIT | Critical | P0 |
 
+## وضعیت M3 — Scalar Numerical Parity
+
+Gate `M3` برای utilityهای scalar زیر **PASS** شده است:
+
+| Utility IDs | وضعیت | Evidence |
+|---|---|---|
+| UT04 | PORT + GOLDEN PASS | `boltzmann` |
+| UT06–UT07 | PORT + GOLDEN PASS | `lambert_w0`, `nearest_psd` |
+| UT08–UT12 | PORT + GOLDEN PASS | خانواده کامل Ridders |
+| UT13 | PORT + GOLDEN PASS | `tapas_Cov2Corr` |
+| UT15–UT16 | PORT + GOLDEN PASS | `tapas_logit`, `tapas_sgm` |
+
+Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`  
+CI evidence: workflow run `34114052778`.
+
 ## نکته مهم
 
 در **compatibility mode** برای Hessian/LME نباید فوراً Ridders را با autodiff جایگزین کرد.

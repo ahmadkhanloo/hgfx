@@ -29,12 +29,14 @@ Bootstrap gate: frozen MATLAB `tapas_logit` fixture → canonical NPZ → indepe
 Gate evidence: frozen MATLAB configs (`hgf_binary`, `hgf`, `unitsq_sgm`) → Python config schemas with identical flat order, priors, transforms, free/fixed/undefined indices, placeholder resolution, trial masks, and time-axis semantics. CI run: `34088423448`.
 
 ## Phase 3 — Scalar math
-- [ ] logit/sigmoid
-- [ ] Boltzmann
-- [ ] Lambert W0
-- [ ] nearest PSD
-- [ ] covariance→correlation
-- [ ] Ridders numerical derivatives
+- [x] logit/sigmoid
+- [x] Boltzmann
+- [x] Lambert W0
+- [x] nearest PSD
+- [x] covariance→correlation
+- [x] Ridders numerical derivatives
+
+Gate evidence: frozen MATLAB scalar oracle → reference-faithful Python CPU float64 implementations → calibrated numerical comparison. CI run: `34114052778`.
 
 ## Phase 4 — Shared HGF blocks
 - [ ] prediction

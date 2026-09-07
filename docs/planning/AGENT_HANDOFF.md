@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M3 — Scalar Numerical Parity`
+`M4 — HGF Forward Parity`
 
 ## Frozen reference
 
@@ -16,6 +16,8 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 - M0 — Reference Frozen
 - M1 — Golden Harness Operational
+- M2 — Parameter/Config Parity
+- M3 — Scalar Numerical Parity
 
 M1 bootstrap path:
 
@@ -31,12 +33,12 @@ The automated gate is `.github/workflows/m1-golden-harness.yml`.
 
 ## Next tasks
 
-1. Port and golden-test `tapas_logit`.
-2. Port and golden-test `tapas_sgm`.
-3. Port and golden-test `boltzmann`.
-4. Port and validate `lambert_w0`.
-5. Port and validate `nearest_psd` and `tapas_Cov2Corr`.
-6. Port Ridders numerical derivatives only after scalar utility parity is established.
+1. Port and golden-test `hgf_prediction`.
+2. Port and golden-test `hgf_pihat` / `hgf_pihat_last`.
+3. Port binary level-1 and level-2 update blocks.
+4. Port continuous level-1 update.
+5. Port volatility prediction-error and update blocks.
+6. Add trajectory validation and assemble standard HGF forward parity fixtures.
 
 ## Do not start with
 
