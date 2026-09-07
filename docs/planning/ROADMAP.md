@@ -71,20 +71,22 @@ M7 gate evidence: 12 P0/P1 families match MATLAB trial-wise `logp/yhat/res`, irr
 - [x] trial likelihood
 - [x] total objective
 - [x] compatibility quasi-Newton
-- [ ] multi-start fitting
+- [x] multi-start fitting / LME-based restart selection
 
 M8 gate evidence: fixed-vector `hgf_binary + unitsq_sgm` objective decomposition matches frozen `fitModel.m` for regular and ignored/irregular cases, including trial exclusion, `logLl/negLogLl`, Gaussian prior terms, and `negLogJoint`. CI run: `34152468348`.
 
-M9 gate evidence: frozen `quasinewton_optim` behavior and deterministic default MAP fitting (`nRandInit=0`) match MATLAB on a quadratic optimizer oracle and the `hgf_binary + unitsq_sgm` reference fit. CI run: `34161336607`. Multi-start selection is deferred until M10 because the frozen implementation selects restarts by LME.
+M9 gate evidence: frozen `quasinewton_optim` behavior and deterministic default MAP fitting (`nRandInit=0`) match MATLAB on a quadratic optimizer oracle and the `hgf_binary + unitsq_sgm` reference fit. CI run: `34161336607`.
+
+M10 gate evidence: numerical Hessian, optimizer-`T` fallback, Sigma/Corr, Laplace LME decomposition, accuracy/complexity, AIC/BIC, and LME-based restart selection match MATLAB. CI run: `34162675825`. Restart selection is validated from MATLAB-exported seeded startpoints; MATLAB-vs-NumPy RNG stream identity is not claimed.
 
 ## Phase 8 — Fit statistics
-- [ ] Hessian
-- [ ] covariance
-- [ ] correlation
-- [ ] AIC
-- [ ] BIC
-- [ ] LME
-- [ ] accuracy/complexity decomposition
+- [x] Hessian
+- [x] covariance
+- [x] correlation
+- [x] AIC
+- [x] BIC
+- [x] LME
+- [x] accuracy/complexity decomposition
 
 ## Phase 9 — Simulation
 - [ ] simModel parity
