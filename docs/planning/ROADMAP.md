@@ -89,10 +89,12 @@ M10 gate evidence: numerical Hessian, optimizer-`T` fallback, Sigma/Corr, Laplac
 - [x] accuracy/complexity decomposition
 
 ## Phase 9 — Simulation
-- [ ] simModel parity
-- [ ] sampleModel parity
-- [ ] seeded tests
-- [ ] distributional tests
+- [x] simModel parity
+- [x] sampleModel parity
+- [x] seeded tests
+- [x] distributional tests
+
+M11 gate evidence: frozen `simModel.m` / `sampleModel.m` orchestration, parameter transforms, ignored-trial behavior, deterministic response probabilities, MATLAB-exported prior random drivers, same-runtime seed reproducibility, and stochastic distribution checks pass. CI run: `34167613757`. Cross-language RNG-stream identity is not claimed.
 
 ## Phase 10 — Specialized model families
 - [ ] PU / PU-TBT
