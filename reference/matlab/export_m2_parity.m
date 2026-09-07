@@ -49,6 +49,11 @@ r_irregular.u = [0.1 0.5; 0.2 2.0; 0.3 1.5];
 r_irregular.c_prc = struct('irregular_intervals', true);
 payload.time_axis_irregular = hgf_time_axis(r_irregular, 4)';
 
+output_dir = fileparts(output_path);
+if ~isempty(output_dir) && ~exist(output_dir, 'dir')
+    mkdir(output_dir);
+end
+
 fid = fopen(output_path, 'w');
 if fid == -1
     error('hgfx:m2:openFailed', 'Could not open %s', output_path);
