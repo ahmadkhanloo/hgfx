@@ -1,0 +1,40 @@
+name: M4 HGF Forward Parity
+
+on:
+  push:
+    branches:
+      - main
+      - migration/M4-hgf-forward-parity
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  python-forward-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest tests/unit/test_hgf_forward.py -q
+
+  matlab-python-forward-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e .
+      - name: Verify frozen HGF reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export HGF forward oracle from MATLAB
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m4_hgf_forward_parity(fullfile(pwd,'reference','generated','m4_hgf_forward_parity.json'))
+      - name: Compare MATLAB and Python HGF forward trajectories
+        run: python tools/check_m4_parity.py reference/generated/m4_hgf_forward_parity.json

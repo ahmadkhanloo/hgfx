@@ -253,6 +253,23 @@ $$
 | B09 | `hgf_volatility_pe.m` | `updates/volatility_pe.py` | H | `jit` | Critical | P0 | PE parity |
 | B10 | `hgf_check_trajectories.m` | `validation/trajectory_checks.py` | M | CPU/JIT | High | P0 | NaN/Inf/invalid state |
 
+## وضعیت M4 — HGF Forward Parity
+
+Gate `M4` برای building blockهای `B02–B10` و forward استاندارد HGF **PASS** شده است.
+
+| IDs / Model | وضعیت | Evidence |
+|---|---|---|
+| B02–B07 | PORT + GOLDEN PASS | prediction, precision prediction, binary L1/L2, continuous L1 |
+| B08–B10 | PORT + GOLDEN PASS | volatility update/PE, trajectory validation |
+| P01 / U01 | FORWARD GOLDEN PASS | standard continuous HGF |
+| P02 / U02 | FORWARD GOLDEN PASS | standard binary HGF |
+
+Fixtureها شامل regular intervals و irregular intervals همراه با ignored/NaN trial هستند. برای binary HGF، رفتار frozen مربوط به hard-coded `t=1` در precision prediction سطح 2 و state-copy در ignored trial حفظ شده است.
+
+Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`  
+CI evidence: workflow run `34120120732`.
+
+
 ---
 
 # 8) خانواده Unified HGF/eHGF/uHGF
