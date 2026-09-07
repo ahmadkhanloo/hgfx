@@ -6,24 +6,41 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M1 — Golden Harness Operational`
+`M2 — Parameter/Config Parity`
 
 ## Frozen reference
 
 HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
+## Completed gates
+
+- M0 — Reference Frozen
+- M1 — Golden Harness Operational
+
+M1 bootstrap path:
+
+```text
+frozen MATLAB tapas_logit
+→ JSON export
+→ canonical HGFX fixture (JSON + NPZ)
+→ independent Python computation
+→ first-divergence numerical diff
+```
+
+The automated gate is `.github/workflows/m1-golden-harness.yml`.
+
 ## Next tasks
 
-1. Design the golden fixture schema.
-2. Build the MATLAB fixture exporter.
-3. Build the Python fixture loader.
-4. Build the first-divergence numerical comparator.
-5. Validate one end-to-end fixture before porting equations.
+1. Define canonical parameter/config schema.
+2. Preserve MATLAB parameter ordering.
+3. Implement transformed/native parameter semantics.
+4. Implement prior and fixed/free semantics.
+5. Add placeholder, irregular-trial-mask, and time-axis representations.
+6. Create config/parameter golden fixtures before model equations are ported.
 
 ## Do not start with
 
 - GPU optimization
 - full repo translation
-- model refactoring
 - plotting
 - performance micro-optimizations
