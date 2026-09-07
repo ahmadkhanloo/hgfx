@@ -18,13 +18,15 @@ Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3` (334 MATLAB fi
 Bootstrap gate: frozen MATLAB `tapas_logit` fixture → canonical NPZ → independent Python result → reproducible numerical diff.
 
 ## Phase 2 — Core schemas
-- [ ] Parameters
-- [ ] Transforms
-- [ ] Priors
-- [ ] Fixed/free semantics
-- [ ] Placeholders
-- [ ] Irregular trial masks
-- [ ] Time axis
+- [x] Parameters
+- [x] Transforms
+- [x] Priors
+- [x] Fixed/free semantics
+- [x] Placeholders
+- [x] Irregular trial masks
+- [x] Time axis
+
+Gate evidence: frozen MATLAB configs (`hgf_binary`, `hgf`, `unitsq_sgm`) → Python config schemas with identical flat order, priors, transforms, free/fixed/undefined indices, placeholder resolution, trial masks, and time-axis semantics. CI run: `34088423448`.
 
 ## Phase 3 — Scalar math
 - [ ] logit/sigmoid
