@@ -22,9 +22,8 @@ def _numeric_array(value: Any) -> np.ndarray:
 
 
 def _assert_array(label: str, actual: np.ndarray, expected: Any) -> None:
-    reference = _numeric_array(expected)
+    reference = _numeric_array(expected).reshape(-1)
     actual = np.asarray(actual, dtype=np.float64).reshape(-1)
-    reference = reference.reshape(-1)
     if actual.shape != reference.shape or not np.allclose(
         actual, reference, rtol=1e-12, atol=1e-12, equal_nan=True
     ):
@@ -33,7 +32,24 @@ def _assert_array(label: str, actual: np.ndarray, expected: Any) -> None:
         )
 
 
+def _assert_named(
+    label: str,
+    actual: dict[str, float | np.ndarray],
+    expected: dict[str, Any],
+) -> None:
+    if set(actual) != set(expected):
+        raise AssertionError(
+            f"{label} fields mismatch: Python={sorted(actual)} MATLAB={sorted(expected)}"
+        )
+    for key in sorted(actual):
+        _assert_array(f"{label}.{key}", np.asarray(actual[key]), expected[key])
+
+
 def _check_config(name: str, config, exported: dict[str, Any]) -> None:
+    if config.model != exported["model"]:
+        raise AssertionError(
+            f"{name}.model mismatch: Python={config.model!r} MATLAB={exported['model']!r}"
+        )
     _assert_array(f"{name}.priormus", config.priormus, exported["priormus"])
     _assert_array(f"{name}.priorsas", config.priorsas, exported["priorsas"])
     _assert_array(
@@ -54,6 +70,19 @@ def _check_config(name: str, config, exported: dict[str, Any]) -> None:
     sample = _numeric_array(exported["sample_transformed"])
     native = config.transformed_to_native(sample)
     _assert_array(f"{name}.sample_native", native, exported["sample_native"])
+    _assert_named(
+        f"{name}.sample_named",
+        config.transformed_to_native_structure(sample),
+        exported["sample_named"],
+    )
+
+    for option in ("n_levels", "irregular_intervals", "predorpost"):
+        if option in exported:
+            if config.options[option] != exported[option]:
+                raise AssertionError(
+                    f"{name}.{option} mismatch: "
+                    f"Python={config.options[option]!r} MATLAB={exported[option]!r}"
+                )
 
 
 def main() -> None:
