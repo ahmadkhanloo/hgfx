@@ -67,11 +67,13 @@ M6 CI: `34125217371`.
 M7 gate evidence: 12 P0/P1 families match MATLAB trial-wise `logp/yhat/res`, irregular-trial NaN semantics, and total log likelihood. CI run: `34143177077`.
 
 ## Phase 7 — Objective and fitting
-- [ ] priors
-- [ ] trial likelihood
-- [ ] total objective
+- [x] priors
+- [x] trial likelihood
+- [x] total objective
 - [ ] compatibility quasi-Newton
 - [ ] multi-start fitting
+
+M8 gate evidence: fixed-vector `hgf_binary + unitsq_sgm` objective decomposition matches frozen `fitModel.m` for regular and ignored/irregular cases, including trial exclusion, `logLl/negLogLl`, Gaussian prior terms, and `negLogJoint`. CI run: `34152468348`.
 
 ## Phase 8 — Fit statistics
 - [ ] Hessian

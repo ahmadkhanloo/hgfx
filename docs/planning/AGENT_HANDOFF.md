@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M8 — Objective Parity`
+`M9 — Compatibility Fitting`
 
 ## Frozen reference
 
@@ -22,6 +22,7 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M5 — eHGF Forward Parity
 - M6 — uHGF Forward Parity
 - M7 — Observation Parity
+- M8 — Objective Parity
 
 ## M4 evidence
 
@@ -42,39 +43,50 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## M7 evidence
 
-P0/P1 observation families validated against frozen MATLAB trial-wise outputs and total log likelihood:
-
-- `unitsq_sgm` (O17, P0)
-- `softmax_binary` (O13, P0)
-- `beta_obs` (O01, P1)
-- `cdfgaussian_obs` (O02, P1)
-- `gaussian_obs` (O06, P1)
-- `gaussian_obs_offset` (O07, P1)
-- `logrt_linear_binary` (O08, P1)
-- `logrt_linear_binary_minimal` (O09, P1)
-- `softmax` (O11, P1)
-- `softmax_2beta` (O12, P1)
-- `softmax_mu3` (O14, P1)
-- `unitsq_sgm_mu3` (O18, P1)
-
-For every case: `logp`, `yhat`, `res`, irregular-trial NaN semantics, transformed observation parameter use, and total regular-trial log likelihood match MATLAB.
+P0/P1 observation families validated against frozen MATLAB trial-wise outputs and total log likelihood.
 
 - M7 workflow run: `34143177077`
 - `python-observation-tests`: PASS
 - `matlab-python-observation-parity`: PASS
 - calibrated tolerance: `rtol=2e-11`, `atol=2e-13`
 
+## M8 evidence
+
+Fixed transformed-parameter objective decomposition for the standard vertical slice
+`hgf_binary + unitsq_sgm` matches frozen `fitModel.m` semantics.
+
+Validated:
+
+- regular fixed-vector objective: PASS
+- ignored-input + irregular-response objective: PASS
+- trial-wise log likelihoods: PASS
+- exact irregular-trial exclusion before aggregation: PASS
+- ordinary `sum` semantics rather than `nansum`: PASS
+- `logLl` / `negLogLl`: PASS
+- perceptual Gaussian prior indices, terms, and total: PASS
+- observation Gaussian prior indices, terms, and total: PASS
+- fixed/NaN prior variances excluded exactly as MATLAB: PASS
+- full `negLogJoint`: PASS
+- perceptual failure sentinel `realmax` + `rval=-1`: PASS
+- M7 observation + M4 HGF regressions included in Python M8 gate: PASS
+- M8 workflow run: `34152468348`
+- `python-objective-tests`: PASS
+- `matlab-python-objective-parity`: PASS
+- calibrated tolerance unchanged: `rtol=2e-11`, `atol=2e-13`
+
+The first two M8 workflow attempts exposed only MATLAB JSON scalar-vs-singleton-array serialization differences in the checker. No scientific equation or tolerance was changed.
+
 ## Next tasks
 
-1. Reconstruct the fixed-parameter objective used by `fitModel`.
-2. Combine perceptual forward pass + observation likelihood + priors.
-3. Match trial exclusion / irregular-response semantics in objective aggregation.
-4. Export fixed-vector MATLAB objective decomposition.
-5. Validate `negLL`, prior term, and `negLogJoint` before starting optimizer parity.
+1. Add the compatibility free-parameter vector wrapper around the frozen M8 objective.
+2. Port/freeze `quasinewton_optim` and its config/termination semantics.
+3. Match deterministic initialization from prior means before adding random starts.
+4. Compare MAP objective and transformed/native MAP parameters against MATLAB.
+5. Add multi-start behavior only after single-start compatibility fitting passes.
 
 ## Do not start with
 
-- optimizer tuning
-- GPU optimization
 - Hessian/LME
+- GPU optimization
 - simulation
+- performance tuning
