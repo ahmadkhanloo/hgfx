@@ -35,7 +35,7 @@ jobs:
       - name: Export reference fixture in MATLAB
         uses: matlab-actions/run-command@v2
         with:
-          command: export_fixture(fullfile(pwd,'reference','generated','m1_tapas_logit'))
+          command: addpath(fullfile(pwd,'reference','matlab')); export_fixture(fullfile(pwd,'reference','generated','m1_tapas_logit'))
       - name: Convert MATLAB export to canonical fixture
         run: |
           python tools/import_matlab_fixture.py             reference/generated/m1_tapas_logit             reference/generated/m1_tapas_logit_canonical
