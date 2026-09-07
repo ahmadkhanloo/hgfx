@@ -4,6 +4,7 @@ function export_m11_simulation_parity(output_path)
 repo_root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 hgf_root = fullfile(repo_root, 'external', 'hgf-toolbox');
 addpath(genpath(hgf_root));
+addpath(fullfile(repo_root, 'reference', 'matlab', 'm11_shims'));
 
 payload = struct;
 payload.metadata.schema_version = 'm11-1';
