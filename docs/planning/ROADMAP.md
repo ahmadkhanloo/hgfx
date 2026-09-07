@@ -39,17 +39,19 @@ Gate evidence: frozen MATLAB configs (`hgf_binary`, `hgf`, `unitsq_sgm`) → Pyt
 Gate evidence: frozen MATLAB scalar oracle → reference-faithful Python CPU float64 implementations → calibrated numerical comparison. CI run: `34114052778`.
 
 ## Phase 4 — Shared HGF blocks
-- [ ] prediction
-- [ ] precision prediction
-- [ ] binary level 1
-- [ ] binary level 2
-- [ ] continuous level 1
-- [ ] volatility prediction error
-- [ ] volatility update
-- [ ] trajectory validation
+- [x] prediction
+- [x] precision prediction
+- [x] binary level 1
+- [x] binary level 2
+- [x] continuous level 1
+- [x] volatility prediction error
+- [x] volatility update
+- [x] trajectory validation
+
+Gate evidence: frozen MATLAB standard HGF building blocks + binary/continuous forward trajectories (regular and irregular+ignored) → Python CPU float64 parity. CI run: `34120120732`.
 
 ## Phase 5 — Core model parity
-- [ ] standard HGF
+- [x] standard HGF
 - [ ] eHGF
 - [ ] uHGF
 - [ ] PyHGF dependency/fork decision gate
