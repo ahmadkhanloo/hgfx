@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M2 — Parameter/Config Parity`
+`M3 — Scalar Numerical Parity`
 
 ## Frozen reference
 
@@ -31,12 +31,12 @@ The automated gate is `.github/workflows/m1-golden-harness.yml`.
 
 ## Next tasks
 
-1. Define canonical parameter/config schema.
-2. Preserve MATLAB parameter ordering.
-3. Implement transformed/native parameter semantics.
-4. Implement prior and fixed/free semantics.
-5. Add placeholder, irregular-trial-mask, and time-axis representations.
-6. Create config/parameter golden fixtures before model equations are ported.
+1. Port and golden-test `tapas_logit`.
+2. Port and golden-test `tapas_sgm`.
+3. Port and golden-test `boltzmann`.
+4. Port and validate `lambert_w0`.
+5. Port and validate `nearest_psd` and `tapas_Cov2Corr`.
+6. Port Ridders numerical derivatives only after scalar utility parity is established.
 
 ## Do not start with
 
