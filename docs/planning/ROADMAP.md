@@ -15,8 +15,6 @@ Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3` (334 MATLAB fi
 - [x] Fixture loader
 - [x] Numerical diff reporter
 
-Bootstrap gate: frozen MATLAB `tapas_logit` fixture → canonical NPZ → independent Python result → reproducible numerical diff.
-
 ## Phase 2 — Core schemas
 - [x] Parameters
 - [x] Transforms
@@ -26,7 +24,7 @@ Bootstrap gate: frozen MATLAB `tapas_logit` fixture → canonical NPZ → indepe
 - [x] Irregular trial masks
 - [x] Time axis
 
-Gate evidence: frozen MATLAB configs (`hgf_binary`, `hgf`, `unitsq_sgm`) → Python config schemas with identical flat order, priors, transforms, free/fixed/undefined indices, placeholder resolution, trial masks, and time-axis semantics. CI run: `34088423448`.
+Gate evidence: config/parameter parity CI `34088423448`.
 
 ## Phase 3 — Scalar math
 - [x] logit/sigmoid
@@ -36,7 +34,7 @@ Gate evidence: frozen MATLAB configs (`hgf_binary`, `hgf`, `unitsq_sgm`) → Pyt
 - [x] covariance→correlation
 - [x] Ridders numerical derivatives
 
-Gate evidence: frozen MATLAB scalar oracle → reference-faithful Python CPU float64 implementations → calibrated numerical comparison. CI run: `34114052778`.
+Gate evidence: scalar parity CI `34114052778`.
 
 ## Phase 4 — Shared HGF blocks
 - [x] prediction
@@ -48,7 +46,7 @@ Gate evidence: frozen MATLAB scalar oracle → reference-faithful Python CPU flo
 - [x] volatility update
 - [x] trajectory validation
 
-Gate evidence: frozen MATLAB standard HGF building blocks + binary/continuous forward trajectories (regular and irregular+ignored) → Python CPU float64 parity. CI run: `34120120732`.
+Gate evidence: HGF forward parity CI `34120120732`.
 
 ## Phase 5 — Core model parity
 - [x] standard HGF
@@ -56,16 +54,17 @@ Gate evidence: frozen MATLAB standard HGF building blocks + binary/continuous fo
 - [x] uHGF
 - [ ] PyHGF dependency/fork decision gate
 
-M5 gate evidence: frozen MATLAB eHGF binary/continuous trajectories (regular and irregular+ignored) + safe precision-update edge case → Python CPU float64 parity. CI run: `34123043904`.
-
-M6 gate evidence: frozen MATLAB uHGF binary/continuous trajectories (regular and irregular+ignored) + Lambert W0 mode diagnostics + dual approximations + variational weighting + Gaussian-mixture moment matching + non-finite expansion fallback → Python CPU float64 parity. CI run: `34125217371`.
+M5 CI: `34123043904`.  
+M6 CI: `34125217371`.
 
 ## Phase 6 — Observation models
-- [ ] unit-square sigmoid
-- [ ] binary softmax
-- [ ] softmax
-- [ ] Gaussian
-- [ ] remaining response families
+- [x] unit-square sigmoid
+- [x] binary softmax
+- [x] softmax
+- [x] Gaussian
+- [x] all P0/P1 response families
+
+M7 gate evidence: 12 P0/P1 families match MATLAB trial-wise `logp/yhat/res`, irregular-trial NaN semantics, and total log likelihood. CI run: `34143177077`.
 
 ## Phase 7 — Objective and fitting
 - [ ] priors
