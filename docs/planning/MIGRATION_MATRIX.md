@@ -698,6 +698,21 @@ Gate `M3` برای utilityهای scalar زیر **PASS** شده است:
 Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`  
 CI evidence: workflow run `34114052778`.
 
+## وضعیت M5 — eHGF Forward Parity
+
+Gate `M5` برای forward کامل eHGF **PASS** شده است.
+
+| Model | وضعیت | Evidence |
+|---|---|---|
+| P03 / U01 | FORWARD GOLDEN PASS | continuous eHGF |
+| P03 / U02 | FORWARD GOLDEN PASS | binary eHGF |
+| B08 eHGF branch | EDGE + GOLDEN PASS | mean-first update + safe precision correction |
+
+Fixtureها شامل regular intervals و irregular intervals همراه با ignored/NaN trial هستند. Edge case مستقل نیز ثابت می‌کند حالتی که HGF استاندارد به posterior precision منفی می‌رسد، در eHGF با `max(0, correction)` ایمن می‌شود.
+
+Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`  
+CI evidence: workflow run `34123043904`.
+
 ## نکته مهم
 
 در **compatibility mode** برای Hessian/LME نباید فوراً Ridders را با autodiff جایگزین کرد.
