@@ -198,10 +198,23 @@ def check_trajectory_case(name: str, case: dict[str, Any]) -> None:
             f"Python={sorted(traj)} MATLAB={sorted(expected_traj)}"
         )
     for field in sorted(traj):
+        expected = expected_traj[field]
+        actual = np.asarray(traj[field])
+        # MATLAB jsonencode collapses an N-by-1 numeric matrix to a JSON
+        # vector. Restore that singleton matrix dimension for trajectory w;
+        # this is serialization normalization, not a numerical tolerance.
+        if (
+            field == "w"
+            and actual.ndim == 2
+            and actual.shape[1] == 1
+            and arr(expected).ndim == 1
+            and arr(expected).size == actual.size
+        ):
+            expected = arr(expected).reshape(actual.shape)
         check(
             f"{name}.traj.{field}",
-            traj[field],
-            expected_traj[field],
+            actual,
+            expected,
             rtol=TRAJ_RTOL,
             atol=TRAJ_ATOL,
         )
