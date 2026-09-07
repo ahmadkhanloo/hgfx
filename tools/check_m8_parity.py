@@ -44,9 +44,11 @@ def check(label: str, actual: Any, expected: Any) -> None:
 
 
 def check_prior(label: str, actual, expected: dict[str, Any]) -> None:
-    matlab_indices = np.asarray(actual.indices, dtype=np.int64) + 1
-    check(f"{label}.indices", matlab_indices, expected["matlab_indices"])
-    check(f"{label}.terms", actual.terms, expected["terms"])
+    matlab_indices = np.asarray(actual.indices, dtype=np.int64).reshape(-1) + 1
+    expected_indices = arr(expected["matlab_indices"]).reshape(-1)
+    expected_terms = arr(expected["terms"]).reshape(-1)
+    check(f"{label}.indices", matlab_indices, expected_indices)
+    check(f"{label}.terms", np.asarray(actual.terms).reshape(-1), expected_terms)
     check(f"{label}.total", actual.total, expected["total"])
 
 
