@@ -66,13 +66,13 @@ def check_case(name: str, case: dict[str, Any]) -> None:
     input_column = inputs if inputs.ndim == 1 else inputs[:, 0]
     check(
         f"{name}.ignored_indices",
-        np.flatnonzero(np.isnan(input_column)) + 1,
-        case["ignored_matlab_indices"],
+        (np.flatnonzero(np.isnan(input_column)) + 1).reshape(-1),
+        arr(case["ignored_matlab_indices"]).reshape(-1),
     )
     check(
         f"{name}.irregular_indices",
-        np.flatnonzero(result.irregular_mask) + 1,
-        case["irregular_matlab_indices"],
+        (np.flatnonzero(result.irregular_mask) + 1).reshape(-1),
+        arr(case["irregular_matlab_indices"]).reshape(-1),
     )
     check(
         f"{name}.trial_log_likelihoods",
