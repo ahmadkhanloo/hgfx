@@ -10,10 +10,12 @@
 Reference: HGF 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3` (334 MATLAB files)
 
 ## Phase 1 — Golden harness
-- [ ] MATLAB fixture exporter
-- [ ] Python fixture schema
-- [ ] Fixture loader
-- [ ] Numerical diff reporter
+- [x] MATLAB fixture exporter
+- [x] Python fixture schema
+- [x] Fixture loader
+- [x] Numerical diff reporter
+
+Bootstrap gate: frozen MATLAB `tapas_logit` fixture → canonical NPZ → independent Python result → reproducible numerical diff.
 
 ## Phase 2 — Core schemas
 - [ ] Parameters
