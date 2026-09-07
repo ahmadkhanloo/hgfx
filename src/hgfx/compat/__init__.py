@@ -1,10 +1,17 @@
-"""MATLAB compatibility schemas, objective, and fitting factories."""
+"""MATLAB compatibility schemas, objective, fitting, and fit statistics."""
 
 from .configs import hgf_binary_config, hgf_config, unitsq_sgm_config
+from .fit_statistics import (
+    FitStatistics,
+    LMEDecomposition,
+    finalize_laplace_statistics,
+    fit_statistics,
+)
 from .fitting import (
     CompatibilityFitResult,
     FitProblem,
     fit_hgf_binary_unitsq_compat,
+    fit_hgf_binary_unitsq_multistart_compat,
     hgf_binary_unitsq_fit_problem,
 )
 from .objective import (
@@ -28,4 +35,9 @@ __all__ = [
     "CompatibilityFitResult",
     "hgf_binary_unitsq_fit_problem",
     "fit_hgf_binary_unitsq_compat",
+    "fit_hgf_binary_unitsq_multistart_compat",
+    "FitStatistics",
+    "LMEDecomposition",
+    "finalize_laplace_statistics",
+    "fit_statistics",
 ]

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Sequence
 
 import numpy as np
 
@@ -61,7 +62,7 @@ class FitProblem:
 
 @dataclass(frozen=True)
 class CompatibilityFitResult:
-    """Single-start deterministic compatibility fit result."""
+    """Compatibility fit result before or after LME-based restart selection."""
 
     problem: FitProblem
     optimizer: QuasiNewtonResult
@@ -74,7 +75,7 @@ class CompatibilityFitResult:
 
 
 def hgf_binary_unitsq_fit_problem(responses, inputs) -> FitProblem:
-    """Construct the exact fitModel free/fixed vector for the M9 vertical slice."""
+    """Construct the exact fitModel free/fixed vector for the compatibility slice."""
 
     y = np.asarray(responses, dtype=np.float64)
     u = np.asarray(inputs, dtype=np.float64)
@@ -95,37 +96,28 @@ def hgf_binary_unitsq_fit_problem(responses, inputs) -> FitProblem:
     )
 
 
-def fit_hgf_binary_unitsq_compat(
-    responses,
-    inputs,
+def _fit_from_free_start(
+    problem: FitProblem,
+    free_start,
     *,
-    options: QuasiNewtonOptions | None = None,
+    options: QuasiNewtonOptions,
 ) -> CompatibilityFitResult:
-    """Run the stable-prior, single-start M9 compatibility fit.
+    start = np.asarray(free_start, dtype=np.float64).reshape(-1)
+    if start.size != len(problem.free_indices):
+        raise ValueError("restart vector has wrong number of free parameters")
 
-    Frozen quasinewton_optim_config has nRandInit=0. Random restart selection
-    depends on LME/Hessian and is intentionally deferred until M10.
-    """
+    start_full = problem.expand(start)
+    start_result = problem.evaluate_full(start_full)
+    if start_result.rval != 0 or not np.isfinite(start_result.neg_log_joint):
+        raise RuntimeError("Compatibility start point is not stable.")
 
-    problem = hgf_binary_unitsq_fit_problem(responses, inputs)
-    initial_result = problem.evaluate_full(problem.initial_full)
-    if initial_result.rval != 0 or not np.isfinite(initial_result.neg_log_joint):
-        raise RuntimeError(
-            "Prior means are not a stable deterministic M9 start point."
-        )
-
-    optimizer = quasinewton_optim(
-        problem.evaluate_free,
-        problem.initial_free,
-        options or QuasiNewtonOptions(),
-    )
+    optimizer = quasinewton_optim(problem.evaluate_free, start, options)
     final_full = problem.expand(optimizer.arg_min)
     objective = problem.evaluate_full(final_full)
 
     n_prc = problem.n_perceptual
     p_prc = final_full[:n_prc].copy()
     p_obs = final_full[n_prc:].copy()
-
     prc_config = hgf_binary_config().resolve_placeholders(problem.inputs)
     obs_config = unitsq_sgm_config()
 
@@ -139,3 +131,58 @@ def fit_hgf_binary_unitsq_compat(
         perceptual_native=prc_config.transformed_to_native(p_prc),
         observation_native=obs_config.transformed_to_native(p_obs),
     )
+
+
+def fit_hgf_binary_unitsq_compat(
+    responses,
+    inputs,
+    *,
+    options: QuasiNewtonOptions | None = None,
+) -> CompatibilityFitResult:
+    """Run the stable-prior default compatibility fit."""
+
+    problem = hgf_binary_unitsq_fit_problem(responses, inputs)
+    return _fit_from_free_start(
+        problem,
+        problem.initial_free,
+        options=options or QuasiNewtonOptions(),
+    )
+
+
+def fit_hgf_binary_unitsq_multistart_compat(
+    responses,
+    inputs,
+    restart_free_parameters: Sequence[Sequence[float]] | np.ndarray,
+    *,
+    options: QuasiNewtonOptions | None = None,
+) -> tuple[CompatibilityFitResult, object, int]:
+    """Select the best default+restart run by frozen fitModel LME semantics.
+
+    The restart vectors are explicit transformed-space free parameters. This
+    deliberately separates restart *selection* parity from MATLAB's RNG stream.
+    """
+
+    from .fit_statistics import fit_statistics
+
+    problem = hgf_binary_unitsq_fit_problem(responses, inputs)
+    opts = options or QuasiNewtonOptions()
+
+    starts = [problem.initial_free]
+    restart_array = np.asarray(restart_free_parameters, dtype=np.float64)
+    if restart_array.size:
+        restart_array = restart_array.reshape(-1, len(problem.free_indices))
+        starts.extend(row.copy() for row in restart_array)
+
+    best_fit = _fit_from_free_start(problem, starts[0], options=opts)
+    best_stats = fit_statistics(problem, best_fit.optimizer)
+    best_index = 0
+
+    for index, start in enumerate(starts[1:], start=1):
+        candidate_fit = _fit_from_free_start(problem, start, options=opts)
+        candidate_stats = fit_statistics(problem, candidate_fit.optimizer)
+        if candidate_stats.lme > best_stats.lme:
+            best_fit = candidate_fit
+            best_stats = candidate_stats
+            best_index = index
+
+    return best_fit, best_stats, best_index
