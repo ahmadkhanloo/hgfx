@@ -70,10 +70,12 @@ M7 gate evidence: 12 P0/P1 families match MATLAB trial-wise `logp/yhat/res`, irr
 - [x] priors
 - [x] trial likelihood
 - [x] total objective
-- [ ] compatibility quasi-Newton
+- [x] compatibility quasi-Newton
 - [ ] multi-start fitting
 
 M8 gate evidence: fixed-vector `hgf_binary + unitsq_sgm` objective decomposition matches frozen `fitModel.m` for regular and ignored/irregular cases, including trial exclusion, `logLl/negLogLl`, Gaussian prior terms, and `negLogJoint`. CI run: `34152468348`.
+
+M9 gate evidence: frozen `quasinewton_optim` behavior and deterministic default MAP fitting (`nRandInit=0`) match MATLAB on a quadratic optimizer oracle and the `hgf_binary + unitsq_sgm` reference fit. CI run: `34161336607`. Multi-start selection is deferred until M10 because the frozen implementation selects restarts by LME.
 
 ## Phase 8 — Fit statistics
 - [ ] Hessian
