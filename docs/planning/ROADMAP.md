@@ -53,10 +53,12 @@ Gate evidence: frozen MATLAB standard HGF building blocks + binary/continuous fo
 ## Phase 5 — Core model parity
 - [x] standard HGF
 - [x] eHGF
-- [ ] uHGF
+- [x] uHGF
 - [ ] PyHGF dependency/fork decision gate
 
 M5 gate evidence: frozen MATLAB eHGF binary/continuous trajectories (regular and irregular+ignored) + safe precision-update edge case → Python CPU float64 parity. CI run: `34123043904`.
+
+M6 gate evidence: frozen MATLAB uHGF binary/continuous trajectories (regular and irregular+ignored) + Lambert W0 mode diagnostics + dual approximations + variational weighting + Gaussian-mixture moment matching + non-finite expansion fallback → Python CPU float64 parity. CI run: `34125217371`.
 
 ## Phase 6 — Observation models
 - [ ] unit-square sigmoid
