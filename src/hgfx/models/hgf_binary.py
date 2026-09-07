@@ -1,4 +1,4 @@
-"""Standard binary HGF forward model with frozen MATLAB semantics."""
+"""Unified binary HGF forward recursion with frozen MATLAB semantics."""
 
 from __future__ import annotations
 
@@ -19,20 +19,26 @@ from hgfx.validation.trajectory_checks import check_hgf_trajectories
 from ._forward_common import binary_native_parameters, first_input_column, ignored_mask
 
 
-def hgf_binary(
+def hgf_binary_unified(
     inputs,
     parameters,
     *,
+    update_type: str,
     transformed: bool = False,
     irregular_intervals: bool | None = False,
     ignored_trials: Sequence[int] | None = None,
     validate: bool = True,
 ) -> tuple[dict[str, np.ndarray], np.ndarray]:
-    """Run the standard binary HGF forward pass.
+    """Run the frozen unified binary HGF recursion.
 
-    Mirrors ``hgf_binary.m``/``hgf_binary_unified.m`` from frozen HGF
-    Toolbox 8.2.0. NaN inputs are ignored as in ``fitModel``.
+    M4 gates the standard branch and M5 gates the enhanced branch.
+    The unbounded branch is not exposed as a public model until M6.
     """
+    if update_type not in {"hgf", "ehgf", "uhgf"}:
+        raise ValueError(
+            f"Unknown update type: {update_type}. Must be 'hgf', 'ehgf', or 'uhgf'."
+        )
+
     values, input_array = first_input_column(inputs)
     p, l = binary_native_parameters(parameters, transformed=transformed)
     ignored = ignored_mask(values, ignored_trials)
@@ -73,7 +79,7 @@ def hgf_binary(
                 da[k, 0],
             ) = hgf_binary_level1(u[k], ka[0], muhat[k, 1])
 
-            # Frozen source intentionally uses a unit interval at level 2.
+            # Frozen unified source deliberately uses a unit interval at level 2.
             pihat[k, 1] = hgf_pihat(
                 pi[k - 1, 1], 1.0, ka[1], mu[k - 1, 2], om[1]
             )
@@ -107,7 +113,7 @@ def hgf_binary(
                         mu[k, j - 1],
                         muhat[k, j - 1],
                         t[k],
-                        "hgf",
+                        update_type,
                     )
                     da[k, j] = hgf_volatility_pe(
                         pi[k, j], mu[k, j], muhat[k, j], pihat[k, j]
@@ -119,9 +125,14 @@ def hgf_binary(
             )
             pihat[k, last] = hgf_pihat_last(pi[k - 1, last], t[k], th)
             v[k, last] = t[k] * th
-            v[k, last - 1] = t[k] * np.exp(
-                ka[last - 1] * mu[k - 1, last] + om[last - 1]
-            )
+            if update_type == "uhgf":
+                v[k, last - 1] = t[k] * np.exp(
+                    ka[last - 1] * muhat[k, last] + om[last - 1]
+                )
+            else:
+                v[k, last - 1] = t[k] * np.exp(
+                    ka[last - 1] * mu[k - 1, last] + om[last - 1]
+                )
             (
                 pi[k, last],
                 mu[k, last],
@@ -140,7 +151,7 @@ def hgf_binary(
                 mu[k, last - 1],
                 muhat[k, last - 1],
                 t[k],
-                "hgf",
+                update_type,
             )
             da[k, last] = hgf_volatility_pe(
                 pi[k, last], mu[k, last], muhat[k, last], pihat[k, last]
@@ -162,7 +173,7 @@ def hgf_binary(
 
     mu = mu[1:, :]
     pi = pi[1:, :]
-    if validate:
+    if update_type == "hgf" and validate:
         check_hgf_trajectories(mu, pi, 16.0, columns=range(1, l))
 
     muhat = muhat[1:, :]
@@ -205,6 +216,27 @@ def hgf_binary(
 
     inf_states = np.stack((muhat, sahat, mu, sa), axis=2)
     return traj, inf_states
+
+
+def hgf_binary(
+    inputs,
+    parameters,
+    *,
+    transformed: bool = False,
+    irregular_intervals: bool | None = False,
+    ignored_trials: Sequence[int] | None = None,
+    validate: bool = True,
+) -> tuple[dict[str, np.ndarray], np.ndarray]:
+    """Run the standard binary HGF forward pass."""
+    return hgf_binary_unified(
+        inputs,
+        parameters,
+        update_type="hgf",
+        transformed=transformed,
+        irregular_intervals=irregular_intervals,
+        ignored_trials=ignored_trials,
+        validate=validate,
+    )
 
 
 forward = hgf_binary
