@@ -14,7 +14,7 @@ def cov_to_corr(covariance):
     if np.any(cov.T != cov):
         raise ValueError("Input matrix is not symmetric.")
 
-    if np.any(np.isinf(cov)) || np.any(np.isnan(cov)):
+    if np.any(np.isinf(cov)) or np.any(np.isnan(cov)):
         raise ValueError("Input matrix is not positive semi-definite.")
 
     eigenvalues = np.linalg.eigvalsh(cov)
