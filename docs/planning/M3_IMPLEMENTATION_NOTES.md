@@ -23,5 +23,8 @@ Validation assets:
 Local pre-CI validation:
 
 - Python scalar utility tests: 9/9 PASS
+- GitHub Actions `python-scalar-tests`: PASS
+- GitHub Actions `matlab-python-scalar-parity`: PASS
+- Passing workflow run: `34114052778`
 
-Do **not** mark M3 complete until the MATLAB-to-Python workflow passes on the frozen submodule.
+**M3 gate status: PASS.** The frozen MATLAB-to-Python scalar parity workflow passed without tolerance changes after the Python syntax-only CI defect was corrected.
