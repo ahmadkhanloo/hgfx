@@ -62,4 +62,15 @@ repository self-hosted GPU runner is currently configured.
 Therefore M14 must **not** be marked PASS from CPU-only evidence. It becomes PASS only
 after the real-GPU job completes successfully on physical GPU hardware.
 
+## Current evidence
+
+Branch workflow `34242409271`:
+
+- frozen reference verification: PASS;
+- M14 JAX CPU x64 parity suite: **9 passed**;
+- real GPU test: **1 skipped** because no GPU device exists on the hosted runner;
+- full regression: **80 passed, 1 GPU-only skipped**.
+
+No CPU/JAX tolerance was relaxed to obtain these results.
+
 Workflow: `.github/workflows/m14-gpu-engine.yml`.
