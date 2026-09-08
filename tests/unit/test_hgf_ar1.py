@@ -40,7 +40,7 @@ def test_hgf_ar1_regular_and_ignored_semantics() -> None:
     assert np.isnan(traj["dau"][5])
 
 
-def test_hgf_ar1_irregular_intervals_change_predictions() -> None:
+def test_hgf_ar1_preserves_frozen_irregular_interval_fallback() -> None:
     values = np.array([0.2, 0.4, 0.1, 0.7, 0.6, 0.3], dtype=np.float64)
     intervals = np.array([1.0, 0.5, 1.5, 0.8, 1.2, 0.6], dtype=np.float64)
     inputs = np.column_stack((values, intervals))
@@ -50,4 +50,8 @@ def test_hgf_ar1_irregular_intervals_change_predictions() -> None:
     )
     traj_irregular, _ = hgf_ar1(inputs, p, irregular_intervals=True, validate=False)
     traj_regular, _ = hgf_ar1(values, p, irregular_intervals=False, validate=False)
-    assert not np.allclose(traj_irregular["muhat"], traj_regular["muhat"], equal_nan=True)
+    # Frozen hgf_ar1.m discards the interval column before its try/catch
+    # time-axis block, so the catch fallback uses unit intervals.
+    np.testing.assert_allclose(
+        traj_irregular["muhat"], traj_regular["muhat"], equal_nan=True
+    )
