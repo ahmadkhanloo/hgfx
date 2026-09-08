@@ -12,6 +12,18 @@ from .engine import (
     fast_binary_unitsq_objective,
     fast_binary_unitsq_objective_vmap,
 )
+from .fitting import (
+    BFGSOptimizer,
+    BFGSOptions,
+    DeviceOptimizer,
+    DeviceOptimizerResult,
+    FastFitProblem,
+    FastFitResult,
+    FastValueGradResult,
+    fast_binary_unitsq_value_and_grad,
+    fit_hgf_binary_unitsq_fast,
+    hgf_binary_unitsq_fast_fit_problem,
+)
 
 __all__ = [
     "CompileSignature",
@@ -32,4 +44,14 @@ __all__ = [
     "fast_binary_hgf_vmap",
     "fast_binary_unitsq_objective",
     "fast_binary_unitsq_objective_vmap",
+    "FastFitProblem",
+    "FastValueGradResult",
+    "BFGSOptions",
+    "DeviceOptimizerResult",
+    "DeviceOptimizer",
+    "BFGSOptimizer",
+    "FastFitResult",
+    "hgf_binary_unitsq_fast_fit_problem",
+    "fast_binary_unitsq_value_and_grad",
+    "fit_hgf_binary_unitsq_fast",
 ]
