@@ -34,7 +34,7 @@ payload.irregular.traj=traj;
 payload.irregular.infStates=inf;
 payload.irregular.config_irregular=r.c_prc.irregular_intervals;
 
-ptrans=[.2 1 log(.3) log(.1) 0 -Inf .2 1 0 -3 -6 log(.2)];
+ptrans=[.2 1 log(.3) log(.1) 0 -40 .2 1 0 -3 -6 log(.2)];
 r=struct; r.u=u; r.ign=[]; r.c_prc=hgf_ar1_config;
 [pnative,pstruct]=hgf_ar1_transp(r,ptrans);
 payload.transform.ptrans=ptrans;
