@@ -154,7 +154,7 @@ M15 is not formal PASS until the physical GPU fitting test succeeds. See
 3. Run the strict M15 physical fitting parity job.
 4. Record GPU model, CUDA, JAX/JAXLIB, commit SHA, and outputs.
 5. Mark M14 and M15 PASS only after their respective physical GPU gates are green.
-6. M16 software is now implemented on top of M15; run its CPU/JAX batch gate.
+6. M16 CPU/JAX batch gate is PASS (`34253080856`): 5 targeted tests passed; full regression 88 passed, 2 GPU-only skipped.
 7. Keep M14/M15 physical GPU gates pending until hardware is available.
 8. After M16 CPU gate passes, proceed to M17 software scaffolding only if needed; do not claim multi-GPU validation without hardware.
 
@@ -170,7 +170,7 @@ All frozen scientific perceptual and observation model families are implemented 
 
 ## M16 implementation status
 
-M16 software implementation is complete on `work/m16-batch-engine`.
+M16 software implementation is complete and the CPU/JAX gate is PASS on `work/m16-batch-engine`.
 
 Implemented:
 - subject batching with `jax.vmap`;
@@ -180,5 +180,7 @@ Implemented:
 - compiled group-runner cache;
 - final objective/trajectory recomputation;
 - single-vs-batch and restart-vs-independent-fit tests.
+
+Evidence: workflow `34253080856`; frozen reference PASS; 5 M16 targeted tests passed; full regression 88 passed with 2 GPU-only skips.
 
 See `docs/planning/M16_GATE.md`.

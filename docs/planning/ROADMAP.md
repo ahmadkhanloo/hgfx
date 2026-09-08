@@ -153,7 +153,7 @@ CPU evidence: M14 workflow `34242409271`; 9 M14 tests passed; full regression 80
 
 M15 is not formal PASS until a real GPU confirms CPU/GPU objective, fitted parameter, trajectory, and device-residency parity. See `docs/planning/M15_GATE.md`.
 
-## Phase 14 — Batch engine (M16 — implementation complete, CPU gate pending)
+## Phase 14 — Batch engine (M16 CPU/JAX PASS)
 - [x] subject batching
 - [x] restart batching
 - [x] model scheduler
@@ -162,7 +162,7 @@ M15 is not formal PASS until a real GPU confirms CPU/GPU objective, fitted param
 - [x] compile-cache reuse
 - [x] device-resident batch outputs
 
-See `docs/planning/M16_GATE.md`.
+M16 gate evidence: workflow `34253080856`; frozen reference PASS; targeted batch suite 5 passed; full regression 88 passed with 2 GPU-only skips. Physical GPU performance evidence remains deferred until hardware is available. See `docs/planning/M16_GATE.md`.
 
 ## Phase 15 — Multi-GPU (M17)
 - [ ] independent data-parallel batches
