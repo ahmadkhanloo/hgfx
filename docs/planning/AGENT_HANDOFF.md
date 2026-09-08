@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M13 — API Compatibility`
+`M12 — Complete Model Coverage (REOPENED)`
 
 ## Frozen reference
 
@@ -26,7 +26,7 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M9 — Compatibility Fitting
 - M10 — Hessian/LME Parity
 - M11 — Simulation Parity
-- M12 — Specialized Model Coverage
+- M12 — Specialized Model Coverage (previous partial gate; reopened for full coverage)
 
 ## M12 evidence
 
@@ -90,3 +90,10 @@ See:
 - performance tuning
 - batch fitting
 - multi-GPU
+
+
+## Corrected M12 requirement
+
+All frozen scientific perceptual and observation model families must be implemented in HGFX with config/transform/output semantics and MATLAB parity. Scientific REFERENCE_ONLY is no longer an accepted terminal status. M13 is blocked until the corrected M12 gate passes.
+
+Execution plan: M12A continuous AR1; M12B MAB; M12C JGET; M12D categorical/world; M12E HHMM; M12F auxiliary perceptual; M12G remaining observations; M12H exhaustive closure.
