@@ -26,7 +26,7 @@ names={...
 
 for i=1:length(names)
     name=names{i}; c=feval(name);
-    s=struct; s.priormus=c.priormus; s.priorsas=c.priorsas;
+    s=struct; s.priormus=encode_vec(c.priormus); s.priorsas=encode_vec(c.priorsas);
     opts={'n_levels','n_bandits','coupled','irregular_intervals','update_type',...
           'n_outcomes','n_states','nw','kaub','thub','predorpost'};
     for j=1:length(opts)
@@ -45,7 +45,7 @@ src=strrep(src,'@hhmm_transp','@tapas_hhmm_transp');
 fidtmp=fopen(fullfile(tmpdir,'tapas_hhmm_config.m'),'w'); fwrite(fidtmp,src); fclose(fidtmp);
 addpath(tmpdir,'-begin'); clear tapas_hhmm_config;
 c=tapas_hhmm_config;
-payload.configs.tapas_hhmm_config=struct('priormus',c.priormus,'priorsas',c.priorsas,'n_outcomes',c.n_outcomes);
+payload.configs.tapas_hhmm_config=struct('priormus',encode_vec(c.priormus),'priorsas',encode_vec(c.priorsas),'n_outcomes',c.n_outcomes);
 rmpath(tmpdir); clear tapas_hhmm_config;
 payload.source_repairs.tapas_hhmm_config='function/file name aligned';
 
@@ -56,4 +56,16 @@ if fid==-1,error('hgfx:m12config:openFailed','Could not open output');end
 cleanup=onCleanup(@() fclose(fid));
 fprintf(fid,'%s\n',jsonencode(payload,'PrettyPrint',true));
 fprintf('HGFX M12 config export: PASS\n');
+end
+
+
+function s=encode_vec(v)
+v=v(:)';
+kind=zeros(size(v));
+kind(isnan(v))=1;
+kind(isinf(v) & v>0)=2;
+kind(isinf(v) & v<0)=-2;
+values=v;
+values(kind~=0)=0;
+s=struct('values',values,'kind',kind);
 end
