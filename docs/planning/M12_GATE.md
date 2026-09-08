@@ -1,6 +1,6 @@
 # M12 — Complete Model Coverage Gate
 
-Status: **REOPENED / IN PROGRESS**
+Status: **PASS**
 
 ## Why M12 was reopened
 
@@ -43,40 +43,40 @@ A wrapper that merely points at MATLAB or PyHGF is **not** a completed port.
 ## Corrected M12 sub-gates
 
 ### M12A — Continuous AR1
-- [ ] `hgf_ar1`
-- [ ] config / transform / name semantics
-- [ ] regular + ignored/irregular golden parity
+- [x] `hgf_ar1`
+- [x] config / transform / name semantics
+- [x] regular + ignored/irregular golden parity
 
 ### M12B — Multi-Armed Bandit families
-- [ ] `hgf_binary_mab`
-- [ ] `hgf_ar1_mab`
-- [ ] `hgf_ar1_binary_mab`
-- [ ] `ehgf_ar1_binary_mab`
-- [ ] `uhgf_ar1_binary_mab`
-- [ ] reward/input tensor semantics
-- [ ] configs / transforms / outputs
-- [ ] MATLAB parity
+- [x] `hgf_binary_mab`
+- [x] `hgf_ar1_mab`
+- [x] `hgf_ar1_binary_mab`
+- [x] `ehgf_ar1_binary_mab`
+- [x] `uhgf_ar1_binary_mab`
+- [x] reward/input tensor semantics
+- [x] configs / transforms / outputs
+- [x] MATLAB parity
 
 ### M12C — JGET
-- [ ] `hgf_jget`
-- [ ] `ehgf_jget`
-- [ ] `uhgf_jget`
-- [ ] configs / transforms / outputs
-- [ ] MATLAB parity
+- [x] `hgf_jget`
+- [x] `ehgf_jget`
+- [x] `uhgf_jget`
+- [x] configs / transforms / outputs
+- [x] MATLAB parity
 
 ### M12D — Categorical and world models
-- [ ] `hgf_categorical`
-- [ ] `hgf_categorical_norm`
-- [ ] `hgf_whatworld`
-- [ ] `hgf_whichworld`
-- [ ] configs / transforms / tensor layouts
-- [ ] MATLAB parity
+- [x] `hgf_categorical`
+- [x] `hgf_categorical_norm`
+- [x] `hgf_whatworld`
+- [x] `hgf_whichworld`
+- [x] configs / transforms / tensor layouts
+- [x] MATLAB parity
 
 ### M12E — Discrete-state models
 - [x] `tapas_hmm`
-- [ ] `tapas_hhmm`
-- [ ] tree/flattening compatibility
-- [ ] MATLAB parity
+- [x] `tapas_hhmm`
+- [x] tree/flattening compatibility
+- [x] MATLAB parity
 
 ### M12F — Classical / auxiliary perceptual families
 Already completed:
@@ -87,42 +87,42 @@ Already completed:
 - [x] Kalman
 
 Remaining:
-- [ ] Bayes-optimal continuous
-- [ ] Bayes-optimal binary
-- [ ] Bayes-optimal categorical
-- [ ] Bayes-optimal WhatWorld
-- [ ] Bayes-optimal WhichWorld
-- [ ] response-surprise belief
-- [ ] response-surprise precision
-- [ ] response-surprise precision WhatWorld
-- [ ] response-surprise surprise
-- [ ] squared prediction error
-- [ ] configs / transforms where applicable
-- [ ] MATLAB parity
+- [x] Bayes-optimal continuous
+- [x] Bayes-optimal binary
+- [x] Bayes-optimal categorical
+- [x] Bayes-optimal WhatWorld
+- [x] Bayes-optimal WhichWorld
+- [x] response-surprise belief
+- [x] response-surprise precision
+- [x] response-surprise precision WhatWorld
+- [x] response-surprise surprise
+- [x] squared prediction error
+- [x] configs / transforms where applicable
+- [x] MATLAB parity
 
 ### M12G — Remaining observation families
 Already completed through M7:
 - [x] all former P0/P1 observation models
 
 Remaining:
-- [ ] conditional hallucination observation 1
-- [ ] conditional hallucination observation 2
-- [ ] conditional hallucination observation 3
-- [ ] WhatWorld logRT
-- [ ] world softmax
-- [ ] world mu3 softmax
-- [ ] transforms / simulation functions where present
-- [ ] MATLAB parity
+- [x] conditional hallucination observation 1
+- [x] conditional hallucination observation 2
+- [x] conditional hallucination observation 3
+- [x] WhatWorld logRT
+- [x] world softmax
+- [x] world mu3 softmax
+- [x] transforms / simulation functions where present
+- [x] MATLAB parity
 
 ### M12H — Exhaustive closure
-- [ ] every scientific perceptual family = DONE
-- [ ] every scientific observation family = DONE
-- [ ] zero scientific `REFERENCE_ONLY` families
-- [ ] public API exports complete
-- [ ] config/transform inventory complete
-- [ ] exhaustive frozen-source classification gate
-- [ ] full regression suite
-- [ ] final M12 MATLAB/Python CI PASS
+- [x] every scientific perceptual family = DONE
+- [x] every scientific observation family = DONE
+- [x] zero scientific `REFERENCE_ONLY` families
+- [x] public API exports complete
+- [x] config/transform inventory complete
+- [x] exhaustive frozen-source classification gate
+- [x] full regression suite
+- [x] final M12 MATLAB/Python CI PASS
 
 ## Existing M12 work retained
 
@@ -169,3 +169,24 @@ M13 must not start until this corrected M12 gate is PASS.
 ## Frozen-source defects
 
 Known reference defects and the exact compatibility repairs are tracked in `docs/planning/M12_SOURCE_DEFECTS.md`. A source defect never permits a scientific family to remain REFERENCE_ONLY.
+
+
+## Final evidence
+
+Corrected M12 complete-model gate passed against the frozen HGF Toolbox 8.2.0 reference.
+
+- M12A continuous AR1: workflow `34224773192` — PASS
+- M12B/C MAB + JGET: workflow `34224773186` — PASS
+- M12D/E categorical/world + HHMM: workflow `34225650007` — PASS
+- M12F/G auxiliary + remaining observations, including deterministic simulation semantics: workflow `34225649883` — PASS
+- specialized config/prior parity: workflow `34224773097` — PASS
+- exhaustive closure: workflow `34225650015` — PASS
+  - frozen reference verification: PASS
+  - scientific REFERENCE_ONLY files: 0
+  - scientific REFERENCE_ONLY families: 0
+  - DONE files: 259
+  - DONE families: 53
+  - full Python regression suite: PASS
+- M1 golden/regression revalidation: workflow `34224773168` — PASS
+
+**M12 PASS. M13 is unblocked.**
