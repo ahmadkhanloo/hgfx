@@ -216,7 +216,7 @@ def sutton_k1_binary(
     # Frozen source removes the final entries from beta/h and prediction.
     traj = {
         "da": da,
-        "be": beta[:-1],
+        "be": beta[:-2],
         "al": alpha,
         "h": h[:-1],
         "v": posterior,
