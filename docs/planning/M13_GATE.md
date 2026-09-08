@@ -67,9 +67,10 @@ M12 model implementations remain available through their model/config APIs.
 - M11 raw APIs remain source-compatible;
 - full Python regression remains green.
 
-CI workflow: `.github/workflows/m13-api-compatibility.yml`.\n\nGate evidence: workflow run `34234431858` — frozen reference guard PASS; M13/API consumer suite **13 passed**; full Python regression **71 passed**.
+CI workflow: `.github/workflows/m13-api-compatibility.yml`.
+
+Gate evidence: workflow run `34234431858` — frozen reference guard PASS; M13/API consumer suite **13 passed**; full Python regression **71 passed**.
 
 ## Gate
 
-M13 is PASS only after the M13 workflow is green on the implementation commit and the
-full regression suite passes. After PASS, the next milestone is **M14 — GPU Engine**.
+M13 is **PASS**. The public compatibility surface is frozen against the M8-M11 numerical core, and the full regression suite is green. The next milestone is **M14 — GPU Engine**.
