@@ -2,7 +2,13 @@ function export_m12_specialized_parity(output_path)
 %EXPORT_M12_SPECIALIZED_PARITY Frozen specialized-model forward oracle.
 
 repo_root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
-addpath(genpath(fullfile(repo_root,'external','hgf-toolbox')));
+hgf_root = fullfile(repo_root,'external','hgf-toolbox');
+addpath(hgf_root);
+addpath(fullfile(hgf_root,'core'));
+addpath(fullfile(hgf_root,'building_blocks'));
+addpath(fullfile(hgf_root,'perceptual'));
+addpath(fullfile(hgf_root,'observation'));
+addpath(fullfile(hgf_root,'utilities'));
 
 payload = struct;
 payload.metadata.schema_version = 'm12-1';
