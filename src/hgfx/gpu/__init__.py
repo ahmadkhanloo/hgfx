@@ -3,6 +3,13 @@
 from .batching import pad_mask, pad_trials, trial_length_bucket
 from .compile_cache import CompileSignature, CompilationCache, GLOBAL_COMPILE_CACHE
 from .devices import DeviceInfo, available_devices, device_put, has_gpu, select_device
+from .engine import (
+    FastForwardResult,
+    FastObjectiveResult,
+    fast_binary_hgf,
+    fast_binary_hgf_vmap,
+    fast_binary_unitsq_objective,
+)
 
 __all__ = [
     "CompileSignature",
@@ -16,4 +23,9 @@ __all__ = [
     "trial_length_bucket",
     "pad_trials",
     "pad_mask",
+    "FastForwardResult",
+    "FastObjectiveResult",
+    "fast_binary_hgf",
+    "fast_binary_hgf_vmap",
+    "fast_binary_unitsq_objective",
 ]
