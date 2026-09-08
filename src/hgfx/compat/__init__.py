@@ -1,6 +1,6 @@
 """MATLAB compatibility schemas, objective, fitting, and fit statistics."""
 
-from .configs import hgf_binary_config, hgf_config, unitsq_sgm_config
+from .configs import hgf_ar1_config, hgf_binary_config, hgf_config, unitsq_sgm_config
 from .fit_statistics import (
     FitStatistics,
     LMEDecomposition,
