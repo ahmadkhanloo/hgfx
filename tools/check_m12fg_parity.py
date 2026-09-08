@@ -11,6 +11,8 @@ from hgfx.responses import (
     squared_pe, rs_belief, rs_precision, rs_precision_whatworld, rs_surprise,
     condhalluc_obs, condhalluc_obs2, condhalluc_obs3,
     softmax_wld, softmax_mu3_wld, logrt_linear_whatworld,
+    simulate_condhalluc_obs, simulate_condhalluc_obs2, simulate_condhalluc_obs3,
+    simulate_softmax_wld, simulate_softmax_mu3_wld,
 )
 
 RTOL=2e-10
@@ -91,6 +93,18 @@ def main()->None:
     record("condhalluc_obs2",condhalluc_obs2(yr,ch,base,[np.log(48),0],irregular_trials=irr),p["condhalluc_obs2"])
     record("condhalluc_obs3",condhalluc_obs3(yr,ch,base,[np.log(48)],irregular_trials=irr),p["condhalluc_obs3"])
 
+    # Deterministic simulation parity: MATLAB oracle shadows only the random
+    # sampler. Compare the resulting deterministic decision from HGFX's
+    # frozen probability equations.
+    for label, fn, native in (
+        ("condhalluc_obs", simulate_condhalluc_obs, [48.0]),
+        ("condhalluc_obs2", simulate_condhalluc_obs2, [48.0, 1.0]),
+        ("condhalluc_obs3", simulate_condhalluc_obs3, [48.0]),
+    ):
+        _, prob = fn(ch, base, native, seed=1)
+        deterministic = (np.asarray(prob) >= 0.5).astype(np.float64)
+        check("sim."+label, deterministic, p["sim"][label])
+
     nc=3
     sw=np.full((n,3,nc,4),np.nan,dtype=np.float64)
     for k in range(n):
@@ -101,6 +115,14 @@ def main()->None:
     world_inputs=np.column_stack((u,choices))
     record("softmax_wld",softmax_wld(choices,world_inputs,sw,[np.log(1.3),.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_wld"])
     record("softmax_mu3_wld",softmax_mu3_wld(choices,world_inputs,sw,[.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_mu3_wld"])
+
+    for label, fn, native in (
+        ("softmax_wld", simulate_softmax_wld, [1.3, .2, -.1]),
+        ("softmax_mu3_wld", simulate_softmax_mu3_wld, [.2, -.1]),
+    ):
+        _, prob = fn(world_inputs, sw, native, predorpost=1, seed=1)
+        deterministic = np.argmax(np.asarray(prob), axis=1).astype(np.float64) + 1.0
+        check("sim."+label, deterministic, p["sim"][label])
 
     lrt=np.full((n,3,2,2,4),np.nan,dtype=np.float64)
     for k in range(n):
