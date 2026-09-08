@@ -32,7 +32,26 @@ def arr(x:Any)->np.ndarray:
     return np.asarray(norm(x),dtype=np.float64)
 
 def check_arr(label:str,a,e)->None:
-    a=arr(a); e=arr(e)
+    a=arr(a)
+    if isinstance(e,dict) and "values" in e and "kind" in e:
+        values=arr(e["values"]).reshape(-1)
+        kind=arr(e["kind"]).astype(int).reshape(-1)
+        flat=a.reshape(-1)
+        if flat.size!=values.size:
+            raise AssertionError(f"{label}: size Python={flat.size} MATLAB={values.size}")
+        finite=kind==0
+        if not np.allclose(flat[finite],values[finite],rtol=0,atol=1e-14,equal_nan=False):
+            bad=np.flatnonzero(~np.isclose(flat[finite],values[finite],rtol=0,atol=1e-14))[0]
+            idx=np.flatnonzero(finite)[bad]
+            raise AssertionError(f"{label} finite divergence at {idx}: Python={flat[idx]} MATLAB={values[idx]}")
+        if not np.all(np.isnan(flat[kind==1])):
+            raise AssertionError(f"{label}: MATLAB NaN positions do not match Python")
+        if not np.all(np.isposinf(flat[kind==2])):
+            raise AssertionError(f"{label}: MATLAB +Inf positions do not match Python")
+        if not np.all(np.isneginf(flat[kind==-2])):
+            raise AssertionError(f"{label}: MATLAB -Inf positions do not match Python")
+        return
+    e=arr(e)
     if a.shape!=e.shape:
         if a.size==e.size: e=e.reshape(a.shape)
         else: raise AssertionError(f"{label}: shape Python={a.shape} MATLAB={e.shape}")
