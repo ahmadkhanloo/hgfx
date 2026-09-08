@@ -18,6 +18,8 @@ jobs:
         with:
           python-version: "3.11"
       - run: python -m pip install -e ".[dev]"
+      - name: Check exhaustive frozen model inventory
+        run: python tools/check_m12_inventory.py
       - name: Run M12 and upstream regressions
         run: pytest tests/unit/test_specialized_models.py tests/unit/test_hgf_forward.py tests/unit/test_ehgf_forward.py tests/unit/test_uhgf_forward.py tests/unit/test_observations.py -q
 
