@@ -1,6 +1,23 @@
 """MATLAB compatibility schemas, objective, fitting, and fit statistics."""
 
-from .configs import hgf_ar1_config, hgf_binary_config, hgf_config, unitsq_sgm_config
+from .configs import (
+    hgf_ar1_config,
+    hgf_binary_config,
+    hgf_config,
+    unitsq_sgm_config,
+    hgf_binary_mab_config,
+    hgf_ar1_mab_config,
+    hgf_ar1_binary_mab_config,
+    ehgf_ar1_binary_mab_config,
+    uhgf_ar1_binary_mab_config,
+    hgf_jget_config,
+    ehgf_jget_config,
+    uhgf_jget_config,
+    hgf_categorical_config,
+    hgf_categorical_norm_config,
+    hgf_whatworld_config,
+    hgf_whichworld_config,
+)
 from .fit_statistics import (
     FitStatistics,
     LMEDecomposition,
@@ -38,6 +55,18 @@ __all__ = [
     "hgf_binary_config",
     "hgf_ar1_config",
     "hgf_config",
+    "hgf_binary_mab_config",
+    "hgf_ar1_mab_config",
+    "hgf_ar1_binary_mab_config",
+    "ehgf_ar1_binary_mab_config",
+    "uhgf_ar1_binary_mab_config",
+    "hgf_jget_config",
+    "ehgf_jget_config",
+    "uhgf_jget_config",
+    "hgf_categorical_config",
+    "hgf_categorical_norm_config",
+    "hgf_whatworld_config",
+    "hgf_whichworld_config",
     "unitsq_sgm_config",
     "ObjectiveResult",
     "PriorEvaluation",
