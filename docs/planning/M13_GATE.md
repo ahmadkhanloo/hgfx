@@ -1,6 +1,6 @@
 # M13 — API Compatibility Gate
 
-Status: **IMPLEMENTED — CI validation required**
+Status: **PASS**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -67,7 +67,7 @@ M12 model implementations remain available through their model/config APIs.
 - M11 raw APIs remain source-compatible;
 - full Python regression remains green.
 
-CI workflow: `.github/workflows/m13-api-compatibility.yml`.
+CI workflow: `.github/workflows/m13-api-compatibility.yml`.\n\nGate evidence: workflow run `34234431858` — frozen reference guard PASS; M13/API consumer suite **13 passed**; full Python regression **71 passed**.
 
 ## Gate
 
