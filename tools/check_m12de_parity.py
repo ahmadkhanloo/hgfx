@@ -7,7 +7,7 @@ import numpy as np
 
 from hgfx.models import (
     hgf_categorical, hgf_categorical_norm, hgf_whatworld, hgf_whichworld,
-    hhmm_default_config_tree, hierarchical_hidden_markov_model,
+    hhmm_default_config_tree, hhmm_prior_vectors, hierarchical_hidden_markov_model,
 )
 
 RTOL=2e-9
@@ -62,7 +62,7 @@ def main()->None:
     compare("hgf_whichworld",hgf_whichworld(ub,pwhich,n_worlds=2,ignored_trials=irr),cases["hgf_whichworld"])
 
     tree=hhmm_default_config_tree()
-    ptrans=arr(p["hhmm_ptrans"]).reshape(-1)
+    ptrans,_=hhmm_prior_vectors(tree)
     compare("tapas_hhmm",hierarchical_hidden_markov_model(
         np.array([1,2,1,2,2,1,1,2],dtype=np.float64),
         ptrans, tree_config=tree, transformed=True, ignored_trials=irr
