@@ -36,6 +36,7 @@ from .objective import (
 
 __all__ = [
     "hgf_binary_config",
+    "hgf_ar1_config",
     "hgf_config",
     "unitsq_sgm_config",
     "ObjectiveResult",
