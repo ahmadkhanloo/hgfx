@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M13 — API Compatibility`
+`M14 — GPU Engine`
 
 ## Frozen reference
 
@@ -27,6 +27,7 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M10 — Hessian/LME Parity
 - M11 — Simulation Parity
 - M12 — Complete Model Coverage
+- M13 — API Compatibility
 
 ## M12 evidence
 
@@ -46,7 +47,22 @@ Corrected M12 is PASS.
 
 Frozen source quirks/defects and minimal compatibility repairs are documented in `docs/planning/M12_SOURCE_DEFECTS.md`.
 
-## Architecture decisions frozen through M12
+## M13 evidence
+
+M13 is PASS.
+
+- compatibility result/API workflow: `34234431858`
+- frozen reference guard: PASS
+- M13 public API + downstream consumer tests: 13 passed
+- full Python regression: 71 passed
+- public aliases: `fit_model/sim_model/sample_model` and `fitModel/simModel/sampleModel`
+- MATLAB-style result export: `to_dict(matlab_style=True)`
+- one-based `irr`/`ign` compatibility metadata
+- raw M11 `hgfx.compat.sim_model/sample_model` APIs preserved
+
+See `docs/planning/M13_GATE.md`.
+
+## Architecture decisions frozen through M13
 
 1. M8 owns objective semantics.
 2. M9 owns compatibility Ridders+BFGS MAP optimization.
@@ -57,6 +73,9 @@ Frozen source quirks/defects and minimal compatibility repairs are documented in
 7. HGF Toolbox 8.2.0 remains the compatibility specification.
 8. PyHGF is optional for interoperability/comparison; do not fork it and do not place it under the compatibility core.
 9. Native GPU/fast-mode work remains separate and must be cross-validated against compatibility mode.
+10. M13 public result objects are interface adapters over validated compatibility numerics; they must not silently introduce alternate scientific semantics.
+11. Root-level `hgfx.sim_model/sample_model` return M13 compatibility results; lower-level `hgfx.compat.sim_model/sample_model` remain the frozen M11 raw orchestration API.
+12. MATLAB-style fit export keeps `optim.yhat` and `optim.res`; direct `est.yhat`/`est.res` are Python convenience aliases.
 
 ## M12 coverage details
 
@@ -68,21 +87,18 @@ See:
 
 ## Next tasks
 
-1. Define a MATLAB-style compatibility result object for fit/sim/sample outputs.
-2. Support downstream fields such as `p_prc`, `p_obs`, `traj`, `optim`, `yhat`, `res`, `irr`/ignored-trial metadata.
-3. Add `to_dict(matlab_style=True)` or equivalent stable export semantics.
-4. Add compatibility entry points/names that minimize changes in existing downstream HGF analysis scripts.
-5. Validate several real downstream-style consumers against frozen result fixtures.
-6. Keep native Python ergonomics separate from the strict compatibility surface.
+1. Start M14 GPU engine without altering compatibility semantics.
+2. Port trial recursions to `jax.lax.scan` behind a separate fast-mode boundary.
+3. Add subject/restart vectorization only after single-sequence CPU/JAX equivalence is frozen.
+4. Add JIT/compile-cache and device-residency tests.
+5. Cross-validate fast-mode trajectories/objectives against the M4-M13 compatibility oracles.
+6. Do not weaken MATLAB parity gates in the name of performance.
 
-## Do not start with
+## M14 boundary
 
-- GPU optimization
-- performance tuning
-- batch fitting
-- multi-GPU
+Start GPU implementation now, but keep batch fitting and multi-GPU scheduling out of the first M14 slice until single-model fast-mode equivalence is demonstrated.
 
 
 ## Corrected M12 requirement — completed
 
-All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is now unblocked.
+All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is complete; M14 is now unblocked.

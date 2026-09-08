@@ -34,6 +34,10 @@ from .configs import (
     softmax_mu3_wld_config,
     logrt_linear_whatworld_config,
 )
+from .fit import fitModel, fit_model
+from .result import CompatibilityResult, MatlabStruct
+from .sample import sampleModel, sample_model_result
+from .sim import simModel, sim_model_result
 from .fit_statistics import (
     FitStatistics,
     LMEDecomposition,

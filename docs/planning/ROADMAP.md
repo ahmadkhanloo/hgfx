@@ -118,7 +118,18 @@ M11 gate evidence: frozen `simModel.m` / `sampleModel.m` orchestration, paramete
 
 M12 was reopened because the project goal is full computational coverage, not inventory-only coverage. Corrected M12 now passes with zero scientific REFERENCE_ONLY families and a green full regression suite. Evidence: M12A `34224773192`; M12B/C `34224773186`; M12D/E `34225650007`; M12F/G `34225649883`; config/prior `34224773097`; exhaustive closure `34225650015`.
 
-## Phase 11 — Native GPU engine
+## Phase 11 — API compatibility (M13 PASS)
+- [x] MATLAB-style result object for fit/sim/sample
+- [x] `p_prc`, `p_obs`, `traj`, `optim`, `yhat`, `res`
+- [x] 1-based `irr` / `ign` metadata
+- [x] `to_dict(matlab_style=True)`
+- [x] Python-first and MATLAB-style public entry points
+- [x] downstream consumer compatibility tests
+- [x] full regression gate
+
+M13 gate evidence: workflow `34234431858`; reference freeze PASS; API/consumer suite 13 passed; full regression 71 passed.
+
+## Phase 12 — Native GPU engine (M14)
 - [ ] `lax.scan`
 - [ ] `vmap`
 - [ ] `jit`
@@ -126,25 +137,25 @@ M12 was reopened because the project goal is full computational coverage, not in
 - [ ] trial-length bucketing
 - [ ] on-device optimizer state
 
-## Phase 12 — Batch fitting
+## Phase 13 — Batch fitting
 - [ ] subject batching
 - [ ] restart batching
 - [ ] model scheduler
 - [ ] single-vs-batch equivalence
 
-## Phase 13 — Multi-GPU
+## Phase 14 — Multi-GPU
 - [ ] independent data-parallel batches
 - [ ] device scheduler
 - [ ] multi-GPU benchmarks
 
-## Phase 14 — Scientific validation
+## Phase 15 — Scientific validation
 - [ ] parameter recovery
 - [ ] model recovery
 - [ ] robustness sweep
 - [ ] CPU/GPU agreement
 - [ ] optimizer agreement
 
-## Phase 15 — Methods paper
+## Phase 16 — Methods paper
 - [ ] benchmark protocol freeze
 - [ ] benchmark runs
 - [ ] validation figures
