@@ -12,6 +12,7 @@ from hgfx.gpu import (
     fast_binary_hgf,
     fast_binary_hgf_vmap,
     fast_binary_unitsq_objective,
+    fast_binary_unitsq_objective_vmap,
     has_gpu,
     select_device,
     trial_length_bucket,
@@ -205,6 +206,38 @@ def test_vmap_matches_repeated_single_forward() -> None:
                 atol=ATOL,
                 equal_nan=True,
             )
+
+
+
+def test_restart_objective_vmap_matches_repeated_candidates() -> None:
+    inputs = np.array([0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0])
+    responses = np.array([0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0])
+    p1 = binary_parameters("hgf")
+    p2 = p1.copy()
+    p2[12] = -2.5
+    p2[13] = -5.2
+    po1 = np.array([np.log(20.0)])
+    po2 = np.array([np.log(25.0)])
+
+    batch = fast_binary_unitsq_objective_vmap(
+        responses,
+        inputs,
+        np.stack((p1, p2)),
+        np.stack((po1, po2)),
+    )
+
+    for index, (pp, po) in enumerate(((p1, po1), (p2, po2))):
+        single = fast_binary_unitsq_objective(responses, inputs, pp, po)
+        assert float(batch.neg_log_joint[index]) == pytest.approx(
+            float(single.neg_log_joint), rel=RTOL, abs=ATOL
+        )
+        np.testing.assert_allclose(
+            np.asarray(batch.trial_log_likelihoods[index]),
+            np.asarray(single.trial_log_likelihoods),
+            rtol=RTOL,
+            atol=ATOL,
+            equal_nan=True,
+        )
 
 
 def test_compile_signature_reuses_jitted_callable() -> None:
