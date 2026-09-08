@@ -76,6 +76,20 @@ The simulation receives native parameters but assigns `be = p`, then also uses `
 
 Compatibility decision: simulation keeps its own frozen semantics rather than being normalized to the likelihood semantics.
 
+## D7 — Bayes-optimal WhatWorld irregular tensor deletion
+
+File: `perceptual/bayes_optimal_whatworld.m`
+
+The source obtains a three-dimensional prediction tensor and then deletes irregular trials using:
+
+```matlab
+pred(r.irr,:) = [];
+```
+
+With a non-empty irregular-trial set, MATLAB collapses trailing dimensions under this two-subscript deletion. The later three-subscript access `pred(k,to,from)` can then exceed the remaining third dimension.
+
+Oracle repair: preserve the tensor rank explicitly with `pred(r.irr,:,:) = []`. HGFX already removes irregular trials without collapsing the transition dimensions.
+
 ## Gate rule
 
 A frozen source defect does not exempt a scientific family from implementation. A repaired family is DONE only when:
