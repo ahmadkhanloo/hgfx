@@ -26,6 +26,11 @@ from .specialized import (
     logrt_linear_whatworld,
     softmax_wld,
     softmax_mu3_wld,
+    simulate_condhalluc_obs,
+    simulate_condhalluc_obs2,
+    simulate_condhalluc_obs3,
+    simulate_softmax_wld,
+    simulate_softmax_mu3_wld,
 )
 
 __all__ = [
@@ -38,4 +43,7 @@ __all__ = [
     "rs_belief", "rs_precision", "rs_precision_whatworld", "rs_surprise",
     "condhalluc_obs", "condhalluc_obs2", "condhalluc_obs3",
     "logrt_linear_whatworld", "softmax_wld", "softmax_mu3_wld",
+    "simulate_condhalluc_obs", "simulate_condhalluc_obs2",
+    "simulate_condhalluc_obs3", "simulate_softmax_wld",
+    "simulate_softmax_mu3_wld",
 ]
