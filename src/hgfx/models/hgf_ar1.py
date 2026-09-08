@@ -57,7 +57,11 @@ def hgf_ar1(
 
     u = np.concatenate(([0.0], values))
     n = u.size
-    t = build_time_axis(input_array, irregular_intervals=irregular_intervals)
+    # Frozen hgf_ar1.m reduces r.u to its first column before constructing
+    # the time axis. With irregular_intervals=true the explicit error is
+    # caught by its broad catch block, whose fallback sees the same
+    # single-column u and therefore sets t=ones. Preserve that source quirk.
+    t = np.ones(n, dtype=np.float64)
 
     mu = np.full((n, l), np.nan, dtype=np.float64)
     pi = np.full((n, l), np.nan, dtype=np.float64)
