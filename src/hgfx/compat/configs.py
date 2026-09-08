@@ -344,6 +344,100 @@ def ehgf_ar1_binary_mab_config() -> ModelConfig:
 def uhgf_ar1_binary_mab_config() -> ModelConfig:
     return _ar1_binary_mab_config("uhgf")
 
+
+def _jget_config(update_type: str) -> ModelConfig:
+    if update_type == "hgf":
+        mux_means, mux_vars = [99991.0, 1.0], [0.0, 0.0]
+        logsax_means, logsax_vars = [math.log(3.0), math.log(0.1)], [0.0, 0.0]
+        mua_means, mua_vars = [0.0, 1.0], [0.1, 0.0]
+        logsaa_means, logsaa_vars = [math.log(3.0), math.log(0.1)], [0.0, 0.0]
+        omu_mean, omu_var = 0.0, 0.0
+        omx_means, omx_vars = [0.0, -7.0], [25.0, 1.0]
+        oma_means, oma_vars = [0.0, -7.0], [25.0, 1.0]
+    else:
+        mux_means, mux_vars = [99991.0, 1.0], [0.0, 0.0]
+        logsax_means, logsax_vars = [math.log(16.0), 0.0], [1.0, 1.0]
+        mua_means, mua_vars = [-4.0, -4.0], [0.0, 0.0]
+        logsaa_means, logsaa_vars = [0.0, math.log(4.0)], [1.0, 1.0]
+        omu_mean, omu_var = 8.0, 0.0
+        omx_means, omx_vars = [-1.0, 0.0], [4.0, 4.0]
+        oma_means, oma_vars = [4.0, 2.0], [4.0, 4.0]
+
+    parameters: list[ParameterSpec] = []
+    index = 1
+    groups = (
+        ("mux_0", "mux_0", mux_means, mux_vars, IDENTITY),
+        ("logsax_0", "sax_0", logsax_means, logsax_vars, EXPONENTIAL),
+        ("mua_0", "mua_0", mua_means, mua_vars, IDENTITY),
+        ("logsaa_0", "saa_0", logsaa_means, logsaa_vars, EXPONENTIAL),
+    )
+    for prefix, native, means, variances, transform in groups:
+        parameters.extend(_vector_params(
+            start_index=index,
+            transformed_prefix=prefix,
+            native_name=native,
+            means=means,
+            variances=variances,
+            transform=transform,
+        ))
+        index += len(means)
+
+    scalar_groups = (
+        ("logkau", "kau", 0.0, 0.0, EXPONENTIAL),
+        ("logkax_1", "kax", 0.0, 0.0, EXPONENTIAL),
+        ("logkaa_1", "kaa", 0.0, 0.0, EXPONENTIAL),
+        ("omu", "omu", omu_mean, omu_var, IDENTITY),
+    )
+    for name, native, mean, variance, transform in scalar_groups:
+        parameters.append(ParameterSpec(
+            name=name,
+            native_name=native,
+            matlab_index=index,
+            prior_mean=mean,
+            prior_variance=variance,
+            transform=transform,
+            component=None if native in {"kau", "omu"} else 1,
+        ))
+        index += 1
+
+    for prefix, native, means, variances in (
+        ("omx", "omx", omx_means, omx_vars),
+        ("oma", "oma", oma_means, oma_vars),
+    ):
+        parameters.extend(_vector_params(
+            start_index=index,
+            transformed_prefix=prefix,
+            native_name=native,
+            means=means,
+            variances=variances,
+            transform=IDENTITY,
+        ))
+        index += len(means)
+
+    return ModelConfig(
+        model=f"{update_type}_jget",
+        parameters=tuple(parameters),
+        options={"n_levels": 2, "update_type": update_type},
+        source_files=(
+            f"perceptual/{update_type}_jget_config.m",
+            "perceptual/hgf_jget_config_base.m",
+            f"perceptual/{update_type}_jget_transp.m",
+            "perceptual/hgf_jget_unified.m",
+        ),
+    )
+
+
+def hgf_jget_config() -> ModelConfig:
+    return _jget_config("hgf")
+
+
+def ehgf_jget_config() -> ModelConfig:
+    return _jget_config("ehgf")
+
+
+def uhgf_jget_config() -> ModelConfig:
+    return _jget_config("uhgf")
+
 def unitsq_sgm_config() -> ModelConfig:
     return ModelConfig(
         model="unitsq_sgm",
