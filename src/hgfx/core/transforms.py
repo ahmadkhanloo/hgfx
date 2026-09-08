@@ -28,7 +28,8 @@ class TransformSpec:
         if self.kind is TransformKind.IDENTITY:
             return float(value)
         if self.kind is TransformKind.EXPONENTIAL:
-            return math.exp(float(value))
+            with np.errstate(over="ignore", invalid="ignore"):
+                return float(np.exp(np.float64(value)))
         if self.kind is TransformKind.SIGMOID:
             x = float(value)
             return float(self.upper) / (1.0 + math.exp(-x))
