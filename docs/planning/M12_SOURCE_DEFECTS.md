@@ -88,7 +88,7 @@ pred(r.irr,:) = [];
 
 With a non-empty irregular-trial set, MATLAB collapses trailing dimensions under this two-subscript deletion. The later three-subscript access `pred(k,to,from)` can then exceed the remaining third dimension.
 
-Oracle repair: preserve the tensor rank explicitly with `pred(r.irr,:,:) = []`. HGFX already removes irregular trials without collapsing the transition dimensions.
+Oracle repair: preserve the tensor rank explicitly with `pred(r.irr,:,:) = []` and iterate over the reduced transition table (`1:size(tr,1)`) instead of the original full input length. HGFX removes irregular trials without collapsing the transition dimensions and evaluates only regular transitions.
 
 ## Gate rule
 
