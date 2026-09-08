@@ -97,26 +97,26 @@ M10 gate evidence: numerical Hessian, optimizer-`T` fallback, Sigma/Corr, Laplac
 
 M11 gate evidence: frozen `simModel.m` / `sampleModel.m` orchestration, parameter transforms, ignored-trial behavior, deterministic response probabilities, MATLAB-exported prior random drivers, same-runtime seed reproducibility, and stochastic distribution checks pass. CI run: `34167613757`. Cross-language RNG-stream identity is not claimed.
 
-## Phase 10 — Complete model family coverage (M12 REOPENED)
+## Phase 10 — Complete model family coverage (M12 PASS)
 - [x] PU / PU-TBT — HGF/eHGF/uHGF
-- [ ] AR1 — binary variants DONE; continuous AR1 remains
-- [ ] MAB — binary MAB, AR1 MAB, AR1 binary MAB HGF/eHGF/uHGF
-- [ ] JGET — HGF/eHGF/uHGF
-- [ ] categorical — categorical + categorical-normalized
+- [x] AR1 — continuous + binary HGF/eHGF/uHGF coverage
+- [x] MAB — binary MAB, AR1 MAB, AR1 binary MAB HGF/eHGF/uHGF
+- [x] JGET — HGF/eHGF/uHGF
+- [x] categorical — categorical + categorical-normalized
 - [x] RW / dual-RW
 - [x] Pearce-Hall
 - [x] Sutton K1
 - [x] Kalman
-- [ ] HMM / HHMM — HMM DONE; HHMM remains
-- [ ] WhatWorld / WhichWorld
-- [ ] Bayes-optimal auxiliary families
-- [ ] response-surprise / squared-PE auxiliary families
-- [ ] remaining conditional/world observation families
-- [ ] zero scientific REFERENCE_ONLY families
-- [ ] exhaustive config/transform/public-API closure
-- [ ] final complete-model MATLAB parity CI
+- [x] HMM / HHMM
+- [x] WhatWorld / WhichWorld
+- [x] Bayes-optimal auxiliary families
+- [x] response-speed / squared-PE auxiliary families
+- [x] remaining conditional/world observation families
+- [x] zero scientific REFERENCE_ONLY families
+- [x] exhaustive config/transform/public-API closure
+- [x] final complete-model MATLAB parity CI
 
-M12 was reopened because the project goal is full computational coverage, not inventory-only coverage. A scientific model family can no longer finish as REFERENCE_ONLY. The previous M12 CI `34188815550` remains valid evidence for the already-ported subset.
+M12 was reopened because the project goal is full computational coverage, not inventory-only coverage. Corrected M12 now passes with zero scientific REFERENCE_ONLY families and a green full regression suite. Evidence: M12A `34224773192`; M12B/C `34224773186`; M12D/E `34225650007`; M12F/G `34225649883`; config/prior `34224773097`; exhaustive closure `34225650015`.
 
 ## Phase 11 — Native GPU engine
 - [ ] `lax.scan`
