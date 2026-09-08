@@ -74,3 +74,23 @@ Branch workflow `34242409271`:
 No CPU/JAX tolerance was relaxed to obtain these results.
 
 Workflow: `.github/workflows/m14-gpu-engine.yml`.
+
+
+## Owner action required
+
+Before M14 can be marked PASS, the repository owner must run the strict physical-GPU
+validation on their own NVIDIA/JAX-capable GPU machine.
+
+Required command:
+
+```bash
+HGFX_REQUIRE_GPU=1 pytest \
+  tests/cpu_gpu/test_m14_fast_engine.py::test_real_gpu_forward_and_objective_parity_when_available \
+  -q
+```
+
+Alternatively, configure that machine as a GitHub self-hosted runner with labels
+`self-hosted`, `linux`, `x64`, and `gpu`, then manually dispatch the
+`M14 GPU Engine` workflow with `require_gpu=true`.
+
+**Do not mark M14 PASS and do not start M15 until this physical-GPU test passes.**
