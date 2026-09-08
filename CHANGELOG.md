@@ -20,3 +20,4 @@ All notable changes to HGFX should be documented here.
 - M15 differentiable MAP fitting over the fast binary-HGF + unit-square objective.
 - M15 optimizer abstraction and JAX BFGS backend with device-resident optimizer arrays.
 - M15 CPU gradient/final-objective/trajectory parity tests and strict physical-GPU fitting parity harness.
+- M16 subject/restart batch engine with shape scheduler, nested vmap fitting, heterogeneous-length masking, compile-cache reuse, and single-vs-batch equivalence gates.
