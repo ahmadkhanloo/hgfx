@@ -20,6 +20,18 @@ p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -3 -6 .35 0 1];
 [traj, inf] = hgf_binary_pu(r,p);
 payload.cases.hgf_binary_pu = pack(traj,inf);
 
+r = base_r(u, ign);
+r.c_prc = ehgf_binary_pu_config;
+p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -3 2 .35 0 1];
+[traj, inf] = ehgf_binary_pu(r,p);
+payload.cases.ehgf_binary_pu = pack(traj,inf);
+
+r = base_r(u, ign);
+r.c_prc = uhgf_binary_pu_config;
+p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -3 -6 .35 0 1];
+[traj, inf] = uhgf_binary_pu(r,p);
+payload.cases.uhgf_binary_pu = pack(traj,inf);
+
 % Binary PU-TBT
 ut = [u, [.25 .3 .2 .35 .3 .25 .2 .3 .35 .25 .2 .3]'];
 r = base_r(ut, ign);
@@ -27,6 +39,18 @@ r.c_prc = hgf_binary_pu_tbt_config;
 p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -5 -6 0 1];
 [traj, inf] = hgf_binary_pu_tbt(r,p);
 payload.cases.hgf_binary_pu_tbt = pack(traj,inf);
+
+r = base_r(ut, ign);
+r.c_prc = ehgf_binary_pu_tbt_config;
+p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -5 -6 0 1];
+[traj, inf] = ehgf_binary_pu_tbt(r,p);
+payload.cases.ehgf_binary_pu_tbt = pack(traj,inf);
+
+r = base_r(ut, ign);
+r.c_prc = uhgf_binary_pu_tbt_config;
+p = [NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -5 -6 0 1];
+[traj, inf] = uhgf_binary_pu_tbt(r,p);
+payload.cases.uhgf_binary_pu_tbt = pack(traj,inf);
 
 % AR1 binary HGF
 r = base_r(u, ign);
@@ -41,6 +65,12 @@ r.c_prc = ehgf_ar1_binary_config;
 p = [NaN 0 1 NaN .1 1 NaN 0 .45 NaN 0 1 NaN 0 0 1 1 NaN -3 2];
 [traj, inf] = ehgf_ar1_binary(r,p);
 payload.cases.ehgf_ar1_binary = pack(traj,inf);
+
+r = base_r(u, ign);
+r.c_prc = uhgf_ar1_binary_config;
+p = [NaN 0 1 NaN .1 1 NaN 0 .45 NaN 0 1 NaN 0 0 1 1 NaN -3 2];
+[traj, inf] = uhgf_ar1_binary(r,p);
+payload.cases.uhgf_ar1_binary = pack(traj,inf);
 
 % RW
 r = base_r(u, ign);
