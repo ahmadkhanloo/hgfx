@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 from hgfx.core.parameters import ModelConfig, ParameterSpec
-from hgfx.core.transforms import EXPONENTIAL, IDENTITY
+from hgfx.core.transforms import EXPONENTIAL, IDENTITY, SIGMOID
 
 
 def _vector_params(
@@ -146,6 +146,70 @@ def hgf_config() -> ModelConfig:
         ),
     )
 
+
+
+def hgf_ar1_config() -> ModelConfig:
+    """Frozen hgf_ar1_config.m for the default two-level continuous AR1 HGF."""
+
+    parameters: list[ParameterSpec] = []
+    index = 1
+    groups = (
+        ("mu_0", "mu_0", [99991.0, 1.0], [99992.0, 0.0], IDENTITY),
+        (
+            "logsa_0",
+            "sa_0",
+            [99993.0, math.log(0.1)],
+            [1.0, 1.0],
+            EXPONENTIAL,
+        ),
+        (
+            "logitphi",
+            "phi",
+            [math.log(0.1 / 0.9), -math.inf],
+            [100.0, 0.0],
+            SIGMOID,
+        ),
+        ("m", "m", [99991.0, 1.0], [99992.0, 0.0], IDENTITY),
+        ("logka", "ka", [0.0], [0.0], EXPONENTIAL),
+        # Frozen hgf_ar1_transp leaves both omega entries in native space.
+        # The last element is exponentiated only inside hgf_ar1.m as theta.
+        ("om", "om", [99994.0, -6.0], [100.0, 100.0], IDENTITY),
+    )
+    for transformed_prefix, native_name, means, variances, transform in groups:
+        parameters.extend(
+            _vector_params(
+                start_index=index,
+                transformed_prefix=transformed_prefix,
+                native_name=native_name,
+                means=means,
+                variances=variances,
+                transform=transform,
+            )
+        )
+        index += len(means)
+
+    parameters.append(
+        ParameterSpec(
+            name="logal",
+            native_name="al",
+            matlab_index=index,
+            prior_mean=99993.0,
+            prior_variance=4.0,
+            transform=EXPONENTIAL,
+            component=None,
+        )
+    )
+    return ModelConfig(
+        model="hgf_ar1",
+        parameters=tuple(parameters),
+        options={"n_levels": 2, "irregular_intervals": False, "update_type": "hgf"},
+        source_files=(
+            "perceptual/hgf_ar1_config.m",
+            "perceptual/hgf_ar1_transp.m",
+            "perceptual/hgf_ar1_namep.m",
+            "perceptual/hgf_ar1.m",
+        ),
+    )
 
 def unitsq_sgm_config() -> ModelConfig:
     return ModelConfig(
