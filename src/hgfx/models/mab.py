@@ -48,6 +48,18 @@ def _ignored(n: int, values, choices, ignored_trials):
     return mask
 
 
+def _irregular_output_mask(n: int, choices, irregular_trials):
+    """Mirror r.irr, which is distinct from r.ign in MAB source files."""
+    mask = np.isnan(np.asarray(choices, dtype=np.float64))
+    if irregular_trials is not None:
+        mask = mask.copy()
+        for index in irregular_trials:
+            if index < 0 or index >= n:
+                raise IndexError(f"irregular trial index out of range: {index}")
+            mask[index] = True
+    return mask
+
+
 def _selected(matrix: np.ndarray, choices_zero: np.ndarray, regular: np.ndarray) -> np.ndarray:
     out = np.full(matrix.shape[0], np.nan, dtype=np.float64)
     idx = np.flatnonzero(regular)
@@ -107,9 +119,10 @@ def hgf_binary_mab(
     transformed: bool = False,
     irregular_intervals: bool = False,
     ignored_trials: Sequence[int] | None = None,
+    irregular_trials: Sequence[int] | None = None,
     validate: bool = True,
 ):
-    """Mirror frozen hgf_binary_mab.m."""
+    """Mirror frozen hgf_binary_mab.m with separate r.ign and r.irr semantics."""
 
     values, input_matrix, choices_raw = _mab_inputs(inputs, choices, n_bandits)
     p = np.asarray(parameters, dtype=np.float64).reshape(-1).copy()
@@ -132,6 +145,7 @@ def hgf_binary_mab(
     theta = np.exp(p[5 * l - 2])
 
     ignored = _ignored(values.size, values, choices_raw, ignored_trials)
+    irregular = _irregular_output_mask(values.size, choices_raw, irregular_trials)
     choices_zero = np.where(np.isnan(choices_raw), 0, choices_raw.astype(np.int64) - 1)
     u = np.concatenate(([0.0], values))
     y = np.concatenate(([0], choices_zero + 1))
@@ -251,7 +265,7 @@ def hgf_binary_mab(
     v = v[1:]
     w = w[1:]
     da = da[1:]
-    regular = ~ignored
+    regular = ~irregular
     if validate:
         check_hgf_trajectories(mu[:, 1:, :], pi[:, 1:, :], 16.0, columns=None)
     return _mab_outputs(
@@ -397,7 +411,7 @@ def hgf_ar1_mab(
     w = w[1:]
     da = da[1:]
     dau = dau[1:]
-    regular = ~ignored
+    regular = np.ones(values.size, dtype=bool)
 
     if validate:
         check_hgf_trajectories(mu, pi, 256.0, columns=None)
@@ -438,9 +452,10 @@ def hgf_ar1_binary_mab_unified(
     transformed: bool = False,
     irregular_intervals: bool = False,
     ignored_trials: Sequence[int] | None = None,
+    irregular_trials: Sequence[int] | None = None,
     validate: bool = True,
 ):
-    """Mirror frozen hgf_ar1_binary_mab_unified.m."""
+    """Mirror frozen unified AR1 binary MAB with distinct r.ign/r.irr masks."""
 
     if update_type not in {"hgf", "ehgf", "uhgf"}:
         raise ValueError("update_type must be 'hgf', 'ehgf', or 'uhgf'")
@@ -479,6 +494,7 @@ def hgf_ar1_binary_mab_unified(
         raise ValueError("coupled binary MAB is only defined for two bandits")
 
     ignored = _ignored(values.size, values, choices_raw, ignored_trials)
+    irregular = _irregular_output_mask(values.size, choices_raw, irregular_trials)
     choices_zero = np.where(np.isnan(choices_raw), 0, choices_raw.astype(np.int64) - 1)
     u = np.concatenate(([0.0], values))
     t = build_time_axis(input_matrix, irregular_intervals=irregular_intervals)
@@ -721,7 +737,7 @@ def hgf_ar1_binary_mab_unified(
     v = v[1:]
     w = w[1:]
     da = da[1:]
-    regular = ~ignored
+    regular = ~irregular
 
     if validate and update_type == "hgf":
         check_hgf_trajectories(mu[:, 1:, :], pi[:, 1:, :], 16.0, columns=None)
