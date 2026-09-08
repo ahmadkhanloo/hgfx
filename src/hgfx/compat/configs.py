@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 from hgfx.core.parameters import ModelConfig, ParameterSpec
-from hgfx.core.transforms import EXPONENTIAL, IDENTITY, SIGMOID
+from hgfx.core.transforms import EXPONENTIAL, IDENTITY, SIGMOID, bounded_sigmoid
 
 
 def _vector_params(
@@ -437,6 +437,134 @@ def ehgf_jget_config() -> ModelConfig:
 
 def uhgf_jget_config() -> ModelConfig:
     return _jget_config("uhgf")
+
+
+def _categorical_config(*, normalized: bool = False) -> ModelConfig:
+    no = 3
+    logit_uniform = math.log((1.0 / no) / (1.0 - 1.0 / no))
+    parameters: list[ParameterSpec] = []
+    index = 1
+    groups = (
+        ("mu2_0", "mu2_0", [logit_uniform] * no, [0.0] * no, IDENTITY),
+        ("logsa2_0", "sa2_0", [0.0] * no, [0.0] * no, EXPONENTIAL),
+    )
+    for prefix, native, means, variances, transform in groups:
+        parameters.extend(_vector_params(
+            start_index=index, transformed_prefix=prefix, native_name=native,
+            means=means, variances=variances, transform=transform,
+        ))
+        index += len(means)
+    for name, native, mean, variance, transform in (
+        ("mu3_0", "mu3_0", 1.0, 0.0, IDENTITY),
+        ("logsa3_0", "sa3_0", math.log(0.1), 1.0, EXPONENTIAL),
+        ("logitka", "ka", 0.0, 0.0, bounded_sigmoid(2.0)),
+        ("om", "om", -4.0, 25.0, IDENTITY),
+        ("logitth", "th", 0.0, 2.0, bounded_sigmoid(0.1)),
+    ):
+        parameters.append(ParameterSpec(
+            name=name, native_name=native, matlab_index=index,
+            prior_mean=mean, prior_variance=variance, transform=transform, component=None,
+        ))
+        index += 1
+    source = "hgf_categorical_norm" if normalized else "hgf_categorical"
+    return ModelConfig(
+        # Frozen norm config itself says model='hgf_categorical'; preserve
+        # distinction explicitly in options while keeping a usable HGFX name.
+        model=source,
+        parameters=tuple(parameters),
+        options={"n_outcomes": no, "kaub": 2.0, "thub": 0.1, "normalized": normalized},
+        source_files=(
+            f"perceptual/{source}_config.m",
+            f"perceptual/{source}_transp.m",
+            f"perceptual/{source}.m",
+        ),
+    )
+
+
+def hgf_categorical_config() -> ModelConfig:
+    return _categorical_config(normalized=False)
+
+
+def hgf_categorical_norm_config() -> ModelConfig:
+    return _categorical_config(normalized=True)
+
+
+def hgf_whatworld_config() -> ModelConfig:
+    ns = 4
+    ntr = ns * ns
+    logit_uniform = math.log((1.0 / ns) / (1.0 - 1.0 / ns))
+    parameters: list[ParameterSpec] = []
+    index = 1
+    for prefix, native, means, variances, transform in (
+        ("mu2_0", "mu2_0", [logit_uniform] * ntr, [0.0] * ntr, IDENTITY),
+        ("logsa2_0", "sa2_0", [0.0] * ntr, [0.0] * ntr, EXPONENTIAL),
+    ):
+        parameters.extend(_vector_params(
+            start_index=index, transformed_prefix=prefix, native_name=native,
+            means=means, variances=variances, transform=transform,
+        ))
+        index += len(means)
+    for name, native, mean, variance, transform in (
+        ("mu3_0", "mu3_0", 1.0, 0.0, IDENTITY),
+        ("logsa3_0", "sa3_0", math.log(0.1), 1.0, EXPONENTIAL),
+        ("logitka", "ka", 0.0, 0.0, bounded_sigmoid(2.0)),
+        ("om", "om", -6.0, 25.0, IDENTITY),
+        ("logitth", "th", 0.0, 2.0, bounded_sigmoid(0.1)),
+    ):
+        parameters.append(ParameterSpec(
+            name=name, native_name=native, matlab_index=index,
+            prior_mean=mean, prior_variance=variance, transform=transform, component=None,
+        ))
+        index += 1
+    return ModelConfig(
+        model="hgf_whatworld",
+        parameters=tuple(parameters),
+        options={"n_states": ns, "kaub": 2.0, "thub": 0.1},
+        source_files=(
+            "perceptual/hgf_whatworld_config.m",
+            "perceptual/hgf_whatworld_transp.m",
+            "perceptual/hgf_whatworld.m",
+        ),
+    )
+
+
+def hgf_whichworld_config() -> ModelConfig:
+    nw = 2
+    parameters: list[ParameterSpec] = []
+    index = 1
+    for prefix, native, means, variances, transform in (
+        ("mu2_0", "mu2_0", [0.0, 0.0], [0.0, 0.0], IDENTITY),
+        ("logsa2_0", "sa2_0", [0.0, 0.0], [1.0, 1.0], EXPONENTIAL),
+    ):
+        parameters.extend(_vector_params(
+            start_index=index, transformed_prefix=prefix, native_name=native,
+            means=means, variances=variances, transform=transform,
+        ))
+        index += len(means)
+    for name, native, mean, variance, transform in (
+        ("mu3_0", "mu3_0", 1.0, 0.0, IDENTITY),
+        ("logsa3_0", "sa3_0", math.log(0.1), 1.0, EXPONENTIAL),
+        ("logitka", "ka", 0.0, 0.0, bounded_sigmoid(2.0)),
+        ("om", "om", 0.0, 25.0, IDENTITY),
+        ("logitth", "th", 0.0, 2.0, bounded_sigmoid(2.0)),
+        ("m", "m", 0.0, 0.0, IDENTITY),
+        ("logitphi", "phi", math.log(0.1 / 0.9), 2.0, SIGMOID),
+    ):
+        parameters.append(ParameterSpec(
+            name=name, native_name=native, matlab_index=index,
+            prior_mean=mean, prior_variance=variance, transform=transform, component=None,
+        ))
+        index += 1
+    return ModelConfig(
+        model="hgf_whichworld",
+        parameters=tuple(parameters),
+        options={"nw": nw, "kaub": 2.0, "thub": 2.0, "source_defect": "hgf_whichworld.m uses undefined da in lr1 cleanup"},
+        source_files=(
+            "perceptual/hgf_whichworld_config.m",
+            "perceptual/hgf_whichworld_transp.m",
+            "perceptual/hgf_whichworld.m",
+        ),
+    )
 
 def unitsq_sgm_config() -> ModelConfig:
     return ModelConfig(
