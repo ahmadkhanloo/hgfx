@@ -280,3 +280,146 @@ def logrt_linear_whatworld(
     yhat[reg] = lr
     res[reg] = yr - lr
     return logp, yhat, res
+
+
+
+def _bernoulli_from_probability(probability, *, seed=None, uniform_draws=None):
+    prob = np.asarray(probability, dtype=np.float64).reshape(-1)
+    if uniform_draws is None:
+        draws = np.random.default_rng(seed).random(prob.size)
+    else:
+        draws = np.asarray(uniform_draws, dtype=np.float64).reshape(-1)
+        if draws.size != prob.size:
+            raise ValueError("uniform_draws length must match trials")
+    return (draws < prob).astype(np.float64), prob
+
+
+def simulate_condhalluc_obs(
+    inputs,
+    inf_states,
+    parameters,
+    *,
+    seed=None,
+    uniform_draws=None,
+):
+    s = np.asarray(inf_states, dtype=np.float64)
+    arr = np.asarray(inputs, dtype=np.float64)
+    if arr.ndim != 2 or arr.shape[1] < 2:
+        raise ValueError("conditioned-hallucination simulation requires input column 2")
+    beta = float(np.asarray(parameters, dtype=np.float64).reshape(-1)[0])
+    mu1hat = s[:, 0, 0]
+    tp = arr[:, 1]
+    with np.errstate(divide="ignore", invalid="ignore"):
+        x = tp * mu1hat / (tp * mu1hat + (1.0 - mu1hat) ** 2)
+    x[tp == 0.0] = mu1hat[tp == 0.0]
+    probability = np.asarray(sigmoid(beta * (2.0 * x - 1.0), 1.0), dtype=np.float64)
+    return _bernoulli_from_probability(probability, seed=seed, uniform_draws=uniform_draws)
+
+
+def simulate_condhalluc_obs2(
+    inputs,
+    inf_states,
+    parameters,
+    *,
+    seed=None,
+    uniform_draws=None,
+):
+    s = np.asarray(inf_states, dtype=np.float64)
+    arr = np.asarray(inputs, dtype=np.float64)
+    p = np.asarray(parameters, dtype=np.float64).reshape(-1)
+    beta, nu = float(p[0]), float(p[1])
+    mu1hat = s[:, 0, 0]
+    tp = arr[:, 1]
+    x = mu1hat + (tp - mu1hat) / (1.0 + nu)
+    probability = np.asarray(sigmoid(beta * (2.0 * x - 1.0), 1.0), dtype=np.float64)
+    return _bernoulli_from_probability(probability, seed=seed, uniform_draws=uniform_draws)
+
+
+def simulate_condhalluc_obs3(
+    inputs,
+    inf_states,
+    parameters,
+    *,
+    seed=None,
+    uniform_draws=None,
+):
+    s = np.asarray(inf_states, dtype=np.float64)
+    arr = np.asarray(inputs, dtype=np.float64)
+    beta = float(np.asarray(parameters, dtype=np.float64).reshape(-1)[0])
+    mu1hat = s[:, 0, 0]
+    mu3hat = s[:, 2, 0]
+    nu = np.exp(mu3hat)
+    tp = arr[:, 1]
+    x = mu1hat + (tp - mu1hat) / (1.0 + nu)
+    probability = np.asarray(sigmoid(beta * (2.0 * x - 1.0), 1.0), dtype=np.float64)
+    return _bernoulli_from_probability(probability, seed=seed, uniform_draws=uniform_draws)
+
+
+def _categorical_draw(probability, *, seed=None, uniform_draws=None):
+    prob = np.asarray(probability, dtype=np.float64)
+    if uniform_draws is None:
+        draws = np.random.default_rng(seed).random(prob.shape[0])
+    else:
+        draws = np.asarray(uniform_draws, dtype=np.float64).reshape(-1)
+        if draws.size != prob.shape[0]:
+            raise ValueError("uniform_draws length must match trials")
+    cumulative = np.cumsum(prob, axis=1)
+    choices = np.sum(draws[:, None] >= cumulative, axis=1) + 1
+    return choices.astype(np.float64), prob
+
+
+def _world_distorted_states(inputs, inf_states, parameters, *, predorpost, mu3_temperature):
+    s = np.asarray(inf_states, dtype=np.float64)
+    arr = np.asarray(inputs, dtype=np.float64)
+    if arr.ndim != 2 or arr.shape[1] < 2:
+        raise ValueError("world softmax simulation requires payout and true-choice columns")
+    pop = 0 if int(predorpost) == 1 else 2
+    states = np.asarray(s[:, 0, :, pop], dtype=np.float64).copy()
+    outcomes = arr[:, 0]
+    true_choices = arr[:, 1].astype(np.int64)
+    p = np.asarray(parameters, dtype=np.float64).reshape(-1)
+    la_wd, la_ld = float(p[0]), float(p[1])
+    dummy_choices = true_choices.astype(np.float64)
+    states = _win_loss_distort(states, outcomes, dummy_choices, la_wd=la_wd, la_ld=la_ld)
+    if mu3_temperature:
+        beta = np.exp(-np.asarray(s[:, 2, 0, 2], dtype=np.float64))[:, None]
+    else:
+        # Frozen softmax_wld_sim.m sets be=p (the entire native vector).
+        # MATLAB implicit expansion therefore requires p length == n_choices
+        # (or scalar). Preserve this simulation-specific behavior.
+        beta = p[None, :]
+        if beta.shape[1] not in {1, states.shape[1]}:
+            raise ValueError("frozen softmax_wld_sim requires parameter count equal to number of choices")
+    exponent = np.exp(beta * states)
+    probability = exponent / np.sum(exponent, axis=1, keepdims=True)
+    return probability
+
+
+def simulate_softmax_wld(
+    inputs,
+    inf_states,
+    parameters,
+    *,
+    predorpost: int = 1,
+    seed=None,
+    uniform_draws=None,
+):
+    probability = _world_distorted_states(
+        inputs, inf_states, parameters, predorpost=predorpost, mu3_temperature=False
+    )
+    return _categorical_draw(probability, seed=seed, uniform_draws=uniform_draws)
+
+
+def simulate_softmax_mu3_wld(
+    inputs,
+    inf_states,
+    parameters,
+    *,
+    predorpost: int = 1,
+    seed=None,
+    uniform_draws=None,
+):
+    probability = _world_distorted_states(
+        inputs, inf_states, parameters, predorpost=predorpost, mu3_temperature=True
+    )
+    return _categorical_draw(probability, seed=seed, uniform_draws=uniform_draws)
