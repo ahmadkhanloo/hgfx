@@ -129,33 +129,44 @@ M12 was reopened because the project goal is full computational coverage, not in
 
 M13 gate evidence: workflow `34234431858`; reference freeze PASS; API/consumer suite 13 passed; full regression 71 passed.
 
-## Phase 12 — Native GPU engine (M14)
-- [ ] `lax.scan`
-- [ ] `vmap`
-- [ ] `jit`
-- [ ] compile cache
-- [ ] trial-length bucketing
-- [ ] on-device optimizer state
+## Phase 12 — Native GPU engine (M14 — implementation complete, GPU gate pending)
+- [x] `lax.scan` trial recursion
+- [x] subject/same-shape `vmap` primitive
+- [x] restart/objective `vmap` primitive
+- [x] `jit` forward/objective
+- [x] explicit compile signature/cache
+- [x] trial-length bucketing/padding
+- [x] explicit device placement and CPU x64 device-residency tests
+- [x] compatibility-vs-JAX CPU forward/objective parity
+- [ ] physical GPU x64 forward/objective parity
 
-## Phase 13 — Batch fitting
+CPU evidence: M14 workflow `34242409271`; 9 M14 tests passed; full regression 80 passed; the single physical-GPU test was skipped because no GPU device exists on the hosted runner.
+
+## Phase 13 — GPU fitting (M15)
+- [ ] differentiable fast objective/grad gate
+- [ ] optimizer abstraction
+- [ ] on-device optimizer state
+- [ ] final-objective / trajectory equivalence
+
+## Phase 14 — Batch engine (M16)
 - [ ] subject batching
 - [ ] restart batching
 - [ ] model scheduler
 - [ ] single-vs-batch equivalence
 
-## Phase 14 — Multi-GPU
+## Phase 15 — Multi-GPU (M17)
 - [ ] independent data-parallel batches
 - [ ] device scheduler
 - [ ] multi-GPU benchmarks
 
-## Phase 15 — Scientific validation
+## Phase 16 — Scientific validation
 - [ ] parameter recovery
 - [ ] model recovery
 - [ ] robustness sweep
 - [ ] CPU/GPU agreement
 - [ ] optimizer agreement
 
-## Phase 16 — Methods paper
+## Phase 17 — Methods paper
 - [ ] benchmark protocol freeze
 - [ ] benchmark runs
 - [ ] validation figures
