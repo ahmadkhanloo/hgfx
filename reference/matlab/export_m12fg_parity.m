@@ -62,8 +62,15 @@ for k=1:n
 end
 rwt=struct; rwt.u=[1;2;1;2;2;1;2;1]; rwt.y=y; rwt.irr=irr;
 rwt.c_prc=struct; rwt.c_prc.n_states=ns;
+tmpdir=tempname; mkdir(tmpdir);
+src=fileread(fullfile(hgf_root,'perceptual','bayes_optimal_whatworld.m'));
+src=strrep(src,'pred(r.irr,:) = [];','pred(r.irr,:,:) = [];');
+fidtmp=fopen(fullfile(tmpdir,'bayes_optimal_whatworld.m'),'w'); fwrite(fidtmp,src); fclose(fidtmp);
+addpath(tmpdir,'-begin'); clear bayes_optimal_whatworld;
 [a,b,c]=bayes_optimal_whatworld(rwt,wht,[]);
+rmpath(tmpdir); clear bayes_optimal_whatworld;
 payload.bayes_optimal_whatworld=pack3(a,b,c);
+payload.source_repairs.bayes_optimal_whatworld='preserve 3-D prediction tensor when deleting irregular trials';
 [a,b,c]=rs_precision_whatworld(rwt,wht,log([.0052 .0006 .001]));
 payload.rs_precision_whatworld=pack3(a,b,c);
 
