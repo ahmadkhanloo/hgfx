@@ -118,6 +118,19 @@ See:
 - `docs/planning/M12_COVERAGE.md`
 - `tools/check_m12_inventory.py`
 
+### Owner action before closing M14
+
+The repository owner must run the M14 strict parity test on their own physical GPU:
+
+```bash
+HGFX_REQUIRE_GPU=1 pytest \
+  tests/cpu_gpu/test_m14_fast_engine.py::test_real_gpu_forward_and_objective_parity_when_available \
+  -q
+```
+
+Record the GPU model, JAX/JAXLIB versions, CUDA version, test output, and commit SHA.
+Only after this passes may M14 be marked PASS and M15 begin.
+
 ## Next tasks
 
 1. Provide a physical JAX-capable NVIDIA GPU runner.
