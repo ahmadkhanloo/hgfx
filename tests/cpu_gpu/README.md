@@ -18,7 +18,24 @@ HGFX_REQUIRE_GPU=1 pytest \
   -q
 ```
 
+## M15
+
+CPU/JAX fitting validation:
+
+```bash
+pytest tests/cpu_gpu/test_m15_gpu_fitting.py -q
+```
+
+Physical GPU fitting validation:
+
+```bash
+HGFX_REQUIRE_GPU=1 pytest \
+  tests/cpu_gpu/test_m15_gpu_fitting.py::test_real_gpu_fitting_parity_when_available \
+  -q
+```
+
 When `HGFX_REQUIRE_GPU=1`, absence of a JAX GPU is a failure rather than a skip.
 
-The GitHub workflow `.github/workflows/m14-gpu-engine.yml` exposes the same check
-through a manually dispatched job targeting `[self-hosted, linux, x64, gpu]`.
+The workflows `.github/workflows/m14-gpu-engine.yml` and
+`.github/workflows/m15-gpu-fitting.yml` expose strict jobs targeting a
+`[self-hosted, linux, x64, gpu]` runner.
