@@ -12,6 +12,7 @@ payload=struct;
 payload.metadata.schema_version='m12a-1';
 payload.metadata.reference_version='8.2.0';
 payload.metadata.reference_commit='2437f4dc241541072722a2695ddeca7b44d83dd3';
+payload.metadata.hgf_ar1_path=which('hgf_ar1');
 
 p=[.2 1 .3 .1 .15 0 .2 1 1 -3 -6 .2];
 
@@ -31,6 +32,7 @@ payload.irregular.ignored_matlab=r.ign;
 payload.irregular.parameters=p;
 payload.irregular.traj=traj;
 payload.irregular.infStates=inf;
+payload.irregular.config_irregular=r.c_prc.irregular_intervals;
 
 ptrans=[.2 1 log(.3) log(.1) 0 -Inf .2 1 0 -3 -6 log(.2)];
 r=struct; r.u=u; r.ign=[]; r.c_prc=hgf_ar1_config;
