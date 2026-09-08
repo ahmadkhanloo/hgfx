@@ -9,22 +9,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  python-complete-models:
+  closure:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - run: python -m pip install -e ".[dev]"
-      - name: Run complete-model surface and regressions
-        run: >
-          pytest
-          tests/unit/test_complete_model_surface.py
-          tests/unit/test_hgf_ar1.py
-          tests/unit/test_specialized_models.py
-          tests/unit/test_hgf_forward.py
-          tests/unit/test_ehgf_forward.py
-          tests/unit/test_uhgf_forward.py
-          tests/unit/test_observations.py
-          -q
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Enforce zero scientific REFERENCE_ONLY
+        run: python tools/check_m12_inventory.py
+      - name: Full Python regression suite
+        run: pytest -q
