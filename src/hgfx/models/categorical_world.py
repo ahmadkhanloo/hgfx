@@ -394,9 +394,12 @@ def hgf_whichworld(
     epsi=np.full(shp,np.nan);epsi[:,1]=psi[:,1]*da1;epsi[:,2]=psi[:,2]*da2
     wt=np.full(shp,np.nan);wt[:,0]=lr1;wt[:,1]=psi[:,1]
     # Frozen hgf_whichworld.m uses MATLAB mrdivide in "1/pi3", not
-    # element-wise "1./pi3". For a column vector this is pinv(pi3):
-    # pi3' / (pi3' * pi3).
-    mrdivide_scale = pi3 / np.sum(pi3**2)
+    # element-wise "1./pi3". Since pi3 is a column vector, the equivalent
+    # transposed system is a 1-by-n underdetermined mldivide. MATLAB returns
+    # a basic solution (not the minimum-norm pseudoinverse solution), with
+    # the first pivot component carrying the solution for this dense vector.
+    mrdivide_scale = np.zeros_like(pi3)
+    mrdivide_scale[0] = 1.0 / pi3[0]
     wt[:,2]=0.5*ka*(mrdivide_scale[:,None]*w2)
     traj={"mu":tmu,"sa":tsa,"muhat":tmh,"sahat":tsh,"v":v2,"w":w2,"da":da,"ud":tmu-tmh,"psi":psi,"epsi":epsi,"wt":wt}
     return traj,np.stack((tmh,tsh,tmu,tsa),axis=3)
