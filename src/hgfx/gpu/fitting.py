@@ -216,12 +216,15 @@ def _free_objective(problem: FastFitProblem) -> ScalarObjective:
         full = problem.initial_full.at[idx].set(free_parameters)
         p_prc = full[: problem.n_perceptual]
         p_obs = full[problem.n_perceptual :]
+        # Differentiate over the real trial extent. NaN padding is safe for
+        # forward/objective evaluation but would create NaN cotangents through
+        # inactive branches during autodiff.
         return _binary_unitsq_objective_impl(
-            problem.padded_responses,
-            problem.padded_inputs,
+            problem.responses,
+            problem.inputs,
             p_prc,
             p_obs,
-            problem.ignored,
+            problem.ignored[: problem.n_trials],
             problem.perceptual_prior_means,
             problem.perceptual_prior_variances,
             problem.observation_prior_means,
