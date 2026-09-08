@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M15 — GPU Fitting`
+`M16 — Batch Engine`
 
 ## Frozen reference
 
@@ -154,7 +154,9 @@ M15 is not formal PASS until the physical GPU fitting test succeeds. See
 3. Run the strict M15 physical fitting parity job.
 4. Record GPU model, CUDA, JAX/JAXLIB, commit SHA, and outputs.
 5. Mark M14 and M15 PASS only after their respective physical GPU gates are green.
-6. Then begin M16 — Batch Engine.
+6. M16 software is now implemented on top of M15; run its CPU/JAX batch gate.
+7. Keep M14/M15 physical GPU gates pending until hardware is available.
+8. After M16 CPU gate passes, proceed to M17 software scaffolding only if needed; do not claim multi-GPU validation without hardware.
 
 ## M14 boundary
 
@@ -165,3 +167,18 @@ physical CPU/GPU parity; optimizer validation belongs to M15.
 ## Corrected M12 requirement — completed
 
 All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is complete; M14 is now unblocked.
+
+## M16 implementation status
+
+M16 software implementation is complete on `work/m16-batch-engine`.
+
+Implemented:
+- subject batching with `jax.vmap`;
+- restart batching with nested `jax.vmap`;
+- scheduler by trial bucket and restart count;
+- safe heterogeneous-length masks;
+- compiled group-runner cache;
+- final objective/trajectory recomputation;
+- single-vs-batch and restart-vs-independent-fit tests.
+
+See `docs/planning/M16_GATE.md`.
