@@ -76,6 +76,39 @@ See `docs/planning/M13_GATE.md`.
 10. M13 public result objects are interface adapters over validated compatibility numerics; they must not silently introduce alternate scientific semantics.
 11. Root-level `hgfx.sim_model/sample_model` return M13 compatibility results; lower-level `hgfx.compat.sim_model/sample_model` remain the frozen M11 raw orchestration API.
 12. MATLAB-style fit export keeps `optim.yhat` and `optim.res`; direct `est.yhat`/`est.res` are Python convenience aliases.
+13. M14 fast mode lives under `hgfx.gpu` and must never silently replace compatibility mode.
+14. M14 compile signatures are explicit HGFX metadata layered over JAX's internal executable cache.
+15. Absence of physical GPU hardware cannot be counted as CPU/GPU parity evidence.
+
+## M14 implementation status
+
+M14 software implementation is complete on `work/m14-gpu-engine`, but the formal
+milestone gate is still **PENDING physical GPU validation**.
+
+CPU/JAX evidence:
+
+- workflow: `34242409271`
+- frozen reference guard: PASS
+- JAX CPU x64 M14 parity: 9 passed
+- full regression: 80 passed
+- GPU-only parity test: 1 skipped because the hosted runner has no GPU
+
+Implemented:
+
+- `jax.lax.scan` trial recursion for binary HGF/eHGF/uHGF
+- `jax.jit` forward/objective execution
+- subject/same-shape forward `jax.vmap`
+- restart/parameter-candidate objective `jax.vmap`
+- explicit JAX device selection/placement
+- float64 enforcement
+- compile signatures + process-local callable cache
+- trial-length bucketing/padding
+- strict physical-GPU test that fails when `HGFX_REQUIRE_GPU=1` and no GPU exists
+
+M14 is not PASS until the real-GPU job succeeds. Do not start M15 GPU fitting before
+that evidence exists.
+
+See `docs/planning/M14_GATE.md`.
 
 ## M12 coverage details
 
@@ -87,16 +120,16 @@ See:
 
 ## Next tasks
 
-1. Start M14 GPU engine without altering compatibility semantics.
-2. Port trial recursions to `jax.lax.scan` behind a separate fast-mode boundary.
-3. Add subject/restart vectorization only after single-sequence CPU/JAX equivalence is frozen.
-4. Add JIT/compile-cache and device-residency tests.
-5. Cross-validate fast-mode trajectories/objectives against the M4-M13 compatibility oracles.
-6. Do not weaken MATLAB parity gates in the name of performance.
+1. Provide a physical JAX-capable NVIDIA GPU runner.
+2. Run the strict M14 GPU job with `HGFX_REQUIRE_GPU=1`.
+3. Confirm CPU/GPU float64 forward and objective parity on physical hardware.
+4. Only after that passes, mark M14 PASS and hand off to M15 — GPU Fitting.
+5. Keep heterogeneous batch scheduling and multi-GPU work out of M14/M15 until their own gates.
 
 ## M14 boundary
 
-Start GPU implementation now, but keep batch fitting and multi-GPU scheduling out of the first M14 slice until single-model fast-mode equivalence is demonstrated.
+Compatibility mode remains untouched. M14 owns fast forward/objective execution and
+physical CPU/GPU parity; optimizer validation belongs to M15.
 
 
 ## Corrected M12 requirement — completed
