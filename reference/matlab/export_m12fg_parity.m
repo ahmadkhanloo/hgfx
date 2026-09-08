@@ -65,6 +65,7 @@ rwt.c_prc=struct; rwt.c_prc.n_states=ns;
 tmpdir=tempname; mkdir(tmpdir);
 src=fileread(fullfile(hgf_root,'perceptual','bayes_optimal_whatworld.m'));
 src=strrep(src,'pred(r.irr,:) = [];','pred(r.irr,:,:) = [];');
+src=strrep(src,'for k = 1:length(u)','for k = 1:size(tr,1)');
 fidtmp=fopen(fullfile(tmpdir,'bayes_optimal_whatworld.m'),'w'); fwrite(fidtmp,src); fclose(fidtmp);
 addpath(tmpdir,'-begin'); clear bayes_optimal_whatworld;
 [a,b,c]=bayes_optimal_whatworld(rwt,wht,[]);
