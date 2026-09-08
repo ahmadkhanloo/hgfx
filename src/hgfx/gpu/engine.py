@@ -47,6 +47,17 @@ class FastObjectiveResult:
     rval: jax.Array
 
 
+@dataclass(frozen=True)
+class FastObjectiveBatchResult:
+    trial_log_likelihoods: jax.Array
+    log_likelihood: jax.Array
+    neg_log_likelihood: jax.Array
+    perceptual_prior: jax.Array
+    observation_prior: jax.Array
+    neg_log_joint: jax.Array
+    rval: jax.Array
+
+
 def _lambert_w0(z):
     z = jnp.asarray(z, dtype=jnp.float64)
 
@@ -556,9 +567,12 @@ def fast_binary_hgf_vmap(
 
 def _gaussian_prior(parameters, means, variances):
     mask = (~jnp.isnan(variances)) & (variances != 0.0)
+    safe_variances = jnp.where(mask, variances, 1.0)
+    safe_means = jnp.where(mask, means, 0.0)
+    safe_parameters = jnp.where(mask, parameters, 0.0)
     terms = (
-        -0.5 * jnp.log(2.0 * jnp.pi * variances)
-        - 0.5 * (parameters - means) ** 2 / variances
+        -0.5 * jnp.log(2.0 * jnp.pi * safe_variances)
+        - 0.5 * (safe_parameters - safe_means) ** 2 / safe_variances
     )
     return jnp.sum(jnp.where(mask, terms, 0.0))
 
@@ -711,10 +725,67 @@ def fast_binary_unitsq_objective(
     )
 
 
+
+def fast_binary_unitsq_objective_vmap(
+    responses,
+    inputs,
+    perceptual_parameters_batch,
+    observation_parameters_batch,
+    *,
+    irregular_intervals: bool = False,
+):
+    """Vectorize the fixed-data objective across restart/parameter candidates."""
+
+    x, ignored = _prepare_inputs(inputs, None)
+    y = jnp.asarray(responses, dtype=jnp.float64)
+    p_prc = jnp.asarray(perceptual_parameters_batch, dtype=jnp.float64)
+    p_obs = jnp.asarray(observation_parameters_batch, dtype=jnp.float64)
+    if p_prc.ndim != 2 or p_obs.ndim != 2:
+        raise ValueError("parameter batches must be two-dimensional")
+    if p_prc.shape[0] != p_obs.shape[0]:
+        raise ValueError("perceptual and observation batches must have equal length")
+    if y.shape[0] != x.shape[0]:
+        raise ValueError("responses and inputs must contain the same number of trials")
+
+    prc = hgf_binary_config()
+    obs = unitsq_sgm_config()
+    prc_mu = jnp.asarray(prc.priormus, dtype=jnp.float64)
+    prc_sa = jnp.asarray(prc.priorsas, dtype=jnp.float64)
+    obs_mu = jnp.asarray(obs.priormus, dtype=jnp.float64)
+    obs_sa = jnp.asarray(obs.priorsas, dtype=jnp.float64)
+
+    def one(pp, po):
+        return _binary_unitsq_objective_impl(
+            y,
+            x,
+            pp,
+            po,
+            ignored,
+            prc_mu,
+            prc_sa,
+            obs_mu,
+            obs_sa,
+            irregular_intervals=irregular_intervals,
+        )
+
+    output = jax.jit(jax.vmap(one, in_axes=(0, 0)))(p_prc, p_obs)
+    return FastObjectiveBatchResult(
+        trial_log_likelihoods=output[0],
+        log_likelihood=output[1],
+        neg_log_likelihood=output[2],
+        perceptual_prior=output[3],
+        observation_prior=output[4],
+        neg_log_joint=output[5],
+        rval=output[6],
+    )
+
+
 __all__ = [
     "FastForwardResult",
     "FastObjectiveResult",
+    "FastObjectiveBatchResult",
     "fast_binary_hgf",
     "fast_binary_hgf_vmap",
     "fast_binary_unitsq_objective",
+    "fast_binary_unitsq_objective_vmap",
 ]
