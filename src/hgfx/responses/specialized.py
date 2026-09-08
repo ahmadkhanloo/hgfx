@@ -124,7 +124,11 @@ def condhalluc_obs3(
     reg = _regular(n, irregular_trials)
     denom = 1.0 + nu[reg]
     delta = tp[reg] - mu1hat[reg]
-    correction = float(np.dot(denom, delta) / np.dot(denom, denom))
+    # MATLAB mrdivide for a scalar divided by a rectangular column uses
+    # a pivoted basic least-squares solution (not pinv/minimum-norm).
+    # For a 1xN transposed system this selects the largest-magnitude pivot.
+    pivot = int(np.argmax(np.abs(denom)))
+    correction = float(delta[pivot] / denom[pivot])
     x = np.full(n, np.nan, dtype=np.float64)
     x[reg] = mu1hat[reg] + correction
 
@@ -364,7 +368,8 @@ def simulate_condhalluc_obs3(
     tp = arr[:, 1]
     denom = 1.0 + nu
     delta = tp - mu1hat
-    correction = float(np.dot(denom, delta) / np.dot(denom, denom))
+    pivot = int(np.argmax(np.abs(denom)))
+    correction = float(delta[pivot] / denom[pivot])
     x = mu1hat + correction
     probability = np.asarray(sigmoid(beta * (2.0 * x - 1.0), 1.0), dtype=np.float64)
     return _bernoulli_from_probability(probability, seed=seed, uniform_draws=uniform_draws)
