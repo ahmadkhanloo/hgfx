@@ -566,6 +566,205 @@ def hgf_whichworld_config() -> ModelConfig:
         ),
     )
 
+
+def _empty_response_config(model: str, source_prefix: str) -> ModelConfig:
+    return ModelConfig(
+        model=model,
+        parameters=(),
+        source_files=(
+            f"perceptual/{source_prefix}_config.m",
+            f"perceptual/{source_prefix}_transp.m",
+            f"perceptual/{source_prefix}.m",
+        ),
+    )
+
+
+def bayes_optimal_config() -> ModelConfig:
+    return _empty_response_config("Bayes optimal", "bayes_optimal")
+
+
+def bayes_optimal_binary_config() -> ModelConfig:
+    return _empty_response_config("Bayes optimal (binary)", "bayes_optimal_binary")
+
+
+def bayes_optimal_categorical_config() -> ModelConfig:
+    return _empty_response_config("Bayes optimal categorical", "bayes_optimal_categorical")
+
+
+def bayes_optimal_whatworld_config() -> ModelConfig:
+    return _empty_response_config("Bayes optimal whatworld", "bayes_optimal_whatworld")
+
+
+def bayes_optimal_whichworld_config() -> ModelConfig:
+    return _empty_response_config("Bayes optimal whichworld", "bayes_optimal_whichworld")
+
+
+def _rs_config(model: str, source: str, *, whatworld: bool = False) -> ModelConfig:
+    if whatworld:
+        means = [math.log(0.0052), math.log(0.0006), math.log(0.001)]
+        variances = [0.1, 0.001, 1000.0]
+        names = ["logze1", "logze2", "logze3"]
+        native = ["ze1", "ze2", "ze3"]
+    else:
+        means = [math.log(0.0052), math.log(0.0052), math.log(0.0006), math.log(0.001)]
+        variances = [0.1, 0.1, 0.001, 1000.0]
+        names = ["logze1v", "logze1i", "logze2", "logze3"]
+        native = ["ze1v", "ze1i", "ze2", "ze3"]
+    params = tuple(
+        ParameterSpec(
+            name=name, native_name=native_name, matlab_index=i + 1,
+            prior_mean=mean, prior_variance=variance, transform=EXPONENTIAL,
+            component=None,
+        )
+        for i, (name, native_name, mean, variance) in enumerate(
+            zip(names, native, means, variances, strict=True)
+        )
+    )
+    transp = "rs_whatworld_transp" if whatworld else "rs_transp"
+    return ModelConfig(
+        model=model, parameters=params,
+        source_files=(
+            f"perceptual/{source}_config.m",
+            f"perceptual/{transp}.m",
+            f"perceptual/{source}.m",
+        ),
+    )
+
+
+def rs_belief_config() -> ModelConfig:
+    return _rs_config("Response speed: belief", "rs_belief")
+
+
+def rs_precision_config() -> ModelConfig:
+    return _rs_config("Response speed: precision", "rs_precision")
+
+
+def rs_surprise_config() -> ModelConfig:
+    return _rs_config("Response speed: surprise", "rs_surprise")
+
+
+def rs_precision_whatworld_config() -> ModelConfig:
+    return _rs_config("Response speed: precision", "rs_precision_whatworld", whatworld=True)
+
+
+def squared_pe_config() -> ModelConfig:
+    return ModelConfig(
+        model="gaussian_obs",
+        parameters=(ParameterSpec(
+            name="logze", native_name="ze", matlab_index=1,
+            prior_mean=math.log(0.05), prior_variance=0.0, transform=EXPONENTIAL,
+            component=None,
+        ),),
+        source_files=(
+            "perceptual/squared_pe_config.m",
+            "perceptual/squared_pe_transp.m",
+            "perceptual/squared_pe.m",
+        ),
+    )
+
+
+def condhalluc_obs_config() -> ModelConfig:
+    return ModelConfig(
+        model="condhalluc_obs",
+        parameters=(ParameterSpec(
+            name="logbe", native_name="be", matlab_index=1,
+            prior_mean=math.log(48.0), prior_variance=1.0, transform=EXPONENTIAL,
+            component=None,
+        ),),
+        source_files=(
+            "observation/condhalluc_obs_config.m",
+            "observation/condhalluc_obs_transp.m",
+            "observation/condhalluc_obs.m",
+            "observation/condhalluc_obs_sim.m",
+        ),
+    )
+
+
+def condhalluc_obs2_config() -> ModelConfig:
+    return ModelConfig(
+        model="condhalluc_obs2",
+        parameters=(
+            ParameterSpec("logbe", "be", 1, math.log(48.0), 1.0, EXPONENTIAL, None),
+            ParameterSpec("lognu", "nu", 2, 0.0, 1.0, EXPONENTIAL, None),
+        ),
+        source_files=(
+            "observation/condhalluc_obs2_config.m",
+            "observation/condhalluc_obs2_transp.m",
+            "observation/condhalluc_obs2.m",
+            "observation/condhalluc_obs2_sim.m",
+        ),
+    )
+
+
+def condhalluc_obs3_config() -> ModelConfig:
+    return ModelConfig(
+        model="condhalluc_obs3",
+        parameters=(ParameterSpec(
+            name="logbe", native_name="be", matlab_index=1,
+            prior_mean=math.log(48.0), prior_variance=1.0, transform=EXPONENTIAL,
+            component=None,
+        ),),
+        source_files=(
+            "observation/condhalluc_obs3_config.m",
+            "observation/condhalluc_obs3_transp.m",
+            "observation/condhalluc_obs3.m",
+            "observation/condhalluc_obs3_sim.m",
+        ),
+    )
+
+
+def softmax_wld_config() -> ModelConfig:
+    return ModelConfig(
+        model="softmax_wld",
+        parameters=(
+            ParameterSpec("logbe", "be", 1, 0.0, 16.0, EXPONENTIAL, None),
+            ParameterSpec("la_wd", "la_wd", 2, 0.0, 0.25, IDENTITY, None),
+            ParameterSpec("la_ld", "la_ld", 3, 0.0, 0.25, IDENTITY, None),
+        ),
+        options={"predorpost": 1, "source_likelihood_quirk": "ptrans1 reused as la_wd"},
+        source_files=(
+            "observation/softmax_wld_config.m",
+            "observation/softmax_wld_transp.m",
+            "observation/softmax_wld.m",
+            "observation/softmax_wld_sim.m",
+        ),
+    )
+
+
+def softmax_mu3_wld_config() -> ModelConfig:
+    return ModelConfig(
+        model="softmax_mu3_wld",
+        parameters=(
+            ParameterSpec("la_wd", "la_wd", 1, 0.0, 0.25, IDENTITY, None),
+            ParameterSpec("la_ld", "la_ld", 2, 0.0, 0.25, IDENTITY, None),
+        ),
+        options={"predorpost": 1},
+        source_files=(
+            "observation/softmax_mu3_wld_config.m",
+            "observation/softmax_mu3_wld_transp.m",
+            "observation/softmax_mu3_wld.m",
+            "observation/softmax_mu3_wld_sim.m",
+        ),
+    )
+
+
+def logrt_linear_whatworld_config() -> ModelConfig:
+    return ModelConfig(
+        model="Linear log-reaction time for WhatWorld models",
+        parameters=(
+            ParameterSpec("be0", "be0", 1, math.log(500.0), 4.0, IDENTITY, None),
+            ParameterSpec("be1", "be1", 2, 0.0, 4.0, IDENTITY, None),
+            ParameterSpec("be2", "be2", 3, 0.0, 4.0, IDENTITY, None),
+            ParameterSpec("be3", "be3", 4, 0.0, 4.0, IDENTITY, None),
+            ParameterSpec("logze", "ze", 5, math.log(math.log(20.0)), math.log(2.0), EXPONENTIAL, None),
+        ),
+        source_files=(
+            "observation/logrt_linear_whatworld_config.m",
+            "observation/logrt_linear_whatworld_transp.m",
+            "observation/logrt_linear_whatworld.m",
+        ),
+    )
+
 def unitsq_sgm_config() -> ModelConfig:
     return ModelConfig(
         model="unitsq_sgm",
