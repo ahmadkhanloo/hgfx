@@ -82,6 +82,22 @@ rch=struct; rch.u=ch_inputs; rch.y=[0;1;1;0;1;0;1;1]; rch.irr=irr;
 [a,b,c]=condhalluc_obs2(rch,base,[log(48) log(1)]); payload.condhalluc_obs2=pack3(a,b,c);
 [a,b,c]=condhalluc_obs3(rch,base,log(48)); payload.condhalluc_obs3=pack3(a,b,c);
 
+
+% Deterministic simulation oracle. Shadow only the random samplers so that
+% probability equations in the frozen *_sim.m files are exercised without
+% claiming cross-language RNG-stream parity.
+simdir=tempname; mkdir(simdir);
+fidtmp=fopen(fullfile(simdir,'binornd.m'),'w');
+fprintf(fidtmp,'function y=binornd(~,p)\ny=double(p>=0.5);\nend\n'); fclose(fidtmp);
+fidtmp=fopen(fullfile(simdir,'mnrnd.m'),'w');
+fprintf(fidtmp,'function y=mnrnd(~,p)\n[~,i]=max(p); y=zeros(size(p)); y(i)=1;\nend\n'); fclose(fidtmp);
+addpath(simdir,'-begin'); clear binornd mnrnd;
+
+rch.c_sim=struct; rch.c_sim.seed=1;
+payload.sim.condhalluc_obs=condhalluc_obs_sim(rch,base,48);
+payload.sim.condhalluc_obs2=condhalluc_obs2_sim(rch,base,[48 1]);
+payload.sim.condhalluc_obs3=condhalluc_obs3_sim(rch,base,48);
+
 % World observation states: n x levels x choices x channels
 nc=3;
 sw=NaN(n,3,nc,4);
@@ -94,6 +110,14 @@ rsw=struct; rsw.u=[u [1;2;3;1;2;3;1;2]]; rsw.y=[1;2;3;1;2;3;1;2]; rsw.irr=irr;
 rsw.c_obs=struct; rsw.c_obs.predorpost=1;
 [a,b,c]=softmax_wld(rsw,sw,[log(1.3) .2 -.1]); payload.softmax_wld=pack3(a,b,c);
 [a,b,c]=softmax_mu3_wld(rsw,sw,[.2 -.1]); payload.softmax_mu3_wld=pack3(a,b,c);
+
+
+rsw.c_sim=struct; rsw.c_sim.seed=1;
+payload.sim.softmax_wld=softmax_wld_sim(rsw,sw,[1.3 .2 -.1]);
+payload.sim.softmax_mu3_wld=softmax_mu3_wld_sim(rsw,sw,[.2 -.1]);
+
+rmpath(simdir); clear binornd mnrnd;
+payload.metadata.simulation_sampler='deterministic sampler shadow: Bernoulli p>=0.5, multinomial argmax';
 
 % WhatWorld logRT uses n x levels x to x from x channels.
 lrt=NaN(n,3,ns,ns,4);
