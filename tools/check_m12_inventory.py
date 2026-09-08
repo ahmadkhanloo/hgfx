@@ -49,6 +49,7 @@ PERCEPTUAL_RULES = (
     Rule("hgf_binary", "standard binary HGF", "DONE", "M4", "golden forward parity"),
     Rule("ehgf_binary", "standard binary eHGF", "DONE", "M5", "golden forward parity"),
     Rule("uhgf_binary", "standard binary uHGF", "DONE", "M6", "golden forward parity"),
+    Rule("hgf.m", "standard continuous HGF entrypoint", "DONE", "M4", "golden continuous forward parity"),
     Rule("hgf_", "standard continuous HGF support files", "DONE", "M4", "golden continuous forward parity"),
     Rule("ehgf", "standard continuous eHGF", "DONE", "M5", "golden continuous forward parity"),
     Rule("uhgf", "standard continuous uHGF", "DONE", "M6", "golden continuous forward parity"),
