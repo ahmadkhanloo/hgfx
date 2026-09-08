@@ -12,6 +12,15 @@ from .engine import (
     fast_binary_unitsq_objective,
     fast_binary_unitsq_objective_vmap,
 )
+from .batch_engine import (
+    BatchFitResult,
+    BatchGroup,
+    BatchKey,
+    BatchPlan,
+    SubjectBatchFitResult,
+    fit_hgf_binary_unitsq_batch,
+    plan_hgf_binary_unitsq_batches,
+)
 from .fitting import (
     BFGSOptimizer,
     BFGSOptions,
@@ -44,6 +53,13 @@ __all__ = [
     "fast_binary_hgf_vmap",
     "fast_binary_unitsq_objective",
     "fast_binary_unitsq_objective_vmap",
+    "BatchKey",
+    "BatchGroup",
+    "BatchPlan",
+    "SubjectBatchFitResult",
+    "BatchFitResult",
+    "plan_hgf_binary_unitsq_batches",
+    "fit_hgf_binary_unitsq_batch",
     "FastFitProblem",
     "FastValueGradResult",
     "BFGSOptions",
