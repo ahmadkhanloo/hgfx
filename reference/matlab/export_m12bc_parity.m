@@ -24,12 +24,22 @@ p=[NaN 0 1 NaN .1 1 NaN 0 0 1 1 NaN -3 -6];
 payload.cases.hgf_binary_mab=pack(traj,inf);
 
 % Continuous AR1 MAB
+% Frozen source defect: hgf_ar1_mab.m prepends a dummy choice to y but never
+% removes it before sub2ind-based psi extraction. Run an exact temporary copy
+% with the minimal source repair y(1)=[] after dau(1)=[].
 uc=[.2 .4 .1 .7 .6 NaN .3 .9 .2 .5 .8 .4]';
 r=struct; r.u=[uc choices]; r.y=[]; r.ign=6; r.c_prc=hgf_ar1_mab_config;
 r.c_prc.n_bandits=3;
 p=[.2 1 .3 .1 .1 0 .2 1 1 -3 -6 .2];
+tmpdir=tempname; mkdir(tmpdir);
+src=fileread(fullfile(hgf_root,'perceptual','hgf_ar1_mab.m'));
+src=strrep(src,'dau(1)       = [];','dau(1)       = [];\ny(1)         = [];');
+fidtmp=fopen(fullfile(tmpdir,'hgf_ar1_mab.m'),'w'); fwrite(fidtmp,src); fclose(fidtmp);
+addpath(tmpdir,'-begin'); clear hgf_ar1_mab;
 [traj,inf]=hgf_ar1_mab(r,p);
+rmpath(tmpdir); clear hgf_ar1_mab;
 payload.cases.hgf_ar1_mab=pack(traj,inf);
+payload.source_repairs.hgf_ar1_mab='frozen source: remove dummy y before psi indexing';
 
 % AR1 binary MAB HGF
 r=struct; r.u=[ub choices]; r.y=choices; r.ign=6; r.c_prc=hgf_ar1_binary_mab_config;
