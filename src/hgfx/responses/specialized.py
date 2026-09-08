@@ -362,7 +362,10 @@ def simulate_condhalluc_obs3(
     mu3hat = s[:, 2, 0]
     nu = np.exp(mu3hat)
     tp = arr[:, 1]
-    x = mu1hat + (tp - mu1hat) / (1.0 + nu)
+    denom = 1.0 + nu
+    delta = tp - mu1hat
+    correction = float(np.dot(denom, delta) / np.dot(denom, denom))
+    x = mu1hat + correction
     probability = np.asarray(sigmoid(beta * (2.0 * x - 1.0), 1.0), dtype=np.float64)
     return _bernoulli_from_probability(probability, seed=seed, uniform_draws=uniform_draws)
 
