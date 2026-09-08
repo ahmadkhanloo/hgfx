@@ -33,7 +33,7 @@ r.c_prc.n_bandits=3;
 p=[.2 1 .3 .1 .1 0 .2 1 1 -3 -6 .2];
 tmpdir=tempname; mkdir(tmpdir);
 src=fileread(fullfile(hgf_root,'perceptual','hgf_ar1_mab.m'));
-src=strrep(src,'dau(1)       = [];','dau(1)       = [];\ny(1)         = [];');
+src=strrep(src,'dau(1)       = [];',sprintf('dau(1)       = [];\ny(1)         = [];'));
 fidtmp=fopen(fullfile(tmpdir,'hgf_ar1_mab.m'),'w'); fwrite(fidtmp,src); fclose(fidtmp);
 addpath(tmpdir,'-begin'); clear hgf_ar1_mab;
 [traj,inf]=hgf_ar1_mab(r,p);
