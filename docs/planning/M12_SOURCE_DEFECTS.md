@@ -90,6 +90,23 @@ With a non-empty irregular-trial set, MATLAB collapses trailing dimensions under
 
 Oracle repair: preserve the tensor rank explicitly with `pred(r.irr,:,:) = []` and iterate over the reduced transition table (`1:size(tr,1)`) instead of the original full input length. HGFX removes irregular trials without collapsing the transition dimensions and evaluates only regular transitions.
 
+## D8 — conditioned hallucination model 3 matrix division
+
+Files:
+
+- `observation/condhalluc_obs3.m`
+- `observation/condhalluc_obs3_sim.m`
+
+The frozen source uses matrix operators:
+
+```matlab
+x = mu1hat + 1/(1 + nu)*(tp - mu1hat);
+```
+
+rather than elementwise `./` and `.*`. With vector `nu`, MATLAB rectangular `mrdivide` uses a pivoted basic least-squares solution. This produces one scalar correction shared across trials, not an elementwise correction.
+
+Compatibility decision: HGFX preserves the frozen matrix-division behavior, including the pivoted basic solution. Likelihood and simulation parity are covered by M12F/G workflow `34225649883`.
+
 ## Gate rule
 
 A frozen source defect does not exempt a scientific family from implementation. A repaired family is DONE only when:
