@@ -97,21 +97,26 @@ M10 gate evidence: numerical Hessian, optimizer-`T` fallback, Sigma/Corr, Laplac
 
 M11 gate evidence: frozen `simModel.m` / `sampleModel.m` orchestration, parameter transforms, ignored-trial behavior, deterministic response probabilities, MATLAB-exported prior random drivers, same-runtime seed reproducibility, and stochastic distribution checks pass. CI run: `34167613757`. Cross-language RNG-stream identity is not claimed.
 
-## Phase 10 — Specialized model families
-- [x] PU / PU-TBT — HGF/eHGF/uHGF DONE
-- [x] AR1 — binary HGF/eHGF/uHGF DONE; continuous AR1 REFERENCE_ONLY
-- [x] MAB — REFERENCE_ONLY with explicit family reasons
-- [x] JGET — REFERENCE_ONLY with explicit family reasons
-- [x] categorical — REFERENCE_ONLY with explicit family reasons
-- [x] RW / dual-RW — DONE
-- [x] Pearce-Hall — DONE
-- [x] Sutton K1 — DONE
-- [x] Kalman — DONE
-- [x] HMM / HHMM — HMM DONE; HHMM REFERENCE_ONLY
-- [x] WhatWorld / WhichWorld — REFERENCE_ONLY
-- [x] Bayes-optimal families — REFERENCE_ONLY
+## Phase 10 — Complete model family coverage (M12 REOPENED)
+- [x] PU / PU-TBT — HGF/eHGF/uHGF
+- [ ] AR1 — binary variants DONE; continuous AR1 remains
+- [ ] MAB — binary MAB, AR1 MAB, AR1 binary MAB HGF/eHGF/uHGF
+- [ ] JGET — HGF/eHGF/uHGF
+- [ ] categorical — categorical + categorical-normalized
+- [x] RW / dual-RW
+- [x] Pearce-Hall
+- [x] Sutton K1
+- [x] Kalman
+- [ ] HMM / HHMM — HMM DONE; HHMM remains
+- [ ] WhatWorld / WhichWorld
+- [ ] Bayes-optimal auxiliary families
+- [ ] response-surprise / squared-PE auxiliary families
+- [ ] remaining conditional/world observation families
+- [ ] zero scientific REFERENCE_ONLY families
+- [ ] exhaustive config/transform/public-API closure
+- [ ] final complete-model MATLAB parity CI
 
-M12 gate evidence: exhaustive frozen perceptual/observation inventory has zero unclassified files (146 DONE files, 113 REFERENCE_ONLY files; 32 DONE families, 21 REFERENCE_ONLY families). PU/PU-TBT, AR1 binary, RW/dual-RW, Pearce-Hall, Sutton K1, Kalman, and HMM specialized implementations match canonical frozen MATLAB trajectories. CI run: `34188815550`. PyHGF decision: keep it optional; do not fork or place it under the compatibility core.
+M12 was reopened because the project goal is full computational coverage, not inventory-only coverage. A scientific model family can no longer finish as REFERENCE_ONLY. The previous M12 CI `34188815550` remains valid evidence for the already-ported subset.
 
 ## Phase 11 — Native GPU engine
 - [ ] `lax.scan`
