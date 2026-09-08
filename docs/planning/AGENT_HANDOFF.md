@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M12 — Complete Model Coverage (REOPENED)`
+`M13 — API Compatibility`
 
 ## Frozen reference
 
@@ -26,34 +26,25 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M9 — Compatibility Fitting
 - M10 — Hessian/LME Parity
 - M11 — Simulation Parity
-- M12 — Specialized Model Coverage (previous partial gate; reopened for full coverage)
+- M12 — Complete Model Coverage
 
 ## M12 evidence
 
-Specialized/legacy model coverage is now frozen at the family level and all frozen perceptual/observation source files have an explicit final migration status.
+Corrected M12 is PASS.
 
-Validated:
+- M12A continuous AR1: `34224773192`
+- M12B/C MAB + JGET: `34224773186`
+- M12D/E categorical/world + HHMM: `34225650007`
+- M12F/G auxiliary + remaining observations/simulations: `34225649883`
+- config/prior parity: `34224773097`
+- exhaustive closure/full regression: `34225650015`
+- DONE files: 259
+- REFERENCE_ONLY files: 0
+- DONE families: 53
+- REFERENCE_ONLY families: 0
+- full Python regression: PASS
 
-- binary PU HGF/eHGF/uHGF: PASS
-- binary PU-TBT HGF/eHGF/uHGF: PASS
-- AR1 binary HGF/eHGF/uHGF: PASS
-- Rescorla-Wagner binary: PASS
-- dual Rescorla-Wagner: PASS
-- Pearce-Hall binary: PASS
-- Sutton K1 binary: PASS
-- scalar Kalman filter: PASS
-- HMM: PASS
-- exhaustive frozen inventory: PASS
-- unclassified perceptual/observation files: 0
-- DONE files: 146
-- REFERENCE_ONLY files: 113
-- DONE families: 32
-- REFERENCE_ONLY families: 21
-- M12 workflow run: `34188815550`
-- `python-specialized-tests`: PASS
-- `matlab-python-specialized`: PASS
-
-The M12 oracle is pinned to canonical frozen MATLAB directories to avoid `_original_models` path shadowing. Frozen source quirks such as Sutton K1's double beta cleanup are preserved rather than normalized.
+Frozen source quirks/defects and minimal compatibility repairs are documented in `docs/planning/M12_SOURCE_DEFECTS.md`.
 
 ## Architecture decisions frozen through M12
 
@@ -62,7 +53,7 @@ The M12 oracle is pinned to canonical frozen MATLAB directories to avoid `_origi
 3. M10 owns Hessian/covariance/Laplace evidence and LME-based restart selection.
 4. M11 owns compatibility simulation and prior-predictive sampling semantics.
 5. M12 owns final family-level migration classification for the frozen perceptual/observation source inventory.
-6. `DONE` means compatibility implementation + parity evidence; `REFERENCE_ONLY` explicitly makes no compatibility claim.
+6. `DONE` means compatibility implementation + parity evidence; scientific `REFERENCE_ONLY` is forbidden and the final M12 inventory contains zero such families.
 7. HGF Toolbox 8.2.0 remains the compatibility specification.
 8. PyHGF is optional for interoperability/comparison; do not fork it and do not place it under the compatibility core.
 9. Native GPU/fast-mode work remains separate and must be cross-validated against compatibility mode.
@@ -92,8 +83,6 @@ See:
 - multi-GPU
 
 
-## Corrected M12 requirement
+## Corrected M12 requirement — completed
 
-All frozen scientific perceptual and observation model families must be implemented in HGFX with config/transform/output semantics and MATLAB parity. Scientific REFERENCE_ONLY is no longer an accepted terminal status. M13 is blocked until the corrected M12 gate passes.
-
-Execution plan: M12A continuous AR1; M12B MAB; M12C JGET; M12D categorical/world; M12E HHMM; M12F auxiliary perceptual; M12G remaining observations; M12H exhaustive closure.
+All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is now unblocked.
