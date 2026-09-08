@@ -1,0 +1,25 @@
+name: M12 Config Prior Parity
+
+on:
+  push:
+    branches: [main, work/m12-complete-model-coverage]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  matlab-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e ".[dev]"
+      - run: python scripts/verify_reference_freeze.py
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m12_config_parity(fullfile(pwd,'reference','generated','m12_configs.json'))
+      - run: python tools/check_m12_config_parity.py reference/generated/m12_configs.json
