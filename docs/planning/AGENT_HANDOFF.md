@@ -26,7 +26,8 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M9 — Compatibility Fitting
 - M10 — Hessian/LME Parity
 - M11 — Simulation Parity
-- M12 — Complete Model Coverage\n- M13 — API Compatibility
+- M12 — Complete Model Coverage
+- M13 — API Compatibility
 
 ## M12 evidence
 
