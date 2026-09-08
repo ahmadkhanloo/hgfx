@@ -211,6 +211,139 @@ def hgf_ar1_config() -> ModelConfig:
         ),
     )
 
+
+def hgf_binary_mab_config() -> ModelConfig:
+    parameters: list[ParameterSpec] = []
+    index = 1
+    groups = (
+        ("mu_0", "mu_0", [math.nan, 0.0, 1.0], [math.nan, 0.0, 0.0], IDENTITY),
+        ("logsa_0", "sa_0", [math.nan, math.log(0.1), 0.0], [math.nan, 0.0, 0.0], EXPONENTIAL),
+        ("rho", "rho", [math.nan, 0.0, 0.0], [math.nan, 0.0, 0.0], IDENTITY),
+        ("logka", "ka", [0.0, 0.0], [0.0, 0.0], EXPONENTIAL),
+        ("om", "om", [math.nan, -2.0, -6.0], [math.nan, 16.0, 16.0], IDENTITY),
+    )
+    for prefix, native, means, variances, transform in groups:
+        parameters.extend(_vector_params(
+            start_index=index,
+            transformed_prefix=prefix,
+            native_name=native,
+            means=means,
+            variances=variances,
+            transform=transform,
+        ))
+        index += len(means)
+    return ModelConfig(
+        model="hgf_binary_mab",
+        parameters=tuple(parameters),
+        options={"n_levels": 3, "n_bandits": 3, "coupled": False, "irregular_intervals": False, "update_type": "hgf"},
+        source_files=(
+            "perceptual/hgf_binary_mab_config.m",
+            "perceptual/hgf_binary_mab_transp.m",
+            "perceptual/hgf_binary_mab.m",
+        ),
+    )
+
+
+def hgf_ar1_mab_config() -> ModelConfig:
+    parameters: list[ParameterSpec] = []
+    index = 1
+    groups = (
+        ("mu_0", "mu_0", [50.0, 1.0], [0.0, 0.0], IDENTITY),
+        ("logsa_0", "sa_0", [math.log(70.0), math.log(0.1)], [0.0, 0.0], EXPONENTIAL),
+        ("logitphi", "phi", [math.log(0.02 / 0.98), -math.inf], [1.0, 0.0], SIGMOID),
+        ("m", "m", [50.0, 1.0], [64.0, 0.0], IDENTITY),
+        ("logka", "ka", [0.0], [0.0], EXPONENTIAL),
+        ("om", "om", [4.0, -4.0], [16.0, 16.0], IDENTITY),
+    )
+    for prefix, native, means, variances, transform in groups:
+        parameters.extend(_vector_params(
+            start_index=index,
+            transformed_prefix=prefix,
+            native_name=native,
+            means=means,
+            variances=variances,
+            transform=transform,
+        ))
+        index += len(means)
+    parameters.append(ParameterSpec(
+        name="logal",
+        native_name="al",
+        matlab_index=index,
+        prior_mean=math.log(128.0),
+        prior_variance=0.0,
+        transform=EXPONENTIAL,
+        component=None,
+    ))
+    return ModelConfig(
+        model="hgf_ar1_mab",
+        parameters=tuple(parameters),
+        options={"n_levels": 2, "n_bandits": 3, "irregular_intervals": False, "update_type": "hgf"},
+        source_files=(
+            "perceptual/hgf_ar1_mab_config.m",
+            "perceptual/hgf_ar1_mab_transp.m",
+            "perceptual/hgf_ar1_mab.m",
+        ),
+    )
+
+
+def _ar1_binary_mab_config(update_type: str) -> ModelConfig:
+    parameters: list[ParameterSpec] = []
+    index = 1
+    if update_type == "hgf":
+        groups = (
+            ("mu_0", "mu_0", [math.nan, 0.0, 1.0], [math.nan, 1.0, 1.0], IDENTITY),
+            ("logsa_0", "sa_0", [math.nan, math.log(0.1), 0.0], [math.nan, 1.0, 1.0], EXPONENTIAL),
+            ("logitphi", "phi", [math.nan, math.log(0.4 / 0.6), math.log(0.2 / 0.8)], [math.nan, 1.0, 1.0], SIGMOID),
+            ("m", "m", [math.nan, 0.0, 1.0], [math.nan, 0.0, 0.0], IDENTITY),
+            ("logka", "ka", [0.0, 0.0], [0.0, 0.1], EXPONENTIAL),
+            ("om", "om", [math.nan, -2.0, -2.0], [math.nan, 1.0, 1.0], IDENTITY),
+        )
+        n_bandits = 3
+    else:
+        groups = (
+            ("mu_0", "mu_0", [math.nan, 0.0, 1.0], [math.nan, 1.0, 1.0], IDENTITY),
+            ("logsa_0", "sa_0", [math.nan, math.log(0.1), 0.0], [math.nan, 1.0, 1.0], EXPONENTIAL),
+            ("logitphi", "phi", [math.nan, math.log(0.4 / 0.6), math.log(0.2 / 0.8)], [math.nan, 0.0, 0.0], SIGMOID),
+            ("m", "m", [math.nan, 0.0, 1.0], [math.nan, 0.0, 1.0], IDENTITY),
+            ("rho", "rho", [math.nan, 0.0, 0.0], [math.nan, 0.0, 0.0], IDENTITY),
+            ("logka", "ka", [0.0, 0.0], [0.0, 0.1], EXPONENTIAL),
+            ("om", "om", [math.nan, -3.0, 2.0], [math.nan, 4.0, 4.0], IDENTITY),
+        )
+        n_bandits = 4
+    for prefix, native, means, variances, transform in groups:
+        parameters.extend(_vector_params(
+            start_index=index,
+            transformed_prefix=prefix,
+            native_name=native,
+            means=means,
+            variances=variances,
+            transform=transform,
+        ))
+        index += len(means)
+    return ModelConfig(
+        model=f"{update_type}_ar1_binary_mab",
+        parameters=tuple(parameters),
+        options={"n_levels": 3, "n_bandits": n_bandits, "coupled": False, "irregular_intervals": False, "update_type": update_type},
+        source_files=(
+            f"perceptual/{update_type}_ar1_binary_mab_config.m",
+            "perceptual/hgf_ar1_binary_mab_config_base.m",
+            f"perceptual/{update_type}_ar1_binary_mab_transp.m",
+            "perceptual/hgf_ar1_binary_mab_unified.m",
+        ),
+    )
+
+
+def hgf_ar1_binary_mab_config() -> ModelConfig:
+    return _ar1_binary_mab_config("hgf")
+
+
+def ehgf_ar1_binary_mab_config() -> ModelConfig:
+    return _ar1_binary_mab_config("ehgf")
+
+
+def uhgf_ar1_binary_mab_config() -> ModelConfig:
+    return _ar1_binary_mab_config("uhgf")
+
 def unitsq_sgm_config() -> ModelConfig:
     return ModelConfig(
         model="unitsq_sgm",
