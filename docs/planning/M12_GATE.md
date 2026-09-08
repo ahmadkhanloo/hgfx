@@ -164,3 +164,8 @@ M12 PASS
 ## Next milestone
 
 M13 must not start until this corrected M12 gate is PASS.
+
+
+## Frozen-source defects
+
+Known reference defects and the exact compatibility repairs are tracked in `docs/planning/M12_SOURCE_DEFECTS.md`. A source defect never permits a scientific family to remain REFERENCE_ONLY.
