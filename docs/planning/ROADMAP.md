@@ -52,10 +52,11 @@ Gate evidence: HGF forward parity CI `34120120732`.
 - [x] standard HGF
 - [x] eHGF
 - [x] uHGF
-- [ ] PyHGF dependency/fork decision gate
+- [x] PyHGF dependency/fork decision gate
 
 M5 CI: `34123043904`.  
-M6 CI: `34125217371`.
+M6 CI: `34125217371`.  
+M12 decision: frozen MATLAB remains the compatibility specification; PyHGF stays an optional interoperability/comparison target rather than a required dependency or fork.
 
 ## Phase 6 — Observation models
 - [x] unit-square sigmoid
@@ -97,17 +98,20 @@ M10 gate evidence: numerical Hessian, optimizer-`T` fallback, Sigma/Corr, Laplac
 M11 gate evidence: frozen `simModel.m` / `sampleModel.m` orchestration, parameter transforms, ignored-trial behavior, deterministic response probabilities, MATLAB-exported prior random drivers, same-runtime seed reproducibility, and stochastic distribution checks pass. CI run: `34167613757`. Cross-language RNG-stream identity is not claimed.
 
 ## Phase 10 — Specialized model families
-- [ ] PU / PU-TBT
-- [ ] AR1
-- [ ] MAB
-- [ ] JGET
-- [ ] categorical
-- [ ] RW / dual-RW
-- [ ] Pearce-Hall
-- [ ] Kalman
-- [ ] HMM / HHMM
-- [ ] WhatWorld / WhichWorld
-- [ ] Bayes-optimal families
+- [x] PU / PU-TBT — HGF/eHGF/uHGF DONE
+- [x] AR1 — binary HGF/eHGF/uHGF DONE; continuous AR1 REFERENCE_ONLY
+- [x] MAB — REFERENCE_ONLY with explicit family reasons
+- [x] JGET — REFERENCE_ONLY with explicit family reasons
+- [x] categorical — REFERENCE_ONLY with explicit family reasons
+- [x] RW / dual-RW — DONE
+- [x] Pearce-Hall — DONE
+- [x] Sutton K1 — DONE
+- [x] Kalman — DONE
+- [x] HMM / HHMM — HMM DONE; HHMM REFERENCE_ONLY
+- [x] WhatWorld / WhichWorld — REFERENCE_ONLY
+- [x] Bayes-optimal families — REFERENCE_ONLY
+
+M12 gate evidence: exhaustive frozen perceptual/observation inventory has zero unclassified files (146 DONE files, 113 REFERENCE_ONLY files; 32 DONE families, 21 REFERENCE_ONLY families). PU/PU-TBT, AR1 binary, RW/dual-RW, Pearce-Hall, Sutton K1, Kalman, and HMM specialized implementations match canonical frozen MATLAB trajectories. CI run: `34188815550`. PyHGF decision: keep it optional; do not fork or place it under the compatibility core.
 
 ## Phase 11 — Native GPU engine
 - [ ] `lax.scan`
