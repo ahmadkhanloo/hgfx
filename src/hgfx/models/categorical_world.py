@@ -392,6 +392,11 @@ def hgf_whichworld(
     da=np.full((values.size,2,nw),np.nan);da[:,0]=da1;da[:,1]=da2
     psi=np.full(shp,np.nan);psi[:,1]=1/pi2;psi[:,2]=pi2hat/pi3[:,None]
     epsi=np.full(shp,np.nan);epsi[:,1]=psi[:,1]*da1;epsi[:,2]=psi[:,2]*da2
-    wt=np.full(shp,np.nan);wt[:,0]=lr1;wt[:,1]=psi[:,1];wt[:,2]=0.5*ka*(w2/pi3[:,None])
+    wt=np.full(shp,np.nan);wt[:,0]=lr1;wt[:,1]=psi[:,1]
+    # Frozen hgf_whichworld.m uses MATLAB mrdivide in "1/pi3", not
+    # element-wise "1./pi3". For a column vector this is pinv(pi3):
+    # pi3' / (pi3' * pi3).
+    mrdivide_scale = pi3 / np.sum(pi3**2)
+    wt[:,2]=0.5*ka*(mrdivide_scale[:,None]*w2)
     traj={"mu":tmu,"sa":tsa,"muhat":tmh,"sahat":tsh,"v":v2,"w":w2,"da":da,"ud":tmu-tmh,"psi":psi,"epsi":epsi,"wt":wt}
     return traj,np.stack((tmh,tsh,tmu,tsa),axis=3)
