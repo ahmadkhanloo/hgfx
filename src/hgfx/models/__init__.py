@@ -44,4 +44,7 @@ __all__ = [
     "sutton_k1_binary",
     "kalman_filter",
     "hidden_markov_model",
+    "hgf_ar1",
 ]
+
+from .hgf_ar1 import hgf_ar1
