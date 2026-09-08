@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M12 — Specialized Model Coverage`
+`M13 — API Compatibility`
 
 ## Frozen reference
 
@@ -26,46 +26,63 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M9 — Compatibility Fitting
 - M10 — Hessian/LME Parity
 - M11 — Simulation Parity
+- M12 — Specialized Model Coverage
 
-## M11 evidence
+## M12 evidence
 
-Simulation and prior-predictive behavior for the standard compatibility slice now matches the frozen MATLAB reference at the deterministic scientific boundary.
+Specialized/legacy model coverage is now frozen at the family level and all frozen perceptual/observation source files have an explicit final migration status.
 
 Validated:
 
-- `simModel.m` orchestration: PASS
-- `sampleModel.m` prior draw → transform → trajectory path: PASS
-- fixed native perceptual/observation parameters: PASS
-- deterministic unit-square-sigmoid response probabilities: PASS
-- ignored-trial index semantics: PASS
-- frozen `simModel` row-deletion quirk for `traj.muhat/sahat`: PASS
-- full `infStates` retained for observation sampling: PASS
-- MATLAB-exported standard-normal prior drivers: PASS
-- transformed/native sampled parameter vectors: PASS
-- same-runtime seeded reproducibility: PASS
-- Bernoulli/Gaussian distributional tests: PASS
-- M11 workflow run: `34167613757`
-- `python-simulation-tests`: PASS
-- `matlab-python-simulation`: PASS
+- binary PU HGF/eHGF/uHGF: PASS
+- binary PU-TBT HGF/eHGF/uHGF: PASS
+- AR1 binary HGF/eHGF/uHGF: PASS
+- Rescorla-Wagner binary: PASS
+- dual Rescorla-Wagner: PASS
+- Pearce-Hall binary: PASS
+- Sutton K1 binary: PASS
+- scalar Kalman filter: PASS
+- HMM: PASS
+- exhaustive frozen inventory: PASS
+- unclassified perceptual/observation files: 0
+- DONE files: 146
+- REFERENCE_ONLY files: 113
+- DONE families: 32
+- REFERENCE_ONLY families: 21
+- M12 workflow run: `34188815550`
+- `python-specialized-tests`: PASS
+- `matlab-python-specialized`: PASS
 
-No MATLAB-vs-NumPy RNG stream identity is claimed. The MATLAB Actions runner lacks Statistics Toolbox, so M11 uses a test-only scoped Bernoulli shim only to exercise the frozen orchestration; deterministic probabilities and distributions remain the parity targets.
+The M12 oracle is pinned to canonical frozen MATLAB directories to avoid `_original_models` path shadowing. Frozen source quirks such as Sutton K1's double beta cleanup are preserved rather than normalized.
 
-## Architecture decisions frozen through M11
+## Architecture decisions frozen through M12
 
 1. M8 owns objective semantics.
 2. M9 owns compatibility Ridders+BFGS MAP optimization.
 3. M10 owns Hessian/covariance/Laplace evidence and LME-based restart selection.
 4. M11 owns compatibility simulation and prior-predictive sampling semantics.
-5. Cross-language stochastic parity is defined by shared deterministic drivers or distributional agreement, not RNG byte identity.
-6. Native GPU simulation remains a later engine and must be cross-validated against compatibility mode.
+5. M12 owns final family-level migration classification for the frozen perceptual/observation source inventory.
+6. `DONE` means compatibility implementation + parity evidence; `REFERENCE_ONLY` explicitly makes no compatibility claim.
+7. HGF Toolbox 8.2.0 remains the compatibility specification.
+8. PyHGF is optional for interoperability/comparison; do not fork it and do not place it under the compatibility core.
+9. Native GPU/fast-mode work remains separate and must be cross-validated against compatibility mode.
+
+## M12 coverage details
+
+See:
+
+- `docs/planning/M12_GATE.md`
+- `docs/planning/M12_COVERAGE.md`
+- `tools/check_m12_inventory.py`
 
 ## Next tasks
 
-1. Inventory every frozen perceptual/observation family not yet covered by M4–M11.
-2. Classify each frozen MATLAB model/file as PORT, WRAP, REUSE_PYHGF, REFERENCE_ONLY, PLOT_ONLY, DEPRECATED, or NOT_APPLICABLE.
-3. Prioritize P1 specialized families: PU / PU-TBT, AR1, MAB, JGET, categorical.
-4. Add forward/observation/simulation fixtures per family before expanding compatibility APIs.
-5. Record the PyHGF dependency-vs-fork decision from empirical parity evidence.
+1. Define a MATLAB-style compatibility result object for fit/sim/sample outputs.
+2. Support downstream fields such as `p_prc`, `p_obs`, `traj`, `optim`, `yhat`, `res`, `irr`/ignored-trial metadata.
+3. Add `to_dict(matlab_style=True)` or equivalent stable export semantics.
+4. Add compatibility entry points/names that minimize changes in existing downstream HGF analysis scripts.
+5. Validate several real downstream-style consumers against frozen result fixtures.
+6. Keep native Python ergonomics separate from the strict compatibility surface.
 
 ## Do not start with
 

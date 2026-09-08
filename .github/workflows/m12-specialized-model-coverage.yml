@@ -1,0 +1,44 @@
+name: M12 Specialized Model Coverage
+
+on:
+  push:
+    branches:
+      - main
+      - work/m12-specialized-model-coverage
+      - migration/M12-specialized-model-coverage
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  python-specialized-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Check exhaustive frozen model inventory
+        run: python tools/check_m12_inventory.py
+      - name: Run M12 and upstream regressions
+        run: pytest tests/unit/test_specialized_models.py tests/unit/test_hgf_forward.py tests/unit/test_ehgf_forward.py tests/unit/test_uhgf_forward.py tests/unit/test_observations.py -q
+
+  matlab-python-specialized:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e .
+      - name: Verify frozen HGF reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export specialized model oracle from MATLAB
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m12_specialized_parity(fullfile(pwd,'reference','generated','m12_specialized_parity.json'))
+      - name: Compare MATLAB and Python M12 results
+        run: python tools/check_m12_parity.py reference/generated/m12_specialized_parity.json
