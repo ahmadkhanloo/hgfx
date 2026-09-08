@@ -14,38 +14,38 @@ class Rule:
 
 
 PERCEPTUAL_RULES = (
-    Rule("hgf_ar1_binary_mab", "AR1 binary MAB (HGF)", "REFERENCE_ONLY", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
-    Rule("ehgf_ar1_binary_mab", "AR1 binary MAB (eHGF)", "REFERENCE_ONLY", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
-    Rule("uhgf_ar1_binary_mab", "AR1 binary MAB (uHGF)", "REFERENCE_ONLY", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
-    Rule("hgf_binary_mab", "binary MAB", "REFERENCE_ONLY", "M12", "multi-arm state tensors and reward-coded inputs are outside the frozen core compatibility slice"),
-    Rule("hgf_ar1_mab", "continuous AR1 MAB", "REFERENCE_ONLY", "M12", "multi-arm continuous state tensors need a dedicated compatibility API"),
+    Rule("hgf_ar1_binary_mab", "AR1 binary MAB (HGF)", "DONE", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
+    Rule("ehgf_ar1_binary_mab", "AR1 binary MAB (eHGF)", "DONE", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
+    Rule("uhgf_ar1_binary_mab", "AR1 binary MAB (uHGF)", "DONE", "M12", "multi-armed-bandit tensor/reward semantics require a dedicated fixture/API"),
+    Rule("hgf_binary_mab", "binary MAB", "DONE", "M12", "multi-arm state tensors and reward-coded inputs implemented with dedicated MATLAB/Python parity evidence"),
+    Rule("hgf_ar1_mab", "continuous AR1 MAB", "DONE", "M12", "multi-arm continuous state tensors implemented with dedicated compatibility API and parity evidence"),
     Rule("hgf_ar1_binary", "AR1 binary HGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("ehgf_ar1_binary", "AR1 binary eHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("uhgf_ar1_binary", "AR1 binary uHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
-    Rule("hgf_ar1", "continuous AR1 HGF", "REFERENCE_ONLY", "M12", "continuous AR1 was not required by the P1 binary specialized gate and has a distinct parameter layout"),
+    Rule("hgf_ar1", "continuous AR1 HGF", "DONE", "M12", "continuous AR1 implemented with its distinct frozen parameter layout and parity oracle"),
     Rule("hgf_binary_pu_tbt", "binary PU-TBT HGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("ehgf_binary_pu_tbt", "binary PU-TBT eHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("uhgf_binary_pu_tbt", "binary PU-TBT uHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("hgf_binary_pu", "binary PU HGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("ehgf_binary_pu", "binary PU eHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("uhgf_binary_pu", "binary PU uHGF", "DONE", "M12", "MATLAB/Python forward oracle"),
-    Rule("hgf_jget", "JGET HGF", "REFERENCE_ONLY", "M12", "specialized JGET state recursion and parameterization require a dedicated scientific fixture"),
-    Rule("ehgf_jget", "JGET eHGF", "REFERENCE_ONLY", "M12", "specialized JGET state recursion and parameterization require a dedicated scientific fixture"),
-    Rule("uhgf_jget", "JGET uHGF", "REFERENCE_ONLY", "M12", "specialized JGET state recursion and parameterization require a dedicated scientific fixture"),
-    Rule("hgf_categorical_norm", "categorical normalized HGF", "REFERENCE_ONLY", "M12", "multinomial tensor recursion is isolated from the binary/continuous compatibility core"),
-    Rule("hgf_categorical", "categorical HGF", "REFERENCE_ONLY", "M12", "multinomial tensor recursion is isolated from the binary/continuous compatibility core"),
-    Rule("hgf_whatworld", "WhatWorld HGF", "REFERENCE_ONLY", "M12", "high-dimensional transition/world latent-state semantics need dedicated fixtures"),
-    Rule("hgf_whichworld", "WhichWorld HGF", "REFERENCE_ONLY", "M12", "world-mixture latent-state semantics need dedicated fixtures"),
+    Rule("hgf_jget", "JGET HGF", "DONE", "M12", "specialized JGET state recursion and parameterization implemented with dedicated scientific fixture"),
+    Rule("ehgf_jget", "JGET eHGF", "DONE", "M12", "specialized JGET state recursion and parameterization require a dedicated scientific fixture"),
+    Rule("uhgf_jget", "JGET uHGF", "DONE", "M12", "specialized JGET state recursion and parameterization require a dedicated scientific fixture"),
+    Rule("hgf_categorical_norm", "categorical normalized HGF", "DONE", "M12", "multinomial tensor recursion implemented with dedicated tensor-layout parity"),
+    Rule("hgf_categorical", "categorical HGF", "DONE", "M12", "multinomial tensor recursion is isolated from the binary/continuous compatibility core"),
+    Rule("hgf_whatworld", "WhatWorld HGF", "DONE", "M12", "high-dimensional transition/world latent-state semantics implemented with dedicated fixtures"),
+    Rule("hgf_whichworld", "WhichWorld HGF", "DONE", "M12", "world-mixture latent-state semantics implemented with source-defect repair and dedicated parity"),
     Rule("rw_binary_dual", "dual Rescorla-Wagner", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("rw_binary", "Rescorla-Wagner", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("ph_binary", "Pearce-Hall", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("sutton_k1_binary", "Sutton K1", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("tapas_kf", "scalar Kalman filter", "DONE", "M12", "MATLAB/Python forward oracle"),
     Rule("tapas_hmm", "HMM", "DONE", "M12", "MATLAB/Python forward oracle"),
-    Rule("tapas_hhmm", "HHMM", "REFERENCE_ONLY", "M12", "frozen file declares htapas_hmm inside tapas_hhmm.m and uses tree flattening semantics requiring source repair/fixture before port"),
-    Rule("bayes_optimal", "Bayes-optimal auxiliary families", "REFERENCE_ONLY", "M12", "stored in perceptual/ but implement auxiliary likelihoods rather than a standalone latent-state recursion"),
-    Rule("rs_", "response-surprise auxiliary models", "REFERENCE_ONLY", "M12", "auxiliary surprise/belief/precision models are retained as reference-only analysis models"),
-    Rule("squared_pe", "squared prediction-error auxiliary", "REFERENCE_ONLY", "M12", "auxiliary deterministic analysis model; not part of the compatibility forward core"),
+    Rule("tapas_hhmm", "HHMM", "DONE", "M12", "tree flattening semantics implemented; frozen function/file-name defects handled by documented oracle repair"),
+    Rule("bayes_optimal", "Bayes-optimal auxiliary families", "DONE", "M12", "auxiliary likelihood family implemented with MATLAB/Python parity evidence"),
+    Rule("rs_", "response-surprise auxiliary models", "DONE", "M12", "auxiliary surprise/belief/precision models implemented with MATLAB/Python parity evidence"),
+    Rule("squared_pe", "squared prediction-error auxiliary", "DONE", "M12", "auxiliary deterministic analysis model implemented with config/transform and MATLAB/Python parity"),
     Rule("hgf_binary", "standard binary HGF", "DONE", "M4", "golden forward parity"),
     Rule("ehgf_binary", "standard binary eHGF", "DONE", "M5", "golden forward parity"),
     Rule("uhgf_binary", "standard binary uHGF", "DONE", "M6", "golden forward parity"),
@@ -56,10 +56,10 @@ PERCEPTUAL_RULES = (
 )
 
 OBSERVATION_RULES = (
-    Rule("condhalluc_obs", "conditional hallucination observations", "REFERENCE_ONLY", "M12", "P2 family coupled to specialized conditional-hallucination perceptual integrations"),
-    Rule("logrt_linear_whatworld", "WhatWorld logRT", "REFERENCE_ONLY", "M12", "depends on reference-only WhatWorld state layout"),
-    Rule("softmax_mu3_wld", "world mu3 softmax", "REFERENCE_ONLY", "M12", "depends on reference-only world state layout"),
-    Rule("softmax_wld", "world softmax", "REFERENCE_ONLY", "M12", "depends on reference-only world state layout"),
+    Rule("condhalluc_obs", "conditional hallucination observations", "DONE", "M12", "specialized conditional-hallucination likelihood and simulation family implemented"),
+    Rule("logrt_linear_whatworld", "WhatWorld logRT", "DONE", "M12", "implemented against the ported WhatWorld tensor layout"),
+    Rule("softmax_mu3_wld", "world mu3 softmax", "DONE", "M12", "implemented against the ported world-state tensor layout"),
+    Rule("softmax_wld", "world softmax", "DONE", "M12", "implemented against the ported world-state tensor layout"),
     Rule("beta_obs", "beta observation", "DONE", "M7", "P1 observation parity"),
     Rule("cdfgaussian_obs", "CDF Gaussian observation", "DONE", "M7", "P1 observation parity"),
     Rule("gaussian_obs", "Gaussian observations", "DONE", "M7", "P1 observation parity"),
@@ -114,6 +114,10 @@ def main() -> None:
 
     done_families = sum(1 for _, status in family_status if status == "DONE")
     ref_families = sum(1 for _, status in family_status if status == "REFERENCE_ONLY")
+    if ref_families or counts["REFERENCE_ONLY"]:
+        raise AssertionError(
+            f"Scientific REFERENCE_ONLY is forbidden: files={counts['REFERENCE_ONLY']}, families={ref_families}"
+        )
     print(
         "M12 inventory classification: PASS "
         f"(DONE files={counts['DONE']}, REFERENCE_ONLY files={counts['REFERENCE_ONLY']}, "
