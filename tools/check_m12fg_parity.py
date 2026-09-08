@@ -40,6 +40,14 @@ def compare(label:str,got,exp:dict[str,Any])->None:
     for key,value in zip(("logp","yhat","res"),got,strict=True):
         check(f"{label}.{key}",value,exp[key])
 
+FAILURES: list[str] = []
+
+def record(label:str,got,exp:dict[str,Any])->None:
+    try:
+        compare(label, got, exp)
+    except AssertionError as exc:
+        FAILURES.append(str(exc))
+
 def main()->None:
     ap=argparse.ArgumentParser(); ap.add_argument("matlab_json",type=Path); ns=ap.parse_args()
     p=json.loads(ns.matlab_json.read_text(encoding="utf-8"))
@@ -53,20 +61,20 @@ def main()->None:
     base[:,1,0]=np.linspace(-1,1,n); base[:,1,1]=np.linspace(.3,.5,n)
     base[:,2,0]=np.linspace(-2,1,n); base[:,2,1]=np.linspace(.4,.7,n)
 
-    compare("bayes_optimal",bayes_optimal(u,base,irregular_trials=irr),p["bayes_optimal"])
-    compare("bayes_optimal_binary",bayes_optimal_binary(u,base,irregular_trials=irr),p["bayes_optimal_binary"])
-    compare("squared_pe",squared_pe(u,base,[np.log(.2)],irregular_trials=irr),p["squared_pe"])
+    record("bayes_optimal",bayes_optimal(u,base,irregular_trials=irr),p["bayes_optimal"])
+    record("bayes_optimal_binary",bayes_optimal_binary(u,base,irregular_trials=irr),p["bayes_optimal_binary"])
+    record("squared_pe",squared_pe(u,base,[np.log(.2)],irregular_trials=irr),p["squared_pe"])
     prs=np.log([.0052,.0052,.0006,.001])
-    compare("rs_belief",rs_belief(y,u,base,prs,irregular_trials=irr),p["rs_belief"])
-    compare("rs_precision",rs_precision(y,u,base,prs,irregular_trials=irr),p["rs_precision"])
-    compare("rs_surprise",rs_surprise(y,u,base,prs,irregular_trials=irr),p["rs_surprise"])
+    record("rs_belief",rs_belief(y,u,base,prs,irregular_trials=irr),p["rs_belief"])
+    record("rs_precision",rs_precision(y,u,base,prs,irregular_trials=irr),p["rs_precision"])
+    record("rs_surprise",rs_surprise(y,u,base,prs,irregular_trials=irr),p["rs_surprise"])
 
     cat=np.zeros((n,1,3,1),dtype=np.float64); cat[:,0,:,0]=[.2,.3,.5]
     cu=np.array([1,2,3,1,3,2,1,3],dtype=np.float64)
-    compare("bayes_optimal_categorical",bayes_optimal_categorical(cu,cat,irregular_trials=irr),p["bayes_optimal_categorical"])
+    record("bayes_optimal_categorical",bayes_optimal_categorical(cu,cat,irregular_trials=irr),p["bayes_optimal_categorical"])
 
     wwh=np.zeros((n,1,4,1,1),dtype=np.float64); wwh[:,0,:,0,0]=[.1,.2,.3,.4]
-    compare("bayes_optimal_whichworld",bayes_optimal_whichworld(u,wwh,irregular_trials=irr),p["bayes_optimal_whichworld"])
+    record("bayes_optimal_whichworld",bayes_optimal_whichworld(u,wwh,irregular_trials=irr),p["bayes_optimal_whichworld"])
 
     ns2=2
     wht=np.full((n,2,ns2,ns2,1,2),np.nan,dtype=np.float64)
@@ -74,14 +82,14 @@ def main()->None:
     wht[:,0,:,:,0,1]=np.array([[.2,.3],[.25,.35]])
     wht[:,1,:,:,0,0]=np.array([[.5,-.5],[.7,-.7]])
     wu=np.array([1,2,1,2,2,1,2,1],dtype=np.float64)
-    compare("bayes_optimal_whatworld",bayes_optimal_whatworld(wu,wht,n_states=2,irregular_trials=irr),p["bayes_optimal_whatworld"])
-    compare("rs_precision_whatworld",rs_precision_whatworld(y,wu,wht,np.log([.0052,.0006,.001]),n_states=2,irregular_trials=irr),p["rs_precision_whatworld"])
+    record("bayes_optimal_whatworld",bayes_optimal_whatworld(wu,wht,n_states=2,irregular_trials=irr),p["bayes_optimal_whatworld"])
+    record("rs_precision_whatworld",rs_precision_whatworld(y,wu,wht,np.log([.0052,.0006,.001]),n_states=2,irregular_trials=irr),p["rs_precision_whatworld"])
 
     ch=np.column_stack((u,np.array([0,.25,.5,.75,0,.25,.5,.75],dtype=np.float64)))
     yr=np.array([0,1,1,0,1,0,1,1],dtype=np.float64)
-    compare("condhalluc_obs",condhalluc_obs(yr,ch,base,[np.log(48)],irregular_trials=irr),p["condhalluc_obs"])
-    compare("condhalluc_obs2",condhalluc_obs2(yr,ch,base,[np.log(48),0],irregular_trials=irr),p["condhalluc_obs2"])
-    compare("condhalluc_obs3",condhalluc_obs3(yr,ch,base,[np.log(48)],irregular_trials=irr),p["condhalluc_obs3"])
+    record("condhalluc_obs",condhalluc_obs(yr,ch,base,[np.log(48)],irregular_trials=irr),p["condhalluc_obs"])
+    record("condhalluc_obs2",condhalluc_obs2(yr,ch,base,[np.log(48),0],irregular_trials=irr),p["condhalluc_obs2"])
+    record("condhalluc_obs3",condhalluc_obs3(yr,ch,base,[np.log(48)],irregular_trials=irr),p["condhalluc_obs3"])
 
     nc=3
     sw=np.full((n,3,nc,4),np.nan,dtype=np.float64)
@@ -91,8 +99,8 @@ def main()->None:
         sw[k,2,0,2]=-1+.1*(k+1)
     choices=np.array([1,2,3,1,2,3,1,2],dtype=np.float64)
     world_inputs=np.column_stack((u,choices))
-    compare("softmax_wld",softmax_wld(choices,world_inputs,sw,[np.log(1.3),.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_wld"])
-    compare("softmax_mu3_wld",softmax_mu3_wld(choices,world_inputs,sw,[.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_mu3_wld"])
+    record("softmax_wld",softmax_wld(choices,world_inputs,sw,[np.log(1.3),.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_wld"])
+    record("softmax_mu3_wld",softmax_mu3_wld(choices,world_inputs,sw,[.2,-.1],irregular_trials=irr,predorpost=1),p["softmax_mu3_wld"])
 
     lrt=np.full((n,3,2,2,4),np.nan,dtype=np.float64)
     for k in range(n):
@@ -102,7 +110,9 @@ def main()->None:
         lrt[k,1,:,:,3]=np.array([[.25,.3],[.35,.4]])
         lrt[k,2,0,0,2]=-1+.05*(k+1)
     logy=np.log(np.array([500,520,510,530,540,525,535,515],dtype=np.float64))
-    compare("logrt_linear_whatworld",logrt_linear_whatworld(logy,wu,lrt,[np.log(500),.1,-.05,.02,np.log(.2)],irregular_trials=irr),p["logrt_linear_whatworld"])
+    record("logrt_linear_whatworld",logrt_linear_whatworld(logy,wu,lrt,[np.log(500),.1,-.05,.02,np.log(.2)],irregular_trials=irr),p["logrt_linear_whatworld"])
+    if FAILURES:
+        raise AssertionError("M12F/G parity failures:\\n" + "\\n".join(FAILURES))
     print("M12F/G MATLAB/Python parity: PASS")
 
 if __name__=="__main__": main()
