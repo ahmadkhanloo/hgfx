@@ -6,9 +6,11 @@ from .devices import DeviceInfo, available_devices, device_put, has_gpu, select_
 from .engine import (
     FastForwardResult,
     FastObjectiveResult,
+    FastObjectiveBatchResult,
     fast_binary_hgf,
     fast_binary_hgf_vmap,
     fast_binary_unitsq_objective,
+    fast_binary_unitsq_objective_vmap,
 )
 
 __all__ = [
@@ -25,7 +27,9 @@ __all__ = [
     "pad_mask",
     "FastForwardResult",
     "FastObjectiveResult",
+    "FastObjectiveBatchResult",
     "fast_binary_hgf",
     "fast_binary_hgf_vmap",
     "fast_binary_unitsq_objective",
+    "fast_binary_unitsq_objective_vmap",
 ]
