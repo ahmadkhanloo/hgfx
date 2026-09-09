@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 import numpy as np
 import pytest
 
@@ -9,6 +11,7 @@ from hgfx.gpu import (
     GLOBAL_COMPILE_CACHE,
     fit_hgf_binary_unitsq_batch,
     fit_hgf_binary_unitsq_fast,
+    has_gpu,
     plan_hgf_binary_unitsq_batches,
     select_device,
 )
@@ -229,3 +232,71 @@ def test_batch_arrays_remain_on_selected_device() -> None:
             result.valid,
         ):
             assert value.devices() == {cpu}
+
+
+def test_real_gpu_batch_parity_when_available() -> None:
+    require_gpu = os.environ.get("HGFX_REQUIRE_GPU") == "1"
+    if not has_gpu():
+        if require_gpu:
+            pytest.fail("HGFX_REQUIRE_GPU=1 but JAX reports no GPU device")
+        pytest.skip("No real JAX GPU device on this runner")
+
+    cpu = select_device("cpu")
+    gpu = select_device("gpu")
+    options = BFGSOptions(max_iter=80)
+    y0, x0 = subject(24, 0)
+    y1, x1 = subject(29, 2)
+    restarts = [
+        np.array([[-2.8, -5.7, np.log(42.0)]], dtype=np.float64),
+        np.array([[-2.6, -5.3, np.log(36.0)]], dtype=np.float64),
+    ]
+
+    cpu_batch = fit_hgf_binary_unitsq_batch(
+        [y0, y1],
+        [x0, x1],
+        restart_free_parameters=restarts,
+        options=options,
+        device=cpu,
+    )
+    gpu_batch = fit_hgf_binary_unitsq_batch(
+        [y0, y1],
+        [x0, x1],
+        restart_free_parameters=restarts,
+        options=options,
+        device=gpu,
+    )
+
+    assert cpu_batch.plan == gpu_batch.plan
+    for index in range(2):
+        cpu_result = cpu_batch.subject(index)
+        gpu_result = gpu_batch.subject(index)
+        np.testing.assert_allclose(
+            np.asarray(gpu_result.objective_values),
+            np.asarray(cpu_result.objective_values),
+            rtol=1e-7,
+            atol=1e-8,
+        )
+        np.testing.assert_allclose(
+            np.asarray(gpu_result.free_parameters),
+            np.asarray(cpu_result.free_parameters),
+            rtol=2e-6,
+            atol=2e-7,
+        )
+        np.testing.assert_allclose(
+            np.asarray(gpu_result.inf_states),
+            np.asarray(cpu_result.inf_states),
+            rtol=2e-7,
+            atol=2e-8,
+            equal_nan=True,
+        )
+        for value in (
+            gpu_result.objective_values,
+            gpu_result.recomputed_objective_values,
+            gpu_result.free_parameters,
+            gpu_result.final_full,
+            gpu_result.gradients,
+            gpu_result.inverse_hessians,
+            gpu_result.inf_states,
+            gpu_result.valid,
+        ):
+            assert value.devices() == {gpu}
