@@ -165,11 +165,17 @@ M15 physical H100 fitting parity is PASS on 2026-09-09: strict M15 test 1 passed
 
 M16 CPU/JAX evidence: workflow `34253080856`; frozen reference PASS; targeted batch suite 5 passed; full regression 88 passed with 2 GPU-only skips. Physical H100 evidence on 2026-09-09: strict M16 test 1 passed in 21.87s and combined M14–M16 strict suite 20 passed in 112.97s. Throughput/scaling benchmarks remain M17/Methods work. See `docs/planning/M16_GATE.md`.
 
-## Phase 15 — Multi-GPU (M17 correctness PASS; performance benchmark pending)
+## Phase 15 — Multi-GPU (M17 PASS)
 - [x] independent data-parallel batches
 - [x] device scheduler
 - [x] physical two-GPU numerical parity/device residency
-- [ ] controlled multi-GPU scaling benchmarks
+- [x] shared-server multi-GPU scaling benchmark
+
+M17 physical correctness is PASS. Shared-server scaling on H100 measured 1.000× / 1.107× /
+1.388× speedup at 1 / 2 / 4 GPUs respectively, with corresponding throughput of 0.783 /
+0.867 / 1.087 subjects/s. Because the production GPU node could not be made fully idle,
+these results are explicitly treated as realistic contended-node performance rather than
+uncontended peak scaling. See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
 
 ## Phase 16 — Scientific validation
 - [ ] parameter recovery

@@ -2,7 +2,7 @@
 
 Date: 2026-09-09
 
-Status: **CORRECTNESS VALIDATED — SCALING BENCHMARK PENDING**
+Status: **PASS — CORRECTNESS VALIDATED + SHARED-SERVER SCALING RECORDED**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -59,8 +59,9 @@ timing-quality warning rather than numerical correctness evidence.
 This run closes the physical correctness gate for M14-M17. It does **not** constitute a
 valid throughput or strong-scaling benchmark because several GPUs were concurrently busy.
 
-A controlled scaling run (1/2/4/6 or 1/2/4/8 GPUs) remains required for performance
-claims and the Methods-paper reproducibility package.
+A shared-server scaling benchmark was subsequently completed and is accepted as the
+project's operational performance evidence. It is not interpreted as uncontended peak
+H100 scaling.
 
 
 ## Repeat validation run
@@ -81,3 +82,33 @@ Results:
 No `cuda_timer` timing warning was emitted in this repeat run.
 
 This repeat independently confirms the M14-M17 physical correctness result.
+
+
+## Shared-server scaling benchmark
+
+Benchmark configuration:
+- `CUDA_VISIBLE_DEVICES=0,1,2,3,5`
+- GPU counts: 1, 2, 4
+- subjects: 64
+- trials: 128
+- extra restarts: 1
+- warmups: 1
+- repeats: 3
+- statistic: median wall time
+
+Results:
+
+| GPUs | Median time (s) | Subjects/s | Fits/s | Speedup | Efficiency |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 81.719055 | 0.783 | 1.566 | 1.000 | 1.000 |
+| 2 | 73.838342 | 0.867 | 1.734 | 1.107 | 0.553 |
+| 4 | 58.860710 | 1.087 | 2.175 | 1.388 | 0.347 |
+
+The server could not provide fully idle GPUs. Therefore these measurements intentionally
+characterize HGFX under realistic shared-node contention. The observed trend is still
+monotonic: 4 GPUs increase throughput from 0.783 to 1.087 subjects/s and reduce median
+wall time from 81.719 s to 58.861 s.
+
+No claim of ideal linear scaling or uncontended peak H100 performance is made.
+
+**M17 is closed as PASS.**
