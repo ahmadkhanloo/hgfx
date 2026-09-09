@@ -25,7 +25,9 @@ M18A established:
 
 A scientifically valid recovery benchmark must therefore distinguish estimator recovery,
 likelihood identifiability as trial count increases, parameter confounding, and optimizer
-start-point sensitivity.
+start-point sensitivity. M18B also uses deterministic balanced binary stimuli with bounded
+run length so that the benchmark measures parameter recoverability rather than accidental
+pathological stimulus sequences.
 
 ## Final gate grid
 
