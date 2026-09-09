@@ -52,6 +52,7 @@ class RecoveryFit:
 class ParameterRecoveryRecord:
     model: str
     trial_count: int
+    truth_scale: float
     replicate: int
     seed: int
     true_free: np.ndarray
@@ -59,6 +60,7 @@ class ParameterRecoveryRecord:
     error: np.ndarray
     neg_log_joint: float
     converged: bool
+    termination: str
 
 
 @dataclass(frozen=True)
@@ -77,6 +79,7 @@ class ModelRecoveryRecord:
     generating_model: str
     selected_model: str
     trial_count: int
+    truth_scale: float
     replicate: int
     seed: int
     bic_by_model: dict[str, float]
@@ -271,10 +274,12 @@ def run_parameter_recovery(
                 raise RuntimeError("simulation and fitting free-parameter order diverged")
             fitted = fit.final_free
             rows.append(ParameterRecoveryRecord(
-                model=model, trial_count=int(trial_count), replicate=replicate, seed=run_seed,
-                true_free=truth_free, fitted_free=fitted, error=fitted - truth_free,
+                model=model, trial_count=int(trial_count), truth_scale=float(truth_scale),
+                replicate=replicate, seed=run_seed, true_free=truth_free,
+                fitted_free=fitted, error=fitted - truth_free,
                 neg_log_joint=float(fit.objective.neg_log_joint),
                 converged=fit.optimizer.termination in {"tol_arg", "tol_grad"},
+                termination=fit.optimizer.termination,
             ))
     return rows
 
@@ -314,7 +319,8 @@ def run_model_recovery(
                 selected = min(bic, key=bic.get)
                 rows.append(ModelRecoveryRecord(
                     generating_model=generating_model, selected_model=selected,
-                    trial_count=int(trial_count), replicate=replicate, seed=run_seed,
+                    trial_count=int(trial_count), truth_scale=float(truth_scale),
+                    replicate=replicate, seed=run_seed,
                     bic_by_model=bic, aic_by_model=aic
                 ))
     return rows
