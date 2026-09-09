@@ -1,6 +1,6 @@
 # M15 — GPU Fitting Gate
 
-Status: **IMPLEMENTED — REAL GPU VALIDATION PENDING**
+Status: **PASS — PHYSICAL H100 GPU VALIDATED**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -39,7 +39,7 @@ iteration identity with MATLAB BFGS.
 
 ## Formal gate
 
-CPU/JAX must pass:
+CPU/JAX requires:
 
 1. fast scalar objective equals the M8/M9 compatibility objective;
 2. JAX gradient agrees with an independent numerical derivative of compatibility mode;
@@ -48,7 +48,7 @@ CPU/JAX must pass:
 5. final JAX trajectories agree with compatibility trajectories;
 6. the full regression suite remains green.
 
-Physical GPU must additionally pass:
+Physical GPU additionally requires:
 
 1. JAX reports a real GPU;
 2. optimizer state remains on that GPU;
@@ -56,25 +56,36 @@ Physical GPU must additionally pass:
 4. CPU and GPU fitted free parameters agree;
 5. CPU and GPU final trajectories agree.
 
-Setting `HGFX_REQUIRE_GPU=1` makes absence of a GPU a test failure.
+## Evidence
 
-## Hardware dependency
+Hosted CPU/JAX M15 workflow: PASS on the stacked M15 implementation lineage.
 
-M15 is not formally PASS until both M14 physical forward/objective parity and M15
-physical fitting parity have run successfully on a real JAX-capable NVIDIA GPU.
+Physical GPU validation on 2026-09-09:
 
-Required M15 command:
+- validated stacked commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`;
+- M15 implementation head: `cbb5ba2142b7018e2884b9fd3c608054b236bcab`;
+- prerequisite M14 physical gate: PASS;
+- GPU: **NVIDIA H100 80GB HBM3**, physical device 1;
+- driver: 550.163.01;
+- NVIDIA-SMI reported CUDA compatibility: 12.4;
+- Python: 3.11.7;
+- JAX/JAXLIB: 0.10.2 / 0.10.2;
+- backend: `gpu`;
+- strict M15 physical-GPU fitting test: **1 passed in 14.43s**;
+- combined M14-M16 strict suite: **20 passed in 112.97s**.
 
-```bash
-HGFX_REQUIRE_GPU=1 pytest \
-  tests/cpu_gpu/test_m15_gpu_fitting.py::test_real_gpu_fitting_parity_when_available \
-  -q
-```
+GitHub lineage comparison confirms that `src/hgfx/gpu/fitting.py` and
+`tests/cpu_gpu/test_m15_gpu_fitting.py` did not change between the M15 head and
+the validated stacked commit.
 
-The repository workflow `.github/workflows/m15-gpu-fitting.yml` also exposes a
-manual self-hosted GPU gate.
+See `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
+
+## Gate conclusion
+
+**M15 PASS.** Physical H100 objective, fitted-parameter, final-trajectory, and
+device-residency parity are established.
 
 ## Boundary to M16
 
 M16 owns subject batching, restart batching, heterogeneous scheduling, and
-single-vs-batch equivalence. M15 intentionally validates a single fit on one device.
+single-vs-batch equivalence. M15 validates a single fit on one selected device.
