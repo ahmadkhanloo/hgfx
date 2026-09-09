@@ -46,3 +46,34 @@ Physical multi-GPU validation requires:
 
 Scaling benchmarks for 1/2/4/8 GPUs are separate evidence. They should only be run
 when selected GPUs are sufficiently idle to make throughput numbers interpretable.
+
+
+## Consolidated future hardware validation
+
+After infrastructure access is restored, use a fresh clone and run:
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+XLA_PYTHON_CLIENT_PREALLOCATE=false \
+bash scripts/run_gpu_validation.sh
+```
+
+This records M14-M17 correctness evidence and produces
+`hgfx_gpu_validation_results.tar.gz`.
+
+For scaling benchmarks:
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+XLA_PYTHON_CLIENT_PREALLOCATE=false \
+python scripts/benchmark_m17_multi_gpu.py \
+  --gpu-counts 1,2,4,8 \
+  --subjects 64 \
+  --trials 128 \
+  --extra-restarts 1 \
+  --warmups 1 \
+  --repeats 3
+```
+
+The benchmark writes structured JSON under
+`gpu_validation_results/m17_scaling.json`.
