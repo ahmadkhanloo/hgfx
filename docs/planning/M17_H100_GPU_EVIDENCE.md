@@ -61,3 +61,23 @@ valid throughput or strong-scaling benchmark because several GPUs were concurren
 
 A controlled scaling run (1/2/4/6 or 1/2/4/8 GPUs) remains required for performance
 claims and the Methods-paper reproducibility package.
+
+
+## Repeat validation run
+
+A second physical validation run was executed from the same source archive with:
+
+`CUDA_VISIBLE_DEVICES=0,1,2,3,5`
+
+JAX exposed five logical CUDA devices.
+
+Results:
+- M14 strict GPU parity: **1 passed in 6.42s**
+- M15 strict GPU fitting parity: **1 passed in 16.16s**
+- M16 strict GPU batch parity/device residency: **1 passed in 20.15s**
+- M17 strict real two-GPU parity/device residency: **1 passed in 28.59s**
+- combined M14-M17 modules: **23 passed in 138.37s**
+
+No `cuda_timer` timing warning was emitted in this repeat run.
+
+This repeat independently confirms the M14-M17 physical correctness result.
