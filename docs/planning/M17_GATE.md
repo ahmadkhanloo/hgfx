@@ -1,6 +1,6 @@
 # M17 — Multi-GPU Gate
 
-Status: **IMPLEMENTED — PHYSICAL MULTI-GPU VALIDATION PENDING**
+Status: **PHYSICAL MULTI-GPU CORRECTNESS VALIDATED — SCALING BENCHMARK PENDING**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -44,8 +44,17 @@ Physical multi-GPU validation requires:
 3. each shard remains resident on its assigned GPU;
 4. the full regression suite stays green.
 
-Scaling benchmarks for 1/2/4/8 GPUs are separate evidence. They should only be run
-when selected GPUs are sufficiently idle to make throughput numbers interpretable.
+Physical correctness evidence on 2026-09-09:
+- M14 strict GPU parity: 1 passed in 7.46s
+- M15 strict GPU fitting parity: 1 passed in 17.72s
+- M16 strict GPU batch parity: 1 passed in 20.69s
+- M17 strict real two-GPU parity/device-residency: 1 passed in 29.25s
+- combined M14-M17 modules: 23 passed in 144.23s
+
+See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
+
+Scaling benchmarks remain separate evidence and should only be run when selected GPUs
+are sufficiently idle to make throughput numbers interpretable.
 
 
 ## Consolidated future hardware validation

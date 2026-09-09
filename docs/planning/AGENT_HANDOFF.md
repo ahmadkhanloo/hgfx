@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M16 — Batch Engine`
+`M17 — Multi-GPU correctness validated; scaling benchmark pending`
 
 ## Frozen reference
 
@@ -31,6 +31,7 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M14 — Native GPU Engine (physical H100 validated)
 - M15 — GPU Fitting (physical H100 validated)
 - M16 — Batch Engine (physical H100 validated)
+- M17 — Multi-GPU correctness (physical H100 validated; scaling benchmark pending)
 
 ## M12 evidence
 
@@ -125,12 +126,11 @@ See `docs/planning/M15_GATE.md` and
 
 ## Next tasks
 
-1. Merge the validated M14 → M15 → M16 stacked PR chain.
-2. Start M17 — Multi-GPU.
-3. Implement independent data-parallel batch partitioning and device scheduling.
-4. Benchmark 1/2/4/8 H100 scaling, throughput, compile overhead, and peak memory.
-5. Preserve M14-M16 single-device numerical parity as the regression baseline.
-6. Feed benchmark results into the later Methods-paper reproducibility package.
+1. Run controlled M17 scaling benchmarks on sufficiently idle H100s.
+2. Record 1/2/4/6 or 1/2/4/8 GPU throughput, speedup, parallel efficiency, compile overhead, and peak memory.
+3. Begin M18 scientific validation: parameter recovery, model recovery, robustness, CPU/GPU agreement, optimizer agreement.
+4. Preserve M14-M17 numerical parity as the regression baseline.
+5. Feed validation and benchmark results into the Methods-paper reproducibility package.
 
 ## M14 boundary
 
@@ -168,3 +168,26 @@ Throughput and multi-GPU scaling are M17/Methods work, not M16 parity claims.
 
 See `docs/planning/M16_GATE.md` and
 `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
+
+
+## M17 status
+
+M17 physical correctness is **PASS** as of 2026-09-09.
+
+Validation environment:
+- NVIDIA H100 80GB HBM3
+- Python 3.11.7
+- JAX/JAXLIB 0.10.2
+- six JAX-visible GPUs from physical `CUDA_VISIBLE_DEVICES=0,1,2,3,5,6`
+
+Evidence:
+- M14 strict: 1 passed in 7.46s
+- M15 strict: 1 passed in 17.72s
+- M16 strict: 1 passed in 20.69s
+- M17 real two-GPU strict parity/residency: 1 passed in 29.25s
+- combined M14-M17 modules: 23 passed in 144.23s
+
+The run was not accepted as a performance benchmark because several GPUs were concurrently
+busy. Controlled scaling remains pending.
+
+See `docs/planning/M17_H100_GPU_EVIDENCE.md`.

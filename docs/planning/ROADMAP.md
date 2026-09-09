@@ -165,10 +165,11 @@ M15 physical H100 fitting parity is PASS on 2026-09-09: strict M15 test 1 passed
 
 M16 CPU/JAX evidence: workflow `34253080856`; frozen reference PASS; targeted batch suite 5 passed; full regression 88 passed with 2 GPU-only skips. Physical H100 evidence on 2026-09-09: strict M16 test 1 passed in 21.87s and combined M14–M16 strict suite 20 passed in 112.97s. Throughput/scaling benchmarks remain M17/Methods work. See `docs/planning/M16_GATE.md`.
 
-## Phase 15 — Multi-GPU (M17)
-- [ ] independent data-parallel batches
-- [ ] device scheduler
-- [ ] multi-GPU benchmarks
+## Phase 15 — Multi-GPU (M17 correctness PASS; performance benchmark pending)
+- [x] independent data-parallel batches
+- [x] device scheduler
+- [x] physical two-GPU numerical parity/device residency
+- [ ] controlled multi-GPU scaling benchmarks
 
 ## Phase 16 — Scientific validation
 - [ ] parameter recovery
