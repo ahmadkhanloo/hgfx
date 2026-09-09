@@ -9,6 +9,7 @@ from pathlib import Path
 
 from hgfx.diagnostics.identifiability_validation import (
     evaluate_m18b_gate,
+    informative_binary_inputs,
     records_from_diagnosis,
     records_payload,
     summarize_records,
@@ -50,6 +51,7 @@ def main() -> None:
         for trial_count in cfg["trial_counts"]:
             for replicate in range(cfg["replicates"]):
                 seed = args.seed + model_index * 1_000_000 + int(trial_count) * 100 + replicate
+                inputs = informative_binary_inputs(int(trial_count), seed)
                 diagnosis = diagnose_parameter_recovery_dataset(
                     model=model,
                     trial_count=int(trial_count),
@@ -58,6 +60,7 @@ def main() -> None:
                     truth_scale=cfg["truth_scale"],
                     options=options,
                     profile_points=cfg["profile_points"],
+                    inputs_override=inputs,
                 )
                 records.extend(records_from_diagnosis(diagnosis))
 
