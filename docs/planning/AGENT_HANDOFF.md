@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M15 — GPU Fitting`
+`M16 — Batch Engine`
 
 ## Frozen reference
 
@@ -28,6 +28,9 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M11 — Simulation Parity
 - M12 — Complete Model Coverage
 - M13 — API Compatibility
+- M14 — Native GPU Engine (physical H100 validated)
+- M15 — GPU Fitting (physical H100 validated)
+- M16 — Batch Engine (physical H100 validated)
 
 ## M12 evidence
 
@@ -80,34 +83,19 @@ See `docs/planning/M13_GATE.md`.
 14. M14 compile signatures are explicit HGFX metadata layered over JAX's internal executable cache.
 15. Absence of physical GPU hardware cannot be counted as CPU/GPU parity evidence.
 
-## M14 implementation status
+## M14 status
 
-M14 software implementation is complete on `work/m14-gpu-engine`, but the formal
-milestone gate is still **PENDING physical GPU validation**.
+M14 is **PASS**.
 
-CPU/JAX evidence:
+Physical validation was completed on 2026-09-09 on NVIDIA H100 80GB HBM3
+(physical GPU 1) using Python 3.11.7 and JAX/JAXLIB 0.10.2.
 
-- workflow: `34242409271`
-- frozen reference guard: PASS
-- JAX CPU x64 M14 parity: 9 passed
-- full regression: 80 passed
-- GPU-only parity test: 1 skipped because the hosted runner has no GPU
+- validated stacked commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`
+- strict M14 physical GPU test: 1 passed in 4.95s
+- combined M14-M16 strict suite: 20 passed in 112.97s
 
-Implemented:
-
-- `jax.lax.scan` trial recursion for binary HGF/eHGF/uHGF
-- `jax.jit` forward/objective execution
-- subject/same-shape forward `jax.vmap`
-- restart/parameter-candidate objective `jax.vmap`
-- explicit JAX device selection/placement
-- float64 enforcement
-- compile signatures + process-local callable cache
-- trial-length bucketing/padding
-- strict physical-GPU test that fails when `HGFX_REQUIRE_GPU=1` and no GPU exists
-
-M14 is not PASS until the real-GPU job succeeds. M15 software was implemented on top of the M14 head, but both milestones remain formally gated on physical GPU evidence.
-
-See `docs/planning/M14_GATE.md`.
+See `docs/planning/M14_GATE.md` and
+`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
 ## M12 coverage details
 
@@ -117,44 +105,32 @@ See:
 - `docs/planning/M12_COVERAGE.md`
 - `tools/check_m12_inventory.py`
 
-### Owner action before closing M14
+### Physical GPU validation — completed
 
-The repository owner must run the M14 strict parity test on their own physical GPU:
+The owner-side H100 validation has been completed and recorded. No M14 hardware
+action remains pending.
 
-```bash
-HGFX_REQUIRE_GPU=1 pytest \
-  tests/cpu_gpu/test_m14_fast_engine.py::test_real_gpu_forward_and_objective_parity_when_available \
-  -q
-```
 
-Record the GPU model, JAX/JAXLIB versions, CUDA version, test output, and commit SHA.
-Only after this passes may M14 be marked PASS and M15 begin.
+## M15 status
 
-## M15 implementation status
+M15 is **PASS**.
 
-M15 software implementation is complete on `work/m15-gpu-fitting`.
+- prerequisite M14 physical gate: PASS
+- strict M15 physical GPU fitting test: 1 passed in 14.43s
+- fitted objective/parameters/trajectory and device residency validated on H100
+- combined M14-M16 strict suite: 20 passed in 112.97s
 
-Implemented:
-- exact M9 free/fixed fit-vector reuse;
-- differentiable M14 objective through `jax.value_and_grad`;
-- `DeviceOptimizer` abstraction;
-- JAX BFGS backend;
-- device-resident optimizer arrays;
-- final objective and trajectory recomputation;
-- CPU gradient and final-fit parity tests;
-- strict physical CPU/GPU fitting parity harness.
-
-M15 is not formal PASS until the physical GPU fitting test succeeds. See
-`docs/planning/M15_GATE.md`.
+See `docs/planning/M15_GATE.md` and
+`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
 ## Next tasks
 
-1. Provide a physical JAX-capable NVIDIA GPU runner.
-2. Run the strict M14 physical forward/objective parity job.
-3. Run the strict M15 physical fitting parity job.
-4. Record GPU model, CUDA, JAX/JAXLIB, commit SHA, and outputs.
-5. Mark M14 and M15 PASS only after their respective physical GPU gates are green.
-6. Then begin M16 — Batch Engine.
+1. Merge the validated M14 → M15 → M16 stacked PR chain.
+2. Start M17 — Multi-GPU.
+3. Implement independent data-parallel batch partitioning and device scheduling.
+4. Benchmark 1/2/4/8 H100 scaling, throughput, compile overhead, and peak memory.
+5. Preserve M14-M16 single-device numerical parity as the regression baseline.
+6. Feed benchmark results into the later Methods-paper reproducibility package.
 
 ## M14 boundary
 
@@ -165,3 +141,30 @@ physical CPU/GPU parity; optimizer validation belongs to M15.
 ## Corrected M12 requirement — completed
 
 All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is complete; M14 is now unblocked.
+
+## M16 status
+
+M16 is **PASS / GPU VALIDATED**.
+
+Implemented:
+- subject batching with `jax.vmap`;
+- restart batching with nested `jax.vmap`;
+- scheduler by trial bucket and restart count;
+- safe heterogeneous-length masks;
+- compiled group-runner cache;
+- final objective/trajectory recomputation;
+- single-vs-batch and restart-vs-independent-fit tests;
+- strict physical GPU batch parity/device-residency validation.
+
+CPU/JAX evidence: workflow `34253080856`; 5 targeted tests passed; full regression
+88 passed with 2 GPU-only skips.
+
+Physical H100 evidence on 2026-09-09:
+- strict M16 test: 1 passed in 21.87s;
+- combined M14-M16 strict suite: 20 passed in 112.97s;
+- validated commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`.
+
+Throughput and multi-GPU scaling are M17/Methods work, not M16 parity claims.
+
+See `docs/planning/M16_GATE.md` and
+`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.

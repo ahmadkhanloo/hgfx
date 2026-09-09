@@ -1,0 +1,26 @@
+name: M16 Batch Engine
+
+on:
+  push:
+    branches:
+      - main
+      - work/m16-batch-engine
+  pull_request:
+
+jobs:
+  jax-cpu-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M16 batch equivalence gate on CPU x64
+        run: pytest tests/cpu_gpu/test_m16_batch_engine.py -q
+      - name: Full regression suite
+        run: pytest -q
