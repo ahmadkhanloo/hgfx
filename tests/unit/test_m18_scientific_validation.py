@@ -19,6 +19,7 @@ def test_parameter_recovery_summary_reports_bias_rmse_correlation_and_failures()
         ParameterRecoveryRecord(
             model="hgf_binary",
             trial_count=64,
+            truth_scale=0.2,
             replicate=i,
             seed=i,
             true_free=np.array([float(i), float(2 * i)]),
@@ -26,6 +27,7 @@ def test_parameter_recovery_summary_reports_bias_rmse_correlation_and_failures()
             error=np.array([0.1, -0.2]),
             neg_log_joint=1.0,
             converged=i != 2,
+            termination="tol_arg" if i != 2 else "max_iter",
         )
         for i in range(4)
     ]
@@ -44,6 +46,7 @@ def test_model_recovery_matrix_is_row_normalized() -> None:
             generating_model="hgf_binary",
             selected_model="hgf_binary",
             trial_count=64,
+            truth_scale=0.2,
             replicate=0,
             seed=1,
             bic_by_model={},
@@ -53,6 +56,7 @@ def test_model_recovery_matrix_is_row_normalized() -> None:
             generating_model="hgf_binary",
             selected_model="ehgf_binary",
             trial_count=64,
+            truth_scale=0.2,
             replicate=1,
             seed=2,
             bic_by_model={},
@@ -62,6 +66,7 @@ def test_model_recovery_matrix_is_row_normalized() -> None:
             generating_model="ehgf_binary",
             selected_model="ehgf_binary",
             trial_count=64,
+            truth_scale=0.2,
             replicate=0,
             seed=3,
             bic_by_model={},
