@@ -1,13 +1,13 @@
 # M14 — GPU Engine Gate
 
-Status: **IMPLEMENTED — REAL GPU VALIDATION PENDING**
+Status: **PASS — PHYSICAL H100 GPU VALIDATED**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Scientific scope
 
 M14 owns the JAX fast execution engine, not GPU optimization. The formal milestone
-gate remains: **CPU/GPU float64 forward and objective parity**. GPU fitting and
+gate is **CPU/GPU float64 forward and objective parity**. GPU fitting and
 on-device optimizer state are M15; heterogeneous production batching is M16.
 
 ## Implemented fast path
@@ -30,9 +30,9 @@ HGF/eHGF/uHGF forward recursion plus the M8
 The M4-M13 NumPy/MATLAB-compatible implementation is unchanged. Fast mode lives
 under `hgfx.gpu`; it does not replace compatibility semantics.
 
-## Validation
+## Validation requirements
 
-CPU JAX x64 validation must compare:
+CPU JAX x64 validation compares:
 
 - HGF, eHGF, and uHGF trial trajectories;
 - ignored-trial copy semantics;
@@ -49,48 +49,39 @@ The physical-GPU test additionally requires:
 - CPU and GPU float64 forward results agree;
 - CPU and GPU float64 objective results agree.
 
-Setting `HGFX_REQUIRE_GPU=1` turns absence of a GPU into a test failure. The CI
-workflow exposes this through a manually dispatched self-hosted
-`[self-hosted, linux, x64, gpu]` job.
+Setting `HGFX_REQUIRE_GPU=1` turns absence of a GPU into a test failure.
 
-## Infrastructure status
+## Evidence
 
-This repository is owned by a personal GitHub account. GitHub-hosted GPU larger
-runners are not available as the standard `ubuntu-latest` runner here, and no
-repository self-hosted GPU runner is currently configured.
-
-Therefore M14 must **not** be marked PASS from CPU-only evidence. It becomes PASS only
-after the real-GPU job completes successfully on physical GPU hardware.
-
-## Current evidence
-
-Branch workflow `34242409271`:
+Hosted CPU/JAX workflow `34242409271`:
 
 - frozen reference verification: PASS;
 - M14 JAX CPU x64 parity suite: **9 passed**;
-- real GPU test: **1 skipped** because no GPU device exists on the hosted runner;
+- hosted physical GPU test: skipped because no GPU device exists on the hosted runner;
 - full regression: **80 passed, 1 GPU-only skipped**.
 
-No CPU/JAX tolerance was relaxed to obtain these results.
+Physical GPU validation on 2026-09-09:
 
-Workflow: `.github/workflows/m14-gpu-engine.yml`.
+- validated stacked commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`;
+- M14 implementation head: `695fd548a52375d01ae48c145afc933d0ad3d703`;
+- GPU: **NVIDIA H100 80GB HBM3**, physical device 1;
+- driver: 550.163.01;
+- NVIDIA-SMI reported CUDA compatibility: 12.4;
+- Python: 3.11.7;
+- JAX/JAXLIB: 0.10.2 / 0.10.2;
+- backend: `gpu`;
+- strict M14 physical-GPU test: **1 passed in 4.95s**;
+- combined M14-M16 strict suite: **20 passed in 112.97s**.
 
+GitHub lineage comparison confirms no M14 engine/test files changed between the M14
+head and the validated stacked commit.
 
-## Owner action required
+No parity tolerance was relaxed to obtain these results.
 
-Before M14 can be marked PASS, the repository owner must run the strict physical-GPU
-validation on their own NVIDIA/JAX-capable GPU machine.
+See `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
-Required command:
+## Gate conclusion
 
-```bash
-HGFX_REQUIRE_GPU=1 pytest \
-  tests/cpu_gpu/test_m14_fast_engine.py::test_real_gpu_forward_and_objective_parity_when_available \
-  -q
-```
-
-Alternatively, configure that machine as a GitHub self-hosted runner with labels
-`self-hosted`, `linux`, `x64`, and `gpu`, then manually dispatch the
-`M14 GPU Engine` workflow with `require_gpu=true`.
-
-**Do not mark M14 PASS and do not start M15 until this physical-GPU test passes.**
+**M14 PASS.** Physical H100 CPU/GPU float64 forward/objective parity and GPU device
+residency are established. M15 is therefore no longer blocked by M14 hardware
+validation.
