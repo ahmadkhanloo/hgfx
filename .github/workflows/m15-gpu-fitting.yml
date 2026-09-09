@@ -1,0 +1,57 @@
+name: M15 GPU Fitting
+
+on:
+  push:
+    branches:
+      - main
+      - work/m15-gpu-fitting
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      require_gpu:
+        description: "Run the strict physical-GPU fitting parity job"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  jax-cpu-fitting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M15 differentiable fitting gate on CPU x64
+        run: pytest tests/cpu_gpu/test_m15_gpu_fitting.py -q
+      - name: Full regression suite
+        run: pytest -q
+
+  real-gpu-fitting:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.require_gpu }}
+    runs-on: [self-hosted, linux, x64, gpu]
+    env:
+      HGFX_REQUIRE_GPU: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install JAX CUDA and HGFX
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "jax[cuda12]>=0.4.30" pytest
+          python -m pip install -e .
+      - name: Show accelerator
+        run: |
+          nvidia-smi
+          python -c "import jax; print(jax.devices())"
+      - name: Require physical GPU fitting parity
+        run: pytest tests/cpu_gpu/test_m15_gpu_fitting.py::test_real_gpu_fitting_parity_when_available -q

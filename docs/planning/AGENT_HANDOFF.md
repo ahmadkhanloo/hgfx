@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M14 — GPU Engine`
+`M15 — GPU Fitting`
 
 ## Frozen reference
 
@@ -105,8 +105,7 @@ Implemented:
 - trial-length bucketing/padding
 - strict physical-GPU test that fails when `HGFX_REQUIRE_GPU=1` and no GPU exists
 
-M14 is not PASS until the real-GPU job succeeds. Do not start M15 GPU fitting before
-that evidence exists.
+M14 is not PASS until the real-GPU job succeeds. M15 software was implemented on top of the M14 head, but both milestones remain formally gated on physical GPU evidence.
 
 See `docs/planning/M14_GATE.md`.
 
@@ -131,13 +130,31 @@ HGFX_REQUIRE_GPU=1 pytest \
 Record the GPU model, JAX/JAXLIB versions, CUDA version, test output, and commit SHA.
 Only after this passes may M14 be marked PASS and M15 begin.
 
+## M15 implementation status
+
+M15 software implementation is complete on `work/m15-gpu-fitting`.
+
+Implemented:
+- exact M9 free/fixed fit-vector reuse;
+- differentiable M14 objective through `jax.value_and_grad`;
+- `DeviceOptimizer` abstraction;
+- JAX BFGS backend;
+- device-resident optimizer arrays;
+- final objective and trajectory recomputation;
+- CPU gradient and final-fit parity tests;
+- strict physical CPU/GPU fitting parity harness.
+
+M15 is not formal PASS until the physical GPU fitting test succeeds. See
+`docs/planning/M15_GATE.md`.
+
 ## Next tasks
 
 1. Provide a physical JAX-capable NVIDIA GPU runner.
-2. Run the strict M14 GPU job with `HGFX_REQUIRE_GPU=1`.
-3. Confirm CPU/GPU float64 forward and objective parity on physical hardware.
-4. Only after that passes, mark M14 PASS and hand off to M15 — GPU Fitting.
-5. Keep heterogeneous batch scheduling and multi-GPU work out of M14/M15 until their own gates.
+2. Run the strict M14 physical forward/objective parity job.
+3. Run the strict M15 physical fitting parity job.
+4. Record GPU model, CUDA, JAX/JAXLIB, commit SHA, and outputs.
+5. Mark M14 and M15 PASS only after their respective physical GPU gates are green.
+6. Then begin M16 — Batch Engine.
 
 ## M14 boundary
 

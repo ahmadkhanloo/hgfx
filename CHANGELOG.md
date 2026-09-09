@@ -17,3 +17,6 @@ All notable changes to HGFX should be documented here.
 - M14 JAX fast engine with `lax.scan`, `jit`, subject/restart `vmap`, explicit device placement, compile signatures/cache, and trial bucketing.
 - M14 CPU x64 parity tests against compatibility HGF/eHGF/uHGF forward trajectories and the binary-HGF + unit-square objective.
 - Strict physical-GPU parity harness; M14 remains pending until that hardware test runs successfully.
+- M15 differentiable MAP fitting over the fast binary-HGF + unit-square objective.
+- M15 optimizer abstraction and JAX BFGS backend with device-resident optimizer arrays.
+- M15 CPU gradient/final-objective/trajectory parity tests and strict physical-GPU fitting parity harness.

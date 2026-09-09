@@ -142,11 +142,16 @@ M13 gate evidence: workflow `34234431858`; reference freeze PASS; API/consumer s
 
 CPU evidence: M14 workflow `34242409271`; 9 M14 tests passed; full regression 80 passed; the single physical-GPU test was skipped because no GPU device exists on the hosted runner.
 
-## Phase 13 — GPU fitting (M15)
-- [ ] differentiable fast objective/grad gate
-- [ ] optimizer abstraction
-- [ ] on-device optimizer state
-- [ ] final-objective / trajectory equivalence
+## Phase 13 — GPU fitting (M15 — implementation complete, GPU gate pending)
+- [x] differentiable fast objective/grad gate
+- [x] optimizer abstraction
+- [x] JAX BFGS implementation
+- [x] on-device optimizer state
+- [x] final-objective / trajectory equivalence on CPU x64
+- [x] strict physical GPU fitting parity harness
+- [ ] physical GPU fitting parity
+
+M15 is not formal PASS until a real GPU confirms CPU/GPU objective, fitted parameter, trajectory, and device-residency parity. See `docs/planning/M15_GATE.md`.
 
 ## Phase 14 — Batch engine (M16)
 - [ ] subject batching
