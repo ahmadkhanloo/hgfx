@@ -129,7 +129,7 @@ M12 was reopened because the project goal is full computational coverage, not in
 
 M13 gate evidence: workflow `34234431858`; reference freeze PASS; API/consumer suite 13 passed; full regression 71 passed.
 
-## Phase 12 — Native GPU engine (M14 — implementation complete, GPU gate pending)
+## Phase 12 — Native GPU engine (M14 PASS)
 - [x] `lax.scan` trial recursion
 - [x] subject/same-shape `vmap` primitive
 - [x] restart/objective `vmap` primitive
@@ -138,22 +138,22 @@ M13 gate evidence: workflow `34234431858`; reference freeze PASS; API/consumer s
 - [x] trial-length bucketing/padding
 - [x] explicit device placement and CPU x64 device-residency tests
 - [x] compatibility-vs-JAX CPU forward/objective parity
-- [ ] physical GPU x64 forward/objective parity
+- [x] physical GPU x64 forward/objective parity
 
-CPU evidence: M14 workflow `34242409271`; 9 M14 tests passed; full regression 80 passed; the single physical-GPU test was skipped because no GPU device exists on the hosted runner.
+CPU evidence: M14 workflow `34242409271`; 9 M14 tests passed; full regression 80 passed. Physical H100 evidence on 2026-09-09 at stacked commit `45139c07ec90a7558e3ace0d36fb7a56754539c1`: strict M14 test 1 passed in 4.95s; combined M14–M16 strict suite 20 passed in 112.97s. See `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
-## Phase 13 — GPU fitting (M15 — implementation complete, GPU gate pending)
+## Phase 13 — GPU fitting (M15 PASS)
 - [x] differentiable fast objective/grad gate
 - [x] optimizer abstraction
 - [x] JAX BFGS implementation
 - [x] on-device optimizer state
 - [x] final-objective / trajectory equivalence on CPU x64
 - [x] strict physical GPU fitting parity harness
-- [ ] physical GPU fitting parity
+- [x] physical GPU fitting parity
 
-M15 is not formal PASS until a real GPU confirms CPU/GPU objective, fitted parameter, trajectory, and device-residency parity. See `docs/planning/M15_GATE.md`.
+M15 physical H100 fitting parity is PASS on 2026-09-09: strict M15 test 1 passed in 14.43s; combined M14–M16 strict suite 20 passed in 112.97s. See `docs/planning/M15_GATE.md` and `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
-## Phase 14 — Batch engine (M16 CPU/JAX PASS)
+## Phase 14 — Batch engine (M16 PASS — GPU validated)
 - [x] subject batching
 - [x] restart batching
 - [x] model scheduler
@@ -161,8 +161,9 @@ M15 is not formal PASS until a real GPU confirms CPU/GPU objective, fitted param
 - [x] heterogeneous-length bucketing
 - [x] compile-cache reuse
 - [x] device-resident batch outputs
+- [x] physical GPU batch parity/device residency
 
-M16 gate evidence: workflow `34253080856`; frozen reference PASS; targeted batch suite 5 passed; full regression 88 passed with 2 GPU-only skips. Physical GPU performance evidence remains deferred until hardware is available. See `docs/planning/M16_GATE.md`.
+M16 CPU/JAX evidence: workflow `34253080856`; frozen reference PASS; targeted batch suite 5 passed; full regression 88 passed with 2 GPU-only skips. Physical H100 evidence on 2026-09-09: strict M16 test 1 passed in 21.87s and combined M14–M16 strict suite 20 passed in 112.97s. Throughput/scaling benchmarks remain M17/Methods work. See `docs/planning/M16_GATE.md`.
 
 ## Phase 15 — Multi-GPU (M17)
 - [ ] independent data-parallel batches
