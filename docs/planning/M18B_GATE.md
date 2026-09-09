@@ -32,13 +32,13 @@ pathological stimulus sequences.
 ## Final gate grid
 
 - models: hgf_binary, ehgf_binary, uhgf_binary;
-- trial counts: 128, 256, 512;
+- trial counts: 64, 128, 256;
 - truth perturbation: 0.35 prior SD;
 - replicates: 3 per model/trial cell;
 - profile points: 31;
 - optimizer maximum iterations: 100.
 
-The 0.15-SD regime from frozen M18 is not used as the M18B primary identifiability
+The 512-trial extension was explicitly attempted during CI and exposed numerical overflow\nin the current compatibility forward path before fitting could begin. It is therefore\nrecorded as a separate numerical-horizon limitation rather than misclassified as a\nparameter-identifiability result. M18B remains within the validated 64–256 trial range.\n\nThe 0.15-SD regime from frozen M18 is not used as the M18B primary identifiability
 experiment because its deliberately small generating spread makes correlation and
 empirical-spread standardized RMSE unstable as identifiability metrics. The original
 M18 result remains archived unchanged.
