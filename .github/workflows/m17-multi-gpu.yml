@@ -1,0 +1,27 @@
+name: M17 Multi-GPU
+
+on:
+  push:
+    branches:
+      - main
+      - work/m17-multi-gpu
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cpu-scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M17 scheduler/API tests
+        run: pytest tests/cpu_gpu/test_m17_multi_gpu.py -q
+      - name: Full regression suite
+        run: pytest -q
