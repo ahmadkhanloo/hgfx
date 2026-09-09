@@ -6,7 +6,7 @@ Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB refer
 
 ## Current milestone
 
-`M17 — Multi-GPU correctness validated; scaling benchmark pending`
+`M18 — Scientific Validation`
 
 ## Frozen reference
 
@@ -31,7 +31,7 @@ HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - M14 — Native GPU Engine (physical H100 validated)
 - M15 — GPU Fitting (physical H100 validated)
 - M16 — Batch Engine (physical H100 validated)
-- M17 — Multi-GPU correctness (physical H100 validated; scaling benchmark pending)
+- M17 — Multi-GPU (physical H100 correctness + shared-server scaling validated)
 
 ## M12 evidence
 
@@ -126,11 +126,11 @@ See `docs/planning/M15_GATE.md` and
 
 ## Next tasks
 
-1. Run controlled M17 scaling benchmarks on sufficiently idle H100s.
-2. Record 1/2/4/6 or 1/2/4/8 GPU throughput, speedup, parallel efficiency, compile overhead, and peak memory.
-3. Begin M18 scientific validation: parameter recovery, model recovery, robustness, CPU/GPU agreement, optimizer agreement.
-4. Preserve M14-M17 numerical parity as the regression baseline.
-5. Feed validation and benchmark results into the Methods-paper reproducibility package.
+1. Begin M18 scientific validation: parameter recovery.
+2. Add model recovery and confusion-matrix evaluation.
+3. Add robustness sweeps across trial count, parameter regimes, missing/ignored trials, and initialization.
+4. Reconfirm CPU/GPU agreement across the M18 validation workload.
+5. Compare optimizer agreement and feed all validation evidence into the Methods-paper package.
 
 ## M14 boundary
 
@@ -187,7 +187,13 @@ Evidence:
 - M17 real two-GPU strict parity/residency: 1 passed in 29.25s
 - combined M14-M17 modules: 23 passed in 144.23s
 
-The run was not accepted as a performance benchmark because several GPUs were concurrently
-busy. Controlled scaling remains pending.
+A subsequent shared-server scaling benchmark was accepted as operational performance
+evidence. Because the production H100 node cannot be made completely idle, the numbers are
+reported as contended-node performance rather than uncontended peak scaling.
+
+Observed speedup: 1.000× / 1.107× / 1.388× at 1 / 2 / 4 GPUs.
+Observed throughput: 0.783 / 0.867 / 1.087 subjects/s.
+
+M17 is **PASS**.
 
 See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
