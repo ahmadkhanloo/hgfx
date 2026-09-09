@@ -20,6 +20,33 @@ from hgfx.diagnostics.recovery import BINARY_VARIANTS
 EXPECTED_PARAMETERS = ("om[1]", "om[2]", "logze")
 
 
+def informative_binary_inputs(trials: int, seed: int) -> np.ndarray:
+    """Generate balanced binary stimuli with bounded run length for M18B.
+
+    The original M18 generator is retained unchanged. M18B uses this controlled
+    stimulus design to reduce accidental non-identifiability and numerical pathologies
+    caused by unusually long stochastic runs while remaining deterministic.
+    """
+    if trials < 8:
+        raise ValueError("identifiability validation requires at least 8 trials")
+    rng = np.random.default_rng(seed)
+    for _ in range(1000):
+        values = np.empty(trials, dtype=np.float64)
+        values[0] = float(rng.integers(0, 2))
+        run = 1
+        for i in range(1, trials):
+            if run >= 3:
+                values[i] = 1.0 - values[i - 1]
+            else:
+                switch = bool(rng.random() < 0.55)
+                values[i] = 1.0 - values[i - 1] if switch else values[i - 1]
+            run = run + 1 if values[i] == values[i - 1] else 1
+        proportion_one = float(np.mean(values))
+        if 0.40 <= proportion_one <= 0.60:
+            return values
+    raise RuntimeError("failed to generate a balanced bounded-run binary stimulus")
+
+
 @dataclass(frozen=True)
 class IdentifiabilityRecord:
     model: str
@@ -294,6 +321,7 @@ def records_payload(records: Sequence[IdentifiabilityRecord]) -> list[dict]:
 
 __all__ = [
     "EXPECTED_PARAMETERS",
+    "informative_binary_inputs",
     "IdentifiabilityRecord",
     "classify_mechanism",
     "records_from_diagnosis",
