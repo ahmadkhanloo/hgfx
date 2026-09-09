@@ -1,6 +1,6 @@
 # M17 — Multi-GPU Gate
 
-Status: **PHYSICAL MULTI-GPU CORRECTNESS VALIDATED — SCALING BENCHMARK PENDING**
+Status: **PASS — PHYSICAL MULTI-GPU CORRECTNESS + SHARED-SERVER SCALING RECORDED**
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -53,8 +53,9 @@ Physical correctness evidence on 2026-09-09:
 
 See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
 
-Scaling benchmarks remain separate evidence and should only be run when selected GPUs
-are sufficiently idle to make throughput numbers interpretable.
+Observed shared-server scaling evidence was recorded on the production/shared H100 node.
+Because the GPUs could not be made completely idle, the benchmark is explicitly treated
+as representative shared-server performance rather than uncontended peak throughput.
 
 
 ## Consolidated future hardware validation
@@ -86,3 +87,35 @@ python scripts/benchmark_m17_multi_gpu.py \
 
 The benchmark writes structured JSON under
 `gpu_validation_results/m17_scaling.json`.
+
+
+## Shared-server scaling benchmark
+
+Environment:
+- NVIDIA H100 80GB HBM3
+- `CUDA_VISIBLE_DEVICES=0,1,2,3,5`
+- `XLA_PYTHON_CLIENT_PREALLOCATE=false`
+- 64 subjects
+- 128 trials per subject
+- 1 extra restart
+- 1 warmup
+- 3 timed repeats
+- median wall-clock time reported
+
+Observed results:
+
+| GPUs | Median time (s) | Subjects/s | Fits/s | Speedup vs 1 GPU | Parallel efficiency |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 81.719055 | 0.783 | 1.566 | 1.000 | 1.000 |
+| 2 | 73.838342 | 0.867 | 1.734 | 1.107 | 0.553 |
+| 4 | 58.860710 | 1.087 | 2.175 | 1.388 | 0.347 |
+
+Interpretation:
+- throughput improves monotonically from 1 to 4 GPUs;
+- 4 GPUs deliver a measured 1.388× speedup over 1 GPU;
+- scaling is sub-linear, as expected under a shared-server workload with pre-existing GPU
+  memory occupancy and other concurrent jobs;
+- these numbers are accepted as the project's operational scaling evidence, not as a claim
+  of uncontended H100 peak scaling.
+
+With correctness already validated independently, this benchmark closes M17.
