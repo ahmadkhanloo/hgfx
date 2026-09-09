@@ -21,6 +21,13 @@ from .batch_engine import (
     fit_hgf_binary_unitsq_batch,
     plan_hgf_binary_unitsq_batches,
 )
+from .multi_gpu import (
+    DeviceAssignment,
+    MultiDeviceBatchFitResult,
+    MultiDevicePlan,
+    fit_hgf_binary_unitsq_multi_device,
+    plan_round_robin_subject_shards,
+)
 from .fitting import (
     BFGSOptimizer,
     BFGSOptions,
@@ -60,6 +67,11 @@ __all__ = [
     "BatchFitResult",
     "plan_hgf_binary_unitsq_batches",
     "fit_hgf_binary_unitsq_batch",
+    "DeviceAssignment",
+    "MultiDevicePlan",
+    "MultiDeviceBatchFitResult",
+    "plan_round_robin_subject_shards",
+    "fit_hgf_binary_unitsq_multi_device",
     "FastFitProblem",
     "FastValueGradResult",
     "BFGSOptions",
