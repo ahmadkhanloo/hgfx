@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - feat/m18-scientific-validation
+      - run/m18-gate
   pull_request:
   workflow_dispatch:
 
 jobs:
   scientific-validation-smoke:
+    if: github.ref != 'refs/heads/run/m18-gate'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,4 +32,31 @@ jobs:
           name: m18-scientific-validation-smoke
           path: benchmarks/results/m18_scientific_validation.json
       - name: Full regression suite
+        run: pytest -q
+
+  scientific-validation-gate:
+    if: github.ref == 'refs/heads/run/m18-gate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M18 unit tests
+        run: pytest tests/unit/test_m18_scientific_validation.py -q
+      - name: M18 full scientific gate
+        run: python scripts/run_m18_scientific_validation.py --preset gate --output benchmarks/results/m18_scientific_validation.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-scientific-validation-gate
+          path: benchmarks/results/m18_scientific_validation.json
+      - name: Full regression suite
+        if: success()
         run: pytest -q
