@@ -1,0 +1,32 @@
+name: M18A Parameter Recovery Diagnosis
+
+on:
+  push:
+    branches:
+      - feat/m18a-parameter-recovery-diagnosis
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  diagnosis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M18A unit tests
+        run: pytest tests/unit/test_m18a_parameter_recovery_diagnosis.py -q
+      - name: M18A diagnosis
+        run: python scripts/run_m18a_parameter_recovery_diagnosis.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18a-parameter-recovery-diagnosis
+          path: benchmarks/results/m18a_parameter_recovery_diagnosis.json
