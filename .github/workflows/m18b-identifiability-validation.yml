@@ -1,0 +1,37 @@
+name: M18B Identifiability-Aware Validation
+
+on:
+  push:
+    branches:
+      - feat/m18b-identifiability-aware-validation
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  m18b-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M18B unit tests
+        run: pytest tests/unit/test_m18b_identifiability_validation.py -q
+      - name: M18B final gate
+        run: >-
+          python scripts/run_m18b_identifiability_validation.py
+          --preset gate
+          --output benchmarks/results/m18b_identifiability_validation.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18b-identifiability-validation
+          path: benchmarks/results/m18b_identifiability_validation.json
+      - name: Full regression suite
+        run: pytest -q
