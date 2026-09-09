@@ -28,7 +28,7 @@ PRESETS = {
         "profile_points": 7,
     },
     "gate": {
-        "trial_counts": (128, 256, 512),
+        "trial_counts": (64, 128, 256),
         "replicates": 3,
         "truth_scale": 0.35,
         "max_iter": 100,
