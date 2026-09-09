@@ -1,25 +1,52 @@
-# Parameter Recovery Plan
+# Parameter Recovery Protocol
 
-For each selected model:
+M18 uses simulation-based parameter recovery rather than fixture replay.
+
+For each selected binary HGF-family model:
 
 ```text
-theta_true
-   ↓
-simulate
-   ↓
-fit
-   ↓
-theta_hat
+transformed theta_true
+        |
+        v
+native transform -> simulate responses -> MAP fit -> transformed theta_hat
 ```
 
-Report:
+## Frozen axes
+
+Final gate:
+
+- models: HGF binary, eHGF binary, uHGF binary;
+- trial counts: 128 and 256;
+- parameter regimes: deterministic perturbations of 0.15 and 0.35 prior SD;
+- six replicates per trial-count/regime/model;
+- deterministic seeds;
+- frozen default MAP start;
+- frozen compatibility quasi-Newton optimizer.
+
+Truth variation is applied only to parameters that are free under the frozen model config.
+Fixed, undefined, and placeholder semantics are not altered.
+
+## Metrics
+
+Report by parameter and in aggregate:
+
 - bias;
 - RMSE;
-- correlation;
-- convergence/failure rate;
-- recovery by parameter;
-- recovery by trial count;
-- recovery by noise regime;
-- recovery CPU vs GPU.
+- median absolute error;
+- true-vs-estimated correlation;
+- RMSE standardized by the empirical spread of simulated truth;
+- convergence rate;
+- trial-count and parameter-regime strata.
 
-Predefine parameter grids before final paper runs.
+Failures remain in the denominator. They are not silently dropped.
+
+## Minimum M18 criteria
+
+For every generating model:
+
+- convergence rate >= 0.80;
+- median recoverability correlation >= 0.50;
+- median standardized RMSE <= 1.00.
+
+These thresholds are frozen before the gate run. Paper-level analyses may report richer
+confidence intervals and larger grids, but may not retroactively change the M18 gate.
