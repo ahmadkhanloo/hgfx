@@ -23,7 +23,7 @@ from hgfx.diagnostics.recovery import (
     simulate_binary_variant,
     summarize_parameter_recovery,
 )
-from hgfx.gpu import BFGSOptions, fit_hgf_binary_unitsq_fast, has_gpu, select_device
+from hgfx.gpu import fit_hgf_binary_unitsq_fast, has_gpu, select_device
 from hgfx.optim.compat_quasinewton import QuasiNewtonOptions
 
 
@@ -60,14 +60,13 @@ def _array(value):
     return np.asarray(value, dtype=np.float64).tolist()
 
 
-def parameter_payload(records):
+def _parameter_summary(records):
     summary = summarize_parameter_recovery(records)
     truth = np.vstack([row.true_free for row in records])
     scales = np.std(truth, axis=0, ddof=0)
     standardized = summary.rmse / np.where(scales > 1e-12, scales, 1.0)
     finite_corr = summary.correlation[np.isfinite(summary.correlation)]
     return {
-        "summary": {
             "n": summary.n,
             "n_parameters": summary.n_parameters,
             "bias": _array(summary.bias),
@@ -80,7 +79,22 @@ def parameter_payload(records):
                 float(np.median(finite_corr)) if finite_corr.size else None
             ),
             "median_standardized_rmse": float(np.median(standardized)),
-        },
+    }
+
+
+def parameter_payload(records):
+    strata = {}
+    for trial_count in sorted({row.trial_count for row in records}):
+        for truth_scale in sorted({row.truth_scale for row in records}):
+            selected = [
+                row for row in records
+                if row.trial_count == trial_count and row.truth_scale == truth_scale
+            ]
+            if selected:
+                strata[f"trials={trial_count}|scale={truth_scale:.6g}"] = _parameter_summary(selected)
+    return {
+        "summary": _parameter_summary(records),
+        "strata": strata,
         "records": [
             {
                 **{k: v for k, v in asdict(row).items()
@@ -97,10 +111,24 @@ def parameter_payload(records):
 def model_payload(records):
     matrix = model_recovery_matrix(records, models=BINARY_VARIANTS)
     diagonal = np.diag(matrix)
+    strata = {}
+    for trial_count in sorted({row.trial_count for row in records}):
+        for truth_scale in sorted({row.truth_scale for row in records}):
+            selected = [
+                row for row in records
+                if row.trial_count == trial_count and row.truth_scale == truth_scale
+            ]
+            if selected:
+                submatrix = model_recovery_matrix(selected, models=BINARY_VARIANTS)
+                strata[f"trials={trial_count}|scale={truth_scale:.6g}"] = {
+                    "row_normalized_confusion_matrix": submatrix.tolist(),
+                    "balanced_accuracy": float(np.mean(np.diag(submatrix))),
+                }
     return {
         "matrix_order": list(BINARY_VARIANTS),
         "row_normalized_confusion_matrix": matrix.tolist(),
         "balanced_accuracy": float(np.mean(diagonal)),
+        "strata": strata,
         "records": [asdict(row) for row in records],
     }
 
