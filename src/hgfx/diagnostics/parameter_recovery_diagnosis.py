@@ -312,10 +312,16 @@ def diagnose_parameter_recovery_dataset(
     truth_scale: float = 0.35,
     options: QuasiNewtonOptions | None = None,
     profile_points: int = 31,
+    inputs_override=None,
 ) -> DatasetDiagnosis:
     """Run baseline, truth-start, oracle, and profile diagnostics on one dataset."""
 
-    inputs = deterministic_binary_inputs(trial_count, seed)
+    if inputs_override is None:
+        inputs = deterministic_binary_inputs(trial_count, seed)
+    else:
+        inputs = np.asarray(inputs_override, dtype=np.float64).reshape(-1)
+        if inputs.size != trial_count:
+            raise ValueError("inputs_override length must equal trial_count")
     truth_full, truth_free, free_indices = _truth_vector(
         model,
         inputs,
