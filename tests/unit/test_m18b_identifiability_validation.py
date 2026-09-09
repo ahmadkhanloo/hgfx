@@ -5,6 +5,7 @@ import numpy as np
 from hgfx.diagnostics.identifiability_validation import (
     classify_mechanism,
     evaluate_m18b_gate,
+    informative_binary_inputs,
     records_from_diagnosis,
     summarize_records,
     trial_count_trends,
@@ -101,3 +102,15 @@ def test_gate_preserves_frozen_m18_semantics() -> None:
 
     assert result["criteria"]["m18_thresholds_may_be_relaxed"] is False
     assert result["checks"]["frozen_m18_result_preserved"] is True
+
+
+def test_informative_binary_inputs_are_balanced_and_bounded_run() -> None:
+    values = informative_binary_inputs(256, 181904)
+    assert set(np.unique(values)) == {0.0, 1.0}
+    assert 0.40 <= float(np.mean(values)) <= 0.60
+    longest = 1
+    run = 1
+    for i in range(1, values.size):
+        run = run + 1 if values[i] == values[i - 1] else 1
+        longest = max(longest, run)
+    assert longest <= 3
