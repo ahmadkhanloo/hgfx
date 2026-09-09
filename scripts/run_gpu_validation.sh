@@ -21,9 +21,14 @@ export HGFX_REQUIRE_GPU=1
   echo "=== DATE ==="
   date -Is
   echo
-  echo "=== GIT ==="
-  git branch --show-current || true
-  git rev-parse HEAD
+  echo "=== SOURCE REVISION ==="
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "branch: $(git branch --show-current || true)"
+    echo "commit: $(git rev-parse HEAD)"
+  else
+    echo "archive: true"
+    echo "commit: ${HGFX_SOURCE_REVISION:-unknown}"
+  fi
   echo
   echo "=== PYTHON/JAX ==="
   python --version
