@@ -1,0 +1,33 @@
+name: M18 Scientific Validation
+
+on:
+  push:
+    branches:
+      - main
+      - feat/m18-scientific-validation
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scientific-validation-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[dev]"
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: M18 unit tests
+        run: pytest tests/unit/test_m18_scientific_validation.py -q
+      - name: M18 reproducible smoke protocol
+        run: python scripts/run_m18_scientific_validation.py --preset ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m18-scientific-validation-smoke
+          path: benchmarks/results/m18_scientific_validation.json
+      - name: Full regression suite
+        run: pytest -q
