@@ -9,6 +9,10 @@ M18A.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from collections import Counter
+import hashlib
+import json
+from pathlib import Path
 from typing import Iterable, Sequence
 
 import numpy as np
@@ -83,7 +87,11 @@ def classify_mechanism(
     likelihood_profile_offset_sd: float,
     objective_improvement_from_truth_start: float,
 ) -> str:
-    """Classify the dominant observed recovery mechanism for one dataset/parameter."""
+    """Describe observed recovery patterns, without claiming identifiability.
+
+    A small estimation error (even with a profile minimum near truth) does not
+    establish likelihood concentration or joint parameter identifiability.
+    """
     if abs(likelihood_profile_offset_sd) > 0.5:
         return "finite_data_likelihood_identifiability"
     if oracle_error_sd + 0.15 < baseline_error_sd:
@@ -94,7 +102,7 @@ def classify_mechanism(
     ):
         return "optimizer_start_sensitivity"
     if baseline_error_sd <= 0.5:
-        return "identifiable_recovery"
+        return "low_error_recovery"
     return "mixed_or_weak_identifiability"
 
 
@@ -250,12 +258,37 @@ def trial_count_trends(summary: dict[str, dict]) -> dict[str, dict]:
     return trends
 
 
+# Original CI result downloaded byte-for-byte; no regenerated summary is used.
+FROZEN_M18_SOURCE_SHA256 = {
+    "scripts/run_m18_scientific_validation.py": "98cc45159ba041f7a0e5addfee4dfa1c2420bcbfef9fa9252ab3550741ae5c2c",
+    "src/hgfx/diagnostics/recovery.py": "a8b24e8fdf0ed1ba6a2067dcd8582ed3a190c1f3516c03152f30f1fa516f2eb1",
+}
+FROZEN_M18_RESULT_SHA256 = "435b3b7775fe6d42a10a7ee677897a5cb056e30b875d9b59d8d04b813732c5b7"
+
+
+def verify_frozen_m18(path: Path | None = None) -> bool:
+    root = Path(__file__).resolve().parents[3]
+    path = path if path is not None else root / "reference/validation/m18_scientific_validation.json"
+    try:
+        data = Path(path).read_bytes()
+        if hashlib.sha256(data).hexdigest() != FROZEN_M18_RESULT_SHA256:
+            return False
+        if any(hashlib.sha256((root / name).read_bytes()).hexdigest() != digest
+               for name, digest in FROZEN_M18_SOURCE_SHA256.items()):
+            return False
+        payload = json.loads(data)
+        return payload["milestone"] == "M18" and payload["preset"] == "gate" and payload["gate"]["pass"] is False
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+
+
 def evaluate_m18b_gate(
     *,
     records: Sequence[IdentifiabilityRecord],
-    summary: dict[str, dict],
+    summary: dict[str, dict] | None = None,
     trial_counts: Sequence[int],
     replicates: int,
+    frozen_m18_path: Path | None = None,
 ) -> dict:
     """Evaluate the M18B protocol-integrity gate.
 
@@ -264,25 +297,93 @@ def evaluate_m18b_gate(
     finite, interpretable evidence and that a known healthy control parameter
     remains recoverable while optimizer sensitivity is not the dominant cause.
     """
-    expected_groups = (
-        len(BINARY_VARIANTS) * len(EXPECTED_PARAMETERS) * len(tuple(trial_counts))
+    trial_counts = tuple(trial_counts)
+    protocol_valid = (
+        type(replicates) is int and replicates > 0
+        and bool(trial_counts)
+        and all(type(t) is int and t >= 8 for t in trial_counts)
+        and len(set(trial_counts)) == len(trial_counts)
     )
-    coverage_complete = (
-        len(summary) == expected_groups
-        and all(item["n"] == replicates for item in summary.values())
+    expected = (
+        {(m, p, t, r) for m in BINARY_VARIANTS for p in EXPECTED_PARAMETERS
+         for t in trial_counts for r in range(replicates)}
+        if protocol_valid else set()
     )
-    profiles_finite = all(
+    keys = [(r.model, r.parameter, r.trial_count, r.replicate) for r in records]
+    coverage_complete = bool(expected) and Counter(keys) == Counter(expected)
+    numeric_fields = (
+        "prior_sd", "baseline_error_sd", "truth_start_error_sd", "oracle_error_sd",
+        "likelihood_profile_offset_sd", "joint_profile_offset_sd", "likelihood_span",
+        "objective_improvement_from_truth_start",
+    )
+    nonnegative_fields = (
+        "baseline_error_sd", "truth_start_error_sd", "oracle_error_sd", "likelihood_span",
+    )
+    terminations = {"tol_arg", "tol_grad", "max_iter", "max_resets"}
+
+    def finite(value):
+        return (isinstance(value, (int, float, np.integer, np.floating))
+                and not isinstance(value, (bool, np.bool_)) and bool(np.isfinite(value)))
+
+    def valid(row):
+        if not all(finite(getattr(row, f)) for f in numeric_fields):
+            return False
+        if row.prior_sd <= 0 or any(getattr(row, f) < 0 for f in nonnegative_fields):
+            return False
+        for field in ("perceptual_oracle_error_sd", "likelihood_curvature"):
+            value = getattr(row, field)
+            if value is not None and not finite(value):
+                return False
+        if row.parameter in ("om[1]", "om[2]"):
+            if row.perceptual_oracle_error_sd is None or row.perceptual_oracle_error_sd < 0:
+                return False
+        elif row.perceptual_oracle_error_sd is not None:
+            # The observation parameter is excluded from the perceptual-only fit.
+            return False
+        if any(type(getattr(row, f)) is not int for f in ("trial_count", "replicate", "seed")):
+            return False
+        return (
+            row.seed >= 0
+            and row.role == ("observation" if row.parameter == "logze" else "perceptual")
+            and row.baseline_termination in terminations
+            and row.truth_start_termination in terminations
+            and row.mechanism == classify_mechanism(
+                baseline_error_sd=row.baseline_error_sd,
+                truth_start_error_sd=row.truth_start_error_sd,
+                oracle_error_sd=row.oracle_error_sd,
+                likelihood_profile_offset_sd=row.likelihood_profile_offset_sd,
+                objective_improvement_from_truth_start=row.objective_improvement_from_truth_start,
+            )
+        )
+
+    records_valid = bool(records) and all(valid(row) for row in records)
+    dataset_seeds = {}
+    for row in records:
+        dataset_seeds.setdefault((row.model, row.trial_count, row.replicate), set()).add(row.seed)
+    seeds_consistent = bool(dataset_seeds) and all(len(v) == 1 for v in dataset_seeds.values())
+    for model in BINARY_VARIANTS:
+        for trial_count in trial_counts:
+            cell_seeds = [next(iter(v)) for (m, t, _), v in dataset_seeds.items()
+                          if m == model and t == trial_count and len(v) == 1]
+            seeds_consistent = seeds_consistent and len(cell_seeds) == len(set(cell_seeds))
+
+    # All numerical decisions use raw evidence. A supplied summary is only a
+    # redundant integrity check, never an alternative source of observations.
+    computed = summarize_records(records) if records_valid else {}
+    summary_consistent = summary is None or summary == computed
+    summary = computed
+    profiles_finite = bool(summary) and all(
         np.isfinite(item["median_abs_likelihood_profile_offset_sd"])
         and np.isfinite(item["median_likelihood_span"])
         and item["median_likelihood_span"] >= 0.0
         for item in summary.values()
     )
-    optimizer_not_dominant = all(
+    optimizer_not_dominant = bool(summary) and all(
         abs(item["median_objective_improvement_from_truth_start"]) <= 0.10
         for item in summary.values()
     )
 
-    highest = max(int(value) for value in trial_counts)
+    highest = max(trial_counts) if protocol_valid else None
     healthy_controls = [
         item
         for item in summary.values()
@@ -294,11 +395,15 @@ def evaluate_m18b_gate(
     )
 
     checks = {
+        "protocol_valid": bool(protocol_valid),
         "coverage_complete": bool(coverage_complete),
+        "records_valid": bool(records_valid),
+        "dataset_seeds_consistent": bool(seeds_consistent),
+        "summary_consistent": bool(summary_consistent),
         "profiles_finite": bool(profiles_finite),
         "optimizer_not_dominant": bool(optimizer_not_dominant),
         "healthy_control_recovery": bool(healthy_control_recovery),
-        "frozen_m18_result_preserved": True,
+        "frozen_m18_result_preserved": verify_frozen_m18(frozen_m18_path),
     }
     return {
         "criteria": {

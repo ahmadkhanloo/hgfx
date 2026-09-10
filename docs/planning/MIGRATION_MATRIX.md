@@ -1315,3 +1315,10 @@ $$
 ```text
 02_HGF_Python_GPU_Execution_Plan.md
 ```
+
+## M18B evidence-integrity repair
+
+C01/C04, P02/P03/P04 and O17 validation reporting is being repaired; no
+model, prior, response or optimizer equations change. See
+`M18B_REPAIR_PLAN.md` for the testable small-step plan. Original M18 FAIL
+evidence remains frozen. This work does not mark scientific recovery PASS.
