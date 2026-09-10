@@ -21,3 +21,11 @@ All notable changes to HGFX should be documented here.
 - M15 optimizer abstraction and JAX BFGS backend with device-resident optimizer arrays.
 - M15 CPU gradient/final-objective/trajectory parity tests and strict physical-GPU fitting parity harness.
 - M16 subject/restart batch engine with shape scheduler, nested vmap fitting, heterogeneous-length masking, compile-cache reuse, and single-vs-batch equivalence gates.
+
+## M18B evidence integrity
+
+- Reject incomplete/duplicate/nonfinite raw recovery records and inconsistent summaries.
+- Verify archived M18 FAIL bytes and unchanged protocol source hashes.
+- Rename the unsupported identifiable-recovery label to low-error recovery.
+- Archive per-dataset profiles, inputs, failures and reproducibility metadata;
+  checkpoint incomplete runs and distinguish smoke execution from final PASS.

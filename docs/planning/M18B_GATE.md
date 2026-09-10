@@ -1,6 +1,6 @@
 # M18B — Recovery Protocol Redesign / Identifiability-Aware Validation
 
-Status: **PASS — IMPLEMENTED, GATE EXECUTED, MERGED**
+Status: **REOPENED — EVIDENCE-INTEGRITY REPAIR IN VALIDATION**
 
 Parent: M18 Scientific Validation  
 Predecessor: M18A Parameter Recovery Diagnosis
@@ -65,21 +65,24 @@ For each free parameter M18B records:
 
 ## Mechanism classes
 
-- `identifiable_recovery`
+- `low_error_recovery`
 - `finite_data_likelihood_identifiability`
 - `cross_parameter_confounding`
 - `optimizer_start_sensitivity`
 - `mixed_or_weak_identifiability`
 
-Classification is diagnostic and never exempts failed observations.
+Classification is descriptive and never exempts failed observations.
+`low_error_recovery` does not establish likelihood concentration or joint
+identifiability. Conditional slices hold other parameters at truth. Undefined
+boundary curvature is recorded explicitly as null.
 
 ## Gate criteria
 
 M18B PASS means that the redesigned protocol itself is complete and scientifically
 interpretable. The gate requires:
 
-1. complete model × parameter × trial-count coverage;
-2. finite profile diagnostics for every group;
+1. exact model × parameter × trial-count × replicate coverage and consistent unique dataset seeds;
+2. valid finite required metrics in every raw record, and a summary recomputed from those records;
 3. absolute median truth-start objective improvement <= 0.10, confirming optimizer
    sensitivity is not the dominant global mechanism;
 4. the known healthy control `om[1]` has median recovery error <= 0.50 prior SD at the
@@ -88,7 +91,7 @@ interpretable. The gate requires:
 
 M18B PASS **does not imply M18 PASS**.
 
-## Executed gate evidence
+## Historical gate evidence (before integrity repair)
 
 Final validated head before merge:
 
@@ -144,14 +147,34 @@ python scripts/run_m18b_identifiability_validation.py \
 
 ## Conclusion
 
-M18B is **PASS / CLOSED**.
+The historical M18B PASS has been reopened because empty raw records could pass
+the old gate. The corrected implementation requires a new run and artifact.
 
-The milestone demonstrates that HGFX now has an identifiability-aware recovery-validation
-protocol that separates recoverability, finite-data likelihood identifiability, parameter
-confounding, and optimizer sensitivity without weakening or rewriting the frozen M18
-acceptance criteria.
+The diagnostic protocol reports recovery patterns. It does not establish joint
+identifiability or replace the frozen M18 acceptance criteria.
 
 The original M18 scientific-validation result remains **FAIL** and must remain preserved as
 historical evidence. Any future attempt to close the parent M18 milestone must address the
 scientific meaning of the original recovery thresholds rather than retroactively replacing
 them with M18B criteria.
+
+## Evidence integrity correction
+
+The previous code at `db4662d` did execute successfully in CI (run
+34411993098). Its gate trusted a caller-supplied summary and did not validate
+raw records. That historical green run is not sufficient evidence for the
+corrected gate. The original M18B thresholds and 64/128/256 grid are unchanged.
+
+The original M18 gate artifact is now preserved byte-for-byte in
+`reference/validation/m18_scientific_validation.json`. Its run, artifact, source
+commit and SHA-256 are recorded in `reference/validation/m18_provenance.json`.
+The new gate checks the result hash and hashes of the unchanged M18 runner and
+recovery implementation.
+
+Schema 2 records the base seed, environment, source hashes, full diagnostic
+profiles and inputs. It checkpoints after every dataset, records failed cells
+without resampling, and cannot report final PASS for partial or smoke runs.
+
+Bounded-run stimuli are an experimental design choice, not proof of improved
+identifiability. The 512-trial failure is unresolved and must be investigated
+against the frozen MATLAB reference before extending the scientific claim.

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/m18b-identifiability-aware-validation
+      - fix/m18b-evidence-integrity
   pull_request:
   workflow_dispatch:
 
@@ -22,7 +23,9 @@ jobs:
       - name: Frozen reference guard
         run: python scripts/verify_reference_freeze.py
       - name: M18B unit tests
-        run: pytest tests/unit/test_m18b_identifiability_validation.py -q
+        run: python -m pytest tests/unit/test_m18b*.py -q
+      - name: Full regression suite
+        run: python -m pytest -q
       - name: M18B final gate
         run: >-
           python scripts/run_m18b_identifiability_validation.py
@@ -32,6 +35,5 @@ jobs:
         if: always()
         with:
           name: m18b-identifiability-validation
+          if-no-files-found: error
           path: benchmarks/results/m18b_identifiability_validation.json
-      - name: Full regression suite
-        run: pytest -q
