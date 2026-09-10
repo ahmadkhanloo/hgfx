@@ -334,7 +334,11 @@ def evaluate_m18b_gate(
             value = getattr(row, field)
             if value is not None and not finite(value):
                 return False
-        if row.perceptual_oracle_error_sd is not None and row.perceptual_oracle_error_sd < 0:
+        if row.parameter in ("om[1]", "om[2]"):
+            if row.perceptual_oracle_error_sd is None or row.perceptual_oracle_error_sd < 0:
+                return False
+        elif row.perceptual_oracle_error_sd is not None:
+            # The observation parameter is excluded from the perceptual-only fit.
             return False
         if any(type(getattr(row, f)) is not int for f in ("trial_count", "replicate", "seed")):
             return False

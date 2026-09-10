@@ -13,7 +13,7 @@ def good_records():
         model=m, trial_count=t, replicate=r, seed=1000+100*mi+t+r,
         parameter=p, role='observation' if p == 'logze' else 'perceptual',
         prior_sd=1., baseline_error_sd=.1, truth_start_error_sd=.1,
-        oracle_error_sd=.1, perceptual_oracle_error_sd=.1,
+        oracle_error_sd=.1, perceptual_oracle_error_sd=None if p == "logze" else .1,
         likelihood_profile_offset_sd=.1, joint_profile_offset_sd=.1,
         likelihood_span=2., likelihood_curvature=1.,
         objective_improvement_from_truth_start=.01,
@@ -43,6 +43,7 @@ def test_empty_raw_records_cannot_pass_with_forged_summary():
     {'truth_start_error_sd':float('inf')}, {'oracle_error_sd':float('inf')},
     {'likelihood_span':float('inf')}, {'likelihood_span':-1.},
     {'prior_sd':0.}, {'perceptual_oracle_error_sd':float('nan')},
+    {'perceptual_oracle_error_sd':None},
     {'likelihood_curvature':float('inf')}, {'baseline_termination':'invented'},
     {'role':'wrong'}, {'mechanism':'identifiable_recovery'},
 ])
@@ -89,3 +90,8 @@ def test_low_error_is_not_proof_of_identifiability():
     assert classify_mechanism(baseline_error_sd=.1,truth_start_error_sd=.1,
         oracle_error_sd=.1,likelihood_profile_offset_sd=0.,
         objective_improvement_from_truth_start=0.) == 'low_error_recovery'
+
+
+def test_observation_cannot_claim_a_perceptual_only_oracle_fit():
+    rows=good_records(); rows[2]=replace(rows[2],perceptual_oracle_error_sd=.1)
+    assert not gate(rows)['pass']
