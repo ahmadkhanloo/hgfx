@@ -1,0 +1,10 @@
+{
+  "run_id": 34362839798,
+  "artifact_id": 10111094151,
+  "source_commit": "b2c502e69f76ed67a86997e380c4708d85a4296a",
+  "result_sha256": "435b3b7775fe6d42a10a7ee677897a5cb056e30b875d9b59d8d04b813732c5b7",
+  "source_sha256": {
+    "scripts/run_m18_scientific_validation.py": "98cc45159ba041f7a0e5addfee4dfa1c2420bcbfef9fa9252ab3550741ae5c2c",
+    "src/hgfx/diagnostics/recovery.py": "a8b24e8fdf0ed1ba6a2067dcd8582ed3a190c1f3516c03152f30f1fa516f2eb1"
+  }
+}
