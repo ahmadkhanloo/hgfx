@@ -5,29 +5,72 @@ on:
     branches:
       - main
       - feat/m18-scientific-validation
+    paths:
+      - 'src/**'
+      - 'scripts/run_m18_scientific_validation.py'
+      - 'tests/**'
+      - '.github/workflows/m18-scientific-validation.yml'
   pull_request:
   workflow_dispatch:
 
 jobs:
   scientific-validation-smoke:
+    name: M18 Smoke Validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python -m pip install -e ".[dev]"
+          cache: pip
+
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+
       - name: Frozen reference guard
         run: python scripts/verify_reference_freeze.py
+
       - name: M18 unit tests
         run: pytest tests/unit/test_m18_scientific_validation.py -q
+
       - name: M18 reproducible smoke protocol
         run: python scripts/run_m18_scientific_validation.py --preset ci
+
       - uses: actions/upload-artifact@v4
         with:
           name: m18-scientific-validation-smoke
           path: benchmarks/results/m18_scientific_validation.json
+
       - name: Full regression suite
         run: pytest -q
+
+  scientific-validation-gate:
+    name: M18 Frozen Gate Validation
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run frozen M18 gate
+        run: |
+          python scripts/run_m18_scientific_validation.py \
+            --preset gate \
+            --output benchmarks/results/m18_gate_validation.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m18-scientific-validation-gate
+          path: benchmarks/results/m18_gate_validation.json
