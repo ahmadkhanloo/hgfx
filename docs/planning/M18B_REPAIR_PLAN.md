@@ -4,6 +4,10 @@ Scope: repair validation integrity before making further scientific recovery cla
 Matrix IDs: C01/C04 (fitting evidence), P02/P03/P04 (binary model recovery), O17.
 The model equations, priors, optimizer and frozen M18 thresholds are unchanged.
 
+## Active continuation
+
+See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md). Steps 1–5 below remain implemented history; step 6 maps to R0; step 7 is expanded into R1–R5 with paired MATLAB evidence and explicit exit criteria. No new scientific PASS is established by this documentation update.
+
 ## Small steps and acceptance criteria
 
 1. **Done — establish current baseline.** Read branch `db4662d`; download CI

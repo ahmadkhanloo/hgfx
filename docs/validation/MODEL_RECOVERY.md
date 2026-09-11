@@ -38,3 +38,7 @@ remaining a minimum gate rather than a publication-level effect-size claim.
 
 The final paper should additionally report uncertainty and recovery stratified by trial
 count and parameter regime.
+
+## Active correction requirements — 2026-09-11
+
+The paired MATLAB/Python follow-up must use identical datasets and candidate configurations, export each candidate objective/BIC/AIC/LME and record ties/failures under a preregistered rule. Preserve the original BIC gate. Compare both confusion matrices and per-dataset model decisions; matching aggregate accuracy alone is insufficient.

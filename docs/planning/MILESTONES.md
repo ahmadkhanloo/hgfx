@@ -62,3 +62,16 @@ Benchmark and validation outputs immutable and reproducible.
 
 ## M20 — v1.0 Candidate
 All Definition-of-Done checks pass.
+
+## Active repair gates — 2026-09-11
+
+[MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md) defines R0–R6 without renumbering M0–M20.
+
+- M18: historical FAIL; preserve raw evidence and thresholds.
+- M18A: diagnostic PASS within its documented experiment; does not prove paired MATLAB parity on failed datasets.
+- M18B: integrity repair implemented; corrected final artifact unverified in this review. PASS means protocol integrity only.
+- R1/R2: paired MATLAB numerical-horizon gate before any stability claim.
+- R3: same-data MATLAB/Python inference gate before assigning the recovery failure to model limitations.
+- R4: separately preregistered scientific protocol; never relabel historical M18.
+- R5: family/regime coverage and physical GPU confirmation for changed paths.
+- M19/M20: OPEN; no automatic waiver of existing release criteria.

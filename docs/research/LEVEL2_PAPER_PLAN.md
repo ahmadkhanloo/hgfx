@@ -123,3 +123,7 @@ This project can support a computational-methods manuscript if it demonstrates:
 - methodological benefit from differentiable/batched inference.
 
 A software-only publication remains a fallback, not the primary goal.
+
+## Active correction requirements — 2026-09-11
+
+The active prerequisite is R0–R6 in `docs/planning/MATLAB_PARITY_RECOVERY_PLAN.md`. Preserve the failed historical M18 experiment and report paired MATLAB/Python evidence before attributing failure to identifiability. Separate toolbox parity, recovery performance, protocol integrity and throughput claims. M19/M20 remain open; a diagnostic M18B PASS is not scientific-recovery or release PASS.

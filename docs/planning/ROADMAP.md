@@ -1,5 +1,9 @@
 # HGFX Roadmap
 
+## Active correction sequence — 2026-09-11
+
+Follow [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md): R0 evidence integrity → R1 paired 512-trial reproduction → R2 reference-backed repair → R3 paired M18 inference → R4 independent recovery protocol → R5 coverage/GPU confirmation → R6 release. These are repair steps, not replacements for milestone numbers. Historical checks below retain their original scope and commit. M18 remains FAIL; corrected M18B evidence is unverified; M19/M20 remain OPEN.
+
 ## Phase 0 — Freeze reference
 - [x] Freeze HGF reference version
 - [x] Record exact commit SHA

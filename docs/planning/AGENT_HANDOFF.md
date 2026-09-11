@@ -124,13 +124,17 @@ M15 is **PASS**.
 See `docs/planning/M15_GATE.md` and
 `docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
 
-## Next tasks
+## Next tasks — revised 2026-09-11
 
-1. Begin M18 scientific validation: parameter recovery.
-2. Add model recovery and confusion-matrix evaluation.
-3. Add robustness sweeps across trial count, parameter regimes, missing/ignored trials, and initialization.
-4. Reconfirm CPU/GPU agreement across the M18 validation workload.
-5. Compare optimizer agreement and feed all validation evidence into the Methods-paper package.
+Follow [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md), R0–R6.
+
+1. Verify/archive corrected M18B gate evidence for the repaired code; do not reuse the old green artifact as proof.
+2. Recover the exact 512-trial failure and compare against frozen MATLAB before modifying numerics.
+3. Compare both toolboxes on identical failed M18 datasets, including objective, fitting and Hessian/LME.
+4. Preregister a separate recovery experiment after distinguishing implementation mismatch from reference/model limitations.
+5. Audit family/regime evidence, revalidate changed scientific paths on physical H100, then address release/paper gates.
+
+M18 historical result is FAIL. M18A diagnosis is complete but is not a paired MATLAB validation of the failing datasets. M18B integrity repair exists at `78fd894`; a corrected gate artifact remains unverified in this review. M19/M20 are OPEN.
 
 ## M14 boundary
 

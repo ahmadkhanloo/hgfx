@@ -79,3 +79,11 @@ For each finding:
 - reproduction steps;
 - proposed fix;
 - whether it blocks release.
+
+## Active correction requirements — 2026-09-11
+
+- [ ] Paired MATLAB evidence resolves the 512-trial failure.
+- [ ] Same-data paired inference separates implementation errors from shared recovery limitations.
+- [ ] Corrected M18B artifact is complete and tied to the tested code.
+- [ ] Historical FAIL and successor recovery protocol are reported separately.
+- [ ] Release claims match family/regime/backend evidence; no retrospective threshold relaxation.
