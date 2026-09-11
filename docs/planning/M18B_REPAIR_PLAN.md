@@ -27,9 +27,11 @@ See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md). Steps 1–5 b
 5. **Done — make runs auditable.** Store inputs, diagnoses including profile
    arrays, source hashes, environment, seed and failures. Checkpoint atomically
    after each cell. An interrupted or smoke run cannot claim final PASS.
-6. **In progress — rerun corrected validation.** Require targeted tests,
-   reference-freeze guard, full regression, and the unchanged gate grid (27
-   datasets / 81 parameter records). Publish corrected code and CI artifact.
+6. **Local PASS — corrected validation rerun.** Targeted tests (39), reference
+   guard and baseline regression (136 passed / 4 GPU skips) passed. The unchanged
+   gate completed with 27 datasets / 81 records / zero failures; a second raw-record
+   evaluation passed. Complete local output is archived with source/hash provenance.
+   Corrected CI artifact remains separately pending in run 34567774302.
 7. **Open scientific follow-up — numerical horizon and experimental design.**
    Reproduce the 512-trial failure at its recorded seed, identify the first
    divergent trial/state against frozen MATLAB, and only then correct any
@@ -43,3 +45,11 @@ See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md). Steps 1–5 b
 Steps 1–6 close the evidence-integrity repair, not the whole HGFX scientific
 validation program. M18 remains FAIL, M19/M20 remain open, and the 512-trial
 limitation remains unresolved until reference evidence supports a correction.
+
+## Execution update — 2026-09-11
+
+See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass. Corrected M18B local gate PASS: 27 datasets, 81 records, zero failures; complete raw output and hashes archived in reference/validation. Paired MATLAB workflow 34568178526 confirms 49 valid cases and the same 5 rejection boundaries. Rejected raw intermediates and R3 paired inference remain open. M18 historical FAIL is unchanged.
+
+## Verified execution update — 2026-09-11 06:04 UTC
+
+R0 corrected M18B gate is now PASS locally **and in CI** (run `34567774302`, artifact `10186837061`). See `reference/validation/m18b_corrected_ci_provenance.json` and the archived complete local records. This supersedes earlier pending-CI text. Paired MATLAB horizon run `34568178526` also passed within its explicit scope: 49 valid trajectories and 5 shared rejection boundaries. R1 rejected raw intermediates and R3 paired inference remain open. Historical M18 stays FAIL; no scientific release gate is waived.

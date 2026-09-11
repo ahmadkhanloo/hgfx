@@ -1,0 +1,36 @@
+{
+  "scope": "corrected M18B protocol integrity only; M18 historical FAIL unchanged",
+  "execution": "local CPU, complete gate",
+  "source_commit": "331a4311c5a75558a814d1ae9d48750188ba27b3",
+  "source_sha256": {
+    "scripts/run_m18b_identifiability_validation.py": "cf7445f42137de6c50717e0064853fbf511d5ccd13a36781a2f8ff861d85876e",
+    "src/hgfx/diagnostics/identifiability_validation.py": "2f63132cf05713e7c81108d24a620219317abbf14a5023f7bf47865c1dfbb8d8",
+    "src/hgfx/diagnostics/parameter_recovery_diagnosis.py": "85bb91dda6e7341cd2a7b115caa26d35e14000b7e14c4f5db66747183e1c80a1"
+  },
+  "raw_sha256": "f19429f72bdf5cccb60720497917c0a29400da0e7e227863d3717009f5c85915",
+  "gzip_sha256": "1892fd5bee0f728616108c2455e13ddeb514e73bffbf2e17b13a75806e174e6e",
+  "datasets": 27,
+  "records": 81,
+  "failures": 0,
+  "gate": {
+    "criteria": {
+      "healthy_control_median_error_sd_max": 0.5,
+      "optimizer_truth_start_objective_improvement_abs_max": 0.1,
+      "m18_thresholds_may_be_relaxed": false
+    },
+    "checks": {
+      "protocol_valid": true,
+      "coverage_complete": true,
+      "records_valid": true,
+      "dataset_seeds_consistent": true,
+      "summary_consistent": true,
+      "profiles_finite": true,
+      "optimizer_not_dominant": true,
+      "healthy_control_recovery": true,
+      "frozen_m18_result_preserved": true
+    },
+    "pass": true,
+    "note": "M18B PASS validates the redesigned identifiability-aware protocol; it does not change the frozen M18 FAIL result."
+  },
+  "ci_run_pending": 34567774302
+}
