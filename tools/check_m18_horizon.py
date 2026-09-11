@@ -12,6 +12,10 @@ def compare(python, matlab):
         raise ValueError('Reference SHA mismatch')
     if not python['cases'] or len(python['cases']) != len(matlab['cases']):
         raise ValueError('Missing cases')
+    identities = [tuple(c[k] for k in ('model', 'trials', 'replicate', 'seed', 'point'))
+                  for c in python['cases']]
+    if len(set(identities)) != len(identities):
+        raise ValueError('Duplicate cases')
     mismatches = []
     shared_rejections = []
     for i, (p, m) in enumerate(zip(python['cases'], matlab['cases'], strict=True)):
@@ -37,16 +41,22 @@ def compare(python, matlab):
                 mismatches.append({'case': i, 'field': field, 'kind': 'shape'})
                 continue
             valid = True
+            mask_bad = np.zeros(shape, dtype=bool)
             for mask in ('nan', 'posinf', 'neginf'):
-                valid &= np.array_equal(np.asarray(a[mask]).reshape(shape), np.asarray(b[mask]).reshape(shape))
+                mask_bad |= np.asarray(a[mask]).reshape(shape) != np.asarray(b[mask]).reshape(shape)
+            valid = not np.any(mask_bad)
             x = np.asarray(a['values']).reshape(shape)
             y = np.asarray(b['values']).reshape(shape)
             # Existing M4 forward tolerance; this diagnostic does not recalibrate it.
             bad = ~np.isclose(x, y, atol=5e-13, rtol=5e-11)
             if not valid or np.any(bad):
-                idx = np.argwhere(bad)
+                idx = np.argwhere(bad | mask_bad)
+                first = tuple(idx[0])
                 mismatches.append({'case': i, 'field': field, 'kind': 'numeric_or_nonfinite',
-                                   'first_index_0based': idx[0].tolist() if len(idx) else None})
+                                   'first_index_0based': idx[0].tolist(),
+                                   'python_encoded_value': float(x[first]),
+                                   'matlab_encoded_value': float(y[first]),
+                                   'absolute_difference': float(abs(x[first] - y[first]))})
     return {'mismatches': mismatches, 'shared_rejections': shared_rejections,
             'complete_raw_parity': not mismatches and not shared_rejections,
             'scope': 'valid trajectory parity and validation boundary; shared rejected raw states remain unverified'}

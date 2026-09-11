@@ -14,7 +14,7 @@ HGFX is a scientific reimplementation and extension framework for the Hierarchic
 
 ## Project status
 
-M0–M17 have recorded gate evidence within their tested scope. M18 scientific recovery remains FAIL; M18B evidence-integrity repair requires a verified corrected gate artifact. The active work is paired MATLAB validation of the numerical-horizon and recovery failures; see the [current correction plan](docs/planning/MATLAB_PARITY_RECOVERY_PLAN.md).
+M0–M17 have recorded gate evidence within their tested scope. M18 scientific recovery remains FAIL; M18B corrected local gate passes with archived raw evidence; CI confirmation is tracked separately. The active work is paired MATLAB validation of the numerical-horizon and recovery failures; see the [current correction plan](docs/planning/MATLAB_PARITY_RECOVERY_PLAN.md).
 
 The project is intentionally test-first. A component is **not considered migrated** merely because it executes; it is accepted only when it passes the required numerical reference tests.
 

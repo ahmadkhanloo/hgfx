@@ -1,6 +1,6 @@
 # M18B — Recovery Protocol Redesign / Identifiability-Aware Validation
 
-Status: **REOPENED — EVIDENCE-INTEGRITY REPAIR IN VALIDATION**
+Status: **CORRECTED LOCAL GATE PASS — CI ARTIFACT PENDING**
 
 Parent: M18 Scientific Validation  
 Predecessor: M18A Parameter Recovery Diagnosis
@@ -178,3 +178,11 @@ without resampling, and cannot report final PASS for partial or smoke runs.
 Bounded-run stimuli are an experimental design choice, not proof of improved
 identifiability. The 512-trial failure is unresolved and must be investigated
 against the frozen MATLAB reference before extending the scientific claim.
+
+## Corrected local evidence — 2026-09-11
+
+The unchanged gate completed at scientific source state recorded by commit `331a4311c5a75558a814d1ae9d48750188ba27b3`: 27 datasets, 81 raw records, no failures, all checks PASS. An independent evaluation reconstructed record objects from the saved JSON and recomputed the gate successfully. Runner/diagnosis source hashes and frozen M18 hashes were verified.
+
+Complete raw artifact: `reference/validation/m18b_corrected_local.json.gz`. Provenance: `reference/validation/m18b_corrected_local_provenance.json`. Python 3.12, NumPy 2.5.3, JAX 0.11.1, CPU. Prerequisites: 39 targeted tests; 136 baseline regression passes / 4 physical GPU skips; reference freeze PASS. CI run 34567774302 is separate and not yet claimed complete here.
+
+This supersedes the earlier pending-local status above. It closes local evidence-integrity validation only; it does not close M18 recovery or establish joint identifiability.

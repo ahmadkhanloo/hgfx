@@ -61,3 +61,11 @@ def test_nonfinite_masks_and_first_divergence():
     m = copy.deepcopy(p)
     m['cases'][0]['trajectory']['mu']['posinf'][1][1] = False
     assert checker.compare(p, m)['mismatches']
+
+
+def test_duplicate_evidence_cannot_pass():
+    row = dict(model='hgf_binary', trials=512, replicate=0, seed=233100,
+               point='prior', status='rejected', error_id='tapas:hgf:VarApproxInvalid')
+    payload = {'reference_commit': 'test', 'cases': [row, row]}
+    with pytest.raises(ValueError, match='Duplicate cases'):
+        checker.compare(payload, payload)

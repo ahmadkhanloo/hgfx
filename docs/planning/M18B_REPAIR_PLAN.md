@@ -27,9 +27,11 @@ See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md). Steps 1–5 b
 5. **Done — make runs auditable.** Store inputs, diagnoses including profile
    arrays, source hashes, environment, seed and failures. Checkpoint atomically
    after each cell. An interrupted or smoke run cannot claim final PASS.
-6. **In progress — rerun corrected validation.** Require targeted tests,
-   reference-freeze guard, full regression, and the unchanged gate grid (27
-   datasets / 81 parameter records). Publish corrected code and CI artifact.
+6. **Local PASS — corrected validation rerun.** Targeted tests (39), reference
+   guard and baseline regression (136 passed / 4 GPU skips) passed. The unchanged
+   gate completed with 27 datasets / 81 records / zero failures; a second raw-record
+   evaluation passed. Complete local output is archived with source/hash provenance.
+   Corrected CI artifact remains separately pending in run 34567774302.
 7. **Open scientific follow-up — numerical horizon and experimental design.**
    Reproduce the 512-trial failure at its recorded seed, identify the first
    divergent trial/state against frozen MATLAB, and only then correct any
@@ -46,4 +48,4 @@ limitation remains unresolved until reference evidence supports a correction.
 
 ## Execution update — 2026-09-11
 
-See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass; the reconstructed 512-trial HGF prior case is rejected by the finite precision-jump guard. A paired MATLAB workflow is added; direct MATLAB results and the corrected full M18B gate are still pending. No M18 scientific PASS is claimed.
+See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass. Corrected M18B local gate PASS: 27 datasets, 81 records, zero failures; complete raw output and hashes archived in reference/validation. Paired MATLAB workflow 34568178526 confirms 49 valid cases and the same 5 rejection boundaries. Rejected raw intermediates and R3 paired inference remain open. M18 historical FAIL is unchanged.

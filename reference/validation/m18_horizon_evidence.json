@@ -1,0 +1,20 @@
+{
+  "source": "GitHub job logs and artifact metadata; ZIP could not be materialized locally (HTTP 403)",
+  "run_id": 34568178526,
+  "job_id": 103164480552,
+  "artifact_id": 10186808228,
+  "artifact_sha256_reported_by_github": "9785b2df36b995f9fb3e2971519c39acc3f9818170b596629f95a51be80adc48",
+  "head_commit": "f2c32a4b93fc7bbf05f686eaf923d14b132db385",
+  "total_cases": 54,
+  "valid_cases": 49,
+  "mismatches": [],
+  "shared_rejections": [
+    12,
+    14,
+    15,
+    16,
+    17
+  ],
+  "complete_raw_parity": false,
+  "scope": "valid trajectories and validation boundary only; rejected intermediate states not compared"
+}

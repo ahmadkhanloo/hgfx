@@ -75,3 +75,5 @@ All Definition-of-Done checks pass.
 - R4: separately preregistered scientific protocol; never relabel historical M18.
 - R5: family/regime coverage and physical GPU confirmation for changed paths.
 - M19/M20: OPEN; no automatic waiver of existing release criteria.
+
+Execution update: corrected M18B local gate PASS with full archived records; paired MATLAB horizon diagnostic confirms 49 valid cases and 5 shared rejection boundaries. See `M18_HORIZON_DIAGNOSIS.md`. M18 remains FAIL; R1 rejected intermediate-state comparison and R3 remain open.

@@ -204,4 +204,4 @@ See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
 
 ## Execution update — 2026-09-11
 
-See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass; the reconstructed 512-trial HGF prior case is rejected by the finite precision-jump guard. A paired MATLAB workflow is added; direct MATLAB results and the corrected full M18B gate are still pending. No M18 scientific PASS is claimed.
+See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass. Corrected M18B local gate PASS: 27 datasets, 81 records, zero failures; complete raw output and hashes archived in reference/validation. Paired MATLAB workflow 34568178526 confirms 49 valid cases and the same 5 rejection boundaries. Rejected raw intermediates and R3 paired inference remain open. M18 historical FAIL is unchanged.

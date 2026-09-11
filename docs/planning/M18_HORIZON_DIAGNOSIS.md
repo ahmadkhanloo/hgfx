@@ -9,8 +9,8 @@ R0 prerequisites ran locally on Python 3.12 / NumPy 2.5.3 / JAX 0.11.1:
 - frozen reference guard PASS: 334 MATLAB files, commit `2437f4dc241541072722a2695ddeca7b44d83dd3`;
 - corrected M18B unit tests: 39 passed;
 - baseline full regression: 136 passed, 4 physical-GPU skips (93.98 seconds);
-- new horizon diagnostic tests: 3 passed;
-- corrected M18B full gate: running at the time of this entry; not yet PASS.
+- new horizon diagnostic tests: 4 passed (including duplicate-evidence rejection);
+- corrected M18B full gate: **local PASS**, 27 datasets / 81 raw records / zero failures; independently recomputed from archived records. Raw output is `reference/validation/m18b_corrected_local.json.gz`; hashes and tested source are in the adjacent provenance JSON. CI run 34567774302 remains separately pending.
 
 R1 reconstructs **all** 3 models × 3 trial counts (128/256/512) × 3 replicas × 2 points (prior/truth) from `225f565^`. It exports actual inputs and transformed parameters so MATLAB does not have to reproduce NumPy RNG. The historical failing CI log has not yet been matched to an exact cell; this is a reproduction from the historical protocol, not a claim of identical historical runtime execution.
 
@@ -67,3 +67,11 @@ Commit `a8137b9` adds a horizon recovery runner outside main. It is useful explo
 2. Execute the paired MATLAB horizon workflow and inspect its raw artifact.
 3. If both reject, compare rejected intermediate states before declaring the full failure mechanism shared; if they disagree, locate the first divergence before changing numerics.
 4. Continue same-data objective/fitting comparison under R3; do not substitute unchecked trajectories or easier seeds to make M18 pass.
+
+## Executed MATLAB result
+
+Paired workflow 34568178526 at head `f2c32a4b93fc7bbf05f686eaf923d14b132db385` executed successfully. MATLAB agreed on 49 valid forward cases within existing tolerances and rejected the same 5 HGF 512-trial cases with `tapas:hgf:VarApproxInvalid`. No comparison mismatches were reported. The first case also successfully generated 512 responses in Python; the prior objective returned rval=-1 before optimization.
+
+Artifact: `10186808228`, SHA256 reported by GitHub: `9785b2df36b995f9fb3e2971519c39acc3f9818170b596629f95a51be80adc48`. Job logs and artifact metadata confirm the result. Direct ZIP materialization returned HTTP 403, so no local rehash of that ZIP is claimed. See `reference/validation/m18_horizon_evidence.json`.
+
+This establishes matching validation boundaries and valid-case trajectories, not equality of the rejected raw intermediates. R0 is locally complete; R1 is partially complete. R2 must preserve the reference guard; R3 paired inference remains open.
