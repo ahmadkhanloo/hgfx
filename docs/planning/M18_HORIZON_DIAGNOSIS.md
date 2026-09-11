@@ -19,7 +19,7 @@ R1 reconstructs **all** 3 models × 3 trial counts (128/256/512) × 3 replicas �
 For HGF, 512 trials, replica 0, prior point, seed `233100`:
 
 - the normal compatibility forward call rejects the trajectory;
-- the explicitly unchecked diagnostic trajectory has finite `mu` and `pi`;
+- the explicitly unchecked diagnostic trajectory has finite `mu` and `pi` at the checked levels 2–3 (level-1 precision is conventionally infinite);
 - maximum mean jump/RMS ratio: approximately 3.7318;
 - maximum precision jump/RMS ratio: approximately **19.6822**;
 - precision jump destination: trial **2**, level **2** (one-based);
@@ -75,3 +75,7 @@ Paired workflow 34568178526 at head `f2c32a4b93fc7bbf05f686eaf923d14b132db385` e
 Artifact: `10186808228`, SHA256 reported by GitHub: `9785b2df36b995f9fb3e2971519c39acc3f9818170b596629f95a51be80adc48`. Job logs and artifact metadata confirm the result. Direct ZIP materialization returned HTTP 403, so no local rehash of that ZIP is claimed. See `reference/validation/m18_horizon_evidence.json`.
 
 This establishes matching validation boundaries and valid-case trajectories, not equality of the rejected raw intermediates. R0 is locally complete; R1 is partially complete. R2 must preserve the reference guard; R3 paired inference remains open.
+
+## Verified execution update — 2026-09-11 06:04 UTC
+
+R0 corrected M18B gate is now PASS locally **and in CI** (run `34567774302`, artifact `10186837061`). See `reference/validation/m18b_corrected_ci_provenance.json` and the archived complete local records. This supersedes earlier pending-CI text. Paired MATLAB horizon run `34568178526` also passed within its explicit scope: 49 valid trajectories and 5 shared rejection boundaries. R1 rejected raw intermediates and R3 paired inference remain open. Historical M18 stays FAIL; no scientific release gate is waived.

@@ -49,3 +49,7 @@ limitation remains unresolved until reference evidence supports a correction.
 ## Execution update — 2026-09-11
 
 See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass. Corrected M18B local gate PASS: 27 datasets, 81 records, zero failures; complete raw output and hashes archived in reference/validation. Paired MATLAB workflow 34568178526 confirms 49 valid cases and the same 5 rejection boundaries. Rejected raw intermediates and R3 paired inference remain open. M18 historical FAIL is unchanged.
+
+## Verified execution update — 2026-09-11 06:04 UTC
+
+R0 corrected M18B gate is now PASS locally **and in CI** (run `34567774302`, artifact `10186837061`). See `reference/validation/m18b_corrected_ci_provenance.json` and the archived complete local records. This supersedes earlier pending-CI text. Paired MATLAB horizon run `34568178526` also passed within its explicit scope: 49 valid trajectories and 5 shared rejection boundaries. R1 rejected raw intermediates and R3 paired inference remain open. Historical M18 stays FAIL; no scientific release gate is waived.

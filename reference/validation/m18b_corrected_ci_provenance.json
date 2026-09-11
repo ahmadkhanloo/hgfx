@@ -1,0 +1,11 @@
+{
+  "run_id": 34567774302,
+  "job_id": 103163306407,
+  "head_commit": "331a4311c5a75558a814d1ae9d48750188ba27b3",
+  "artifact_id": 10186837061,
+  "artifact_sha256_reported_by_github": "4a22b7834912c28b5fb0256d557d7b45d02aed6fc84d5be4c60fac49c9aa3c23",
+  "status": "PASS",
+  "evidence_source": "completed GitHub job steps, gate stdout and artifact metadata",
+  "raw_local_evidence": "m18b_corrected_local.json.gz",
+  "scope": "M18B protocol integrity; historical M18 FAIL unchanged"
+}
