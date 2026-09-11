@@ -201,3 +201,7 @@ Observed throughput: 0.783 / 0.867 / 1.087 subjects/s.
 M17 is **PASS**.
 
 See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
+
+## Execution update — 2026-09-11
+
+See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass; the reconstructed 512-trial HGF prior case is rejected by the finite precision-jump guard. A paired MATLAB workflow is added; direct MATLAB results and the corrected full M18B gate are still pending. No M18 scientific PASS is claimed.

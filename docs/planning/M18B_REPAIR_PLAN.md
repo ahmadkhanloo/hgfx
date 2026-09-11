@@ -43,3 +43,7 @@ See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md). Steps 1–5 b
 Steps 1–6 close the evidence-integrity repair, not the whole HGFX scientific
 validation program. M18 remains FAIL, M19/M20 remain open, and the 512-trial
 limitation remains unresolved until reference evidence supports a correction.
+
+## Execution update — 2026-09-11
+
+See [first horizon diagnosis](M18_HORIZON_DIAGNOSIS.md): 39 corrected-gate tests and baseline regression pass; the reconstructed 512-trial HGF prior case is rejected by the finite precision-jump guard. A paired MATLAB workflow is added; direct MATLAB results and the corrected full M18B gate are still pending. No M18 scientific PASS is claimed.

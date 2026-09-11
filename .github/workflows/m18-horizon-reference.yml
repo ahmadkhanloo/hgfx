@@ -1,0 +1,39 @@
+name: M18 Paired Horizon Diagnostic
+on:
+  pull_request:
+    paths:
+      - 'scripts/reproduce_m18_horizon.py'
+      - 'tools/check_m18_horizon.py'
+      - 'reference/matlab/export_m18_horizon.m'
+      - 'tests/unit/test_m18_horizon_reproduction.py'
+      - '.github/workflows/m18-horizon-reference.yml'
+  workflow_dispatch:
+jobs:
+  paired-forward:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e '.[dev]'
+      - run: python scripts/verify_reference_freeze.py
+      - run: python -m pytest tests/unit/test_m18_horizon_reproduction.py -q
+      - run: python scripts/reproduce_m18_horizon.py
+      - name: Replay shared cases in frozen MATLAB
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_horizon('benchmarks/results/m18_horizon_python.json','benchmarks/results/m18_horizon_matlab.json')
+      - name: Compare valid trajectories and rejection boundary
+        run: python tools/check_m18_horizon.py benchmarks/results/m18_horizon_python.json benchmarks/results/m18_horizon_matlab.json --output benchmarks/results/m18_horizon_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-horizon-reference
+          if-no-files-found: error
+          path: benchmarks/results/m18_horizon_*.json
