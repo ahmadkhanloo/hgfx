@@ -25,6 +25,15 @@ IDS = (
 )
 
 
+def _seed(value):
+    """MATLAB jsonencode emits integer seeds as doubles."""
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        value = _array(value).reshape(-1)[0]
+    return int(np.asarray(value, dtype=np.int64).reshape(-1)[0])
+
+
 def compare(label, a, e, rtol=3e-8, atol=3e-10):
     a = np.asarray(a, dtype=np.float64)
     e = _array(e)
@@ -84,7 +93,7 @@ def validate(reference):
                     native,
                     c["observation"],
                     _array(c["obs_native"]),
-                    seed=c["seed"],
+                    seed=_seed(c["seed"]),
                     **kw,
                 )
                 err = compare("sim.y", sim.y, c["sim"]["y"], 5e-11, 5e-13)
@@ -102,7 +111,8 @@ def validate(reference):
                 ("obs_priormus", est.c_obs.priormus),
                 ("obs_priorsas", est.c_obs.priorsas),
             ]:
-                err = compare(name, actual, expected[name], 0, 0)
+                # Exact scientific identity, but allow 1 ULP after IEEE string transport.
+                err = compare(name, actual, expected[name], 0, 1e-18)
                 if err:
                     row["mismatches"].append(err)
             for name in (
