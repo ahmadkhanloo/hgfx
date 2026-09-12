@@ -1,0 +1,60 @@
+name: M18 Demo Model Selection Parity
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "reference/matlab/export_m18_demo_model_selection_reference.m"
+      - "tools/check_m18_demo_model_selection.py"
+      - "docs/validation/MATLAB_DEMO_MODEL_SELECTION_MATRIX.md"
+      - ".github/workflows/m18-demo-model-selection.yml"
+      - "src/hgfx/compat/simulation.py"
+      - "src/hgfx/models/hgf_binary.py"
+      - "src/hgfx/models/ehgf_binary.py"
+  pull_request:
+    paths:
+      - "reference/matlab/export_m18_demo_model_selection_reference.m"
+      - "tools/check_m18_demo_model_selection.py"
+      - "docs/validation/MATLAB_DEMO_MODEL_SELECTION_MATRIX.md"
+      - ".github/workflows/m18-demo-model-selection.yml"
+      - "src/hgfx/compat/simulation.py"
+      - "src/hgfx/models/hgf_binary.py"
+      - "src/hgfx/models/ehgf_binary.py"
+  workflow_dispatch:
+
+jobs:
+  demo-model-selection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e ".[dev]"
+      - name: Verify frozen HGF reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export official MATLAB eHGF challenge behavior
+        uses: matlab-actions/run-command@v2
+        with:
+          command: >-
+            addpath(fullfile(pwd,'reference','matlab'));
+            export_m18_demo_model_selection_reference(
+            fullfile(pwd,'reference','generated','m18_demo_model_selection_matlab.json'))
+      - name: Check HGFX model-selection parity
+        run: >-
+          python tools/check_m18_demo_model_selection.py
+          reference/generated/m18_demo_model_selection_matlab.json
+          --output reference/generated/m18_demo_model_selection_classification.json
+      - name: Upload model-selection evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m18-demo-model-selection-evidence
+          path: |
+            reference/generated/m18_demo_model_selection_matlab.json
+            reference/generated/m18_demo_model_selection_classification.json
+          if-no-files-found: warn
