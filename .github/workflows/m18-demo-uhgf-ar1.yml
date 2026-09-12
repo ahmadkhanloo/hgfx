@@ -1,3 +1,4 @@
+# Frozen official demo workflow gate: uHGF followed by uHGF-AR(1).
 name: M18 Demo uHGF AR1 Workflow Parity
 
 on:
