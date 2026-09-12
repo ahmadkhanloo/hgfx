@@ -1,0 +1,67 @@
+name: M18 512 MATLAB Reference Classification
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/prepare_m18_512_reference_case.py"
+      - "reference/matlab/export_m18_512_reference.m"
+      - "tools/check_m18_512_reference.py"
+      - ".github/workflows/m18-512-reference.yml"
+      - "src/hgfx/diagnostics/**"
+      - "src/hgfx/models/hgf_binary.py"
+      - "src/hgfx/compat/**"
+  pull_request:
+    paths:
+      - "scripts/prepare_m18_512_reference_case.py"
+      - "reference/matlab/export_m18_512_reference.m"
+      - "tools/check_m18_512_reference.py"
+      - ".github/workflows/m18-512-reference.yml"
+      - "src/hgfx/diagnostics/**"
+      - "src/hgfx/models/hgf_binary.py"
+      - "src/hgfx/compat/**"
+  workflow_dispatch:
+
+jobs:
+  classify-512-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e ".[dev]"
+      - name: Verify frozen HGF reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Freeze exact historical 512-trial HGFX dataset
+        run: >-
+          python scripts/prepare_m18_512_reference_case.py
+          --output reference/generated/m18_512_reference_case_input.json
+      - name: Run frozen MATLAB HGF 8.2.0 oracle on identical data
+        uses: matlab-actions/run-command@v2
+        with:
+          command: >-
+            addpath(fullfile(pwd,'reference','matlab'));
+            export_m18_512_reference(
+            fullfile(pwd,'reference','generated','m18_512_reference_case_input.json'),
+            fullfile(pwd,'reference','generated','m18_512_matlab.json'))
+      - name: Classify MATLAB-vs-HGFX behavior
+        run: >-
+          python tools/check_m18_512_reference.py
+          reference/generated/m18_512_reference_case_input.json
+          reference/generated/m18_512_matlab.json
+          --output reference/generated/m18_512_classification.json
+      - name: Upload 512-trial evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m18-512-matlab-reference-evidence
+          path: |
+            reference/generated/m18_512_reference_case_input.json
+            reference/generated/m18_512_matlab.json
+            reference/generated/m18_512_classification.json
+          if-no-files-found: warn
