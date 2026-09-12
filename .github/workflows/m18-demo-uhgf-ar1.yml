@@ -1,0 +1,56 @@
+name: M18 Demo uHGF AR1 Workflow Parity
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
+      - "tools/check_m18_demo_uhgf_ar1.py"
+      - ".github/workflows/m18-demo-uhgf-ar1.yml"
+      - "src/hgfx/models/uhgf_binary.py"
+      - "src/hgfx/models/hgf_ar1_binary.py"
+  pull_request:
+    paths:
+      - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
+      - "tools/check_m18_demo_uhgf_ar1.py"
+      - ".github/workflows/m18-demo-uhgf-ar1.yml"
+      - "src/hgfx/models/uhgf_binary.py"
+      - "src/hgfx/models/hgf_ar1_binary.py"
+  workflow_dispatch:
+
+jobs:
+  demo-uhgf-ar1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e ".[dev]"
+      - name: Verify frozen HGF reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export official MATLAB uHGF to AR1 workflow
+        uses: matlab-actions/run-command@v2
+        with:
+          command: >-
+            addpath(fullfile(pwd,'reference','matlab'));
+            export_m18_demo_uhgf_ar1_reference(
+            fullfile(pwd,'reference','generated','m18_demo_uhgf_ar1_matlab.json'))
+      - name: Check HGFX uHGF to AR1 workflow parity
+        run: >-
+          python tools/check_m18_demo_uhgf_ar1.py
+          reference/generated/m18_demo_uhgf_ar1_matlab.json
+          --output reference/generated/m18_demo_uhgf_ar1_classification.json
+      - name: Upload uHGF to AR1 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m18-demo-uhgf-ar1-evidence
+          path: |
+            reference/generated/m18_demo_uhgf_ar1_matlab.json
+            reference/generated/m18_demo_uhgf_ar1_classification.json
+          if-no-files-found: warn
