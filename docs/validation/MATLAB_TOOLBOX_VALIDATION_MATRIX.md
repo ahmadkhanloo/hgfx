@@ -24,12 +24,12 @@ Reference:
 | V06 | Model fitting compatibility | M9 compatibility fitting | PASS |
 | V07 | Hessian/covariance/LME | M10 validation | PASS |
 | V08 | Simulation compatibility | M11/M12 validation | PASS |
-| V09 | Parameter recovery | M18/M18A/M18B recovery protocol | IN PROGRESS |
+| V09 | Parameter recovery | frozen M18 + M18A + corrected M18B protocol | IN PROGRESS — M18B PROTOCOL GATE PASS |
 | V10 | Model recovery / model-selection behavior | M18 confusion matrix + reference workflow comparison | IN PROGRESS |
 | V11 | Robustness sweeps | M18 robustness extension | TODO |
 | V12 | CPU/GPU numerical agreement | M15/M17/M18 GPU validation | PASS WITH PHYSICAL-H100 EVIDENCE |
 | V13 | MATLAB demo/workflow reproduction | v1 demo-parity suite | TODO |
-| V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | IN PROGRESS |
+| V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | IN PROGRESS — 512-TRIAL CASE CLASSIFIED |
 
 ## Recovery matrix
 
@@ -42,6 +42,8 @@ The recovery matrix is **model-family specific**. A failure of base HGF is not a
 | uhgf_binary | uhgf_binary | HGF/eHGF diagnostics | 64, 128, 256 | preregistered perturbations | bias, RMSE, correlation, profile diagnostics |
 
 The historical frozen M18 128/256 × 0.15/0.35-SD experiment remains immutable evidence. M18B adds an identifiability-aware 64/128/256 × 0.35-SD diagnostic protocol without retroactively changing historical M18 thresholds.
+
+Corrected M18B protocol evidence: workflow run `34497399365`, job `102939240184`; frozen reference guard PASS; 39 M18B tests passed; full regression 136 passed / 4 physical-GPU-only skips; final 27-dataset gate `gate_pass=true`, failures=0; artifact `10160948325`, SHA-256 `5a997b3be06f12420a52086f42656ecd14ff132892d42bb69c20419de234f182`.
 
 ## Model recovery matrix
 
@@ -79,19 +81,39 @@ A recovery failure does not automatically indicate an HGFX implementation error.
 
 Therefore M18 reports diagnosis information rather than forcing all recoveries to PASS.
 
-## 512-trial numerical-horizon case
+## 512-trial numerical-horizon case — CLASSIFIED
 
-The current HGFX compatibility path has shown instability in a 512-trial extension. This is **not yet an accepted MATLAB-equivalent limitation**.
+The exact historical HGF 512-trial case has now been compared against the frozen MATLAB reference and is classified **`REFERENCE_LIMITATION_MATCH`**.
 
-Required next evidence:
+Frozen case:
 
-1. reproduce the exact deterministic 512-trial dataset and seed;
-2. run the same model/configuration against frozen MATLAB HGF Toolbox 8.2.0;
-3. identify whether MATLAB remains valid or fails comparably;
-4. compare the first divergent trial/state if MATLAB remains valid;
-5. classify as `IMPLEMENTATION_MISMATCH`, `REFERENCE_LIMITATION_MATCH`, or `INSUFFICIENT_REFERENCE_EVIDENCE`.
+- model: `hgf_binary`
+- observation model: `unitsq_sgm`
+- trials: 512
+- truth perturbation: 0.35 prior SD
+- replicate: 0
+- cell seed: `233100`
+- response seed: `233101`
+- MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
-No seed substitution, grid shrinking, or threshold relaxation is allowed after observing the result.
+Evidence:
+
+- workflow: `M18 512 MATLAB Reference Classification`
+- run: `34683977567`
+- HGFX head: `3a272c545ca2366deb57a0c9c0dbb2cf01ad0108`
+- artifact: `m18-512-matlab-reference-evidence`, ID `10295261423`
+- artifact SHA-256: `8a538a1bc8cae206e1014b72a4de8495d9951ad2934845db1704d83ee743092c`
+
+Observed behavior on identical inputs/responses/configuration:
+
+1. truth-parameter forward execution succeeds in both MATLAB and HGFX;
+2. default-parameter forward execution fails in both with the same variational-approximation-invalid scientific condition;
+3. MATLAB reports `tapas:hgf:VarApproxInvalid`; HGFX raises the corresponding `ValueError`;
+4. the initial objective is unstable in both (`neg_log_joint` and `neg_log_likelihood` at the realmax failure sentinel, `rval=-1`);
+5. fitting is therefore not entered in either implementation;
+6. no MATLAB-vs-HGFX mismatch was observed.
+
+Interpretation: for this frozen case the 512-trial horizon is not an HGFX-specific defect. It is acceptable as a matched MATLAB-reference limitation for v1.0. This does **not** constitute a scientific PASS and does not imply arbitrary 512-trial input/configuration regimes are supported.
 
 ## Acceptance
 
