@@ -15,10 +15,14 @@ elseif iscell(value)
     out = cellfun(@hgfx_json_ieee, value, 'UniformOutput', false);
 elseif isnumeric(value) && any(~isfinite(value(:)))
     assert(isreal(value), 'hgfx:json:complex', 'Complex arrays require a separate schema');
-    out = num2cell(value);
-    out(isnan(value)) = {'NaN'};
-    out(isinf(value) & value > 0) = {'Infinity'};
-    out(isinf(value) & value < 0) = {'-Infinity'};
+    data = num2cell(value(:));
+    data(isnan(value(:))) = {'NaN'};
+    data(isinf(value(:)) & value(:) > 0) = {'Infinity'};
+    data(isinf(value(:)) & value(:) < 0) = {'-Infinity'};
+    out = struct;
+    out.hgfx_numeric = 'ieee-strings-v1';
+    out.shape = size(value);
+    out.data = data;
 else
     out = value;
 end

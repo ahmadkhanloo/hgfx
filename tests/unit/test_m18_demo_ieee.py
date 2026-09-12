@@ -21,3 +21,10 @@ def test_tagged_nonfinite_values_are_distinct():
 def test_lossy_null_is_rejected():
     with pytest.raises(ValueError, match='null'):
         d04._array([1, None])
+
+
+def test_matlab_column_major_shape_is_preserved():
+    encoded = {'hgfx_numeric': 'ieee-strings-v1', 'shape': [2, 2],
+               'data': [1, 'Infinity', 'NaN', '-Infinity']}
+    actual = np.array([[1, np.nan], [np.inf, -np.inf]])
+    np.testing.assert_array_equal(d04._array(encoded), actual)

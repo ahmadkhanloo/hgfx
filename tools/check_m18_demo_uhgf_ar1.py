@@ -28,6 +28,13 @@ def _normalise(value: Any) -> Any:
 
 
 def _array(value: Any) -> np.ndarray:
+    if isinstance(value, dict):
+        if value.get('hgfx_numeric') != 'ieee-strings-v1':
+            raise ValueError('Unknown numeric encoding')
+        shape = value['shape']
+        if not isinstance(shape, list) or any(type(d) is not int or d < 0 for d in shape):
+            raise ValueError('Invalid numeric array shape')
+        return np.asarray(_normalise(value['data']), dtype=np.float64).reshape(shape, order='F')
     return np.asarray(_normalise(value), dtype=np.float64)
 
 
