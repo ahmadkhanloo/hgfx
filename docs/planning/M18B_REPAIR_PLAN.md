@@ -25,18 +25,28 @@ Authoritative product rule: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY
 5. **Done — make runs auditable.** Store inputs, diagnoses including profile
    arrays, source hashes, environment, seed and failures. Checkpoint atomically
    after each cell. An interrupted or smoke run cannot claim final PASS.
-6. **In progress — rerun corrected validation.** Require targeted tests,
-   reference-freeze guard, full regression, and the unchanged gate grid (27
-   datasets / 81 parameter records). Publish corrected code and CI artifact.
-7. **Active scientific follow-up — establish MATLAB reference limits before fixing HGFX.**
-   Reproduce the 512-trial failure at its recorded seed/configuration and run the
-   identical case against frozen MATLAB HGF Toolbox 8.2.0. If MATLAB is stable,
-   locate the first HGFX-vs-MATLAB divergent trial/state and classify the case as
-   `IMPLEMENTATION_MISMATCH`. If MATLAB fails comparably in the same regime, record
-   `REFERENCE_LIMITATION_MATCH`; this is acceptable for MATLAB-equivalence v1.0 but
-   is not a scientific PASS claim. If the evidence is ambiguous, retain
-   `INSUFFICIENT_REFERENCE_EVIDENCE`. Do not select seeds, shrink the grid, change
-   model family, or relax thresholds after observing results.
+6. **Done — rerun corrected validation.** Corrected evidence-integrity gate ran
+   successfully on PR #20 merge validation, run `34497399365`, job
+   `102939240184`. Frozen reference guard passed at HGF 8.2.0 commit
+   `2437f4dc241541072722a2695ddeca7b44d83dd3` with 334 MATLAB files. M18B unit
+   tests: 39 passed. Full regression: 136 passed, 4 physical-GPU-only skips.
+   Final 27-dataset gate completed with `gate_pass=true` and zero failures.
+   Artifact `m18b-identifiability-validation`, ID `10160948325`, SHA-256
+   `5a997b3be06f12420a52086f42656ecd14ff132892d42bb69c20419de234f182`.
+7. **Done — classify the historical 512-trial horizon against MATLAB.** The exact
+   `hgf_binary` case was frozen at 512 trials, truth scale 0.35, replicate 0,
+   cell seed `233100` (response seed `233101`) and run against frozen MATLAB HGF
+   8.2.0 on the identical input/response/configuration. Workflow run
+   `34683977567` completed successfully. Truth-parameter forward execution succeeds
+   in both implementations; default-parameter forward execution fails in both with
+   the same variational-approximation-invalid condition; both initial objectives
+   return the realmax failure sentinel / `rval=-1`, so fitting is not entered in
+   either implementation. Classification: `REFERENCE_LIMITATION_MATCH`; no
+   MATLAB-vs-HGFX mismatch was observed. Artifact
+   `m18-512-matlab-reference-evidence`, ID `10295261423`, SHA-256
+   `8a538a1bc8cae206e1014b72a4de8495d9951ad2934845db1704d83ee743092c`.
+   This closes the HGFX-defect question for this frozen case but is not a scientific
+   PASS claim and does not imply arbitrary 512-trial designs are supported.
 8. **Open — reference-aware model-family validation.** For each scientific case,
    establish which MATLAB model family/workflow is the valid reference. Base HGF
    is not required to solve cases where the MATLAB toolbox itself uses eHGF, uHGF,
@@ -50,8 +60,9 @@ Authoritative product rule: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY
 
 ## What completion means
 
-Steps 1–6 close the evidence-integrity repair, not the whole HGFX scientific
-validation program. Steps 7–9 close the product-level MATLAB-equivalence gaps.
+Steps 1–7 are complete. The evidence-integrity repair is closed and the historical
+512-trial case is now classified against the frozen reference. Steps 8–9 remain the
+product-level MATLAB-equivalence work required before v1.0 release.
 
 M18 must not be converted from FAIL to PASS by weakening historical thresholds.
 Instead, the final v1 decision is reference-aware:
@@ -62,6 +73,6 @@ Instead, the final v1 decision is reference-aware:
   documented explicitly;
 - `INSUFFICIENT_REFERENCE_EVIDENCE` remains open and cannot be treated as PASS.
 
-The 512-trial limitation therefore remains unresolved until frozen MATLAB evidence
-classifies it. Joint recovery and model discrimination need their own acceptance
-evidence and are not closed by a protocol-integrity PASS.
+The corrected M18B protocol gate is PASS, but M18B PASS does not imply historical
+M18 PASS. Joint recovery/model discrimination claims and complete MATLAB workflow/demo
+parity remain separate acceptance questions.
