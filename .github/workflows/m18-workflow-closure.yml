@@ -1,0 +1,38 @@
+name: M18 Official Workflow Closure
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/hgfx/compat/**'
+      - 'src/hgfx/diagnostics/autocorrelation.py'
+      - 'reference/matlab/export_m18_workflows.m'
+      - 'reference/matlab/hgfx_json_ieee.m'
+      - 'tools/check_m18_workflows.py'
+      - '.github/workflows/m18-workflow-closure.yml'
+  pull_request:
+  workflow_dispatch:
+jobs:
+  official-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e '.[dev]'
+      - run: python scripts/verify_reference_freeze.py
+      - run: python -m pytest tests/unit/test_m18_workflow_api.py tests/unit/test_m18_demo_ieee.py -q
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_workflows(fullfile(pwd,'reference','generated','m18_workflows.json'))
+      - run: python tools/check_m18_workflows.py reference/generated/m18_workflows.json --output reference/generated/m18_workflows_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-official-workflows
+          path: reference/generated/m18_workflows*.json
+          if-no-files-found: error
