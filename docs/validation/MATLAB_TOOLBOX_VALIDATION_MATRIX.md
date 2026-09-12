@@ -11,6 +11,7 @@ Reference:
 - HGF Toolbox: 8.2.0
 - Frozen reference commit: `2437f4dc241541072722a2695ddeca7b44d83dd3`
 - Limitation policy: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
+- Demo/model-selection matrix: `docs/validation/MATLAB_DEMO_MODEL_SELECTION_MATRIX.md`
 
 ## Validation layers
 
@@ -25,10 +26,10 @@ Reference:
 | V07 | Hessian/covariance/LME | M10 validation | PASS |
 | V08 | Simulation compatibility | M11/M12 validation | PASS |
 | V09 | Parameter recovery | frozen M18 + M18A + corrected M18B protocol | IN PROGRESS — M18B PROTOCOL GATE PASS |
-| V10 | Model recovery / model-selection behavior | M18 confusion matrix + reference workflow comparison | IN PROGRESS |
+| V10 | Model recovery / model-selection behavior | M18 confusion matrix + official demo reference workflows | IN PROGRESS — D02 MODEL-SELECTION PARITY PASS |
 | V11 | Robustness sweeps | M18 robustness extension | TODO |
 | V12 | CPU/GPU numerical agreement | M15/M17/M18 GPU validation | PASS WITH PHYSICAL-H100 EVIDENCE |
-| V13 | MATLAB demo/workflow reproduction | v1 demo-parity suite | TODO |
+| V13 | MATLAB demo/workflow reproduction | v1 demo-parity suite | IN PROGRESS — D02 PASS |
 | V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | IN PROGRESS — 512-TRIAL CASE CLASSIFIED |
 
 ## Recovery matrix
@@ -54,6 +55,20 @@ Corrected M18B protocol evidence: workflow run `34497399365`, job `102939240184`
 | uhgf_binary | hgf/eHGF/uHGF | BIC primary, AIC secondary | compare selected model and ambiguity with MATLAB reference behavior |
 
 Balanced accuracy remains a scientific diagnostic. It is not by itself sufficient to declare an implementation failure when MATLAB exhibits the same model ambiguity.
+
+### Official model-selection evidence D02 — PASS
+
+The frozen official `hgf_demo.m` contains a parameter regime in which classic HGF is invalid and eHGF is the supported solution. HGFX reproduces that exact behavior on the official 320-trial binary input and native parameter vector.
+
+- run `34684401843`, job `103528739680`, SUCCESS
+- classification: `PASS_MODEL_SELECTION_PARITY`
+- classic HGF: MATLAB FAIL (`tapas:hgf:NegPostPrec`), HGFX corresponding FAIL
+- eHGF: MATLAB SUCCESS, HGFX SUCCESS
+- eHGF trajectories/inference states: numerical parity, `mismatches=[]`
+- artifact `10294714175`
+- artifact SHA-256 `2aa62628d16198f8f335b56fca0f015303439406bb278a329b4cae09b9e69afd`
+
+This establishes the first product-level proof that HGFX v1 follows MATLAB's model-family solution rather than forcing base HGF to pass an unsupported regime.
 
 ## Required non-PASS classification
 
@@ -83,37 +98,15 @@ Therefore M18 reports diagnosis information rather than forcing all recoveries t
 
 ## 512-trial numerical-horizon case — CLASSIFIED
 
-The exact historical HGF 512-trial case has now been compared against the frozen MATLAB reference and is classified **`REFERENCE_LIMITATION_MATCH`**.
+The exact historical HGF 512-trial case has been compared against the frozen MATLAB reference and is classified **`REFERENCE_LIMITATION_MATCH`**.
 
-Frozen case:
+Frozen case: `hgf_binary + unitsq_sgm`, 512 trials, truth perturbation 0.35 prior SD, replicate 0, cell seed `233100`, response seed `233101`.
 
-- model: `hgf_binary`
-- observation model: `unitsq_sgm`
-- trials: 512
-- truth perturbation: 0.35 prior SD
-- replicate: 0
-- cell seed: `233100`
-- response seed: `233101`
-- MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
+Evidence: workflow run `34683977567`; artifact `m18-512-matlab-reference-evidence`, ID `10295261423`; artifact SHA-256 `8a538a1bc8cae206e1014b72a4de8495d9951ad2934845db1704d83ee743092c`.
 
-Evidence:
+On identical inputs/responses/configuration, truth-parameter forward execution succeeds in both MATLAB and HGFX; default-parameter forward execution fails in both with the corresponding variational-approximation-invalid condition; the initial objective is unstable in both and fitting is not entered. No MATLAB-vs-HGFX mismatch was observed.
 
-- workflow: `M18 512 MATLAB Reference Classification`
-- run: `34683977567`
-- HGFX head: `3a272c545ca2366deb57a0c9c0dbb2cf01ad0108`
-- artifact: `m18-512-matlab-reference-evidence`, ID `10295261423`
-- artifact SHA-256: `8a538a1bc8cae206e1014b72a4de8495d9951ad2934845db1704d83ee743092c`
-
-Observed behavior on identical inputs/responses/configuration:
-
-1. truth-parameter forward execution succeeds in both MATLAB and HGFX;
-2. default-parameter forward execution fails in both with the same variational-approximation-invalid scientific condition;
-3. MATLAB reports `tapas:hgf:VarApproxInvalid`; HGFX raises the corresponding `ValueError`;
-4. the initial objective is unstable in both (`neg_log_joint` and `neg_log_likelihood` at the realmax failure sentinel, `rval=-1`);
-5. fitting is therefore not entered in either implementation;
-6. no MATLAB-vs-HGFX mismatch was observed.
-
-Interpretation: for this frozen case the 512-trial horizon is not an HGFX-specific defect. It is acceptable as a matched MATLAB-reference limitation for v1.0. This does **not** constitute a scientific PASS and does not imply arbitrary 512-trial input/configuration regimes are supported.
+Interpretation: acceptable as a matched MATLAB-reference limitation for v1.0, but not a scientific PASS and not a claim of arbitrary 512-trial support.
 
 ## Acceptance
 
