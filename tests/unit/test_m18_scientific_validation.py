@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
 
 from hgfx.diagnostics.recovery import (
+    BINARY_VARIANTS,
     ModelRecoveryRecord,
     ParameterRecoveryRecord,
     deterministic_binary_inputs,
@@ -12,6 +16,23 @@ from hgfx.diagnostics.recovery import (
     summarize_parameter_recovery,
 )
 from hgfx.optim.compat_quasinewton import QuasiNewtonOptions
+
+
+def test_m18_validation_matrix_tracks_all_unified_binary_recovery_variants() -> None:
+    matrix_path = Path(__file__).resolve().parents[2] / "benchmarks" / "m18_validation_matrix.json"
+    payload = json.loads(matrix_path.read_text(encoding="utf-8"))
+
+    gate = payload["m18_gate"]
+    assert tuple(gate["parameter_recovery_models"]) == BINARY_VARIANTS
+    assert tuple(gate["model_recovery_candidates"]) == BINARY_VARIANTS
+    assert gate["demo_parity_required"] is True
+    assert gate["matlab_limitation_register_required"] is True
+
+    policy = payload["limitation_policy"]
+    assert policy["matlab_limitations_are_acceptable"] is True
+    assert policy["must_document_equivalent_hgfx_behavior"] is True
+    assert policy["must_not_claim_stronger_scientific_identifiability_than_reference"] is True
+    assert policy["model_substitution_must_follow_reference_workflow"] is True
 
 
 def test_parameter_recovery_summary_reports_bias_rmse_correlation_and_failures() -> None:
