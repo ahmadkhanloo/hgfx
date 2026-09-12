@@ -15,7 +15,7 @@ The governing rule is **reference-aware parity**: HGFX must reproduce the MATLAB
 | D01 | Binary HGF fit/sim/recovery on `example_binary_input.txt` | `hgf_binary + unitsq_sgm` | fit/sim/trajectory/statistics parity | CORE PARITY PREVIOUSLY ESTABLISHED; DEMO WRAPPER OPEN |
 | D02 | Parameter regime documented to fail in classic HGF but succeed in eHGF | classic `hgf_binary` must fail; `ehgf_binary + unitsq_sgm` must succeed | reproduce both the classic-HGF limitation and eHGF success on identical official input/parameters | **PASS — MODEL-SELECTION PARITY** |
 | D03 | uHGF binary comparison in a region where classic HGF can work | `uhgf_binary + unitsq_sgm` | reproduce uHGF trajectory/workflow | OPEN |
-| D04 | Extreme binary regime followed by AR(1) regularisation | `uhgf_binary`, then `uhgf_ar1_binary` | reproduce the demo's model change; do not require base HGF to solve it | OPEN |
+| D04 | Extreme binary regime followed by AR(1) regularisation | `uhgf_binary`, then `uhgf_ar1_binary` | reproduce the demo's model change; do not require base HGF to solve it | IMPLEMENTED BUT NOT VALIDATED — exporter/checker at 3bff98b; no run returned for 81fd65a on 2026-09-12 |
 | D05 | Alternative learning model on the same binary responses | `rw_binary + unitsq_sgm` | fit and output compatibility | OPEN |
 | D06 | Continuous USD/CHF classic HGF | `hgf + gaussian_obs` | Bayes-optimal fit, sim, fit-back, trajectory/statistics parity | OPEN |
 | D07 | Continuous eHGF | `ehgf + gaussian_obs` | simulation/fitting/workflow parity | OPEN |
@@ -73,3 +73,5 @@ The official demo itself documents why model-family awareness matters:
 - for binary time series with implausible large excursions, the demo introduces `uhgf_ar1_binary` and explicitly encourages AR(1) models as a default modelling choice.
 
 These are part of the MATLAB toolbox's scientific workflow and therefore part of HGFX v1 compatibility, not exceptions to it.
+
+Execution order and acceptance dependencies: [M18 completion plan](../planning/M18_COMPLETION_PLAN.md). D02/D04 forward checks do not by themselves close fit/sim/plot workflows.

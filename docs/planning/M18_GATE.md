@@ -1,6 +1,12 @@
 # M18 — Scientific Validation Gate
 
-Status: **IMPLEMENTATION / VALIDATION IN PROGRESS**
+Historical scientific result: **FAIL — preserved** (see `M18B_GATE.md`).
+Product/reference-equivalence closure: **OPEN**.
+
+The protocol and pass condition below define the original scientific experiment and
+remain unchanged. They do not override the subsequent reference-equivalence product
+policy. Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for paired diagnosis,
+workflow completion and separate product acceptance. M18B PASS does not imply M18 PASS.
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 

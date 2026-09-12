@@ -1,5 +1,13 @@
 # Agent Handoff
 
+## Current execution authority — 2026-09-12
+
+Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for the ordered S1–S10 path
+to MATLAB-equivalent v1.0. Historical M18 FAIL and M18B PASS are distinct;
+product closure remains OPEN. The immediate next task is validating the existing
+D04 uHGF → AR1 workflow, then completing demo/recovery/backend coverage.
+This notice takes precedence over older prospective task lists below.
+
 ## Project goal
 
 Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB reference and high-throughput GPU fitting.

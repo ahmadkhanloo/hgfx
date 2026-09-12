@@ -7,6 +7,15 @@ target: "Scientific-parity Python/JAX toolbox with GPU batch fitting"
 language: "fa"
 ---
 
+## Current execution authority — 2026-09-12
+
+Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for the ordered S1–S10 path
+to MATLAB-equivalent v1.0. Historical M18 FAIL and M18B PASS are distinct;
+product closure remains OPEN. The immediate next task is validating the existing
+D04 uHGF → AR1 workflow, then completing demo/recovery/backend coverage.
+This notice takes precedence over older prospective task lists below.
+
+
 # برنامه اجرایی دقیق HGF Python/JAX/GPU
 
 ## 1) هدف نهایی

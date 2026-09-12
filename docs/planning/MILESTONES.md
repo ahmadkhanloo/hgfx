@@ -55,7 +55,14 @@ Batch result equals repeated single-fit result within tolerance.
 Scaling validated.
 
 ## M18 — Scientific Recovery
-Parameter recovery and model recovery satisfy preregistered acceptance criteria.
+Historical scientific gate: parameter recovery and model recovery satisfy preregistered
+acceptance criteria; the recorded FAIL is preserved. M18B protocol-integrity PASS is separate.
+
+Current product closure additionally follows [M18 completion plan](M18_COMPLETION_PLAN.md)
+S1–S10 and the reference-limitations policy: reproduce all required MATLAB workflows,
+classify recovery with paired evidence, close robustness/backend checks. A matched reference
+limitation is acceptable product evidence, not a scientific recovery PASS. Product closure OPEN.
+Existing M18C.2 horizon-analysis issue #21 retains its identifier.
 
 ## M19 — Methods Paper Dataset Frozen
 Benchmark and validation outputs immutable and reproducible.

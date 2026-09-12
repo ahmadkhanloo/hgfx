@@ -1,5 +1,13 @@
 # M18B repair plan
 
+## Current execution authority — 2026-09-12
+
+Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for the ordered S1–S10 path
+to MATLAB-equivalent v1.0. Historical M18 FAIL and M18B PASS are distinct;
+product closure remains OPEN. The immediate next task is validating the existing
+D04 uHGF → AR1 workflow, then completing demo/recovery/backend coverage.
+This notice takes precedence over older prospective task lists below.
+
 Scope: repair validation integrity before making further scientific recovery claims and align M18 with the product-level MATLAB-equivalence policy.
 Matrix IDs: C01/C04 (fitting evidence), P02/P03/P04 (binary model recovery), O17.
 The model equations, priors, optimizer and frozen historical M18 thresholds are unchanged.

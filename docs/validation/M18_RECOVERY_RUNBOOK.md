@@ -1,5 +1,10 @@
 # M18 Recovery Execution Runbook
 
+Current ordered work: [M18 completion plan](../planning/M18_COMPLETION_PLAN.md),
+especially S7–S9. Commands below remain the historical protocol; use a separately frozen
+paired reference protocol for product classifications. Do not interpret a repeated historical
+FAIL as proof of an HGFX defect or repeated smoke execution as completion.
+
 ## Objective
 
 Execute scientific recovery validation against the MATLAB Toolbox parity target.
