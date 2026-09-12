@@ -32,6 +32,7 @@ def _optimizer_struct(
     yhat: np.ndarray,
     residuals: np.ndarray,
 ) -> MatlabStruct:
+    from hgfx.diagnostics.autocorrelation import residual_autocorrelation
     objective = fit.objective
     return MatlabStruct(
         {
@@ -60,6 +61,7 @@ def _optimizer_struct(
             "BIC": float(stats.bic),
             "yhat": yhat.copy(),
             "res": residuals.copy(),
+            "resAC": residual_autocorrelation(residuals),
         }
     )
 
@@ -98,6 +100,14 @@ def fit_model(
     M13 is an API milestone, not a new inference milestone. Numerical work is
     delegated to the already-validated hgf_binary + unitsq_sgm M8-M10 core.
     """
+
+    from .matlab_names import model_name
+    if (isinstance(perceptual_config, ModelConfig) or isinstance(observation_config, ModelConfig)
+            or model_name(perceptual_config) != 'hgf_binary'
+            or model_name(observation_config) != 'unitsq_sgm'):
+        from .workflows import fit_workflow
+        return fit_workflow(responses, inputs, perceptual_config, observation_config,
+                            optimization_config, restart_free_parameters=restart_free_parameters)
 
     require_model(perceptual_config, "hgf_binary", role="perceptual_config")
     require_model(observation_config, "unitsq_sgm", role="observation_config")

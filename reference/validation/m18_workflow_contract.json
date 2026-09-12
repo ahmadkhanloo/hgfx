@@ -1,0 +1,57 @@
+{
+  "protocol": "official-demo-workflows-1",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "sources": {
+    "demo/hgf_demo.m": "cb8fe695e5c75700e9b75091d2cc6635ccc6b18385f6cf6ebf4fd70a3cb1f91c",
+    "demo/example_binary_input.txt": "50ee03e7c39de8aaf55be9545aab231092d7fabd84d01d041272d6f25c328453",
+    "demo/example_usdchf.txt": "88de72ee00d7ac7b2395eee79d9bc6caef94c591c47925a6a1b0be595d20b8ec",
+    "core/fitModel.m": "5ee8d665e3bd17ce075adaf6d937c19301d62caab8d958f38485234816a258af",
+    "core/simModel.m": "e0ac75f256da7131f838239dcf0136ffe193d90c4f3751a1fd1d40eff113ebb0",
+    "core/sampleModel.m": "566ef6e96f20a30dfdc01643f88669f21a4eedc07f09370a50ca34227864c30f",
+    "utilities/bayesian_parameter_average.m": "e098e5346913335840cd9d763abee12afb8ae7d2092018927d59430d059c82ee",
+    "utilities/tapas_autocorr.m": "c0589c0ba6a80168d081d238251fa5d2658b177d48cb22fe6096559eda056e18"
+  },
+  "required_fit_cases": [
+    "D01_bayes",
+    "D01_fit",
+    "D02_fit",
+    "D03_fit",
+    "D05_fit",
+    "D06_bayes",
+    "D06_fit",
+    "D07_fit",
+    "D08_fit"
+  ],
+  "seed": 123456789,
+  "optimizer": "frozen defaults; nRandInit=0",
+  "bernoulli_rng": "M11 Bernoulli shim with exported uniforms; not Statistics Toolbox RNG identity",
+  "tolerances": {
+    "simulation": [
+      5e-11,
+      5e-13
+    ],
+    "fit": [
+      3e-08,
+      3e-10
+    ],
+    "hessian_lme": [
+      2e-06,
+      2e-08
+    ],
+    "sigma_corr": [
+      5e-06,
+      5e-08
+    ]
+  },
+  "remaining_required_surfaces": [
+    "D09 prior samples 123/456 with logzesa=.5",
+    "D10 correlation plots",
+    "D11 residual diagnostics plots",
+    "D12 Bayesian parameter averaging",
+    "D13 named prior editing and alignment",
+    "D14 three-level continuous simulation and precision-weight plot",
+    "D04 response simulation and plot surface",
+    "complete frozen plotting inventory audit"
+  ],
+  "status": "IMPLEMENTED BUT NOT VALIDATED"
+}

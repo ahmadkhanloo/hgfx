@@ -102,8 +102,14 @@ def _ignored_trials(inputs) -> tuple[int, ...]:
     return tuple(int(i) for i in np.flatnonzero(np.isnan(values)))
 
 
-def _generator(seed: int | None) -> np.random.Generator:
-    return np.random.default_rng(seed)
+def _coerce_seed(seed: int | float | np.integer | np.floating | None) -> int | None:
+    if seed is None:
+        return None
+    return int(np.asarray(seed).reshape(-1)[0])
+
+
+def _generator(seed: int | float | np.integer | np.floating | None) -> np.random.Generator:
+    return np.random.default_rng(_coerce_seed(seed))
 
 
 def _draw_vector(
@@ -287,6 +293,7 @@ def sim_model(
 ) -> SimulationResult:
     """Compatibility implementation of frozen simModel.m for binary HGF variants."""
 
+    seed = _coerce_seed(seed)
     if perceptual_model not in _PERCEPTUAL_FORWARD:
         raise ValueError(f"Unsupported perceptual simulation model: {perceptual_model}")
     ignored = _ignored_trials(inputs)
@@ -362,6 +369,7 @@ def sample_model(
     reproducible stream from seed.
     """
 
+    seed = _coerce_seed(seed)
     prc_config = _as_config(perceptual_config, default="ehgf_binary").resolve_placeholders(inputs)
     if prc_config.model not in _PERCEPTUAL_FORWARD:
         raise ValueError(f"Unsupported sampled perceptual model: {prc_config.model}")
