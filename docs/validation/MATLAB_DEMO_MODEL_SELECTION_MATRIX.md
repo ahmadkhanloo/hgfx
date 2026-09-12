@@ -13,7 +13,7 @@ The governing rule is **reference-aware parity**: HGFX must reproduce the MATLAB
 | ID | Official MATLAB demo case | Reference model/workflow | HGFX requirement | Status |
 |---|---|---|---|---|
 | D01 | Binary HGF fit/sim/recovery on `example_binary_input.txt` | `hgf_binary + unitsq_sgm` | fit/sim/trajectory/statistics parity | CORE PARITY PREVIOUSLY ESTABLISHED; DEMO WRAPPER OPEN |
-| D02 | Parameter regime documented to fail in classic HGF but succeed in eHGF | classic `hgf_binary` must fail; `ehgf_binary + unitsq_sgm` must succeed | reproduce both the classic-HGF limitation and eHGF success on identical official input/parameters | CI GATE ADDED — RUN PENDING |
+| D02 | Parameter regime documented to fail in classic HGF but succeed in eHGF | classic `hgf_binary` must fail; `ehgf_binary + unitsq_sgm` must succeed | reproduce both the classic-HGF limitation and eHGF success on identical official input/parameters | **PASS — MODEL-SELECTION PARITY** |
 | D03 | uHGF binary comparison in a region where classic HGF can work | `uhgf_binary + unitsq_sgm` | reproduce uHGF trajectory/workflow | OPEN |
 | D04 | Extreme binary regime followed by AR(1) regularisation | `uhgf_binary`, then `uhgf_ar1_binary` | reproduce the demo's model change; do not require base HGF to solve it | OPEN |
 | D05 | Alternative learning model on the same binary responses | `rw_binary + unitsq_sgm` | fit and output compatibility | OPEN |
@@ -23,9 +23,9 @@ The governing rule is **reference-aware parity**: HGFX must reproduce the MATLAB
 | D09 | Prior predictive sampling | `sampleModel` on binary HGF configs | Python equivalent and result semantics | CORE M11 PARITY ESTABLISHED; DEMO WRAPPER OPEN |
 | D10 | Posterior Corr/Sigma inspection | `fit_plotCorr`, `optim.Corr`, `optim.Sigma` | numerical Corr/Sigma parity and equivalent plotting/example surface | NUMERICAL CORE PASS; DEMO/PLOT SURFACE OPEN |
 | D11 | Residual diagnostics | `fit_plotResidualDiagnostics` | equivalent residual outputs/diagnostic workflow | OPEN |
-| D12 | Bayesian parameter averaging | `bayesian_parameter_average` | function/workflow parity if required by v1 exact-toolbox scope | OPEN |
+| D12 | Bayesian parameter averaging | `bayesian_parameter_average` | function/workflow parity as part of v1 exact-toolbox scope | OPEN |
 
-## D02 frozen reference contract
+## D02 frozen reference contract — PASS
 
 The official demo states that the following native perceptual parameter vector leads to an error in classic HGF while eHGF can handle it:
 
@@ -35,7 +35,7 @@ The official demo states that the following native perceptual parameter vector l
 
 on the official 320-trial `demo/example_binary_input.txt` sequence.
 
-D02 PASS therefore requires all of the following on the **same inputs and native parameters**:
+D02 PASS requires all of the following on the **same inputs and native parameters**:
 
 1. frozen MATLAB classic `hgf_binary` fails;
 2. HGFX classic `hgf_binary` fails correspondingly;
@@ -43,7 +43,26 @@ D02 PASS therefore requires all of the following on the **same inputs and native
 4. HGFX `ehgf_binary` succeeds;
 5. successful eHGF trajectories and inference states agree numerically within the established forward-parity tolerance.
 
-A result where HGFX forces classic HGF to succeed is **not** considered better compatibility; it is a reference-behaviour mismatch unless explicitly introduced in a post-v1 extension mode.
+All five conditions passed.
+
+### D02 evidence
+
+- HGFX head: `a074263b7139d4441caeb7a0d837d688626c5f58`
+- workflow: `M18 Demo Model Selection Parity`
+- run: `34684401843`
+- job: `103528739680`
+- conclusion: **SUCCESS**
+- reference-freeze guard: PASS, exact HGF 8.2.0 commit, 334 MATLAB files
+- classification: `PASS_MODEL_SELECTION_PARITY`
+- MATLAB classic HGF: FAIL, `tapas:hgf:NegPostPrec`, `Negative posterior precision. Parameters are in a region where model assumptions are violated.`
+- HGFX classic HGF: FAIL with the corresponding negative-posterior-precision validation error
+- MATLAB eHGF: SUCCESS
+- HGFX eHGF: SUCCESS
+- eHGF trajectory/inference-state comparison: PASS; `mismatches=[]`
+- artifact: `m18-demo-model-selection-evidence`, ID `10294714175`
+- artifact ZIP SHA-256: `2aa62628d16198f8f335b56fca0f015303439406bb278a329b4cae09b9e69afd`
+
+A result where HGFX forced classic HGF to succeed would **not** be considered better compatibility; it would be a reference-behaviour mismatch unless explicitly introduced in a post-v1 extension mode.
 
 ## Product interpretation
 
