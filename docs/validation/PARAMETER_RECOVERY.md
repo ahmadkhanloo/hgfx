@@ -50,3 +50,7 @@ For every generating model:
 
 These thresholds are frozen before the gate run. Paper-level analyses may report richer
 confidence intervals and larger grids, but may not retroactively change the M18 gate.
+
+## Active correction requirements — 2026-09-11
+
+Paired diagnosis must run the identical archived M18 datasets in MATLAB and Python, with shared responses/random drivers, transformed truths, priors and starts. Report parameter errors and inference differences separately. Conditional slices and truth-start/oracle fits are diagnostics, not proof of joint identifiability or replacement gate fits. A successor protocol must freeze design, numeric thresholds and holdout seeds before confirmation; it cannot overwrite historical M18.

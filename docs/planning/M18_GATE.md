@@ -1,6 +1,8 @@
 # M18 — Scientific Validation Gate
 
-Status: **IMPLEMENTATION / VALIDATION IN PROGRESS**
+Status: **FAIL — HISTORICAL GATE; CORRECTIVE WORK OPEN**
+
+The immutable failed output is `reference/validation/m18_scientific_validation.json`; provenance is beside it. See [MATLAB parity recovery plan](MATLAB_PARITY_RECOVERY_PLAN.md) for R0–R6. M18B protocol integrity does not close this gate. A redesigned experiment must use a separate protocol/version and preserve this result.
 
 Frozen reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 

@@ -1,6 +1,6 @@
 ---
 title: "برنامه اجرایی دقیق HGF Python/JAX/GPU"
-date: 2026-09-07
+date: 2026-09-11
 status: "Execution Plan"
 reference_toolbox: "HGF Toolbox v8.2.0"
 target: "Scientific-parity Python/JAX toolbox with GPU batch fitting"
@@ -8,6 +8,10 @@ language: "fa"
 ---
 
 # برنامه اجرایی دقیق HGF Python/JAX/GPU
+
+## ترتیب فعال اجرا — بازنگری 2026-09-11
+
+[برنامه اصلاح با محور تطابق MATLAB](MATLAB_PARITY_RECOVERY_PLAN.md) مرجع ترتیب فعلی R0 تا R6 است. ابتدا شواهد M18B، سپس بازتولید زوجی شکست 512 تریالی و مقایسه استنباط روی داده‌های شکست M18؛ پس از آن آزمایش مستقل بازیابی و بازتأیید GPU. M18 تاریخی FAIL باقی می‌ماند. شماره‌گذاری milestoneها در `MILESTONES.md` معتبر است؛ شماره Phase/Gate در بخش‌های طراحی قدیمی این سند به معنی وضعیت فعلی نیست.
 
 ## 1) هدف نهایی
 
@@ -182,7 +186,8 @@ OS: Linux
 Python: pinned supported version
 Package management: uv + pyproject.toml
 Core: JAX
-Reference/reuse: pinned PyHGF
+Reference: frozen MATLAB HGF 8.2.0
+Optional comparison/interoperability: PyHGF (not a core dependency)
 Tests: pytest
 Lint: ruff
 Type checking: mypy/pyright
@@ -1472,7 +1477,9 @@ extra convenience
 
 ---
 
-# 38) Milestone Gates خلاصه
+# 38) ترتیب تاریخی طراحی (نه شماره milestoneهای جاری)
+
+شماره‌های G زیر سابقه طراحی‌اند. در کار فعلی M18 = Scientific Recovery، M19 = Methods Paper Dataset Frozen و M20 = v1.0 Candidate؛ ترتیب اصلاح R0–R6 در سند جدید اجرا می‌شود.
 
 ```text
 G0 Freeze
