@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "milestone": "M18",
+  "reference": {
+    "toolbox": "HGF Toolbox",
+    "version": "8.2.0",
+    "commit": "2437f4dc241541072722a2695ddeca7b44d83dd3"
+  },
+  "principle": "HGFX v1 reproduces MATLAB Toolbox capability and scientific workflow, including cases where MATLAB requires eHGF, uHGF, specialized observation models, or has known limitations. Base HGF is not required to pass scenarios that the MATLAB reference itself does not solve with base HGF.",
+  "release_dimensions": [
+    "forward_trajectory",
+    "fit_workflow",
+    "simulation",
+    "objective",
+    "hessian_lme_statistics",
+    "parameter_recovery",
+    "model_recovery",
+    "optimizer_agreement",
+    "cpu_gpu_agreement",
+    "demo_workflow"
+  ],
+  "reference_workflows": [
+    {
+      "id": "binary-hgf",
+      "perceptual_model": "hgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Baseline binary HGF workflow."
+    },
+    {
+      "id": "binary-ehgf",
+      "perceptual_model": "ehgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Use eHGF when the MATLAB reference workflow requires enhanced updates; failure of base HGF alone is not a v1 failure."
+    },
+    {
+      "id": "binary-uhgf",
+      "perceptual_model": "uhgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Use uHGF when the MATLAB reference workflow requires uncertainty-aware updates; failure of base HGF alone is not a v1 failure."
+    },
+    {
+      "id": "specialized-families",
+      "perceptual_model": "M12_complete_inventory",
+      "observation_model": "matching_MATLAB_family",
+      "required": true,
+      "recovery": false,
+      "notes": "PU/PU-TBT, AR1, MAB, JGET, categorical, RW/dual-RW, Pearce-Hall, Sutton K1, Kalman, HMM/HHMM, WhatWorld/WhichWorld and auxiliary families are validated by frozen MATLAB parity evidence. Recovery is required only where the MATLAB toolbox presents a scientifically meaningful recovery workflow."
+    }
+  ],
+  "limitation_policy": {
+    "matlab_limitations_are_acceptable": true,
+    "must_document_equivalent_hgfx_behavior": true,
+    "must_not_claim_stronger_scientific_identifiability_than_reference": true,
+    "model_substitution_must_follow_reference_workflow": true
+  },
+  "m18_gate": {
+    "parameter_recovery_models": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+    "model_recovery_candidates": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+    "demo_parity_required": true,
+    "matlab_limitation_register_required": true
+  }
+}
