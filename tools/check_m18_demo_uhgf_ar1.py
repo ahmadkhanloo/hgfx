@@ -21,7 +21,7 @@ ATOL = 5e-13
 
 def _normalise(value: Any) -> Any:
     if value is None:
-        return np.nan
+        raise ValueError("Ambiguous JSON null: regenerate reference with ieee-strings-v1")
     if isinstance(value, list):
         return [_normalise(item) for item in value]
     return value
@@ -147,6 +147,8 @@ def main() -> None:
 
     matlab = json.loads(args.matlab_json.read_text(encoding="utf-8"))
     metadata = matlab["metadata"]
+    if metadata.get("numeric_encoding") != "ieee-strings-v1":
+        raise ValueError("Lossy reference encoding; regenerate the MATLAB fixture")
     if metadata["reference_commit"] != REFERENCE_COMMIT:
         raise AssertionError("Frozen MATLAB reference commit mismatch")
     if metadata["case_id"] != CASE_ID:
@@ -182,7 +184,7 @@ def main() -> None:
     }
 
     classification = (
-        "PASS_UHGF_AR1_WORKFLOW_PARITY" if not mismatches else "MODEL_SELECTION_MISMATCH"
+        "PASS_UHGF_AR1_WORKFLOW_PARITY" if not mismatches else "IMPLEMENTATION_MISMATCH"
     )
     result = {
         "schema_version": 1,

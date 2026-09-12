@@ -8,6 +8,8 @@ on:
     paths:
       - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
       - "tools/check_m18_demo_uhgf_ar1.py"
+      - "reference/matlab/hgfx_json_ieee.m"
+      - "tests/unit/test_m18_demo_ieee.py"
       - ".github/workflows/m18-demo-uhgf-ar1.yml"
       - "src/hgfx/models/uhgf_binary.py"
       - "src/hgfx/models/hgf_ar1_binary.py"
@@ -15,6 +17,8 @@ on:
     paths:
       - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
       - "tools/check_m18_demo_uhgf_ar1.py"
+      - "reference/matlab/hgfx_json_ieee.m"
+      - "tests/unit/test_m18_demo_ieee.py"
       - ".github/workflows/m18-demo-uhgf-ar1.yml"
       - "src/hgfx/models/uhgf_binary.py"
       - "src/hgfx/models/hgf_ar1_binary.py"
@@ -32,6 +36,7 @@ jobs:
           python-version: "3.11"
       - uses: matlab-actions/setup-matlab@v2
       - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest tests/unit/test_m18_demo_ieee.py -q
       - name: Verify frozen HGF reference
         run: python scripts/verify_reference_freeze.py
       - name: Export official MATLAB uHGF to AR1 workflow

@@ -13,7 +13,8 @@ p_uhgf = [NaN 0 1 NaN 1 1 NaN 0 0 1 1 NaN -2.5 3];
 p_ar1 = [NaN 0 1 NaN 1 1 NaN 0 0.3 NaN 0 1 NaN 0 0 1 1 NaN -2.5 3];
 
 payload = struct;
-payload.metadata.schema_version = 'm18-demo-uhgf-ar1-1';
+payload.metadata.schema_version = 'm18-demo-uhgf-ar1-2';
+payload.metadata.numeric_encoding = 'ieee-strings-v1';
 payload.metadata.reference_toolbox = 'HGF Toolbox';
 payload.metadata.reference_version = '8.2.0';
 payload.metadata.reference_commit = expected_commit;
@@ -36,7 +37,7 @@ if fid == -1
     error('hgfx:m18demoar1:openFailed', 'Could not open %s', output_path);
 end
 cleanup = onCleanup(@() fclose(fid));
-fprintf(fid, '%s\n', jsonencode(payload, 'PrettyPrint', true));
+fprintf(fid, '%s\n', jsonencode(hgfx_json_ieee(payload), 'PrettyPrint', true));
 fprintf('HGFX M18 uHGF->AR1 MATLAB reference export: COMPLETE\n');
 end
 
