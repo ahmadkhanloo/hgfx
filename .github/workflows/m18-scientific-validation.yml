@@ -8,6 +8,9 @@ on:
     paths:
       - 'src/**'
       - 'scripts/run_m18_scientific_validation.py'
+      - 'benchmarks/m18_validation_matrix.json'
+      - 'docs/planning/M18_VALIDATION_MATRIX.md'
+      - 'docs/planning/M18_VALIDATION_PLAN.md'
       - 'tests/**'
       - '.github/workflows/m18-scientific-validation.yml'
   pull_request:
@@ -33,7 +36,7 @@ jobs:
       - name: Frozen reference guard
         run: python scripts/verify_reference_freeze.py
 
-      - name: M18 unit tests
+      - name: M18 unit tests and validation-matrix guard
         run: pytest tests/unit/test_m18_scientific_validation.py -q
 
       - name: M18 reproducible smoke protocol
