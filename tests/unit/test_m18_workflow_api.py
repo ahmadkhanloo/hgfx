@@ -17,10 +17,22 @@ def test_supplied_prior_is_not_silently_discarded():
     )
     assert est.p_obs.p[0] == pytest.approx(2.0)
     assert est.c_obs.priorsas[0] == 0
+    assert set(est.optim.iter) == {"x", "val", "invH", "rst"}
+    assert est.optim.iter.x.shape[0] == 2
+    assert est.optim.iter.val.shape == (2,)
+    assert est.optim.iter.x.shape[1] == len(est.optim.iter.invH[0].T)
+    assert est.optim.iter.rst.ndim == 1
 
 
 def test_continuous_simulation_exported_driver():
     u = np.linspace(1.0, 1.1, 20)
     p = [1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4]
-    sim = hgfx.sim_model(u, "hgf", p, "gaussian_obs", 0.00002, response_normals=np.zeros(20))
+    sim = hgfx.sim_model(
+        u,
+        "hgf",
+        p,
+        "gaussian_obs",
+        0.00002,
+        response_normals=np.zeros(20),
+    )
     np.testing.assert_array_equal(sim.y, sim.traj.muhat[:, 0])
