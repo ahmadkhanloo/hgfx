@@ -304,9 +304,20 @@ def validate(reference):
                 err = compare("fit.traj." + key, est.traj[key], value)
                 if err:
                     row["mismatches"].append(err)
-            row["classification"] = (
-                "PASS" if not row["mismatches"] else "OPTIMIZER_MISMATCH"
+
+            implementation_evidence = (
+                row["reference_point"]["classification"] == "IMPLEMENTATION_MISMATCH"
+                or any(item.startswith("sim.") for item in row["mismatches"])
+                or row["optimizer_trace"].get("classification") == "IMPLEMENTATION_MISMATCH"
+                or row["optimizer_trace"].get("matlab_path_objective", {}).get("classification")
+                == "IMPLEMENTATION_MISMATCH"
             )
+            if not row["mismatches"]:
+                row["classification"] = "PASS"
+            elif implementation_evidence:
+                row["classification"] = "IMPLEMENTATION_MISMATCH"
+            else:
+                row["classification"] = "OPTIMIZER_MISMATCH"
         except Exception as exc:
             row["classification"] = "IMPLEMENTATION_MISMATCH"
             row["error"] = f"{type(exc).__name__}: {exc}"
