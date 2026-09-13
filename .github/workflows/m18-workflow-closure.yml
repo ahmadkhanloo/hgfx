@@ -11,6 +11,7 @@ on:
       - 'reference/matlab/export_m18_d02_likelihood_primitive.m'
       - 'reference/matlab/export_m18_d02_unitsq_primitive.m'
       - 'reference/matlab/export_m18_d02_unitsq_residual_max.m'
+      - 'reference/matlab/export_m18_d02_unitsq_current_argmax.m'
       - 'reference/matlab/hgfx_json_ieee.m'
       - 'tools/check_m18_workflows.py'
       - 'tools/check_m18_d02_optimizer_probe.py'
@@ -55,11 +56,16 @@ jobs:
       - uses: matlab-actions/run-command@v2
         with:
           command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_unitsq_residual_max(fullfile(pwd,'reference','generated','m18_d02_unitsq_residual_max.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_unitsq_current_argmax(fullfile(pwd,'reference','generated','m18_d02_unitsq_current_plus.json'),fullfile(pwd,'reference','generated','m18_d02_unitsq_current_minus.json'))
       - run: python tools/check_m18_d02_optimizer_probe.py reference/generated/m18_d02_optimizer_probe.json --output reference/generated/m18_d02_optimizer_probe_comparison.json
       - run: python tools/check_m18_d02_objective_decomposition.py reference/generated/m18_d02_objective_decomposition.json --output reference/generated/m18_d02_objective_decomposition_comparison.json
       - run: python tools/check_m18_d02_likelihood_primitive.py reference/generated/m18_d02_likelihood_primitive.json --output reference/generated/m18_d02_likelihood_primitive_comparison.json
       - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_primitive.json --output reference/generated/m18_d02_unitsq_primitive_comparison.json
       - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_residual_max.json --output reference/generated/m18_d02_unitsq_residual_max_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_current_plus.json --output reference/generated/m18_d02_unitsq_current_plus_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_current_minus.json --output reference/generated/m18_d02_unitsq_current_minus_comparison.json
       - run: python tools/check_m18_workflows.py reference/generated/m18_workflows.json --output reference/generated/m18_workflows_comparison.json
       - uses: actions/upload-artifact@v4
         if: always()
@@ -72,4 +78,5 @@ jobs:
             reference/generated/m18_d02_likelihood_primitive*.json
             reference/generated/m18_d02_unitsq_primitive*.json
             reference/generated/m18_d02_unitsq_residual_max*.json
+            reference/generated/m18_d02_unitsq_current_*.json
           if-no-files-found: error
