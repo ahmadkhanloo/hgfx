@@ -44,7 +44,17 @@ def stack(results, getter):
     return np.stack([np.asarray(getter(r), dtype=np.float64) for r in results])
 
 
+def matlab_step_matrix(value, steps):
+    """Restore MATLAB singleton-column terms flattened by JSON encoding."""
+
+    array = _array(value)
+    if array.ndim == 1 and array.size == steps:
+        return array.reshape(steps, 1)
+    return array
+
+
 def compare_side(results, matlab):
+    steps = len(results)
     return {
         "neg_log_joint": stats(
             [r.neg_log_joint for r in results], _array(matlab["neg_log_joint"]).reshape(-1)
@@ -66,11 +76,11 @@ def compare_side(results, matlab):
         ),
         "perceptual_prior_terms": stats(
             stack(results, lambda r: r.perceptual_prior.terms),
-            _array(matlab["perceptual_prior_terms"]),
+            matlab_step_matrix(matlab["perceptual_prior_terms"], steps),
         ),
         "observation_prior_terms": stats(
             stack(results, lambda r: r.observation_prior.terms),
-            _array(matlab["observation_prior_terms"]),
+            matlab_step_matrix(matlab["observation_prior_terms"], steps),
         ),
     }
 
@@ -82,6 +92,12 @@ def evaluate_side(problem, x0, parameter_index, coordinates):
         candidate[parameter_index] = coordinate
         results.append(problem.evaluate_full(problem.expand(candidate)))
     return results
+
+
+def max_abs(item):
+    """Keep diagnostic reporting alive if a future component shape diverges."""
+
+    return item.get("max_abs")
 
 
 def main(reference_path: Path, output_path: Path) -> int:
@@ -127,16 +143,16 @@ def main(reference_path: Path, output_path: Path) -> int:
             json.dumps(
                 {
                     "parameter": parameter_index + 1,
-                    "plus_joint": item["plus"]["neg_log_joint"]["max_abs"],
-                    "plus_log_likelihood": item["plus"]["log_likelihood"]["max_abs"],
-                    "plus_trial_log_likelihoods": item["plus"]["trial_log_likelihoods"]["max_abs"],
-                    "plus_perceptual_prior_terms": item["plus"]["perceptual_prior_terms"]["max_abs"],
-                    "plus_observation_prior_terms": item["plus"]["observation_prior_terms"]["max_abs"],
-                    "minus_joint": item["minus"]["neg_log_joint"]["max_abs"],
-                    "minus_log_likelihood": item["minus"]["log_likelihood"]["max_abs"],
-                    "minus_trial_log_likelihoods": item["minus"]["trial_log_likelihoods"]["max_abs"],
-                    "minus_perceptual_prior_terms": item["minus"]["perceptual_prior_terms"]["max_abs"],
-                    "minus_observation_prior_terms": item["minus"]["observation_prior_terms"]["max_abs"],
+                    "plus_joint": max_abs(item["plus"]["neg_log_joint"]),
+                    "plus_log_likelihood": max_abs(item["plus"]["log_likelihood"]),
+                    "plus_trial_log_likelihoods": max_abs(item["plus"]["trial_log_likelihoods"]),
+                    "plus_perceptual_prior_terms": max_abs(item["plus"]["perceptual_prior_terms"]),
+                    "plus_observation_prior_terms": max_abs(item["plus"]["observation_prior_terms"]),
+                    "minus_joint": max_abs(item["minus"]["neg_log_joint"]),
+                    "minus_log_likelihood": max_abs(item["minus"]["log_likelihood"]),
+                    "minus_trial_log_likelihoods": max_abs(item["minus"]["trial_log_likelihoods"]),
+                    "minus_perceptual_prior_terms": max_abs(item["minus"]["perceptual_prior_terms"]),
+                    "minus_observation_prior_terms": max_abs(item["minus"]["observation_prior_terms"]),
                 }
             ),
             flush=True,
