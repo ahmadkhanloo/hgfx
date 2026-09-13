@@ -10,7 +10,7 @@ import numpy as np
 from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
 
 import hgfx
-from hgfx.compat.workflows import resolve_config
+from hgfx.compat.workflows import WorkflowFitProblem, resolve_config
 
 IDS = (
     "D01_bayes",
@@ -46,6 +46,75 @@ def compare(label, a, e, rtol=3e-8, atol=3e-10):
         return None
     idx = tuple(np.argwhere(~close)[0]) if np.ndim(close) else ()
     return f"{label}: first divergence index={idx} HGFX={a[idx]} MATLAB={e[idx]}"
+
+
+def reference_point_diagnostics(case, u, prc, obs):
+    """Evaluate HGFX at MATLAB's fitted point without changing the release gate.
+
+    This separates an implementation/objective mismatch from a pure optimizer-path
+    mismatch. The diagnostic uses the already frozen MATLAB final vector and the
+    same tolerances as the corresponding gated outputs; it never substitutes the
+    reference point into the HGFX fit result and never changes PASS/FAIL.
+    """
+    expected = case["fit"]
+    final = _array(expected["final"]).reshape(-1)
+    y = _array(case["responses"]).reshape(-1)
+    prc_resolved = prc.resolve_placeholders(u)
+    obs_resolved = obs.resolve_placeholders(u)
+    problem = WorkflowFitProblem(y, u, prc_resolved, obs_resolved)
+    if final.size != problem.initial_full.size:
+        return {
+            "classification": "IMPLEMENTATION_MISMATCH",
+            "mismatches": [
+                f"reference.final: size {final.size} != expected {problem.initial_full.size}"
+            ],
+        }
+
+    mismatches = []
+    objective = problem.evaluate_full(final)
+    for name, actual in (
+        ("reference.negLl", objective.neg_log_likelihood),
+        ("reference.negLj", objective.neg_log_joint),
+    ):
+        expected_name = name.split(".", 1)[1]
+        err = compare(name, actual, expected[expected_name])
+        if err:
+            mismatches.append(err)
+
+    masks = __import__("hgfx.core.trials", fromlist=["build_trial_masks"]).build_trial_masks(y, u)
+    ignored = tuple(int(index) for index in np.flatnonzero(masks.ignored))
+    irregular = tuple(int(index) for index in np.flatnonzero(masks.irregular))
+    n = problem.n_perceptual
+    traj, states = problem.forward(
+        u,
+        final[:n],
+        transformed=True,
+        irregular_intervals=bool(prc_resolved.options.get("irregular_intervals", False)),
+        ignored_trials=ignored,
+    )
+    for key, value in expected["traj"].items():
+        err = compare("reference.traj." + key, traj[key], value)
+        if err:
+            mismatches.append(err)
+
+    obs_output = problem.observation(
+        y,
+        states,
+        final[n:],
+        irregular_trials=irregular,
+    )
+    if isinstance(obs_output, tuple) and len(obs_output) >= 3:
+        _, yhat, res = obs_output[:3]
+        for name, actual in (("reference.yhat", yhat), ("reference.res", res)):
+            expected_name = name.split(".", 1)[1]
+            err = compare(name, actual, expected[expected_name])
+            if err:
+                mismatches.append(err)
+
+    return {
+        "classification": "PASS" if not mismatches else "IMPLEMENTATION_MISMATCH",
+        "mismatches": mismatches,
+    }
 
 
 def validate(reference):
@@ -103,6 +172,8 @@ def validate(reference):
                     err = compare("sim.traj." + key, sim.traj[key], value, 5e-11, 5e-13)
                     if err:
                         row["mismatches"].append(err)
+
+            row["reference_point"] = reference_point_diagnostics(c, u, prc, obs)
             est = hgfx.fit_model(_array(c["responses"]).reshape(-1), u, prc, obs)
             expected = c["fit"]
             for name, actual in [
