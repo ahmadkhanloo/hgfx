@@ -33,7 +33,25 @@ def _optimizer_struct(
     residuals: np.ndarray,
 ) -> MatlabStruct:
     from hgfx.diagnostics.autocorrelation import residual_autocorrelation
+
     objective = fit.objective
+    optimizer = fit.optimizer
+    if optimizer.iter_x.size:
+        iteration = MatlabStruct(
+            {
+                "x": optimizer.iter_x.copy(),
+                "val": optimizer.iter_val.copy(),
+                "invH": tuple(
+                    MatlabStruct({"T": matrix.copy()})
+                    for matrix in optimizer.iter_inverse_hessians
+                ),
+                "rst": np.asarray(optimizer.iter_resets, dtype=np.int64),
+            }
+        )
+    else:
+        # MATLAB quasinewton_optim returns [] when c_opt.optIter is false.
+        iteration = []
+
     return MatlabStruct(
         {
             "init": np.asarray(start_full, dtype=np.float64).copy(),
@@ -52,11 +70,7 @@ def _optimizer_struct(
             },
             "accu": float(stats.accuracy),
             "comp": float(stats.complexity),
-            "iter": {
-                "count": int(fit.optimizer.iterations),
-                "resets": int(fit.optimizer.resets),
-                "termination": fit.optimizer.termination,
-            },
+            "iter": iteration,
             "AIC": float(stats.aic),
             "BIC": float(stats.bic),
             "yhat": yhat.copy(),
@@ -102,12 +116,23 @@ def fit_model(
     """
 
     from .matlab_names import model_name
-    if (isinstance(perceptual_config, ModelConfig) or isinstance(observation_config, ModelConfig)
-            or model_name(perceptual_config) != 'hgf_binary'
-            or model_name(observation_config) != 'unitsq_sgm'):
+
+    if (
+        isinstance(perceptual_config, ModelConfig)
+        or isinstance(observation_config, ModelConfig)
+        or model_name(perceptual_config) != "hgf_binary"
+        or model_name(observation_config) != "unitsq_sgm"
+    ):
         from .workflows import fit_workflow
-        return fit_workflow(responses, inputs, perceptual_config, observation_config,
-                            optimization_config, restart_free_parameters=restart_free_parameters)
+
+        return fit_workflow(
+            responses,
+            inputs,
+            perceptual_config,
+            observation_config,
+            optimization_config,
+            restart_free_parameters=restart_free_parameters,
+        )
 
     require_model(perceptual_config, "hgf_binary", role="perceptual_config")
     require_model(observation_config, "unitsq_sgm", role="observation_config")
