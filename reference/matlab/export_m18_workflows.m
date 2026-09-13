@@ -49,7 +49,11 @@ for k=1:size(specs,1)
      oc.logzesa=c.obs_prior_variance; oc=align_priors(oc);
    end
    fit=fitModel(y,c.inputs,pc,oc,'quasinewton_optim_config');
-   c.fit=strip_fit(fit); c.success=true; c.stage='complete';
+   c.fit=strip_fit(fit);
+   if strcmp(c.id,'D02_fit') || strcmp(c.id,'D08_fit')
+     c.fit.initial_ridders=initial_ridders_diagnostic(fit);
+   end
+   c.success=true; c.stage='complete';
  catch ME
    c.error_identifier=ME.identifier; c.error_message=ME.message;
  end
@@ -81,6 +85,56 @@ if isstruct(s.optim.iter)
 else
  out.iter=[];
 end
+end
+
+function out=initial_ridders_diagnostic(fit)
+% Reconstruct the exact scalar objective used by fitModel/optimrun at the
+% resolved initial point, then apply the same Ridders gradient settings as
+% quasinewton_optim.m. This is diagnostic evidence only.
+r.u=fit.u; r.y=fit.y; r.irr=fit.irr; r.ign=fit.ign;
+r.c_prc=fit.c_prc; r.c_obs=fit.c_obs;
+init=fit.optim.init;
+opt_mask=[r.c_prc.priorsas, r.c_obs.priorsas];
+opt_mask(isnan(opt_mask))=0;
+opt_idx=find(opt_mask);
+n_prcpars=length(r.c_prc.priormus);
+n_obspars=length(r.c_obs.priormus);
+nlj=@(p) workflow_nlj(r,r.c_prc.prc_fun,r.c_obs.obs_fun,p(1:n_prcpars),p(n_prcpars+1:n_prcpars+n_obspars));
+obj=@(p_opt) workflow_restrict(nlj,init,opt_idx,p_opt);
+x0=init(opt_idx)';
+gradoptions.min_steps=10;
+out.x=x0;
+out.val=obj(x0);
+[out.grad,out.grad_err]=riddersgradient(obj,x0,gradoptions);
+end
+
+function val=workflow_restrict(f,arg,free_idx,free_arg)
+arg(free_idx)=free_arg;
+val=f(arg);
+end
+
+function negLogJoint=workflow_nlj(r,prc_fun,obs_fun,ptrans_prc,ptrans_obs)
+% Scalar reproduction of frozen fitModel.m/negLogJoint for diagnostics.
+try
+ [~,infStates]=prc_fun(r,ptrans_prc,'trans');
+catch
+ negLogJoint=realmax;
+ return;
+end
+try
+ [trialLogLls,~,~,~]=obs_fun(r,infStates,ptrans_obs);
+catch
+ trialLogLls=obs_fun(r,infStates,ptrans_obs);
+end
+trialLogLls(r.irr)=[];
+logLl=sum(trialLogLls);
+prc_idx=r.c_prc.priorsas; prc_idx(isnan(prc_idx))=0; prc_idx=find(prc_idx);
+logPrcPriors=-1/2.*log(8*atan(1).*r.c_prc.priorsas(prc_idx)) - 1/2.*(ptrans_prc(prc_idx)-r.c_prc.priormus(prc_idx)).^2./r.c_prc.priorsas(prc_idx);
+logPrcPrior=sum(logPrcPriors);
+obs_idx=r.c_obs.priorsas; obs_idx(isnan(obs_idx))=0; obs_idx=find(obs_idx);
+logObsPriors=-1/2.*log(8*atan(1).*r.c_obs.priorsas(obs_idx)) - 1/2.*(ptrans_obs(obs_idx)-r.c_obs.priormus(obs_idx)).^2./r.c_obs.priorsas(obs_idx);
+logObsPrior=sum(logObsPriors);
+negLogJoint=-(logLl+logPrcPrior+logObsPrior);
 end
 
 function write_payload(path,payload)
