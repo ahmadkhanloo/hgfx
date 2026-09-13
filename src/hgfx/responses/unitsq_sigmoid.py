@@ -2,6 +2,7 @@
 from __future__ import annotations
 from collections.abc import Sequence
 import numpy as np
+from hgfx.math.matlab_exp import matlab_exp, matlab_exp_scalar
 from .base import ignored_mask,output_arrays,response_vector
 
 def _core(responses,x,ze,*,irregular_trials):
@@ -20,9 +21,9 @@ def _core(responses,x,ze,*,irregular_trials):
 
 def unitsq_sgm(responses,inf_states,ptrans,*,irregular_trials:Sequence[int]|None=None,predorpost:int=1):
     s=np.asarray(inf_states,dtype=np.float64); pop=0 if predorpost==1 else 2
-    ze=np.exp(np.asarray(ptrans,dtype=np.float64).reshape(-1)[0])
+    ze=matlab_exp_scalar(np.asarray(ptrans,dtype=np.float64).reshape(-1)[0])
     return _core(responses,s[:,0,pop],ze,irregular_trials=irregular_trials)
 
 def unitsq_sgm_mu3(responses,inf_states,ptrans=None,*,irregular_trials:Sequence[int]|None=None):
     s=np.asarray(inf_states,dtype=np.float64)
-    return _core(responses,s[:,0,0],np.exp(-s[:,2,0]),irregular_trials=irregular_trials)
+    return _core(responses,s[:,0,0],matlab_exp(-s[:,2,0]),irregular_trials=irregular_trials)

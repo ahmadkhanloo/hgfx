@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from .matlab_exp import matlab_exp
+
 
 def _restore_scalar(original, value: np.ndarray):
     if np.ndim(original) == 0:
@@ -30,7 +32,7 @@ def sigmoid(x, upper: float = 1.0):
     values = np.asarray(x, dtype=np.float64)
     a = np.float64(upper)
     with np.errstate(over="ignore", invalid="ignore"):
-        out = a / (1.0 + np.exp(-values))
+        out = a / (np.float64(1.0) + matlab_exp(-values))
     return _restore_scalar(x, out)
 
 

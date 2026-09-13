@@ -8,6 +8,7 @@ import numpy as np
 
 from hgfx.core.trials import build_time_axis
 from hgfx.math.logistic import sigmoid
+from hgfx.math.matlab_exp import matlab_exp_scalar
 from hgfx.updates.binary_l1 import hgf_binary_level1
 from hgfx.updates.binary_l2 import hgf_binary_level2
 from hgfx.updates.precision_prediction import hgf_pihat, hgf_pihat_last
@@ -48,7 +49,7 @@ def hgf_binary_unified(
     rho = p[2 * l : 3 * l]
     ka = p[3 * l : 4 * l - 1]
     om = p[4 * l - 1 : 5 * l - 2]
-    th = np.exp(np.float64(p[5 * l - 2]))
+    th = matlab_exp_scalar(p[5 * l - 2])
 
     u = np.concatenate((np.asarray([0.0], dtype=np.float64), values))
     n = u.size
@@ -126,11 +127,11 @@ def hgf_binary_unified(
             pihat[k, last] = hgf_pihat_last(pi[k - 1, last], t[k], th)
             v[k, last] = t[k] * th
             if update_type == "uhgf":
-                v[k, last - 1] = t[k] * np.exp(
+                v[k, last - 1] = t[k] * matlab_exp_scalar(
                     ka[last - 1] * muhat[k, last] + om[last - 1]
                 )
             else:
-                v[k, last - 1] = t[k] * np.exp(
+                v[k, last - 1] = t[k] * matlab_exp_scalar(
                     ka[last - 1] * mu[k - 1, last] + om[last - 1]
                 )
             (

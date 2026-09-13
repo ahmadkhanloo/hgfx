@@ -6,6 +6,8 @@ from collections.abc import Sequence
 
 import numpy as np
 
+from hgfx.math.matlab_exp import matlab_exp
+
 
 def first_input_column(inputs) -> tuple[np.ndarray, np.ndarray]:
     array = np.asarray(inputs, dtype=np.float64)
@@ -41,8 +43,8 @@ def binary_native_parameters(parameters, *, transformed: bool) -> tuple[np.ndarr
     if l < 3:
         raise ValueError("binary HGF requires at least three levels")
     if transformed:
-        p[l : 2 * l] = np.exp(p[l : 2 * l])
-        p[3 * l : 4 * l - 1] = np.exp(p[3 * l : 4 * l - 1])
+        p[l : 2 * l] = matlab_exp(p[l : 2 * l])
+        p[3 * l : 4 * l - 1] = matlab_exp(p[3 * l : 4 * l - 1])
     return p, l
 
 
