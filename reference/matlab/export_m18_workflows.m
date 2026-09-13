@@ -71,6 +71,16 @@ out.prc_priorsas=s.c_prc.priorsas; out.obs_priormus=s.c_obs.priormus;
 out.obs_priorsas=s.c_obs.priorsas;
 fields={'H','Sigma','Corr','negLl','negLj','LME','AIC','BIC','yhat','res','resAC'};
 for j=1:numel(fields); out.(fields{j})=s.optim.(fields{j}); end
+% Diagnostic evidence only: additive optimizer trace. It does not change the
+% frozen workflow gate or any acceptance threshold, but makes the first BFGS
+% divergence independently observable.
+if isstruct(s.optim.iter)
+ out.iter.x=s.optim.iter.x;
+ out.iter.val=s.optim.iter.val;
+ out.iter.rst=s.optim.iter.rst;
+else
+ out.iter=[];
+end
 end
 
 function write_payload(path,payload)
