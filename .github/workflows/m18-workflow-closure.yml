@@ -8,10 +8,12 @@ on:
       - 'reference/matlab/export_m18_workflows.m'
       - 'reference/matlab/export_m18_d02_optimizer_probe.m'
       - 'reference/matlab/export_m18_d02_objective_decomposition.m'
+      - 'reference/matlab/export_m18_d02_likelihood_primitive.m'
       - 'reference/matlab/hgfx_json_ieee.m'
       - 'tools/check_m18_workflows.py'
       - 'tools/check_m18_d02_optimizer_probe.py'
       - 'tools/check_m18_d02_objective_decomposition.py'
+      - 'tools/check_m18_d02_likelihood_primitive.py'
       - '.github/workflows/m18-workflow-closure.yml'
   pull_request:
   workflow_dispatch:
@@ -39,8 +41,12 @@ jobs:
       - uses: matlab-actions/run-command@v2
         with:
           command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_objective_decomposition(fullfile(pwd,'reference','generated','m18_d02_objective_decomposition.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_likelihood_primitive(fullfile(pwd,'reference','generated','m18_d02_likelihood_primitive.json'))
       - run: python tools/check_m18_d02_optimizer_probe.py reference/generated/m18_d02_optimizer_probe.json --output reference/generated/m18_d02_optimizer_probe_comparison.json
       - run: python tools/check_m18_d02_objective_decomposition.py reference/generated/m18_d02_objective_decomposition.json --output reference/generated/m18_d02_objective_decomposition_comparison.json
+      - run: python tools/check_m18_d02_likelihood_primitive.py reference/generated/m18_d02_likelihood_primitive.json --output reference/generated/m18_d02_likelihood_primitive_comparison.json
       - run: python tools/check_m18_workflows.py reference/generated/m18_workflows.json --output reference/generated/m18_workflows_comparison.json
       - uses: actions/upload-artifact@v4
         if: always()
@@ -50,4 +56,5 @@ jobs:
             reference/generated/m18_workflows*.json
             reference/generated/m18_d02_optimizer_probe*.json
             reference/generated/m18_d02_objective_decomposition*.json
+            reference/generated/m18_d02_likelihood_primitive*.json
           if-no-files-found: error
