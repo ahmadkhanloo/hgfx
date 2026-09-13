@@ -44,6 +44,152 @@ def _stats(actual, expected):
     return result
 
 
+def _matlab_inverse_hessian(raw):
+    if isinstance(raw, list) and len(raw) == 0:
+        return None
+    return _array(raw)
+
+
+def _replay_quasinewton(matlab_x, matlab_grad, matlab_inv_h):
+    """Replay BFGS algebra from exact MATLAB state, without HGFX path drift."""
+
+    transitions = []
+    max_regu = 16
+    max_step = 1.0
+
+    for q in range(len(matlab_x) - 1):
+        current_t = _matlab_inverse_hessian(matlab_inv_h[q])
+        next_t = _matlab_inverse_hessian(matlab_inv_h[q + 1])
+        if current_t is None or next_t is None:
+            continue
+
+        x = np.asarray(matlab_x[q], dtype=np.float64).reshape(-1)
+        next_x = np.asarray(matlab_x[q + 1], dtype=np.float64).reshape(-1)
+        grad = np.asarray(matlab_grad[q], dtype=np.float64).reshape(-1)
+        next_grad = np.asarray(matlab_grad[q + 1], dtype=np.float64).reshape(-1)
+
+        descvec = -(current_t @ grad)
+        step_size = float(np.sqrt(np.dot(descvec, descvec)))
+        if step_size > max_step:
+            descvec = descvec * max_step / step_size
+
+        candidates = [
+            x + (np.float64(0.5) ** j) * descvec
+            for j in range(max_regu + 1)
+        ]
+        candidate_errors = [
+            float(np.max(np.abs(candidate - next_x))) for candidate in candidates
+        ]
+        regu = int(np.argmin(candidate_errors))
+        predicted_x = candidates[regu]
+        dx = next_x - x
+        dgrad = next_grad - grad
+
+        dgdx = float(np.dot(dgrad, dx))
+        curvature_threshold = float(
+            np.sqrt(
+                np.finfo(np.float64).eps
+                * np.dot(dgrad, dgrad)
+                * np.dot(dx, dx)
+            )
+        )
+        predicted_t = current_t.copy()
+        updated = dgdx > curvature_threshold
+        if updated:
+            dg_t = dgrad @ current_t
+            dg_t_dg = float(np.dot(dg_t, dgrad))
+            u = dx / dgdx - dg_t / dg_t_dg
+            predicted_t = (
+                current_t
+                + np.outer(dx, dx) / dgdx
+                - np.outer(dg_t, dg_t) / dg_t_dg
+                + dg_t_dg * np.outer(u, u)
+            )
+
+        transitions.append(
+            {
+                "from_matlab_row_1based": q + 1,
+                "to_matlab_row_1based": q + 2,
+                "inferred_regularizations": regu,
+                "step_fraction": float(np.float64(0.5) ** regu),
+                "step_replay": _stats(predicted_x, next_x),
+                "bfgs_updated": bool(updated),
+                "dgdx": dgdx,
+                "curvature_threshold": curvature_threshold,
+                "inverse_hessian_replay": _stats(predicted_t, next_t),
+            }
+        )
+
+    return {
+        "classification": "DIAGNOSTIC_ONLY",
+        "note": (
+            "Replays step normalization/backtracking and BFGS using exact MATLAB "
+            "x/gradient/inverse-Hessian state. This removes accumulated HGFX path drift."
+        ),
+        "transitions": transitions,
+    }
+
+
+def _compare_ridders_samples(problem, point, samples):
+    """Compare objective values at the exact scalar coordinates sampled by MATLAB."""
+
+    diagnostics = []
+    point = np.asarray(point, dtype=np.float64).reshape(-1)
+
+    for sample in samples:
+        parameter_index = int(sample["parameter_index_1based"]) - 1
+        h = _array(sample["h"]).reshape(-1)
+        x_plus = _array(sample["x_plus"]).reshape(-1)
+        x_minus = _array(sample["x_minus"]).reshape(-1)
+        matlab_plus = _array(sample["f_plus"]).reshape(-1)
+        matlab_minus = _array(sample["f_minus"]).reshape(-1)
+        matlab_central = _array(sample["central_difference"]).reshape(-1)
+
+        hgfx_plus = np.empty_like(matlab_plus)
+        hgfx_minus = np.empty_like(matlab_minus)
+        for i in range(len(h)):
+            candidate = point.copy()
+            candidate[parameter_index] = x_plus[i]
+            hgfx_plus[i] = problem.evaluate_free(candidate)
+
+            candidate = point.copy()
+            candidate[parameter_index] = x_minus[i]
+            hgfx_minus[i] = problem.evaluate_free(candidate)
+
+        hgfx_central = (hgfx_plus - hgfx_minus) / (2.0 * h)
+        item = {
+            "parameter_index_1based": parameter_index + 1,
+            "x0": float(sample["x0"]),
+            "steps": int(len(h)),
+            "stop_step": int(sample["stop_step"]),
+            "f_plus": _stats(hgfx_plus, matlab_plus),
+            "f_minus": _stats(hgfx_minus, matlab_minus),
+            "central_difference": _stats(hgfx_central, matlab_central),
+        }
+        diagnostics.append(item)
+        print(
+            json.dumps(
+                {
+                    "ridders_parameter": parameter_index + 1,
+                    "steps": len(h),
+                    "f_plus_max_abs": item["f_plus"].get("max_abs"),
+                    "f_minus_max_abs": item["f_minus"].get("max_abs"),
+                    "central_max_abs": item["central_difference"].get("max_abs"),
+                }
+            ),
+            flush=True,
+        )
+
+    return {
+        "classification": "DIAGNOSTIC_ONLY",
+        "note": (
+            "HGFX objective is evaluated at the exact x+h/x-h scalar coordinates exported "
+            "by MATLAB, before Richardson extrapolation."
+        ),
+        "parameters": diagnostics,
+    }
+
+
 def main(reference_path: Path, output_path: Path) -> int:
     reference = json.loads(reference_path.read_text())
     if reference["reference_commit"] != REFERENCE_COMMIT:
@@ -99,21 +245,19 @@ def main(reference_path: Path, output_path: Path) -> int:
             "gradient_error_at_matlab_x": _stats(grad_err, matlab_grad_err[q]),
         }
 
-        expected_t = matlab_inv_h[q]
-        if isinstance(expected_t, list) and len(expected_t) == 0:
+        expected_t = _matlab_inverse_hessian(matlab_inv_h[q])
+        if expected_t is None:
             item["inverse_hessian"] = {"available": False}
+        elif index < len(actual_iter.invH):
+            item["inverse_hessian"] = {
+                "available": True,
+                **_stats(actual_iter.invH[index].T, expected_t),
+            }
         else:
-            expected_t = _array(expected_t)
-            if index < len(actual_iter.invH):
-                item["inverse_hessian"] = {
-                    "available": True,
-                    **_stats(actual_iter.invH[index].T, expected_t),
-                }
-            else:
-                item["inverse_hessian"] = {
-                    "available": False,
-                    "reason": "HGFX trace missing corresponding inverse Hessian",
-                }
+            item["inverse_hessian"] = {
+                "available": False,
+                "reason": "HGFX trace missing corresponding inverse Hessian",
+            }
         diagnostics.append(item)
         print(
             json.dumps(
@@ -139,7 +283,19 @@ def main(reference_path: Path, output_path: Path) -> int:
             "modify the frozen M18 acceptance gate."
         ),
         "rows": diagnostics,
+        "quasinewton_state_replay": _replay_quasinewton(
+            matlab_x,
+            matlab_grad,
+            matlab_inv_h,
+        ),
     }
+    if "ridders_samples" in reference:
+        result["ridders_finite_difference_objective"] = _compare_ridders_samples(
+            problem,
+            matlab_x[0],
+            reference["ridders_samples"],
+        )
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result, indent=2, allow_nan=True) + "\n")
     return 0
