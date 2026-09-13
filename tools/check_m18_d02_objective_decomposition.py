@@ -24,6 +24,18 @@ def stats(actual, expected):
     out = {
         "max_abs": float(np.max(diff[finite])) if np.any(finite) else float("nan")
     }
+    if np.any(finite):
+        finite_diff = np.where(finite, diff, -np.inf)
+        flat_index = int(np.argmax(finite_diff))
+        idx = tuple(int(i) for i in np.unravel_index(flat_index, diff.shape))
+        out["max_abs_point"] = {
+            "index": list(idx),
+            "hgfx": float(actual[idx]),
+            "matlab": float(expected[idx]),
+            "abs_diff": float(diff[idx]),
+        }
+    else:
+        out["max_abs_point"] = None
     for threshold in THRESHOLDS:
         mask = diff > threshold
         key = f"first_gt_{threshold:.0e}"
@@ -100,6 +112,12 @@ def max_abs(item):
     return item.get("max_abs")
 
 
+def max_point(item):
+    """Return the exact argmax diagnostic when component shapes match."""
+
+    return item.get("max_abs_point")
+
+
 def main(reference_path: Path, output_path: Path) -> int:
     reference = json.loads(reference_path.read_text())
     if reference["reference_commit"] != REFERENCE_COMMIT:
@@ -146,11 +164,13 @@ def main(reference_path: Path, output_path: Path) -> int:
                     "plus_joint": max_abs(item["plus"]["neg_log_joint"]),
                     "plus_log_likelihood": max_abs(item["plus"]["log_likelihood"]),
                     "plus_trial_log_likelihoods": max_abs(item["plus"]["trial_log_likelihoods"]),
+                    "plus_trial_max_point": max_point(item["plus"]["trial_log_likelihoods"]),
                     "plus_perceptual_prior_terms": max_abs(item["plus"]["perceptual_prior_terms"]),
                     "plus_observation_prior_terms": max_abs(item["plus"]["observation_prior_terms"]),
                     "minus_joint": max_abs(item["minus"]["neg_log_joint"]),
                     "minus_log_likelihood": max_abs(item["minus"]["log_likelihood"]),
                     "minus_trial_log_likelihoods": max_abs(item["minus"]["trial_log_likelihoods"]),
+                    "minus_trial_max_point": max_point(item["minus"]["trial_log_likelihoods"]),
                     "minus_perceptual_prior_terms": max_abs(item["minus"]["perceptual_prior_terms"]),
                     "minus_observation_prior_terms": max_abs(item["minus"]["observation_prior_terms"]),
                 }
