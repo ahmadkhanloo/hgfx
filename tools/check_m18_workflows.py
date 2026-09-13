@@ -11,6 +11,7 @@ from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
 
 import hgfx
 from hgfx.compat.workflows import WorkflowFitProblem, resolve_config
+from hgfx.core.trials import build_trial_masks
 
 IDS = (
     "D01_bayes",
@@ -48,6 +49,16 @@ def compare(label, a, e, rtol=3e-8, atol=3e-10):
     return f"{label}: first divergence index={idx} HGFX={a[idx]} MATLAB={e[idx]}"
 
 
+def _problem(case, u, prc, obs):
+    y = _array(case["responses"]).reshape(-1)
+    return WorkflowFitProblem(
+        y,
+        u,
+        prc.resolve_placeholders(u),
+        obs.resolve_placeholders(u),
+    )
+
+
 def reference_point_diagnostics(case, u, prc, obs):
     """Evaluate HGFX at MATLAB's fitted point without changing the release gate.
 
@@ -81,7 +92,7 @@ def reference_point_diagnostics(case, u, prc, obs):
         if err:
             mismatches.append(err)
 
-    masks = __import__("hgfx.core.trials", fromlist=["build_trial_masks"]).build_trial_masks(y, u)
+    masks = build_trial_masks(y, u)
     ignored = tuple(int(index) for index in np.flatnonzero(masks.ignored))
     irregular = tuple(int(index) for index in np.flatnonzero(masks.irregular))
     n = problem.n_perceptual
@@ -117,6 +128,74 @@ def reference_point_diagnostics(case, u, prc, obs):
     }
 
 
+def optimizer_trace_diagnostics(case, u, prc, obs, est):
+    """Compare BFGS traces without making them part of the frozen release gate.
+
+    For the two currently divergent workflows, also replay HGFX's objective at
+    every finite MATLAB iteration point. If those objective values agree while
+    the optimizer traces diverge, the evidence isolates an optimizer/numerical
+    path mismatch rather than a model/objective mismatch.
+    """
+    expected_iter = case["fit"].get("iter")
+    if not isinstance(expected_iter, dict):
+        return {"classification": "INSUFFICIENT_REFERENCE_EVIDENCE"}
+    actual_iter = est.optim.iter
+    if not hasattr(actual_iter, "x"):
+        return {
+            "classification": "IMPLEMENTATION_MISMATCH",
+            "mismatches": ["HGFX optim.iter trace is absent"],
+        }
+
+    mismatches = []
+    for name, actual in (
+        ("optimizer.iter.x", actual_iter.x),
+        ("optimizer.iter.val", actual_iter.val),
+        ("optimizer.iter.rst", actual_iter.rst),
+    ):
+        expected_name = name.rsplit(".", 1)[1]
+        err = compare(name, actual, expected_iter[expected_name])
+        if err:
+            mismatches.append(err)
+
+    result = {
+        "classification": "PASS" if not mismatches else "DIVERGED",
+        "mismatches": mismatches,
+    }
+
+    if case["id"] not in {"D02_fit", "D08_fit"}:
+        return result
+
+    problem = _problem(case, u, prc, obs)
+    matlab_x = _array(expected_iter["x"])
+    matlab_val = _array(expected_iter["val"]).reshape(-1)
+    if matlab_x.ndim == 1:
+        matlab_x = matlab_x.reshape(-1, len(problem.free_indices))
+    objective_mismatches = []
+    checked = 0
+    for index, point in enumerate(matlab_x):
+        if index >= matlab_val.size or not np.all(np.isfinite(point)):
+            continue
+        expected_value = matlab_val[index]
+        if not np.isfinite(expected_value):
+            continue
+        checked += 1
+        actual_value = problem.evaluate_free(point)
+        err = compare(
+            f"matlab_path_objective[{index}]",
+            actual_value,
+            expected_value,
+        )
+        if err:
+            objective_mismatches.append(err)
+            break
+    result["matlab_path_objective"] = {
+        "classification": "PASS" if not objective_mismatches else "IMPLEMENTATION_MISMATCH",
+        "points_checked": checked,
+        "mismatches": objective_mismatches,
+    }
+    return result
+
+
 def validate(reference):
     meta = reference["metadata"]
     if (
@@ -130,7 +209,11 @@ def validate(reference):
         raise ValueError("Incomplete, reordered or duplicate case coverage")
     rows = []
     for c in cases:
-        row = {"id": c["id"], "classification": "INSUFFICIENT_REFERENCE_EVIDENCE", "mismatches": []}
+        row = {
+            "id": c["id"],
+            "classification": "INSUFFICIENT_REFERENCE_EVIDENCE",
+            "mismatches": [],
+        }
         try:
             if not c["success"]:
                 row["matlab_failure"] = {
@@ -169,13 +252,20 @@ def validate(reference):
                 if err:
                     row["mismatches"].append(err)
                 for key, value in c["sim"]["traj"].items():
-                    err = compare("sim.traj." + key, sim.traj[key], value, 5e-11, 5e-13)
+                    err = compare(
+                        "sim.traj." + key,
+                        sim.traj[key],
+                        value,
+                        5e-11,
+                        5e-13,
+                    )
                     if err:
                         row["mismatches"].append(err)
 
             row["reference_point"] = reference_point_diagnostics(c, u, prc, obs)
             est = hgfx.fit_model(_array(c["responses"]).reshape(-1), u, prc, obs)
             expected = c["fit"]
+            row["optimizer_trace"] = optimizer_trace_diagnostics(c, u, prc, obs, est)
             for name, actual in [
                 ("prc_priormus", est.c_prc.priormus),
                 ("prc_priorsas", est.c_prc.priorsas),
@@ -214,7 +304,9 @@ def validate(reference):
                 err = compare("fit.traj." + key, est.traj[key], value)
                 if err:
                     row["mismatches"].append(err)
-            row["classification"] = "PASS" if not row["mismatches"] else "OPTIMIZER_MISMATCH"
+            row["classification"] = (
+                "PASS" if not row["mismatches"] else "OPTIMIZER_MISMATCH"
+            )
         except Exception as exc:
             row["classification"] = "IMPLEMENTATION_MISMATCH"
             row["error"] = f"{type(exc).__name__}: {exc}"
@@ -224,7 +316,8 @@ def validate(reference):
         "protocol": meta["protocol"],
         "reference_commit": REFERENCE_COMMIT,
         "cases": rows,
-        "gate_pass": len(rows) == len(IDS) and all(r["classification"] == "PASS" for r in rows),
+        "gate_pass": len(rows) == len(IDS)
+        and all(r["classification"] == "PASS" for r in rows),
     }
 
 
