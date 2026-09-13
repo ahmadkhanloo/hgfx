@@ -3,7 +3,8 @@
 Last synchronized: 2026-09-13
 Status: **IN PROGRESS**
 Current branch: `migration/m18-workflow-closure`
-Last tested implementation head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`
+Last tested implementation/diagnostic head: `4e92ccf3e3812564c4fa93cd85c9500b6a3436e1`
+Documentation-only head after paper sync: `5b37e7df2a4a47f5159c47c75517d3f404a75b31`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Objective and authority
@@ -25,18 +26,20 @@ Required MATLAB functionality cannot be deferred beyond the initial v1.0 release
 | Exact historical 512-trial case | REFERENCE_LIMITATION_MATCH | Exact paired MATLAB/HGFX case only; not arbitrary 512-trial support |
 | D02 model-selection behavior | PASS_MODEL_SELECTION_PARITY | MATLAB/HGFX classic HGF fail correspondingly; eHGF succeeds in both |
 | D04 uHGF -> AR(1) official workflow | PASS | run `34763542557` at `faf97bf...` |
-| Official fit/Bayes closure set | IN PROGRESS — 7/9 PASS | run `34763542525`, job `103740409700`; D02_fit and D08_fit remain blocking |
-| Latest official evidence artifact | RECORDED | `m18-official-workflows`, ID `10319853691`, SHA-256 `2cb5b01bce11b900261a0e309e80bf4220d63ac655417d86bf32539bf1cbf773` |
+| Official fit/Bayes closure set | IN PROGRESS — 7/9 PASS | run `34776952053`, job `103776700085`; D02_fit and D08_fit remain blocking |
+| Latest official evidence artifact | RECORDED | `m18-official-workflows`, ID `10323968264`, SHA-256 `ac4d0094cfe49b5e5ee8d5c75f89311c35a2727b46ed433078412be63c3b5f9c` |
+| Frozen reference verification | PASS | exact HGF commit `2437f4dc...`; 334 MATLAB files verified in latest run |
+| Targeted M18 API/IEEE/numerical regressions | PASS | 7 tests passed in latest official run |
 | v1 product acceptance | OPEN | issue #24; release criteria not yet fully closed |
 
-The current official closure run passed reference freeze verification and five targeted unit/API tests. It intentionally failed because D02_fit and D08_fit remain unresolved; no tolerance, seed, dataset, start or model-family rule was relaxed.
+The latest official closure run intentionally failed because D02_fit and D08_fit remain unresolved. No tolerance, seed, dataset, start, model-family or optimizer rule was relaxed.
 
 ## Ordered work packages and current status
 
 | Step | Status | Work and exit gate |
 |---|---|---|
 | S1 — reconcile gate semantics | **DONE** | MATLAB-reference limitation/model-family policy is explicit; historical M18 FAIL and M18B protocol status remain distinct |
-| S2 — close D04 official workflow | **PASS** | uHGF -> AR(1) workflow validated on current tested head; do not rerun merely because an older plan says it is next |
+| S2 — close D04 official workflow | **PASS** | uHGF -> AR(1) workflow validated on current tested path; do not rerun merely because an older plan says it is next |
 | S3 — freeze remaining workflow contracts | **IN PROGRESS** | Required fit/Bayes contracts are frozen; finish source-to-workflow mapping for remaining D09-D12/output surfaces before their execution |
 | S4 — binary demo workflows | **IN PROGRESS** | D01/D03/D05 current official fit/Bayes checks pass; D02 fit remains blocking; D09 demo wrapper remains open |
 | S5 — continuous demo workflows | **IN PROGRESS** | D06 Bayes/fit and D07 fit pass; D08 fit remains blocking |
@@ -50,34 +53,45 @@ The current official closure run passed reference freeze verification and five t
 
 ### D02_fit
 
-Current evidence narrows the problem below the optimizer-control layer:
+The problem remains below the optimizer-control layer, but the numerical source is now more tightly localized.
 
+Established evidence:
 - MATLAB reference-point comparison: PASS.
 - Initial Ridders gradient: PASS at the existing acceptance tolerance.
 - MATLAB-path objective replay: PASS at the existing gate tolerance.
 - Replaying quasi-Newton step normalization/backtracking/BFGS from exact MATLAB `x/grad/T` reproduces MATLAB at machine precision.
-- Evaluating HGFX objective at the exact MATLAB Ridders `x+h/x-h` coordinates exposes raw cross-runtime objective differences of roughly `4.5e-13` to `1.1e-12`; central finite-difference differences reach about `1.62e-12`, which later optimization amplifies.
+- Exact Ridders-coordinate decomposition shows perceptual and observation priors exact; remaining raw mismatch is in likelihood/forward numerics.
+- A regression-first MATLAB-vs-default-runtime `exp` mismatch was frozen in commit `27bba3e44aae832e8805d25a631ebac15f81f40f`.
+- The minimal MATLAB-compatible `exp` repair was applied in `7b43ae5e45f85f44d23a6e980200baca46609fbd` without changing the scientific gate; M3/M5 and other historical gates remained healthy.
+- The latest selected residual probe (`parameter_2_first_ridders_minus`, trial 83) at diagnostic head `4e92ccf...` is classified **FORWARD_NUMERICAL_DIVERGENCE**.
+- Selected residual differences: `inf_states` max abs `7.105427357601002e-15`; observation input max abs `1.1102230246251565e-16`; trial log-likelihood max abs `2.4868995751603507e-14`.
+- Replaying the observation formula on exact MATLAB state gives zero log-likelihood difference. A tiny replay difference in `pow1mx` (`6.776263578034403e-21`) is therefore not currently evidenced as the causal scientific mismatch.
+- Official `D02_fit` still diverges after amplification; latest reported first final split includes HGFX `-1.6252419364429298` vs MATLAB `-1.0185859753674815`.
 
 Next sequence:
-
-1. Export the MATLAB objective decomposition at the exact finite-difference coordinates: per-trial likelihood, total likelihood, perceptual prior terms, observation prior terms, and forward/observation intermediates needed to locate the first primitive divergence.
-2. Compute the same decomposition in HGFX at the exact same vectors.
-3. Identify the earliest primitive mismatch before changing code.
-4. If HGFX-only, add a failing regression fixture first.
+1. Export/compare eHGF forward intermediates at the exact frozen residual Ridders sample.
+2. Identify the earliest trial/level/intermediate where the first nonzero state divergence appears.
+3. Identify the responsible forward primitive/arithmetic ordering before changing code.
+4. If HGFX-only and consequential, add a failing regression fixture first.
 5. Apply the smallest compatibility repair and rerun the unchanged official gate.
+6. Preserve all prior failed/diagnostic artifacts; do not rewrite them.
 
 Do not change Ridders settings, quasi-Newton settings, tolerance, seed, dataset, starts or model family to force a pass.
 
 ### D08_fit
 
-Current frozen-gate mismatch is limited to `fit.traj.epsi` around trial index 178 (~`3e-6`), while reference-point, initial Ridders, optimizer-trace and MATLAB-path objective diagnostics otherwise pass.
+The latest frozen-gate mismatch is limited to `fit.traj.epsi` at index `(178,1)`:
+- HGFX `-4.7887561410406825`;
+- MATLAB `-4.788757533201755`;
+- absolute difference about `1.392e-6`.
+
+Reference-point, initial Ridders, optimizer-trace and MATLAB-path objective diagnostics otherwise pass; MATLAB-path objective replay covers 50 points.
 
 Next sequence after D02:
-
 1. Export/compare final free/full parameter vectors at full IEEE precision and ULP distance.
 2. Replay trajectories at exact MATLAB and HGFX final vectors.
 3. Decompose `epsi` around trials 177-179 into underlying states/intermediates.
-4. Classify implementation mismatch vs optimizer numerical sensitivity.
+4. Classify same-vector implementation mismatch vs endpoint numerical sensitivity.
 5. Add a failing fixture before any repair and rerun the unchanged official gate.
 
 ## Recovery diagnosis decision procedure
@@ -97,6 +111,8 @@ For every required case retain: case ID; HGFX/reference SHA; protocol version/ha
 
 GPU evidence additionally requires physical device, driver, CUDA/JAX versions and device residency. Shared/contended systems are acceptable when explicitly recorded and the acceptance criterion does not require uncontended peak performance.
 
+Paper-facing evidence continuity is maintained in `../research/PAPER_EVIDENCE_MAP.md` and `../research/RESEARCH_LOG.md`. Those files summarize but never replace raw evidence/gates.
+
 ## Release interpretation
 
 - **Historical M18 scientific result: FAIL** unless that exact historical gate genuinely passes in a documented later run; never rewrite failed evidence.
@@ -107,4 +123,4 @@ GPU evidence additionally requires physical device, driver, CUDA/JAX versions an
 
 ## Operational checklist
 
-The detailed, live checkbox list is `V1_TODO.md`. Update it, this plan, the affected validation matrix and `AGENT_HANDOFF.md` whenever a gate changes. Record tested implementation SHA separately from documentation SHA. Use only **DONE/PASS**, **IMPLEMENTED BUT NOT VALIDATED**, **IN PROGRESS**, **BLOCKED**, or **OPEN/TODO**.
+The detailed, live checkbox list is `V1_TODO.md`. Update it, this plan, the affected validation matrix and `AGENT_HANDOFF.md` whenever a gate changes. For paper-relevant changes also update `../research/PAPER_EVIDENCE_MAP.md` / `RESEARCH_LOG.md`. Record tested implementation SHA separately from documentation-only SHA. Use only **DONE/PASS**, **IMPLEMENTED BUT NOT VALIDATED**, **IN PROGRESS**, **BLOCKED**, or **OPEN/TODO**.

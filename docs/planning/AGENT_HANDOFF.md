@@ -11,6 +11,7 @@ Read these in order before continuing work:
 3. `docs/planning/V1_RELEASE_GATE.md` — v1 acceptance criteria.
 4. `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` — reference-aware limitation/model-family rules.
 5. Relevant validation matrices and gate evidence for the case being changed.
+6. For paper-facing continuity: `docs/research/PAPER_EVIDENCE_MAP.md` and `docs/research/RESEARCH_LOG.md`.
 
 The 2026-09-13 live TODO and M18 completion plan supersede older 2026-09-12 notices elsewhere that still name D04 as the immediate next task. D04 is validated PASS.
 
@@ -25,7 +26,8 @@ Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`.
 ## Repository state at this handoff
 
 - Branch: `migration/m18-workflow-closure`
-- Last tested implementation head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`
+- Last tested implementation/diagnostic head: `4e92ccf3e3812564c4fa93cd85c9500b6a3436e1`
+- Paper-documentation sync commit: `5b37e7df2a4a47f5159c47c75517d3f404a75b31`
 - PR: #26, draft/open/unmerged
 - Current milestone: M18 v1 MATLAB-equivalence closure — **IN PROGRESS / OPEN**
 - Historical M18 scientific experiment: **FAIL, preserved**
@@ -64,22 +66,22 @@ Do not reinterpret a historical PASS beyond its documented scope. Reuse GPU evid
 - D04 uHGF -> AR(1): **PASS** on workflow run `34763542557` at `faf97bf...`.
 - Exact historical 512-trial case: **REFERENCE_LIMITATION_MATCH**; not arbitrary 512-trial support and not scientific recovery PASS.
 
-### Official fit/Bayes closure set
-
-Latest validated run:
+### Latest official fit/Bayes closure set
 
 - workflow: `M18 Official Workflow Closure`
-- run: `34763542525`
-- job: `103740409700`
-- tested head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`
-- reference freeze verification: PASS
-- targeted tests: 5 passed
+- run: `34776952053`
+- job: `103776700085`
+- tested implementation/diagnostic head: `4e92ccf3e3812564c4fa93cd85c9500b6a3436e1`
+- reference freeze verification: PASS (`2437f4dc...`, 334 MATLAB files)
+- targeted M18 API/IEEE/FDLibm tests: 7 passed
 - result: **7/9 PASS**
 - blockers: `D02_fit`, `D08_fit`
-- artifact: `m18-official-workflows`, ID `10319853691`
-- artifact ZIP SHA-256: `2cb5b01bce11b900261a0e309e80bf4220d63ac655417d86bf32539bf1cbf773`
+- artifact: `m18-official-workflows`, ID `10323968264`
+- artifact ZIP SHA-256: `ac4d0094cfe49b5e5ee8d5c75f89311c35a2727b46ed433078412be63c3b5f9c`
 
-No scientific tolerance, seed, dataset, start or model-family rule was relaxed.
+Passing official cases: D01_bayes, D01_fit, D03_fit, D05_fit, D06_bayes, D06_fit, D07_fit.
+
+No scientific tolerance, seed, dataset, start, model-family or optimizer rule was relaxed.
 
 ## Current blockers
 
@@ -91,15 +93,43 @@ Established evidence:
 - initial Ridders gradient PASS at current acceptance tolerance;
 - MATLAB-path objective replay PASS at current gate tolerance;
 - exact MATLAB-state replay reproduces quasi-Newton step/BFGS algebra at machine precision;
-- exact MATLAB Ridders finite-difference coordinates reveal raw HGFX-vs-MATLAB objective differences around `1e-12`, which are later amplified by optimization.
+- exact Ridders-coordinate objective decomposition shows priors exact and residual differences in likelihood/forward numerics;
+- regression-first commit `27bba3e44aae832e8805d25a631ebac15f81f40f` froze MATLAB-vs-default-runtime `exp` divergence;
+- repair `7b43ae5e45f85f44d23a6e980200baca46609fbd` added MATLAB-compatible `exp` numerics on the evidenced D02 path without changing the gate;
+- latest residual selected case (`parameter_2_first_ridders_minus`, trial 83) is classified **FORWARD_NUMERICAL_DIVERGENCE**;
+- selected `inf_states` max abs diff `7.105427357601002e-15`;
+- selected observation input diff `1.1102230246251565e-16`;
+- selected per-trial log-likelihood diff `2.4868995751603507e-14`;
+- observation replay on exact MATLAB state has zero log-likelihood difference;
+- tiny replay `pow1mx` difference `6.776263578034403e-21` is not evidenced as causal because the replayed final likelihood is exact.
 
-**Next exact task:** decompose the objective at those exact `x+h/x-h` coordinates into per-trial likelihood, total likelihood, perceptual/observation priors, and required forward/observation intermediates. Locate the first primitive divergence before changing implementation. If HGFX-only, add a failing regression fixture first, then make the smallest compatibility fix and rerun the unchanged official gate.
+Official D02 still classifies `OPTIMIZER_MISMATCH`; current first reported final split includes HGFX `-1.6252419364429298` vs MATLAB `-1.0185859753674815`.
+
+**Next exact task:** at the frozen residual Ridders sample, export/compare eHGF forward intermediates and find the first trial/level/primitive where the nonzero state divergence appears. Add a regression fixture before any implementation repair, then rerun the unchanged official gate.
+
+Do not return to optimizer/BFGS diagnosis unless new evidence contradicts the current forward-numerics localization.
 
 ### D08_fit — BLOCKING / queued after D02
 
-Only current frozen-gate mismatch is `fit.traj.epsi` around trial index 178 (~`3e-6`); reference-point/initial-Ridders/optimizer-trace/MATLAB-path-objective diagnostics otherwise pass.
+Latest frozen mismatch is only `fit.traj.epsi` at `(178,1)`:
+- HGFX `-4.7887561410406825`;
+- MATLAB `-4.788757533201755`;
+- abs diff ~`1.392e-6`.
+
+Reference point PASS, initial Ridders PASS, optimizer trace PASS and MATLAB-path objective replay PASS (50 points).
 
 After D02, compare final fitted vectors at full IEEE precision, replay both final vectors, and decompose `epsi` around trials 177-179. Add a failing fixture before any repair.
+
+## Paper/research documentation state
+
+Paper-facing documentation is now synchronized with the v1 MATLAB-equivalence objective:
+- `docs/research/LEVEL2_PAPER_PLAN.md` — revised research questions/experiments;
+- `docs/research/PAPER_EVIDENCE_MAP.md` — live claim-to-evidence matrix;
+- `docs/research/RESEARCH_LOG.md` — backfilled major decisions and current D02/D08 interpretation;
+- `docs/research/BENCHMARK_PLAN.md` — paired-reference, provenance, GPU and M19 freeze rules;
+- `paper/README.md` — manuscript readiness and freeze policy.
+
+M19 is **OPEN/TODO**. The manuscript may be outlined, but final numerical tables/figures/results must not be frozen before M19.
 
 ## Work remaining after D02/D08
 
@@ -129,4 +159,4 @@ Follow `V1_TODO.md` exactly:
 
 Use only: **DONE/PASS**, **IMPLEMENTED BUT NOT VALIDATED**, **IN PROGRESS**, **BLOCKED**, **OPEN/TODO**.
 
-When changing a gate, update `V1_TODO.md`, `M18_COMPLETION_PLAN.md`, the affected validation matrix and this handoff in the same planning sync. Record tested implementation SHA separately from documentation-only SHA.
+When changing a gate, update `V1_TODO.md`, `M18_COMPLETION_PLAN.md`, the affected validation matrix and this handoff in the same planning sync. For paper-relevant changes update `docs/research/PAPER_EVIDENCE_MAP.md` and `RESEARCH_LOG.md` as well. Record tested implementation SHA separately from documentation-only SHA.
