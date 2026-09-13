@@ -12,6 +12,7 @@ from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
 import hgfx
 from hgfx.compat.workflows import WorkflowFitProblem, resolve_config
 from hgfx.core.trials import build_trial_masks
+from hgfx.optim.ridders import RiddersOptions, ridders_gradient
 
 IDS = (
     "D01_bayes",
@@ -60,13 +61,7 @@ def _problem(case, u, prc, obs):
 
 
 def reference_point_diagnostics(case, u, prc, obs):
-    """Evaluate HGFX at MATLAB's fitted point without changing the release gate.
-
-    This separates an implementation/objective mismatch from a pure optimizer-path
-    mismatch. The diagnostic uses the already frozen MATLAB final vector and the
-    same tolerances as the corresponding gated outputs; it never substitutes the
-    reference point into the HGFX fit result and never changes PASS/FAIL.
-    """
+    """Evaluate HGFX at MATLAB's fitted point without changing the release gate."""
     expected = case["fit"]
     final = _array(expected["final"]).reshape(-1)
     y = _array(case["responses"]).reshape(-1)
@@ -124,6 +119,34 @@ def reference_point_diagnostics(case, u, prc, obs):
 
     return {
         "classification": "PASS" if not mismatches else "IMPLEMENTATION_MISMATCH",
+        "mismatches": mismatches,
+    }
+
+
+def initial_ridders_diagnostics(case, u, prc, obs):
+    """Compare the exact initial objective and Ridders gradient used by BFGS."""
+    expected = case["fit"].get("initial_ridders")
+    if not isinstance(expected, dict):
+        return {"classification": "INSUFFICIENT_REFERENCE_EVIDENCE"}
+
+    problem = _problem(case, u, prc, obs)
+    gradient, errors = ridders_gradient(
+        problem.evaluate_free,
+        problem.initial_free,
+        RiddersOptions(min_steps=10),
+    )
+    mismatches = []
+    for label, actual, key in (
+        ("initial_ridders.x", problem.initial_free, "x"),
+        ("initial_ridders.val", problem.evaluate_free(problem.initial_free), "val"),
+        ("initial_ridders.grad", gradient, "grad"),
+        ("initial_ridders.grad_err", errors, "grad_err"),
+    ):
+        err = compare(label, actual, expected[key])
+        if err:
+            mismatches.append(err)
+    return {
+        "classification": "PASS" if not mismatches else "DIVERGED",
         "mismatches": mismatches,
     }
 
@@ -263,6 +286,7 @@ def validate(reference):
                         row["mismatches"].append(err)
 
             row["reference_point"] = reference_point_diagnostics(c, u, prc, obs)
+            row["initial_ridders"] = initial_ridders_diagnostics(c, u, prc, obs)
             est = hgfx.fit_model(_array(c["responses"]).reshape(-1), u, prc, obs)
             expected = c["fit"]
             row["optimizer_trace"] = optimizer_trace_diagnostics(c, u, prc, obs, est)
@@ -272,7 +296,6 @@ def validate(reference):
                 ("obs_priormus", est.c_obs.priormus),
                 ("obs_priorsas", est.c_obs.priorsas),
             ]:
-                # Exact scientific identity, but allow 1 ULP after IEEE string transport.
                 err = compare(name, actual, expected[name], 0, 1e-18)
                 if err:
                     row["mismatches"].append(err)
