@@ -1,207 +1,132 @@
 # Agent Handoff
 
-## Current execution authority — 2026-09-12
+Last synchronized: 2026-09-13
 
-Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for the ordered S1–S10 path
-to MATLAB-equivalent v1.0. Historical M18 FAIL and M18B PASS are distinct;
-product closure remains OPEN. The immediate next task is validating the existing
-D04 uHGF → AR1 workflow, then completing demo/recovery/backend coverage.
-This notice takes precedence over older prospective task lists below.
+## Current execution authority
+
+Read these in order before continuing work:
+
+1. `docs/planning/V1_TODO.md` — live operational checklist / exact next task.
+2. `docs/planning/M18_COMPLETION_PLAN.md` — ordered S1-S10 dependency plan.
+3. `docs/planning/V1_RELEASE_GATE.md` — v1 acceptance criteria.
+4. `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` — reference-aware limitation/model-family rules.
+5. Relevant validation matrices and gate evidence for the case being changed.
+
+The 2026-09-13 live TODO and M18 completion plan supersede older 2026-09-12 notices elsewhere that still name D04 as the immediate next task. D04 is validated PASS.
 
 ## Project goal
 
-Build a Python/JAX HGF toolbox with scientific parity to the frozen MATLAB reference and high-throughput GPU fitting.
+HGFX v1.0 must be a functional and scientific Python/JAX replacement for frozen MATLAB HGF Toolbox 8.2.0, with zero MATLAB runtime dependency for users and validated CPU/GPU execution where applicable.
 
-## Current milestone
+“Replacement” means reproducing MATLAB workflow behavior, including model-family choices and demonstrated limitations. HGFX is not required to make a case succeed when the same MATLAB workflow/model fails. An accepted limitation requires exact paired evidence and classification as `REFERENCE_LIMITATION_MATCH`.
 
-`M18 — Scientific Validation`
+Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`.
 
-## Frozen reference
+## Repository state at this handoff
 
-HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
+- Branch: `migration/m18-workflow-closure`
+- Last tested implementation head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`
+- PR: #26, draft/open/unmerged
+- Current milestone: M18 v1 MATLAB-equivalence closure — **IN PROGRESS / OPEN**
+- Historical M18 scientific experiment: **FAIL, preserved**
+- M18B protocol/integrity gate: recorded PASS in its own scope; not a replacement for product closure
 
-## Completed gates
+## Completed historical milestones
 
-- M0 — Reference Frozen
-- M1 — Golden Harness Operational
-- M2 — Parameter/Config Parity
-- M3 — Scalar Numerical Parity
-- M4 — HGF Forward Parity
-- M5 — eHGF Forward Parity
-- M6 — uHGF Forward Parity
-- M7 — Observation Parity
-- M8 — Objective Parity
-- M9 — Compatibility Fitting
-- M10 — Hessian/LME Parity
-- M11 — Simulation Parity
-- M12 — Complete Model Coverage
-- M13 — API Compatibility
-- M14 — Native GPU Engine (physical H100 validated)
-- M15 — GPU Fitting (physical H100 validated)
-- M16 — Batch Engine (physical H100 validated)
-- M17 — Multi-GPU (physical H100 correctness + shared-server scaling validated)
+M0-M17 are recorded complete according to their gate documents/evidence:
 
-## M12 evidence
+- M0 Reference Frozen
+- M1 Golden Harness
+- M2 Parameter/Config Parity
+- M3 Scalar Numerical Parity
+- M4 HGF Forward Parity
+- M5 eHGF Forward Parity
+- M6 uHGF Forward Parity
+- M7 Observation Parity
+- M8 Objective Parity
+- M9 Compatibility Fitting
+- M10 Hessian/LME Parity
+- M11 Simulation Parity
+- M12 Complete Model Coverage
+- M13 API Compatibility
+- M14 Native GPU Engine — physical H100 evidence
+- M15 GPU Fitting — physical H100 evidence
+- M16 Batch Engine — physical H100 evidence
+- M17 Multi-GPU — physical correctness plus shared/contended-node scaling evidence
 
-Corrected M12 is PASS.
+Do not reinterpret a historical PASS beyond its documented scope. Reuse GPU evidence only when unchanged code/data-path applicability is documented.
 
-- M12A continuous AR1: `34224773192`
-- M12B/C MAB + JGET: `34224773186`
-- M12D/E categorical/world + HHMM: `34225650007`
-- M12F/G auxiliary + remaining observations/simulations: `34225649883`
-- config/prior parity: `34224773097`
-- exhaustive closure/full regression: `34225650015`
-- DONE files: 259
-- REFERENCE_ONLY files: 0
-- DONE families: 53
-- REFERENCE_ONLY families: 0
-- full Python regression: PASS
+## Current validated M18 evidence
 
-Frozen source quirks/defects and minimal compatibility repairs are documented in `docs/planning/M12_SOURCE_DEFECTS.md`.
+### Reference-aware cases
 
-## M13 evidence
+- D02 model-selection behavior: **PASS_MODEL_SELECTION_PARITY**. On the exact official regime, classic HGF fails in MATLAB and HGFX; eHGF succeeds in both with trajectory/state parity.
+- D04 uHGF -> AR(1): **PASS** on workflow run `34763542557` at `faf97bf...`.
+- Exact historical 512-trial case: **REFERENCE_LIMITATION_MATCH**; not arbitrary 512-trial support and not scientific recovery PASS.
 
-M13 is PASS.
+### Official fit/Bayes closure set
 
-- compatibility result/API workflow: `34234431858`
-- frozen reference guard: PASS
-- M13 public API + downstream consumer tests: 13 passed
-- full Python regression: 71 passed
-- public aliases: `fit_model/sim_model/sample_model` and `fitModel/simModel/sampleModel`
-- MATLAB-style result export: `to_dict(matlab_style=True)`
-- one-based `irr`/`ign` compatibility metadata
-- raw M11 `hgfx.compat.sim_model/sample_model` APIs preserved
+Latest validated run:
 
-See `docs/planning/M13_GATE.md`.
+- workflow: `M18 Official Workflow Closure`
+- run: `34763542525`
+- job: `103740409700`
+- tested head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`
+- reference freeze verification: PASS
+- targeted tests: 5 passed
+- result: **7/9 PASS**
+- blockers: `D02_fit`, `D08_fit`
+- artifact: `m18-official-workflows`, ID `10319853691`
+- artifact ZIP SHA-256: `2cb5b01bce11b900261a0e309e80bf4220d63ac655417d86bf32539bf1cbf773`
 
-## Architecture decisions frozen through M13
+No scientific tolerance, seed, dataset, start or model-family rule was relaxed.
 
-1. M8 owns objective semantics.
-2. M9 owns compatibility Ridders+BFGS MAP optimization.
-3. M10 owns Hessian/covariance/Laplace evidence and LME-based restart selection.
-4. M11 owns compatibility simulation and prior-predictive sampling semantics.
-5. M12 owns final family-level migration classification for the frozen perceptual/observation source inventory.
-6. `DONE` means compatibility implementation + parity evidence; scientific `REFERENCE_ONLY` is forbidden and the final M12 inventory contains zero such families.
-7. HGF Toolbox 8.2.0 remains the compatibility specification.
-8. PyHGF is optional for interoperability/comparison; do not fork it and do not place it under the compatibility core.
-9. Native GPU/fast-mode work remains separate and must be cross-validated against compatibility mode.
-10. M13 public result objects are interface adapters over validated compatibility numerics; they must not silently introduce alternate scientific semantics.
-11. Root-level `hgfx.sim_model/sample_model` return M13 compatibility results; lower-level `hgfx.compat.sim_model/sample_model` remain the frozen M11 raw orchestration API.
-12. MATLAB-style fit export keeps `optim.yhat` and `optim.res`; direct `est.yhat`/`est.res` are Python convenience aliases.
-13. M14 fast mode lives under `hgfx.gpu` and must never silently replace compatibility mode.
-14. M14 compile signatures are explicit HGFX metadata layered over JAX's internal executable cache.
-15. Absence of physical GPU hardware cannot be counted as CPU/GPU parity evidence.
+## Current blockers
 
-## M14 status
+### D02_fit — BLOCKING / IN PROGRESS
 
-M14 is **PASS**.
+Established evidence:
 
-Physical validation was completed on 2026-09-09 on NVIDIA H100 80GB HBM3
-(physical GPU 1) using Python 3.11.7 and JAX/JAXLIB 0.10.2.
+- reference-point replay PASS;
+- initial Ridders gradient PASS at current acceptance tolerance;
+- MATLAB-path objective replay PASS at current gate tolerance;
+- exact MATLAB-state replay reproduces quasi-Newton step/BFGS algebra at machine precision;
+- exact MATLAB Ridders finite-difference coordinates reveal raw HGFX-vs-MATLAB objective differences around `1e-12`, which are later amplified by optimization.
 
-- validated stacked commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`
-- strict M14 physical GPU test: 1 passed in 4.95s
-- combined M14-M16 strict suite: 20 passed in 112.97s
+**Next exact task:** decompose the objective at those exact `x+h/x-h` coordinates into per-trial likelihood, total likelihood, perceptual/observation priors, and required forward/observation intermediates. Locate the first primitive divergence before changing implementation. If HGFX-only, add a failing regression fixture first, then make the smallest compatibility fix and rerun the unchanged official gate.
 
-See `docs/planning/M14_GATE.md` and
-`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
+### D08_fit — BLOCKING / queued after D02
 
-## M12 coverage details
+Only current frozen-gate mismatch is `fit.traj.epsi` around trial index 178 (~`3e-6`); reference-point/initial-Ridders/optimizer-trace/MATLAB-path-objective diagnostics otherwise pass.
 
-See:
+After D02, compare final fitted vectors at full IEEE precision, replay both final vectors, and decompose `epsi` around trials 177-179. Add a failing fixture before any repair.
 
-- `docs/planning/M12_GATE.md`
-- `docs/planning/M12_COVERAGE.md`
-- `tools/check_m12_inventory.py`
+## Work remaining after D02/D08
 
-### Physical GPU validation — completed
+Follow `V1_TODO.md` exactly:
 
-The owner-side H100 validation has been completed and recorded. No M14 hardware
-action remains pending.
+- finish remaining demo/source contract coverage, including D09;
+- S6: D10 Corr/Sigma + plotting surface, D11 residual diagnostics, D12 Bayesian parameter averaging, remaining output surfaces;
+- S7: paired MATLAB/HGFX parameter and model recovery using frozen protocols;
+- S8: repair only demonstrated HGFX-only required-scope mismatches;
+- S9: robustness plus CPU/JAX/physical-GPU closure with applicability audit of prior H100 evidence;
+- S10: aggregate evidence checker/report, durable provenance index, full regression/demo suite, clean install, docs/API/licenses, no MATLAB runtime dependency;
+- M19 evidence/dataset freeze;
+- M20 v1.0 candidate only after release gate passes.
 
+## Scientific/engineering integrity rules
 
-## M15 status
+- Never declare PASS without the documented gate and evidence.
+- Never relax thresholds after seeing results.
+- Never change seeds/datasets or shrink grids to obtain PASS.
+- Never hide failed experiments or rewrite historical evidence.
+- Never call a problem a scientific/model limitation without matched MATLAB evidence.
+- Distinguish implementation mismatch, optimizer mismatch, model-selection mismatch, reference limitation and insufficient reference evidence.
+- When MATLAB is the compatibility oracle, compare the same family/config/data/parameters/starts/workflow first.
+- A MATLAB limitation may be acceptable for v1 compatibility; an HGFX-only divergence where MATLAB succeeds is blocking.
 
-M15 is **PASS**.
+## Status vocabulary
 
-- prerequisite M14 physical gate: PASS
-- strict M15 physical GPU fitting test: 1 passed in 14.43s
-- fitted objective/parameters/trajectory and device residency validated on H100
-- combined M14-M16 strict suite: 20 passed in 112.97s
+Use only: **DONE/PASS**, **IMPLEMENTED BUT NOT VALIDATED**, **IN PROGRESS**, **BLOCKED**, **OPEN/TODO**.
 
-See `docs/planning/M15_GATE.md` and
-`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
-
-## Next tasks
-
-1. Begin M18 scientific validation: parameter recovery.
-2. Add model recovery and confusion-matrix evaluation.
-3. Add robustness sweeps across trial count, parameter regimes, missing/ignored trials, and initialization.
-4. Reconfirm CPU/GPU agreement across the M18 validation workload.
-5. Compare optimizer agreement and feed all validation evidence into the Methods-paper package.
-
-## M14 boundary
-
-Compatibility mode remains untouched. M14 owns fast forward/objective execution and
-physical CPU/GPU parity; optimizer validation belongs to M15.
-
-
-## Corrected M12 requirement — completed
-
-All frozen scientific perceptual and observation model families are implemented in HGFX with applicable config/transform/output/simulation semantics and MATLAB parity. Scientific REFERENCE_ONLY count is zero. M13 is complete; M14 is now unblocked.
-
-## M16 status
-
-M16 is **PASS / GPU VALIDATED**.
-
-Implemented:
-- subject batching with `jax.vmap`;
-- restart batching with nested `jax.vmap`;
-- scheduler by trial bucket and restart count;
-- safe heterogeneous-length masks;
-- compiled group-runner cache;
-- final objective/trajectory recomputation;
-- single-vs-batch and restart-vs-independent-fit tests;
-- strict physical GPU batch parity/device-residency validation.
-
-CPU/JAX evidence: workflow `34253080856`; 5 targeted tests passed; full regression
-88 passed with 2 GPU-only skips.
-
-Physical H100 evidence on 2026-09-09:
-- strict M16 test: 1 passed in 21.87s;
-- combined M14-M16 strict suite: 20 passed in 112.97s;
-- validated commit: `45139c07ec90a7558e3ace0d36fb7a56754539c1`.
-
-Throughput and multi-GPU scaling are M17/Methods work, not M16 parity claims.
-
-See `docs/planning/M16_GATE.md` and
-`docs/planning/M14_M16_H100_GPU_EVIDENCE.md`.
-
-
-## M17 status
-
-M17 physical correctness is **PASS** as of 2026-09-09.
-
-Validation environment:
-- NVIDIA H100 80GB HBM3
-- Python 3.11.7
-- JAX/JAXLIB 0.10.2
-- six JAX-visible GPUs from physical `CUDA_VISIBLE_DEVICES=0,1,2,3,5,6`
-
-Evidence:
-- M14 strict: 1 passed in 7.46s
-- M15 strict: 1 passed in 17.72s
-- M16 strict: 1 passed in 20.69s
-- M17 real two-GPU strict parity/residency: 1 passed in 29.25s
-- combined M14-M17 modules: 23 passed in 144.23s
-
-A subsequent shared-server scaling benchmark was accepted as operational performance
-evidence. Because the production H100 node cannot be made completely idle, the numbers are
-reported as contended-node performance rather than uncontended peak scaling.
-
-Observed speedup: 1.000× / 1.107× / 1.388× at 1 / 2 / 4 GPUs.
-Observed throughput: 0.783 / 0.867 / 1.087 subjects/s.
-
-M17 is **PASS**.
-
-See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
+When changing a gate, update `V1_TODO.md`, `M18_COMPLETION_PLAN.md`, the affected validation matrix and this handoff in the same planning sync. Record tested implementation SHA separately from documentation-only SHA.

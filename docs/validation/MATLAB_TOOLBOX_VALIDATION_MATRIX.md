@@ -1,78 +1,103 @@
 # MATLAB Toolbox Validation Matrix
 
+Last synchronized: 2026-09-13
+Status: **IN PROGRESS**
+
 ## Purpose
 
-This document defines the M18 validation traceability matrix between the MATLAB HGF Toolbox behavior and HGFX scientific validation.
+This matrix tracks HGFX v1.0 against the frozen MATLAB HGF Toolbox 8.2.0 behavior. The acceptance target is toolbox workflow/scientific equivalence, not merely internal unit-test success and not forcing one model family to solve every scientific case.
 
-The product-level acceptance target is **MATLAB Toolbox scientific and workflow equivalence**, not merely passing internal unit tests and not forcing one model family to solve every scientific case.
+Reference commit: `2437f4dc241541072722a2695ddeca7b44d83dd3`.
 
-Reference:
-
-- HGF Toolbox: 8.2.0
-- Frozen reference commit: `2437f4dc241541072722a2695ddeca7b44d83dd3`
-- Limitation policy: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
-- Demo/model-selection matrix: `docs/validation/MATLAB_DEMO_MODEL_SELECTION_MATRIX.md`
+Operational ordering: `docs/planning/V1_TODO.md` and `docs/planning/M18_COMPLETION_PLAN.md`.
+Reference-limitation policy: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`.
 
 ## Validation layers
 
-| ID | MATLAB capability | HGFX validation artifact | Status |
+| ID | MATLAB capability | HGFX validation artifact | Current status |
 |---|---|---|---|
-| V01 | HGF forward trajectories | forward parity fixtures | PASS |
-| V02 | eHGF forward trajectories | eHGF parity fixtures | PASS |
-| V03 | uHGF forward trajectories | uHGF parity fixtures | PASS |
-| V04 | Observation models | observation parity fixtures | PASS |
-| V05 | Objective computation | objective parity fixtures | PASS |
-| V06 | Model fitting compatibility | M9 compatibility fitting | PASS |
-| V07 | Hessian/covariance/LME | M10 validation | PASS |
-| V08 | Simulation compatibility | M11/M12 validation | PASS |
-| V09 | Parameter recovery | frozen M18 + M18A + corrected M18B protocol | IN PROGRESS — M18B PROTOCOL GATE PASS |
-| V10 | Model recovery / model-selection behavior | M18 confusion matrix + official demo reference workflows | IN PROGRESS — D02 MODEL-SELECTION PARITY PASS |
-| V11 | Robustness sweeps | M18 robustness extension | TODO |
-| V12 | CPU/GPU numerical agreement | M15/M17/M18 GPU validation | PASS WITH PHYSICAL-H100 EVIDENCE |
-| V13 | MATLAB demo/workflow reproduction | v1 demo-parity suite | IN PROGRESS — D02 PASS |
-| V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | IN PROGRESS — 512-TRIAL CASE CLASSIFIED |
+| V01 | HGF forward trajectories | M4 / forward parity fixtures | **PASS** |
+| V02 | eHGF forward trajectories | M5 parity fixtures | **PASS** |
+| V03 | uHGF forward trajectories | M6 parity fixtures | **PASS** |
+| V04 | Observation models | M7 observation parity | **PASS** |
+| V05 | Objective computation | M8 objective parity | **PASS** |
+| V06 | Model fitting compatibility | M9 compatibility fitting | **PASS in established core scope; official workflow closure still IN PROGRESS** |
+| V07 | Hessian/covariance/LME | M10 validation | **PASS in established core scope; release-surface evidence still aggregated under M18** |
+| V08 | Simulation compatibility | M11/M12 validation | **PASS in established core scope; remaining demo-wrapper coverage tracked in V13** |
+| V09 | Parameter recovery | historical M18 + M18A/M18B + future paired product protocol | **IN PROGRESS** — historical M18 FAIL preserved; M18B protocol evidence does not alone close v1 recovery |
+| V10 | Model recovery / model-selection behavior | paired recovery + official demo reference workflows | **IN PROGRESS** — D02 model-selection parity PASS; full model-recovery gate open |
+| V11 | Robustness sweeps | M18/S9 robustness matrix | **OPEN/TODO** |
+| V12 | CPU/GPU numerical agreement | M14-M17 physical-H100 evidence + M18 applicability audit | **PASS in prior validated paths; M18 applicability/remaining-path audit OPEN** |
+| V13 | MATLAB demo/workflow reproduction | official demo/workflow suites | **IN PROGRESS** — D04 PASS; current fit/Bayes closure 7/9 PASS; D02_fit/D08_fit blocking; D09-D12 surfaces remain open |
+| V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | **IN PROGRESS** — exact historical 512-trial case classified REFERENCE_LIMITATION_MATCH; additional limitations require exact paired evidence |
 
-## Recovery matrix
+## Current official workflow evidence
 
-The recovery matrix is **model-family specific**. A failure of base HGF is not automatically a product failure when the frozen MATLAB toolbox itself requires a different model family for the scientific case.
+Latest tested implementation head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`.
 
-| Generator | Primary same-model fit | Cross-family diagnostics | Trial counts | Parameter regimes | Metrics |
-|---|---|---|---|---|---|
-| hgf_binary | hgf_binary | eHGF/uHGF where scientifically relevant | 64, 128, 256 | preregistered perturbations | bias, RMSE, correlation, profile diagnostics |
-| ehgf_binary | ehgf_binary | HGF/uHGF diagnostics | 64, 128, 256 | preregistered perturbations | bias, RMSE, correlation, profile diagnostics |
-| uhgf_binary | uhgf_binary | HGF/eHGF diagnostics | 64, 128, 256 | preregistered perturbations | bias, RMSE, correlation, profile diagnostics |
+`M18 Official Workflow Closure` run `34763542525`, job `103740409700`:
 
-The historical frozen M18 128/256 × 0.15/0.35-SD experiment remains immutable evidence. M18B adds an identifiability-aware 64/128/256 × 0.35-SD diagnostic protocol without retroactively changing historical M18 thresholds.
+| Case | Status |
+|---|---|
+| D01_bayes | PASS |
+| D01_fit | PASS |
+| D02_fit | **OPTIMIZER_MISMATCH / BLOCKING** |
+| D03_fit | PASS |
+| D05_fit | PASS |
+| D06_bayes | PASS |
+| D06_fit | PASS |
+| D07_fit | PASS |
+| D08_fit | **OPTIMIZER_MISMATCH / BLOCKING** |
 
-Corrected M18B protocol evidence: workflow run `34497399365`, job `102939240184`; frozen reference guard PASS; 39 M18B tests passed; full regression 136 passed / 4 physical-GPU-only skips; final 27-dataset gate `gate_pass=true`, failures=0; artifact `10160948325`, SHA-256 `5a997b3be06f12420a52086f42656ecd14ff132892d42bb69c20419de234f182`.
+Artifact: `m18-official-workflows`, ID `10319853691`, ZIP SHA-256 `2cb5b01bce11b900261a0e309e80bf4220d63ac655417d86bf32539bf1cbf773`.
 
-## Model recovery matrix
+The workflow intentionally fails until all required cases in that gate satisfy the unchanged acceptance criteria.
 
-| Generating model | Candidate models | Selection rule | Product interpretation |
-|---|---|---|---|
-| hgf_binary | hgf/eHGF/uHGF | BIC primary, AIC secondary | compare selected model and ambiguity with MATLAB reference behavior |
-| ehgf_binary | hgf/eHGF/uHGF | BIC primary, AIC secondary | compare selected model and ambiguity with MATLAB reference behavior |
-| uhgf_binary | hgf/eHGF/uHGF | BIC primary, AIC secondary | compare selected model and ambiguity with MATLAB reference behavior |
+### D02_fit current diagnosis
 
-Balanced accuracy remains a scientific diagnostic. It is not by itself sufficient to declare an implementation failure when MATLAB exhibits the same model ambiguity.
+- Exact MATLAB reference solution replay in HGFX: PASS at the existing gate tolerance.
+- Initial Ridders gradient: PASS at the existing acceptance tolerance.
+- MATLAB optimizer-path objective replay: PASS at the existing gate tolerance.
+- Quasi-Newton step/BFGS replay from exact MATLAB state matches to machine precision.
+- Exact MATLAB Ridders finite-difference coordinates expose raw cross-runtime objective differences around `1e-12`, amplified by later optimization.
 
-### Official model-selection evidence D02 — PASS
+Therefore the next evidence task is objective decomposition at those exact finite-difference coordinates; do not alter optimizer/tolerance/seed/data/model settings to force convergence to the MATLAB endpoint.
 
-The frozen official `hgf_demo.m` contains a parameter regime in which classic HGF is invalid and eHGF is the supported solution. HGFX reproduces that exact behavior on the official 320-trial binary input and native parameter vector.
+### D08_fit current diagnosis
 
-- run `34684401843`, job `103528739680`, SUCCESS
-- classification: `PASS_MODEL_SELECTION_PARITY`
-- classic HGF: MATLAB FAIL (`tapas:hgf:NegPostPrec`), HGFX corresponding FAIL
-- eHGF: MATLAB SUCCESS, HGFX SUCCESS
-- eHGF trajectories/inference states: numerical parity, `mismatches=[]`
-- artifact `10294714175`
-- artifact SHA-256 `2aa62628d16198f8f335b56fca0f015303439406bb278a329b4cae09b9e69afd`
+The only frozen-gate mismatch is `fit.traj.epsi` near trial index 178 (~`3e-6`); reference-point, initial-Ridders, optimizer-trace and MATLAB-path-objective diagnostics otherwise pass. Full-precision final-vector and local state decomposition is required before classification/repair.
 
-This establishes the first product-level proof that HGFX v1 follows MATLAB's model-family solution rather than forcing base HGF to pass an unsupported regime.
+## Reference-aware model-family evidence
 
-## Required non-PASS classification
+### D02 model-selection behavior — PASS
 
-Every non-PASS scientific result must be assigned one primary class from `MATLAB_REFERENCE_LIMITATIONS_POLICY.md`:
+The official MATLAB demo documents a regime where classic HGF is invalid and eHGF is the supported solution. On the exact official input/parameters:
+
+- MATLAB classic HGF: FAIL with negative-posterior-precision condition;
+- HGFX classic HGF: corresponding FAIL;
+- MATLAB eHGF: SUCCESS;
+- HGFX eHGF: SUCCESS;
+- successful eHGF states/trajectories: parity PASS.
+
+Workflow run `34684401843`, job `103528739680`; classification `PASS_MODEL_SELECTION_PARITY`; artifact `10294714175`, SHA-256 `2aa62628d16198f8f335b56fca0f015303439406bb278a329b4cae09b9e69afd`.
+
+This proves that v1 compatibility follows MATLAB model-family behavior rather than requiring base HGF to pass unsupported regimes.
+
+### D04 uHGF -> AR(1) — PASS
+
+Current-head workflow `M18 Demo uHGF AR1 Workflow Parity`, run `34763542557`, completed successfully at `faf97bf...`.
+
+Older planning statements that call D04 “IMPLEMENTED BUT NOT VALIDATED” are superseded by this evidence.
+
+## Exact 512-trial case — REFERENCE_LIMITATION_MATCH
+
+The exact historical HGF 512-trial case has paired frozen-reference evidence showing the same instability/invalid variational regime in MATLAB and HGFX before fitting. It is accepted as `REFERENCE_LIMITATION_MATCH` for that exact case only.
+
+This is not a general claim of arbitrary 512-trial support and not a scientific PASS.
+
+## Required classification for every non-PASS case
+
+Use exactly one primary class:
 
 - `IMPLEMENTATION_MISMATCH`
 - `OPTIMIZER_MISMATCH`
@@ -80,43 +105,22 @@ Every non-PASS scientific result must be assigned one primary class from `MATLAB
 - `MODEL_SELECTION_MISMATCH`
 - `INSUFFICIENT_REFERENCE_EVIDENCE`
 
-A `REFERENCE_LIMITATION_MATCH` is acceptable for **MATLAB-equivalence v1.0**, but is not a claim that the underlying model scientifically passes that case.
+`REFERENCE_LIMITATION_MATCH` is acceptable for MATLAB-equivalence v1.0 only when the same limitation is demonstrated on the exact paired MATLAB workflow/regime and there is no earlier HGFX-only divergence.
 
-## Important scientific rule
+## Remaining release-validation work
 
-A recovery failure does not automatically indicate an HGFX implementation error. Validation must distinguish:
+See `V1_TODO.md` for checkboxes. In summary:
 
-1. implementation mismatch;
-2. optimizer mismatch;
-3. parameter non-identifiability;
-4. insufficient data regime;
-5. intrinsic model ambiguity;
-6. MATLAB-reference limitation;
-7. use of a different MATLAB model family (HGF/eHGF/uHGF/specialized family) for the scientific case.
-
-Therefore M18 reports diagnosis information rather than forcing all recoveries to PASS.
-
-## 512-trial numerical-horizon case — CLASSIFIED
-
-The exact historical HGF 512-trial case has been compared against the frozen MATLAB reference and is classified **`REFERENCE_LIMITATION_MATCH`**.
-
-Frozen case: `hgf_binary + unitsq_sgm`, 512 trials, truth perturbation 0.35 prior SD, replicate 0, cell seed `233100`, response seed `233101`.
-
-Evidence: workflow run `34683977567`; artifact `m18-512-matlab-reference-evidence`, ID `10295261423`; artifact SHA-256 `8a538a1bc8cae206e1014b72a4de8495d9951ad2934845db1704d83ee743092c`.
-
-On identical inputs/responses/configuration, truth-parameter forward execution succeeds in both MATLAB and HGFX; default-parameter forward execution fails in both with the corresponding variational-approximation-invalid condition; the initial objective is unstable in both and fitting is not entered. No MATLAB-vs-HGFX mismatch was observed.
-
-Interpretation: acceptable as a matched MATLAB-reference limitation for v1.0, but not a scientific PASS and not a claim of arbitrary 512-trial support.
+- close D02_fit and D08_fit without changing the frozen gate;
+- finish remaining required demo contract/wrapper coverage including D09;
+- close D10 Corr/Sigma/plot surface, D11 residual diagnostics and D12 Bayesian parameter averaging;
+- execute paired parameter and model recovery;
+- repair only demonstrated HGFX-only mismatches;
+- complete robustness and backend applicability/physical-GPU closure;
+- implement aggregate evidence checker/report and complete release packaging/docs/install checks.
 
 ## Acceptance
 
-M18/v1 validation is complete when:
+M18/v1 validation is complete only when every required MATLAB workflow/surface has reproducible evidence, every non-PASS case is supported by a valid classification, accepted limitations have exact frozen-reference evidence, and no unresolved HGFX-only implementation/optimizer/model-selection mismatch remains in required scope.
 
-- all required MATLAB workflows have reproducible HGFX evidence;
-- all matrix rows have explicit evidence and status;
-- all non-PASS cases are classified;
-- accepted limitations have frozen MATLAB-reference evidence;
-- no unresolved implementation/model-selection mismatch remains in required MATLAB workflows;
-- MATLAB demo/workflow parity is demonstrated;
-- historical failed experiments remain preserved rather than rewritten;
-- recovery and model-selection claims are supported by frozen experiment outputs.
+Historical failed experiments must remain preserved rather than rewritten.
