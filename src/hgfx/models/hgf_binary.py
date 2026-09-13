@@ -49,7 +49,13 @@ def hgf_binary_unified(
     rho = p[2 * l : 3 * l]
     ka = p[3 * l : 4 * l - 1]
     om = p[4 * l - 1 : 5 * l - 2]
-    th = matlab_exp_scalar(p[5 * l - 2])
+
+    # Keep the top-level tonic-volatility transform on NumPy/libm. The frozen
+    # MATLAB D02 oracle shows exp(1.0)=2.718281828459045 on this path; routing
+    # theta through the fdlibm-compatible helper produces the next binary64
+    # value and creates the first residual eHGF state divergence at trial 3.
+    # Other compatibility-sensitive exp call sites remain on matlab_exp_scalar.
+    th = np.exp(np.float64(p[5 * l - 2]))
 
     u = np.concatenate((np.asarray([0.0], dtype=np.float64), values))
     n = u.size
