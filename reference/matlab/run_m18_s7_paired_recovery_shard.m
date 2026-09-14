@@ -28,7 +28,7 @@ for k = 1:numel(payload.parameter_cases)
     r.seed = c.seed;
     r.replicate = c.replicate;
     out.parameter_results{k} = r;
-    fprintf('S7 MATLAB parameter %s success=%d\n', c.case_id, r.success);
+    fprintf('S7 MATLAB parameter %s success=%d termination=%s\n', c.case_id, r.success, r.termination_inferred);
 end
 
 candidates = {'hgf_binary','ehgf_binary','uhgf_binary'};
@@ -87,11 +87,19 @@ out.LME = NaN;
 out.trace_last_finite_row = 0;
 out.reset_count = 0;
 out.converged_inferred = false;
+out.termination_inferred = 'unknown';
+out.max_resets_warning = false;
+out.max_iterations_warning = false;
 
 try
     pc = feval([model '_config']);
     oc = unitsq_sgm_config();
-    fit = fitModel(y, u, pc, oc, 'quasinewton_optim_config');
+
+    % The frozen optimizer does not return a termination reason. It does,
+    % however, print an unconditional message for the two non-convergence
+    % exits (max resets / max iterations). Capture stdout only; evalc does not
+    % change the fit inputs, optimizer options, arithmetic, or reference code.
+    fit_output = evalc("fit = fitModel(y, u, pc, oc, 'quasinewton_optim_config');");
 
     mask = [fit.c_prc.priorsas, fit.c_obs.priorsas];
     mask(isnan(mask)) = 0;
@@ -106,14 +114,33 @@ try
     out.BIC = fit.optim.BIC;
     out.LME = fit.optim.LME;
 
-    % The frozen MATLAB optimizer prints rather than returns its termination
-    % reason. Infer convergence conservatively from the frozen optIter trace:
-    % exhausting all 100 iterations or all 10 resets is non-converged.
     if isstruct(fit.optim.iter) && isfield(fit.optim.iter, 'x')
         finite_rows = find(any(isfinite(fit.optim.iter.x), 2));
         if ~isempty(finite_rows); out.trace_last_finite_row = finite_rows(end); end
         if isfield(fit.optim.iter, 'rst'); out.reset_count = numel(fit.optim.iter.rst); end
-        out.converged_inferred = out.trace_last_finite_row < 101 && out.reset_count < 10;
+    end
+
+    max_resets_msg = 'Warning: optimization terminated because the maximum number of resets was reached.';
+    max_iterations_msg = 'Warning: optimization terminated because the maximum number of iterations was reached.';
+    out.max_resets_warning = contains(fit_output, max_resets_msg);
+    out.max_iterations_warning = contains(fit_output, max_iterations_msg);
+
+    if out.max_resets_warning
+        out.termination_inferred = 'max_resets';
+        out.converged_inferred = false;
+    elseif out.max_iterations_warning
+        out.termination_inferred = 'max_iter';
+        out.converged_inferred = false;
+    elseif out.trace_last_finite_row < 101
+        % With the frozen optimizer, every other break before maxIter is one
+        % of the two convergence tests (tolArg or tolGrad). In particular,
+        % reset_count == maxRst is not itself failure: the 10th reset is
+        % allowed and the optimizer may subsequently converge.
+        out.termination_inferred = 'converged_no_terminal_warning';
+        out.converged_inferred = true;
+    else
+        out.termination_inferred = 'unknown_nonconverged';
+        out.converged_inferred = false;
     end
     out.success = true;
 catch ME
