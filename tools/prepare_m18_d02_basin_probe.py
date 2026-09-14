@@ -61,20 +61,31 @@ def main(reference_path: Path, points_path: Path, output_path: Path) -> int:
     ]
     if matlab_final.shape != prior_means.shape:
         raise ValueError("MATLAB endpoint/prior shape mismatch")
-    matlab_final[~np.isfinite(matlab_final)] = prior_means[~np.isfinite(matlab_final)]
 
     hgfx_final = np.asarray(estimate.optim.final, dtype=np.float64).reshape(-1)
     if hgfx_final.shape != matlab_final.shape:
         raise ValueError("HGFX/MATLAB endpoint shape mismatch")
 
-    # Fixed coordinates must be an exact contract, not an interpolated degree of freedom.
+    # Structural NaNs are part of the MATLAB/HGFX parameter contract for
+    # non-applicable fixed slots.  The first CI execution incorrectly used
+    # np.array_equal without equal_nan=True, which rejected NaN-vs-NaN even
+    # though the endpoints represented the same fixed structure.  Keep those
+    # NaNs in the generated full vectors; interpolate only the free coordinates.
     free = np.asarray(problem.free_indices, dtype=np.int64)
     fixed_mask = np.ones(matlab_final.size, dtype=bool)
     fixed_mask[free] = False
-    if not np.array_equal(matlab_final[fixed_mask], hgfx_final[fixed_mask]):
+
+    matlab_fixed = matlab_final[fixed_mask]
+    hgfx_fixed = hgfx_final[fixed_mask]
+    if not np.array_equal(matlab_fixed, hgfx_fixed, equal_nan=True):
         raise ValueError("Fixed transformed parameters differ between endpoints")
 
-    points = (1.0 - ALPHAS[:, None]) * matlab_final[None, :] + ALPHAS[:, None] * hgfx_final[None, :]
+    points = np.repeat(matlab_final[None, :], len(ALPHAS), axis=0)
+    points[:, free] = (
+        (1.0 - ALPHAS[:, None]) * matlab_final[free][None, :]
+        + ALPHAS[:, None] * hgfx_final[free][None, :]
+    )
+
     hgfx_neg_lj = np.asarray(
         [problem.evaluate_full(point).neg_log_joint for point in points], dtype=np.float64
     )
@@ -83,23 +94,47 @@ def main(reference_path: Path, points_path: Path, output_path: Path) -> int:
     # 17 significant digits round-trip binary64 through MATLAB str2double/readmatrix.
     np.savetxt(points_path, points, delimiter=",", fmt="%.17g")
 
+    finite_endpoint = np.isfinite(matlab_final) & np.isfinite(hgfx_final)
+    if not np.any(finite_endpoint):
+        raise ValueError("No finite endpoint coordinates available")
+    endpoint_max_abs_diff = float(
+        np.max(np.abs(hgfx_final[finite_endpoint] - matlab_final[finite_endpoint]))
+    )
+
     result = {
         "protocol": PROTOCOL,
         "reference_commit": REFERENCE_COMMIT,
         "case_id": "D02_fit",
         "alphas": ALPHAS.tolist(),
         "free_indices_zero_based": free.tolist(),
+        "structural_nan_indices_zero_based": np.flatnonzero(
+            fixed_mask & ~np.isfinite(matlab_final)
+        ).tolist(),
         "matlab_final_resolved": matlab_final.tolist(),
         "hgfx_final": hgfx_final.tolist(),
-        "endpoint_max_abs_diff": float(np.max(np.abs(hgfx_final - matlab_final))),
+        "endpoint_max_abs_diff": endpoint_max_abs_diff,
         "hgfx_negLj": hgfx_neg_lj.tolist(),
         "matlab_reported_negLj": float(_array(reference["matlab_negLj"]).reshape(-1)[0]),
         "hgfx_reported_negLj": float(estimate.optim.negLj),
-        "note": "Diagnostic only; endpoints and alpha grid do not modify the frozen release gate.",
+        "note": (
+            "Diagnostic only; structural NaNs are preserved exactly and only frozen free "
+            "coordinates are interpolated. Endpoints and alpha grid do not modify the "
+            "release gate."
+        ),
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
-    print(json.dumps({"endpoint_max_abs_diff": result["endpoint_max_abs_diff"]}), flush=True)
+    output_path.write_text(json.dumps(result, indent=2, allow_nan=True) + "\n")
+    print(
+        json.dumps(
+            {
+                "endpoint_max_abs_diff": result["endpoint_max_abs_diff"],
+                "structural_nan_indices_zero_based": result[
+                    "structural_nan_indices_zero_based"
+                ],
+            }
+        ),
+        flush=True,
+    )
     return 0
 
 
