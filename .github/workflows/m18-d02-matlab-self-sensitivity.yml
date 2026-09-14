@@ -1,0 +1,41 @@
+name: M18 D02 MATLAB Self Sensitivity
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/m18-d02-matlab-self-sensitivity.yml'
+      - 'docs/validation/M18_D02_MATLAB_SELF_SENSITIVITY.md'
+      - 'reference/matlab/export_m18_d02_matlab_self_sensitivity.m'
+      - 'tools/check_m18_d02_matlab_self_sensitivity.py'
+
+jobs:
+  d02-matlab-self-sensitivity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e .
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export frozen MATLAB one-spacing start grid
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_matlab_self_sensitivity(fullfile(pwd,'reference','generated','m18_d02_matlab_self_sensitivity.json'))
+      - name: Classify reference self-sensitivity
+        run: python tools/check_m18_d02_matlab_self_sensitivity.py reference/generated/m18_d02_matlab_self_sensitivity.json --output reference/generated/m18_d02_matlab_self_sensitivity_comparison.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m18-d02-matlab-self-sensitivity
+          path: |
+            reference/generated/m18_d02_matlab_self_sensitivity.json
+            reference/generated/m18_d02_matlab_self_sensitivity_comparison.json
