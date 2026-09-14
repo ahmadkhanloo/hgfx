@@ -9,6 +9,12 @@ on:
       - 'src/hgfx/**'
       - '.github/workflows/m18-d08-equivalence-holdout.yml'
   pull_request:
+    paths:
+      - 'docs/validation/MATLAB_EQUIVALENCE_POLICY.md'
+      - 'reference/matlab/export_m18_d08_equivalence_holdout.m'
+      - 'tools/check_m18_d08_equivalence_holdout.py'
+      - 'src/hgfx/**'
+      - '.github/workflows/m18-d08-equivalence-holdout.yml'
   workflow_dispatch:
 
 jobs:
