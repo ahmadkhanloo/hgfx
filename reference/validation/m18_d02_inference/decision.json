@@ -1,0 +1,76 @@
+{
+  "protocol": "m18-d02-inference-decision-1",
+  "status": "BLOCKING",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_commit": "648c3f84905eb7fe952c070e5ee858e48de4a3fa",
+  "workflow_run": 34823572071,
+  "job_id": 103910417693,
+  "artifact_id": 10339454535,
+  "artifact_sha256": "78bc7ea18fc55d02d4db8738f2f805d66d4b00a21e2a5b6ad4458b4ce3e9e77b",
+  "case_id": "D02_fit",
+  "official_classification": "OPTIMIZER_MISMATCH",
+  "reference_point_replay": "PASS",
+  "initial_ridders": "PASS",
+  "matlab_path_objective": {
+    "classification": "PASS",
+    "points_checked": 22
+  },
+  "optimizer_trace": {
+    "classification": "DIVERGED",
+    "first_x_divergence_zero_based": [7, 0],
+    "first_x_hgfx": 0.33948935870343205,
+    "first_x_matlab": 0.33948938811282225
+  },
+  "inference_differences": {
+    "final_first_divergence": {
+      "index_zero_based": 12,
+      "hgfx": -1.2520696012979948,
+      "matlab": -1.0185859753674815
+    },
+    "H_0_0": {
+      "hgfx": 0.30808977632407525,
+      "matlab": 0.9998054857037648
+    },
+    "Sigma_0_0": {
+      "hgfx": 10.242002825962189,
+      "matlab": 1.0001982837227512
+    },
+    "Corr_0_1": {
+      "hgfx": -0.8242120336850707,
+      "matlab": 0.0015029079855196361
+    },
+    "negLl": {
+      "hgfx": 69.11994105227086,
+      "matlab": 69.05505934324839
+    },
+    "negLj": {
+      "hgfx": 78.15783393295405,
+      "matlab": 78.17119440697262
+    },
+    "LME": {
+      "hgfx": -78.28285368561887,
+      "matlab": -77.62115775483699
+    },
+    "AIC": {
+      "hgfx": 144.23988210454172,
+      "matlab": 144.11011868649678
+    },
+    "BIC": {
+      "hgfx": 155.54484509192304,
+      "matlab": 155.4150816738781
+    },
+    "yhat_first_divergence": {
+      "index_zero_based": 1,
+      "hgfx": 0.5889705808282631,
+      "matlab": 0.604843595720553
+    },
+    "res_first_divergence": {
+      "index_zero_based": 1,
+      "hgfx": 0.8353907315063633,
+      "matlab": 0.808282114974735
+    }
+  },
+  "decision": "INFERENCE_EQUIVALENCE_FAIL",
+  "rationale": "D02 cannot be accepted by a decimal-place or endpoint-sensitivity exception. Although the exact MATLAB endpoint and MATLAB optimizer-path objectives replay successfully, the fitted endpoint, Hessian, covariance, correlation, model evidence and predictive/residual outputs differ materially. The next work must target optimizer/numerical path stability or establish a separately preregistered inferential-equivalence/reference-limitation result.",
+  "integrity_note": "No threshold, seed, dataset, start, model family, or optimizer setting was relaxed for this classification."
+}
