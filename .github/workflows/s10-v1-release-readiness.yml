@@ -1,0 +1,90 @@
+name: S10 v1 Release Readiness
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/hgfx/**'
+      - 'examples/**'
+      - 'README.md'
+      - 'pyproject.toml'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - 'CITATION.cff'
+      - 'docs/user/**'
+      - 'docs/validation/V1_EVIDENCE_INDEX.md'
+      - 'reference/validation/v1_release/**'
+      - 'scripts/check_v1_release_readiness.py'
+      - '.github/workflows/s10-v1-release-readiness.yml'
+
+jobs:
+  release-readiness:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Static release/provenance checks
+        run: python scripts/check_v1_release_readiness.py
+
+      - name: Build wheel
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build --wheel
+
+      - name: Reject MATLAB/reference payloads from wheel
+        run: |
+          python - <<'PY'
+          import glob
+          import zipfile
+
+          wheels = glob.glob('dist/*.whl')
+          assert len(wheels) == 1, wheels
+          with zipfile.ZipFile(wheels[0]) as archive:
+              names = archive.namelist()
+          forbidden = [
+              name for name in names
+              if name.endswith('.m') or '_original_models/' in name or 'external/HGF/' in name
+          ]
+          if forbidden:
+              raise SystemExit(f'forbidden MATLAB/reference files in wheel: {forbidden}')
+          print(f'PASS: wheel contains {len(names)} files and no MATLAB/reference runtime payload')
+          PY
+
+      - name: Install wheel into clean virtual environment
+        run: |
+          python -m venv /tmp/hgfx-v1-clean
+          /tmp/hgfx-v1-clean/bin/python -m pip install --upgrade pip
+          /tmp/hgfx-v1-clean/bin/python -m pip install dist/*.whl
+
+      - name: Public API import outside source checkout
+        run: |
+          cd /tmp
+          /tmp/hgfx-v1-clean/bin/python - <<'PY'
+          import hgfx
+          required = (
+              'fit_model', 'fitModel', 'sim_model', 'simModel',
+              'sample_model', 'sampleModel', 'bayesian_parameter_average',
+          )
+          missing = [name for name in required if not hasattr(hgfx, name)]
+          if missing:
+              raise SystemExit(f'missing public API symbols: {missing}')
+          print('PASS: clean-wheel public API import')
+          PY
+
+      - name: Run quickstart from clean wheel
+        run: |
+          cd /tmp
+          /tmp/hgfx-v1-clean/bin/python "$GITHUB_WORKSPACE/examples/quickstart.py"
+
+      - name: Compile runtime and examples
+        run: /tmp/hgfx-v1-clean/bin/python -m compileall -q src/hgfx examples
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-s10-wheel
+          path: dist/*.whl
+          if-no-files-found: error

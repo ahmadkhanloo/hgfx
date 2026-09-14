@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "frozen_matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "release_branch": "migration/m18-workflow-closure",
+  "numerical_source_commit": "9c53af707a60d27ee3d9d37e5122e7a0ba7d5460",
+  "release_status": "BLOCKED",
+  "evidence": [
+    {
+      "id": "M0-M17",
+      "classification": "PASS_IN_DOCUMENTED_SCOPES",
+      "source": "docs/planning/MILESTONES.md"
+    },
+    {
+      "id": "M18_HISTORICAL_SCIENTIFIC",
+      "classification": "FAIL_PRESERVED",
+      "source": "historical M18 validation evidence"
+    },
+    {
+      "id": "D02_EXACT_SCOPE",
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "source": "reference/validation/m18_d02_reference_limitation/decision.json"
+    },
+    {
+      "id": "D08_FAILED_SEED_EXACT_SCOPE",
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "source": "reference/validation/m18_d08_reference_limitation/decision.json"
+    },
+    {
+      "id": "D04_UHGF_AR1",
+      "classification": "PASS",
+      "workflow_run": "34763542557"
+    },
+    {
+      "id": "D09_SAMPLEMODEL",
+      "classification": "PASS",
+      "workflow_run": "34842943557"
+    },
+    {
+      "id": "D10_D11_ANALYSIS",
+      "classification": "PASS",
+      "workflow_run": "34847266268"
+    },
+    {
+      "id": "D12_BPA",
+      "classification": "PASS",
+      "workflow_run": "34854238549"
+    },
+    {
+      "id": "S7_PARAMETER_RECOVERY",
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "workflow_run": "34896442847",
+      "artifact": "10370615292",
+      "artifact_sha256": "3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92"
+    },
+    {
+      "id": "S7_MODEL_SELECTION",
+      "classification": "PASS_PAIRED_MODEL_SELECTION",
+      "matched_winners": "36/36"
+    },
+    {
+      "id": "S8_REQUIRED_REPAIR_SCOPE",
+      "classification": "DONE",
+      "repair_commit": "0239f52f772825e0a4fc74cdf3559cafa18a603e"
+    },
+    {
+      "id": "S9_CPU_BACKEND",
+      "classification": "PASS_CPU_BACKEND_EQUIVALENCE",
+      "workflow_run": "34901924475",
+      "job": "104169632034",
+      "artifact": "10371308067",
+      "artifact_sha256": "875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826"
+    },
+    {
+      "id": "S9_PHYSICAL_GPU",
+      "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
+      "source": "docs/validation/M18_S9_CPU_EVIDENCE.md"
+    }
+  ],
+  "active_blockers": [
+    "S9 physical H100 revalidation",
+    "S10 clean-wheel/install/examples/docs/licenses/zero-MATLAB-runtime CI",
+    "M19 evidence freeze",
+    "M20 v1.0 candidate gate"
+  ]
+}
