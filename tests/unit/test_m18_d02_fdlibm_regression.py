@@ -9,8 +9,10 @@ from hgfx.models.hgf_binary import hgf_binary_unified
 
 # Frozen MATLAB R2026a / HGF Toolbox v8.2.0 evidence from M18 artifacts.
 # The first two scalar oracles are from artifact 10323083435 (run 34774452669).
-# The theta-path state oracle is from artifact 10323968264 (run 34776952053),
-# sample parameter_2_first_ridders_minus. No tolerance is used: these fixtures
+# The original theta-path state oracle is from artifact 10323968264
+# (run 34776952053), sample parameter_2_first_ridders_minus.
+# The current-theta oracle is from focused run 34814568833 / artifact 10336306653,
+# sample parameter_2_ridders_plus_step_8. No tolerance is used: these fixtures
 # freeze exact binary64 values observed before optimizer-path amplification.
 
 
@@ -58,3 +60,37 @@ def test_d02_theta_path_matches_matlab_sahat_at_first_residual_divergence():
     )
     expected_sahat_trial3_level3 = np.float64(6.427379727890512)
     assert inf_states[2, 2, 1] == expected_sahat_trial3_level3
+
+
+def test_d02_current_theta_plus_matches_matlab_first_sahat_exactly():
+    # Current residual argmax sample: parameter 2, Ridders plus step 8.
+    # MATLAB theta = 9.767706089455686 while the pre-fix NumPy theta path gives
+    # 9.767706089455684; the first-level-3 sahat therefore differs immediately.
+    ptrans = np.asarray(
+        [
+            np.nan,
+            0.0,
+            1.0,
+            np.nan,
+            -2.3025850929940455,
+            0.0,
+            np.nan,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            np.nan,
+            -3.0,
+            2.2790816472336535,
+        ],
+        dtype=np.float64,
+    )
+    _, inf_states = hgf_binary_unified(
+        np.ones(1, dtype=np.float64),
+        ptrans,
+        update_type="ehgf",
+        transformed=True,
+        validate=False,
+    )
+    expected_sahat_trial1_level3 = np.float64(10.767706089455686)
+    assert inf_states[0, 2, 1] == expected_sahat_trial1_level3
