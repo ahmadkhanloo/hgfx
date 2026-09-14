@@ -54,6 +54,10 @@ jobs:
                   return np.asarray(v['data'], dtype=np.float64).reshape(v['shape'], order='F')
               return np.asarray(v, dtype=np.float64)
           def scalar(v): return float(arr(v).reshape(-1)[0])
+          def json_default(v):
+              if isinstance(v, np.generic):
+                  return v.item()
+              raise TypeError(f'Object of type {type(v).__name__} is not JSON serializable')
           def left_sum(v):
               s=np.float64(0.0)
               for x in np.asarray(v,dtype=np.float64).reshape(-1): s=np.float64(s+x)
@@ -102,7 +106,7 @@ jobs:
               step=int(round(scalar(sample['step_1based']))); h=scalar(sample['h'])
               for side in ('plus','minus'):
                   expected=sample[side]; free=arr(expected['free']).reshape(-1)
-                  oracle=(scalar(expected['neg_joint'])==REALMAX) or (not np.isfinite(scalar(expected['neg_joint'])))
+                  oracle=bool((scalar(expected['neg_joint'])==REALMAX) or (not np.isfinite(scalar(expected['neg_joint']))))
                   pred,details=validity(free); invalid_n+=int(oracle); n+=1
                   mm={k:bool(v!=oracle) for k,v in pred.items()}
                   for k,v in mm.items(): counts[k]+=int(v)
@@ -114,8 +118,8 @@ jobs:
           elif len(zero)>1: cls='MULTIPLE_REDUCTIONS_MATCH_MATLAB_VALIDITY_ORACLE'
           else: cls='NO_REDUCTION_CANDIDATE_MATCHES_MATLAB_VALIDITY_ORACLE'
           payload={'protocol':'m18-s8-hgf-r0-validity-reduction-inline-1','reference_commit':'2437f4dc241541072722a2695ddeca7b44d83dd3','case_id':CASE_ID,'case_sha256':CASE_SHA,'classification':cls,'acceptance_effect':'NONE_DIAGNOSTIC_ONLY','evaluated_points':n,'matlab_invalid_points':invalid_n,'candidate_mismatch_counts':counts,'zero_mismatch_candidates':zero,'disagreements':rows,'note':'Exact frozen Ridders stencil; no threshold/data/start/model/optimizer/gate changed.'}
-          OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(payload,indent=2,allow_nan=True)+'\n')
-          print(json.dumps({k:payload[k] for k in ['classification','evaluated_points','matlab_invalid_points','candidate_mismatch_counts','zero_mismatch_candidates']},indent=2))
+          OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(payload,indent=2,allow_nan=True,default=json_default)+'\n')
+          print(json.dumps({k:payload[k] for k in ['classification','evaluated_points','matlab_invalid_points','candidate_mismatch_counts','zero_mismatch_candidates']},indent=2,default=json_default))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
