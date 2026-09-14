@@ -23,43 +23,24 @@ def diagnostic(monkeypatch):
     return module
 
 
-def test_real_prior_mismatch_is_first_an_input_mismatch(diagnostic, tmp_path):
+def test_repaired_prior_inputs_and_terms_match_reference_exactly(diagnostic, tmp_path):
     output = tmp_path / 'comparison.json'
     diagnostic.main(Path('reference/validation/m18_d08_prior/reference.json'), output)
     result = json.loads(output.read_text())
-    assert result['classification'] == 'PRIOR_INPUT_DIVERGENCE'
-    assert not result['inputs']['variances']['exact']
+    assert result['classification'] == 'NO_PRIOR_DIVERGENCE'
+    assert result['inputs']['parameters']['exact']
+    assert result['inputs']['means']['exact']
+    assert result['inputs']['variances']['exact']
+    assert result['combined_terms']['exact']
+    assert result['total']['exact']
     assert result['matched_input_replay']['combined_terms']['exact']
     assert result['matched_input_replay']['total']['exact']
 
 
 def test_usdchf_placeholder_variance_matches_frozen_matlab_exactly():
-    # First 20 values of frozen demo/example_usdchf.txt.  MATLAB fitModel uses
-    # var(u(1:20,1),1), whose scalar squared-deviation reduction is one ULP
-    # above NumPy's vectorized np.var result for this exact window.
     window = np.asarray(
-        [
-            1.0357,
-            1.0319,
-            1.0359,
-            1.0343,
-            1.0303,
-            1.0328,
-            1.0311,
-            1.0326,
-            1.0247,
-            1.0245,
-            1.0175,
-            1.0178,
-            1.0184,
-            1.0189,
-            1.0241,
-            1.0259,
-            1.0262,
-            1.0265,
-            1.0286,
-            1.0398,
-        ],
+        [1.0357,1.0319,1.0359,1.0343,1.0303,1.0328,1.0311,1.0326,1.0247,1.0245,
+         1.0175,1.0178,1.0184,1.0189,1.0241,1.0259,1.0262,1.0265,1.0286,1.0398],
         dtype=np.float64,
     )
     placeholders = compute_placeholder_values(window)
