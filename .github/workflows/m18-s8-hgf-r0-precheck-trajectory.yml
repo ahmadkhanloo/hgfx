@@ -1,1 +1,47 @@
-name: placeholder
+name: M18 S8 HGF R0 Precheck Trajectory
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'reference/matlab/export_m18_s8_hgf_r0_precheck_trajectories.m'
+      - 'tools/check_m18_s8_hgf_r0_precheck_trajectories.py'
+      - '.github/workflows/m18-s8-hgf-r0-precheck-trajectory.yml'
+      - 'src/hgfx/models/hgf_binary.py'
+      - 'src/hgfx/validation/trajectory_checks.py'
+      - 'reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json'
+
+jobs:
+  precheck-trajectory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e '.[dev]'
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export raw frozen MATLAB HGF states before validity check
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_s8_hgf_r0_precheck_trajectories(fullfile(pwd,'reference','generated','m18_s8_hgf_r0_precheck_matlab.json'))
+      - name: Compare HGFX raw states and validity boundary
+        run: |
+          python tools/check_m18_s8_hgf_r0_precheck_trajectories.py \
+            reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json \
+            reference/generated/m18_s8_hgf_r0_precheck_matlab.json \
+            --output reference/generated/m18_s8_hgf_r0_precheck_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-s8-hgf-r0-precheck-trajectory
+          path: reference/generated/m18_s8_hgf_r0_precheck_*.json
+          if-no-files-found: warn
