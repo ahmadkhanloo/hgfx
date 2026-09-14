@@ -12,8 +12,6 @@ on:
       - 'THIRD_PARTY_NOTICES.md'
       - 'CITATION.cff'
       - 'docs/user/**'
-      - 'docs/validation/V1_EVIDENCE_INDEX.md'
-      - 'reference/validation/v1_release/**'
       - 'scripts/check_v1_release_readiness.py'
       - '.github/workflows/s10-v1-release-readiness.yml'
 
