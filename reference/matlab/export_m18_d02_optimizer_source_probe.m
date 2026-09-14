@@ -34,10 +34,11 @@ obj = @(p_opt) workflow_restrict(nlj,init,opt_idx,p_opt);
 source_row = 7; % one-based MATLAB iter row; frozen before execution
 point = fit.optim.iter.x(source_row,:)';
 component_count = length(point);
-probe = repmat(struct(),component_count,1);
+probe = cell(component_count,1);
 for k = 1:component_count
-    probe(k) = workflow_ridders_component(obj,point,k,r,init,opt_idx);
+    probe{k} = workflow_ridders_component(obj,point,k,r,init,opt_idx);
 end
+probe = vertcat(probe{:});
 
 gradoptions.min_steps = 10;
 [grad, grad_err] = riddersgradient(obj,point,gradoptions);
