@@ -1,5 +1,6 @@
 function export_m18_d08_endpoint(output_path)
-% Focused D08 uHGF endpoint-sensitivity evidence. Diagnostic only.
+% Focused D08 uHGF endpoint-sensitivity and optimizer-trace evidence.
+% Diagnostic only; no acceptance threshold, seed, data or model is changed.
 root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(genpath(fullfile(root,'external','hgf-toolbox')));
 addpath(fullfile(root,'reference','matlab','m11_shims'));
@@ -14,7 +15,7 @@ pc = uhgf_config();
 oc = gaussian_obs_config();
 fit = fitModel(s.y,x,pc,oc,'quasinewton_optim_config');
 
-payload.protocol = 'm18-d08-endpoint-diagnostic-1';
+payload.protocol = 'm18-d08-endpoint-diagnostic-2';
 payload.reference_commit = '2437f4dc241541072722a2695ddeca7b44d83dd3';
 payload.numeric_encoding = 'ieee-strings-v1';
 payload.matlab_version = version;
@@ -36,6 +37,13 @@ payload.traj.psi = fit.traj.psi;
 payload.traj.da = fit.traj.da;
 payload.traj.dau = fit.traj.dau;
 payload.traj.epsi = fit.traj.epsi;
+if isstruct(fit.optim.iter)
+    payload.trace.x = fit.optim.iter.x;
+    payload.trace.val = fit.optim.iter.val;
+    payload.trace.rst = fit.optim.iter.rst;
+else
+    payload.trace = [];
+end
 
 folder = fileparts(output_path);
 if ~exist(folder,'dir'); mkdir(folder); end
