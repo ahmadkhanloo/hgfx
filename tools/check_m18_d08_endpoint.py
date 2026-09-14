@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Diagnose D08 epsi mismatch as same-endpoint drift vs endpoint sensitivity."""
+"""Diagnose D08 epsi mismatch as endpoint sensitivity and localize optimizer drift."""
 
 from __future__ import annotations
 
@@ -34,11 +34,93 @@ def scalar_record(actual, expected):
     }
 
 
+def trace_comparison(actual_iter, expected_trace, free_indices):
+    actual_x = np.asarray(actual_iter.x, dtype=np.float64)
+    expected_x = _array(expected_trace["x"])
+    actual_val = np.asarray(actual_iter.val, dtype=np.float64).reshape(-1)
+    expected_val = _array(expected_trace["val"]).reshape(-1)
+    actual_rst = np.asarray(actual_iter.rst, dtype=np.float64).reshape(-1)
+    expected_rst = _array(expected_trace["rst"]).reshape(-1)
+
+    def first_exact_difference(a, e):
+        if a.shape != e.shape:
+            return {"shape_mismatch": [list(a.shape), list(e.shape)]}
+        same = (a == e) | (np.isnan(a) & np.isnan(e))
+        different = np.argwhere(~same)
+        if not different.size:
+            return None
+        index = tuple(int(v) for v in different[0])
+        return {
+            "index": list(index),
+            "hgfx": float(a[index]),
+            "matlab": float(e[index]),
+            "abs_diff": float(abs(a[index] - e[index])),
+        }
+
+    def first_gate_difference(a, e):
+        if a.shape != e.shape:
+            return {"shape_mismatch": [list(a.shape), list(e.shape)]}
+        same = np.isclose(a, e, rtol=RTOL, atol=ATOL, equal_nan=True)
+        different = np.argwhere(~same)
+        if not different.size:
+            return None
+        index = tuple(int(v) for v in different[0])
+        return {
+            "index": list(index),
+            "hgfx": float(a[index]),
+            "matlab": float(e[index]),
+            "abs_diff": float(abs(a[index] - e[index])),
+        }
+
+    row_max = []
+    if actual_x.shape == expected_x.shape and actual_x.ndim == 2:
+        for row in range(actual_x.shape[0]):
+            mask = np.isfinite(actual_x[row]) & np.isfinite(expected_x[row])
+            maximum = float(np.max(np.abs(actual_x[row][mask] - expected_x[row][mask]))) if np.any(mask) else 0.0
+            row_max.append({"row": row, "max_abs": maximum})
+
+    focus_full_index = 8
+    free_map = [int(v) for v in np.asarray(free_indices, dtype=np.int64).reshape(-1)]
+    focus_free_index = free_map.index(focus_full_index) if focus_full_index in free_map else None
+    focus_series = []
+    if focus_free_index is not None and actual_x.shape == expected_x.shape and actual_x.ndim == 2:
+        for row in range(actual_x.shape[0]):
+            av = actual_x[row, focus_free_index]
+            ev = expected_x[row, focus_free_index]
+            if np.isfinite(av) and np.isfinite(ev):
+                focus_series.append(
+                    {
+                        "row": row,
+                        "hgfx": float(av),
+                        "matlab": float(ev),
+                        "abs_diff": float(abs(av - ev)),
+                        "exact": bool(av == ev),
+                    }
+                )
+
+    return {
+        "free_full_indices": free_map,
+        "focus_full_index": focus_full_index,
+        "focus_free_index": focus_free_index,
+        "x_shape_hgfx": list(actual_x.shape),
+        "x_shape_matlab": list(expected_x.shape),
+        "first_exact_x_difference": first_exact_difference(actual_x, expected_x),
+        "first_gate_x_difference": first_gate_difference(actual_x, expected_x),
+        "first_exact_val_difference": first_exact_difference(actual_val, expected_val),
+        "first_gate_val_difference": first_gate_difference(actual_val, expected_val),
+        "rst_shape_hgfx": list(actual_rst.shape),
+        "rst_shape_matlab": list(expected_rst.shape),
+        "first_exact_rst_difference": first_exact_difference(actual_rst, expected_rst),
+        "row_max_abs_x": row_max,
+        "focus_parameter_trace": focus_series,
+    }
+
+
 def main(reference_path: Path, output_path: Path) -> int:
     reference = json.loads(reference_path.read_text())
     if reference["reference_commit"] != REFERENCE_COMMIT:
         raise ValueError("Reference commit mismatch")
-    if reference["protocol"] != "m18-d08-endpoint-diagnostic-1":
+    if reference["protocol"] != "m18-d08-endpoint-diagnostic-2":
         raise ValueError("Diagnostic protocol mismatch")
     if reference["case_id"] != "D08_fit":
         raise ValueError("Unexpected case")
@@ -153,6 +235,8 @@ def main(reference_path: Path, output_path: Path) -> int:
     else:
         classification = "PASS"
 
+    trace = trace_comparison(est.optim.iter, reference["trace"], problem.free_indices)
+
     result = {
         "protocol": reference["protocol"],
         "reference_commit": REFERENCE_COMMIT,
@@ -175,6 +259,7 @@ def main(reference_path: Path, output_path: Path) -> int:
         },
         "endpoint_parameters": endpoint_records,
         "one_parameter_matlab_replacement": sensitivity,
+        "optimizer_trace": trace,
         "objective": {
             "hgfx_fit_negLj": float(est.optim["negLj"]),
             "matlab_negLj": float(_array(reference["negLj"]).reshape(-1)[0]),
