@@ -14,7 +14,8 @@ from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
 from hgfx.compat.result import CompatibilityResult, MatlabStruct
 from hgfx.plotting import prepare_fit_correlation_surface, prepare_residual_diagnostics
 
-PROTOCOL = "m18-d10-d11-surfaces-1"
+PROTOCOL = "m18-d10-d11-surfaces-2"
+FIXTURE = "synthetic_fit_v2"
 RTOL = 3e-8
 ATOL = 3e-10
 
@@ -57,8 +58,8 @@ def main(reference_path: Path, output_path: Path) -> int:
     reference = json.loads(reference_path.read_text())
     if reference.get("protocol") != PROTOCOL or reference.get("reference_commit") != REFERENCE_COMMIT:
         raise ValueError("D10/D11 frozen protocol/reference mismatch")
-    if reference.get("case_id") != "D10_D11_surfaces" or int(reference.get("seed")) != 123:
-        raise ValueError("D10/D11 frozen case mismatch")
+    if reference.get("case_id") != "D10_D11_surfaces" or reference.get("fixture_id") != FIXTURE:
+        raise ValueError("D10/D11 frozen fixture mismatch")
 
     est = reference["est"]
     result = CompatibilityResult(
@@ -98,6 +99,7 @@ def main(reference_path: Path, output_path: Path) -> int:
         "protocol": PROTOCOL,
         "reference_commit": REFERENCE_COMMIT,
         "case_id": "D10_D11_surfaces",
+        "fixture_id": FIXTURE,
         "classification": classification,
         "tolerance": {"rtol": RTOL, "atol": ATOL},
         "checks": checks,

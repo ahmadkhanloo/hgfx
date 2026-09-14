@@ -1,14 +1,31 @@
 function export_m18_d10_d11_surfaces(output_path)
-% Frozen D10/D11 surface-data reference. Pixel rendering is not gated.
+% Frozen D10/D11 surface-data reference, protocol v2.
+% This gate intentionally uses a deterministic fit-like struct because the
+% MATLAB plotting utilities consume result fields only; no fitting/simulation
+% is part of the surface contract.
+
 root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(genpath(fullfile(root,'external','hgf-toolbox')));
-addpath(fullfile(root,'reference','matlab','m11_shims'));
 
-u = load(fullfile(root,'external','hgf-toolbox','demo','example_binary_input.txt'));
-seed = 123;
-native = [NaN 0 1 NaN 1 1 NaN 0 0 NaN 1 NaN -2.5 -6];
-sim = simModel(u,'hgf_binary',native,'unitsq_sgm',5,seed);
-est = fitModel(sim.y,sim.u,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config');
+est = struct;
+est.u = (1:5)';
+est.c_prc.priorsas = [1 0 2];
+est.c_obs.priorsas = 0.5;
+
+% Preserve MATLAB struct field order used by fit_plotCorr label expansion.
+est.p_prc.mu = [0.1 0.2];
+est.p_prc.omega = -1;
+est.p_prc.p = [0.1 0.2 -1];
+est.p_prc.ptrans = [0.1 0.2 -1];
+est.p_obs.ze = 0.05;
+est.p_obs.p = 0.05;
+est.p_obs.ptrans = log(0.05);
+
+est.optim.Corr = [1 0.25 -0.1; 0.25 1 0.4; -0.1 0.4 1];
+est.optim.Sigma = [2 0.5 -0.1; 0.5 3 0.6; -0.1 0.6 1.5];
+est.optim.res = [0.10; -0.20; 0.30; -0.10; 0.05];
+est.optim.resAC = [0.20; 0.30; 1.00; 0.30; 0.20];
+est.optim.yhat = [0.20; 0.40; 0.60; 0.80; 0.50];
 
 prc_ind = est.c_prc.priorsas;
 prc_ind(isnan(prc_ind)) = 0;
@@ -44,22 +61,13 @@ upperend = n - ceil((n+1)/2);
 lowerend = upperend-n+1;
 lags = (lowerend:upperend)';
 
-payload.protocol = 'm18-d10-d11-surfaces-1';
+payload.protocol = 'm18-d10-d11-surfaces-2';
 payload.reference_commit = '2437f4dc241541072722a2695ddeca7b44d83dd3';
 payload.numeric_encoding = 'ieee-strings-v1';
 payload.matlab_version = version;
 payload.case_id = 'D10_D11_surfaces';
-payload.seed = seed;
-payload.est.u = est.u;
-payload.est.c_prc.priorsas = est.c_prc.priorsas;
-payload.est.c_obs.priorsas = est.c_obs.priorsas;
-payload.est.p_prc = est.p_prc;
-payload.est.p_obs = est.p_obs;
-payload.est.optim.Corr = est.optim.Corr;
-payload.est.optim.Sigma = est.optim.Sigma;
-payload.est.optim.res = est.optim.res;
-payload.est.optim.resAC = est.optim.resAC;
-payload.est.optim.yhat = est.optim.yhat;
+payload.fixture_id = 'synthetic_fit_v2';
+payload.est = est;
 payload.d10.labels = labels;
 payload.d10.Corr = est.optim.Corr;
 payload.d10.Sigma = est.optim.Sigma;
@@ -73,5 +81,5 @@ if ~exist(folder,'dir'); mkdir(folder); end
 fid = fopen(output_path,'w'); assert(fid>=0);
 cleanup = onCleanup(@() fclose(fid));
 fprintf(fid,'%s\n',jsonencode(hgfx_json_ieee(payload),'PrettyPrint',true));
-fprintf('M18 D10/D11 surface reference exported.\n');
+fprintf('M18 D10/D11 surface reference v2 exported.\n');
 end
