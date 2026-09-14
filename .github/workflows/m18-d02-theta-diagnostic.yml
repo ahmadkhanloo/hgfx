@@ -1,0 +1,29 @@
+name: M18 D02 Theta Diagnostic
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  theta-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e .
+      - run: python scripts/verify_reference_freeze.py
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_theta_primitive(fullfile(pwd,'reference','generated','m18_d02_theta_plus.json'),fullfile(pwd,'reference','generated','m18_d02_theta_minus.json'))
+      - run: python tools/check_m18_d02_theta_primitive.py reference/generated/m18_d02_theta_plus.json --output reference/generated/m18_d02_theta_plus_comparison.json
+      - run: python tools/check_m18_d02_theta_primitive.py reference/generated/m18_d02_theta_minus.json --output reference/generated/m18_d02_theta_minus_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-d02-theta-diagnostic
+          path: reference/generated/m18_d02_theta_*.json
+          if-no-files-found: error
