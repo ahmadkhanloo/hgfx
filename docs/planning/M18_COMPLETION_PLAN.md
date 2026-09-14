@@ -1,5 +1,32 @@
 # M18 completion plan — MATLAB-equivalent v1.0
 
+## Continuation update — 2026-09-14
+
+At head `ae063e7a866e2ab227110fd1a771d138fad2a274`, official run
+`34821444138` still reports 7/9 PASS; D02/D08 remain optimizer mismatches.
+D08 now first fails `epsi` at zero-based `(175,1)` (138.87836008346915
+versus MATLAB 138.8783558587791). Older numerical values below are historical.
+
+The D08 prior diagnostic run `34821444290` / job `103903714260` /
+artifact `10338820786` exposes a prior-variance input mismatch:
+HGFX `4.06248750000001e-05`, MATLAB `4.0624875000000105e-05`.
+A local matched-input replay reproduces all MATLAB prior terms and their total
+exactly. The first classification is therefore `PRIOR_INPUT_DIVERGENCE`, not
+proof of a Gaussian quadratic-form defect. Original output is preserved in
+`reference/validation/m18_d08_prior/` with hashes and the raw artifact ZIP.
+
+Next D08 step: run the additive placeholder trace (window, mean, deviations,
+squares, reduction, explicit variance and MATLAB var), locate the first
+operation split, then write the core regression and repair only the evidenced
+cause. No input override is used by fitting; no core/tolerance/seed changes.
+The new exporter is IMPLEMENTED BUT NOT VALIDATED in MATLAB until CI runs.
+
+D02's existing log-path regression fails in focused Python 3.11 / NumPy 2.4.6
+run `34821444075`, but passes locally with Python 3.12.14 / NumPy 2.5.3;
+local success does not close that cross-runtime blocker.
+Historical M18 FAIL and v1 closure OPEN remain unchanged.
+
+
 Last synchronized: 2026-09-13
 Status: **IN PROGRESS**
 Current branch: `migration/m18-workflow-closure`

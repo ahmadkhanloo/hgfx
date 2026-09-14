@@ -69,6 +69,21 @@ payload.prior.terms = prior_terms;
 payload.prior.total = prior_total;
 payload.prior.constant_8atan1 = 8*atan(1);
 
+% Additive diagnostic: distinguish variance's internal arithmetic from an
+% explicit mean/squared-deviation reduction; do not assume they are identical.
+window = x(1:min(20,size(x,1)),1);
+window_mean = mean(window);
+deviations = window-window_mean;
+squared_deviations = deviations.^2;
+payload.placeholder.window = window;
+payload.placeholder.mean = window_mean;
+payload.placeholder.deviations = deviations;
+payload.placeholder.squared_deviations = squared_deviations;
+payload.placeholder.sum_squared_deviations = sum(squared_deviations);
+payload.placeholder.explicit_variance = sum(squared_deviations)/length(window);
+payload.placeholder.variance = var(window,1);
+payload.placeholder.log_variance = log(var(window,1));
+
 folder = fileparts(output_path);
 if ~exist(folder,'dir'); mkdir(folder); end
 fid = fopen(output_path,'w'); assert(fid>=0);

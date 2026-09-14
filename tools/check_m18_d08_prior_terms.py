@@ -9,15 +9,18 @@ import math
 from pathlib import Path
 
 import numpy as np
-
 from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
+
 from hgfx.compat.objective import gaussian_log_prior
 from hgfx.compat.workflows import resolve_config
+from hgfx.core.placeholders import compute_placeholder_values
 
 
 def array_cmp(actual, expected):
     a = np.asarray(actual, dtype=np.float64).reshape(-1)
     e = np.asarray(expected, dtype=np.float64).reshape(-1)
+    if a.size != e.size:
+        raise ValueError('Diagnostic array length mismatch')
     same = (a == e) | (np.isnan(a) & np.isnan(e))
     different = np.flatnonzero(~same)
     first = None
@@ -38,6 +41,29 @@ def scalar_cmp(actual, expected):
     a = np.float64(actual)
     e = np.float64(expected)
     return {"hgfx": float(a), "matlab": float(e), "abs_diff": float(abs(a-e)), "exact": bool(a == e)}
+
+
+def compare_placeholder(inputs, reference):
+    if reference is None:
+        return {"status": "UNAVAILABLE"}
+    window = np.asarray(inputs, dtype=np.float64).reshape(-1)[:20]
+    mean = np.mean(window)
+    deviations = window - mean
+    squared = deviations ** 2
+    values = compute_placeholder_values(inputs)
+    actual = {
+        'window': window, 'mean': mean, 'deviations': deviations,
+        'squared_deviations': squared,
+        'sum_squared_deviations': np.sum(squared),
+        'explicit_variance': np.sum(squared) / window.size,
+        'variance': values.var_first_20,
+        'log_variance': values.log_var_first_20,
+    }
+    comparisons = {key: array_cmp(value, _array(reference[key]))
+                   for key, value in actual.items()}
+    first = next((key for key, value in comparisons.items() if not value['exact']), None)
+    return {'status': 'COMPARED', 'first_divergent_operation': first,
+            'operations': comparisons}
 
 
 def main(reference_path: Path, output_path: Path) -> int:
@@ -90,7 +116,22 @@ def main(reference_path: Path, output_path: Path) -> int:
     quad_cmp = array_cmp(current_quad, matlab_quad)
     scalar_term_cmp = array_cmp(scalar_terms, matlab_terms)
 
-    if not term_cmp["exact"]:
+    input_comparison = {
+        "parameters": array_cmp(parameters, matlab_parameters),
+        "means": array_cmp(means, matlab_means),
+        "variances": array_cmp(variances, matlab_variances),
+    }
+    # Replay the very same prior inputs before attributing a discrepancy to
+    # Gaussian arithmetic. This is diagnostic only, never a fit override.
+    replay = gaussian_log_prior(matlab_parameters, matlab_means, matlab_variances)
+    matched_input_replay = {
+        "combined_terms": array_cmp(replay.terms, matlab_terms),
+        "total": scalar_cmp(replay.total, matlab_total),
+    }
+
+    if not all(item['exact'] for item in input_comparison.values()):
+        classification = "PRIOR_INPUT_DIVERGENCE"
+    elif not term_cmp["exact"]:
         first = term_cmp["first_difference"]["index"]
         if not norm_cmp["exact"] and norm_cmp["first_difference"]["index"] == first:
             classification = "NORMALIZATION_TERM_DIVERGENCE"
@@ -109,11 +150,9 @@ def main(reference_path: Path, output_path: Path) -> int:
         "case_id": "D08_fit",
         "classification": classification,
         "constant_8atan1": scalar_cmp(np.float64(8.0 * math.atan(1.0)), _array(matlab["constant_8atan1"]).reshape(-1)[0]),
-        "inputs": {
-            "parameters": array_cmp(parameters, matlab_parameters),
-            "means": array_cmp(means, matlab_means),
-            "variances": array_cmp(variances, matlab_variances),
-        },
+        "inputs": input_comparison,
+        "matched_input_replay": matched_input_replay,
+        "placeholder": compare_placeholder(u, reference.get('placeholder')),
         "normalization_terms": norm_cmp,
         "quadratic_terms": quad_cmp,
         "combined_terms": term_cmp,

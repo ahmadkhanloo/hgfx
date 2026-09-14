@@ -1,0 +1,103 @@
+{
+  "protocol": "m18-d08-prior-terms-1",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "case_id": "D08_fit",
+  "classification": "QUADRATIC_TERM_DIVERGENCE",
+  "constant_8atan1": {
+    "hgfx": 6.283185307179586,
+    "matlab": 6.283185307179586,
+    "abs_diff": 0.0,
+    "exact": true
+  },
+  "inputs": {
+    "parameters": {
+      "exact": true,
+      "first_difference": null,
+      "max_abs_diff": 0.0
+    },
+    "means": {
+      "exact": true,
+      "first_difference": null,
+      "max_abs_diff": 0.0
+    },
+    "variances": {
+      "exact": false,
+      "first_difference": {
+        "index": 0,
+        "hgfx": 4.06248750000001e-05,
+        "matlab": 4.0624875000000105e-05,
+        "abs_diff": 6.776263578034403e-21
+      },
+      "max_abs_diff": 6.776263578034403e-21
+    }
+  },
+  "normalization_terms": {
+    "exact": true,
+    "first_difference": null,
+    "max_abs_diff": 0.0
+  },
+  "quadratic_terms": {
+    "exact": false,
+    "first_difference": {
+      "index": 0,
+      "hgfx": -12391.810278898369,
+      "matlab": -12391.810278898367,
+      "abs_diff": 1.8189894035458565e-12
+    },
+    "max_abs_diff": 1.8189894035458565e-12
+  },
+  "combined_terms": {
+    "exact": false,
+    "first_difference": {
+      "index": 0,
+      "hgfx": -12387.673652434452,
+      "matlab": -12387.67365243445,
+      "abs_diff": 1.8189894035458565e-12
+    },
+    "max_abs_diff": 1.8189894035458565e-12
+  },
+  "scalar_math_combined_terms": {
+    "exact": false,
+    "first_difference": {
+      "index": 0,
+      "hgfx": -12387.673652434452,
+      "matlab": -12387.67365243445,
+      "abs_diff": 1.8189894035458565e-12
+    },
+    "max_abs_diff": 1.8189894035458565e-12
+  },
+  "total": {
+    "hgfx": -12395.734081811592,
+    "matlab": -12395.73408181159,
+    "abs_diff": 1.8189894035458565e-12,
+    "exact": false
+  },
+  "numpy_sum_matlab_terms": {
+    "hgfx": -12395.73408181159,
+    "matlab": -12395.73408181159,
+    "abs_diff": 0.0,
+    "exact": true
+  },
+  "python_sequential_sum_matlab_terms": {
+    "hgfx": -12395.73408181159,
+    "matlab": -12395.73408181159,
+    "abs_diff": 0.0,
+    "exact": true
+  },
+  "matlab_terms": [
+    -12387.67365243445,
+    -0.918938533205006,
+    -0.9189385337891898,
+    -2.305232894585169,
+    -2.305232894767124,
+    -1.612086520793451
+  ],
+  "hgfx_terms": [
+    -12387.673652434452,
+    -0.918938533205006,
+    -0.9189385337891898,
+    -2.305232894585169,
+    -2.305232894767124,
+    -1.612086520793451
+  ]
+}
