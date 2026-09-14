@@ -25,7 +25,16 @@ def _numeric(value) -> np.ndarray:
 
 
 def _equal_with_nan(left, right) -> bool:
-    return bool(np.array_equal(_numeric(left), _numeric(right), equal_nan=True))
+    # MATLAB parameter vectors may arrive through JSON/compatibility surfaces as
+    # either scalars or singleton vectors.  Priors are vector-valued semantically,
+    # so compare their flattened parameter ordering rather than container shape.
+    return bool(
+        np.array_equal(
+            _numeric(left).reshape(-1),
+            _numeric(right).reshape(-1),
+            equal_nan=True,
+        )
+    )
 
 
 def _pool_gaussian_posteriors(
