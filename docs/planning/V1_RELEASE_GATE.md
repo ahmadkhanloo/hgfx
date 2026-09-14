@@ -5,104 +5,69 @@ Status: **OPEN / IN PROGRESS**
 
 ## Product definition
 
-HGFX v1.0 is a functional and scientific replacement for the frozen MATLAB HGF Toolbox 8.2.0.
+HGFX v1.0 is a functional and scientific Python replacement for frozen MATLAB HGF Toolbox 8.2.0. Bitwise identity is not generally required, but every accepted equivalence must follow a rule frozen before its validation data are observed. No post-hoc threshold, seed, dataset, start, grid, model-family or optimizer change may obtain PASS.
 
-The v1 target is end-to-end workflow and scientific equivalence. It does not require bit-for-bit identity where floating-point/optimizer endpoint sensitivity is scientifically immaterial, but it also does not allow thresholds to be relaxed after observing a failure merely to obtain PASS.
-
-Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` for the frozen tiered equivalence rules and `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` for exact paired MATLAB limitations.
-
-A demonstrated MATLAB-equivalent limitation may be accepted as `REFERENCE_LIMITATION_MATCH`; HGFX is not required to make MATLAB-failing cases artificially succeed. An HGFX-only divergence where MATLAB provides valid comparable output remains blocking unless a prospectively frozen accepted-equivalence protocol is satisfied.
+Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` as acceptance policy.
 
 ## Mandatory acceptance criteria
 
-- [ ] Complete MATLAB HGF Toolbox model/workflow coverage required for v1
+- [ ] Complete required MATLAB model/workflow coverage
 - [ ] Fit workflow parity/equivalence under frozen policy
-- [ ] Simulation workflow parity/equivalence under frozen policy
-- [ ] Trajectory output parity/equivalence under frozen policy
-- [ ] Hessian/LME/statistical output parity/equivalence under frozen policy
-- [ ] Parameter recovery validation against the same MATLAB oracle/workflow
-- [ ] Model recovery/model-selection validation against the same MATLAB oracle/workflow
-- [ ] CPU/GPU numerical agreement within defined tolerances on required supported paths
+- [ ] Simulation workflow parity/equivalence
+- [ ] Trajectory output parity/equivalence
+- [ ] Hessian/LME/statistical output parity/equivalence
+- [ ] Paired parameter recovery against same MATLAB oracle/workflow
+- [ ] Paired model recovery/model-selection validation
+- [ ] CPU/GPU numerical agreement on required supported paths
 - [ ] Python reproduction of required MATLAB demo workflows
-- [ ] Documentation and examples sufficient for independent usage
-- [ ] Aggregate evidence/provenance closure with no unknown required row
-- [ ] Zero MATLAB runtime dependency for HGFX users
+- [ ] Independent-use documentation/examples
+- [ ] Aggregate evidence/provenance closure
+- [ ] Zero MATLAB runtime dependency for users
 
 ## Current evidence snapshot
 
-Current work is tracked in `V1_TODO.md`; ordered dependencies are in `M18_COMPLETION_PLAN.md`; detailed current cases are in `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`.
+- M0-M17 completed in their documented scopes.
+- Historical M18 scientific result: FAIL, preserved.
+- D02 model selection: `PASS_MODEL_SELECTION_PARITY`.
+- D04 uHGF→AR(1): PASS, run `34763542557`.
+- Historical exact 512 case: `REFERENCE_LIMITATION_MATCH` for that exact case.
+- Official fit/Bayes closure run `34823572071`, job `103910417693`: **7/9 direct PASS**; D02_fit and D08_fit failed.
+- Official artifact ID `10339454535`, SHA-256 `78bc7ea18fc55d02d4db8738f2f805d66d4b00a21e2a5b6ad4458b4ce3e9e77b`.
 
-Latest unchanged official closure evidence at implementation head `648c3f84905eb7fe952c070e5ee858e48de4a3fa`:
+### D08 — BLOCKED
 
-- M0-M17 remain completed in their documented scopes.
-- D02 model-selection behavior is `PASS_MODEL_SELECTION_PARITY`.
-- D04 uHGF -> AR(1) workflow is PASS (run `34763542557`).
-- Exact historical 512-trial case is `REFERENCE_LIMITATION_MATCH` in its frozen scope.
-- Official fit/Bayes closure run `34823572071`, job `103910417693`: **7/9 direct PASS**; `D02_fit` and `D08_fit` failed the unchanged direct gate.
-- Artifact `m18-official-workflows`, ID `10339454535`, ZIP SHA-256 `78bc7ea18fc55d02d4db8738f2f805d66d4b00a21e2a5b6ad4458b4ce3e9e77b`.
-- Historical M18 scientific result remains FAIL; product M18/v1 closure remains OPEN.
+The prospectively frozen Level-2 endpoint-sensitivity holdout **failed**. Run `34826235671`, job `103918945542`, artifact `10340644941`, SHA-256 `5211ffa97880e674f7d9b2a4ab1edba0a29dde57a7127483fd4beeb88295fac1` used frozen seeds `271828182` and `314159265`. The first seed passed; the second produced `INFERENCE_EQUIVALENCE_FAIL` with optimizer-path and core inference differences. Same-MATLAB-endpoint replay still has no mismatch, but this is insufficient to satisfy the frozen Level-2 rule.
 
-Current post-diagnostic interpretation:
+The failed protocol is preserved in `reference/validation/m18_d08_holdout/decision.json`. D08 may not be rescued by changing that protocol post hoc. A diagnostic-only optimizer localization is implemented and queued; it cannot itself confer PASS.
 
-- **D08 — IMPLEMENTED BUT NOT VALIDATED under the new acceptance path.** Focused endpoint evidence shows exact same-vector replay at the MATLAB endpoint while a tiny endpoint perturbation is amplified in derived `epsi`. It is therefore a candidate for `PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY`, not a reason to increase global tolerance. The prospective holdout seeds `271828182` and `314159265` were frozen before execution; workflow `M18 D08 Equivalence Holdout` is implemented and was queued as run `34826235671` at the latest synchronization.
-- **D02 — BLOCKED.** It currently fails inferential equivalence: endpoint, Hessian/covariance/correlation, model evidence, predictions and residuals differ materially. A frozen cross-endpoint same-vector diagnostic (`m18-d02-basin-probe-1`) is implemented to distinguish remaining objective implementation mismatch from optimizer/numerical basin or conditioning effects. That diagnostic cannot itself close D02.
+### D02 — BLOCKED
 
-This snapshot does not check off top-level release criteria prematurely. Historical failures remain immutable evidence even if a later prospectively defined equivalence classification becomes accepted.
+D02 fails inference-level equivalence because endpoint, H/Sigma/Corr/LME, predictions and residuals differ materially despite several shared-state/objective replays passing. Frozen `m18-d02-basin-probe-1` is a classification diagnostic only.
 
-## Execution and decision rule
-
-Use, in order:
-
-1. `V1_TODO.md` for the live operational checklist;
-2. `M18_COMPLETION_PLAN.md` for S1-S10 dependency order;
-3. `../validation/MATLAB_EQUIVALENCE_POLICY.md` for exact/numerical/endpoint-sensitivity/inferential equivalence;
-4. `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` for paired reference limitations;
-5. relevant validation matrices and immutable evidence artifacts for each gate.
-
-Required MATLAB functionality must be complete before the initial v1.0 release. “v1.x” is not permission to defer required replacement functionality past v1.0. Capabilities beyond MATLAB scope may move to v2.x.
-
-Every required validation row needs raw, traceable evidence. Unresolved implementation, optimizer or model-selection mismatches, missing reference evidence, incomplete required demo/output surfaces, or unexecuted prospective equivalence gates block release.
-
-### Frozen anti-post-hoc rule
-
-Do not change thresholds, seeds, datasets, starts, grids, model family or optimizer settings after observing results to obtain PASS.
-
-For a new equivalence rule:
-
-1. preserve the original failed evidence;
-2. diagnose and document the mechanism;
-3. freeze the rule and prospective validation data/seeds before execution;
-4. execute unchanged;
-5. preserve PASS and FAIL outcomes alike.
-
-Existing M18 field tolerances remain unchanged. A decimal-place-only rule is not an accepted substitute for scale-aware absolute/relative comparison.
+Its first run `34827198731` failed mechanically due NaN-unsafe checking of structural fixed slots. Commit `942ca86eea1fe52e8326c14f8fe175a5faa3db84` corrects only the harness; seed/grid/tolerance/model/optimizer remain frozen. Corrected run `34829122057` is queued.
 
 ## Accepted result semantics
 
-- `PASS` — existing frozen direct numerical gate passed.
-- `PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY` — exact contract/core inference passes and a prospectively frozen endpoint-sensitivity protocol passes without broadening the direct field tolerances.
-- `PASS_INFERENTIAL_EQUIVALENCE` — a separately preregistered inferential protocol passes fit quality, parameters/identifiability, uncertainty, predictive behavior and model-comparison conclusions as applicable.
-- `REFERENCE_LIMITATION_MATCH` — exact paired MATLAB limitation under the reference-limitations policy.
+- `PASS`: frozen direct gate passes.
+- `PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY`: a prospectively frozen Level-2 protocol passes. D08's first such protocol did **not** pass.
+- `PASS_INFERENTIAL_EQUIVALENCE`: separately preregistered inference-level protocol passes all required quantities.
+- `REFERENCE_LIMITATION_MATCH`: exact paired MATLAB limitation.
 
-The latter three are explicit classifications and must not be described as bitwise equality or silently collapsed into historical direct PASS evidence.
+Historical/direct and prospective failures remain immutable evidence.
 
-## M18 release-validation exit conditions
+## M18/v1 exit conditions
 
 - [ ] All required model families/workflows accounted for
-- [ ] Required fit/simulation/trajectory/statistical outputs evidence-backed under the frozen decision policy
-- [ ] Required official demo/workflow surface reproduced in Python
-- [ ] Every non-direct-PASS required case has a supported primary classification and any accepted-equivalence protocol is prospectively validated
-- [ ] Every accepted limitation has exact frozen MATLAB-reference evidence
-- [ ] No unresolved HGFX-only implementation/optimizer/model-selection mismatch in required scope
-- [ ] Paired parameter/model recovery validation completed without rewriting historical experiments
-- [ ] Required robustness/backend matrix completed, including physical GPU evidence where applicable
-- [ ] D10-D12 and remaining required analysis/output surfaces closed
-- [ ] Aggregate evidence checker/report implemented and passing
-- [ ] Clean install, examples, docs, API behavior and licenses verified
-- [ ] MATLAB runtime dependency verified as zero for end users
+- [ ] Fit/simulation/trajectory/statistical outputs evidence-backed
+- [ ] Official required demos/workflows reproduced
+- [ ] Every non-direct-PASS case has supported classification and any accepted-equivalence protocol actually passes
+- [ ] Every accepted limitation has exact MATLAB evidence
+- [ ] No unresolved required implementation/optimizer/model-selection mismatch
+- [ ] Paired parameter/model recovery complete
+- [ ] Robustness/backend/physical-GPU applicability matrix complete
+- [ ] D10-D12 and other required output surfaces closed
+- [ ] Aggregate evidence checker/report passes
+- [ ] Clean install/examples/docs/API/licenses verified
+- [ ] Zero MATLAB runtime dependency verified
 
-After these conditions pass: complete M19 evidence/dataset freeze, then M20 v1.0 Candidate.
-
-## Versioning rule
-
-Any capability required to reproduce MATLAB HGF Toolbox workflows remains in v1.x. Scientific/performance improvements beyond the frozen MATLAB reference may be introduced separately, provided compatibility mode remains reference-faithful.
+After these: M19 evidence freeze, then M20 v1.0 Candidate.
