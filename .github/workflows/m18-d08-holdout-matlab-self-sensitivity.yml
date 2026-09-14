@@ -1,0 +1,43 @@
+name: M18 D08 Holdout MATLAB Self Sensitivity
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'reference/matlab/export_m18_d08_holdout_matlab_self_sensitivity.m'
+      - 'tools/check_m18_d08_holdout_matlab_self_sensitivity.py'
+      - 'docs/validation/M18_D08_HOLDOUT_MATLAB_SELF_SENSITIVITY.md'
+      - '.github/workflows/m18-d08-holdout-matlab-self-sensitivity.yml'
+
+jobs:
+  d08-holdout-matlab-self-sensitivity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX dependencies
+        run: python -m pip install -e .
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export reference-only failed-holdout sensitivity probe
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d08_holdout_matlab_self_sensitivity(fullfile(pwd,'reference','generated','m18_d08_holdout_matlab_self_sensitivity.json'))
+      - name: Classify MATLAB sensitivity
+        run: python tools/check_m18_d08_holdout_matlab_self_sensitivity.py reference/generated/m18_d08_holdout_matlab_self_sensitivity.json --output reference/generated/m18_d08_holdout_matlab_self_sensitivity_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-d08-holdout-matlab-self-sensitivity
+          path: |
+            reference/generated/m18_d08_holdout_matlab_self_sensitivity.json
+            reference/generated/m18_d08_holdout_matlab_self_sensitivity_comparison.json
+          if-no-files-found: warn

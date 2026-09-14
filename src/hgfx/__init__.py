@@ -1,6 +1,7 @@
 """HGFX: GPU-native Hierarchical Gaussian Filter research toolbox."""
 
 from ._config import enable_x64
+from .compat.bpa import bayesian_parameter_average
 from .compat.fit import fitModel, fit_model
 from .compat.result import CompatibilityResult, MatlabStruct
 from .compat.sample import sampleModel, sample_model_result
@@ -18,6 +19,7 @@ __all__ = [
     "fit_model",
     "sim_model",
     "sample_model",
+    "bayesian_parameter_average",
     "fitModel",
     "simModel",
     "sampleModel",

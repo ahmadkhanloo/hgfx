@@ -1,0 +1,16 @@
+{
+  "case_id": "D09",
+  "protocol": "m18-d09-official-samplemodel-1",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "tested_head": "2a9a70516966451a6affa7ebe25881cec7285bb1",
+  "status": "PASS",
+  "classification": "PASS",
+  "workflow": "M18 D09 Official sampleModel",
+  "run_id": 34842943557,
+  "job_id": 103971933092,
+  "artifact": "m18-d09-official-samplemodel",
+  "artifact_id": 10346184455,
+  "artifact_sha256": "6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c",
+  "seeds": [123, 456],
+  "note": "Both frozen paired sampleModel cases passed. MATLAB-exported standard-normal drivers are injected into HGFX for cross-runtime parameter sampling; response RNG bytes are intentionally outside this equality gate."
+}
