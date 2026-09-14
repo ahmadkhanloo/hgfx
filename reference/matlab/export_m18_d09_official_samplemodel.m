@@ -2,6 +2,7 @@ function export_m18_d09_official_samplemodel(output_path)
 % Frozen official D09 sampleModel paired oracle.
 root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(genpath(fullfile(root,'external','hgf-toolbox')));
+addpath(fullfile(root,'reference','matlab','m11_shims'));
 u = load(fullfile(root,'external','hgf-toolbox','demo','example_binary_input.txt'));
 seeds = [123 456];
 
