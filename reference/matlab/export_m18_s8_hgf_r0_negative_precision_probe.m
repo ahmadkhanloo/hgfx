@@ -48,7 +48,7 @@ center = fit.optim.iter.x(10,:)';
 
 steps = [2 4 5];
 div = 1.2;
-points = repmat(struct(), numel(steps), 1);
+points = cell(numel(steps), 1);
 for q = 1:numel(steps)
     step = steps(q);
     h = 1/(div^(step-1));
@@ -63,7 +63,7 @@ for q = 1:numel(steps)
     point.h = h;
     point.side = 'plus';
     point.free = free;
-    points(q) = point;
+    points{q} = point;
 end
 
 payload.protocol = 'm18-s8-hgf-r0-negative-precision-probe-1';
@@ -83,7 +83,8 @@ if ~isempty(folder) && ~exist(folder, 'dir'); mkdir(folder); end
 fid = fopen(output_path, 'w'); assert(fid >= 0);
 cleanup = onCleanup(@() fclose(fid)); %#ok<NASGU>
 fprintf(fid, '%s\n', jsonencode(hgfx_json_ieee(payload), 'PrettyPrint', true));
-fprintf('M18 S8 R0 negative-precision probe: failures=%d/%d\n', sum([points.negative_precision]), numel(points));
+failures = sum(cellfun(@(point) point.negative_precision, points));
+fprintf('M18 S8 R0 negative-precision probe: failures=%d/%d\n', failures, numel(points));
 end
 
 function point = probe_point(r, ptrans)

@@ -82,7 +82,15 @@ def hgf_binary_unified(
                 muhat[k, 0],
                 pihat[k, 0],
                 da[k, 0],
-            ) = hgf_binary_level1(u[k], ka[0], muhat[k, 1])
+            ) = hgf_binary_level1(
+                u[k],
+                ka[0],
+                muhat[k, 1],
+                # The documented v8.2.0 setup resolves standard hgf_binary to
+                # _original_models/hgf_binary.m, which has no level-1 clamp.
+                # Legacy eHGF and unified uHGF retain the [0.001, 0.999] clamp.
+                clamp_prediction=update_type != "hgf",
+            )
 
             # Frozen unified source deliberately uses a unit interval at level 2.
             pihat[k, 1] = hgf_pihat(
