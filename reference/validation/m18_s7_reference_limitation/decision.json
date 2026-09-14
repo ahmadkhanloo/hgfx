@@ -1,0 +1,78 @@
+{
+  "protocol": "m18-s7-paired-recovery-1",
+  "decision": "REFERENCE_LIMITATION_MATCH",
+  "status": "RELEASE_ACCEPTABLE_EXACT_PROTOCOL_SCOPE",
+  "scientific_pass": false,
+  "product_equivalence_closed": true,
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_tested_commit": "96daac8e8fe889deaf1c8c4b5f92f2c6f676262c",
+  "official_run_id": 34896442847,
+  "aggregate_job_id": 104163079125,
+  "aggregate_artifact": {
+    "id": 10370615292,
+    "name": "m18-s7-paired-recovery-aggregate",
+    "sha256": "3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92"
+  },
+  "coverage": {
+    "shards": 12,
+    "parameter_cases": 72,
+    "model_recovery_datasets": 36,
+    "candidate_fits_per_model_dataset": 3,
+    "trial_counts": [128, 256],
+    "truth_scales_prior_sd": [0.15, 0.35],
+    "parameter_replicates_per_stratum": 6,
+    "model_replicates_per_stratum": 3,
+    "models": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+    "observation_model": "unitsq_sgm",
+    "selection_rule": "minimum_BIC"
+  },
+  "aggregate_source_classification": "REFERENCE_LIMITATION_REVIEW_REQUIRED",
+  "parameter_recovery": {
+    "hgf_binary": {
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "matlab": {"convergence_rate": 0.8333333333333334, "median_correlation": 0.20268457015781036, "median_standardized_rmse": 2.609662845472688},
+      "hgfx": {"convergence_rate": 0.8333333333333334, "median_correlation": 0.2026845701405167, "median_standardized_rmse": 2.6096628455058144},
+      "shared_failed_criteria": ["median_correlation", "median_standardized_rmse"]
+    },
+    "ehgf_binary": {
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "matlab": {"convergence_rate": 0.9166666666666666, "median_correlation": 0.4619183691009534, "median_standardized_rmse": 2.35912688822566},
+      "hgfx": {"convergence_rate": 0.9166666666666666, "median_correlation": 0.4619183690777424, "median_standardized_rmse": 2.3591268886719896},
+      "shared_failed_criteria": ["median_correlation", "median_standardized_rmse"]
+    },
+    "uhgf_binary": {
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "matlab": {"convergence_rate": 0.7916666666666666, "median_correlation": 0.3809683135827406, "median_standardized_rmse": 2.9578866196547637},
+      "hgfx": {"convergence_rate": 0.7916666666666666, "median_correlation": 0.38096831359106725, "median_standardized_rmse": 2.9578866180685117},
+      "shared_failed_criteria": ["convergence_rate", "median_correlation", "median_standardized_rmse"]
+    }
+  },
+  "model_recovery": {
+    "classification": "PASS_PAIRED_MODEL_SELECTION",
+    "winner_matches": 36,
+    "total_cases": 36,
+    "matlab_balanced_accuracy": 0.5833333333333334,
+    "hgfx_balanced_accuracy": 0.5833333333333334,
+    "mismatched_cases": []
+  },
+  "criteria_unchanged": {
+    "convergence_rate_min": 0.8,
+    "median_correlation_min": 0.5,
+    "median_standardized_rmse_max": 1.0,
+    "model_balanced_accuracy_min": 0.5
+  },
+  "evidence_integrity": {
+    "historical_m18_scientific_fail_preserved": true,
+    "failed_or_nonconverged_cases_dropped": false,
+    "seeds_changed_after_results": false,
+    "datasets_or_grid_changed_after_results": false,
+    "starts_or_optimizer_changed_after_results": false,
+    "thresholds_relaxed": false,
+    "hgf_semantic_defect_repair_commit": "0239f52f772825e0a4fc74cdf3559cafa18a603e",
+    "termination_measurement_fix_commit": "96daac8e8fe889deaf1c8c4b5f92f2c6f676262c",
+    "unresolved_required_scope_implementation_mismatch": false,
+    "unresolved_required_scope_optimizer_mismatch": false,
+    "unresolved_required_scope_model_selection_mismatch": false
+  },
+  "release_scope_note": "Acceptable only for the complete frozen m18-s7-paired-recovery-1 grid. This is not a scientific recovery PASS and must not be generalized to other horizons, seeds, data, truth scales, starts, models, observation models, or optimizers."
+}
