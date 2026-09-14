@@ -7,7 +7,7 @@ Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Objective
 
-Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF Toolbox 8.2.0, with no MATLAB runtime dependency for users. Compatibility is judged under the frozen tiered equivalence and reference-limitations policies. Historical failures remain historical failures even when a later exact-scope limitation is accepted.
+Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF Toolbox 8.2.0, with no MATLAB runtime dependency for users. Compatibility is judged under the frozen tiered equivalence and reference-limitations policies. Historical and prospective failures remain immutable even when a later exact-scope limitation is release-acceptable.
 
 ## Current baseline
 
@@ -16,11 +16,12 @@ Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF T
 | Historical M18 scientific experiment | FAIL, preserved | immutable historical gate |
 | M0-M17 | PASS in documented scopes | gate documents/evidence |
 | D02 direct fit gate | FAIL, preserved | optimizer/inference mismatch |
-| D02 exact official release disposition | **REFERENCE_LIMITATION_MATCH** | decision record + run `34837033370` evidence chain |
-| D02 model selection | PASS_MODEL_SELECTION_PARITY | exact paired MATLAB/HGFX behavior |
-| D04 uHGF→AR(1) | PASS | run `34763542557` |
-| Historical 512 case | REFERENCE_LIMITATION_MATCH | exact case only |
-| D08 prospective Level-2 holdout | **FAIL / BLOCKED** | one of two frozen seeds failed |
+| D02 exact official release disposition | **REFERENCE_LIMITATION_MATCH** | `M18_D02_REFERENCE_LIMITATION.md` |
+| D08 prospective Level-2 holdout | **FAIL, preserved** | repaired-product run `34842943696` |
+| D08 exact failed-seed release disposition | **REFERENCE_LIMITATION_MATCH** | `M18_D08_REFERENCE_LIMITATION.md`; MATLAB self-sensitivity run `34846375826` |
+| D09 official sampleModel workflow | **PASS** | run `34842943557`, artifact `10346184455`, SHA-256 `6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c` |
+| D10/D11 analysis surfaces | **PASS** | run `34847266268`, artifact `10348099156`, SHA-256 `a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317` |
+| D12 Bayesian parameter averaging | **PASS** | run `34854238549`, job `104009543024`, artifact `10352486569`, SHA-256 `14ab041b2473a13496377f63d6d1897578d1785128406eadbc1d6d44ae119883` |
 | v1 release | OPEN | issue #24 |
 
 ## Ordered work packages
@@ -29,55 +30,48 @@ Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF T
 |---|---|---|
 | S1 policy/semantics | DONE | tiered equivalence + reference-limit policies frozen |
 | S2 D04 official workflow | PASS | exact workflow validated |
-| S3 remaining workflow contracts | IN PROGRESS | D09-D12/source-output mapping frozen |
-| S4 binary demos | **release-acceptable in current exact official scope** | D01/D03/D05 direct PASS; D02 exact-scope reference limitation disclosed |
-| S5 continuous demos | IN PROGRESS | D08 remains blocking; D06/D07 healthy |
-| S6 analysis/output surfaces | OPEN/TODO | D10-D12 closed |
-| S7 paired recovery | OPEN/TODO | paired MATLAB/HGFX parameter/model recovery completed |
-| S8 evidence-backed repairs | IN PROGRESS | no required unresolved HGFX-only implementation/optimizer/model-selection mismatch |
+| S3 remaining workflow contracts | **DONE** | D09-D12/source-output mapping implemented and validated |
+| S4 binary demos | **release-acceptable in current exact official scope** | D01/D03/D05 direct PASS; D02 exact-scope reference limitation disclosed; D09 PASS |
+| S5 continuous demos | **release-acceptable in current exact official scope** | D06/D07 healthy; D08 failed holdout preserved + exact failing-seed reference-limitation disposition |
+| S6 analysis/output surfaces | **PASS** | D10/D11/D12 evidence-backed PASS |
+| S7 paired recovery | **NOW / IN PROGRESS** | paired MATLAB/HGFX parameter/model recovery completed on frozen protocol |
+| S8 evidence-backed repairs | OPEN/conditional | repair only demonstrated required-scope HGFX-only mismatches from S7 |
 | S9 robustness/backend | OPEN/TODO | robustness + CPU/JAX/physical-GPU applicability matrix closed |
 | S10 release acceptance | OPEN/TODO | aggregate evidence, install/docs/examples/licenses/no-MATLAB-runtime complete |
 
-## D02 — exact official workflow resolved as a reference limitation
+## D02 disposition
 
-D02 remains a direct parity failure and historical inference failure, but is no longer treated as an unresolved HGFX-only defect for the exact official workflow.
+D02 remains a direct/inference failure but is release-acceptable only in the exact official scope as `REFERENCE_LIMITATION_MATCH`. Shared-vector objectives pass, optimizer transition replay agrees, localized residuals are binary64-scale, and the frozen MATLAB reference itself leaves the existing endpoint gate for all six preregistered one-spacing start perturbations. See `../validation/M18_D02_REFERENCE_LIMITATION.md`.
 
-The evidence sequence was deliberately narrowed before acceptance:
+## D08 disposition
 
-1. corrected frozen 9-point same-vector classifier: `OPTIMIZER_NUMERICAL_BASIN_CANDIDATE`, all points pass;
-2. exact-state quasi-Newton transition replay: machine-level agreement;
-3. frozen optimizer-source probe: exact source objective; first off-centre difference `2.842170943040401e-14`, log-likelihood only; MATLAB-sample Ridders replay exact;
-4. frozen source-likelihood probe: inference states exact; trial likelihood residuals at binary64 scale, max `8.881784197001252e-16`; MATLAB's own vector/scalar reductions differ at `1.1368683772161603e-13`;
-5. prospectively frozen MATLAB self-sensitivity probe: official baseline replay exact; all six independent `+/-eps(x)` start perturbations (`4.440892098500626e-16`) produce endpoints outside the existing gate, with free-parameter displacement up to about `1.5077`.
+The prospective Level-2 holdout remains failed and visible: seed `271828182` passed; seed `314159265` remained `INFERENCE_EQUIVALENCE_FAIL` after the evidence-linked USDCHF prior repair.
 
-Decision: `../validation/M18_D02_REFERENCE_LIMITATION.md` and `../../reference/validation/m18_d02_reference_limitation/decision.json` => **REFERENCE_LIMITATION_MATCH**, exact official scope only.
+For the exact failing seed only, release accounting is now `REFERENCE_LIMITATION_MATCH` because:
 
-This does not change the original direct failure, widen a tolerance, or imply generic D02-family stability.
+- exact MATLAB-endpoint replay has no mismatch;
+- shared-state objective/gradient and quasi-Newton transition localization does not demonstrate a material HGFX-only semantic defect;
+- source-likelihood localization is exact in the observation outputs/reduction used by the selected diagnostic sample;
+- MATLAB self-sensitivity run `34846375826` reproduces the baseline endpoint exactly, then 13/14 independent `+/-eps(x)` start perturbations leave the unchanged endpoint gate.
 
-## D08 — active fit-workflow blocker
+See `../validation/M18_D08_REFERENCE_LIMITATION.md` and `../../reference/validation/m18_d08_reference_limitation/decision.json`.
 
-The prospectively frozen Level-2 holdout remains failed: seed `271828182` PASS, seed `314159265` `INFERENCE_EQUIVALENCE_FAIL`.
-
-Localization now shows:
-
-- exact shared-state objective/gradient and QN transition evidence around the failed path classify `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`;
-- the USDCHF placeholder/prior mismatch was a real implementation discrepancy and has been repaired/validated exactly (`NO_PRIOR_DIVERGENCE`, run `34836421030`);
-- the repaired product still fails the hard holdout seed, so the remaining issue is optimizer/path conditioning rather than unresolved prior semantics.
-
-Next decision branch:
-
-- freeze and run a MATLAB-only self-sensitivity diagnostic on the failing seed without changing its official start or failed holdout record;
-- if the reference itself demonstrates comparable binary64-scale basin sensitivity, evaluate exact-scope `REFERENCE_LIMITATION_MATCH` under the existing policy;
-- otherwise continue regression-first localization of the earliest path-sensitive numerical operation;
-- D08 remains **BLOCKED** until one release-acceptable route is actually evidenced.
+This does **not** convert the holdout to PASS and does not generalize beyond seed `314159265` in the frozen workflow.
 
 ## Anti-endless-patching rule
 
-Do not chase a floating-point micro-difference merely because it exists. Repair it only when frozen evidence links it to a required semantic mismatch. D02 now demonstrates why: one-ULP-scale perturbations inside the MATLAB reference itself can move the optimizer to a different basin. That evidence supports an exact-scope reference limitation, not a global tolerance increase.
+Do not chase floating-point micro-differences merely because they exist. Repair only when frozen evidence links a difference to a required semantic mismatch. Exact-scope reference sensitivity can justify a disclosed `REFERENCE_LIMITATION_MATCH`; it never justifies global tolerance widening or post-hoc seed/start/grid changes.
 
-## After D08
+## S7 — paired recovery next
 
-Proceed in order: D09-D12 → paired recovery → evidence-backed repairs → robustness/backend applicability → aggregate evidence/release checks → M19 evidence freeze → M20 v1 candidate.
+Use a separately frozen paired product protocol, not the historical M18 gate as a substitute. MATLAB and HGFX must receive the same truth/data/config/free-fixed parameter semantics/starts/candidate models and selection rule. Preserve all failed fits and classifications. The historical M18 scientific FAIL remains untouched.
+
+Required paired work:
+
+1. parameter recovery for `hgf_binary`, `ehgf_binary`, `uhgf_binary` on the frozen original 128/256-trial and 0.15/0.35 prior-SD grid;
+2. candidate-model recovery with the same generated datasets and BIC winner rule, retaining AIC as diagnostic;
+3. classify each material mismatch as implementation, optimizer/numerical, model-selection, reference limitation, or insufficient evidence;
+4. keep issue #21 / M18C.2 as a separate preregistered 128/256/512/1024 horizon extension rather than changing the original grid.
 
 ## Evidence contract
 
@@ -85,4 +79,4 @@ Every required result records reference/HGFX SHA, protocol version, data/config/
 
 ## Release interpretation
 
-M18/v1 remains OPEN until every required surface is evidence-backed under frozen policies. `REFERENCE_LIMITATION_MATCH` is release-acceptable only in its documented exact scope and never rewrites the corresponding historical/direct failure.
+M18/v1 remains OPEN. D02/D08 exact-scope reference limitations and D09-D12 completion remove the previous workflow-surface blockers, but paired recovery, robustness/backend applicability, aggregate evidence, clean install/examples/docs/API/licenses and no-MATLAB-runtime verification are still required before M19 evidence freeze and M20 v1 candidate.

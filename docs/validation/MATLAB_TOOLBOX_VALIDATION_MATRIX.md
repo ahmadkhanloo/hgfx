@@ -15,15 +15,15 @@ Acceptance is scientific/functional equivalence under `MATLAB_EQUIVALENCE_POLICY
 | V03 uHGF forward | M6 | PASS |
 | V04 observations | M7 | PASS |
 | V05 objective | M8 | PASS |
-| V06 fitting | M9 + M18 | direct gate has 2 failures; D02 exact scope accepted as reference limitation; D08 open |
-| V07 Hessian/covariance/LME | M10 + M18 | historical core PASS; D02 exact limitation disclosed; D08 open |
-| V08 simulation | M11/M12 | historical core PASS; demo wrappers remain |
-| V09 parameter recovery | M18/M18A/M18B/future paired | IN PROGRESS; historical M18 FAIL preserved |
-| V10 model recovery/selection | paired recovery/demo evidence | IN PROGRESS; D02 model-selection parity PASS |
+| V06 fitting | M9 + M18 | direct gate has 2 preserved failures; D02 exact official scope and D08 exact failed-seed scope are release-acceptable reference limitations |
+| V07 Hessian/covariance/LME | M10 + M18 | historical core PASS; D02/D08 exact limitations disclosed where direct fit paths diverge |
+| V08 simulation | M11/M12 + D09 | historical core PASS; official D09 sampleModel workflow PASS |
+| V09 parameter recovery | M18/M18A/M18B/S7 paired | **IN PROGRESS**; historical M18 FAIL preserved, paired same-oracle protocol next |
+| V10 model recovery/selection | S7 paired + demo evidence | **IN PROGRESS**; D02 model-selection parity PASS, full paired recovery next |
 | V11 robustness | S9 | OPEN/TODO |
 | V12 CPU/GPU agreement | M14-M17 + S9 audit | prior scopes PASS; final applicability OPEN |
-| V13 official MATLAB workflows | M18 official/demo suites | **IN PROGRESS / D08 BLOCKED**; D02 exact official scope = REFERENCE_LIMITATION_MATCH |
-| V14 MATLAB limitations | paired limitation registry | exact 512 case + exact D02 official case are REFERENCE_LIMITATION_MATCH; no generalization |
+| V13 official MATLAB workflows | M18 official/demo suites | **release-acceptable in completed D01-D12 exact scopes; paired recovery still open** |
+| V14 MATLAB limitations | paired limitation registry | exact 512 case + exact D02 official case + exact D08 failed holdout seed are REFERENCE_LIMITATION_MATCH; no generalization |
 
 ## Official fit/Bayes closure
 
@@ -39,34 +39,45 @@ Direct gate remains **7/9 PASS**. Direct failures are retained for D02_fit and D
 | D06_bayes | PASS | PASS |
 | D06_fit | PASS | PASS |
 | D07_fit | PASS | PASS |
-| D08_fit | FAIL / optimizer mismatch | **BLOCKED; prospective Level-2 holdout failed** |
+| D08_fit | FAIL / optimizer mismatch | **REFERENCE_LIMITATION_MATCH — exact failed seed `314159265`; prospective Level-2 FAIL preserved** |
 
 ## D02 evidence and scope
 
 Decision record: `../../reference/validation/m18_d02_reference_limitation/decision.json`.
 
-- same-vector basin run `34829122057`: all 9 frozen objective points pass;
-- optimizer-source run `34835728961`: exact source objective; first off-centre likelihood-only residual `2.842170943040401e-14`; MATLAB-sample Ridders replay exact;
-- source-likelihood run `34836421105`: inference states exact; trial likelihood differences <= `8.881784197001252e-16`; binary64 primitive/reduction localization;
-- MATLAB self-sensitivity run `34837033370`: baseline exact, 6/6 independent +/- one-spacing starts materially change fitted endpoint; classification `MATLAB_START_ULP_BASIN_SENSITIVE`.
+The exact official D02 workflow is accepted as a reference numerical-basin limitation. Direct/inference failures remain visible. This disposition does not cover other seeds/regimes.
 
-This establishes an optimizer/numerical-basin limitation in the frozen reference for the exact D02 workflow. It does not erase the direct failure and does not cover other seeds/regimes.
+## D08 evidence and scope
 
-## D08 evidence
+Decision record: `../../reference/validation/m18_d08_reference_limitation/decision.json`.
 
 The frozen prospective holdout remains failed: seed `271828182` PASS, seed `314159265` `INFERENCE_EQUIVALENCE_FAIL`.
 
-Failed-holdout optimizer run `34829121895` classifies `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`: exact shared-state objectives pass, gradient residuals are tiny, and QN step/inverse-Hessian replays are machine-level around the first path split.
+For seed `314159265` only:
 
-USDCHF placeholder/prior preparation is now exact after the evidence-linked repair: run `34836421030` => `NO_PRIOR_DIVERGENCE`, all compared prior inputs/terms/totals exact. The hard holdout still fails post-repair, so D08 remains **BLOCKED**.
+- repaired-product holdout run `34842943696`, artifact `10347616859`, SHA-256 `8cbb16de519204710662d8bf0b94c2510df8c2e53f9427897b9f55d7d0b499f1` preserves the failure and has exact MATLAB-endpoint replay;
+- optimizer localization run `34842943657`, artifact `10347682339`, SHA-256 `3d94f74c71e5bf6bcdd8971d647ddba31f5a087cb4f3cb9a933c6a6e3c33518a` => `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`;
+- MATLAB self-sensitivity run `34846375826`, artifact `10348900752`, SHA-256 `42874a324ef408205452516f0abe7497b60d5f12b9f9bf2972df105845f907f6`: baseline exact; 13/14 independent one-spacing starts leave the unchanged gate.
+
+Release classification: **REFERENCE_LIMITATION_MATCH**, exact failing-seed scope only. This does not turn the prospective holdout into PASS.
+
+## D09-D12 workflow/output coverage
+
+| Case | Surface | Status | Evidence |
+|---|---|---|---|
+| D09 | official sampleModel / prior-predictive workflow | PASS | run `34842943557`, artifact `10346184455`, SHA `6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c` |
+| D10 | Corr/Sigma analysis/plot data | PASS | run `34847266268`, artifact `10348099156`, shared D10/D11 SHA `a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317` |
+| D11 | residual diagnostics surface | PASS | run `34847266268`, artifact `10348099156`, shared D10/D11 SHA `a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317` |
+| D12 | Bayesian parameter averaging | PASS | run `34854238549`, job `104009543024`, artifact `10352486569`, SHA `14ab041b2473a13496377f63d6d1897578d1785128406eadbc1d6d44ae119883` |
 
 ## Established reference-aware cases
 
 - D02 exact official fit: `REFERENCE_LIMITATION_MATCH`, exact scope only.
+- D08 exact failing holdout seed `314159265`: `REFERENCE_LIMITATION_MATCH`, exact scope only; holdout FAIL preserved.
 - D02 model-family behavior: `PASS_MODEL_SELECTION_PARITY`.
 - D04 uHGF→AR(1): PASS on run `34763542557`.
 - exact historical 512-trial case: `REFERENCE_LIMITATION_MATCH`, exact case only.
 
 ## Remaining release validation
 
-Resolve D08 under frozen policy; close D09-D12 surfaces; paired parameter/model recovery; evidence-backed repairs; robustness/backend applicability including physical GPU where needed; aggregate evidence/provenance; release packaging/install/docs/no-MATLAB-runtime.
+The next unresolved gate is S7 paired parameter/model recovery on the frozen original grid and same MATLAB/HGFX oracle inputs. Then perform evidence-backed repairs if needed, robustness/backend applicability including physical GPU where required, aggregate evidence/provenance, and release packaging/install/docs/no-MATLAB-runtime verification.

@@ -30,24 +30,38 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFER
 - Historical M18 scientific result: FAIL, preserved.
 - Official direct fit/Bayes gate remains **7/9 direct PASS**; D02_fit and D08_fit remain direct failures.
 - D02 exact official workflow: **REFERENCE_LIMITATION_MATCH** for release accounting; direct/inference failures preserved.
+- D08 prospective Level-2 holdout: **FAIL preserved**; exact failed seed `314159265`: **REFERENCE_LIMITATION_MATCH** for release accounting only.
 - D02 model selection: `PASS_MODEL_SELECTION_PARITY`.
 - D04 uHGF→AR(1): PASS, run `34763542557`.
 - Historical exact 512 case: `REFERENCE_LIMITATION_MATCH` for that exact case.
-- D08: **BLOCKED** after failed prospective Level-2 holdout.
+- D09 official sampleModel workflow: PASS, run `34842943557`.
+- D10/D11 analysis/output surfaces: PASS, run `34847266268`.
+- D12 Bayesian parameter averaging: PASS, run `34854238549`.
 
 ### D02 — accepted exact-scope reference limitation
 
 Decision record: `../../reference/validation/m18_d02_reference_limitation/decision.json`.
 
-Key frozen reference evidence is run `34837033370`, job `103953084600`, artifact `10344991786`, SHA-256 `9bb57f50b05d0fd2e6fb33badd265fec817c8c2308036d51d92e4f24a6e5e4ec`: the official MATLAB baseline replay is exact, while each of six independent one-local-spacing start perturbations moves the final endpoint outside the existing gate. Earlier same-vector, QN replay, optimizer-source, and source-likelihood diagnostics establish that the HGFX split occurs after shared semantics and at binary64-scale primitive/reduction residuals.
+D02 remains a direct/inferential failure. Shared-state and source-level localization plus frozen MATLAB one-spacing self-sensitivity evidence establish an exact-workflow numerical-basin reference limitation. This disposition is not generalizable.
 
-Release interpretation: D02 no longer counts as an unresolved HGFX-only mismatch in this exact official scope. It is not direct parity, not inferential PASS, and not generalizable.
+### D08 — accepted exact failed-seed reference limitation, prospective FAIL preserved
 
-### D08 — BLOCKED
+Decision record: `../../reference/validation/m18_d08_reference_limitation/decision.json`.
 
-The prospectively frozen Level-2 endpoint-sensitivity holdout failed. The failed seed/rules remain immutable. Focused optimizer evidence now classifies the failing path as `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`.
+The prospectively frozen Level-2 holdout remains failed as a set. The exact failing seed `314159265` is release-acceptable only as `REFERENCE_LIMITATION_MATCH` because:
 
-The previously observed USDCHF prior-input discrepancy has been repaired and independently validated exactly: run `34836421030`, job `103951169992`, artifact `10343484736`, SHA-256 `8e0028dbad33a007246e41bcf29bb54e91820b259ae9338641aa28412317c480`, classification `NO_PRIOR_DIVERGENCE`. The hard holdout still fails after that product repair, so D08 remains unresolved.
+- repaired-product holdout run `34842943696` still fails while exact MATLAB-endpoint replay has no mismatch;
+- shared-state objective/gradient and exact-state quasi-Newton transition localization classify `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`;
+- after the evidence-linked prior repair, the selected source-likelihood sample reproduces the relevant observation outputs/reduction exactly;
+- frozen MATLAB self-sensitivity run `34846375826` reproduces baseline exactly, then 13/14 independent one-local-spacing start perturbations leave the unchanged endpoint gate.
+
+This is not direct parity, not Level-2 PASS, not a replacement seed, and not a tolerance relaxation.
+
+### D09-D12 — closed workflow/output surfaces
+
+- D09: run `34842943557`, artifact `10346184455`, SHA-256 `6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c`.
+- D10/D11: run `34847266268`, artifact `10348099156`, SHA-256 `a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317`.
+- D12: run `34854238549`, job `104009543024`, artifact `10352486569`, SHA-256 `14ab041b2473a13496377f63d6d1897578d1785128406eadbc1d6d44ae119883`.
 
 ## Accepted result semantics
 
@@ -57,6 +71,14 @@ The previously observed USDCHF prior-input discrepancy has been repaired and ind
 - `REFERENCE_LIMITATION_MATCH`: exact paired MATLAB limitation, disclosed and scope-limited.
 
 Historical/direct and prospective failures remain immutable evidence.
+
+## Current release blocker sequence
+
+1. **S7 paired parameter/model recovery** on a new frozen same-oracle protocol.
+2. S8 repairs only if S7 demonstrates a required-scope HGFX-only mismatch.
+3. S9 robustness/backend/physical-GPU applicability closure.
+4. S10 aggregate evidence, install/examples/docs/API/licenses and no-MATLAB-runtime verification.
+5. M19 evidence freeze, then M20 v1.0 candidate.
 
 ## M18/v1 exit conditions
 
@@ -68,9 +90,9 @@ Historical/direct and prospective failures remain immutable evidence.
 - [ ] No unresolved required HGFX-only implementation/optimizer/model-selection mismatch
 - [ ] Paired parameter/model recovery complete
 - [ ] Robustness/backend/physical-GPU applicability matrix complete
-- [ ] D09-D12 and other required output surfaces closed
+- [x] D09-D12 required output surfaces closed
 - [ ] Aggregate evidence checker/report passes
 - [ ] Clean install/examples/docs/API/licenses verified
 - [ ] Zero MATLAB runtime dependency verified
 
-After these: M19 evidence freeze, then M20 v1.0 Candidate.
+The release remains **OPEN**. Exact-scope D02/D08 dispositions and D09-D12 completion do not close paired recovery or backend/release gates.
