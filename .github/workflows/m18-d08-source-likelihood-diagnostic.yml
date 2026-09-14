@@ -10,6 +10,9 @@ on:
       - 'tools/check_m18_d08_source_likelihood_probe.py'
       - 'src/hgfx/responses/gaussian.py'
       - 'src/hgfx/compat/objective.py'
+      - 'src/hgfx/models/_forward_common.py'
+      - 'src/hgfx/models/hgf.py'
+      - 'tests/unit/test_m18_d08_continuous_exp_regression.py'
 
 jobs:
   d08-source-likelihood-diagnostic:
@@ -27,6 +30,8 @@ jobs:
           release: latest
       - name: Install HGFX
         run: python -m pip install -e .
+      - name: Regression for continuous MATLAB exp semantics
+        run: python -m pytest tests/unit/test_m18_d08_continuous_exp_regression.py -q
       - name: Verify frozen MATLAB reference
         run: python scripts/verify_reference_freeze.py
       - name: Export frozen D08 source likelihood sample

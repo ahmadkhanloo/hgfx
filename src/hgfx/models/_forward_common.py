@@ -57,7 +57,10 @@ def continuous_native_parameters(parameters, *, transformed: bool) -> tuple[np.n
     if l < 2:
         raise ValueError("continuous HGF requires at least two levels")
     if transformed:
-        p[l : 2 * l] = np.exp(p[l : 2 * l])
-        p[3 * l : 4 * l - 1] = np.exp(p[3 * l : 4 * l - 1])
-        p[5 * l - 1] = np.exp(p[5 * l - 1])
+        # Frozen hgf_transp.m applies MATLAB exp to sa_0, kappa and pi_u.
+        # Use the compatibility exponential here as in the binary path; a
+        # one-ULP np.exp residual in D08 sa_0 is amplified by Ridders fitting.
+        p[l : 2 * l] = matlab_exp(p[l : 2 * l])
+        p[3 * l : 4 * l - 1] = matlab_exp(p[3 * l : 4 * l - 1])
+        p[5 * l - 1] = matlab_exp(p[5 * l - 1])
     return p, l
