@@ -8,7 +8,7 @@ import numpy as np
 
 from hgfx.core.trials import build_time_axis
 from hgfx.math.logistic import sigmoid
-from hgfx.math.matlab_exp import matlab_exp_scalar
+from hgfx.math.matlab_exp import matlab_exp_scalar, matlab_theta_exp_scalar
 from hgfx.updates.binary_l1 import hgf_binary_level1
 from hgfx.updates.binary_l2 import hgf_binary_level2
 from hgfx.updates.precision_prediction import hgf_pihat, hgf_pihat_last
@@ -50,12 +50,10 @@ def hgf_binary_unified(
     ka = p[3 * l : 4 * l - 1]
     om = p[4 * l - 1 : 5 * l - 2]
 
-    # Keep the top-level tonic-volatility transform on NumPy/libm. The frozen
-    # MATLAB D02 oracle shows exp(1.0)=2.718281828459045 on this path; routing
-    # theta through the fdlibm-compatible helper produces the next binary64
-    # value and creates the first residual eHGF state divergence at trial 3.
-    # Other compatibility-sensitive exp call sites remain on matlab_exp_scalar.
-    th = np.exp(np.float64(p[5 * l - 2]))
+    # The frozen D02 oracle shows path-specific binary64 rounding for the
+    # top-level tonic-volatility transform. Keep this separate from the
+    # fdlibm-compatible sigmoid/observation exponential path.
+    th = matlab_theta_exp_scalar(p[5 * l - 2])
 
     u = np.concatenate((np.asarray([0.0], dtype=np.float64), values))
     n = u.size

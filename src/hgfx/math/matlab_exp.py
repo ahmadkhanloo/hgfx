@@ -1,10 +1,12 @@
-"""MATLAB-compatible binary64 exponential for frozen HGF numerics.
+"""MATLAB-compatible binary64 exponentials for frozen HGF numerics.
 
-The HGF reference is evaluated in MATLAB.  At D02 fitting precision, platform
+The HGF reference is evaluated in MATLAB. At D02 fitting precision, platform
 libm differences of one ULP in ``exp`` are amplified by Ridders finite
-differences and the quasi-Newton path.  This implementation follows the
-classic fdlibm binary64 range reduction and polynomial used by the reference
-numerics observed in the frozen MATLAB evidence.
+differences and the quasi-Newton path. ``matlab_exp_scalar`` follows the
+classic fdlibm binary64 range reduction and polynomial that reproduce the
+observed frozen MATLAB sigmoid/observation numerics. The top-level theta path
+has separate observed rounding behavior and is handled by
+``matlab_theta_exp_scalar``.
 """
 
 from __future__ import annotations
@@ -81,6 +83,30 @@ def matlab_exp_scalar(value: float) -> np.float64:
             y = math.ldexp(y, k + 1000) * 2.0**-1000
 
     return np.float64(y)
+
+
+def matlab_theta_exp_scalar(value: float) -> np.float64:
+    """Reproduce observed frozen-MATLAB rounding for binary-HGF theta ``exp``.
+
+    This is intentionally path-specific. The D02 MATLAB oracle shows that the
+    top-level tonic-volatility transform rounds differently from the
+    sigmoid/observation exponential at some binary64 inputs. ``expm1(x) + 1``
+    reproduces the currently frozen theta oracle values while preserving the
+    existing theta regression at ``x == 1``. This does not assert anything
+    about MATLAB's internal implementation.
+    """
+
+    x = float(np.float64(value))
+    if math.isnan(x):
+        return np.float64(math.nan)
+    if x == math.inf:
+        return np.float64(math.inf)
+    if x == -math.inf:
+        return np.float64(0.0)
+    try:
+        return np.float64(math.expm1(x) + 1.0)
+    except OverflowError:
+        return np.float64(math.inf)
 
 
 def matlab_exp(values):

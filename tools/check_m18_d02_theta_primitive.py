@@ -11,7 +11,7 @@ import numpy as np
 from check_m18_demo_uhgf_ar1 import REFERENCE_COMMIT, _array
 from hgfx.compat.workflows import WorkflowFitProblem, resolve_config
 from hgfx.core.trials import build_trial_masks
-from hgfx.math.matlab_exp import matlab_exp_scalar
+from hgfx.math.matlab_exp import matlab_exp_scalar, matlab_theta_exp_scalar
 
 ORDER = (
     "logsa0_last",
@@ -85,9 +85,7 @@ def main(reference_path: Path, output_path: Path) -> int:
     sa0_last = matlab_exp_scalar(logsa0_last)
     pi_prev_last = np.float64(1.0) / sa0_last
     logtheta = np.float64(full[5 * l - 2])
-
-    # Deliberately mirror the current HGFX theta path under diagnosis.
-    theta = np.exp(logtheta)
+    theta = matlab_theta_exp_scalar(logtheta)
 
     t_first = np.float64(1.0)
     reciprocal_pi_prev = np.float64(1.0) / pi_prev_last

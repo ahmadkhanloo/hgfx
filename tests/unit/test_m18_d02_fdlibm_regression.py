@@ -4,6 +4,7 @@ import numpy as np
 
 from hgfx.core.transforms import EXPONENTIAL
 from hgfx.math.logistic import sigmoid
+from hgfx.math.matlab_exp import matlab_theta_exp_scalar
 from hgfx.models.hgf_binary import hgf_binary_unified
 
 
@@ -11,9 +12,9 @@ from hgfx.models.hgf_binary import hgf_binary_unified
 # The first two scalar oracles are from artifact 10323083435 (run 34774452669).
 # The original theta-path state oracle is from artifact 10323968264
 # (run 34776952053), sample parameter_2_first_ridders_minus.
-# The current-theta oracle is from focused run 34814568833 / artifact 10336306653,
-# sample parameter_2_ridders_plus_step_8. No tolerance is used: these fixtures
-# freeze exact binary64 values observed before optimizer-path amplification.
+# The current theta oracles are from focused run 34814568833 / artifact
+# 10336306653. No tolerance is used: these fixtures freeze exact binary64
+# values observed before optimizer-path amplification.
 
 
 def test_d02_first_sigmoid_divergence_matches_matlab_oracle_exactly():
@@ -64,8 +65,6 @@ def test_d02_theta_path_matches_matlab_sahat_at_first_residual_divergence():
 
 def test_d02_current_theta_plus_matches_matlab_first_sahat_exactly():
     # Current residual argmax sample: parameter 2, Ridders plus step 8.
-    # MATLAB theta = 9.767706089455686 while the pre-fix NumPy theta path gives
-    # 9.767706089455684; the first-level-3 sahat therefore differs immediately.
     ptrans = np.asarray(
         [
             np.nan,
@@ -94,3 +93,13 @@ def test_d02_current_theta_plus_matches_matlab_first_sahat_exactly():
     )
     expected_sahat_trial1_level3 = np.float64(10.767706089455686)
     assert inf_states[0, 2, 1] == expected_sahat_trial1_level3
+
+
+def test_d02_theta_exp_scalar_matches_current_matlab_oracles_exactly():
+    # Direct theta values exported by the frozen MATLAB diagnostic.
+    assert matlab_theta_exp_scalar(np.float64(2.2790816472336535)) == np.float64(
+        9.767706089455686
+    )
+    assert matlab_theta_exp_scalar(np.float64(1.7674319606386222)) == np.float64(
+        5.855796120933755
+    )
