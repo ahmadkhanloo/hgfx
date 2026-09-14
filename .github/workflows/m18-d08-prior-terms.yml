@@ -1,0 +1,35 @@
+name: M18 D08 Prior Terms
+
+on:
+  pull_request:
+    paths:
+      - 'reference/matlab/export_m18_d08_prior_terms.m'
+      - 'tools/check_m18_d08_prior_terms.py'
+      - '.github/workflows/m18-d08-prior-terms.yml'
+      - 'src/hgfx/**'
+  workflow_dispatch:
+
+jobs:
+  d08-prior-terms:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - run: python -m pip install -e .
+      - run: python scripts/verify_reference_freeze.py
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d08_prior_terms(fullfile(pwd,'reference','generated','m18_d08_prior_terms.json'))
+      - run: python tools/check_m18_d08_prior_terms.py reference/generated/m18_d08_prior_terms.json --output reference/generated/m18_d08_prior_terms_comparison.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m18-d08-prior-terms
+          path: reference/generated/m18_d08_prior_terms*.json
+          if-no-files-found: error
