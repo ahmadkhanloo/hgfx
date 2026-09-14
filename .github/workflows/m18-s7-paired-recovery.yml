@@ -13,6 +13,11 @@ on:
       - 'tools/aggregate_m18_s7_paired_recovery.py'
       - 'docs/validation/M18_S7_PAIRED_RECOVERY_PROTOCOL.md'
       - 'reference/validation/m18_s7_paired_recovery/protocol.json'
+      - 'tools/prepare_m18_s7_hgf_anomaly_review.py'
+      - 'reference/matlab/run_m18_s7_hgf_anomaly_review.m'
+      - 'tools/check_m18_s7_hgf_anomaly_review.py'
+      - 'docs/validation/M18_S7_HGF_ANOMALY_REVIEW.md'
+      - '.github/workflows/m18-s7-hgf-anomaly-review.yml'
       - '.github/workflows/m18-s7-paired-recovery.yml'
 
 jobs:
@@ -107,4 +112,50 @@ jobs:
         with:
           name: m18-s7-paired-recovery-aggregate
           path: reference/generated/m18_s7/aggregate.json
+          if-no-files-found: warn
+
+  hgf-anomaly-review:
+    name: hgf-anomaly-review
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e '.[dev]'
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Regenerate and verify frozen S7 source shards
+        run: |
+          mkdir -p reference/generated/m18_s7_hgf_review
+          python scripts/prepare_m18_s7_paired_recovery.py --model hgf_binary --trials 128 --scale 0.15 --output reference/generated/m18_s7_hgf_review/hgf-t128-s015-manifest.json
+          python scripts/prepare_m18_s7_paired_recovery.py --model hgf_binary --trials 256 --scale 0.35 --output reference/generated/m18_s7_hgf_review/hgf-t256-s035-manifest.json
+      - name: Prepare exact anomaly review input and HGFX baselines
+        run: |
+          python tools/prepare_m18_s7_hgf_anomaly_review.py \
+            reference/generated/m18_s7_hgf_review/hgf-t128-s015-manifest.json \
+            reference/generated/m18_s7_hgf_review/hgf-t256-s035-manifest.json \
+            --output reference/generated/m18_s7_hgf_review/input.json
+      - name: Run frozen MATLAB objective and self-sensitivity review
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_m18_s7_hgf_anomaly_review(fullfile(pwd,'reference','generated','m18_s7_hgf_review','input.json'), fullfile(pwd,'reference','generated','m18_s7_hgf_review','matlab.json'))
+      - name: Classify exact-case evidence
+        run: |
+          python tools/check_m18_s7_hgf_anomaly_review.py \
+            reference/generated/m18_s7_hgf_review/input.json \
+            reference/generated/m18_s7_hgf_review/matlab.json \
+            --output reference/generated/m18_s7_hgf_review/comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-s7-hgf-anomaly-review
+          path: reference/generated/m18_s7_hgf_review/*.json
           if-no-files-found: warn
