@@ -6,6 +6,7 @@ from hgfx.core.transforms import EXPONENTIAL
 from hgfx.math.logistic import sigmoid
 from hgfx.math.matlab_exp import matlab_theta_exp_scalar
 from hgfx.models.hgf_binary import hgf_binary_unified
+from hgfx.responses.unitsq_sigmoid import _core as unitsq_core
 
 
 # Frozen MATLAB R2026a / HGF Toolbox v8.2.0 evidence from M18 artifacts.
@@ -13,8 +14,10 @@ from hgfx.models.hgf_binary import hgf_binary_unified
 # The original theta-path state oracle is from artifact 10323968264
 # (run 34776952053), sample parameter_2_first_ridders_minus.
 # The current theta oracles are from focused run 34814568833 / artifact
-# 10336306653. No tolerance is used: these fixtures freeze exact binary64
-# values observed before optimizer-path amplification.
+# 10336306653. The unitsq log-path oracle is from official run 34815232293 /
+# artifact 10335324950, sample parameter_2_second_ridders_plus, trial 296.
+# No tolerance is used: these fixtures freeze exact binary64 values observed
+# before optimizer-path amplification.
 
 
 def test_d02_first_sigmoid_divergence_matches_matlab_oracle_exactly():
@@ -103,3 +106,17 @@ def test_d02_theta_exp_scalar_matches_current_matlab_oracles_exactly():
     assert matlab_theta_exp_scalar(np.float64(1.7674319606386222)) == np.float64(
         5.855796120933755
     )
+
+
+def test_d02_unitsq_active_log_path_matches_matlab_oracle_exactly():
+    # Frozen MATLAB trial 296 from the current D02 residual sample. This is an
+    # active log(x)/log(1-x) path (neither log1p fallback is selected). The
+    # pre-fix NumPy vector-log path returns +3.552713678800501e-15 instead of
+    # MATLAB's exact 0.0, which is enough to perturb Ridders finite differences.
+    logp, _, _ = unitsq_core(
+        np.asarray([0.0], dtype=np.float64),
+        np.asarray([0.3085140203090296], dtype=np.float64),
+        np.float64(48.000000000000014),
+        irregular_trials=None,
+    )
+    assert logp[0] == np.float64(0.0)
