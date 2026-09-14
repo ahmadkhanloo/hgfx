@@ -1,16 +1,19 @@
 # MATLAB Toolbox Validation Matrix
 
-Last synchronized: 2026-09-13
+Last synchronized: 2026-09-14
 Status: **IN PROGRESS**
 
 ## Purpose
 
-This matrix tracks HGFX v1.0 against the frozen MATLAB HGF Toolbox 8.2.0 behavior. The acceptance target is toolbox workflow/scientific equivalence, not merely internal unit-test success and not forcing one model family to solve every scientific case.
+This matrix tracks HGFX v1.0 against the frozen MATLAB HGF Toolbox 8.2.0 behavior. The acceptance target is toolbox workflow/scientific equivalence, not bit-for-bit identity, internal-unit-test success alone, or forcing one model family to solve every scientific case.
 
 Reference commit: `2437f4dc241541072722a2695ddeca7b44d83dd3`.
 
 Operational ordering: `docs/planning/V1_TODO.md` and `docs/planning/M18_COMPLETION_PLAN.md`.
 Reference-limitation policy: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`.
+Numerical/inferential equivalence policy: `docs/validation/MATLAB_EQUIVALENCE_POLICY.md` (`matlab-equivalence-policy-1`).
+
+The equivalence policy preserves historical failures and existing field tolerances. It does not introduce a generic tolerance increase. It distinguishes exact contract equality, scale-aware numerical equivalence, endpoint-sensitivity numerical equivalence, and separately preregistered inferential equivalence.
 
 ## Validation layers
 
@@ -28,44 +31,64 @@ Reference-limitation policy: `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLIC
 | V10 | Model recovery / model-selection behavior | paired recovery + official demo reference workflows | **IN PROGRESS** — D02 model-selection parity PASS; full model-recovery gate open |
 | V11 | Robustness sweeps | M18/S9 robustness matrix | **OPEN/TODO** |
 | V12 | CPU/GPU numerical agreement | M14-M17 physical-H100 evidence + M18 applicability audit | **PASS in prior validated paths; M18 applicability/remaining-path audit OPEN** |
-| V13 | MATLAB demo/workflow reproduction | official demo/workflow suites | **IN PROGRESS** — D04 PASS; current fit/Bayes closure 7/9 PASS; D02_fit/D08_fit blocking; D09-D12 surfaces remain open |
+| V13 | MATLAB demo/workflow reproduction | official demo/workflow suites | **IN PROGRESS** — historical official closure is 7/9 PASS; D02 remains blocking; D08 has a prospective equivalence holdout pending; D09-D12 surfaces remain open |
 | V14 | MATLAB-equivalent scientific limitations | reference-limitation evidence registry | **IN PROGRESS** — exact historical 512-trial case classified REFERENCE_LIMITATION_MATCH; additional limitations require exact paired evidence |
 
 ## Current official workflow evidence
 
-Latest tested implementation head: `faf97bfdbef1333a6a756749a8ab9d6a5be102b3`.
+Latest unchanged official gate evidence was produced at implementation head `648c3f84905eb7fe952c070e5ee858e48de4a3fa`.
 
-`M18 Official Workflow Closure` run `34763542525`, job `103740409700`:
+`M18 Official Workflow Closure` run `34823572071`, job `103910417693`:
 
-| Case | Status |
-|---|---|
-| D01_bayes | PASS |
-| D01_fit | PASS |
-| D02_fit | **OPTIMIZER_MISMATCH / BLOCKING** |
-| D03_fit | PASS |
-| D05_fit | PASS |
-| D06_bayes | PASS |
-| D06_fit | PASS |
-| D07_fit | PASS |
-| D08_fit | **OPTIMIZER_MISMATCH / BLOCKING** |
+| Case | Historical official-gate status | Current interpretation |
+|---|---|---|
+| D01_bayes | PASS | PASS |
+| D01_fit | PASS | PASS |
+| D02_fit | **OPTIMIZER_MISMATCH / BLOCKING** | **INFERENCE_EQUIVALENCE_FAIL / BLOCKING**; new basin diagnostic preregistered |
+| D03_fit | PASS | PASS |
+| D05_fit | PASS | PASS |
+| D06_bayes | PASS | PASS |
+| D06_fit | PASS | PASS |
+| D07_fit | PASS | PASS |
+| D08_fit | **OPTIMIZER_MISMATCH / BLOCKING** | endpoint-sensitivity candidate; prospective holdout required before acceptance |
 
-Artifact: `m18-official-workflows`, ID `10319853691`, ZIP SHA-256 `2cb5b01bce11b900261a0e309e80bf4220d63ac655417d86bf32539bf1cbf773`.
+Artifact: `m18-official-workflows`, ID `10339454535`, ZIP SHA-256 `78bc7ea18fc55d02d4db8738f2f805d66d4b00a21e2a5b6ad4458b4ce3e9e77b`.
 
-The workflow intentionally fails until all required cases in that gate satisfy the unchanged acceptance criteria.
+The historical workflow remains failed. A later endpoint-sensitivity classification, if prospectively validated, does not rewrite this artifact as a direct numerical PASS.
 
-### D02_fit current diagnosis
+## D08_fit — endpoint-sensitivity candidate
 
-- Exact MATLAB reference solution replay in HGFX: PASS at the existing gate tolerance.
-- Initial Ridders gradient: PASS at the existing acceptance tolerance.
-- MATLAB optimizer-path objective replay: PASS at the existing gate tolerance.
-- Quasi-Newton step/BFGS replay from exact MATLAB state matches to machine precision.
-- Exact MATLAB Ridders finite-difference coordinates expose raw cross-runtime objective differences around `1e-12`, amplified by later optimization.
+Focused endpoint diagnostic run `34823572192`, artifact `10339403480`, ZIP SHA-256 `c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de` established:
 
-Therefore the next evidence task is objective decomposition at those exact finite-difference coordinates; do not alter optimizer/tolerance/seed/data/model settings to force convergence to the MATLAB endpoint.
+- the official residual mismatch is `fit.traj.epsi`, first zero-based index `(175,1)`, HGFX `138.87836008346915` versus MATLAB `138.8783558587791`, absolute difference `4.224690043130642e-6`;
+- the largest fitted transformed-parameter endpoint difference is only `2.5768804867709605e-9` at zero-based parameter index 8;
+- HGFX replay at the exact MATLAB endpoint reproduces the focused MATLAB `epsi` value exactly (`138.8783558587791`);
+- HGFX replay at the exact MATLAB endpoint also reproduces MATLAB `negLj` (`-2323.459762013518`);
+- replacing parameter 8 alone reduces the focused `epsi` discrepancy from `4.713810909606764e-6` to `4.3272243033243285e-7`;
+- the optimizer trace and MATLAB-path objective diagnostics pass the frozen tolerance.
 
-### D08_fit current diagnosis
+Therefore D08 is **not accepted merely by loosening `rtol`**. It is a candidate for `PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY` under `matlab-equivalence-policy-1`.
 
-The only frozen-gate mismatch is `fit.traj.epsi` near trial index 178 (~`3e-6`); reference-point, initial-Ridders, optimizer-trace and MATLAB-path-objective diagnostics otherwise pass. Full-precision final-vector and local state decomposition is required before classification/repair.
+The prospective holdout was frozen before execution with seeds `271828182` and `314159265`, unchanged official data/model/config/optimizer, and unchanged existing field tolerances. Workflow `M18 D08 Equivalence Holdout` is implemented; run `34826235671` was queued at the last synchronization. Until both frozen holdouts pass unchanged, D08 is **IMPLEMENTED BUT NOT VALIDATED** under the new acceptance path.
+
+Calibration evidence is preserved in `reference/validation/m18_d08_endpoint/decision.json` and remains explicitly diagnostic-only.
+
+## D02_fit — inference-level blocker
+
+D02 is not eligible for the D08 endpoint-sensitivity exception. Current evidence includes:
+
+- exact MATLAB reference-point replay: PASS;
+- initial Ridders gradient: PASS at the existing acceptance tolerance;
+- MATLAB optimizer-path objective replay: PASS over 22 sampled points;
+- quasi-Newton step/BFGS replay from exact MATLAB state: machine-level agreement;
+- optimizer trace first material path split at zero-based `(7,0)`: HGFX `0.33948935870343205` versus MATLAB `0.33948938811282225`;
+- materially different fitted endpoint and inference outputs, including `H`, `Sigma`, `Corr`, `LME`, predictions and residuals.
+
+Representative differences from the latest official evidence include `H[0,0]` `0.30808977632407525` versus `0.9998054857037648`, `Sigma[0,0]` `10.242002825962189` versus `1.0001982837227512`, `Corr[0,1]` `-0.8242120336850707` versus `0.0015029079855196361`, and LME `-78.28285368561887` versus `-77.62115775483699`.
+
+Accordingly `reference/validation/m18_d02_inference/decision.json` records **INFERENCE_EQUIVALENCE_FAIL / BLOCKING**. Small objective differences alone cannot override these inference-level differences.
+
+A classification-only cross-endpoint diagnostic is frozen in `docs/validation/M18_D02_BASIN_DIAGNOSTIC.md` (`m18-d02-basin-probe-1`). It evaluates both MATLAB and HGFX objectives at the same preregistered 9-point line between their fitted endpoints using the unchanged default M18 tolerance (`rtol=3e-8`, `atol=3e-10`). It can distinguish `SAME_VECTOR_IMPLEMENTATION_MISMATCH` from `OPTIMIZER_NUMERICAL_BASIN_CANDIDATE`, but **neither result closes D02**. The diagnostic implementation/workflow is present but has not yet produced validated CI evidence at this synchronization.
 
 ## Reference-aware model-family evidence
 
@@ -85,7 +108,7 @@ This proves that v1 compatibility follows MATLAB model-family behavior rather th
 
 ### D04 uHGF -> AR(1) — PASS
 
-Current-head workflow `M18 Demo uHGF AR1 Workflow Parity`, run `34763542557`, completed successfully at `faf97bf...`.
+Workflow `M18 Demo uHGF AR1 Workflow Parity`, run `34763542557`, completed successfully at `faf97bf...`.
 
 Older planning statements that call D04 “IMPLEMENTED BUT NOT VALIDATED” are superseded by this evidence.
 
@@ -95,23 +118,29 @@ The exact historical HGF 512-trial case has paired frozen-reference evidence sho
 
 This is not a general claim of arbitrary 512-trial support and not a scientific PASS.
 
-## Required classification for every non-PASS case
+## Required classification for every non-direct-PASS case
 
-Use exactly one primary class:
+Primary diagnostic/problem classes remain:
 
 - `IMPLEMENTATION_MISMATCH`
 - `OPTIMIZER_MISMATCH`
-- `REFERENCE_LIMITATION_MATCH`
 - `MODEL_SELECTION_MISMATCH`
 - `INSUFFICIENT_REFERENCE_EVIDENCE`
+- `REFERENCE_LIMITATION_MATCH`
 
-`REFERENCE_LIMITATION_MATCH` is acceptable for MATLAB-equivalence v1.0 only when the same limitation is demonstrated on the exact paired MATLAB workflow/regime and there is no earlier HGFX-only divergence.
+Prospective accepted-equivalence outcomes defined by `MATLAB_EQUIVALENCE_POLICY.md` are:
+
+- `PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY`
+- `PASS_INFERENTIAL_EQUIVALENCE`
+
+These accepted-equivalence outcomes require their own frozen evidence and must never be reported as bitwise equality. `REFERENCE_LIMITATION_MATCH` is acceptable only when the same limitation is demonstrated on the exact paired MATLAB workflow/regime and there is no earlier HGFX-only divergence.
 
 ## Remaining release-validation work
 
 See `V1_TODO.md` for checkboxes. In summary:
 
-- close D02_fit and D08_fit without changing the frozen gate;
+- execute and record the frozen D08 prospective holdout without changing its seeds/rules;
+- execute the frozen D02 basin diagnostic, then continue evidence-backed optimizer/conditioning or implementation work according to its classification;
 - finish remaining required demo contract/wrapper coverage including D09;
 - close D10 Corr/Sigma/plot surface, D11 residual diagnostics and D12 Bayesian parameter averaging;
 - execute paired parameter and model recovery;
@@ -121,6 +150,6 @@ See `V1_TODO.md` for checkboxes. In summary:
 
 ## Acceptance
 
-M18/v1 validation is complete only when every required MATLAB workflow/surface has reproducible evidence, every non-PASS case is supported by a valid classification, accepted limitations have exact frozen-reference evidence, and no unresolved HGFX-only implementation/optimizer/model-selection mismatch remains in required scope.
+M18/v1 validation is complete only when every required MATLAB workflow/surface has reproducible evidence, every non-PASS case has a supported classification, accepted limitations/equivalences have exact frozen evidence, and no unresolved HGFX-only implementation/optimizer/model-selection mismatch remains in required scope.
 
 Historical failed experiments must remain preserved rather than rewritten.
