@@ -1,0 +1,53 @@
+{
+  "protocol": "m18-d08-equivalence-holdout-1",
+  "policy": "docs/validation/MATLAB_EQUIVALENCE_POLICY.md",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "workflow": "M18 D08 Equivalence Holdout",
+  "run_id": 34826235671,
+  "job_id": 103918945542,
+  "tested_head_sha": "57cd9216fde5b36dd3a6ef033df2b2369e96b022",
+  "artifact": {
+    "name": "m18-d08-equivalence-holdout",
+    "id": 10340644941,
+    "sha256": "5211ffa97880e674f7d9b2a4ab1edba0a29dde57a7127483fd4beeb88295fac1"
+  },
+  "frozen_seeds": [271828182, 314159265],
+  "gate_pass": false,
+  "cases": [
+    {
+      "seed": 271828182,
+      "classification": "PASS",
+      "frozen_gate_mismatches": [],
+      "core_inference_mismatches": [],
+      "same_endpoint_mismatches": [],
+      "optimizer_trace_mismatches": []
+    },
+    {
+      "seed": 314159265,
+      "classification": "INFERENCE_EQUIVALENCE_FAIL",
+      "same_endpoint_mismatches": [],
+      "optimizer_trace_first_x_mismatch": {
+        "index_zero_based": [41, 4],
+        "hgfx": -1.8442792255639227,
+        "matlab": -1.844279150958309
+      },
+      "optimizer_trace_first_val_mismatch": {
+        "index_zero_based": [56],
+        "hgfx": -2253.9650998741404,
+        "matlab": -2253.968334805428
+      },
+      "representative_core_inference_mismatches": {
+        "final_0": [1.0393539389158883, 1.039354107738713],
+        "H_0_0": [80386.87397980322, 80389.56567757692],
+        "Sigma_0_1": [1.7384479347576885e-05, 1.6952197212513728e-05],
+        "Corr_0_1": [0.00527502540920819, 0.005143914101127192],
+        "yhat_0": [1.0393539389158883, 1.039354107738713],
+        "res_0": [0.003507861473972973, 0.003507692651148364],
+        "resAC_1": [-0.0026777916328465184, -0.002677629739161107]
+      },
+      "interpretation": "Exact MATLAB-endpoint replay has no mismatches, but the fitted optimizer path diverges and produces core inference differences outside the frozen Level-2 requirements. This case is not eligible for PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY under the frozen policy."
+    }
+  ],
+  "decision": "FAIL_PRESERVED_D08_REMAINS_BLOCKED",
+  "next_action": "Localize the earliest optimizer-path divergence for frozen failing seed 314159265 using shared-state objective/gradient/quasi-Newton diagnostics. Do not change holdout seeds, data, model, optimizer, starts, or tolerances."
+}
