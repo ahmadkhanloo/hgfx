@@ -32,3 +32,13 @@ jobs:
       - name: Existing M14/M15 CPU backend regressions
         run: |
           pytest tests/cpu_gpu/test_m14_fast_engine.py tests/cpu_gpu/test_m15_gpu_fitting.py -q
+      - name: Frozen S9 CPU matrix
+        run: |
+          python scripts/run_m18_s9_backend_robustness.py \
+            --output benchmarks/results/m18_s9_backend_robustness.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-s9-backend-robustness-cpu
+          path: benchmarks/results/m18_s9_backend_robustness.json
+          if-no-files-found: warn
