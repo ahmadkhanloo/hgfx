@@ -73,8 +73,28 @@ def _python_eval(case: dict, free: np.ndarray) -> dict:
     n_prc = len(prc.parameters)
     p_prc = full[:n_prc]
     p_obs = full[n_prc:]
-    _, inf_states = hgf_binary(u, p_prc, transformed=True)
-    trial, _, _ = unitsq_sgm(y, inf_states, p_obs, predorpost=int(obs.options.get("predorpost", 1)))
+
+    # Frozen fitModel/Ridders semantics map perceptual failures at trial-invalid
+    # stencil points to realmax.  The diagnostic must preserve that behavior
+    # rather than aborting while it inspects the same x +/- h vectors.
+    try:
+        _, inf_states = hgf_binary(u, p_prc, transformed=True)
+    except Exception:
+        return {
+            "neg_joint": float(np.finfo(np.float64).max),
+            "neg_log_likelihood": float(np.finfo(np.float64).max),
+            "prc_prior": float("nan"),
+            "obs_prior": float("nan"),
+            "trial_log_likelihoods": np.full(y.shape, np.nan, dtype=np.float64),
+            "inf_states": np.asarray(np.nan, dtype=np.float64),
+        }
+
+    trial, _, _ = unitsq_sgm(
+        y,
+        inf_states,
+        p_obs,
+        predorpost=int(obs.options.get("predorpost", 1)),
+    )
     objective = evaluate_objective(
         responses=y,
         inputs=u,
@@ -133,12 +153,23 @@ def main(fixture_path: Path, matlab_path: Path, output_path: Path) -> int:
             }
             row["sides"][side] = cmp
             tag = {"step_1based": step, "side": side, "h": h}
-            if first_inf is None and not cmp["inf_states"].get("exact", True): first_inf = {**tag, **cmp["inf_states"]}
-            if first_trial is None and not cmp["trial_log_likelihoods"].get("exact", True): first_trial = {**tag, **cmp["trial_log_likelihoods"]}
-            if first_likelihood_total is None and not cmp["neg_log_likelihood"].get("exact", True): first_likelihood_total = {**tag, **cmp["neg_log_likelihood"]}
-            if first_prior is None and (not cmp["prc_prior"].get("exact", True) or not cmp["obs_prior"].get("exact", True)):
-                first_prior = {**tag, "prc_prior": cmp["prc_prior"], "obs_prior": cmp["obs_prior"]}
-            if first_joint is None and not cmp["neg_joint"].get("exact", True): first_joint = {**tag, **cmp["neg_joint"]}
+            if first_inf is None and not cmp["inf_states"].get("exact", True):
+                first_inf = {**tag, **cmp["inf_states"]}
+            if first_trial is None and not cmp["trial_log_likelihoods"].get("exact", True):
+                first_trial = {**tag, **cmp["trial_log_likelihoods"]}
+            if first_likelihood_total is None and not cmp["neg_log_likelihood"].get("exact", True):
+                first_likelihood_total = {**tag, **cmp["neg_log_likelihood"]}
+            if first_prior is None and (
+                not cmp["prc_prior"].get("exact", True)
+                or not cmp["obs_prior"].get("exact", True)
+            ):
+                first_prior = {
+                    **tag,
+                    "prc_prior": cmp["prc_prior"],
+                    "obs_prior": cmp["obs_prior"],
+                }
+            if first_joint is None and not cmp["neg_joint"].get("exact", True):
+                first_joint = {**tag, **cmp["neg_joint"]}
             jd = cmp["neg_joint"].get("max_abs", 0.0)
             if np.isfinite(jd) and jd > largest_joint["abs_diff"]:
                 largest_joint = {**tag, "abs_diff": float(jd)}
@@ -178,8 +209,28 @@ def main(fixture_path: Path, matlab_path: Path, output_path: Path) -> int:
         "note": "Diagnostic only. Exact Ridders stencil vectors are inherited from the immutable S7 R0 case; no scientific input or acceptance criterion is changed.",
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(payload, indent=2, allow_nan=True) + "\n", encoding="utf-8")
-    print(json.dumps({k: payload[k] for k in ["classification", "first_inference_state_difference", "first_trial_likelihood_difference", "first_likelihood_total_difference", "first_prior_difference", "first_joint_difference", "largest_joint_difference"]}, indent=2), flush=True)
+    output_path.write_text(
+        json.dumps(payload, indent=2, allow_nan=True) + "\n",
+        encoding="utf-8",
+    )
+    print(
+        json.dumps(
+            {
+                k: payload[k]
+                for k in [
+                    "classification",
+                    "first_inference_state_difference",
+                    "first_trial_likelihood_difference",
+                    "first_likelihood_total_difference",
+                    "first_prior_difference",
+                    "first_joint_difference",
+                    "largest_joint_difference",
+                ]
+            },
+            indent=2,
+        ),
+        flush=True,
+    )
     return 0
 
 
