@@ -3,12 +3,11 @@
 Last synchronized: 2026-09-14
 Status: **IN PROGRESS**
 Branch: `migration/m18-workflow-closure`
-Current head before this sync: `942ca86eea1fe52e8326c14f8fe175a5faa3db84`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Authority
 
-Use this file with `M18_COMPLETION_PLAN.md`, `V1_RELEASE_GATE.md`, `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`, and `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`.
+Use this file with `M18_COMPLETION_PLAN.md`, `V1_RELEASE_GATE.md`, `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`, `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`, and `../validation/M18_D02_REFERENCE_LIMITATION.md`.
 
 HGFX v1.0 targets scientific/functional equivalence with the frozen MATLAB toolbox, not bitwise identity. Never change thresholds, seeds, datasets, starts, validation grids, model family, or optimizer settings after seeing results to obtain PASS. Historical failures remain immutable evidence.
 
@@ -16,88 +15,54 @@ HGFX v1.0 targets scientific/functional equivalence with the frozen MATLAB toolb
 
 - M0-M17: completed in their documented scopes.
 - Historical M18 scientific experiment: **FAIL, preserved**.
+- D02 direct fit parity: **FAIL preserved**; exact official D02 release disposition: **REFERENCE_LIMITATION_MATCH**.
 - D02 model-selection behavior: **PASS_MODEL_SELECTION_PARITY**.
 - D04 uHGF -> AR(1): **PASS**, run `34763542557`.
 - Exact historical 512-trial case: **REFERENCE_LIMITATION_MATCH** in that exact paired scope.
-- Latest unchanged official fit/Bayes closure: run `34823572071`, job `103910417693`, **7/9 direct PASS** at head `648c3f84905eb7fe952c070e5ee858e48de4a3fa`.
-- Official artifact `m18-official-workflows`, ID `10339454535`, SHA-256 `78bc7ea18fc55d02d4db8738f2f805d66d4b00a21e2a5b6ad4458b4ce3e9e77b`.
-- Direct blockers remain `D02_fit` and `D08_fit`.
+- Official fit/Bayes direct gate remains **7/9 direct PASS**; direct failures are D02_fit and D08_fit.
+- D02 is no longer an unresolved HGFX-only release blocker in its exact official scope; D08 remains the active fit-workflow blocker.
 - M18/v1 product closure: **OPEN**. PR #26 remains draft/unmerged.
+
+## DONE — D02 exact-scope disposition
+
+`D02_fit` is accepted for v1 only as **REFERENCE_LIMITATION_MATCH**, not direct parity or inferential PASS.
+
+Evidence chain:
+
+- cross-endpoint basin run `34829122057`, job `103928016949`, artifact `10342907205`, SHA-256 `ee53fe25cd12ff8f6d47b3172218bec92cb881a6017c6d7f170b4925a561284d`: `OPTIMIZER_NUMERICAL_BASIN_CANDIDATE`, all 9 shared-vector objective points pass;
+- optimizer-source run `34835728961`, job `103948983708`, artifact `10344290559`, SHA-256 `2ceb51c72898d6f61314313f877f810503613b0a45c555b235916564d0a36126`: source objective exact; first off-centre residual `2.842170943040401e-14`, log-likelihood only; MATLAB-sample Ridders replay exact;
+- source-likelihood run `34836421105`, job `103951170207`, artifact `10344591868`, SHA-256 `90bbda77cfe88d3d9f79c64c06b61d738f6df2e5d34691296edfdcc4c33f86bb`: inference states exact; trial-likelihood differences <= `8.881784197001252e-16`; MATLAB vector-vs-scalar reduction differs by `1.1368683772161603e-13`;
+- MATLAB self-sensitivity run `34837033370`, job `103953084600`, artifact `10344991786`, SHA-256 `9bb57f50b05d0fd2e6fb33badd265fec817c8c2308036d51d92e4f24a6e5e4ec`: `MATLAB_START_ULP_BASIN_SENSITIVE`; baseline replay exact and all 6 independent +/- one-spacing starts (`4.440892098500626e-16`) leave the existing endpoint gate, with shifts up to about `1.5077`.
+
+Decision: `reference/validation/m18_d02_reference_limitation/decision.json`.
+
+Do not erase the direct D02 FAIL or generalize this exact-case limitation to other seeds/regimes.
 
 ## NOW — D08 failed prospective holdout
 
 ### D08_fit — BLOCKED
 
-The prospective Level-2 endpoint-sensitivity experiment is complete and **FAILED** under its frozen rules.
+The prospective Level-2 endpoint-sensitivity experiment remains **FAILED** under its frozen rules. Seed `271828182` passed; seed `314159265` failed inference-level requirements. The failed protocol remains immutable.
 
-Evidence:
+Additional localization now established:
 
-- workflow: `M18 D08 Equivalence Holdout`
-- run: `34826235671`
-- job: `103918945542`
-- tested head: `57cd9216fde5b36dd3a6ef033df2b2369e96b022`
-- artifact: `m18-d08-equivalence-holdout`, ID `10340644941`
-- artifact SHA-256: `5211ffa97880e674f7d9b2a4ab1edba0a29dde57a7127483fd4beeb88295fac1`
-- frozen seeds: `271828182`, `314159265`
-
-Results:
-
-- seed `271828182`: PASS.
-- seed `314159265`: **INFERENCE_EQUIVALENCE_FAIL**.
-- exact MATLAB-endpoint replay has `same_endpoint_mismatches=[]`.
-- first frozen-tolerance optimizer `iter.x` split: zero-based `(41,4)`, HGFX `-1.8442792255639227`, MATLAB `-1.844279150958309`.
-- first `iter.val` split: zero-based `(56,)`, HGFX `-2253.9650998741404`, MATLAB `-2253.968334805428`.
-- seed 314159265 also differs outside the Level-2 requirements in final parameters, Hessian, covariance, correlation, predictions, residuals and residual autocorrelation.
-
-The failed prospective experiment is preserved in `reference/validation/m18_d08_holdout/decision.json`. Do not replace the failed seed, broaden tolerance, or relabel D08 as endpoint-equivalent.
-
-Completed:
-
-- [x] Freeze `matlab-equivalence-policy-1` before prospective validation.
-- [x] Freeze holdout seeds before execution.
-- [x] Execute the frozen holdout unchanged.
-- [x] Preserve both PASS and FAIL outcomes with run/job/artifact/hash.
-- [x] Freeze a diagnostic-only optimizer localization protocol for the failed seed in `../validation/M18_D08_HOLDOUT_OPTIMIZER_DIAGNOSTIC.md`.
-- [x] Implement MATLAB exporter, HGFX checker and workflow for that diagnostic.
+- failed-holdout optimizer diagnostic `34829121895`, job `103928015484`, artifact `10343726427`, SHA-256 `d55f08120dd079717b7ff082566108bc7f91fbab9fa334b99656fec1faa07d63`: `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`;
+- placeholder/prior repair is independently validated: run `34836421030`, job `103951169992`, artifact `10343484736`, SHA-256 `8e0028dbad33a007246e41bcf29bb54e91820b259ae9338641aa28412317c480`, classification `NO_PRIOR_DIVERGENCE` with exact parameters/means/variances/prior terms;
+- despite that repair, the frozen hard holdout seed still fails, so prior preparation was real but not the complete cause.
 
 Next:
 
-- [ ] Execute `M18 D08 Holdout Optimizer Diagnostic` on frozen seed `314159265`. Current queued run at this sync: `34829121895`.
-- [ ] If exact shared MATLAB states show objective/gradient divergence, localize the responsible primitive/arithmetic path regression-first.
-- [ ] If shared-state objective/gradient pass while fitted paths diverge, investigate finite-difference/optimizer state/path/termination sensitivity rather than model equations.
-- [ ] Keep D08 BLOCKED until the direct gate passes or a new separately preregistered scientifically sufficient protocol is justified prospectively. Do not redefine the failed Level-2 protocol post hoc.
-
-## NOW — D02 inference blocker
-
-### D02_fit — BLOCKED / INFERENCE_EQUIVALENCE_FAIL
-
-Established evidence:
-
-- exact MATLAB endpoint replay in HGFX: PASS;
-- initial Ridders gradient: PASS under existing tolerance;
-- sampled MATLAB optimizer-path objectives: PASS;
-- quasi-Newton step/BFGS algebra from exact MATLAB state: machine-level agreement;
-- fitted endpoint, H, Sigma, Corr, LME, predictions and residuals differ materially.
-
-Therefore D02 is not eligible for a trajectory-only tolerance exception.
-
-Frozen classifier `m18-d02-basin-probe-1` uses exactly 9 line points `alpha=[0,0.125,...,1]` and unchanged `rtol=3e-8`, `atol=3e-10`.
-
-First execution `34827198731` stopped because the harness treated structural MATLAB/HGFX `NaN` slots as unequal. This is a **HARNESS EXECUTION FAILURE**, not a scientific result. The failed run/artifact is preserved. Commit `942ca86eea1fe52e8326c14f8fe175a5faa3db84` fixes only NaN-aware contract checking and continues to interpolate only frozen free coordinates; seed/grid/tolerance/model/optimizer/endpoints are unchanged.
-
-Next:
-
-- [ ] Execute corrected `M18 D02 Basin Diagnostic` unchanged. Current queued run at this sync: `34829122057`.
-- [ ] Shared-vector failure => `SAME_VECTOR_IMPLEMENTATION_MISMATCH`; localize exact point before optimizer changes.
-- [ ] All shared-vector objectives pass => `OPTIMIZER_NUMERICAL_BASIN_CANDIDATE`; investigate conditioning/gradient amplification/path/termination.
-- [ ] Neither diagnostic classification closes D02; keep BLOCKED until inference-level acceptance is genuinely satisfied.
+- [ ] Establish whether the frozen MATLAB reference itself is materially optimizer/basin-sensitive for failing seed `314159265`, using a preregistered reference-only perturbation diagnostic; diagnostic evidence cannot rewrite the failed Level-2 holdout.
+- [ ] If MATLAB reference sensitivity is established, compare the failure mechanism against HGFX under the reference-limitations policy before any classification.
+- [ ] If not established, continue localization of the first path-sensitive numerical primitive/state without widening tolerance.
+- [ ] Keep D08 BLOCKED until a release-acceptable classification is evidence-backed.
 
 ## Official workflow closure exit gate
 
 - [ ] D01/D03/D05/D06/D07 remain healthy on affected code paths.
-- [ ] D02 reaches a release-acceptable outcome under frozen policy.
-- [ ] D08 reaches a release-acceptable outcome under frozen policy; failed Level-2 holdout remains visible.
-- [ ] All accepted non-direct outcomes have immutable prospective evidence.
+- [x] D02 has a release-acceptable exact-scope disposition: `REFERENCE_LIMITATION_MATCH`; direct FAIL preserved.
+- [ ] D08 reaches a release-acceptable outcome; failed prospective Level-2 holdout remains visible.
+- [ ] All accepted non-direct outcomes have immutable evidence.
 - [ ] PR #26 reviewed only after evidence closure.
 
 ## NEXT — remaining v1 work
