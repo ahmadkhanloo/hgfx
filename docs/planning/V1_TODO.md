@@ -23,10 +23,10 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
 
 ## Ordered remaining work
 
-1. Verify maintenance changes and full CPU regression once; keep all tests.
-2. Run S10 clean-wheel candidate build/install/quickstart on the updated revision.
-3. Refresh M19 release-file hashes, preserving archived scientific evidence.
-4. Run `python scripts/check_m20_candidate.py --mode finalize` and retain output.
+1. DONE: maintenance validation and full CPU regression (167 passed, four GPU skips).
+2. DONE locally: S10 clean-wheel candidate build/install/quickstart.
+3. DONE: M19 release-file hashes refreshed; archived scientific evidence preserved.
+4. DONE locally: `check_m20_candidate.py --mode finalize` returned `PASS_M20_CANDIDATE`; output retained.
 5. Verify fresh GitHub candidate/regression checks; queued CI is not PASS.
 6. Make PR #26 ready/merge/tag only after all mandatory checks and review pass.
 
@@ -38,3 +38,16 @@ Do not reopen completed D02/D08/S7/S8 diagnostics merely to obtain green runs.
 See `CI_MAINTENANCE.md`: archived oracle/diagnostic workflows remain manually
 reproducible. Numerical source changes still require relevant oracle and GPU
 revalidation. No tolerance, seed, data, grid or historical evidence was changed.
+
+## Maintenance validation — 2026-09-15
+
+CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
+CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
+build/install/API import/quickstart, and the static reference/release checks.
+M19 refresh and the M20 final checker passed locally with no failures.
+Evidence: `reference/validation/ci_maintenance_20260915/`.
+
+Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
+at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
+no merge/tag or new physical-GPU validation is claimed. Classic branch
+protection could not be read (403); do not bypass required checks.

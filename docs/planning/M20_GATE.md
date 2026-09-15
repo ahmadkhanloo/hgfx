@@ -1,7 +1,7 @@
 # M20 — v1.0 Candidate
 
 Last synchronized: 2026-09-15
-Status: **READY TO FINALIZE — M19 FROZEN**
+Status: **LOCAL CHECKER PASS — FRESH CI PENDING**
 Branch: `migration/m18-workflow-closure`
 
 ## Purpose
@@ -15,8 +15,8 @@ M20 is the final v1.0 candidate gate. It does not reopen scientific validation. 
 - [x] S10 release-readiness remains PASS.
 - [x] `reference/validation/v1_release/evidence_index.json` has no unresolved blocker other than the M20 gate itself.
 - [x] Package/citation metadata are promoted to release-candidate quality and remain mutually consistent.
-- [ ] M19 manifest hashes are refreshed after metadata-only release-candidate promotion.
-- [ ] `scripts/check_m20_candidate.py --mode finalize` returns `PASS_M20_CANDIDATE`.
+- [x] M19 manifest hashes are refreshed after metadata-only release-candidate promotion.
+- [x] `scripts/check_m20_candidate.py --mode finalize` returns `PASS_M20_CANDIDATE` locally; fresh CI remains pending.
 - [x] PR/release documents preserve historical FAIL and scoped `REFERENCE_LIMITATION_MATCH` evidence.
 
 ## Current state
@@ -45,3 +45,16 @@ An older S10 PASS is historical evidence, not a clean-wheel check of this revisi
 ## Definition of done
 
 When M20 returns `PASS_M20_CANDIDATE`, the closure PR may be made ready/merged and the corresponding v1.0 candidate/release tag can be created. Until that checker succeeds, M20 remains **READY TO FINALIZE**, not PASS.
+
+## Maintenance validation — 2026-09-15
+
+CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
+CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
+build/install/API import/quickstart, and the static reference/release checks.
+M19 refresh and the M20 final checker passed locally with no failures.
+Evidence: `reference/validation/ci_maintenance_20260915/`.
+
+Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
+at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
+no merge/tag or new physical-GPU validation is claimed. Classic branch
+protection could not be read (403); do not bypass required checks.

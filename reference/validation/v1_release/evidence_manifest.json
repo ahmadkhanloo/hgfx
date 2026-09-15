@@ -122,9 +122,9 @@
       "sha256": "08400575110403eb9e8e4ae60de402a99060c505be7ff7e3ca8888fce2e1af73"
     },
     {
-      "bytes": 3338,
+      "bytes": 3493,
       "path": "README.md",
-      "sha256": "e5f6ab45a0c2e65d436e45efbaec4c3752a162b84cd2e59cb125de41f81aad01"
+      "sha256": "745086b3eddcbde09301a2ef93951a2af2a206eae0530e3d7a447023eab78b38"
     },
     {
       "bytes": 744,
@@ -137,9 +137,9 @@
       "sha256": "9742c905004d1126ed9803baac8a9f031a610fe1c19fe64e698c18126e43d27c"
     },
     {
-      "bytes": 7607,
+      "bytes": 8291,
       "path": "docs/planning/V1_RELEASE_GATE.md",
-      "sha256": "38db82a30a7b82398afdbbba5475d60e9b06ce3b23a269840f1af4b174588190"
+      "sha256": "d9a96b9f5eeb3790da30bbd72e4c6bf40035142c434cf6e0bf95e623f3ac8d06"
     },
     {
       "bytes": 1973,
@@ -207,6 +207,6 @@
   },
   "release_branch": "migration/m18-workflow-closure",
   "schema_version": 1,
-  "source_commit": "ad9f5b36aad67980e4a8a6d92c0383df7b54f1c4",
+  "source_commit": "60472362d05412a35b046b197a32daacc05ebbef",
   "status": "FROZEN"
 }

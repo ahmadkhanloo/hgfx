@@ -20,3 +20,16 @@ The current maintenance change touches CI/docs only, not numerical code.
 
 Record continuation evidence in the repository, including commands, source SHA,
 results and blockers. Follow AGENTS.md and the frozen validation policies.
+
+## Maintenance validation — 2026-09-15
+
+CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
+CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
+build/install/API import/quickstart, and the static reference/release checks.
+M19 refresh and the M20 final checker passed locally with no failures.
+Evidence: `reference/validation/ci_maintenance_20260915/`.
+
+Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
+at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
+no merge/tag or new physical-GPU validation is claimed. Classic branch
+protection could not be read (403); do not bypass required checks.
