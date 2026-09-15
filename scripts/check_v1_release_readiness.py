@@ -55,13 +55,16 @@ def iter_python_files() -> list[Path]:
 
 
 def check_no_matlab_runtime_imports() -> None:
-    forbidden_text = ("matlab.engine", "from matlab ", "import matlab")
+    """Reject actual imports of the external MATLAB Python package.
+
+    HGFX intentionally contains internal compatibility modules whose names begin
+    with ``matlab_`` (for example ``hgfx.math.matlab_exp``).  A raw substring
+    search for ``import matlab`` therefore produces false positives.  Parse the
+    Python syntax tree instead and reject only imports whose top-level module is
+    exactly ``matlab``.
+    """
     for path in iter_python_files():
         text = path.read_text(encoding="utf-8")
-        lower = text.lower()
-        for token in forbidden_text:
-            if token in lower:
-                fail(f"forbidden MATLAB runtime reference {token!r} in {path.relative_to(ROOT)}")
         tree = ast.parse(text, filename=str(path))
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
