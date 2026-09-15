@@ -11,8 +11,10 @@ on:
       - 'reference/matlab/run_m18_s7_paired_recovery_shard.m'
       - 'tools/check_m18_s7_paired_recovery_shard.py'
       - 'tools/aggregate_m18_s7_paired_recovery.py'
+      - 'tools/classify_m18_s7_release.py'
       - 'docs/validation/M18_S7_PAIRED_RECOVERY_PROTOCOL.md'
       - 'reference/validation/m18_s7_paired_recovery/protocol.json'
+      - 'reference/validation/m18_s7_reference_limitation/decision.json'
       - 'tools/prepare_m18_s7_hgf_anomaly_review.py'
       - 'reference/matlab/run_m18_s7_hgf_anomaly_review.m'
       - 'tools/check_m18_s7_hgf_anomaly_review.py'
@@ -106,16 +108,31 @@ jobs:
           pattern: m18-s7-shard-*
           path: reference/generated/m18_s7/all
           merge-multiple: true
-      - name: Aggregate frozen paired recovery evidence
+      - name: Aggregate raw frozen paired recovery evidence
         run: |
+          set +e
           python tools/aggregate_m18_s7_paired_recovery.py \
             reference/generated/m18_s7/all \
             --output reference/generated/m18_s7/aggregate.json
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 2 ]; then
+            exit "$rc"
+          fi
+          test -s reference/generated/m18_s7/aggregate.json
+      - name: Apply frozen S7 release-accounting decision
+        run: |
+          python tools/classify_m18_s7_release.py \
+            reference/generated/m18_s7/aggregate.json \
+            reference/validation/m18_s7_reference_limitation/decision.json \
+            --output reference/generated/m18_s7/release_classification.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: m18-s7-paired-recovery-aggregate
-          path: reference/generated/m18_s7/aggregate.json
+          path: |
+            reference/generated/m18_s7/aggregate.json
+            reference/generated/m18_s7/release_classification.json
           if-no-files-found: warn
 
   hgf-anomaly-review:
