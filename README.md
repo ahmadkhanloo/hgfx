@@ -15,8 +15,8 @@ The `1.0.0rc1` release-candidate gate is **PASS**.
 - S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; archived H100 results retain their original scope.
 - M19 evidence freeze is complete.
 - Candidate metadata is `1.0.0rc1`.
-- M20 finalizer run `34989737851` on source `b52dc06ca58d29afeb5c265f7eb67746824178e0` returned `PASS_M20_CANDIDATE` with no failures.
-- Final `1.0.0` promotion remains subject to the independent final review defined by `docs/planning/CHAT_WORKFLOW.md` and `docs/planning/FINAL_REVIEW_CHECKLIST.md`.
+- M20 candidate finalization has passed; live evidence is recorded in `docs/planning/M20_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md`.
+- Final `1.0.0` promotion remains subject to the independent final review defined by `docs/planning/CHAT_WORKFLOW.md` and `docs/planning/FINAL_REVIEW_CHECKLIST.md` after the release candidate is frozen.
 
 See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
 
@@ -24,7 +24,7 @@ See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md
 
 Python 3.11+ is required.
 
-From a source checkout:
+HGFX has not yet been formally published to PyPI as part of the v1 release process. Install the current release candidate from a source checkout:
 
 ```bash
 python -m venv .venv
@@ -39,6 +39,8 @@ Development install:
 python -m pip install -e '.[dev]'
 pytest
 ```
+
+After a future PyPI publication, the intended install command is `python -m pip install hgfx`.
 
 MATLAB is a development-time reference oracle only; it is not a user runtime dependency.
 
@@ -64,7 +66,25 @@ print(result.optim.BIC)
 
 The public compatibility surface includes Python-first and MATLAB-style aliases such as `fit_model`/`fitModel`, `sim_model`/`simModel`, and `sample_model`/`sampleModel`.
 
-See `docs/user/GETTING_STARTED.md` and `docs/user/API.md` for user-facing documentation.
+User documentation:
+
+- `docs/user/GETTING_STARTED.md` — minimal installation and first fit
+- `docs/user/USER_GUIDE.md` — practical v1 guide for fitting, simulation, sampling, GPU use, migration from MATLAB, and reproducibility
+- `docs/user/API.md` — public API surface
+- `docs/user/MATLAB_DEMOS.md` — exact official MATLAB demo reproductions and cross-language parity evidence
+- `examples/README.md` — runnable examples
+
+## Official MATLAB demo reproductions
+
+With the frozen reference submodule initialized:
+
+```bash
+git submodule update --init --recursive
+python examples/matlab_demo_model_selection.py
+python examples/matlab_demo_uhgf_ar1.py
+```
+
+The corresponding CI workflows regenerate the real MATLAB outputs and compare them with HGFX at frozen tolerances. See `docs/user/MATLAB_DEMOS.md` for exact results and evidence IDs.
 
 ## Scope
 
