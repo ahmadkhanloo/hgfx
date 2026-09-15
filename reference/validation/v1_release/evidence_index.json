@@ -99,13 +99,19 @@
       "workflow_run": "34934079973",
       "job": "104268154143",
       "artifact": "10383425031",
-      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
-      "m19_final_status": "READY_TO_FINALIZE",
-      "m20_final_status": "BLOCKED_BY_M19"
+      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf"
+    },
+    {
+      "id": "M19_EVIDENCE_FREEZE",
+      "classification": "PASS_FROZEN",
+      "workflow_run": "34966661492",
+      "manifest_commit": "b71301b978e07cb0fa5ac2ad14cc92235fadc5ee",
+      "manifest": "reference/validation/v1_release/evidence_manifest.json",
+      "manifest_status": "FROZEN",
+      "failures": 0
     }
   ],
   "active_blockers": [
-    "M19 evidence freeze",
     "M20 v1.0 candidate gate"
   ]
 }
