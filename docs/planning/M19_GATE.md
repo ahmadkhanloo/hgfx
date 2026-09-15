@@ -1,7 +1,7 @@
 # M19 — Methods Paper Dataset Frozen
 
 Last synchronized: 2026-09-15
-Status: **READY TO FINALIZE — S9 PHYSICAL NVIDIA GPU PASS**
+Status: **DONE / PASS — EVIDENCE MANIFEST FROZEN**
 Branch: `migration/m18-workflow-closure`
 
 ## Purpose
@@ -15,7 +15,23 @@ M19 keeps its historical name but serves the v1.0 release as the evidence-freeze
 - [x] GPU model is not constrained; exact hardware and runtime are recorded per `../validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md`.
 - [x] S10 release-readiness is PASS.
 - [x] D02/D08/S7 scoped `REFERENCE_LIMITATION_MATCH` records and historical failures remain preserved.
-- [ ] Release-critical evidence files are hashed into one committed machine-readable `FROZEN` manifest.
+- [x] Release-critical evidence files are hashed into one committed machine-readable `FROZEN` manifest.
+
+## Final result
+
+M19 finalize workflow run `34966661492` completed successfully. The generated manifest was committed at `b71301b978e07cb0fa5ac2ad14cc92235fadc5ee` to `reference/validation/v1_release/evidence_manifest.json`.
+
+The committed manifest records:
+
+- `status = FROZEN`;
+- `mode = finalize`;
+- `failures = []`;
+- physical GPU `pass = true`;
+- physical classification `PASS_PHYSICAL_GPU_APPLICABILITY`;
+- historical failures preserved;
+- no thresholds, seeds, datasets or validation grids changed for the freeze.
+
+M19 is therefore **DONE / PASS**. Release-candidate metadata may now be promoted and M20 finalized.
 
 ## Physical-GPU prerequisite result
 
@@ -27,14 +43,11 @@ The captured git status contains only `?? gpu_validation_results/`, which is the
 
 ## Freeze mechanism
 
-`scripts/build_v1_evidence_manifest.py` has two modes:
+`scripts/build_v1_evidence_manifest.py --mode finalize` is the canonical M19 finalizer. It validates the physical GPU record, release evidence index and required release files, then writes the machine-readable manifest.
 
-- `preflight`: hashes the current evidence package and checks release prerequisites;
-- `finalize`: requires valid physical NVIDIA GPU evidence and writes a manifest classified `FROZEN`.
+The GPU evidence path is `gpu_validation_results/m18_s9_physical_gpu_revalidation.json`. The committed M19 manifest is `reference/validation/v1_release/evidence_manifest.json`.
 
-The GPU evidence path is `gpu_validation_results/m18_s9_physical_gpu_revalidation.json`. The final committed manifest is `reference/validation/v1_release/evidence_manifest.json`.
-
-M19 remains **READY TO FINALIZE**, not PASS, until the finalize command succeeds and the exact generated `FROZEN` manifest is committed.
+Release metadata promoted after the initial freeze must not alter numerical/scientific evidence. Before M20 final validation, the same M19 finalizer may refresh hashes for metadata-only candidate changes while retaining `FROZEN` status and the unchanged evidence semantics.
 
 ## Integrity rule
 
