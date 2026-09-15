@@ -28,34 +28,45 @@
     {
       "id": "D04_UHGF_AR1",
       "classification": "PASS",
-      "workflow_run": "34763542557"
+      "workflow_run": "34763542557",
+      "fresh_candidate_run": "34984783696"
     },
     {
       "id": "D09_SAMPLEMODEL",
       "classification": "PASS",
-      "workflow_run": "34842943557"
+      "workflow_run": "34842943557",
+      "fresh_candidate_run": "34984783710"
     },
     {
       "id": "D10_D11_ANALYSIS",
       "classification": "PASS",
-      "workflow_run": "34847266268"
+      "workflow_run": "34847266268",
+      "fresh_candidate_run": "34984783669"
     },
     {
       "id": "D12_BPA",
       "classification": "PASS",
-      "workflow_run": "34854238549"
+      "workflow_run": "34854238549",
+      "fresh_candidate_run": "34984783649"
     },
     {
       "id": "S7_PARAMETER_RECOVERY",
       "classification": "REFERENCE_LIMITATION_MATCH",
       "workflow_run": "34896442847",
       "artifact": "10370615292",
-      "artifact_sha256": "3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92"
+      "artifact_sha256": "3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92",
+      "fresh_candidate_run": "34984783703",
+      "fresh_aggregate_artifact": "10404477458",
+      "fresh_aggregate_sha256": "e62982fa32f61d66d3f8643d95354962944e969bc72868a3326cd816377203a2",
+      "fresh_raw_gate_pass": false,
+      "fresh_scientific_pass": false,
+      "fresh_release_gate_pass": true
     },
     {
       "id": "S7_MODEL_SELECTION",
       "classification": "PASS_PAIRED_MODEL_SELECTION",
-      "matched_winners": "36/36"
+      "matched_winners": "36/36",
+      "fresh_candidate_run": "34984783703"
     },
     {
       "id": "S8_REQUIRED_REPAIR_SCOPE",
@@ -69,7 +80,8 @@
       "workflow_run": "34901924475",
       "job": "104169632034",
       "artifact": "10371308067",
-      "artifact_sha256": "875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826"
+      "artifact_sha256": "875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826",
+      "fresh_candidate_run": "34984783685"
     },
     {
       "id": "S9_PHYSICAL_GPU",
@@ -90,7 +102,11 @@
       "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
       "workflow_run": "34934079865",
       "artifact": "10383235791",
-      "artifact_sha256": "8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b"
+      "artifact_sha256": "8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b",
+      "fresh_candidate_run": "34984783640",
+      "fresh_candidate_commit": "5cf17dcd13c9f30dbfcd500ad409d39d41296b20",
+      "fresh_artifact": "10402688684",
+      "fresh_artifact_sha256": "b65de6e4ba20a5637935f32010d8a150e7731b113a77ae9256c1f688697b118b"
     },
     {
       "id": "M19_M20_PREFLIGHT",
@@ -99,7 +115,11 @@
       "workflow_run": "34934079973",
       "job": "104268154143",
       "artifact": "10383425031",
-      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf"
+      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
+      "fresh_candidate_run": "34984783642",
+      "fresh_candidate_commit": "5cf17dcd13c9f30dbfcd500ad409d39d41296b20",
+      "fresh_artifact": "10403445860",
+      "fresh_artifact_sha256": "fdfd1e2a73df597a54b72d929191ca0d11e2eeb5ef8ed56bdb49327229d4b2eb"
     },
     {
       "id": "M19_EVIDENCE_FREEZE",
@@ -109,6 +129,16 @@
       "manifest": "reference/validation/v1_release/evidence_manifest.json",
       "manifest_status": "FROZEN",
       "failures": 0
+    },
+    {
+      "id": "FRESH_CANDIDATE_CI",
+      "classification": "PASS",
+      "commit": "5cf17dcd13c9f30dbfcd500ad409d39d41296b20",
+      "active_pr_workflows": "10/10",
+      "regression_run": "34984783677",
+      "regression_passed": 171,
+      "regression_gpu_skipped": 4,
+      "regression_warnings": 5
     }
   ],
   "active_blockers": [

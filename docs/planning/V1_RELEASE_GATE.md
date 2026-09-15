@@ -1,7 +1,7 @@
 # HGFX v1.0 Release Gate
 
 Last synchronized: 2026-09-15
-Status: **OPEN / IN PROGRESS — M19 FROZEN; M20 FINAL CANDIDATE GATE REMAINS**
+Status: **OPEN — FRESH RC CI PASS; M20 FINALIZER PENDING ON SYNCHRONIZED REVISION**
 
 ## Product definition
 
@@ -21,36 +21,40 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENC
 - [x] CPU/GPU numerical agreement on required supported paths — CPU and physical NVIDIA GPU applicability closed
 - [x] Python reproduction/accounting of required MATLAB workflows accepted for release surface
 - [x] Independent-use documentation/examples
-- [x] Aggregate evidence/provenance final freeze — M19 `FROZEN`, run `34966661492`, manifest commit `b71301b978e07cb0fa5ac2ad14cc92235fadc5ee`
+- [x] Aggregate evidence/provenance freeze — M19 `FROZEN`, run `34966661492`
 - [x] Zero MATLAB runtime dependency for users
-- [ ] M20 v1.0 candidate final checker returns `PASS_M20_CANDIDATE`
+- [x] Fresh candidate PR CI on `5cf17dcd13c9f30dbfcd500ad409d39d41296b20`: 10/10 active workflows PASS
+- [ ] M20 finalizer returns `PASS_M20_CANDIDATE` on the synchronized release-document revision
 
 ## Current evidence snapshot
+
+Historical evidence is preserved; fresh candidate runs are additive validation.
 
 - M0-M17 completed in documented scopes.
 - Historical M18 scientific result: **FAIL, preserved**.
 - Official direct fit/Bayes gate remains **7/9 direct PASS**; D02_fit and D08_fit direct failures remain preserved.
 - D02 exact official workflow: `REFERENCE_LIMITATION_MATCH` for release accounting only.
 - D08 prospective Level-2 holdout: **FAIL preserved**; exact failed seed `314159265`: `REFERENCE_LIMITATION_MATCH` for release accounting only.
-- D09 sampleModel: PASS, run `34842943557`.
-- D10/D11 analysis/output: PASS, run `34847266268`.
-- D12 Bayesian parameter averaging: PASS, run `34854238549`.
-- S7 parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`; model selection: `PASS_PAIRED_MODEL_SELECTION`, 36/36 BIC winners.
+- D09 sampleModel: historical PASS; fresh run `34984783710` PASS.
+- D10/D11 analysis/output: historical PASS; fresh run `34984783669` PASS.
+- D12 Bayesian parameter averaging: historical PASS; fresh run `34984783649` PASS.
+- S7 parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`, not scientific PASS. Fresh run `34984783703` PASS for release accounting; aggregate artifact `10404477458`, SHA-256 `e62982fa32f61d66d3f8643d95354962944e969bc72868a3326cd816377203a2`.
+- S7 model selection: `PASS_PAIRED_MODEL_SELECTION`, fresh 36/36 BIC winners match.
 - S8: required-scope repair DONE at `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no unresolved required HGFX-only S7 mismatch.
-- S9 CPU robustness/backend: `PASS_CPU_BACKEND_EQUIVALENCE`, run `34901924475`, job `104169632034`, artifact `10371308067`, SHA-256 `875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826`.
-- S9 physical GPU: **PASS_PHYSICAL_GPU_APPLICABILITY** on 2x Tesla T4, source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`. All four required CPU-vs-GPU fit cells pass; maximum objective gap `1.4210854715202004e-14` against frozen `1e-7`. Repository evidence commit `7179484ce782c25d6edde34cc56a0d689831e1cc`; raw JSON SHA-256 `6cd35c82be1e542830c06f6b7b7e444fda0ff4fe93773f080e6c13725212dfdf`.
-- S10 release readiness: **PASS**, run `34934079865`, wheel artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
-- M19 evidence freeze: **PASS / FROZEN**, workflow run `34966661492`; committed manifest at `b71301b978e07cb0fa5ac2ad14cc92235fadc5ee`, with `failures=[]` and physical GPU pass recorded.
+- S9 CPU robustness/backend: `PASS_CPU_BACKEND_EQUIVALENCE`; fresh S9 run `34984783685` PASS.
+- S9 physical GPU: **PASS_PHYSICAL_GPU_APPLICABILITY** on 2x Tesla T4, source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`. Maximum objective gap `1.4210854715202004e-14` against frozen `1e-7`.
+- S10 release readiness: historical PASS; fresh run `34984783640` PASS, wheel artifact `10402688684`, SHA-256 `b65de6e4ba20a5637935f32010d8a150e7731b113a77ae9256c1f688697b118b`.
+- M19/M20 preflight: fresh run `34984783642` PASS, artifact `10403445860`, SHA-256 `fdfd1e2a73df597a54b72d929191ca0d11e2eeb5ef8ed56bdb49327229d4b2eb`.
+- Full CPU regression: fresh run `34984783677`, **171 passed, 4 physical-GPU skips, 5 warnings**.
+- M19 evidence freeze: **PASS / FROZEN**, workflow run `34966661492`.
 - Candidate metadata: `1.0.0rc1` in both `pyproject.toml` and `CITATION.cff`.
-- M20: **READY TO FINALIZE**, not yet PASS.
+- M20: finalizer pending on the synchronized release-document/evidence revision.
 
 ## Physical-GPU acceptance
 
-The hardware model itself is not a numerical gate. Per `M18_S9_PHYSICAL_GPU_AMENDMENT.md`, an eligible run may use T4, L4, A10/A10G, A100, H100, H200, or another physical NVIDIA CUDA-capable GPU supported by the installed JAX/CUDA runtime.
+The hardware model itself is not a numerical gate. Per `M18_S9_PHYSICAL_GPU_AMENDMENT.md`, an eligible run may use a physical NVIDIA CUDA-capable GPU supported by the installed JAX/CUDA runtime.
 
-The accepted run satisfies the unchanged frozen requirements: same repaired code/data path, actual GPU residency, CPU-vs-GPU final-objective gap `<= 1e-7`, complete provenance, and no CPU/mock substitution. It establishes backend numerical applicability on the tested NVIDIA/JAX/CUDA path only, not H100-specific or cross-device performance.
-
-The captured `git status --porcelain` entry `?? gpu_validation_results/` is expected from the validation wrapper, which creates its output directory before capturing provenance. The source HEAD recorded by the run is exactly `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`.
+The accepted run satisfies the unchanged frozen requirements: same repaired code/data path, actual GPU residency, CPU-vs-GPU final-objective gap `<= 1e-7`, recorded provenance, and no CPU/mock substitution. It establishes backend numerical applicability on the tested NVIDIA/JAX/CUDA path only, not H100-specific or cross-device performance.
 
 ## Accepted result semantics
 
@@ -61,22 +65,31 @@ The captured `git status --porcelain` entry `?? gpu_validation_results/` is expe
 - `PASS_PHYSICAL_GPU_APPLICABILITY`: current numerical path executes resident on eligible physical NVIDIA hardware and satisfies the frozen CPU-vs-GPU criterion.
 - `PASS_FROZEN`: M19 release evidence is committed in a machine-readable `FROZEN` manifest.
 - `PASS_PREFLIGHT`: release machinery and non-blocked prerequisites pass; it is not final milestone PASS.
+- `PASS_M20_CANDIDATE`: synchronized `1.0.0rc1` release-candidate accounting passes; it is not an independent final-review result.
 
 Historical/direct/prospective failures remain immutable evidence.
 
 ## S7/S8 closure
 
-The complete frozen S7 paired grid contains 72 parameter-recovery cases and 36 model-recovery datasets. MATLAB and HGFX have identical criterion outcomes for HGF/eHGF/uHGF and nearly identical aggregate recovery metrics. Shared parameter-recovery failures remain `REFERENCE_LIMITATION_MATCH`; all 36 BIC winners match directly.
+The complete frozen S7 paired grid contains 72 parameter-recovery cases and 36 model-recovery datasets. Fresh run `34984783703` again shows MATLAB and HGFX have the same criterion outcomes across HGF/eHGF/uHGF and 36/36 model-selection winners.
+
+The fresh raw S7 aggregate remains `gate_pass=false` and `scientific_pass=false`. The separately frozen exact-scope decision yields `REFERENCE_LIMITATION_MATCH` and `release_gate_pass=true`. Therefore no scientific failure is relabeled as scientific PASS.
 
 S8 historical negative-precision localization probes remain historical/manual diagnostics and do not reopen completed S8 required-scope accounting.
 
 ## Current release blocker sequence
 
-1. **M20 v1.0 candidate finalization** — refresh the frozen manifest after metadata-only `1.0.0rc1` promotion, then require `scripts/check_m20_candidate.py --mode finalize` to return `PASS_M20_CANDIDATE`.
+1. **M20 v1.0 RC finalization** — on the synchronized release-document revision, require `scripts/check_m20_candidate.py --mode finalize` / `m20-finalize.yml` to return `PASS_M20_CANDIDATE`.
 
-S9, S10 and M19 are closed. No new scientific validation surface should be added during release closure unless the mandatory M20 gate demonstrates a genuine current-scope regression.
+S9, S10 and M19 are closed. No new scientific validation surface should be added during RC closure unless M20 exposes a genuine current-scope regression.
 
-## M18/v1 exit conditions
+## Candidate versus final `1.0.0`
+
+M20 is the `1.0.0rc1` candidate gate. After M20 PASS, PR #26 may be made ready/merged and the RC tag may be created.
+
+Promotion from RC to final `1.0.0` remains governed by `CHAT_WORKFLOW.md`: freeze the candidate, obtain an independent frontier-agent review against `FINAL_REVIEW_CHECKLIST.md`, resolve all Critical/High findings, and rerun full validation. M20 PASS alone must not be reported as completion of that independent review.
+
+## M18/v1 RC exit conditions
 
 - [x] All required model families/workflows accounted for under frozen release semantics
 - [x] Fit/simulation/trajectory/statistical outputs evidence-backed or exact-scope reference-limitation accounted
@@ -87,22 +100,10 @@ S9, S10 and M19 are closed. No new scientific validation surface should be added
 - [x] Paired parameter/model recovery complete
 - [x] Robustness/backend/physical-GPU applicability matrix complete
 - [x] D09-D12 required output surfaces closed
-- [x] Aggregate evidence final freeze complete
+- [x] Aggregate evidence freeze complete
 - [x] Clean install/examples/docs/API/licenses verified
 - [x] Zero MATLAB runtime dependency verified
-- [ ] M20 candidate final check complete
+- [x] Fresh candidate PR CI green
+- [ ] M20 candidate final check complete on synchronized release docs
 
-The release remains **OPEN** only for the M20 v1.0 candidate gate.
-
-## Maintenance validation — 2026-09-15
-
-CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
-CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
-build/install/API import/quickstart, and the static reference/release checks.
-M19 refresh and the M20 final checker passed locally with no failures.
-Evidence: `reference/validation/ci_maintenance_20260915/`.
-
-Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
-at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
-no merge/tag or new physical-GPU validation is claimed. Classic branch
-protection could not be read (403); do not bypass required checks.
+The RC remains **OPEN** only for the M20 candidate finalizer.

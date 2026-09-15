@@ -1,7 +1,7 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-15
-Status: **IN PROGRESS — M20 CANDIDATE VALIDATION / FRESH CI**
+Status: **IN PROGRESS — M20 FINALIZER ON SYNCHRONIZED RC REVISION**
 Branch: `migration/m18-workflow-closure`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
@@ -13,41 +13,31 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
 - D04/D09/D10–D11/D12: PASS in recorded scopes.
 - S7 model selection: `PASS_PAIRED_MODEL_SELECTION`, 36/36 BIC winners.
 - S8 required repair: DONE; numerical repair `0239f52f772825e0a4fc74cdf3559cafa18a603e`.
-- S9 CPU: `PASS_CPU_BACKEND_EQUIVALENCE`, run `34901924475`.
-- S9 physical GPU: `PASS_PHYSICAL_GPU_APPLICABILITY`, 2x Tesla T4;
-  evidence commit `7179484ce782c25d6edde34cc56a0d689831e1cc`.
-  Maximum objective gap `1.4210854715202004e-14` versus frozen `1e-7`.
-- Historical S10 release preparation: PASS, run `34934079865`.
-- M19: PASS / FROZEN, initial run `34966661492`; candidate manifest at `a032ca5d1779a5d7f61673969e16f2025c0037ed`.
+- S9 CPU: `PASS_CPU_BACKEND_EQUIVALENCE`.
+- S9 physical GPU: `PASS_PHYSICAL_GPU_APPLICABILITY`, 2x Tesla T4; maximum CPU/GPU objective gap `1.4210854715202004e-14` versus frozen `1e-7`.
+- M19: PASS / FROZEN, run `34966661492`.
 - Package and citation: `1.0.0rc1`.
+- Fresh candidate revision `5cf17dcd13c9f30dbfcd500ad409d39d41296b20`: all 10 active PR workflows PASS.
+- Fresh Regression `34984783677`: 171 passed, 4 physical-GPU skips, 5 warnings.
+- Fresh S10 `34984783640`: PASS, wheel artifact `10402688684`.
+- Fresh S7 `34984783703`: PASS for release accounting; raw scientific recovery remains FAIL / `scientific_pass=false`, exact-scope release classification remains `REFERENCE_LIMITATION_MATCH`.
 
 ## Ordered remaining work
 
-1. DONE: maintenance validation and full CPU regression (167 passed, four GPU skips).
-2. DONE locally: S10 clean-wheel candidate build/install/quickstart.
-3. DONE: M19 release-file hashes refreshed; archived scientific evidence preserved.
-4. DONE locally: `check_m20_candidate.py --mode finalize` returned `PASS_M20_CANDIDATE`; output retained.
-5. Verify fresh GitHub candidate/regression checks; queued CI is not PASS.
-6. Make PR #26 ready/merge/tag only after all mandatory checks and review pass.
+1. DONE: fresh candidate CI on `5cf17dcd13c9f30dbfcd500ad409d39d41296b20`.
+2. DONE: S7 release-accounting mismatch fixed without changing scientific criteria or results.
+3. IN PROGRESS: synchronize release documents/evidence with the fresh candidate runs.
+4. TODO: require `m20-finalize.yml` / `check_m20_candidate.py --mode finalize` to PASS on that synchronized revision.
+5. TODO after M20 PASS: mark PR #26 ready, merge it, and create the `1.0.0rc1` candidate tag.
+6. TODO before final `1.0.0`: execute the independent final review defined by `CHAT_WORKFLOW.md`, resolve all Critical/High findings, and rerun full validation.
 
 ## Continuation policy
 
 Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, and
 `../validation/V1_EVIDENCE_INDEX.md` with machine-readable evidence.
 Do not reopen completed D02/D08/S7/S8 diagnostics merely to obtain green runs.
-See `CI_MAINTENANCE.md`: archived oracle/diagnostic workflows remain manually
-reproducible. Numerical source changes still require relevant oracle and GPU
-revalidation. No tolerance, seed, data, grid or historical evidence was changed.
+Archived oracle/diagnostic workflows remain manually reproducible.
+Numerical source changes still require relevant oracle and GPU revalidation.
+No tolerance, seed, data, grid or historical evidence may be changed to obtain PASS.
 
-## Maintenance validation — 2026-09-15
-
-CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
-CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
-build/install/API import/quickstart, and the static reference/release checks.
-M19 refresh and the M20 final checker passed locally with no failures.
-Evidence: `reference/validation/ci_maintenance_20260915/`.
-
-Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
-at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
-no merge/tag or new physical-GPU validation is claimed. Classic branch
-protection could not be read (403); do not bypass required checks.
+M20 is a release-candidate gate. Passing it is sufficient to merge/tag `1.0.0rc1`; it is not a substitute for the independent final review required before promotion to final `1.0.0`.
