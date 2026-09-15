@@ -1,0 +1,119 @@
+{
+  "acceptance_summary": {
+    "boundary_cases_passed": 2,
+    "boundary_cases_total": 2,
+    "boundary_semantics_pass": true,
+    "fit_backend_cases_passed": 4,
+    "fit_backend_cases_total": 4,
+    "fit_backend_max_objective_gap": 0.006783711271481252,
+    "forward_robustness_cases_passed": 18,
+    "forward_robustness_cases_total": 18,
+    "shared_state_cases_passed": 12,
+    "shared_state_cases_total": 12,
+    "shared_state_max_gradient_abs_gap": 1.0485155144124292e-07,
+    "shared_state_max_value_abs_gap": 9.094947017729282e-13
+  },
+  "classification": "PASS_S9_ROBUSTNESS_BACKEND",
+  "cpu_backend_pass": true,
+  "criteria": {
+    "compat_vs_jax_cpu_final_objective_gap_max": 0.1,
+    "forward_atol": 3e-11,
+    "forward_rtol": 3e-10,
+    "gradient_atol": 2e-05,
+    "gradient_rtol": 0.0002,
+    "jax_cpu_vs_physical_gpu_final_objective_gap_max": 1e-07
+  },
+  "environment": {
+    "backend": "gpu",
+    "devices": [
+      "cuda:0",
+      "cuda:1"
+    ],
+    "jax": "0.11.1",
+    "python": "3.12.13"
+  },
+  "gate_pass": true,
+  "historical_h100_note": "The S9 standard-HGF fast-engine semantic repair changes the numerically relevant GPU path relative to historical H100 source e6f1740ec6cacc55323c6a4d4ca521430c9f3dbf; physical current-head revalidation is therefore required.",
+  "physical_gpu": {
+    "available": true,
+    "cases": [
+      {
+        "cpu_final_objective": 100.8431397034844,
+        "final_objective_gap": 0.0,
+        "gpu_device_resident": true,
+        "gpu_final_objective": 100.8431397034844,
+        "pass": true,
+        "regime": "regular",
+        "threshold": 1e-07,
+        "trials": 128
+      },
+      {
+        "cpu_final_objective": 99.10585723807621,
+        "final_objective_gap": 1.4210854715202004e-14,
+        "gpu_device_resident": true,
+        "gpu_final_objective": 99.1058572380762,
+        "pass": true,
+        "regime": "ignored_missing",
+        "threshold": 1e-07,
+        "trials": 128
+      },
+      {
+        "cpu_final_objective": 192.27807219103437,
+        "final_objective_gap": 0.0,
+        "gpu_device_resident": true,
+        "gpu_final_objective": 192.27807219103437,
+        "pass": true,
+        "regime": "regular",
+        "threshold": 1e-07,
+        "trials": 256
+      },
+      {
+        "cpu_final_objective": 190.1701167284927,
+        "final_objective_gap": 0.0,
+        "gpu_device_resident": true,
+        "gpu_final_objective": 190.1701167284927,
+        "pass": true,
+        "regime": "ignored_missing",
+        "threshold": 1e-07,
+        "trials": 256
+      }
+    ],
+    "classification": "PASS_PHYSICAL_GPU_APPLICABILITY",
+    "device": "cuda:0",
+    "pass": true
+  },
+  "physical_gpu_evidence": {
+    "core_exit_code": 0,
+    "cuda_visible_devices": null,
+    "environment_note": "Kaggle Notebook; hosted/shared NVIDIA GPU environment; numerical applicability validation, not uncontended peak-performance benchmarking.",
+    "exact_command": "/usr/bin/python3 /kaggle/working/hgfx/scripts/run_m18_s9_backend_robustness.py --output /kaggle/working/hgfx/gpu_validation_results/m18_s9_physical_gpu_revalidation.json --require-gpu",
+    "git_head": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec",
+    "git_status_porcelain": "?? gpu_validation_results/",
+    "hardware_eligibility_pass": true,
+    "hardware_requirement": "physical NVIDIA CUDA-capable GPU; model not constrained",
+    "jax": "0.11.1",
+    "jax_backend": "gpu",
+    "jax_devices": [
+      "cuda:0",
+      "cuda:1"
+    ],
+    "jaxlib": "0.11.1",
+    "nvidia_smi_list": "GPU 0: Tesla T4 (UUID: GPU-9e3c5e85-b98b-107e-b5d6-9a8163202026)\nGPU 1: Tesla T4 (UUID: GPU-36459b16-cffc-2540-0112-cb57f416146a)",
+    "python": "3.12.13",
+    "wrapper": "run_m18_s9_physical_gpu_revalidation.py",
+    "wrapper_command": "scripts/run_m18_s9_physical_gpu_revalidation.py --environment-note 'Kaggle Notebook; hosted/shared NVIDIA GPU environment; numerical applicability validation, not uncontended peak-performance benchmarking.'"
+  },
+  "protocol": "m18-s9-robustness-backend-1",
+  "raw_artifact": {
+    "bytes": 45948,
+    "checksum_file": "hgfx_s9_gpu_evidence_sha256.txt",
+    "checksum_verified": true,
+    "container": "hgfx_s9_gpu_evidence.zip",
+    "filename": "m18_s9_physical_gpu_revalidation.json",
+    "note": "Repository record is an acceptance/provenance summary of the externally executed raw JSON; the uploaded raw artifact checksum is preserved here.",
+    "sha256": "6cd35c82be1e542830c06f6b7b7e444fda0ff4fe93773f080e6c13725212dfdf"
+  },
+  "record_type": "derived_repository_evidence_record",
+  "schema_version": 1,
+  "source_commit": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec"
+}
