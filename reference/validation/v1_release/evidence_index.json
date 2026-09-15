@@ -73,11 +73,16 @@
     },
     {
       "id": "S9_PHYSICAL_GPU",
-      "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
-      "source": "docs/validation/M18_S9_CPU_EVIDENCE.md",
+      "classification": "PASS_PHYSICAL_GPU_APPLICABILITY",
+      "source": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+      "source_commit": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec",
+      "record_commit": "7179484ce782c25d6edde34cc56a0d689831e1cc",
+      "raw_artifact_sha256": "6cd35c82be1e542830c06f6b7b7e444fda0ff4fe93773f080e6c13725212dfdf",
       "hardware_policy": "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
       "hardware_requirement": "physical NVIDIA CUDA-capable GPU; model not constrained",
-      "execution_status": "DEFERRED_BY_USER"
+      "hardware": "2x Tesla T4",
+      "jax_backend": "gpu",
+      "execution_status": "PASS"
     },
     {
       "id": "S10_RELEASE_READINESS",
@@ -95,12 +100,11 @@
       "job": "104268154143",
       "artifact": "10383425031",
       "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
-      "m19_final_status": "BLOCKED_BY_PHYSICAL_GPU",
-      "m20_final_status": "BLOCKED_BY_PHYSICAL_GPU_AND_M19"
+      "m19_final_status": "READY_TO_FINALIZE",
+      "m20_final_status": "BLOCKED_BY_M19"
     }
   ],
   "active_blockers": [
-    "S9 physical NVIDIA GPU revalidation",
     "M19 evidence freeze",
     "M20 v1.0 candidate gate"
   ]
