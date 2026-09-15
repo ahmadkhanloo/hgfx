@@ -207,6 +207,6 @@
   },
   "release_branch": "migration/m18-workflow-closure",
   "schema_version": 1,
-  "source_commit": "60472362d05412a35b046b197a32daacc05ebbef",
+  "source_commit": "9324490b067644cf179ad8f4663448ef03878f7a",
   "status": "FROZEN"
 }
