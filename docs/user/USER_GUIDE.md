@@ -169,7 +169,7 @@ p = np.asarray(
 )
 
 sim = hgfx.sim_model(u, "ehgf_binary", p)
-print(sim.trajectory["mu"])
+print(sim.traj["mu"])
 ```
 
 An observation model can also be supplied where supported so that simulated responses are returned together with the perceptual trajectory.
@@ -191,9 +191,11 @@ sample = hgfx.sample_model(
     seed=1234,
 )
 
-print(sample.perceptual_parameters)
-print(sample.responses)
+print(sample.p_prc)
+print(sample.y)
 ```
+
+The public API returns a MATLAB-compatible `CompatibilityResult`. Lower-level raw simulation/sampling structures remain available under `hgfx.compat` for parity tooling, but downstream applications should normally use the public result surface above.
 
 Random streams are reproducible within the HGFX seed contract, but NumPy and MATLAB random generators are not claimed to be byte-identical. Exact cross-language stochastic validation injects the same exported random draws when required.
 
