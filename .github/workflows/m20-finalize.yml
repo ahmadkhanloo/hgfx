@@ -18,48 +18,43 @@ on:
       - 'reference/validation/v1_release/evidence_index.json'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   finalize-m20:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: migration/m18-workflow-closure
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Refresh frozen M19 manifest for candidate metadata
+      - name: Build candidate-synchronized M19 manifest
         run: |
-          python scripts/build_v1_evidence_manifest.py --mode finalize
+          python scripts/build_v1_evidence_manifest.py \
+            --mode finalize \
+            --output /tmp/hgfx-m19-m20-final.json
           python - <<'PY'
           import json
           from pathlib import Path
-          p = Path('reference/validation/v1_release/evidence_manifest.json')
+          p = Path('/tmp/hgfx-m19-m20-final.json')
           data = json.loads(p.read_text())
           assert data['status'] == 'FROZEN', data
           assert data['failures'] == [], data['failures']
           assert data['physical_gpu']['pass'] is True, data['physical_gpu']
-          print('Refreshed M19 manifest:', data['source_commit'])
+          print('Candidate M19 manifest source commit:', data['source_commit'])
           PY
 
       - name: Final M20 candidate gate
         run: |
           python scripts/check_m20_candidate.py \
             --mode finalize \
-            --manifest reference/validation/v1_release/evidence_manifest.json
+            --manifest /tmp/hgfx-m19-m20-final.json
 
-      - name: Commit candidate-synchronized frozen manifest
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reference/validation/v1_release/evidence_manifest.json
-          if git diff --cached --quiet; then
-            echo 'Manifest already current.'
-          else
-            git commit -m 'freeze(m19): refresh manifest for v1.0rc1 candidate'
-            git push origin HEAD:migration/m18-workflow-closure
-          fi
+      - name: Upload candidate-synchronized evidence manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-m19-m20-final-manifest
+          path: /tmp/hgfx-m19-m20-final.json
+          if-no-files-found: error
