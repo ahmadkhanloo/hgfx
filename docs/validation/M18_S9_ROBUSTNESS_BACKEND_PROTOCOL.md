@@ -1,9 +1,10 @@
 # M18 S9 Robustness / Backend Closure Protocol
 
 Protocol: **`m18-s9-robustness-backend-1`**
-Status: **FROZEN BEFORE S9 REPAIR / FINAL EXECUTION**
+Status: **FROZEN BEFORE S9 REPAIR / FINAL EXECUTION; HARDWARE ELIGIBILITY AMENDED BEFORE NEW PHYSICAL-GPU EVIDENCE**
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Protocol-freeze parent: `4973fed8997622ba76f6c864d92fbb466484bce9`
+Hardware amendment: `M18_S9_PHYSICAL_GPU_AMENDMENT.md`
 
 ## Objective
 
@@ -79,24 +80,28 @@ Parameter differences, termination and trajectory differences are retained diagn
 
 - `PASS_CPU_BACKEND_EQUIVALENCE`: all required current-head compatibility-vs-JAX-CPU cases satisfy the frozen criteria and semantic boundary fixtures.
 - `BACKEND_IMPLEMENTATION_MISMATCH`: a required JAX CPU path disagrees materially with current compatibility semantics.
-- `PASS_PHYSICAL_GPU_APPLICABILITY`: physical-GPU evidence exercises the same current code/data path and meets the frozen CPU-vs-GPU criterion plus device-residency requirements.
-- `PHYSICAL_GPU_REVALIDATION_REQUIRED`: relevant current code/data path changed after prior physical validation, so old H100 evidence is not sufficient for the current release head.
+- `PASS_PHYSICAL_GPU_APPLICABILITY`: physical NVIDIA GPU evidence exercises the same current code/data path and meets the frozen CPU-vs-GPU criterion plus device-residency requirements.
+- `PHYSICAL_GPU_REVALIDATION_REQUIRED`: relevant current code/data path changed after prior physical validation, so older GPU evidence is not sufficient for the current release head.
 - `INSUFFICIENT_BACKEND_EVIDENCE`: required cells are missing or mechanically invalid.
 
 A CPU-only or mocked-device run can never yield `PASS_PHYSICAL_GPU_APPLICABILITY`.
 
-## Physical H100 evidence reuse rule
+## Physical-GPU hardware eligibility amendment
 
-Historical H100 evidence from source `e6f1740ec6cacc55323c6a4d4ca521430c9f3dbf` may be reused only if every numerically relevant code dependency for the claimed path is unchanged/applicable at the S9 release head.
+The GPU **model is not part of the S9 numerical acceptance criterion**. Per `M18_S9_PHYSICAL_GPU_AMENDMENT.md`, any physical NVIDIA CUDA-capable GPU supported by the installed JAX/CUDA runtime is eligible. The exact model must be recorded. This amendment was frozen before observing any new physical-GPU result on the repaired numerical path.
 
-If S9 repairs any file in the physical fast path (including `src/hgfx/gpu/engine.py` or a numerically relevant dependency), physical GPU status becomes `PHYSICAL_GPU_REVALIDATION_REQUIRED` until a new strict physical run records:
+Historical H100 evidence from source `e6f1740ec6cacc55323c6a4d4ca521430c9f3dbf` remains preserved as historical hardware evidence, but it cannot close current S9 because the numerical path changed afterward.
+
+A new strict physical run must record:
 
 - source commit SHA;
-- GPU hardware;
+- NVIDIA GPU hardware model;
 - driver/CUDA/JAX/JAXLIB/Python versions;
 - exact command;
 - CPU-vs-GPU result and device residency;
 - environment limitations such as shared-node contention.
+
+The physical-GPU gate is a correctness/applicability gate, not a performance benchmark. Passing on a T4, L4, A100, H100 or other eligible NVIDIA CUDA GPU supports only the tested numerical backend path; it does not imply identical performance characteristics across devices.
 
 ## Acceptance
 
@@ -105,7 +110,7 @@ S9 is DONE only when:
 1. robustness cases are complete and current compatibility semantics remain internally consistent;
 2. required compatibility-vs-JAX CPU cells pass or have a policy-supported scoped disposition;
 3. no unresolved required backend implementation mismatch remains;
-4. physical-GPU applicability is either validly inherited under the unchanged-path rule or revalidated on physical hardware;
+4. physical NVIDIA GPU applicability is revalidated on current-path physical hardware, or validly inherited under an unchanged-path rule;
 5. all raw failures and historical hardware evidence remain preserved.
 
 Until all five hold, S9 remains **IN PROGRESS/BLOCKED**, never PASS by inference.

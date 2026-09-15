@@ -1,13 +1,13 @@
 # HGFX v1.0 Release Gate
 
 Last synchronized: 2026-09-15
-Status: **OPEN / IN PROGRESS — PHYSICAL H100 DEFERRED**
+Status: **OPEN / IN PROGRESS — PHYSICAL NVIDIA GPU EVIDENCE DEFERRED**
 
 ## Product definition
 
 HGFX v1.0 is a functional and scientific Python replacement for frozen MATLAB HGF Toolbox 8.2.0. Bitwise identity is not generally required, but every accepted equivalence/limitation must follow the frozen policies and preserve failed evidence. No post-hoc threshold, seed, dataset, start, grid, model-family or optimizer change may obtain PASS.
 
-Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md` as acceptance policy.
+Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`, and `../validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md` as acceptance policy.
 
 ## Mandatory acceptance criteria
 
@@ -18,10 +18,10 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFER
 - [x] Hessian/LME/statistical output parity/equivalence or exact-scope reference limitation in documented required scopes
 - [x] Paired parameter recovery against same MATLAB oracle/workflow — exact frozen S7 grid is `REFERENCE_LIMITATION_MATCH`, not scientific PASS
 - [x] Paired model recovery/model-selection validation — `PASS_PAIRED_MODEL_SELECTION`, 36/36 winners match
-- [ ] CPU/GPU numerical agreement on required supported paths — CPU closed; fresh physical H100 deferred
+- [ ] CPU/GPU numerical agreement on required supported paths — CPU closed; fresh physical NVIDIA GPU evidence deferred
 - [x] Python reproduction/accounting of required MATLAB workflows accepted for release surface
 - [x] Independent-use documentation/examples
-- [ ] Aggregate evidence/provenance final freeze — preflight passes; final M19 blocked by H100
+- [ ] Aggregate evidence/provenance final freeze — preflight passes; final M19 blocked by physical GPU evidence
 - [x] Zero MATLAB runtime dependency for users
 
 ## Current evidence snapshot
@@ -37,11 +37,25 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFER
 - S7 parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`; model selection: `PASS_PAIRED_MODEL_SELECTION`, 36/36 BIC winners.
 - S8: required-scope repair DONE at `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no unresolved required HGFX-only S7 mismatch.
 - S9 CPU robustness/backend: `PASS_CPU_BACKEND_EQUIVALENCE`, run `34901924475`, job `104169632034`, artifact `10371308067`, SHA-256 `875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826`.
-- S9 physical GPU: **BLOCKED / DEFERRED** pending fresh H100 revalidation of the repaired numerical path.
-- S10 release readiness: **PASS**. Latest release-preparation-head rerun: commit `87e3b01fdbdbe5f157ba8dc7f1309335408a165a`, run `34934079865`, wheel artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
+- S9 physical GPU: **BLOCKED / DEFERRED** pending a fresh physical NVIDIA CUDA GPU run of the repaired numerical path. GPU model is not constrained; exact hardware must be recorded.
+- S10 release readiness: **PASS**. Latest release-preparation-head rerun: run `34934079865`, wheel artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
 - M19 evidence-freeze preflight: **PASS_PREFLIGHT**, run `34934079973`, job `104268154143`.
 - M20 candidate preflight: **PASS_PREFLIGHT**, same run/job.
 - M19/M20 preflight artifact: `10383425031`, SHA-256 `3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf`.
+
+## Physical-GPU acceptance
+
+The hardware model itself is not a numerical gate. Per `M18_S9_PHYSICAL_GPU_AMENDMENT.md`, an eligible run may use T4, L4, A10/A10G, A100, H100, H200, or another physical NVIDIA CUDA-capable GPU supported by the installed JAX/CUDA runtime.
+
+The unchanged frozen requirements are:
+
+- same repaired S9 code/data path;
+- actual GPU residency;
+- JAX CPU-vs-physical-GPU final-objective gap `<= 1e-7`;
+- exact GPU model, driver/CUDA/JAX/JAXLIB/Python, command, source commit, git status and environment limitations recorded;
+- CPU/mock evidence cannot substitute for physical GPU evidence.
+
+Passing on one eligible device supports backend numerical applicability on the tested NVIDIA/JAX/CUDA path. It does not create an H100-specific or cross-device performance claim.
 
 ## Accepted result semantics
 
@@ -61,8 +75,8 @@ S8 historical negative-precision localization probes are retained for provenance
 
 ## Current release blocker sequence
 
-1. **S9 physical H100 applicability** — deferred by the user, still mandatory before final PASS.
-2. **M19 final evidence freeze** — machinery/preflight PASS; finalize after H100.
+1. **S9 physical NVIDIA GPU applicability** — deferred by the user, still mandatory before final PASS.
+2. **M19 final evidence freeze** — machinery/preflight PASS; finalize after physical GPU PASS.
 3. **M20 v1.0 candidate** — machinery/preflight PASS; finalize after M19/version promotion.
 
 S10 is closed and no new scientific validation surface should be added during release closure unless a mandatory final gate demonstrates a genuine current-scope regression.
@@ -82,4 +96,4 @@ S10 is closed and no new scientific validation surface should be added during re
 - [x] Clean install/examples/docs/API/licenses verified
 - [x] Zero MATLAB runtime dependency verified
 
-The release remains **OPEN** solely because the physical-H100 cell and dependent M19/M20 finalization are not yet complete.
+The release remains **OPEN** solely because the physical-NVIDIA-GPU cell and dependent M19/M20 finalization are not yet complete.

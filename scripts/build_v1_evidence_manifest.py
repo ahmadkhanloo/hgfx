@@ -12,13 +12,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN_MATLAB_REFERENCE = "2437f4dc241541072722a2695ddeca7b44d83dd3"
 INDEX_PATH = ROOT / "reference" / "validation" / "v1_release" / "evidence_index.json"
-H100_PATH = ROOT / "gpu_validation_results" / "m18_s9_h100_revalidation.json"
+GPU_PATH = ROOT / "gpu_validation_results" / "m18_s9_physical_gpu_revalidation.json"
 
 REQUIRED_FILES = (
     "docs/planning/MILESTONES.md",
     "docs/planning/V1_RELEASE_GATE.md",
     "docs/validation/V1_EVIDENCE_INDEX.md",
     "docs/validation/M18_S9_CPU_EVIDENCE.md",
+    "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
     "reference/validation/v1_release/evidence_index.json",
     "reference/validation/m18_d02_reference_limitation/decision.json",
     "reference/validation/m18_d08_reference_limitation/decision.json",
@@ -50,30 +51,35 @@ def git_head() -> str:
         return "unknown"
 
 
-def h100_state() -> dict:
-    if not H100_PATH.is_file():
+def physical_gpu_state() -> dict:
+    if not GPU_PATH.is_file():
         return {
             "present": False,
             "pass": False,
             "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
-            "path": str(H100_PATH.relative_to(ROOT)),
+            "path": str(GPU_PATH.relative_to(ROOT)),
         }
-    data = json.loads(H100_PATH.read_text(encoding="utf-8"))
+    data = json.loads(GPU_PATH.read_text(encoding="utf-8"))
     physical = data.get("physical_gpu", {})
+    provenance = data.get("physical_gpu_evidence", {})
     passed = bool(
         data.get("gate_pass") is True
         and data.get("classification") == "PASS_S9_ROBUSTNESS_BACKEND"
         and physical.get("classification") == "PASS_PHYSICAL_GPU_APPLICABILITY"
         and physical.get("pass") is True
+        and provenance.get("hardware_eligibility_pass") is True
     )
     return {
         "present": True,
         "pass": passed,
         "classification": data.get("classification"),
         "physical_gpu_classification": physical.get("classification"),
+        "hardware_requirement": provenance.get("hardware_requirement"),
+        "hardware_eligibility_pass": provenance.get("hardware_eligibility_pass"),
+        "nvidia_smi_list": provenance.get("nvidia_smi_list"),
         "source_commit": data.get("source_commit"),
-        "sha256": sha256(H100_PATH),
-        "path": str(H100_PATH.relative_to(ROOT)),
+        "sha256": sha256(GPU_PATH),
+        "path": str(GPU_PATH.relative_to(ROOT)),
     }
 
 
@@ -100,10 +106,10 @@ def main(mode: str, output: str) -> int:
             continue
         files.append({"path": relative, "sha256": sha256(path), "bytes": path.stat().st_size})
 
-    gpu = h100_state()
+    gpu = physical_gpu_state()
     blockers = list(index.get("active_blockers", []))
     allowed_preflight = {
-        "S9 physical H100 revalidation",
+        "S9 physical NVIDIA GPU revalidation",
         "M19 evidence freeze",
         "M20 v1.0 candidate gate",
     }
@@ -113,14 +119,14 @@ def main(mode: str, output: str) -> int:
 
     if mode == "finalize":
         if not gpu["pass"]:
-            failures.append("physical H100 S9 evidence has not passed")
+            failures.append("physical NVIDIA GPU S9 evidence has not passed")
         allowed_final = {"M19 evidence freeze", "M20 v1.0 candidate gate"}
         unexpected_final = sorted(set(blockers) - allowed_final)
         if unexpected_final:
             failures.append(f"pre-M19 blockers still active: {unexpected_final}")
 
     status = "FROZEN" if mode == "finalize" and not failures else (
-        "PREPARED" if gpu["pass"] and not failures else "PREPARED_BLOCKED_H100"
+        "PREPARED" if gpu["pass"] and not failures else "PREPARED_BLOCKED_GPU"
     )
 
     payload = {
@@ -134,7 +140,7 @@ def main(mode: str, output: str) -> int:
         "numerical_source_commit": index.get("numerical_source_commit"),
         "files": sorted(files, key=lambda item: item["path"]),
         "external_evidence": index.get("evidence", []),
-        "physical_h100": gpu,
+        "physical_gpu": gpu,
         "active_blockers_at_manifest_time": blockers,
         "failures": failures,
         "integrity": {
@@ -142,6 +148,7 @@ def main(mode: str, output: str) -> int:
             "thresholds_changed_for_freeze": False,
             "seeds_or_datasets_changed_for_freeze": False,
             "validation_grid_changed_for_freeze": False,
+            "gpu_model_constrained": False,
         },
     }
 

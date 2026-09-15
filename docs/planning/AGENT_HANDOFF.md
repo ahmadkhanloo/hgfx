@@ -3,7 +3,7 @@
 Last synchronized: 2026-09-15
 Branch: `migration/m18-workflow-closure`
 Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`
-Milestone: **v1.0 release closure — IN PROGRESS / ONLY PHYSICAL H100 + DEPENDENT FINALIZATION REMAIN**
+Milestone: **v1.0 release closure — IN PROGRESS / ONLY PHYSICAL NVIDIA GPU + DEPENDENT FINALIZATION REMAIN**
 Historical M18 scientific experiment: **FAIL, preserved**
 
 ## Read first
@@ -13,57 +13,53 @@ Historical M18 scientific experiment: **FAIL, preserved**
 3. `V1_RELEASE_GATE.md`
 4. `M19_GATE.md`
 5. `M20_GATE.md`
-6. `../validation/V1_EVIDENCE_INDEX.md`
-7. `../validation/MATLAB_EQUIVALENCE_POLICY.md`
-8. `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
-9. `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`
+6. `../validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md`
+7. `../validation/V1_EVIDENCE_INDEX.md`
+8. equivalence/reference-limitation policies and validation matrix
 
 ## Current release-accounting state
 
 - M0-M17: completed in documented scopes.
 - Historical M18 scientific experiment: FAIL preserved.
-- D02 direct fit: FAIL preserved; exact official scope = `REFERENCE_LIMITATION_MATCH`.
-- D08 prospective holdout: FAIL preserved; exact failed seed `314159265` = `REFERENCE_LIMITATION_MATCH`.
+- D02 direct fit and D08 prospective holdout failures remain preserved; exact accepted scopes are `REFERENCE_LIMITATION_MATCH`.
 - D09/D10-D11/D12: PASS.
-- S7 paired parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`, not scientific PASS.
+- S7 parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`, not scientific PASS.
 - S7 model selection: `PASS_PAIRED_MODEL_SELECTION`, 36/36 BIC winners.
-- S8 required-scope repair: DONE; repair `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no open required S7-derived implementation/optimizer/model-selection mismatch.
+- S8 required-scope repair: DONE; no open required S7-derived mismatch.
 - S9 CPU/backend: `PASS_CPU_BACKEND_EQUIVALENCE`, run `34901924475`, job `104169632034`, artifact `10371308067`.
-- S9 physical H100: **BLOCKED / DEFERRED BY USER**. This is still mandatory for final release.
-- S10: PASS. Latest release-preparation-head rerun `34934079865`, artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
-- M19 preflight: PASS_PREFLIGHT.
-- M20 preflight: PASS_PREFLIGHT.
-- M19/M20 preflight run `34934079973`, job `104268154143`, artifact `10383425031`, SHA-256 `3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf`.
-- Package/citation metadata are intentionally development state `1.0.0.dev0`; do not promote until H100/M19 finalization.
+- S9 physical GPU: **BLOCKED / DEFERRED BY USER**. It is mandatory for final release, but it is no longer H100-specific.
+- S10: PASS.
+- M19/M20 preflight: PASS_PREFLIGHT.
+- Package/citation metadata remain `1.0.0.dev0` until physical GPU/M19 finalization.
 
 ## Do not reopen
 
-Do not return to D02/D08 ULP chasing or rerun/redefine S7/S8 merely to produce greener historical diagnostics. Reopen only if a mandatory current release gate shows a genuine HGFX-only semantic regression in required scope.
+Do not return to D02/D08 ULP chasing or rerun/redefine S7/S8 merely to produce greener historical diagnostics. Reopen only if a mandatory current gate shows a genuine HGFX-only semantic regression in required scope.
 
-The S8 negative-precision and raw-precheck workflows are historical localization probes. They deliberately exercise an invalid parameter region where frozen MATLAB can itself raise `Negative posterior precision`. Their old runs and failures remain preserved; the workflows are manual-only after S8 closure and are not ordinary release gates.
+## Only missing external evidence — physical NVIDIA GPU
 
-## Only missing external evidence — physical H100
+Use `scripts/run_m18_s9_physical_gpu_revalidation.py`.
 
-Use the existing `scripts/run_m18_s9_h100_revalidation.py`. Do not change frozen criteria.
+Hardware eligibility is frozen by `docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md`: any physical NVIDIA CUDA-capable GPU supported by the installed JAX/CUDA runtime is acceptable. T4 is sufficient for this numerical-applicability gate; H100 is not required.
 
 Required final evidence:
 
-- physical H100 visible to JAX;
+- physical NVIDIA GPU visible to JAX and `nvidia-smi`;
 - actual GPU residency;
 - same repaired numerical/data path;
 - CPU-vs-GPU final-objective gap `<= 1e-7`;
-- hardware, driver/runtime, command, source commit and environment/contention note recorded.
+- GPU model, driver/runtime, command, source commit, git status and environment note recorded.
 
 CPU/mock evidence cannot substitute.
 
-## Exact continuation after H100 evidence arrives
+## Exact continuation after GPU evidence arrives
 
-1. Validate the H100 JSON/provenance against frozen S9 criteria. If it fails, classify the failure; do not relax the gate.
-2. If PASS, update `reference/validation/v1_release/evidence_index.json` and docs with `PASS_PHYSICAL_GPU_APPLICABILITY` / full S9 closure.
-3. Run `python scripts/build_v1_evidence_manifest.py --mode finalize`; commit the resulting `reference/validation/v1_release/evidence_manifest.json` only if status is `FROZEN`. Then M19 may be PASS.
-4. Promote `pyproject.toml` and `CITATION.cff` from `1.0.0.dev0` to the selected candidate/final version (`1.0.0rc1` or `1.0.0`) only after M19 freeze.
-5. Remove already-satisfied H100/M19 blockers from the machine index and run `python scripts/check_m20_candidate.py --mode finalize`.
-6. Only after M20 final PASS: mark PR #26 ready, merge according to repository policy, and create the corresponding v1.0 candidate/release tag if all required CI is green.
+1. Validate the JSON/provenance against frozen S9 criteria. If it fails, classify the failure; do not relax the gate.
+2. If PASS, update release evidence index/docs with `PASS_PHYSICAL_GPU_APPLICABILITY` / full S9 closure.
+3. Run `python scripts/build_v1_evidence_manifest.py --mode finalize`; commit the manifest only if status is `FROZEN`. Then M19 may be PASS.
+4. Promote `pyproject.toml` and `CITATION.cff` from `1.0.0.dev0` to selected candidate/final version.
+5. Remove satisfied physical-GPU/M19 blockers and run `python scripts/check_m20_candidate.py --mode finalize`.
+6. Only after M20 final PASS: mark PR #26 ready, merge according to repository policy, and create the corresponding v1.0 tag if required CI is green.
 
 ## Integrity rules
 

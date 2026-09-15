@@ -24,6 +24,7 @@ REQUIRED_RELEASE_FILES = (
     "docs/planning/M20_GATE.md",
     "docs/planning/V1_RELEASE_GATE.md",
     "docs/validation/V1_EVIDENCE_INDEX.md",
+    "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
     "reference/validation/v1_release/evidence_index.json",
 )
 
@@ -82,13 +83,14 @@ def main(mode: str, manifest_path: str) -> int:
 
     if mode == "preflight":
         if manifest_data.get("status") not in {
-            "PREPARED_BLOCKED_H100",
+            "PREPARED_BLOCKED_GPU",
+            "PREPARED_BLOCKED_H100",  # backward-compatible historical preflight artifact
             "PREPARED",
             "FROZEN",
         }:
             failures.append(f"unexpected M19 preflight status: {manifest_data.get('status')!r}")
         allowed = {
-            "S9 physical H100 revalidation",
+            "S9 physical NVIDIA GPU revalidation",
             "M19 evidence freeze",
             "M20 v1.0 candidate gate",
         }
@@ -98,9 +100,9 @@ def main(mode: str, manifest_path: str) -> int:
     else:
         if manifest_data.get("status") != "FROZEN":
             failures.append("M19 manifest is not FROZEN")
-        h100 = manifest_data.get("physical_h100", {})
-        if h100.get("pass") is not True:
-            failures.append("M19 manifest does not contain PASS physical-H100 evidence")
+        gpu = manifest_data.get("physical_gpu", manifest_data.get("physical_h100", {}))
+        if gpu.get("pass") is not True:
+            failures.append("M19 manifest does not contain PASS physical NVIDIA GPU evidence")
         blockers = set(index.get("active_blockers", []))
         if blockers - {"M20 v1.0 candidate gate"}:
             failures.append(f"earlier release blockers remain active: {sorted(blockers)}")

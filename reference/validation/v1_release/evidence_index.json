@@ -75,6 +75,8 @@
       "id": "S9_PHYSICAL_GPU",
       "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
       "source": "docs/validation/M18_S9_CPU_EVIDENCE.md",
+      "hardware_policy": "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
+      "hardware_requirement": "physical NVIDIA CUDA-capable GPU; model not constrained",
       "execution_status": "DEFERRED_BY_USER"
     },
     {
@@ -93,12 +95,12 @@
       "job": "104268154143",
       "artifact": "10383425031",
       "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
-      "m19_final_status": "BLOCKED_BY_PHYSICAL_H100",
-      "m20_final_status": "BLOCKED_BY_PHYSICAL_H100_AND_M19"
+      "m19_final_status": "BLOCKED_BY_PHYSICAL_GPU",
+      "m20_final_status": "BLOCKED_BY_PHYSICAL_GPU_AND_M19"
     }
   ],
   "active_blockers": [
-    "S9 physical H100 revalidation",
+    "S9 physical NVIDIA GPU revalidation",
     "M19 evidence freeze",
     "M20 v1.0 candidate gate"
   ]
