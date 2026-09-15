@@ -6,15 +6,17 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 ## Current status
 
-v1.0 closure is **in progress**.
+The `1.0.0rc1` release-candidate gate is **PASS**.
 
-- M0-M17 are completed in their documented scopes.
+- M0–M17 are completed in their documented scopes.
 - Historical M18 scientific failures remain preserved rather than retuned away.
 - Exact shared MATLAB/HGFX limitations are tracked explicitly as scoped `REFERENCE_LIMITATION_MATCH` results, not scientific PASS claims.
-- The current S9 CPU robustness/backend matrix is `PASS_CPU_BACKEND_EQUIVALENCE`.
-- S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; the archived H100 results retain their original scope.
-- M19 evidence freeze is complete; candidate metadata is `1.0.0rc1`.
-- M20 final candidate validation and fresh candidate CI remain pending; no release/tag is claimed.
+- S9 CPU/backend is `PASS_CPU_BACKEND_EQUIVALENCE`.
+- S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; archived H100 results retain their original scope.
+- M19 evidence freeze is complete.
+- Candidate metadata is `1.0.0rc1`.
+- M20 finalizer run `34989737851` on source `b52dc06ca58d29afeb5c265f7eb67746824178e0` returned `PASS_M20_CANDIDATE` with no failures.
+- Final `1.0.0` promotion remains subject to the independent final review defined by `docs/planning/CHAT_WORKFLOW.md` and `docs/planning/FINAL_REVIEW_CHECKLIST.md`.
 
 See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
 

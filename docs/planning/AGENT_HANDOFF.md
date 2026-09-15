@@ -1,35 +1,27 @@
 # Agent Handoff
 
-Last synchronized: 2026-09-15
+Last synchronized: 2026-09-16
 Branch: `migration/m18-workflow-closure`
 
-Read [V1_TODO](V1_TODO.md) first for the ordered remaining work, then
-[V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md),
-[CI_MAINTENANCE](CI_MAINTENANCE.md), and
-[the evidence index](../validation/V1_EVIDENCE_INDEX.md).
+Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md), [FINAL_REVIEW_CHECKLIST](FINAL_REVIEW_CHECKLIST.md), and [the evidence index](../validation/V1_EVIDENCE_INDEX.md) before continuing.
 
-S9 physical NVIDIA GPU evidence is accepted on 2x Tesla T4; it is no longer
-blocked or deferred. M19 is frozen and package/citation metadata are `1.0.0rc1`.
-M20 candidate closure and fresh CI remain to be verified. Do not infer final
-release PASS from an old S10 run or a queued workflow.
+## Current state
 
-Historical M18 scientific FAIL and D02/D08/S7 scoped reference limitations stay
-unchanged. Do not reopen historical ULP diagnostics without a genuine mandatory
-current-scope regression. CPU tests cannot substitute for physical GPU evidence.
-The current maintenance change touches CI/docs only, not numerical code.
+- M0–M17 are complete in documented scopes.
+- Historical M18 scientific FAIL remains preserved.
+- D02/D08 and exact-grid S7 parameter recovery remain scoped `REFERENCE_LIMITATION_MATCH`, not scientific PASS.
+- S9 physical NVIDIA GPU applicability is accepted on 2x Tesla T4 and is no longer blocked/deferred.
+- M19 is PASS / FROZEN.
+- Candidate package/citation metadata are `1.0.0rc1`.
+- M20 is **PASS**: workflow `M20 Finalize v1.0 Candidate`, run `34989737851`, source `b52dc06ca58d29afeb5c265f7eb67746824178e0`, checker result `PASS_M20_CANDIDATE`, `failures=[]`.
+- Active release PR checks on that candidate SHA completed successfully.
 
-Record continuation evidence in the repository, including commands, source SHA,
-results and blockers. Follow AGENTS.md and the frozen validation policies.
+## Next actions
 
-## Maintenance validation — 2026-09-15
+1. Integrate PR #26 and create the `1.0.0rc1` candidate tag/release after required checks remain green.
+2. Freeze that RC and obtain the independent frontier-agent review required by `CHAT_WORKFLOW.md` against `FINAL_REVIEW_CHECKLIST.md`.
+3. Resolve every Critical/High finding without modifying acceptance criteria during the review.
+4. Rerun full validation after any fixes.
+5. Promote to final `1.0.0` only after the independent-review gate is genuinely satisfied.
 
-CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
-CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
-build/install/API import/quickstart, and the static reference/release checks.
-M19 refresh and the M20 final checker passed locally with no failures.
-Evidence: `reference/validation/ci_maintenance_20260915/`.
-
-Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
-at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
-no merge/tag or new physical-GPU validation is claimed. Classic branch
-protection could not be read (403); do not bypass required checks.
+Do not infer final `1.0.0` PASS from M20. Record exact commands, source SHAs, workflow runs, artifacts, hardware/runtime evidence, review findings and unresolved blockers in the repository.
