@@ -12,6 +12,8 @@ import math
 
 import numpy as np
 
+from hgfx.math.matlab_exp import matlab_exp, matlab_exp_scalar
+
 
 class TransformKind(str, Enum):
     IDENTITY = "identity"
@@ -28,11 +30,10 @@ class TransformSpec:
         if self.kind is TransformKind.IDENTITY:
             return float(value)
         if self.kind is TransformKind.EXPONENTIAL:
-            with np.errstate(over="ignore", invalid="ignore"):
-                return float(np.exp(np.float64(value)))
+            return float(matlab_exp_scalar(value))
         if self.kind is TransformKind.SIGMOID:
-            x = float(value)
-            return float(self.upper) / (1.0 + math.exp(-x))
+            x = np.float64(value)
+            return float(np.float64(self.upper) / (np.float64(1.0) + matlab_exp_scalar(-x)))
         raise ValueError(f"Unsupported transform: {self.kind}")
 
     def inverse_scalar(self, value: float) -> float:
@@ -53,10 +54,10 @@ class TransformSpec:
         if self.kind is TransformKind.IDENTITY:
             return array.copy()
         if self.kind is TransformKind.EXPONENTIAL:
-            return np.exp(array)
+            return np.asarray(matlab_exp(array), dtype=np.float64)
         if self.kind is TransformKind.SIGMOID:
             with np.errstate(over="ignore"):
-                return np.float64(self.upper) / (1.0 + np.exp(-array))
+                return np.float64(self.upper) / (np.float64(1.0) + matlab_exp(-array))
         raise ValueError(f"Unsupported transform: {self.kind}")
 
     def inverse(self, values: np.ndarray | list[float]) -> np.ndarray:

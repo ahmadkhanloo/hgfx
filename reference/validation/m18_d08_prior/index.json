@@ -1,0 +1,15 @@
+{
+  "source_head": "ae063e7a866e2ab227110fd1a771d138fad2a274",
+  "tested_merge": "5904de6790560308f7ba8fd3163828a72e104b6c",
+  "source_run": 34821444290,
+  "source_job": 103903714260,
+  "source_artifact": 10338820786,
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "interpretation": "PRIOR_INPUT_DIVERGENCE: matched MATLAB prior inputs reproduce all terms and total exactly at this sample. Not D08 fitting PASS.",
+  "files": {
+    "matched_input_replay.json": "b2e1d3f0ccbadb43d5649956743a9d812079d7286cb370b3e32736bc713818d1",
+    "reference.json": "512d9e5f3c7be49af4c7e346b7a15bfb4e291c16b8c3529a21ad1a8b9f09f7e9",
+    "source_run_34821444290.zip": "144d18a20ee63a71d7ed49adec579c2e3658dbd67d791ba082ff2b6fc07fc72e",
+    "original_comparison.json": "b4d2cf0339c948abf1c01b9de866f0862a3174c17551c13350095049f05f1a46"
+  }
+}

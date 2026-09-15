@@ -276,7 +276,12 @@ def _binary_forward_impl(
 
             muhat2 = mu_prev[1] + t_k * rho[1]
             muhat = muhat.at[1].set(muhat2)
-            muhat1 = jnp.clip(jax.nn.sigmoid(ka[0] * muhat2), 0.001, 0.999)
+            raw_muhat1 = jax.nn.sigmoid(ka[0] * muhat2)
+            muhat1 = (
+                raw_muhat1
+                if update_type == "hgf"
+                else jnp.clip(raw_muhat1, 0.001, 0.999)
+            )
             pihat1 = 1.0 / (muhat1 * (1.0 - muhat1))
             mu = mu.at[0].set(u_k)
             pi = pi.at[0].set(jnp.inf)

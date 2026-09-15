@@ -34,6 +34,7 @@ from .configs import (
     softmax_mu3_wld_config,
     logrt_linear_whatworld_config,
 )
+from .bpa import bayesian_parameter_average
 from .fit import fitModel, fit_model
 from .result import CompatibilityResult, MatlabStruct
 from .sample import sampleModel, sample_model_result
@@ -104,6 +105,7 @@ __all__ = [
     "softmax_mu3_wld_config",
     "logrt_linear_whatworld_config",
     "unitsq_sgm_config",
+    "bayesian_parameter_average",
     "ObjectiveResult",
     "PriorEvaluation",
     "evaluate_objective",

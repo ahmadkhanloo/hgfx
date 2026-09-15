@@ -1,0 +1,40 @@
+{
+  "protocol": "m18-s9-robustness-backend-1",
+  "status": "FROZEN_BEFORE_S9_REPAIR_AND_FINAL_EXECUTION",
+  "protocol_freeze_parent": "4973fed8997622ba76f6c864d92fbb466484bce9",
+  "matlab_reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "trial_counts": [128, 256],
+  "forward_models": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+  "forward_regimes": ["regular", "ignored_missing", "irregular"],
+  "boundary_fixture": {
+    "model": "hgf_binary",
+    "transformed_mu0_level2": 8.0,
+    "expected_standard_hgf_clamp": false,
+    "ehgf_legacy_clamp_retained": true
+  },
+  "fit_backend_surface": {
+    "perceptual_model": "hgf_binary",
+    "observation_model": "unitsq_sgm",
+    "regimes": ["regular", "ignored_missing"],
+    "initialization_shared_state_offsets": {
+      "formula": "delta_j = 1e-4 * (j + 1)",
+      "probes": ["start", "start_plus_delta", "start_minus_delta"]
+    }
+  },
+  "criteria": {
+    "forward_rtol": 3e-10,
+    "forward_atol": 3e-11,
+    "shared_objective_rtol": 3e-10,
+    "shared_objective_atol": 3e-11,
+    "shared_gradient_rtol": 2e-4,
+    "shared_gradient_atol": 2e-5,
+    "compat_vs_jax_cpu_final_objective_gap_max": 0.1,
+    "jax_cpu_vs_physical_gpu_final_objective_gap_max": 1e-7
+  },
+  "separate_horizon_extension": {
+    "issue": 21,
+    "trial_counts": [128, 256, 512, 1024],
+    "included_in_s9_release_grid": false
+  },
+  "physical_gpu_rule": "CPU or mocked-device evidence cannot satisfy physical GPU applicability; prior H100 evidence may be inherited only when every numerically relevant code dependency remains unchanged/applicable."
+}

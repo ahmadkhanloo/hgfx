@@ -1,0 +1,212 @@
+{
+  "active_blockers_at_manifest_time": [
+    "M20 v1.0 candidate gate"
+  ],
+  "external_evidence": [
+    {
+      "classification": "PASS_IN_DOCUMENTED_SCOPES",
+      "id": "M0-M17",
+      "source": "docs/planning/MILESTONES.md"
+    },
+    {
+      "classification": "FAIL_PRESERVED",
+      "id": "M18_HISTORICAL_SCIENTIFIC",
+      "source": "historical M18 validation evidence"
+    },
+    {
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "id": "D02_EXACT_SCOPE",
+      "source": "reference/validation/m18_d02_reference_limitation/decision.json"
+    },
+    {
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "id": "D08_FAILED_SEED_EXACT_SCOPE",
+      "source": "reference/validation/m18_d08_reference_limitation/decision.json"
+    },
+    {
+      "classification": "PASS",
+      "id": "D04_UHGF_AR1",
+      "workflow_run": "34763542557"
+    },
+    {
+      "classification": "PASS",
+      "id": "D09_SAMPLEMODEL",
+      "workflow_run": "34842943557"
+    },
+    {
+      "classification": "PASS",
+      "id": "D10_D11_ANALYSIS",
+      "workflow_run": "34847266268"
+    },
+    {
+      "classification": "PASS",
+      "id": "D12_BPA",
+      "workflow_run": "34854238549"
+    },
+    {
+      "artifact": "10370615292",
+      "artifact_sha256": "3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92",
+      "classification": "REFERENCE_LIMITATION_MATCH",
+      "id": "S7_PARAMETER_RECOVERY",
+      "workflow_run": "34896442847"
+    },
+    {
+      "classification": "PASS_PAIRED_MODEL_SELECTION",
+      "id": "S7_MODEL_SELECTION",
+      "matched_winners": "36/36"
+    },
+    {
+      "classification": "DONE",
+      "historical_localization_probes": "MANUAL_ONLY_PRESERVED",
+      "id": "S8_REQUIRED_REPAIR_SCOPE",
+      "repair_commit": "0239f52f772825e0a4fc74cdf3559cafa18a603e"
+    },
+    {
+      "artifact": "10371308067",
+      "artifact_sha256": "875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826",
+      "classification": "PASS_CPU_BACKEND_EQUIVALENCE",
+      "id": "S9_CPU_BACKEND",
+      "job": "104169632034",
+      "workflow_run": "34901924475"
+    },
+    {
+      "classification": "PASS_PHYSICAL_GPU_APPLICABILITY",
+      "execution_status": "PASS",
+      "hardware": "2x Tesla T4",
+      "hardware_policy": "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
+      "hardware_requirement": "physical NVIDIA CUDA-capable GPU; model not constrained",
+      "id": "S9_PHYSICAL_GPU",
+      "jax_backend": "gpu",
+      "raw_artifact_sha256": "6cd35c82be1e542830c06f6b7b7e444fda0ff4fe93773f080e6c13725212dfdf",
+      "record_commit": "7179484ce782c25d6edde34cc56a0d689831e1cc",
+      "source": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+      "source_commit": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec"
+    },
+    {
+      "artifact": "10383235791",
+      "artifact_sha256": "8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b",
+      "classification": "PASS",
+      "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
+      "id": "S10_RELEASE_READINESS",
+      "workflow_run": "34934079865"
+    },
+    {
+      "artifact": "10383425031",
+      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
+      "classification": "PASS_PREFLIGHT",
+      "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
+      "id": "M19_M20_PREFLIGHT",
+      "job": "104268154143",
+      "workflow_run": "34934079973"
+    },
+    {
+      "classification": "PASS_FROZEN",
+      "failures": 0,
+      "id": "M19_EVIDENCE_FREEZE",
+      "manifest": "reference/validation/v1_release/evidence_manifest.json",
+      "manifest_commit": "b71301b978e07cb0fa5ac2ad14cc92235fadc5ee",
+      "manifest_status": "FROZEN",
+      "workflow_run": "34966661492"
+    }
+  ],
+  "failures": [],
+  "files": [
+    {
+      "bytes": 341,
+      "path": "CITATION.cff",
+      "sha256": "1b38e79866f9adf8f4c3fe3746afee4ff61c3b1ca7c0b7ac8925d54ed754801f"
+    },
+    {
+      "bytes": 815,
+      "path": "LICENSE",
+      "sha256": "08400575110403eb9e8e4ae60de402a99060c505be7ff7e3ca8888fce2e1af73"
+    },
+    {
+      "bytes": 3493,
+      "path": "README.md",
+      "sha256": "745086b3eddcbde09301a2ef93951a2af2a206eae0530e3d7a447023eab78b38"
+    },
+    {
+      "bytes": 744,
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "d41333c124d6efcc3e86658c18dbf5dabde0145b93695307b89c930d97951222"
+    },
+    {
+      "bytes": 2996,
+      "path": "docs/planning/MILESTONES.md",
+      "sha256": "9742c905004d1126ed9803baac8a9f031a610fe1c19fe64e698c18126e43d27c"
+    },
+    {
+      "bytes": 8291,
+      "path": "docs/planning/V1_RELEASE_GATE.md",
+      "sha256": "d9a96b9f5eeb3790da30bbd72e4c6bf40035142c434cf6e0bf95e623f3ac8d06"
+    },
+    {
+      "bytes": 1973,
+      "path": "docs/validation/M18_S9_CPU_EVIDENCE.md",
+      "sha256": "b24e7e0517deb507305ee31dee5ff43e463621e5b3629544d74f813e015157d4"
+    },
+    {
+      "bytes": 1963,
+      "path": "docs/validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md",
+      "sha256": "ad234388ea5bee8a1fd92e8ed4a4c51899017a6654a39ee3aeff9f6b1dbe5ee0"
+    },
+    {
+      "bytes": 4244,
+      "path": "docs/validation/V1_EVIDENCE_INDEX.md",
+      "sha256": "4937e458aa8fb473aa83bdcd48aa6d9669c72d028aafde805b152e2c724373d7"
+    },
+    {
+      "bytes": 693,
+      "path": "pyproject.toml",
+      "sha256": "b4d424ee6d2d236c14eebd3cff215138019f1edec2629e5e6ab3f62e354ad112"
+    },
+    {
+      "bytes": 5739,
+      "path": "reference/validation/m18_d02_reference_limitation/decision.json",
+      "sha256": "037a16d245ff574ebc98c9dac41a92adb459b587207d58e8cf8c22e8d036c0cf"
+    },
+    {
+      "bytes": 5410,
+      "path": "reference/validation/m18_d08_reference_limitation/decision.json",
+      "sha256": "a375ec68f1ca2fcb99b7eae3476b3800f86f4e298c7c2ff79acbac2724e669ff"
+    },
+    {
+      "bytes": 3912,
+      "path": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "bytes": 3976,
+      "path": "reference/validation/v1_release/evidence_index.json",
+      "sha256": "535853b3b2530bfa1373d3462dfde9e712fc43cf2f5d3836b4e6c73f72d2a23e"
+    }
+  ],
+  "frozen_matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "integrity": {
+    "gpu_model_constrained": false,
+    "historical_failures_rewritten": false,
+    "seeds_or_datasets_changed_for_freeze": false,
+    "thresholds_changed_for_freeze": false,
+    "validation_grid_changed_for_freeze": false
+  },
+  "milestone": "M19",
+  "mode": "finalize",
+  "numerical_source_commit": "9c53af707a60d27ee3d9d37e5122e7a0ba7d5460",
+  "physical_gpu": {
+    "classification": "PASS_S9_ROBUSTNESS_BACKEND",
+    "hardware_eligibility_pass": true,
+    "hardware_requirement": "physical NVIDIA CUDA-capable GPU; model not constrained",
+    "nvidia_smi_list": "GPU 0: Tesla T4 (UUID: GPU-9e3c5e85-b98b-107e-b5d6-9a8163202026)\nGPU 1: Tesla T4 (UUID: GPU-36459b16-cffc-2540-0112-cb57f416146a)",
+    "pass": true,
+    "path": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+    "physical_gpu_classification": "PASS_PHYSICAL_GPU_APPLICABILITY",
+    "present": true,
+    "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
+    "source_commit": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec"
+  },
+  "release_branch": "migration/m18-workflow-closure",
+  "schema_version": 1,
+  "source_commit": "f099351b387b994a4317a4cd406fa826726063fd",
+  "status": "FROZEN"
+}

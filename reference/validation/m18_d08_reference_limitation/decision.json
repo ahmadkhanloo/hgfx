@@ -1,0 +1,74 @@
+{
+  "protocol": "m18-d08-reference-limitation-decision-1",
+  "status": "ACCEPTED_REFERENCE_LIMITATION_EXACT_SCOPE",
+  "release_classification": "REFERENCE_LIMITATION_MATCH",
+  "direct_gate_status": "FAIL_PRESERVED",
+  "prospective_level2_holdout_status": "FAIL_PRESERVED",
+  "case_id": "D08_fit_holdout_seed_314159265",
+  "scope": "Exact prospective D08 failing-seed workflow only: official example_usdchf.txt input, seed 314159265, uHGF + gaussian_obs, native/default parameter vector and resolved default configs, default quasinewton optimizer, and the unchanged Level-2 field tolerances rtol=3e-8 and atol=3e-10.",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_product_commit": "2a9a70516966451a6affa7ebe25881cec7285bb1",
+  "evidence_head": "21a6e9cc38c9c480745b6eade8ed9ec3bb1e9a56",
+  "product_code_note": "Changes after the repaired D08 product commit that lead to evidence_head concern D09-D12 surfaces/BPA and do not alter the D08 uHGF+gaussian_obs fit path used by this disposition.",
+  "prospective_holdout_evidence": {
+    "protocol": "m18-d08-equivalence-holdout-1",
+    "run": 34842943696,
+    "job": 103971934494,
+    "artifact": 10347616859,
+    "artifact_sha256": "8cbb16de519204710662d8bf0b94c2510df8c2e53f9427897b9f55d7d0b499f1",
+    "gate_pass": false,
+    "seed_271828182": "PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY",
+    "seed_314159265": "INFERENCE_EQUIVALENCE_FAIL",
+    "same_endpoint_mismatches_seed_314159265": [],
+    "optimizer_path_diverges": true,
+    "note": "This failed prospective result is immutable and is not rewritten by the release disposition."
+  },
+  "optimizer_localization_evidence": {
+    "protocol": "m18-d08-holdout-optimizer-probe-1",
+    "run": 34842943657,
+    "job": 103971934637,
+    "artifact": 10347682339,
+    "artifact_sha256": "3d94f74c71e5bf6bcdd8971d647ddba31f5a087cb4f3cb9a933c6a6e3c33518a",
+    "classification": "SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES",
+    "interpretation": "At exact shared MATLAB states, objective/gradient agreement is within the frozen diagnostic gate and exact-state quasi-Newton step/BFGS replay agrees; divergence appears after path amplification rather than a demonstrated semantic mismatch."
+  },
+  "source_likelihood_evidence": {
+    "run": 34842943607,
+    "artifact": 10346549885,
+    "artifact_sha256": "4e763e9978cb409eca5c7b468d5798b3a832aa023e382731284b9af47fb61275",
+    "interpretation": "After the evidence-linked USDCHF prior/placeholder repair, the selected observation source sample has exact observation_x, trial log-likelihood, yhat/res and reduction; only an irrelevant one-ULP internal state residual remains at the selected sample."
+  },
+  "matlab_self_sensitivity_evidence": {
+    "protocol": "m18-d08-holdout-matlab-self-sensitivity-1",
+    "run": 34846375826,
+    "job": 103983208684,
+    "artifact": 10348900752,
+    "artifact_sha256": "42874a324ef408205452516f0abe7497b60d5f12b9f9bf2972df105845f907f6",
+    "classification": "MATLAB_START_ULP_BASIN_SENSITIVE",
+    "baseline_reproduces_reference_final": true,
+    "perturbations": 14,
+    "materially_different_endpoints": 13,
+    "unchanged_gate": {"rtol": 3e-8, "atol": 3e-10},
+    "interpretation": "Thirteen of fourteen independent +/- one-local-spacing start perturbations move the frozen MATLAB reference endpoint outside the existing gate for the same failing seed and workflow."
+  },
+  "policy_checklist": {
+    "frozen_reference_commit_recorded": true,
+    "exact_demo_config_model_recorded": true,
+    "dataset_seed_regime_recorded": true,
+    "matlab_limitation_demonstrated_in_same_workflow": true,
+    "hgfx_failure_mode_recorded": true,
+    "numerical_failure_modes_comparable": true,
+    "no_prior_material_hgfx_only_semantic_divergence_found": true,
+    "historical_and_prospective_failures_preserved": true,
+    "threshold_seed_data_start_model_optimizer_not_relaxed": true
+  },
+  "decision": "REFERENCE_LIMITATION_MATCH",
+  "rationale": "The D08 seed 314159265 prospective Level-2 holdout remains an inference-level failure, but the residual mechanism is now established as an exact-scope optimizer/basin reproducibility limitation also present in the frozen MATLAB reference. The repaired product still fails the frozen holdout, exact MATLAB-endpoint replay has no mismatch, shared-state objective/gradient and quasi-Newton transition evidence do not demonstrate a material HGFX-only semantic defect, and the MATLAB reference itself moves outside the unchanged endpoint gate for 13/14 one-local-spacing start perturbations in the same seed/configuration. Therefore the exact failing-seed workflow is release-acceptable as REFERENCE_LIMITATION_MATCH, not as direct parity, Level-2 PASS, or generic uHGF fitting equivalence.",
+  "limitations": [
+    "This classification is exact-case only: seed 314159265 with the frozen D08 USDCHF workflow/configuration/start/optimizer/tolerances.",
+    "The prospective Level-2 holdout remains FAIL as a set and must remain visible in release and paper evidence.",
+    "Seed 271828182 retains its original Level-2 PASS; this decision does not merge the two outcomes into a new synthetic PASS.",
+    "This result does not justify widening numerical tolerances, replacing the failed seed, changing starts, or changing the optimizer.",
+    "Paired recovery and robustness/backend validation may still expose independent uHGF/continuous-workflow defects."
+  ]
+}

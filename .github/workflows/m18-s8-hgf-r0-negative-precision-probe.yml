@@ -1,0 +1,42 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
+name: M18 S8 HGF R0 Negative Precision Probe
+
+# Historical S8 localization diagnostic. S8 is closed for the required v1 scope.
+# Preserve this workflow for manual provenance/reproduction, but do not gate ordinary PR/release commits.
+on:
+  workflow_dispatch:
+
+jobs:
+  negative-precision-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e '.[dev]'
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export frozen MATLAB negative-precision boundary
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_s8_hgf_r0_negative_precision_probe(fullfile(pwd,'reference','generated','m18_s8_hgf_r0_negative_precision_matlab.json'))
+      - name: Compare HGFX negative-precision boundary
+        run: |
+          python tools/check_m18_s8_hgf_r0_negative_precision_probe.py \
+            reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json \
+            reference/generated/m18_s8_hgf_r0_negative_precision_matlab.json \
+            --output reference/generated/m18_s8_hgf_r0_negative_precision_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-s8-hgf-r0-negative-precision-probe
+          path: reference/generated/m18_s8_hgf_r0_negative_precision_*.json
+          if-no-files-found: warn

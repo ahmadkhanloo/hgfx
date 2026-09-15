@@ -1,10 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18A Parameter Recovery Diagnosis
 
 on:
-  push:
-    branches:
-      - feat/m18a-parameter-recovery-diagnosis
-  pull_request:
   workflow_dispatch:
 
 jobs:

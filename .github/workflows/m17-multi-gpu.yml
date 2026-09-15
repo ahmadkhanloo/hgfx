@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M17 Multi-GPU
 
 on:
-  push:
-    branches:
-      - main
-      - work/m17-multi-gpu
-  pull_request:
   workflow_dispatch:
 
 jobs:

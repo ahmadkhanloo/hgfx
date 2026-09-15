@@ -1,0 +1,68 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
+name: M18 Official Workflow Closure
+on:
+  workflow_dispatch:
+
+jobs:
+  official-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - run: python -m pip install -e '.[dev]'
+      - run: python scripts/verify_reference_freeze.py
+      - run: python -m pytest tests/unit/test_objective.py tests/unit/test_m18_workflow_api.py tests/unit/test_m18_demo_ieee.py tests/unit/test_m18_d02_fdlibm_regression.py -q
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_workflows(fullfile(pwd,'reference','generated','m18_workflows.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_optimizer_probe(fullfile(pwd,'reference','generated','m18_d02_optimizer_probe.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_objective_decomposition(fullfile(pwd,'reference','generated','m18_d02_objective_decomposition.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_likelihood_primitive(fullfile(pwd,'reference','generated','m18_d02_likelihood_primitive.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_unitsq_primitive(fullfile(pwd,'reference','generated','m18_d02_unitsq_primitive.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_unitsq_residual_max(fullfile(pwd,'reference','generated','m18_d02_unitsq_residual_max.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_unitsq_current_argmax(fullfile(pwd,'reference','generated','m18_d02_unitsq_current_plus.json'),fullfile(pwd,'reference','generated','m18_d02_unitsq_current_minus.json'))
+      - uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d02_theta_primitive(fullfile(pwd,'reference','generated','m18_d02_theta_plus.json'),fullfile(pwd,'reference','generated','m18_d02_theta_minus.json'))
+      - run: python tools/check_m18_d02_optimizer_probe.py reference/generated/m18_d02_optimizer_probe.json --output reference/generated/m18_d02_optimizer_probe_comparison.json
+      - run: python tools/check_m18_d02_objective_decomposition.py reference/generated/m18_d02_objective_decomposition.json --output reference/generated/m18_d02_objective_decomposition_comparison.json
+      - run: python tools/check_m18_d02_likelihood_primitive.py reference/generated/m18_d02_likelihood_primitive.json --output reference/generated/m18_d02_likelihood_primitive_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_primitive.json --output reference/generated/m18_d02_unitsq_primitive_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_residual_max.json --output reference/generated/m18_d02_unitsq_residual_max_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_current_plus.json --output reference/generated/m18_d02_unitsq_current_plus_comparison.json
+      - run: python tools/check_m18_d02_unitsq_primitive.py reference/generated/m18_d02_unitsq_current_minus.json --output reference/generated/m18_d02_unitsq_current_minus_comparison.json
+      - run: python tools/check_m18_d02_theta_primitive.py reference/generated/m18_d02_theta_plus.json --output reference/generated/m18_d02_theta_plus_comparison.json
+      - run: python tools/check_m18_d02_theta_primitive.py reference/generated/m18_d02_theta_minus.json --output reference/generated/m18_d02_theta_minus_comparison.json
+      - run: python tools/check_m18_workflows.py reference/generated/m18_workflows.json --output reference/generated/m18_workflows_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-official-workflows
+          path: |
+            reference/generated/m18_workflows*.json
+            reference/generated/m18_d02_optimizer_probe*.json
+            reference/generated/m18_d02_objective_decomposition*.json
+            reference/generated/m18_d02_likelihood_primitive*.json
+            reference/generated/m18_d02_unitsq_primitive*.json
+            reference/generated/m18_d02_unitsq_residual_max*.json
+            reference/generated/m18_d02_unitsq_current_*.json
+            reference/generated/m18_d02_theta_*.json
+          if-no-files-found: error

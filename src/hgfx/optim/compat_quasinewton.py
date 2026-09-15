@@ -36,6 +36,10 @@ class QuasiNewtonResult:
     iterations: int
     resets: int
     termination: str
+    iter_x: np.ndarray
+    iter_val: np.ndarray
+    iter_inverse_hessians: tuple[np.ndarray, ...]
+    iter_resets: tuple[int, ...]
 
 
 def quasinewton_optim(
@@ -46,20 +50,45 @@ def quasinewton_optim(
     """Port frozen quasinewton_optim.m as literally as practical.
 
     Gradient estimation is the M3-compatible Ridders implementation with
-    min_steps=10, exactly as in the reference optimizer.
+    min_steps=10, exactly as in the reference optimizer. When ``opt_iter`` is
+    enabled, the MATLAB ``iter.x``, ``iter.val``, ``iter.invH`` and ``iter.rst``
+    bookkeeping semantics are preserved as well; this is required both for API
+    compatibility and for first-divergence diagnosis of fitting workflows.
     """
 
     opts = options or QuasiNewtonOptions()
     x = np.asarray(init, dtype=np.float64).reshape(-1).copy()
+    init_vector = x.copy()
     n = x.size
     if n == 0:
         raise ValueError("initial point must contain at least one free parameter")
 
     val = float(function(x))
+    if opts.opt_iter:
+        iter_x = np.full((opts.max_iter + 1, n), np.nan, dtype=np.float64)
+        iter_val = np.full(opts.max_iter + 1, np.nan, dtype=np.float64)
+        iter_x[0, :] = x
+        iter_val[0] = val
+        iter_inverse_hessians: list[np.ndarray] = []
+        iter_resets: list[int] = []
+    else:
+        iter_x = np.empty((0, n), dtype=np.float64)
+        iter_val = np.empty(0, dtype=np.float64)
+        iter_inverse_hessians = []
+        iter_resets = []
+
+    def set_iter_inverse_hessian(index: int, matrix: np.ndarray) -> None:
+        if not opts.opt_iter:
+            return
+        while len(iter_inverse_hessians) <= index:
+            iter_inverse_hessians.append(np.full((n, n), np.nan, dtype=np.float64))
+        iter_inverse_hessians[index] = matrix.copy()
+
     grad_opts = RiddersOptions(min_steps=10)
     grad, _ = ridders_gradient(function, x, grad_opts)
 
     t_inv_hessian = np.eye(n, dtype=np.float64)
+    set_iter_inverse_hessian(0, t_inv_hessian)
     descvec = -grad
     slope = float(np.dot(grad, descvec))
 
@@ -98,10 +127,20 @@ def quasinewton_optim(
             dx = newx - x
             x = newx
             val = newval
+            if opts.opt_iter:
+                # MATLAB: iter.x(i+1,:), iter.val(i+1)
+                iter_x[matlab_i, :] = x
+                iter_val[matlab_i] = val
         elif resetcount < opts.max_rst:
             t_inv_hessian = np.eye(n, dtype=np.float64)
-            x = x + np.float64(0.1) * (np.asarray(init, dtype=np.float64).reshape(-1) - x)
+            x = x + np.float64(0.1) * (init_vector - x)
             val = float(function(x))
+            if opts.opt_iter:
+                # MATLAB stores reset state at i+1 and reset indices as 1-based i.
+                iter_x[matlab_i, :] = x
+                iter_val[matlab_i] = val
+                set_iter_inverse_hessian(matlab_i, t_inv_hessian)
+                iter_resets.append(matlab_i)
 
             grad, _ = ridders_gradient(function, x, grad_opts)
             descvec = -grad
@@ -119,6 +158,11 @@ def quasinewton_optim(
         step_metric = np.max(np.abs(dx) / np.abs(np.maximum(x, 1.0)))
         if step_metric < opts.tol_arg:
             termination = "tol_arg"
+            if opts.opt_iter:
+                # Preserve the reference's actual overwrite at index i (not i+1).
+                iter_x[matlab_i - 1, :] = x
+                iter_val[matlab_i - 1] = val
+                set_iter_inverse_hessian(matlab_i - 1, t_inv_hessian)
             break
 
         oldgrad = grad
@@ -132,6 +176,11 @@ def quasinewton_optim(
         )
         if grad_metric < opts.tol_grad:
             termination = "tol_grad"
+            if opts.opt_iter:
+                # Preserve the reference's actual overwrite at index i (not i+1).
+                iter_x[matlab_i - 1, :] = x
+                iter_val[matlab_i - 1] = val
+                set_iter_inverse_hessian(matlab_i - 1, t_inv_hessian)
             break
 
         dgdx = float(np.dot(dgrad, dx))
@@ -155,6 +204,7 @@ def quasinewton_optim(
 
         descvec = -(t_inv_hessian @ grad)
         slope = float(np.dot(grad, descvec))
+        set_iter_inverse_hessian(matlab_i, t_inv_hessian)
 
     return QuasiNewtonResult(
         val_min=float(val),
@@ -163,6 +213,10 @@ def quasinewton_optim(
         iterations=iterations,
         resets=resetcount,
         termination=termination,
+        iter_x=iter_x.copy(),
+        iter_val=iter_val.copy(),
+        iter_inverse_hessians=tuple(matrix.copy() for matrix in iter_inverse_hessians),
+        iter_resets=tuple(iter_resets),
     )
 
 

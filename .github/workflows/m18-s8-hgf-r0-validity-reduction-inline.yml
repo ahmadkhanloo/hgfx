@@ -1,0 +1,82 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
+name: M18 S8 HGF R0 Validity Reduction Inline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validity-reduction:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e '.[dev]'
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export exact MATLAB Ridders stencil
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_s8_hgf_r0_ridders_stencil(fullfile(pwd,'reference','generated','m18_s8_hgf_r0_ridders_stencil_matlab.json'))
+      - name: Compare trajectory-validity reduction orders
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import numpy as np
+          from hgfx.compat.configs import hgf_binary_config, unitsq_sgm_config
+          from hgfx.models.hgf_binary import hgf_binary
+          FIXTURE=Path('reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json'); REF=Path('reference/generated/m18_s8_hgf_r0_ridders_stencil_matlab.json'); OUT=Path('reference/generated/m18_s8_hgf_r0_validity_reduction_inline.json')
+          CASE_ID='PR-hgf_binary-T256-S0.35-R0'; CASE_SHA='1b99d57ab00960941d6d0e2997712bfc5b3319edcd2521fee257a89b7ccec8b5'; REALMAX=np.finfo(np.float64).max; JUMP=np.float64(16.0)
+          def arr(v):
+              if isinstance(v,dict) and v.get('hgfx_numeric')=='ieee-strings-v1': return np.asarray(v['data'],dtype=np.float64).reshape(v['shape'],order='F')
+              return np.asarray(v,dtype=np.float64)
+          def scalar(v): return float(arr(v).reshape(-1)[0])
+          def jdefault(v):
+              if isinstance(v,np.generic): return v.item()
+              raise TypeError(type(v).__name__)
+          def lsum(v):
+              s=np.float64(0.0)
+              for x in np.asarray(v,dtype=np.float64).reshape(-1): s=np.float64(s+x)
+              return s
+          def fsum(v):
+              a=np.asarray(v,dtype=np.float64).reshape(-1); lanes=np.zeros(4,dtype=np.float64)
+              for i,x in enumerate(a): lanes[i&3]=np.float64(lanes[i&3]+x)
+              s=np.float64(0.0)
+              for x in lanes: s=np.float64(s+x)
+              return s
+          means={'numpy_mean':lambda v:np.float64(np.mean(np.asarray(v,dtype=np.float64))),'scalar_left_mean':lambda v:np.float64(lsum(v)/np.float64(np.asarray(v).size)),'four_lane_mean':lambda v:np.float64(fsum(v)/np.float64(np.asarray(v).size))}
+          fixture=json.loads(FIXTURE.read_text()); ref=json.loads(REF.read_text()); case=[c for c in fixture['cases'] if c['case_id']==CASE_ID][0]; assert case['case_sha256']==CASE_SHA and ref['case_sha256']==CASE_SHA
+          u=np.asarray(case['u'],dtype=np.float64); prc=hgf_binary_config().resolve_placeholders(u); obs=unitsq_sgm_config(); idx=np.asarray(case['free_indices_zero_based'],dtype=np.int64)
+          def validity(free):
+              full=np.concatenate((prc.priormus,obs.priormus)).astype(np.float64); full[idx]=free
+              try: traj,_=hgf_binary(u,full[:len(prc.parameters)],transformed=True,validate=False)
+              except Exception: return {k:True for k in means}
+              mu=np.asarray(traj['mu'])[:,1:]; pi=(np.float64(1.0)/np.asarray(traj['sa']))[:,1:]
+              if np.any(np.isnan(mu)) or np.any(np.isnan(pi)): return {k:True for k in means}
+              dmu=np.diff(mu,axis=0); dpi=np.diff(pi,axis=0); out={}
+              for name,fn in means.items():
+                  rm=np.array([np.sqrt(fn(dmu[:,j]**2)) for j in range(dmu.shape[1])]); rp=np.array([np.sqrt(fn(dpi[:,j]**2)) for j in range(dpi.shape[1])]); out[name]=bool(np.any(np.abs(dmu)>JUMP*rm) or np.any(np.abs(dpi)>JUMP*rp))
+              return out
+          counts={k:0 for k in means}; invalid_n=0; n=0
+          for sample in ref['samples']:
+              for side in ('plus','minus'):
+                  expected=sample[side]; oracle=bool(scalar(expected['neg_joint'])==REALMAX or not np.isfinite(scalar(expected['neg_joint']))); pred=validity(arr(expected['free']).reshape(-1)); invalid_n+=int(oracle); n+=1
+                  for k,v in pred.items(): counts[k]+=int(v!=oracle)
+          zero=[k for k,v in counts.items() if v==0]; cls='NO_REDUCTION_CANDIDATE_MATCHES_MATLAB_VALIDITY_ORACLE' if not zero else ('FOUR_LANE_REDUCTION_MATCHES_MATLAB_VALIDITY_ORACLE' if zero==['four_lane_mean'] else 'MULTIPLE_REDUCTIONS_MATCH_MATLAB_VALIDITY_ORACLE')
+          payload={'protocol':'m18-s8-hgf-r0-validity-reduction-inline-1','reference_commit':'2437f4dc241541072722a2695ddeca7b44d83dd3','case_id':CASE_ID,'case_sha256':CASE_SHA,'classification':cls,'acceptance_effect':'NONE_DIAGNOSTIC_ONLY','evaluated_points':n,'matlab_invalid_points':invalid_n,'candidate_mismatch_counts':counts,'zero_mismatch_candidates':zero}; OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(payload,indent=2,default=jdefault)+'\n'); print(json.dumps(payload,indent=2,default=jdefault))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-s8-hgf-r0-validity-reduction-inline
+          path: reference/generated/m18_s8_hgf_r0_validity_reduction_inline.json
+          if-no-files-found: warn

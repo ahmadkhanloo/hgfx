@@ -1,0 +1,54 @@
+name: M19 M20 Release Preflight
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pyproject.toml'
+      - 'CITATION.cff'
+      - 'README.md'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - 'docs/planning/M19_GATE.md'
+      - 'docs/planning/M20_GATE.md'
+      - 'docs/planning/V1_RELEASE_GATE.md'
+      - 'docs/validation/**'
+      - 'reference/validation/v1_release/**'
+      - 'reference/validation/m18_d02_reference_limitation/**'
+      - 'reference/validation/m18_d08_reference_limitation/**'
+      - 'reference/validation/m18_s7_reference_limitation/**'
+      - 'scripts/build_v1_evidence_manifest.py'
+      - 'scripts/check_m20_candidate.py'
+      - '.github/workflows/m19-m20-release-preflight.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  release-preflight:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: M19 evidence-freeze preflight
+        run: |
+          python scripts/build_v1_evidence_manifest.py \
+            --mode preflight \
+            --output /tmp/hgfx-m19-preflight.json
+
+      - name: M20 candidate preflight
+        run: |
+          python scripts/check_m20_candidate.py \
+            --mode preflight \
+            --manifest /tmp/hgfx-m19-preflight.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-m19-m20-preflight
+          path: /tmp/hgfx-m19-preflight.json
+          if-no-files-found: error

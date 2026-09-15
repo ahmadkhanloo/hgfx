@@ -1,11 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M16 Batch Engine
 
 on:
-  push:
-    branches:
-      - main
-      - work/m16-batch-engine
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   jax-cpu-batch:

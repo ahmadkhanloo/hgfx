@@ -1,0 +1,45 @@
+name: M19 Finalize Evidence Freeze
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - migration/m18-workflow-closure
+    paths:
+      - '.github/workflows/m19-finalize.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  finalize-m19:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build final M19 evidence manifest
+        run: |
+          python scripts/build_v1_evidence_manifest.py \
+            --mode finalize \
+            --output /tmp/hgfx-m19-final.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('/tmp/hgfx-m19-final.json')
+          data = json.loads(p.read_text())
+          assert data['status'] == 'FROZEN', data
+          assert data['physical_gpu']['pass'] is True, data['physical_gpu']
+          print('M19 manifest status:', data['status'])
+          print('M19 manifest source commit:', data['source_commit'])
+          PY
+
+      - name: Upload finalized M19 manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-m19-final-manifest
+          path: /tmp/hgfx-m19-final.json
+          if-no-files-found: error

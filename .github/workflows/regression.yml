@@ -1,0 +1,40 @@
+name: HGFX Regression
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e '.[dev]'
+      - name: Frozen reference guard
+        run: python scripts/verify_reference_freeze.py
+      - name: Complete CPU regression (physical GPU tests remain explicit)
+        run: pytest -q --junitxml=regression-results.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hgfx-regression
+          path: regression-results.xml
+          if-no-files-found: warn

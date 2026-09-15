@@ -50,6 +50,31 @@ class ObjectiveResult:
         return self.trial_log_likelihoods[self.regular_mask]
 
 
+def _matlab_sum(values: Sequence[float] | np.ndarray) -> np.float64:
+    """Reproduce the frozen MATLAB binary64 vector-sum reduction order.
+
+    Frozen D02 objective artifacts show that MATLAB R2026a reduces the regular
+    320-trial likelihood vector with four interleaved accumulators and then
+    combines those lane totals from lane 0 through lane 3. This exact order
+    reproduces all 70 exported D02 Ridders likelihood totals bit-for-bit,
+    whereas NumPy's pairwise reduction differs by up to a few binary64 ULPs.
+
+    Keep the implementation scalar and explicit: the numerical order, not
+    throughput, is the compatibility contract at this boundary.
+    """
+
+    array = np.asarray(values, dtype=np.float64).reshape(-1)
+    lanes = np.zeros(4, dtype=np.float64)
+    for index, value in enumerate(array):
+        lane = index & 3
+        lanes[lane] = np.float64(lanes[lane] + value)
+
+    total = np.float64(0.0)
+    for lane_total in lanes:
+        total = np.float64(total + lane_total)
+    return total
+
+
 def gaussian_log_prior(
     transformed_parameters: Sequence[float] | np.ndarray,
     prior_means: Sequence[float] | np.ndarray,
@@ -166,7 +191,7 @@ def evaluate_objective(
         raise ValueError("observation model returned the wrong number of trial likelihoods")
 
     regular_mask = ~masks.irregular
-    log_likelihood = float(np.sum(trial_log_likelihoods[regular_mask]))
+    log_likelihood = float(_matlab_sum(trial_log_likelihoods[regular_mask]))
     if np.isnan(log_likelihood):
         neg_log_likelihood = float(np.finfo(np.float64).max)
     else:

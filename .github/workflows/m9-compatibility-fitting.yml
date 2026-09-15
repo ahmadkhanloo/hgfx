@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M9 Compatibility Fitting
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M9-compatibility-fitting
-  pull_request:
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,38 @@
+{
+  "protocol": "m18-d08-endpoint-decision-1",
+  "status": "DIAGNOSTIC_CALIBRATION_ONLY",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_commit": "648c3f84905eb7fe952c070e5ee858e48de4a3fa",
+  "workflow_run": 34823572192,
+  "artifact_id": 10339403480,
+  "artifact_sha256": "c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de",
+  "case_id": "D08_fit",
+  "diagnostic_classification": "ENDPOINT_SENSITIVITY",
+  "official_gate_tolerance": {
+    "rtol": 3e-8,
+    "atol": 3e-10
+  },
+  "official_mismatch": {
+    "field": "fit.traj.epsi",
+    "first_index_zero_based": [175, 1],
+    "hgfx": 138.87836008346915,
+    "matlab": 138.8783558587791,
+    "abs_diff": 4.224690043130642e-6
+  },
+  "focused_endpoint_diagnostic": {
+    "same_matlab_endpoint_eps_replay_exact": true,
+    "matlab_endpoint_eps": 138.8783558587791,
+    "hgfx_replay_at_matlab_endpoint_eps": 138.8783558587791,
+    "largest_final_parameter_abs_diff": 2.5768804867709605e-9,
+    "largest_final_parameter_index_zero_based": 8,
+    "replacement_of_parameter_8_reduces_focus_eps_abs_diff_from": 4.713810909606764e-6,
+    "replacement_of_parameter_8_reduces_focus_eps_abs_diff_to": 4.3272243033243285e-7,
+    "hgfx_fit_negLj": -2323.4597620139157,
+    "matlab_negLj": -2323.459762013518,
+    "hgfx_at_exact_matlab_final_negLj": -2323.459762013518,
+    "optimizer_trace_has_frozen_gate_x_divergence": false,
+    "optimizer_trace_has_frozen_gate_value_divergence": false
+  },
+  "decision": "Candidate for PASS_NUMERICAL_EQUIVALENCE_ENDPOINT_SENSITIVITY under matlab-equivalence-policy-1; not a release PASS until the preregistered prospective D08 holdout completes unchanged.",
+  "integrity_note": "The original official gate failure is preserved. No tolerance, seed, dataset, model family, start, or optimizer setting was changed by this decision record."
+}

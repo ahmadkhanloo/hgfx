@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from hgfx.math.matlab_exp import matlab_exp_scalar
+
 
 def hgf_pihat(
     pi_prev_j: float,
@@ -20,7 +22,8 @@ def hgf_pihat(
     om = np.float64(om_j)
     with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
         value = np.float64(1.0) / (
-            np.float64(1.0) / pi_prev + t * np.exp(ka * mu_upper + om)
+            np.float64(1.0) / pi_prev
+            + t * matlab_exp_scalar(ka * mu_upper + om)
         )
     return float(value)
 

@@ -1,12 +1,17 @@
 # HGFX Roadmap
 
-## Current execution authority — 2026-09-12
+## Current execution authority — 2026-09-15
 
-Follow [M18 completion plan](M18_COMPLETION_PLAN.md) for the ordered S1–S10 path
-to MATLAB-equivalent v1.0. Historical M18 FAIL and M18B PASS are distinct;
-product closure remains OPEN. The immediate next task is validating the existing
-D04 uHGF → AR1 workflow, then completing demo/recovery/backend coverage.
-This notice takes precedence over older prospective task lists below.
+Use [live TODO](V1_TODO.md), [release gate](V1_RELEASE_GATE.md), and
+[M20 gate](M20_GATE.md). S1–S9 and historical S10 release preparation are
+accounted for; physical NVIDIA GPU applicability passed on T4 and M19 is frozen.
+Candidate metadata is `1.0.0rc1`; the next step is candidate validation and fresh
+release-readiness CI, not D04/S7/S8 re-investigation.
+Historical M18 scientific FAIL remains preserved. The prospective sections below
+retain design history and are not a current task queue. Milestone numbering is
+owned by `MILESTONES.md`; older G-number lists are design-stage identifiers.
+See [CI maintenance](CI_MAINTENANCE.md) for routine versus manual validation.
+
 
 ## Phase 0 — Freeze reference
 - [x] Freeze HGF reference version

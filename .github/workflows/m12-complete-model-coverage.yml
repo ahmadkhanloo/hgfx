@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M12 Complete Model Coverage
 
 on:
-  push:
-    branches:
-      - main
-      - work/m12-complete-model-coverage
-  pull_request:
   workflow_dispatch:
 
 jobs:

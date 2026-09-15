@@ -46,11 +46,30 @@ def first_input_column(inputs: np.ndarray | list[float]) -> np.ndarray:
     return column
 
 
+def _matlab_population_variance(values: np.ndarray) -> np.float64:
+    """Reproduce the frozen MATLAB ``var(x, 1)`` reduction for placeholders.
+
+    The D08 frozen oracle establishes that MATLAB's first-20-input placeholder
+    uses the same mean and squared deviations as NumPy, but accumulates those
+    squared deviations in scalar input order.  NumPy ``var``/``sum`` can use a
+    different vector reduction and differ by one binary64 ULP, which is then
+    amplified by Ridders finite differences during fitting.
+    """
+
+    array = np.asarray(values, dtype=np.float64).reshape(-1)
+    mean = np.float64(np.mean(array, dtype=np.float64))
+    squared_deviations = (array - mean) * (array - mean)
+    sum_squared_deviations = np.float64(0.0)
+    for value in squared_deviations:
+        sum_squared_deviations = np.float64(sum_squared_deviations + value)
+    return np.float64(sum_squared_deviations / np.float64(array.size))
+
+
 def compute_placeholder_values(inputs: np.ndarray | list[float]) -> PlaceholderValues:
     """Compute placeholders exactly as dataPrep in frozen fitModel.m."""
     column = first_input_column(inputs)
     window = column[:20] if column.size > 20 else column
-    variance = float(np.var(window, ddof=0))
+    variance = float(_matlab_population_variance(window))
     with np.errstate(divide="ignore", invalid="ignore"):
         log_variance = float(np.log(variance))
     return PlaceholderValues(

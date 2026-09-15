@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M1 Golden Harness
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M1-golden-harness
-  pull_request:
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,53 @@
+name: M18 D10 D11 Analysis Surfaces
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/hgfx/plotting.py'
+      - 'src/hgfx/__init__.py'
+      - 'tests/unit/test_plot_surfaces.py'
+      - 'pyproject.toml'
+      - 'reference/matlab/export_m18_d10_d11_surfaces.m'
+      - 'tools/check_m18_d10_d11_surfaces.py'
+      - 'docs/validation/M18_D10_D11_SURFACES.md'
+      - '.github/workflows/m18-d10-d11-surfaces.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  d10-d11-surfaces:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX with plotting support
+        run: python -m pip install -e '.[dev,plot]'
+      - name: Plot/surface unit regressions
+        run: python -m pytest tests/unit/test_plot_surfaces.py -q
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export frozen D10/D11 MATLAB surface data
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d10_d11_surfaces(fullfile(pwd,'reference','generated','m18_d10_d11_surfaces.json'))
+      - name: Check D10/D11 parity
+        run: python tools/check_m18_d10_d11_surfaces.py reference/generated/m18_d10_d11_surfaces.json --output reference/generated/m18_d10_d11_surfaces_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-d10-d11-surfaces
+          path: |
+            reference/generated/m18_d10_d11_surfaces.json
+            reference/generated/m18_d10_d11_surfaces_comparison.json
+          if-no-files-found: warn

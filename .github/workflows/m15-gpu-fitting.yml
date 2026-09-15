@@ -1,15 +1,11 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M15 GPU Fitting
 
 on:
-  push:
-    branches:
-      - main
-      - work/m15-gpu-fitting
-  pull_request:
   workflow_dispatch:
     inputs:
       require_gpu:
-        description: "Run the strict physical-GPU fitting parity job"
+        description: Run the strict physical-GPU fitting parity job
         required: false
         default: false
         type: boolean
