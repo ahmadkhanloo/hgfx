@@ -1,0 +1,49 @@
+name: M19 Finalize Evidence Freeze
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - migration/m18-workflow-closure
+    paths:
+      - '.github/workflows/m19-finalize.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize-m19:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: migration/m18-workflow-closure
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build final M19 evidence manifest
+        run: |
+          python scripts/build_v1_evidence_manifest.py --mode finalize
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('reference/validation/v1_release/evidence_manifest.json')
+          data = json.loads(p.read_text())
+          assert data['status'] == 'FROZEN', data
+          assert data['physical_gpu']['pass'] is True, data['physical_gpu']
+          print('M19 manifest status:', data['status'])
+          PY
+
+      - name: Commit frozen manifest
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reference/validation/v1_release/evidence_manifest.json
+          if git diff --cached --quiet; then
+            echo 'Manifest already current.'
+          else
+            git commit -m 'freeze(m19): commit v1 evidence manifest'
+            git push origin HEAD:migration/m18-workflow-closure
+          fi
