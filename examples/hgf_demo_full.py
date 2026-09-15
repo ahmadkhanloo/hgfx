@@ -1,15 +1,15 @@
 """Python companion to the frozen HGF Toolbox 8.2.0 ``demo/hgf_demo.m``.
 
-The goal of this example is workflow fidelity, not pixel-identical MATLAB
-figures.  It follows the official demo sequence with HGFX's public compatibility
-API wherever that surface exists.  Two specialized forward-only sections
-(three-level continuous HGF and uHGF-AR(1)) use the validated model functions
-directly because the MATLAB demo only inspects their trajectories.
+This script follows the official demo sequence in Python. Cross-language
+numerical equality is established by the dedicated MATLAB-aware validation
+workflows indexed in ``docs/user/HGF_DEMO_COVERAGE.md``; this companion checks
+that the complete user-facing workflow composes and runs end to end.
 
-Cross-language numerical evidence for each section is indexed in
-``docs/user/HGF_DEMO_COVERAGE.md``.  The stochastic MATLAB and NumPy random
-streams are intentionally not claimed to be byte-identical; exact oracle gates
-inject/export common random drivers where required.
+MATLAB and NumPy do not guarantee identical RNG streams for the same numeric
+seed. For the official ``sampleModel`` demo seeds (123 and 456), HGFX therefore
+uses the standard-normal parameter drivers exported by MATLAB in validated D09
+evidence. This controls the stochastic input without changing seeds, priors, or
+model criteria.
 """
 
 from __future__ import annotations
@@ -24,9 +24,9 @@ import numpy as np
 
 import hgfx
 from hgfx.compat import hgf_binary_config, unitsq_sgm_config
+from hgfx.compat.simulation import simulate_unitsq_sgm
 from hgfx.models.hgf import hgf
 from hgfx.models.hgf_ar1_binary import uhgf_ar1_binary
-from hgfx.compat.simulation import simulate_unitsq_sgm
 from hgfx.plotting import (
     fit_plot_corr,
     fit_plot_residual_diagnostics,
@@ -42,6 +42,56 @@ DEFAULT_BINARY_INPUT = (
 DEFAULT_CONTINUOUS_INPUT = (
     REPO_ROOT / "external" / "hgf-toolbox" / "demo" / "example_usdchf.txt"
 )
+
+# Frozen MATLAB parameter-draw drivers from D09:
+# run 34842943557, artifact 10346184455,
+# reference HGF Toolbox 8.2.0 @ 2437f4dc241541072722a2695ddeca7b44d83dd3.
+MATLAB_SAMPLE_DRIVERS = {
+    123: {
+        "prc": np.asarray(
+            [
+                0.764310937692435,
+                -0.6049952538315488,
+                -1.0349918070643873,
+                0.20140973662758177,
+                0.6679770866856835,
+                -0.3234871279175406,
+                1.3343358777479575,
+                0.6214274023833514,
+                -0.03294186660521125,
+                -0.2950906465860296,
+                -0.5548149872398399,
+                0.564374164439532,
+                -0.13374435858784225,
+                -1.675718153292302,
+            ],
+            dtype=np.float64,
+        ),
+        "obs": np.asarray([-0.3486661614627253], dtype=np.float64),
+    },
+    456: {
+        "prc": np.asarray(
+            [
+                -1.6203108643504316,
+                -0.6009911918787696,
+                0.7106172486950192,
+                0.7212535695400398,
+                0.22637620517938697,
+                0.2521952371757336,
+                0.6360318640472987,
+                1.1462095372220327,
+                -0.5916843987412042,
+                -0.9896439213346486,
+                -0.1602596632358972,
+                -0.4290974010777622,
+                0.29452903302794703,
+                -0.5219363913863537,
+            ],
+            dtype=np.float64,
+        ),
+        "obs": np.asarray([0.1901096754074365], dtype=np.float64),
+    },
+}
 
 
 def _load(path: Path, label: str) -> np.ndarray:
@@ -85,6 +135,23 @@ def _sim_summary(result) -> dict[str, Any]:
     return payload
 
 
+def _sample_with_matlab_parameter_driver(
+    inputs: np.ndarray,
+    perceptual_config,
+    observation_config,
+    seed: int,
+):
+    driver = MATLAB_SAMPLE_DRIVERS[seed]
+    return hgfx.sample_model(
+        inputs,
+        perceptual_config,
+        observation_config,
+        seed,
+        perceptual_standard_normals=driver["prc"],
+        observation_standard_normals=driver["obs"],
+    )
+
+
 def _optional_plots(results: dict[str, Any]) -> None:
     import matplotlib.pyplot as plt
 
@@ -97,7 +164,12 @@ def _optional_plots(results: dict[str, Any]) -> None:
     ax.set_ylim(-0.1, 1.1)
     ax.set_title("Official binary input")
 
-    for key in ("binary_recovery_result", "ehgf_fit_result", "uhgf_fit_result", "rw_fit_result"):
+    for key in (
+        "binary_recovery_result",
+        "ehgf_fit_result",
+        "uhgf_fit_result",
+        "rw_fit_result",
+    ):
         result = results.get(key)
         if result is not None:
             try:
@@ -113,7 +185,10 @@ def _optional_plots(results: dict[str, Any]) -> None:
     plt.show()
 
 
-def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[dict[str, Any], dict[str, Any]]:
+def run_demo(
+    binary_input: np.ndarray,
+    continuous_input: np.ndarray,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     """Run the computational sequence of frozen ``hgf_demo.m``."""
 
     hgfx.enable_x64()
@@ -166,19 +241,21 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
     runtime["binary_recovery_result"] = est
 
     print("[4/15] Change observation prior variance and sample from priors")
-    # Python configs are immutable and their flat priors are computed properties.
-    # Replacing the ParameterSpec is therefore the direct equivalent of editing
-    # logzesa followed by MATLAB align_priors().
     modified_obs = replace(
         binary_obs,
         parameters=(replace(binary_obs.parameters[0], prior_variance=0.5),),
     )
-    sample1 = hgfx.sample_model(binary_input, binary_prc, modified_obs, 123)
-    sample2 = hgfx.sample_model(binary_input, binary_prc, modified_obs, 456)
+    sample1 = _sample_with_matlab_parameter_driver(
+        binary_input, binary_prc, modified_obs, 123
+    )
+    sample2 = _sample_with_matlab_parameter_driver(
+        binary_input, binary_prc, modified_obs, 456
+    )
     summary["prior_sampling"] = {
         "observation_prior_variance": float(modified_obs.priorsas[0]),
         "seed_123_response_mean": float(np.nanmean(sample1.y)),
         "seed_456_response_mean": float(np.nanmean(sample2.y)),
+        "parameter_driver_source": "MATLAB D09 run 34842943557 artifact 10346184455",
     }
 
     print("[5/15] Enhanced HGF simulation and recovery")
@@ -251,12 +328,18 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
         ],
         dtype=np.float64,
     )
-    ar1_traj, ar1_states = uhgf_ar1_binary(binary_input, ar1_parameters, transformed=False)
-    ar1_y, _ = simulate_unitsq_sgm(ar1_states, np.asarray([5.0]), seed=123456789)
+    ar1_traj, ar1_states = uhgf_ar1_binary(
+        binary_input, ar1_parameters, transformed=False
+    )
+    ar1_y, _ = simulate_unitsq_sgm(
+        ar1_states, np.asarray([5.0]), seed=123456789
+    )
     summary["uhgf_high_volatility"] = _sim_summary(usim2)
     summary["uhgf_ar1"] = {
         "trials": int(binary_input.shape[0]),
-        "level3_max_abs_mu": float(np.nanmax(np.abs(np.asarray(ar1_traj["mu"])[:, 2]))),
+        "level3_max_abs_mu": float(
+            np.nanmax(np.abs(np.asarray(ar1_traj["mu"])[:, 2]))
+        ),
         "response_mean": float(np.nanmean(ar1_y)),
     }
 
@@ -285,7 +368,10 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
     sim2 = hgfx.sim_model(
         continuous_input,
         "hgf",
-        np.asarray([1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4], dtype=np.float64),
+        np.asarray(
+            [1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4],
+            dtype=np.float64,
+        ),
         "gaussian_obs",
         np.asarray([0.00002], dtype=np.float64),
         123456789,
@@ -313,17 +399,22 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
         "quasinewton_optim_config",
     )
     summary["continuous_hgf_recovery"] = _fit_summary(est2)
-    residual_surface = prepare_residual_diagnostics(est2)
-    summary["continuous_hgf_recovery"]["residual_count"] = int(residual_surface["res"].size)
-    binary_residual_surface = prepare_residual_diagnostics(est)
-    summary["binary_recovery"]["residual_count"] = int(binary_residual_surface["res"].size)
+    summary["continuous_hgf_recovery"]["residual_count"] = int(
+        prepare_residual_diagnostics(est2)["res"].size
+    )
+    summary["binary_recovery"]["residual_count"] = int(
+        prepare_residual_diagnostics(est)["res"].size
+    )
     runtime["continuous_fit_result"] = est2
 
     print("[13/15] Enhanced continuous HGF simulation and recovery")
     esim2 = hgfx.sim_model(
         continuous_input,
         "ehgf",
-        np.asarray([1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4], dtype=np.float64),
+        np.asarray(
+            [1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4],
+            dtype=np.float64,
+        ),
         "gaussian_obs",
         np.asarray([0.00002], dtype=np.float64),
         123456789,
@@ -342,7 +433,10 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
     usim_cont = hgfx.sim_model(
         continuous_input,
         "uhgf",
-        np.asarray([1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4], dtype=np.float64),
+        np.asarray(
+            [1.04, 1, 0.0001, 0.1, 0, 0, 1, -13, -2, 1e4],
+            dtype=np.float64,
+        ),
         "gaussian_obs",
         np.asarray([0.00002], dtype=np.float64),
         123456789,
@@ -361,7 +455,10 @@ def run_demo(binary_input: np.ndarray, continuous_input: np.ndarray) -> tuple[di
     sim2b = hgfx.sim_model(
         continuous_input,
         "hgf",
-        np.asarray([1.04, 1, 0.0001, 0.1, 0, 0, 1, -14.5, -2.5, 1e4], dtype=np.float64),
+        np.asarray(
+            [1.04, 1, 0.0001, 0.1, 0, 0, 1, -14.5, -2.5, 1e4],
+            dtype=np.float64,
+        ),
         "gaussian_obs",
         np.asarray([0.00002], dtype=np.float64),
         12345,
@@ -390,8 +487,12 @@ def main() -> None:
     )
     parser.add_argument("--binary-input", type=Path, default=DEFAULT_BINARY_INPUT)
     parser.add_argument("--continuous-input", type=Path, default=DEFAULT_CONTINUOUS_INPUT)
-    parser.add_argument("--output", type=Path, default=None, help="Optional JSON summary path")
-    parser.add_argument("--plots", action="store_true", help="Show user-facing matplotlib diagnostics")
+    parser.add_argument(
+        "--output", type=Path, default=None, help="Optional JSON summary path"
+    )
+    parser.add_argument(
+        "--plots", action="store_true", help="Show user-facing matplotlib diagnostics"
+    )
     args = parser.parse_args()
 
     binary_input = _load(args.binary_input, "Official binary demo input")
