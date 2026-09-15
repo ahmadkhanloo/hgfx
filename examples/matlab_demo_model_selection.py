@@ -56,7 +56,7 @@ def run_demo(inputs: np.ndarray) -> dict[str, object]:
         raise RuntimeError(
             "Classic HGF did not reproduce the frozen negative-posterior-precision behavior."
         )
-    if ehgf_result.trajectory["mu"].shape[0] != np.asarray(inputs).shape[0]:
+    if ehgf_result.traj["mu"].shape[0] != np.asarray(inputs).shape[0]:
         raise RuntimeError("eHGF output length does not match the official demo input.")
 
     return {
@@ -64,7 +64,7 @@ def run_demo(inputs: np.ndarray) -> dict[str, object]:
         "hgf_binary_success": classic_success,
         "hgf_binary_error": classic_error,
         "ehgf_binary_success": True,
-        "ehgf_mu_shape": tuple(int(v) for v in ehgf_result.trajectory["mu"].shape),
+        "ehgf_mu_shape": tuple(int(v) for v in ehgf_result.traj["mu"].shape),
     }
 
 
