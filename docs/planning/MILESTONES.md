@@ -55,17 +55,12 @@ Batch result equals repeated single-fit result within tolerance.
 Scaling validated.
 
 ## M18 — Scientific Recovery
-Historical scientific gate: parameter recovery and model recovery satisfy preregistered
-acceptance criteria; the recorded FAIL is preserved. M18B protocol-integrity PASS is separate.
+Historical scientific gate: parameter recovery and model recovery satisfy preregistered acceptance criteria; the recorded FAIL is preserved. M18B protocol-integrity PASS is separate.
 
-Current product closure additionally follows [M18 completion plan](M18_COMPLETION_PLAN.md)
-S1–S10 and the reference-limitations policy: reproduce all required MATLAB workflows,
-classify recovery with paired evidence, close robustness/backend checks. A matched reference
-limitation is acceptable product evidence, not a scientific recovery PASS. Product closure OPEN.
-Existing M18C.2 horizon-analysis issue #21 retains its identifier.
+Current product closure follows [M18 completion plan](M18_COMPLETION_PLAN.md) S1–S10 and the reference-limitations policy. Required MATLAB workflow accounting, paired recovery classification, robustness/backend validation, physical NVIDIA GPU applicability, S10 release readiness, and M19 evidence freeze are closed in their documented scopes. A matched reference limitation is acceptable product evidence, not a scientific recovery PASS. Product closure remains OPEN only for M20 final candidate validation. Existing M18C.2 horizon-analysis issue #21 retains its identifier.
 
 ## M19 — Methods Paper Dataset Frozen
-Benchmark and validation outputs immutable and reproducible.
+**PASS / FROZEN.** Workflow run `34966661492` committed the machine-readable frozen evidence manifest at commit `b71301b978e07cb0fa5ac2ad14cc92235fadc5ee`. Historical failures and scoped reference limitations remain preserved.
 
 ## M20 — v1.0 Candidate
-All Definition-of-Done checks pass.
+**READY TO FINALIZE.** Candidate metadata is `1.0.0rc1`; PASS requires the final checker to return `PASS_M20_CANDIDATE` after refreshing M19 release-file hashes.
