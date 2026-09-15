@@ -15,6 +15,10 @@ on:
       - 'scripts/check_v1_release_readiness.py'
       - '.github/workflows/s10-v1-release-readiness.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   release-readiness:
     runs-on: ubuntu-24.04

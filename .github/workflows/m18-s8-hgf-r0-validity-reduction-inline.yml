@@ -1,14 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 S8 HGF R0 Validity Reduction Inline
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - '.github/workflows/m18-s8-hgf-r0-validity-reduction-inline.yml'
-      - 'src/hgfx/validation/trajectory_checks.py'
-      - 'src/hgfx/models/hgf_binary.py'
-      - 'reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json'
-      - 'reference/matlab/export_m18_s8_hgf_r0_ridders_stencil.m'
 
 jobs:
   validity-reduction:

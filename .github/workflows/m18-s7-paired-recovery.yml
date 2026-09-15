@@ -20,6 +20,10 @@ on:
       - '.github/workflows/m18-s7-hgf-anomaly-review.yml'
       - '.github/workflows/m18-s7-paired-recovery.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   shard:
     name: ${{ matrix.id }}

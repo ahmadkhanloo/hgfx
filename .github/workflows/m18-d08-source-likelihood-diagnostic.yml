@@ -1,18 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Source Likelihood Diagnostic
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - '.github/workflows/m18-d08-source-likelihood-diagnostic.yml'
-      - 'docs/validation/M18_D08_SOURCE_LIKELIHOOD_DIAGNOSTIC.md'
-      - 'reference/matlab/export_m18_d08_source_likelihood_probe.m'
-      - 'tools/check_m18_d08_source_likelihood_probe.py'
-      - 'src/hgfx/responses/gaussian.py'
-      - 'src/hgfx/compat/objective.py'
-      - 'src/hgfx/models/_forward_common.py'
-      - 'src/hgfx/models/hgf.py'
-      - 'tests/unit/test_m18_d08_continuous_exp_regression.py'
 
 jobs:
   d08-source-likelihood-diagnostic:

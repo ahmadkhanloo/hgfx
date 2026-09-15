@@ -1,12 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Transition Diagnostic
 
 on:
-  pull_request:
-    paths:
-      - 'reference/matlab/export_m18_d08_transition.m'
-      - 'tools/check_m18_d08_transition.py'
-      - '.github/workflows/m18-d08-transition-diagnostic.yml'
-      - 'src/hgfx/**'
   workflow_dispatch:
 
 jobs:

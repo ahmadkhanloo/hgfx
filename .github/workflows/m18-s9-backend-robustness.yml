@@ -17,6 +17,10 @@ on:
       - 'reference/validation/m18_s9_robustness_backend/protocol.json'
       - '.github/workflows/m18-s9-backend-robustness.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   cpu-backend-regression:
     runs-on: ubuntu-24.04

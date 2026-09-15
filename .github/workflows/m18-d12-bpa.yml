@@ -13,6 +13,10 @@ on:
       - 'docs/validation/M18_D12_BPA.md'
       - '.github/workflows/m18-d12-bpa.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   d12-bpa:
     runs-on: ubuntu-24.04

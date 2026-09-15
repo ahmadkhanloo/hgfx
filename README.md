@@ -12,7 +12,9 @@ v1.0 closure is **in progress**.
 - Historical M18 scientific failures remain preserved rather than retuned away.
 - Exact shared MATLAB/HGFX limitations are tracked explicitly as scoped `REFERENCE_LIMITATION_MATCH` results, not scientific PASS claims.
 - The current S9 CPU robustness/backend matrix is `PASS_CPU_BACKEND_EQUIVALENCE`.
-- The remaining S9 blocker is fresh physical-H100 validation of the repaired fast path, followed by final release/evidence gates.
+- S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; the archived H100 results retain their original scope.
+- M19 evidence freeze is complete; candidate metadata is `1.0.0rc1`.
+- M20 final candidate validation and fresh candidate CI remain pending; no release/tag is claimed.
 
 See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
 

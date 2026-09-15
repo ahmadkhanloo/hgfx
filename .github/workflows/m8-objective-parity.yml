@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M8 Objective Parity
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M8-objective-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

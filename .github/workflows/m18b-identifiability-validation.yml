@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18B Identifiability-Aware Validation
 
 on:
-  push:
-    branches:
-      - feat/m18b-identifiability-aware-validation
-      - fix/m18b-evidence-integrity
-  pull_request:
   workflow_dispatch:
 
 jobs:

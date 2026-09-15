@@ -13,6 +13,10 @@ on:
       - 'docs/validation/M18_D10_D11_SURFACES.md'
       - '.github/workflows/m18-d10-d11-surfaces.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   d10-d11-surfaces:
     runs-on: ubuntu-24.04

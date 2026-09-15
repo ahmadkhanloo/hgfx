@@ -1,13 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D02 Optimizer Source Probe
 
 on:
-  pull_request:
-    paths:
-      - 'docs/validation/M18_D02_OPTIMIZER_SOURCE_PROBE.md'
-      - 'reference/matlab/export_m18_d02_optimizer_source_probe.m'
-      - 'tools/check_m18_d02_optimizer_source_probe.py'
-      - '.github/workflows/m18-d02-optimizer-source-probe.yml'
-      - 'src/hgfx/**'
   workflow_dispatch:
 
 jobs:

@@ -1,12 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Ridders Probe
 
 on:
-  pull_request:
-    paths:
-      - 'reference/matlab/export_m18_d08_ridders_probe.m'
-      - 'tools/check_m18_d08_ridders_probe.py'
-      - '.github/workflows/m18-d08-ridders-probe.yml'
-      - 'src/hgfx/**'
   workflow_dispatch:
 
 jobs:

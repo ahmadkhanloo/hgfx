@@ -1,15 +1,11 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M14 GPU Engine
 
 on:
-  push:
-    branches:
-      - main
-      - work/m14-gpu-engine
-  pull_request:
   workflow_dispatch:
     inputs:
       require_gpu:
-        description: "Run the real-GPU parity job on a configured self-hosted GPU runner"
+        description: Run the real-GPU parity job on a configured self-hosted GPU runner
         required: false
         default: false
         type: boolean

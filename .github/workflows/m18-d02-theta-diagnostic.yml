@@ -1,7 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D02 Theta Diagnostic
 on:
-  pull_request:
   workflow_dispatch:
+
 jobs:
   theta-diagnostic:
     runs-on: ubuntu-latest

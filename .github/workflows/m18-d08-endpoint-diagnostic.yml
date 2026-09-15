@@ -1,6 +1,6 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Endpoint Diagnostic
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:

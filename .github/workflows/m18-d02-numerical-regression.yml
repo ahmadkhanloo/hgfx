@@ -1,7 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D02 Numerical Regression
 on:
-  pull_request:
   workflow_dispatch:
+
 jobs:
   d02-regression:
     runs-on: ubuntu-latest

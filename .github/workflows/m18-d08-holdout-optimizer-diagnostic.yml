@@ -1,20 +1,6 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Holdout Optimizer Diagnostic
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/validation/M18_D08_HOLDOUT_OPTIMIZER_DIAGNOSTIC.md'
-      - 'reference/matlab/export_m18_d08_holdout_optimizer_probe.m'
-      - 'tools/check_m18_d08_holdout_optimizer_probe.py'
-      - 'src/hgfx/**'
-      - '.github/workflows/m18-d08-holdout-optimizer-diagnostic.yml'
-  pull_request:
-    paths:
-      - 'docs/validation/M18_D08_HOLDOUT_OPTIMIZER_DIAGNOSTIC.md'
-      - 'reference/matlab/export_m18_d08_holdout_optimizer_probe.m'
-      - 'tools/check_m18_d08_holdout_optimizer_probe.py'
-      - 'src/hgfx/**'
-      - '.github/workflows/m18-d08-holdout-optimizer-diagnostic.yml'
   workflow_dispatch:
 
 jobs:

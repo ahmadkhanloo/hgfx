@@ -21,6 +21,10 @@ on:
       - 'scripts/check_m20_candidate.py'
       - '.github/workflows/m19-m20-release-preflight.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   release-preflight:
     runs-on: ubuntu-24.04

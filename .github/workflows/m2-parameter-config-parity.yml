@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M2 Parameter Config Parity
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M2-parameter-config-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

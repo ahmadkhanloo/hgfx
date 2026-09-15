@@ -1,18 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 S8 HGF R0 Optimizer Localization
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'src/hgfx/optim/compat_quasinewton.py'
-      - 'src/hgfx/optim/ridders.py'
-      - 'src/hgfx/diagnostics/recovery.py'
-      - 'src/hgfx/compat/**'
-      - 'reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json'
-      - 'reference/matlab/export_m18_s8_hgf_r0_optimizer_probe.m'
-      - 'tools/check_m18_s8_hgf_r0_optimizer_probe.py'
-      - 'docs/validation/M18_S8_HGF_R0_OPTIMIZER_LOCALIZATION.md'
-      - '.github/workflows/m18-s8-hgf-r0-optimizer-localization.yml'
 
 jobs:
   hgf-r0-optimizer-localization:

@@ -1,13 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Official MATLAB Self Sensitivity
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - '.github/workflows/m18-d08-official-matlab-self-sensitivity.yml'
-      - 'docs/validation/M18_D08_OFFICIAL_MATLAB_SELF_SENSITIVITY.md'
-      - 'reference/matlab/export_m18_d08_official_matlab_self_sensitivity.m'
-      - 'tools/check_m18_d08_official_matlab_self_sensitivity.py'
 
 jobs:
   d08-official-matlab-self-sensitivity:

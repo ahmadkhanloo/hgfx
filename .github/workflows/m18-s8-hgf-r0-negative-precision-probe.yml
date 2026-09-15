@@ -1,3 +1,4 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 S8 HGF R0 Negative Precision Probe
 
 # Historical S8 localization diagnostic. S8 is closed for the required v1 scope.

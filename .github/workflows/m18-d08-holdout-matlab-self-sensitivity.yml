@@ -1,13 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Holdout MATLAB Self Sensitivity
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'reference/matlab/export_m18_d08_holdout_matlab_self_sensitivity.m'
-      - 'tools/check_m18_d08_holdout_matlab_self_sensitivity.py'
-      - 'docs/validation/M18_D08_HOLDOUT_MATLAB_SELF_SENSITIVITY.md'
-      - '.github/workflows/m18-d08-holdout-matlab-self-sensitivity.yml'
 
 jobs:
   d08-holdout-matlab-self-sensitivity:

@@ -1,24 +1,6 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D02 Basin Diagnostic
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/validation/M18_D02_BASIN_DIAGNOSTIC.md'
-      - 'reference/matlab/export_m18_d02_basin_reference.m'
-      - 'reference/matlab/evaluate_m18_d02_basin_points.m'
-      - 'tools/prepare_m18_d02_basin_probe.py'
-      - 'tools/check_m18_d02_basin_probe.py'
-      - 'src/hgfx/**'
-      - '.github/workflows/m18-d02-basin-diagnostic.yml'
-  pull_request:
-    paths:
-      - 'docs/validation/M18_D02_BASIN_DIAGNOSTIC.md'
-      - 'reference/matlab/export_m18_d02_basin_reference.m'
-      - 'reference/matlab/evaluate_m18_d02_basin_points.m'
-      - 'tools/prepare_m18_d02_basin_probe.py'
-      - 'tools/check_m18_d02_basin_probe.py'
-      - 'src/hgfx/**'
-      - '.github/workflows/m18-d02-basin-diagnostic.yml'
   workflow_dispatch:
 
 jobs:

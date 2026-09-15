@@ -1,30 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 Official Workflow Closure
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/hgfx/compat/**'
-      - 'src/hgfx/diagnostics/autocorrelation.py'
-      - 'reference/matlab/export_m18_workflows.m'
-      - 'reference/matlab/export_m18_d02_optimizer_probe.m'
-      - 'reference/matlab/export_m18_d02_objective_decomposition.m'
-      - 'reference/matlab/export_m18_d02_likelihood_primitive.m'
-      - 'reference/matlab/export_m18_d02_unitsq_primitive.m'
-      - 'reference/matlab/export_m18_d02_unitsq_residual_max.m'
-      - 'reference/matlab/export_m18_d02_unitsq_current_argmax.m'
-      - 'reference/matlab/export_m18_d02_theta_primitive.m'
-      - 'reference/matlab/hgfx_json_ieee.m'
-      - 'tools/check_m18_workflows.py'
-      - 'tools/check_m18_d02_optimizer_probe.py'
-      - 'tools/check_m18_d02_objective_decomposition.py'
-      - 'tools/check_m18_d02_likelihood_primitive.py'
-      - 'tools/check_m18_d02_unitsq_primitive.py'
-      - 'tools/check_m18_d02_theta_primitive.py'
-      - 'tests/unit/test_objective.py'
-      - 'tests/unit/test_m18_d02_fdlibm_regression.py'
-      - '.github/workflows/m18-workflow-closure.yml'
-  pull_request:
   workflow_dispatch:
+
 jobs:
   official-workflows:
     runs-on: ubuntu-latest

@@ -24,6 +24,10 @@ on:
       - "src/hgfx/models/hgf_ar1_binary.py"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   demo-uhgf-ar1:
     runs-on: ubuntu-latest

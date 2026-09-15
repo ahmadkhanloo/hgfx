@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M4 HGF Forward Parity
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M4-hgf-forward-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

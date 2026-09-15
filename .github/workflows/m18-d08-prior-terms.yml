@@ -1,13 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 D08 Prior Terms
 
 on:
-  pull_request:
-    paths:
-      - 'reference/matlab/export_m18_d08_prior_terms.m'
-      - 'tools/check_m18_d08_prior_terms.py'
-      - '.github/workflows/m18-d08-prior-terms.yml'
-      - 'src/hgfx/**'
-      - 'tests/unit/test_m18_d08_prior_diagnosis.py'
   workflow_dispatch:
 
 jobs:
