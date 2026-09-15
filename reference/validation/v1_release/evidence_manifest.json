@@ -1,6 +1,5 @@
 {
   "active_blockers_at_manifest_time": [
-    "M19 evidence freeze",
     "M20 v1.0 candidate gate"
   ],
   "external_evidence": [
@@ -98,17 +97,24 @@
       "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
       "id": "M19_M20_PREFLIGHT",
       "job": "104268154143",
-      "m19_final_status": "READY_TO_FINALIZE",
-      "m20_final_status": "BLOCKED_BY_M19",
       "workflow_run": "34934079973"
+    },
+    {
+      "classification": "PASS_FROZEN",
+      "failures": 0,
+      "id": "M19_EVIDENCE_FREEZE",
+      "manifest": "reference/validation/v1_release/evidence_manifest.json",
+      "manifest_commit": "b71301b978e07cb0fa5ac2ad14cc92235fadc5ee",
+      "manifest_status": "FROZEN",
+      "workflow_run": "34966661492"
     }
   ],
   "failures": [],
   "files": [
     {
-      "bytes": 343,
+      "bytes": 341,
       "path": "CITATION.cff",
-      "sha256": "5aa6a49c34e82d813418f9aa8bc230e6a9e6f6f555516d1bb06dd6323dab73a7"
+      "sha256": "1b38e79866f9adf8f4c3fe3746afee4ff61c3b1ca7c0b7ac8925d54ed754801f"
     },
     {
       "bytes": 815,
@@ -126,14 +132,14 @@
       "sha256": "d41333c124d6efcc3e86658c18dbf5dabde0145b93695307b89c930d97951222"
     },
     {
-      "bytes": 2562,
+      "bytes": 2996,
       "path": "docs/planning/MILESTONES.md",
-      "sha256": "26011b237913d0e352c1b196f12f37aa1a887d8ee35136816dc7db94578457a2"
+      "sha256": "9742c905004d1126ed9803baac8a9f031a610fe1c19fe64e698c18126e43d27c"
     },
     {
-      "bytes": 8074,
+      "bytes": 7607,
       "path": "docs/planning/V1_RELEASE_GATE.md",
-      "sha256": "57f6d272c10375dbadf81e9fa7ea9b4bac26c753235565c08c1ad5128b517524"
+      "sha256": "38db82a30a7b82398afdbbba5475d60e9b06ce3b23a269840f1af4b174588190"
     },
     {
       "bytes": 1973,
@@ -146,14 +152,14 @@
       "sha256": "ad234388ea5bee8a1fd92e8ed4a4c51899017a6654a39ee3aeff9f6b1dbe5ee0"
     },
     {
-      "bytes": 3633,
+      "bytes": 4244,
       "path": "docs/validation/V1_EVIDENCE_INDEX.md",
-      "sha256": "e7b99887f6df22e91af87f984fc9c08c9874e3f84d641fd2857d15dc18cda80e"
+      "sha256": "4937e458aa8fb473aa83bdcd48aa6d9669c72d028aafde805b152e2c724373d7"
     },
     {
-      "bytes": 695,
+      "bytes": 693,
       "path": "pyproject.toml",
-      "sha256": "c21934ca1583dc7f0e5643f73a56369f0f114078b019d58748537afd1a010eda"
+      "sha256": "b4d424ee6d2d236c14eebd3cff215138019f1edec2629e5e6ab3f62e354ad112"
     },
     {
       "bytes": 5739,
@@ -171,9 +177,9 @@
       "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
     },
     {
-      "bytes": 3770,
+      "bytes": 3976,
       "path": "reference/validation/v1_release/evidence_index.json",
-      "sha256": "c5ff0c0c80bb40e681bd522d5162bf96bce1b7c6947081d886de6e2946c0f059"
+      "sha256": "535853b3b2530bfa1373d3462dfde9e712fc43cf2f5d3836b4e6c73f72d2a23e"
     }
   ],
   "frozen_matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
@@ -201,6 +207,6 @@
   },
   "release_branch": "migration/m18-workflow-closure",
   "schema_version": 1,
-  "source_commit": "600b374b76d51ed2e4633cc9c40e08d4cc7324eb",
+  "source_commit": "ad9f5b36aad67980e4a8a6d92c0383df7b54f1c4",
   "status": "FROZEN"
 }
