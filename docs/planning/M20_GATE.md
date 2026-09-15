@@ -1,60 +1,11 @@
 # M20 — v1.0 Candidate
 
 Last synchronized: 2026-09-15
-Status: **LOCAL CHECKER PASS — FRESH CI PENDING**
+Status: **FRESH CANDIDATE CI PASS — FINALIZER PENDING ON SYNCHRONIZED REVISION**
 Branch: `migration/m18-workflow-closure`
 
 ## Purpose
 
-M20 is the final v1.0 candidate gate. It does not reopen scientific validation. It verifies that the accepted MATLAB-equivalence surface, packaging, provenance, metadata and M19 evidence freeze are internally consistent and ready to merge/tag.
+M20 is the final v1.0 release-candidate gate. It does not reopen scientific validation. It verifies that the accepted MATLAB-equivalence surface, packaging, provenance, metadata and M19 evidence freeze are internally consistent and ready to merge/tag as the `1.0.0rc1` candidate.
 
-## Preconditions for M20 PASS
-
-- [x] M19 evidence manifest is committed with status `FROZEN`.
-- [x] S9 physical NVIDIA GPU applicability is PASS on the current numerical path under `M18_S9_PHYSICAL_GPU_AMENDMENT.md`.
-- [x] S10 release-readiness remains PASS.
-- [x] `reference/validation/v1_release/evidence_index.json` has no unresolved blocker other than the M20 gate itself.
-- [x] Package/citation metadata are promoted to release-candidate quality and remain mutually consistent.
-- [x] M19 manifest hashes are refreshed after metadata-only release-candidate promotion.
-- [x] `scripts/check_m20_candidate.py --mode finalize` returns `PASS_M20_CANDIDATE` locally; fresh CI remains pending.
-- [x] PR/release documents preserve historical FAIL and scoped `REFERENCE_LIMITATION_MATCH` evidence.
-
-## Current state
-
-M19 finalize workflow run `34966661492` succeeded and committed a `FROZEN` manifest at commit `b71301b978e07cb0fa5ac2ad14cc92235fadc5ee`.
-
-The active release blocker is M20. Package/citation metadata already contain
-`1.0.0rc1`; do not repeat version promotion. The next ordered actions are:
-
-1. validate the CI/documentation maintenance revision;
-2. run fresh S10 candidate wheel build/install/quickstart and required regression;
-3. refresh M19 hashes for the synchronized release documents;
-4. run `scripts/check_m20_candidate.py --mode finalize` and retain its output;
-5. verify fresh candidate CI before ready/merge/tag.
-
-Workflow `34969711260` was observed queued on 2026-09-15; queued is not PASS.
-An older S10 PASS is historical evidence, not a clean-wheel check of this revision.
-
-## Candidate checker
-
-`scripts/check_m20_candidate.py` supports:
-
-- `preflight`: validates candidate prerequisites available before final closure;
-- `finalize`: requires an M19 `FROZEN` manifest, valid physical NVIDIA GPU release accounting, release-candidate/final version metadata, and no earlier active blockers.
-
-## Definition of done
-
-When M20 returns `PASS_M20_CANDIDATE`, the closure PR may be made ready/merged and the corresponding v1.0 candidate/release tag can be created. Until that checker succeeds, M20 remains **READY TO FINALIZE**, not PASS.
-
-## Maintenance validation — 2026-09-15
-
-CI/docs revision `60472362d05412a35b046b197a32daacc05ebbef` passed local
-CPU regression (167 passed, four physical-GPU skips), candidate clean-wheel
-build/install/API import/quickstart, and the static reference/release checks.
-M19 refresh and the M20 final checker passed locally with no failures.
-Evidence: `reference/validation/ci_maintenance_20260915/`.
-
-Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
-at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
-no merge/tag or new physical-GPU validation is claimed. Classic branch
-protection could not be read (403); do not bypass required checks.
+Final `1.0.0` promotion remains subject to the independent final-review process in `CHAT_WORKFLOW.md`; M20 PASS must not be described as an independent-review PASS.
