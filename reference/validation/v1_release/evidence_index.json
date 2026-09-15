@@ -60,7 +60,8 @@
     {
       "id": "S8_REQUIRED_REPAIR_SCOPE",
       "classification": "DONE",
-      "repair_commit": "0239f52f772825e0a4fc74cdf3559cafa18a603e"
+      "repair_commit": "0239f52f772825e0a4fc74cdf3559cafa18a603e",
+      "historical_localization_probes": "MANUAL_ONLY_PRESERVED"
     },
     {
       "id": "S9_CPU_BACKEND",
@@ -73,16 +74,27 @@
     {
       "id": "S9_PHYSICAL_GPU",
       "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
-      "source": "docs/validation/M18_S9_CPU_EVIDENCE.md"
+      "source": "docs/validation/M18_S9_CPU_EVIDENCE.md",
+      "execution_status": "DEFERRED_BY_USER"
     },
     {
       "id": "S10_RELEASE_READINESS",
       "classification": "PASS",
-      "commit": "9387017eebd104b12817075eb07a07e067baaf67",
-      "workflow_run": "34933146678",
-      "job": "104265387068",
-      "artifact": "10382605498",
-      "artifact_sha256": "1d6f3650ae1d48751094f9c2e0305575988661114248143fde60719215437840"
+      "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
+      "workflow_run": "34934079865",
+      "artifact": "10383235791",
+      "artifact_sha256": "8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b"
+    },
+    {
+      "id": "M19_M20_PREFLIGHT",
+      "classification": "PASS_PREFLIGHT",
+      "commit": "87e3b01fdbdbe5f157ba8dc7f1309335408a165a",
+      "workflow_run": "34934079973",
+      "job": "104268154143",
+      "artifact": "10383425031",
+      "artifact_sha256": "3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf",
+      "m19_final_status": "BLOCKED_BY_PHYSICAL_H100",
+      "m20_final_status": "BLOCKED_BY_PHYSICAL_H100_AND_M19"
     }
   ],
   "active_blockers": [

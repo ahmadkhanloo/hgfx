@@ -1,15 +1,9 @@
 name: M18 S8 HGF R0 Precheck Trajectory
 
+# Historical S8 localization diagnostic. S8 is closed for the required v1 scope.
+# Preserve this workflow for manual provenance/reproduction, but do not gate ordinary PR/release commits.
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - 'reference/matlab/export_m18_s8_hgf_r0_precheck_trajectories.m'
-      - 'tools/check_m18_s8_hgf_r0_precheck_trajectories.py'
-      - '.github/workflows/m18-s8-hgf-r0-precheck-trajectory.yml'
-      - 'src/hgfx/models/hgf_binary.py'
-      - 'src/hgfx/validation/trajectory_checks.py'
-      - 'reference/validation/m18_s7_paired_recovery/hgf_anomaly_fixture.json'
 
 jobs:
   precheck-trajectory:

@@ -1,9 +1,9 @@
 # Agent Handoff
 
-Last synchronized: 2026-09-14
+Last synchronized: 2026-09-15
 Branch: `migration/m18-workflow-closure`
 Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`
-Milestone: **M18 v1 MATLAB-equivalence closure — IN PROGRESS / OPEN**
+Milestone: **v1.0 release closure — IN PROGRESS / ONLY PHYSICAL H100 + DEPENDENT FINALIZATION REMAIN**
 Historical M18 scientific experiment: **FAIL, preserved**
 
 ## Read first
@@ -11,81 +11,60 @@ Historical M18 scientific experiment: **FAIL, preserved**
 1. `V1_TODO.md`
 2. `M18_COMPLETION_PLAN.md`
 3. `V1_RELEASE_GATE.md`
-4. `../validation/MATLAB_EQUIVALENCE_POLICY.md`
-5. `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`
-6. `../validation/M18_D02_REFERENCE_LIMITATION.md`
-7. `../validation/M18_D08_REFERENCE_LIMITATION.md`
+4. `M19_GATE.md`
+5. `M20_GATE.md`
+6. `../validation/V1_EVIDENCE_INDEX.md`
+7. `../validation/MATLAB_EQUIVALENCE_POLICY.md`
 8. `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
-9. `../validation/M18_RECOVERY_RUNBOOK.md`
-10. `../research/PAPER_EVIDENCE_MAP.md` and `RESEARCH_LOG.md`
+9. `../validation/MATLAB_TOOLBOX_VALIDATION_MATRIX.md`
 
 ## Current release-accounting state
 
-Direct fit/Bayes gate remains **7/9 PASS**. D02_fit and D08_fit remain direct failures; these failures are never rewritten.
+- M0-M17: completed in documented scopes.
+- Historical M18 scientific experiment: FAIL preserved.
+- D02 direct fit: FAIL preserved; exact official scope = `REFERENCE_LIMITATION_MATCH`.
+- D08 prospective holdout: FAIL preserved; exact failed seed `314159265` = `REFERENCE_LIMITATION_MATCH`.
+- D09/D10-D11/D12: PASS.
+- S7 paired parameter recovery: exact-grid `REFERENCE_LIMITATION_MATCH`, not scientific PASS.
+- S7 model selection: `PASS_PAIRED_MODEL_SELECTION`, 36/36 BIC winners.
+- S8 required-scope repair: DONE; repair `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no open required S7-derived implementation/optimizer/model-selection mismatch.
+- S9 CPU/backend: `PASS_CPU_BACKEND_EQUIVALENCE`, run `34901924475`, job `104169632034`, artifact `10371308067`.
+- S9 physical H100: **BLOCKED / DEFERRED BY USER**. This is still mandatory for final release.
+- S10: PASS. Latest release-preparation-head rerun `34934079865`, artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
+- M19 preflight: PASS_PREFLIGHT.
+- M20 preflight: PASS_PREFLIGHT.
+- M19/M20 preflight run `34934079973`, job `104268154143`, artifact `10383425031`, SHA-256 `3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf`.
+- Package/citation metadata are intentionally development state `1.0.0.dev0`; do not promote until H100/M19 finalization.
 
-Release accounting:
+## Do not reopen
 
-- **D02 exact official fit: REFERENCE_LIMITATION_MATCH**; direct/inference FAIL preserved.
-- **D08 exact failed holdout seed `314159265`: REFERENCE_LIMITATION_MATCH**; prospective Level-2 holdout FAIL preserved.
-- D02 model selection: `PASS_MODEL_SELECTION_PARITY`.
-- D04 uHGF→AR(1): PASS, run `34763542557`.
-- exact historical 512 case: `REFERENCE_LIMITATION_MATCH` only in exact scope.
-- D09: PASS, run `34842943557`.
-- D10/D11: PASS, run `34847266268`.
-- D12: PASS, run `34854238549`.
+Do not return to D02/D08 ULP chasing or rerun/redefine S7/S8 merely to produce greener historical diagnostics. Reopen only if a mandatory current release gate shows a genuine HGFX-only semantic regression in required scope.
 
-## D02 exact-scope reference limitation
+The S8 negative-precision and raw-precheck workflows are historical localization probes. They deliberately exercise an invalid parameter region where frozen MATLAB can itself raise `Negative posterior precision`. Their old runs and failures remain preserved; the workflows are manual-only after S8 closure and are not ordinary release gates.
 
-Decision: `../../reference/validation/m18_d02_reference_limitation/decision.json`.
+## Only missing external evidence — physical H100
 
-The direct mismatch is preserved. Shared-vector objective, exact-state optimizer algebra, binary64 source localization and MATLAB one-spacing self-sensitivity establish an exact-workflow numerical-basin limitation. Never generalize this to other D02-family cases.
+Use the existing `scripts/run_m18_s9_h100_revalidation.py`. Do not change frozen criteria.
 
-## D08 exact failed-seed reference limitation
+Required final evidence:
 
-Decision: `../../reference/validation/m18_d08_reference_limitation/decision.json`.
+- physical H100 visible to JAX;
+- actual GPU residency;
+- same repaired numerical/data path;
+- CPU-vs-GPU final-objective gap `<= 1e-7`;
+- hardware, driver/runtime, command, source commit and environment/contention note recorded.
 
-Prospective holdout remains FAIL. The failing seed `314159265` is release-acceptable only in the exact frozen scope because:
+CPU/mock evidence cannot substitute.
 
-- repaired-product holdout `34842943696` still fails but exact MATLAB-endpoint replay has no mismatch;
-- optimizer diagnostic `34842943657` => `SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES`;
-- the evidence-linked prior preparation defect was repaired independently and selected source-likelihood observation outputs/reduction are exact;
-- MATLAB self-sensitivity `34846375826` reproduces baseline exactly and 13/14 independent one-local-spacing start perturbations leave the unchanged endpoint gate.
+## Exact continuation after H100 evidence arrives
 
-Do not call this Level-2 PASS, do not replace the seed/start, and do not widen tolerances.
-
-## D09-D12 closed
-
-- D09 artifact `10346184455`, SHA `6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c`.
-- D10/D11 artifact `10348099156`, SHA `a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317`.
-- D12 artifact `10352486569`, SHA `14ab041b2473a13496377f63d6d1897578d1785128406eadbc1d6d44ae119883`; scalar-vs-singleton MATLAB prior-vector compatibility repaired in product commit `21a6e9cc38c9c480745b6eade8ed9ec3bb1e9a56`.
-
-## Immediate continuation — S7 paired recovery
-
-Do **not** return to D02/D08 ULP chasing unless a new frozen required-scope regression shows a material semantic defect. The next unresolved product gate is paired recovery.
-
-Freeze a new paired same-oracle protocol before execution:
-
-- models `hgf_binary`, `ehgf_binary`, `uhgf_binary`;
-- trials `128`, `256`;
-- truth scales `0.15`, `0.35` prior SD;
-- 6 parameter-recovery replicates per stratum;
-- 3 model-recovery replicates per stratum;
-- identical exported inputs/responses/truth vectors for MATLAB and HGFX; never rely on cross-language RNG identity;
-- exact same configs, priors, free/fixed parameter order, transformed/native semantics, starts and default quasinewton workflow;
-- candidate set identical; BIC winner rule frozen, AIC diagnostic retained;
-- raw fits/failures archived and classified rather than filtered.
-
-Original-grid workload is 72 parameter-recovery fits plus 108 model-recovery candidate fits = 180 fits. Shard execution if needed, but do not shrink the grid.
-
-Issue #21 / M18C.2 is a separate 128/256/512/1024 horizon extension. Do not use it to redefine or rescue S7 post-hoc.
-
-## After S7
-
-1. S8 repair only demonstrated HGFX-only implementation/optimizer/model-selection mismatches, with regression first.
-2. S9 close robustness and CPU/JAX/physical-GPU applicability; earlier H100 evidence may be reused only if code/data path applicability is documented.
-3. S10 aggregate evidence/provenance, clean install, examples, docs/API/licenses and no-MATLAB-runtime checks.
-4. M19 evidence freeze; M20 v1 candidate only after the release gate is truly satisfied.
+1. Validate the H100 JSON/provenance against frozen S9 criteria. If it fails, classify the failure; do not relax the gate.
+2. If PASS, update `reference/validation/v1_release/evidence_index.json` and docs with `PASS_PHYSICAL_GPU_APPLICABILITY` / full S9 closure.
+3. Run `python scripts/build_v1_evidence_manifest.py --mode finalize`; commit the resulting `reference/validation/v1_release/evidence_manifest.json` only if status is `FROZEN`. Then M19 may be PASS.
+4. Promote `pyproject.toml` and `CITATION.cff` from `1.0.0.dev0` to the selected candidate/final version (`1.0.0rc1` or `1.0.0`) only after M19 freeze.
+5. Remove already-satisfied H100/M19 blockers from the machine index and run `python scripts/check_m20_candidate.py --mode finalize`.
+6. Only after M20 final PASS: mark PR #26 ready, merge according to repository policy, and create the corresponding v1.0 candidate/release tag if all required CI is green.
 
 ## Integrity rules
 
-Never declare PASS without documented gate evidence; never tune thresholds/seeds/data/starts/grids/model/optimizer after results; never hide failures; never call a reference limitation without exact paired evidence; distinguish direct parity, exact-scope limitation, implementation mismatch, optimizer/numerical mismatch, model-selection mismatch and insufficient evidence.
+Never declare PASS without gate evidence; never tune thresholds/seeds/data/starts/grids/model/optimizer after results; preserve failures and scoped limitation semantics. `PASS_PREFLIGHT` is not final milestone PASS.

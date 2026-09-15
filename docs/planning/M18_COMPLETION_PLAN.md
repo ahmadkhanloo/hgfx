@@ -1,83 +1,81 @@
 # M18 completion plan — MATLAB-equivalent v1.0
 
 Last synchronized: 2026-09-15
-Status: **IN PROGRESS**
+Status: **IN PROGRESS — ONLY PHYSICAL H100 + FINAL FREEZE/CANDIDATE REMAIN**
 Branch: `migration/m18-workflow-closure`
 Frozen MATLAB reference: `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Objective
 
-Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF Toolbox 8.2.0, with no MATLAB runtime dependency for users. Compatibility is judged under the frozen tiered equivalence and reference-limitations policies. Historical and prospective failures remain immutable even when a later exact-scope limitation is release-acceptable.
+Deliver HGFX v1.0 as a functional/scientific Python replacement for MATLAB HGF Toolbox 8.2.0, with no MATLAB runtime dependency for users. Compatibility is judged under the frozen equivalence/reference-limitation policies. Historical and prospective failures remain immutable even when an exact-scope limitation is release-acceptable.
 
 ## Current baseline
 
 | Item | Status | Evidence |
 |---|---|---|
 | Historical M18 scientific experiment | FAIL, preserved | immutable historical gate |
-| M0-M17 | PASS in documented scopes | gate documents/evidence |
-| D02 direct fit gate | FAIL, preserved | optimizer/inference mismatch |
-| D02 exact official release disposition | **REFERENCE_LIMITATION_MATCH** | `M18_D02_REFERENCE_LIMITATION.md` |
-| D08 prospective Level-2 holdout | **FAIL, preserved** | repaired-product run `34842943696` |
-| D08 exact failed-seed release disposition | **REFERENCE_LIMITATION_MATCH** | `M18_D08_REFERENCE_LIMITATION.md` |
-| D09 official sampleModel workflow | **PASS** | run `34842943557` |
-| D10/D11 analysis surfaces | **PASS** | run `34847266268` |
-| D12 Bayesian parameter averaging | **PASS** | run `34854238549` |
-| S7 paired parameter recovery | **REFERENCE_LIMITATION_MATCH — exact frozen grid** | run `34896442847`, artifact `10370615292` |
-| S7 paired model selection | **PASS_PAIRED_MODEL_SELECTION** | 36/36 BIC winners match; BA `0.5833333333333334` both implementations |
-| S8 evidence-backed repair | **DONE for current required S7 scope** | HGF oracle repair `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no unresolved S7 mismatch |
-| v1 release | OPEN | issue #24 |
+| M0-M17 | PASS in documented scopes | milestone evidence |
+| D02 direct fit | FAIL, preserved | historical/direct evidence |
+| D02 exact official release disposition | `REFERENCE_LIMITATION_MATCH` | `M18_D02_REFERENCE_LIMITATION.md` |
+| D08 prospective Level-2 holdout | FAIL, preserved | repaired-product run `34842943696` |
+| D08 exact failed-seed disposition | `REFERENCE_LIMITATION_MATCH` | `M18_D08_REFERENCE_LIMITATION.md` |
+| D09 official sampleModel | PASS | run `34842943557` |
+| D10/D11 analysis surfaces | PASS | run `34847266268` |
+| D12 Bayesian parameter averaging | PASS | run `34854238549` |
+| S7 paired parameter recovery | `REFERENCE_LIMITATION_MATCH` — exact frozen grid | run `34896442847`, artifact `10370615292` |
+| S7 paired model selection | `PASS_PAIRED_MODEL_SELECTION` | 36/36 BIC winners match |
+| S8 evidence-backed repair | DONE | repair `0239f52f772825e0a4fc74cdf3559cafa18a603e`; no open required-scope S7 mismatch |
+| S9 CPU/backend | `PASS_CPU_BACKEND_EQUIVALENCE` | run `34901924475`, job `104169632034`, artifact `10371308067` |
+| S9 physical GPU | BLOCKED / DEFERRED | fresh H100 evidence still required |
+| S10 release readiness | PASS | current-head rerun `34934079865`, artifact `10383235791` |
+| M19 evidence freeze | PREPARED / BLOCKED BY H100 | preflight run `34934079973` |
+| M20 v1 candidate | PREPARED / BLOCKED BY H100 + M19 | preflight run `34934079973` |
 
 ## Ordered work packages
 
 | Step | Status | Exit condition |
 |---|---|---|
-| S1 policy/semantics | DONE | tiered equivalence + reference-limit policies frozen |
+| S1 policy/semantics | DONE | frozen equivalence + reference-limit policies |
 | S2 D04 official workflow | PASS | exact workflow validated |
-| S3 remaining workflow contracts | DONE | D09-D12/source-output mapping implemented and validated |
-| S4 binary demos | release-acceptable in current exact official scope | D01/D03/D05 direct PASS; D02 exact-scope reference limitation disclosed; D09 PASS |
-| S5 continuous demos | release-acceptable in current exact official scope | D06/D07 healthy; D08 failed holdout preserved + exact failing-seed reference-limitation disposition |
-| S6 analysis/output surfaces | PASS | D10/D11/D12 evidence-backed PASS |
-| S7 paired recovery | **DONE / release-acceptable** | parameter criteria match MATLAB and are exact-grid `REFERENCE_LIMITATION_MATCH`; 36/36 model winners match |
-| S8 evidence-backed repairs | **DONE / no open S7-derived mismatch** | demonstrated HGF semantic defect repaired/regression-backed; final paired evidence has no implementation/optimizer/model-selection mismatch |
-| S9 robustness/backend | **NOW / IN PROGRESS** | robustness + CPU/JAX/physical-GPU applicability matrix closed |
-| S10 release acceptance | OPEN/TODO | aggregate evidence, install/docs/examples/licenses/no-MATLAB-runtime complete |
+| S3 remaining workflow contracts | DONE | D09-D12/source-output mapping validated |
+| S4 binary demos | RELEASE-ACCEPTABLE | D01/D03/D05 direct PASS; D02 exact limitation disclosed; D09 PASS |
+| S5 continuous demos | RELEASE-ACCEPTABLE | D06/D07 healthy; D08 holdout FAIL preserved + exact limitation disposition |
+| S6 analysis/output surfaces | PASS | D10/D11/D12 evidence-backed |
+| S7 paired recovery | DONE / RELEASE-ACCEPTABLE | exact-grid recovery limitation + 36/36 model-selection parity |
+| S8 evidence-backed repairs | DONE | no open required-scope S7-derived mismatch |
+| S9 robustness/backend | CPU PASS; PHYSICAL GPU BLOCKED/DEFERRED | same frozen S9 path must pass physical H100 applicability |
+| S10 release acceptance | PASS | clean wheel/install/example/docs/API/licenses/zero-MATLAB-runtime |
+| M19 evidence freeze | PREPARED / BLOCKED BY H100 | final manifest status `FROZEN` only after H100 PASS |
+| M20 v1.0 candidate | PREPARED / BLOCKED BY H100 + M19 | final candidate checker PASS after M19 freeze |
 
-## D02 and D08 dispositions
+## S7/S8 closure discipline
 
-D02 remains a direct/inference failure but is release-acceptable only in the exact official scope as `REFERENCE_LIMITATION_MATCH`. D08's prospectively frozen Level-2 holdout remains failed; exact seed `314159265` is release-acceptable only as a scoped `REFERENCE_LIMITATION_MATCH`. Neither disposition changes historical evidence or generalizes.
+S7 protocol `m18-s7-paired-recovery-1` is frozen. MATLAB and HGFX share the same parameter-recovery failures in the exact paired grid; these remain `REFERENCE_LIMITATION_MATCH`, not scientific PASS. All 36 BIC model-selection winners match. Historical M18 FAIL remains preserved.
 
-## S7 disposition
-
-Protocol `m18-s7-paired-recovery-1` was frozen before execution with HGF/eHGF/uHGF, `unitsq_sgm`, trial counts 128/256, truth scales 0.15/0.35, six parameter-recovery replicates and three model-recovery replicates per stratum, identical exported paired data/truth/config/starts, and BIC model selection.
-
-Official run `34896442847` completed all 12 shards. Aggregate job `104163079125` produced artifact `10370615292`, SHA-256 `3ba9fc576a2b6a909ef05837bf5039e0b6b2f887356bff9614fdc1e958a1ef92`.
-
-Parameter recovery is not a scientific PASS: MATLAB and HGFX fail the same frozen recovery criteria with nearly identical metrics. Under `MATLAB_REFERENCE_LIMITATIONS_POLICY.md`, that is accepted for v1 product equivalence as `REFERENCE_LIMITATION_MATCH` in this exact grid. Model recovery passes directly: all 36 BIC winners match and both implementations have balanced accuracy `0.5833333333333334`.
-
-The historical M18 scientific FAIL remains preserved. A real standard-HGF oracle mismatch uncovered during localization was repaired in `0239f52f772825e0a4fc74cdf3559cafa18a603e`; it was not reclassified as a limitation. MATLAB termination measurement was corrected in `96daac8e8fe889deaf1c8c4b5f92f2c6f676262c` without changing fitting inputs/settings.
-
-Decision: `../validation/M18_S7_REFERENCE_LIMITATION.md` and `../../reference/validation/m18_s7_reference_limitation/decision.json`.
+The real standard-HGF semantic defect found during S7/S8 was repaired at `0239f52f772825e0a4fc74cdf3559cafa18a603e`. S8 is closed for the required v1 scope. Historical localization probes that deliberately enter invalid negative-posterior-precision regions are retained for provenance but are manual diagnostics, not ordinary PR/release gates. Do not reopen S7/S8 merely because those historical probes reproduce the documented invalid-region failure in MATLAB/HGFX.
 
 ## Anti-endless-patching rule
 
-Do not chase floating-point micro-differences merely because they exist. Repair only when frozen evidence links a difference to a required semantic mismatch. Exact-scope reference sensitivity or a shared MATLAB/HGFX limitation may justify a disclosed `REFERENCE_LIMITATION_MATCH`; neither justifies global tolerance widening or post-hoc seed/start/grid changes.
+Do not chase floating-point micro-differences merely because they exist. Repair only when frozen evidence links a difference to a required semantic mismatch. A shared MATLAB/HGFX limitation may be a scoped `REFERENCE_LIMITATION_MATCH`; this never authorizes global tolerance widening or post-hoc changes to seed, start, dataset, grid, model family or optimizer.
 
-## S9 — robustness/backend next
+## S9 final external evidence
 
-Freeze S9 before executing final evidence. Required matrix must separate:
+Frozen protocol: `m18-s9-robustness-backend-1`.
 
-1. **robustness behavior** — required trial horizons/regimes, missing/ignored trials and initialization perturbations;
-2. **backend agreement** — compatibility vs JAX CPU on the same supported path;
-3. **physical GPU applicability** — JAX CPU vs physical GPU using the same validated code/data path where supported.
+CPU/backend evidence is closed and PASS. The only unexecuted S9 cell is physical GPU applicability. A fresh H100 run must use the current numerical path, record device/runtime/command/source evidence, demonstrate actual GPU residency, and satisfy the frozen JAX CPU-vs-GPU final-objective gap `<= 1e-7`. CPU or mocked-device evidence cannot substitute.
 
-Existing criteria from the frozen historical M18 protocol remain diagnostic anchors: compatibility-vs-JAX CPU final objective gap <= `0.10`, and JAX CPU-vs-GPU final objective gap <= `1e-7` where a GPU is visible. Do not invent broader scientific recovery PASS thresholds after observing S7.
+No `src/hgfx` file changed between numerical repair `9c53af707a60d27ee3d9d37e5122e7a0ba7d5460` and the release-preparation head, so the deferred H100 run validates the same repaired numerical path.
 
-Prior H100 evidence may be reused only if the code and data path exercised by S9 is demonstrated unchanged/applicable and hardware/runtime evidence is explicitly linked. Otherwise obtain a new physical-H100 result. Missing coverage remains OPEN rather than being inferred from CPU or mocked-device tests.
+## S10 evidence
 
-## Evidence contract
+S10 is closed. Latest release-readiness rerun on release-preparation head `87e3b01fdbdbe5f157ba8dc7f1309335408a165a` passed: run `34934079865`, wheel artifact `10383235791`, SHA-256 `8abf4488e91c6ae28983c318670f4a92dfab57c4acc8caad494be02fca47eb2b`.
 
-Every required result records reference/HGFX SHA, protocol version, data/config/seed/start, environment, command, raw outputs/failures, tolerances, classification, run/job/artifact IDs and artifact SHA-256. GPU claims additionally require physical device/runtime evidence.
+## M19/M20 preparation
 
-## Release interpretation
+M19/M20 preflight passed on `87e3b01fdbdbe5f157ba8dc7f1309335408a165a`: run `34934079973`, job `104268154143`, artifact `10383425031`, SHA-256 `3f711a260f68ff0454d18b2b09b3645d28ab5b370384c8729d4fd431bee5e7cf`.
 
-M18/v1 remains OPEN. D02/D08 scoped dispositions, D09-D12, and S7/S8 closure remove their previous blockers. Remaining blockers are S9 robustness/backend applicability and S10 reproducible release acceptance before M19 evidence freeze and M20 v1 candidate.
+This is **preflight PASS only**. M19 may not be called PASS until the physical-H100 record is present and `scripts/build_v1_evidence_manifest.py --mode finalize` produces a `FROZEN` manifest. M20 may not be called PASS until M19 is frozen, release version metadata is promoted, and `scripts/check_m20_candidate.py --mode finalize` succeeds.
+
+## Next action
+
+Physical H100 evidence is the only external input still missing. It is explicitly deferred by the user and does not block preparation work. Once supplied: validate it without changing frozen criteria, finalize M19, promote release-candidate metadata, execute M20 finalize, then make PR #26 ready/merge/tag only if all final gates pass.
