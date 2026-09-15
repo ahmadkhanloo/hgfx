@@ -74,11 +74,19 @@
       "id": "S9_PHYSICAL_GPU",
       "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
       "source": "docs/validation/M18_S9_CPU_EVIDENCE.md"
+    },
+    {
+      "id": "S10_RELEASE_READINESS",
+      "classification": "PASS",
+      "commit": "9387017eebd104b12817075eb07a07e067baaf67",
+      "workflow_run": "34933146678",
+      "job": "104265387068",
+      "artifact": "10382605498",
+      "artifact_sha256": "1d6f3650ae1d48751094f9c2e0305575988661114248143fde60719215437840"
     }
   ],
   "active_blockers": [
     "S9 physical H100 revalidation",
-    "S10 clean-wheel/install/examples/docs/licenses/zero-MATLAB-runtime CI",
     "M19 evidence freeze",
     "M20 v1.0 candidate gate"
   ]

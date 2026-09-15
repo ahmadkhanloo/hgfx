@@ -20,9 +20,9 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFER
 - [x] Paired model recovery/model-selection validation — `PASS_PAIRED_MODEL_SELECTION`, 36/36 winners match
 - [ ] CPU/GPU numerical agreement on required supported paths
 - [ ] Python reproduction of all required MATLAB demo workflows accepted for release surface
-- [ ] Independent-use documentation/examples
+- [x] Independent-use documentation/examples
 - [ ] Aggregate evidence/provenance closure
-- [ ] Zero MATLAB runtime dependency for users
+- [x] Zero MATLAB runtime dependency for users
 
 ## Current evidence snapshot
 
@@ -38,6 +38,15 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md` and `../validation/MATLAB_REFER
   - parameter recovery: **REFERENCE_LIMITATION_MATCH** in the exact frozen protocol grid;
   - model selection: **PASS_PAIRED_MODEL_SELECTION**, 36/36 BIC winners match, balanced accuracy `0.5833333333333334` in both implementations.
 - S8: standard-HGF oracle defect repaired in `0239f52f772825e0a4fc74cdf3559cafa18a603e`; final S7 evidence has no unresolved required-scope implementation/optimizer/model-selection mismatch.
+- S9 CPU robustness/backend: **PASS_CPU_BACKEND_EQUIVALENCE**, run `34901924475`, job `104169632034`, artifact `10371308067`, SHA-256 `875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826`.
+- S9 physical GPU: **BLOCKED** pending fresh H100 revalidation of the repaired current numerical path.
+- S10 release readiness: **PASS** on commit `9387017eebd104b12817075eb07a07e067baaf67`; run `34933146678`, job `104265387068`, wheel artifact `10382605498`, SHA-256 `1d6f3650ae1d48751094f9c2e0305575988661114248143fde60719215437840`.
+  - static release/provenance checks PASS;
+  - clean wheel build and install PASS;
+  - wheel contains no MATLAB/reference runtime payload PASS;
+  - public API import outside source checkout PASS;
+  - maintained quickstart PASS;
+  - runtime/examples compile PASS.
 
 ## Accepted result semantics
 
@@ -58,9 +67,11 @@ This disposition does not change the frozen recovery thresholds and does not cla
 
 ## Current release blocker sequence
 
-1. **S9 robustness/backend/physical-GPU applicability closure**.
-2. S10 aggregate evidence, install/examples/docs/API/licenses and no-MATLAB-runtime verification.
-3. M19 evidence freeze, then M20 v1.0 candidate.
+1. **S9 physical-H100 applicability closure**.
+2. M19 evidence freeze.
+3. M20 v1.0 candidate gate.
+
+S10 release-readiness is closed and is no longer an active blocker.
 
 ## M18/v1 exit conditions
 
@@ -74,7 +85,7 @@ This disposition does not change the frozen recovery thresholds and does not cla
 - [ ] Robustness/backend/physical-GPU applicability matrix complete
 - [x] D09-D12 required output surfaces closed
 - [ ] Aggregate evidence checker/report passes
-- [ ] Clean install/examples/docs/API/licenses verified
-- [ ] Zero MATLAB runtime dependency verified
+- [x] Clean install/examples/docs/API/licenses verified
+- [x] Zero MATLAB runtime dependency verified
 
-The release remains **OPEN**. S9 and S10 are now the active blockers.
+The release remains **OPEN**. The active blockers are fresh physical-H100 evidence, M19 evidence freeze, and M20 v1.0 candidate closure.

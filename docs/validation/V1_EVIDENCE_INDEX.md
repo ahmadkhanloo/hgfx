@@ -28,12 +28,13 @@ This index is the release-level provenance map. It does not rewrite historical e
 | S8 required repair scope | DONE | repair `0239f52f772825e0a4fc74cdf3559cafa18a603e` |
 | S9 CPU robustness/backend | PASS_CPU_BACKEND_EQUIVALENCE | run `34901924475`, job `104169632034`, artifact `10371308067`, SHA-256 `875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826` |
 | S9 physical GPU | BLOCKED | current numerical path requires fresh H100 revalidation |
+| S10 release readiness | PASS | commit `9387017eebd104b12817075eb07a07e067baaf67`, run `34933146678`, job `104265387068`, wheel artifact `10382605498`, SHA-256 `1d6f3650ae1d48751094f9c2e0305575988661114248143fde60719215437840` |
 
 ## Active release blockers
 
 1. Physical H100 S9 revalidation on the repaired standard-HGF fast path.
-2. S10 clean-wheel/install/example/docs/licenses/zero-MATLAB-runtime CI must pass on the closure branch.
-3. After the above: M19 evidence freeze and M20 v1.0 candidate gate.
+2. M19 evidence freeze.
+3. M20 v1.0 candidate gate.
 
 ## Integrity rules
 
