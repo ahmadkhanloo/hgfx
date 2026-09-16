@@ -1,7 +1,7 @@
 # HGFX v1.0 Release Gate
 
 Last synchronized: 2026-09-16
-Status: **FINAL REVIEW REMEDIATION PASS — READY FOR `1.0.0` PROMOTION AFTER PR #29 MERGE/MAIN VALIDATION**
+Status: **`1.0.0` PROMOTION IN PROGRESS — PR #29 MAIN INTEGRATION PASS, FINAL PROMOTION CHECKS PENDING**
 
 ## Product definition
 
@@ -23,8 +23,9 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENC
 - [x] Independent frontier review executed against the RC candidate.
 - [x] Every Critical/High independent-review finding resolved without changing frozen scientific acceptance criteria.
 - [x] Fresh post-remediation cross-platform/release validation green.
-- [ ] PR #29 merged to `main` and required main/push checks green on the integration commit.
-- [ ] Final package/citation metadata promoted to `1.0.0` and final release provenance recorded.
+- [x] PR #29 merged to `main` and main/push regression green on integration commit `ffa84c616343714d7d384b0a21e6f8d73f7cb990` (run `35087865209`).
+- [x] Package/citation metadata promoted from `1.0.0rc1` to `1.0.0` on the final-promotion branch.
+- [ ] Exact `1.0.0` promotion revision passes final release checks and final tag/release provenance is recorded.
 
 ## Current evidence snapshot
 
@@ -48,6 +49,7 @@ Historical evidence is preserved; release evidence is additive.
 - `S10 v1 Release Readiness` run `35080084519`: **PASS**.
 - `M19 M20 Release Preflight` run `35080084594`: **PASS**.
 - `V1 Full MATLAB Demo Composition` run `35080084742`: **PASS**.
+- PR #29 merge/main integration source `ffa84c616343714d7d384b0a21e6f8d73f7cb990`: `HGFX Regression` run `35087865209` **PASS**.
 
 ## Physical-GPU evidence boundary
 
@@ -69,13 +71,13 @@ Historical/direct/prospective failures remain immutable evidence.
 
 ## Final `1.0.0` promotion gate
 
-The independent review has been executed, its two HIGH blockers have been resolved, and post-fix validation is green. Remaining promotion work is integration/release mechanics rather than an unresolved scientific or High/Critical engineering finding:
+The scientific/engineering acceptance surface and independent-review remediation are complete. Remaining work is release mechanics:
 
-1. merge PR #29 after final PR-head checks;
-2. verify required main-branch checks on the merge commit;
-3. promote package/citation metadata from `1.0.0rc1` to `1.0.0`;
-4. run final release checks on that exact revision;
-5. create the final tag/release and record exact provenance.
+1. **DONE:** merge PR #29 and verify main regression on `ffa84c616343714d7d384b0a21e6f8d73f7cb990` (`35087865209`).
+2. **DONE:** promote package/citation metadata from `1.0.0rc1` to `1.0.0` on `release/v1.0.0`.
+3. **NEXT:** run final PR/release checks on the exact promotion revision.
+4. **NEXT:** merge the validated promotion revision to `main` and verify main checks on that exact integration revision.
+5. **NEXT:** create final `v1.0.0` tag/GitHub release and record exact commit/tag/release provenance.
 
 ## Integrity
 

@@ -6,7 +6,7 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 ## Current status
 
-The `1.0.0rc1` release-candidate gate is **PASS**.
+HGFX is in final `1.0.0` promotion after the release candidate, independent review, remediation, and main-branch integration validation passed.
 
 - M0–M17 are completed in their documented scopes.
 - Historical M18 scientific failures remain preserved rather than retuned away.
@@ -14,9 +14,10 @@ The `1.0.0rc1` release-candidate gate is **PASS**.
 - S9 CPU/backend is `PASS_CPU_BACKEND_EQUIVALENCE`.
 - S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; archived H100 results retain their original scope.
 - M19 evidence freeze is complete.
-- Candidate metadata is `1.0.0rc1`.
-- M20 candidate finalization has passed; live evidence is recorded in `docs/planning/M20_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md`.
-- Final `1.0.0` promotion remains subject to the independent final review defined by `docs/planning/CHAT_WORKFLOW.md` and `docs/planning/FINAL_REVIEW_CHECKLIST.md` after the release candidate is frozen.
+- M20 candidate finalization passed as `PASS_M20_CANDIDATE`.
+- The independent frontier review completed; its release-blocking H1/H2 findings were resolved without changing frozen scientific criteria.
+- PR #29 was merged to `main` at `ffa84c616343714d7d384b0a21e6f8d73f7cb990`; main `HGFX Regression` run `35087865209` succeeded.
+- Package and citation metadata are being promoted from `1.0.0rc1` to `1.0.0`; the exact final promotion revision must pass release checks before the final tag/release is recorded.
 
 See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
 
@@ -24,7 +25,7 @@ See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md
 
 Python 3.11+ is required.
 
-HGFX has not yet been formally published to PyPI as part of the v1 release process. Install the current release candidate from a source checkout:
+HGFX has not yet been formally published to PyPI as part of the v1 release process. Install from a source checkout:
 
 ```bash
 python -m venv .venv

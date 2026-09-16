@@ -1,8 +1,8 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-16
-Status: **POST-INDEPENDENT-REVIEW REMEDIATION PASS — FINAL `1.0.0` PROMOTION NEXT**
-Branch: `fix/independent-review-high-findings` (PR #29 -> `main`)
+Status: **FINAL `1.0.0` PROMOTION IN PROGRESS**
+Branch: `release/v1.0.0` -> `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 
 ## Accepted evidence
@@ -25,6 +25,7 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
   - S10 run `35080084519`: PASS.
   - M19/M20 preflight run `35080084594`: PASS.
   - Full MATLAB Demo Composition run `35080084742`: PASS.
+- PR #29 merged to `main` at `ffa84c616343714d7d384b0a21e6f8d73f7cb990`; main `HGFX Regression` run `35087865209`: PASS.
 - Remediation/provenance record: `../validation/INDEPENDENT_REVIEW_REMEDIATION.md`.
 
 ## Ordered remaining work
@@ -33,10 +34,11 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
 2. **DONE:** independent final review.
 3. **DONE:** resolve all Critical/High review findings (H1/H2).
 4. **DONE:** rerun post-fix cross-platform regression and release gates.
-5. **NEXT:** merge PR #29 to `main` after the final PR-head checks are green.
-6. **NEXT:** verify required push/main checks on the merge commit.
-7. **NEXT:** promote `pyproject.toml` and `CITATION.cff` from `1.0.0rc1` to `1.0.0`, run the final release checks, and record the exact final commit/tag/release provenance.
-8. Non-blocking review findings (M1/L1/L2) remain maintenance items and must not be used to rewrite historical scientific evidence.
+5. **DONE:** merge PR #29 to `main`.
+6. **DONE:** verify main/push regression on integration commit `ffa84c616343714d7d384b0a21e6f8d73f7cb990` (run `35087865209`).
+7. **IN PROGRESS:** promote `pyproject.toml` and `CITATION.cff` to `1.0.0`, validate the exact promotion revision, merge it to `main`, and verify main checks.
+8. **PENDING RELEASE MECHANIC:** create final `v1.0.0` tag/GitHub release and record exact provenance.
+9. Non-blocking review findings (M1/L1/L2) remain maintenance items and must not be used to rewrite historical scientific evidence.
 
 ## Continuation policy
 
