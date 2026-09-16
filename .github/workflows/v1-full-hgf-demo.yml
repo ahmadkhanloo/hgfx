@@ -1,0 +1,44 @@
+name: V1 Full MATLAB Demo Composition
+
+on:
+  pull_request:
+    paths:
+      - "examples/hgf_demo_full.py"
+      - "docs/user/HGF_DEMO_COVERAGE.md"
+      - "docs/user/USER_GUIDE.md"
+      - ".github/workflows/v1-full-hgf-demo.yml"
+      - "src/hgfx/compat/**"
+      - "src/hgfx/models/**"
+      - "src/hgfx/responses/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  full-hgf-demo:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install HGFX
+        run: python -m pip install -e ".[dev]"
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Run full Python companion to MATLAB hgf_demo.m
+        run: >-
+          python examples/hgf_demo_full.py
+          --output reference/generated/hgf_demo_python_summary.json
+      - name: Upload full-demo summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v1-full-hgf-demo-summary
+          path: reference/generated/hgf_demo_python_summary.json
+          if-no-files-found: warn

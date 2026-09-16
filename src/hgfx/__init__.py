@@ -1,10 +1,17 @@
 """HGFX: GPU-native Hierarchical Gaussian Filter research toolbox."""
 
 from ._config import enable_x64
+from .compat.bpa import bayesian_parameter_average
 from .compat.fit import fitModel, fit_model
 from .compat.result import CompatibilityResult, MatlabStruct
 from .compat.sample import sampleModel, sample_model_result
 from .compat.sim import simModel, sim_model_result
+from .plotting import (
+    fit_plot_corr,
+    fit_plot_residual_diagnostics,
+    fit_plotCorr,
+    fit_plotResidualDiagnostics,
+)
 
 # Python-first public spellings. The M11 raw orchestration functions remain
 # available as hgfx.compat.sim_model/sample_model for numerical parity tooling.
@@ -18,6 +25,11 @@ __all__ = [
     "fit_model",
     "sim_model",
     "sample_model",
+    "bayesian_parameter_average",
+    "fit_plot_corr",
+    "fit_plot_residual_diagnostics",
+    "fit_plotCorr",
+    "fit_plotResidualDiagnostics",
     "fitModel",
     "simModel",
     "sampleModel",

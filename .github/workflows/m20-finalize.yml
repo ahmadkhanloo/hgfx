@@ -1,0 +1,60 @@
+name: M20 Finalize v1.0 Candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - migration/m18-workflow-closure
+    paths:
+      - '.github/workflows/m20-finalize.yml'
+      - 'pyproject.toml'
+      - 'CITATION.cff'
+      - 'docs/planning/MILESTONES.md'
+      - 'docs/planning/M18_COMPLETION_PLAN.md'
+      - 'docs/planning/M19_GATE.md'
+      - 'docs/planning/M20_GATE.md'
+      - 'docs/planning/V1_RELEASE_GATE.md'
+      - 'docs/validation/V1_EVIDENCE_INDEX.md'
+      - 'reference/validation/v1_release/evidence_index.json'
+
+permissions:
+  contents: read
+
+jobs:
+  finalize-m20:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build candidate-synchronized M19 manifest
+        run: |
+          python scripts/build_v1_evidence_manifest.py \
+            --mode finalize \
+            --output /tmp/hgfx-m19-m20-final.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('/tmp/hgfx-m19-m20-final.json')
+          data = json.loads(p.read_text())
+          assert data['status'] == 'FROZEN', data
+          assert data['failures'] == [], data['failures']
+          assert data['physical_gpu']['pass'] is True, data['physical_gpu']
+          print('Candidate M19 manifest source commit:', data['source_commit'])
+          PY
+
+      - name: Final M20 candidate gate
+        run: |
+          python scripts/check_m20_candidate.py \
+            --mode finalize \
+            --manifest /tmp/hgfx-m19-m20-final.json
+
+      - name: Upload candidate-synchronized evidence manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-m19-m20-final-manifest
+          path: /tmp/hgfx-m19-m20-final.json
+          if-no-files-found: error

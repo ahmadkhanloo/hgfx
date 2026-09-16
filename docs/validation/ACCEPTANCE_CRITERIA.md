@@ -16,7 +16,14 @@ A migrated mathematical component is accepted only if:
 - [ ] Migration Matrix status updated
 - [ ] Provenance recorded
 
-## Release acceptance
+## Release acceptance template (historical checklist)
+
+The checkboxes below define the original checklist, not live milestone status.
+Current v1 acceptance and scoped MATLAB limitations are recorded in
+[the release gate](../planning/V1_RELEASE_GATE.md) and
+[the evidence index](V1_EVIDENCE_INDEX.md). Historical recovery FAIL is not
+converted into scientific PASS by product equivalence accounting.
+
 
 - [ ] 100% frozen source manifest classified
 - [ ] P0/P1 perceptual models covered

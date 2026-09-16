@@ -1,0 +1,36 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
+name: M18 D08 Holdout Source Probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  d08-holdout-source-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e .
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export frozen D08 holdout source samples
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d08_holdout_source_probe(fullfile(pwd,'reference','generated','m18_d08_holdout_source_probe.json'))
+      - name: Classify exact-state Ridders source samples
+        run: python tools/check_m18_d08_holdout_source_probe.py reference/generated/m18_d08_holdout_source_probe.json --output reference/generated/m18_d08_holdout_source_probe_comparison.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m18-d08-holdout-source-probe
+          path: |
+            reference/generated/m18_d08_holdout_source_probe.json
+            reference/generated/m18_d08_holdout_source_probe_comparison.json

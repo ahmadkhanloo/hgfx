@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "frozen_matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "release_branch": "migration/m18-workflow-closure",
+  "numerical_source_commit": "9c53af707a60d27ee3d9d37e5122e7a0ba7d5460",
+  "release_status": "RC_READY",
+  "evidence": [
+    {"id":"M0-M17","classification":"PASS_IN_DOCUMENTED_SCOPES","source":"docs/planning/MILESTONES.md"},
+    {"id":"M18_HISTORICAL_SCIENTIFIC","classification":"FAIL_PRESERVED","source":"historical M18 validation evidence"},
+    {"id":"D02_EXACT_SCOPE","classification":"REFERENCE_LIMITATION_MATCH","source":"reference/validation/m18_d02_reference_limitation/decision.json"},
+    {"id":"D08_FAILED_SEED_EXACT_SCOPE","classification":"REFERENCE_LIMITATION_MATCH","source":"reference/validation/m18_d08_reference_limitation/decision.json"},
+    {"id":"S7_PARAMETER_RECOVERY","classification":"REFERENCE_LIMITATION_MATCH","scientific_pass":false,"release_gate_pass":true},
+    {"id":"S7_MODEL_SELECTION","classification":"PASS_PAIRED_MODEL_SELECTION","matched_winners":"36/36","fresh_candidate_run":"34989742522"},
+    {"id":"S8_REQUIRED_REPAIR_SCOPE","classification":"DONE","repair_commit":"0239f52f772825e0a4fc74cdf3559cafa18a603e"},
+    {"id":"S9_CPU_BACKEND","classification":"PASS_CPU_BACKEND_EQUIVALENCE","fresh_candidate_run":"34989742512"},
+    {"id":"S9_PHYSICAL_GPU","classification":"PASS_PHYSICAL_GPU_APPLICABILITY","source_commit":"07b45a569e04e8e71244c5310dd2cc53dbb2b0ec","record_commit":"7179484ce782c25d6edde34cc56a0d689831e1cc","hardware":"2x Tesla T4","jax_backend":"gpu","execution_status":"PASS","max_objective_gap":1.4210854715202004e-14,"criterion":1e-7},
+    {"id":"S10_RELEASE_READINESS","classification":"PASS","fresh_candidate_run":"34989742503"},
+    {"id":"M19_M20_PREFLIGHT","classification":"PASS_PREFLIGHT","fresh_candidate_run":"34989742402"},
+    {"id":"M19_EVIDENCE_FREEZE","classification":"PASS_FROZEN","manifest":"reference/validation/v1_release/evidence_manifest.json","manifest_status":"FROZEN","failures":0},
+    {"id":"FRESH_CANDIDATE_CI","classification":"PASS","commit":"b52dc06ca58d29afeb5c265f7eb67746824178e0","active_pr_workflows":"10/10","regression_run":"34989742411"},
+    {"id":"M20_CANDIDATE","classification":"PASS_M20_CANDIDATE","source_commit":"b52dc06ca58d29afeb5c265f7eb67746824178e0","workflow_run":"34989737851","version":"1.0.0rc1","failures":0,"artifact":"10405351087","artifact_sha256":"d2ecfca5b858705eb36e8f40a6b55ae52ada0871e9e19e66c3bf3f20c5a0631e"}
+  ],
+  "active_blockers": []
+}

@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M10 Hessian LME Parity
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M10-hessian-lme-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

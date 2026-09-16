@@ -1,27 +1,8 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 # Frozen MATLAB-reference classification for the historical M18B 512-trial cell.
 name: M18 512 MATLAB Reference Classification
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "scripts/prepare_m18_512_reference_case.py"
-      - "reference/matlab/export_m18_512_reference.m"
-      - "tools/check_m18_512_reference.py"
-      - ".github/workflows/m18-512-reference.yml"
-      - "src/hgfx/diagnostics/**"
-      - "src/hgfx/models/hgf_binary.py"
-      - "src/hgfx/compat/**"
-  pull_request:
-    paths:
-      - "scripts/prepare_m18_512_reference_case.py"
-      - "reference/matlab/export_m18_512_reference.m"
-      - "tools/check_m18_512_reference.py"
-      - ".github/workflows/m18-512-reference.yml"
-      - "src/hgfx/diagnostics/**"
-      - "src/hgfx/models/hgf_binary.py"
-      - "src/hgfx/compat/**"
   workflow_dispatch:
 
 jobs:

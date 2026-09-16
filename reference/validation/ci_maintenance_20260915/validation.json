@@ -1,0 +1,38 @@
+{
+  "source_commit": "60472362d05412a35b046b197a32daacc05ebbef",
+  "tested_tree_equivalent_to_local_commit": "dad474913ecd3bfb1a5d85f6ea479366d76f9d96",
+  "python": "3.12.14",
+  "jax": "0.11.1",
+  "numpy": "2.3.5",
+  "pytest": "9.1.1",
+  "command": "JAX_ENABLE_X64=true JAX_PLATFORMS=cpu python -m pytest -q --junitxml=/tmp/hgfx-regression.xml",
+  "result": {
+    "passed": 167,
+    "skipped": 4,
+    "warnings": 5,
+    "failed": 0,
+    "seconds": 116.97
+  },
+  "physical_gpu_validation_performed": false,
+  "yaml_verification": "All original workflow jobs and dispatch inputs match baseline; all YAML parses",
+  "pr_trigger_counts": {
+    "before": 58,
+    "after": 10
+  },
+  "packaging": {
+    "version": "1.0.0rc1",
+    "build": "PASS",
+    "clean_install": "PASS",
+    "public_api_import": "PASS",
+    "quickstart": "PASS",
+    "matlab_payload_absent": "PASS",
+    "wheel_sha256": "9d8c4a67e825392b8e429bc10de5828f565745828347eba48bbadf67b0302ea1"
+  },
+  "github_status": "QUEUED, not PASS",
+  "github_runs": {
+    "regression": 34971334728,
+    "s10": 34971334355
+  },
+  "classic_branch_protection": "UNVERIFIED: integration returned 403",
+  "historical_scientific_evidence_changed": false
+}

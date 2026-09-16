@@ -1,12 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M11 Simulation Parity
 
 on:
-  push:
-    branches:
-      - main
-      - work/m11-simulation-parity
-      - migration/M11-simulation-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

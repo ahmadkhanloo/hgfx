@@ -8,6 +8,8 @@ on:
     paths:
       - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
       - "tools/check_m18_demo_uhgf_ar1.py"
+      - "examples/matlab_demo_uhgf_ar1.py"
+      - "docs/user/MATLAB_DEMOS.md"
       - "reference/matlab/hgfx_json_ieee.m"
       - "tests/unit/test_m18_demo_ieee.py"
       - ".github/workflows/m18-demo-uhgf-ar1.yml"
@@ -17,12 +19,18 @@ on:
     paths:
       - "reference/matlab/export_m18_demo_uhgf_ar1_reference.m"
       - "tools/check_m18_demo_uhgf_ar1.py"
+      - "examples/matlab_demo_uhgf_ar1.py"
+      - "docs/user/MATLAB_DEMOS.md"
       - "reference/matlab/hgfx_json_ieee.m"
       - "tests/unit/test_m18_demo_ieee.py"
       - ".github/workflows/m18-demo-uhgf-ar1.yml"
       - "src/hgfx/models/uhgf_binary.py"
       - "src/hgfx/models/hgf_ar1_binary.py"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   demo-uhgf-ar1:
@@ -39,6 +47,8 @@ jobs:
       - run: python -m pytest tests/unit/test_m18_demo_ieee.py -q
       - name: Verify frozen HGF reference
         run: python scripts/verify_reference_freeze.py
+      - name: Run user-facing Python demo
+        run: python examples/matlab_demo_uhgf_ar1.py
       - name: Export official MATLAB uHGF to AR1 workflow
         uses: matlab-actions/run-command@v2
         with:

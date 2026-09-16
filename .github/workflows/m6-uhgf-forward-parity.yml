@@ -1,11 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M6 uHGF Forward Parity
 
 on:
-  push:
-    branches:
-      - main
-      - migration/M6-uhgf-forward-parity
-  pull_request:
   workflow_dispatch:
 
 jobs:

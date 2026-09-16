@@ -1,19 +1,7 @@
+# Historical oracle/diagnostic replay; routine regression is in regression.yml.
 name: M18 Scientific Validation
 
 on:
-  push:
-    branches:
-      - main
-      - feat/m18-scientific-validation
-    paths:
-      - 'src/**'
-      - 'scripts/run_m18_scientific_validation.py'
-      - 'benchmarks/m18_validation_matrix.json'
-      - 'docs/planning/M18_VALIDATION_MATRIX.md'
-      - 'docs/planning/M18_VALIDATION_PLAN.md'
-      - 'tests/**'
-      - '.github/workflows/m18-scientific-validation.yml'
-  pull_request:
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,58 @@
+{
+  "protocol": "m18-s7-paired-recovery-1",
+  "status": "FROZEN_BEFORE_EXECUTION",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "protocol_parent": "26b8b8db477a604acc6f623386675b9d91374b59",
+  "models": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+  "observation_model": "unitsq_sgm",
+  "trial_counts": [128, 256],
+  "truth_scales": [0.15, 0.35],
+  "parameter_recovery_replicates": 6,
+  "model_recovery_replicates": 3,
+  "candidate_models": ["hgf_binary", "ehgf_binary", "uhgf_binary"],
+  "model_selection_rule": "minimum_BIC",
+  "aic_role": "diagnostic_only",
+  "optimizer": {
+    "matlab": "quasinewton_optim_config",
+    "hgfx": "compat_quasinewton",
+    "max_iter": 100,
+    "start": "default_resolved_transformed_prior_means"
+  },
+  "seed_scheme": {
+    "parameter_scale_base": "18018 + round(10000 * truth_scale)",
+    "parameter_run_seed": "parameter_scale_base + 100 * trial_count + replicate_zero_based",
+    "model_scale_base": "18018 + 500000 + round(10000 * truth_scale)",
+    "model_run_seed": "model_scale_base + 1000000 * generating_model_index + 100 * trial_count + replicate_zero_based"
+  },
+  "truth_rule": "prior_mu_free + truth_scale * sqrt(prior_var_free) * sin((replicate_zero_based + 1) * phase * 1.61803398875)",
+  "paired_data_rule": "Generate/export each u/y/truth case once; MATLAB and HGFX fit the identical exported arrays. Cross-language RNG identity is not assumed.",
+  "workload": {
+    "parameter_fits_per_implementation": 72,
+    "model_generated_datasets": 36,
+    "model_candidate_fits_per_implementation": 108,
+    "total_fits_per_implementation": 180,
+    "shards": 12,
+    "shard_key": ["model_or_generating_model", "trial_count", "truth_scale"]
+  },
+  "historical_criteria": {
+    "parameter_convergence_rate_min": 0.80,
+    "parameter_median_correlation_min": 0.50,
+    "parameter_median_standardized_rmse_max": 1.00,
+    "model_recovery_balanced_accuracy_min": 0.50
+  },
+  "parameter_product_rule": "Same PASS/FAIL outcome for every frozen historical parameter criterion on complete paired grid; otherwise classify mismatch/reference limitation/insufficient evidence from preserved raw evidence.",
+  "model_product_rule": "All 36 case-level minimum-BIC winners must match; any differing winner is MODEL_SELECTION_MISMATCH unless separately frozen exact-case reference limitation evidence exists.",
+  "forbidden_posthoc_changes": [
+    "thresholds",
+    "seeds",
+    "datasets",
+    "starts",
+    "grid",
+    "replicates",
+    "candidate_models",
+    "model_selection_rule",
+    "optimizer",
+    "dropping_or_replacing_failed_cases"
+  ],
+  "m18c2_separation": "Issue #21 128/256/512/1024 horizon analysis is separate and cannot alter this protocol."
+}

@@ -1,0 +1,53 @@
+name: M18 D12 Bayesian Parameter Averaging
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/hgfx/compat/bpa.py'
+      - 'src/hgfx/compat/__init__.py'
+      - 'src/hgfx/__init__.py'
+      - 'tests/unit/test_bayesian_parameter_average.py'
+      - 'reference/matlab/export_m18_d12_bpa.m'
+      - 'tools/check_m18_d12_bpa.py'
+      - 'docs/validation/M18_D12_BPA.md'
+      - '.github/workflows/m18-d12-bpa.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  d12-bpa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: latest
+      - name: Install HGFX
+        run: python -m pip install -e '.[dev]'
+      - name: Unit regression
+        run: python -m pytest tests/unit/test_bayesian_parameter_average.py -q
+      - name: Verify frozen MATLAB reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Export frozen MATLAB BPA case
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); export_m18_d12_bpa(fullfile(pwd,'reference','generated','m18_d12_bpa.json'))
+      - name: Check D12 BPA parity
+        run: python tools/check_m18_d12_bpa.py reference/generated/m18_d12_bpa.json --output reference/generated/m18_d12_bpa_comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m18-d12-bpa
+          path: |
+            reference/generated/m18_d12_bpa.json
+            reference/generated/m18_d12_bpa_comparison.json
+          if-no-files-found: warn

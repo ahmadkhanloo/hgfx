@@ -3,9 +3,7 @@ message: "If you use HGFX in research, please cite the software and associated p
 title: "HGFX: A GPU-Native Python Toolbox for Hierarchical Gaussian Filters"
 type: software
 authors:
-  - family-names: "TBD"
-    given-names: "TBD"
-version: "0.0.0"
-date-released: "2026-09-07"
-repository-code: "https://github.com/TBD/hgfx"
+  - name: "HGFX contributors"
+version: "1.0.0rc1"
+repository-code: "https://github.com/ahmadkhanloo/hgfx"
 license: MIT

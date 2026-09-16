@@ -1,0 +1,31 @@
+.........s...s.....s..s................................................. [ 42%]
+........................................................................ [ 84%]
+...........................                                              [100%]
+=============================== warnings summary ===============================
+tests/unit/test_m18_s8_hgf_r0_regression.py::test_s8_hgf_r0_reproduces_stable_matlab_optimizer_endpoint
+  /workspace/scratch/15ad48cf65a4/hgfx/src/hgfx/optim/ridders.py:56: RuntimeWarning: overflow encountered in scalar multiply
+    p[i, j] = (t * p[i, j - 1] - p[i - 1, j - 1]) / (t - 1.0)
+
+tests/unit/test_m18_s8_hgf_r0_regression.py::test_s8_hgf_r0_reproduces_stable_matlab_optimizer_endpoint
+  /workspace/scratch/15ad48cf65a4/hgfx/src/hgfx/optim/ridders.py:60: RuntimeWarning: invalid value encountered in scalar subtract
+    abs(p[i, j] - p[i, j - 1]),
+
+tests/unit/test_m18_s8_hgf_r0_regression.py::test_s8_hgf_r0_reproduces_stable_matlab_optimizer_endpoint
+  /workspace/scratch/15ad48cf65a4/hgfx/src/hgfx/optim/ridders.py:56: RuntimeWarning: overflow encountered in scalar divide
+    p[i, j] = (t * p[i, j - 1] - p[i - 1, j - 1]) / (t - 1.0)
+
+tests/unit/test_m18_s8_hgf_r0_regression.py::test_s8_hgf_r0_reproduces_stable_matlab_optimizer_endpoint
+  /workspace/scratch/15ad48cf65a4/hgfx/src/hgfx/optim/ridders.py:56: RuntimeWarning: invalid value encountered in scalar subtract
+    p[i, j] = (t * p[i, j - 1] - p[i - 1, j - 1]) / (t - 1.0)
+
+tests/unit/test_m18b_identifiability_validation.py::test_records_summary_and_trial_trends_are_structured
+  /workspace/scratch/15ad48cf65a4/hgfx/src/hgfx/updates/prediction.py:22: RuntimeWarning: invalid value encountered in scalar multiply
+    return float(mu_prev + t * rho_j + t * phi_j * (m_j - mu_prev))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+SKIPPED [1] tests/cpu_gpu/test_m14_fast_engine.py:274: No real JAX GPU device on this runner
+SKIPPED [1] tests/cpu_gpu/test_m15_gpu_fitting.py:160: No real JAX GPU device on this runner
+SKIPPED [1] tests/cpu_gpu/test_m16_batch_engine.py:242: No real JAX GPU device on this runner
+SKIPPED [1] tests/cpu_gpu/test_m17_multi_gpu.py:54: Fewer than two JAX GPU devices are visible
+167 passed, 4 skipped, 5 warnings in 116.97s (0:01:56)
