@@ -57,9 +57,28 @@ def _case_payload(
     truth_full, truth_free, free_indices = _truth_vector(
         model, inputs, replicate=replicate, scale=scale
     )
-    responses, probabilities = simulate_binary_variant(
-        model, inputs, truth_full, seed=seed + 1
-    )
+    try:
+        responses, probabilities = simulate_binary_variant(
+            model, inputs, truth_full, seed=seed + 1
+        )
+        generation_success = True
+        generation_error = None
+        y = np.asarray(responses, dtype=np.float64).reshape(-1).tolist()
+        response_probabilities = (
+            np.asarray(probabilities, dtype=np.float64).reshape(-1).tolist()
+        )
+    except ValueError as exc:
+        # A frozen long-horizon truth/input pair can legitimately enter the
+        # HGF trajectory-invalid region. Preserve that case as evidence rather
+        # than changing its seed, resampling, or dropping it from the grid.
+        generation_success = False
+        generation_error = {
+            "error_type": type(exc).__name__,
+            "message": str(exc),
+        }
+        y = []
+        response_probabilities = []
+
     case = {
         "kind": kind,
         "model": model,
@@ -69,10 +88,13 @@ def _case_payload(
         "seed": seed,
         "simulation_seed": seed + 1,
         "u": np.asarray(inputs, dtype=np.float64).reshape(-1).tolist(),
-        "y": np.asarray(responses, dtype=np.float64).reshape(-1).tolist(),
-        "response_probabilities": np.asarray(probabilities, dtype=np.float64).reshape(-1).tolist(),
+        "y": y,
+        "response_probabilities": response_probabilities,
+        "truth_full": np.asarray(truth_full, dtype=np.float64).reshape(-1).tolist(),
         "truth_free": np.asarray(truth_free, dtype=np.float64).reshape(-1).tolist(),
         "free_indices_zero_based": [int(i) for i in free_indices],
+        "generation_success": generation_success,
+        "generation_error": generation_error,
     }
     case["case_sha256"] = _canonical_hash(case)
     return case
@@ -118,18 +140,21 @@ def build_shard(model: str, trials: int, scale: float) -> dict:
         case["case_id"] = f"M18C2-MR-{model}-T{trials}-S{scale:.2f}-R{replicate}"
         model_cases.append(case)
 
+    all_cases = [*parameter_cases, *model_cases]
     shard = {
         "protocol": PROTOCOL,
         "reference_commit": REFERENCE_COMMIT,
         "generator": {
             "historical_seed_scheme": True,
             "truth_phase_constant": PHI,
-            "response_generator": "hgfx validated simulation; exported y is immutable paired data",
+            "response_generator": "hgfx validated simulation; exported y is immutable paired data when generation succeeds",
             "relationship_to_s7": "same generator semantics; trial horizon extended only",
+            "generation_failure_policy": "preserve case, seed, inputs and truth; do not resample or drop",
         },
         "shard": {"model": model, "trial_count": trials, "truth_scale": scale},
         "parameter_cases": parameter_cases,
         "model_cases": model_cases,
+        "generation_failures": sum(not case["generation_success"] for case in all_cases),
     }
     shard["shard_sha256"] = _canonical_hash(shard)
     return shard
@@ -157,6 +182,7 @@ def main() -> None:
                 "shard": payload["shard"],
                 "parameter_cases": len(payload["parameter_cases"]),
                 "model_cases": len(payload["model_cases"]),
+                "generation_failures": payload["generation_failures"],
                 "shard_sha256": payload["shard_sha256"],
             },
             indent=2,
