@@ -51,13 +51,17 @@ def matlab_log_scalar(value: float) -> np.float64:
     """Return ``log(value)`` with fdlibm-compatible binary64 arithmetic."""
 
     x = float(np.float64(value))
+    # Python exposes the IEEE high word as an unsigned integer below, unlike
+    # fdlibm's signed C ``int``. Handle both +0.0 and -0.0 explicitly so the
+    # original fdlibm special-case semantics remain intact.
+    if x == 0.0:
+        return np.float64(-np.inf)
+
     hx, lx = _words(x)
     k = 0
 
     # Positive subnormal values are normalized before the main reduction.
     if hx < 0x00100000:
-        if ((hx & 0x7FFFFFFF) | lx) == 0:
-            return np.float64(-np.inf)
         k -= 54
         x *= _TWO54
         hx, _ = _words(x)
