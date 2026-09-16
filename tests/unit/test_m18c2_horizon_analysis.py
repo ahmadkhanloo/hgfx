@@ -182,6 +182,16 @@ def test_m18c2_shard_generator_preserves_frozen_seed_and_case_contract() -> None
     assert len(shard["shard_sha256"]) == 64
     assert shard["shard_sha256"] == repeated["shard_sha256"]
 
+    # This exact frozen case is known from preflight to enter the HGF
+    # trajectory-invalid region. It must remain in the shard unchanged rather
+    # than being resampled, dropped, or assigned a replacement seed.
+    first = shard["parameter_cases"][0]
+    assert first["generation_success"] is False
+    assert first["generation_error"]["error_type"] == "ValueError"
+    assert "Variational approximation invalid" in first["generation_error"]["message"]
+    assert first["y"] == []
+    assert first["response_probabilities"] == []
+
 
 def test_m18c2_shard_generator_rejects_non_frozen_horizon() -> None:
     generator = _script_module(
