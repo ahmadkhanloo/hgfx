@@ -6,6 +6,15 @@ finite differences and the quasi-Newton path. ``matlab_exp_scalar`` and the
 theta-specific ``expm1`` path below use explicit fdlibm-compatible binary64
 range reduction and polynomials so frozen MATLAB numerics do not depend on the
 host C runtime.
+
+fdlibm provenance
+-----------------
+The exp/expm1 algorithms are adapted from fdlibm ``e_exp.c`` and
+``s_expm1.c``. The upstream notice is preserved here as required:
+
+Copyright (C) 2004 by Sun Microsystems, Inc. All rights reserved.
+Permission to use, copy, modify, and distribute this software is freely
+granted, provided that this notice is preserved.
 """
 
 from __future__ import annotations
