@@ -15,9 +15,9 @@ def _scalar_log(values: np.ndarray) -> np.ndarray:
 
     The frozen D02 oracle exposes a one-ULP difference between NumPy's
     vectorized ``log`` path and the scalar libm path at values that feed
-    Ridders finite differences.  Preserve NumPy handling for non-positive or
+    Ridders finite differences. Preserve NumPy handling for non-positive or
     non-finite values, while using scalar ``math.log`` for ordinary positive
-    finite values.  Boundary-sensitive fallbacks are still applied by
+    finite values. Boundary-sensitive fallbacks are still applied by
     ``_core`` exactly where they were before this helper was introduced.
     """
 
@@ -49,7 +49,7 @@ def _core(responses, x, ze, *, irregular_trials):
     else:
         zr = zr.reshape(-1)[reg]
     with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
-        # MATLAB evaluates the ordinary log path elementwise.  NumPy's
+        # MATLAB evaluates the ordinary log path elementwise. NumPy's
         # vector-log implementation can differ by one ULP on the D02 frozen
         # oracle and that perturbation is amplified by Ridders gradients.
         logx = _scalar_log(xr)
@@ -62,10 +62,11 @@ def _core(responses, x, ze, *, irregular_trials):
         m2 = xr < 1e-4
         log1mx[m2] = alt2[m2]
 
+        normalizer = (1.0 - xr) ** zr + xr**zr
         logp[reg] = (
             yr * zr * (logx - log1mx)
             + zr * log1mx
-            - np.log((1.0 - xr) ** zr + xr**zr)
+            - _scalar_log(normalizer)
         )
         yhat[reg] = xr
         res[reg] = (yr - xr) / np.sqrt(xr * (1.0 - xr))
