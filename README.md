@@ -6,8 +6,12 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 ## Current status
 
-HGFX `1.0.0` source promotion is validated on `main`.
+**HGFX v1.0.0 is released.**
 
+- Published release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0
+- Release ID: `389966452`
+- Immutable v1.0.0 source target: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+- Git tag `v1.0.0` is verified to resolve directly to that exact commit.
 - M0–M17 are completed in their documented scopes.
 - Historical M18 scientific failures remain preserved rather than retuned away.
 - Exact shared MATLAB/HGFX limitations are tracked explicitly as scoped `REFERENCE_LIMITATION_MATCH` results, not scientific PASS claims.
@@ -19,7 +23,8 @@ HGFX `1.0.0` source promotion is validated on `main`.
 - Final package and citation metadata are `1.0.0`.
 - PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates: S10 `35089882319`, M19/M20 preflight `35089882608`, D10/D11 `35089882668`, and HGFX Regression `35089882392`.
 - PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main HGFX Regression run `35090329868` passed on Ubuntu and Windows.
-- The tested final source target is therefore `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Creation of the `v1.0.0` Git tag/GitHub Release object is the only remaining repository-hosting mechanic.
+
+The v1.0.0 release gate is closed. Subsequent `main` commits are post-release documentation/maintenance and do not alter the immutable release source or frozen evidence.
 
 See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, and `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md` for the release evidence.
 
@@ -27,7 +32,7 @@ See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, 
 
 Python 3.11+ is required.
 
-HGFX has not yet been formally published to PyPI as part of the v1 release process. Install from a source checkout:
+HGFX has not yet been formally published to PyPI. Install from a source checkout or from the `v1.0.0` source archive:
 
 ```bash
 python -m venv .venv
@@ -43,7 +48,7 @@ python -m pip install -e '.[dev]'
 pytest
 ```
 
-After a future PyPI publication, the intended install command is `python -m pip install hgfx`.
+A future PyPI publication would use `python -m pip install hgfx`; PyPI publication is not part of the closed v1.0.0 GitHub release gate.
 
 MATLAB is a development-time reference oracle only; it is not a user runtime dependency.
 
@@ -120,6 +125,7 @@ MATLAB dependency = 0
 - `docs/validation/MATLAB_EQUIVALENCE_POLICY.md`
 - `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
 - `docs/validation/V1_EVIDENCE_INDEX.md`
+- `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`
 
 ## License
 

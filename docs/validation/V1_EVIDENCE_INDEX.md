@@ -3,8 +3,9 @@
 Last synchronized: 2026-09-16
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Final validated v1.0.0 source target: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+Published release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
 
-This index preserves historical failures and distinguishes direct PASS, scoped reference limitations, physical-GPU applicability, frozen release evidence, candidate validation, independent-review findings, remediation evidence, and final `1.0.0` promotion evidence.
+This index preserves historical failures and distinguishes direct PASS, scoped reference limitations, physical-GPU applicability, frozen release evidence, candidate validation, independent-review findings, remediation evidence, final `1.0.0` promotion evidence, and the published release object.
 
 ## M18/v1 closure evidence
 
@@ -36,7 +37,8 @@ This index preserves historical failures and distinguishes direct PASS, scoped r
 | Final metadata promotion | PASS | `pyproject.toml` + `CITATION.cff` = `1.0.0`; PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` |
 | Final promotion PR validation | PASS | S10 `35089882319`; preflight `35089882608`; D10/D11 `35089882668`; Regression `35089882392` |
 | Final v1.0.0 main source | PASS | `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; Regression `35090329868` Ubuntu + Windows |
-| Git tag / GitHub Release object | PENDING_HOSTING_MECHANIC | must target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` |
+| Git tag `v1.0.0` | RELEASED_VERIFIED | `refs/tags/v1.0.0` resolves directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` |
+| GitHub Release | RELEASED_VERIFIED | ID `389966452`; published `2026-09-16T13:45:06Z`; non-draft; non-prerelease; https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 |
 
 ## M20 RC evidence
 
@@ -72,7 +74,18 @@ Final package/citation metadata were promoted to `1.0.0` on PR #30 head `85ea9c7
 - `M18 D10 D11 Analysis Surfaces` run `35089882668`: success.
 - `HGFX Regression` run `35089882392`: success on Ubuntu and Windows.
 
-PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Fresh main/push `HGFX Regression` run `35090329868` succeeded on Ubuntu and Windows. This commit is the validated final source target for tag `v1.0.0`.
+PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Fresh main/push `HGFX Regression` run `35090329868` succeeded on Ubuntu and Windows. This commit is the validated immutable source target for tag `v1.0.0`.
+
+## Published release verification
+
+After publication, GitHub was re-read directly:
+
+- Release tag: `v1.0.0`.
+- Release target: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- Git ref `refs/tags/v1.0.0` resolves directly to commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- Release ID: `389966452`.
+- Release is published, `draft=false`, `prerelease=false`.
+- Release URL: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0.
 
 ## Physical-GPU provenance after remediation
 
@@ -94,6 +107,6 @@ None of the review remediation or final-promotion changes alter historical scien
 
 ## Current release state
 
-The final `1.0.0` source target is validated at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Scientific, engineering, independent-review, package metadata, PR-head, and main-branch validation gates are closed.
+**HGFX v1.0.0 is released and the v1 release gate is closed.** The immutable release source is `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, tagged `v1.0.0`, with GitHub Release ID `389966452`.
 
-Only the repository-hosting object remains: create Git tag/GitHub Release `v1.0.0` targeting that exact commit and record its URL/identifier in `V1_FINAL_RELEASE_PROVENANCE.md`.
+Any subsequent commits on `main` are post-release documentation or maintenance and do not alter the published v1.0.0 evidence/source target.

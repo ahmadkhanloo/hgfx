@@ -1,7 +1,7 @@
 # HGFX v1.0.0 Final Release Provenance
 
 Date: 2026-09-16
-Status: **FINAL SOURCE VALIDATED / TAG AND GITHUB RELEASE OBJECT PENDING**
+Status: **FINAL RELEASE COMPLETE / v1.0.0 PUBLISHED**
 
 ## Frozen reference
 
@@ -41,7 +41,20 @@ Fresh PR-head validation:
 - Ubuntu result: PASS
 - Windows result: PASS
 
-**The `v1.0.0` tag/GitHub Release must target exactly `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.**
+The immutable v1.0.0 release source is `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+
+## Published release object
+
+- Git tag: `v1.0.0`
+- Tag resolution: `refs/tags/v1.0.0` -> commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+- GitHub Release ID: `389966452`
+- GitHub Release URL: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0
+- Release name: `HGFx v1.0.0`
+- Published: `2026-09-16T13:45:06Z`
+- Draft: `false`
+- Prerelease: `false`
+
+The release object and tag were independently re-read from GitHub after publication and both resolve to the intended validated source target.
 
 ## Physical GPU evidence boundary
 
@@ -56,14 +69,12 @@ Fresh PR-head validation:
 
 Historical M18/D02/D08/S7 failures and `REFERENCE_LIMITATION_MATCH` classifications remain preserved. Final release validation does not convert those scientific failures into scientific PASS and does not modify their evidence.
 
-## Remaining repository-hosting operation
+## Final release checklist
 
-- [ ] Create Git tag `v1.0.0` targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
-- [ ] Create GitHub Release for `v1.0.0`.
-- [ ] Record final tag/release URL or identifier below.
+- [x] Create Git tag `v1.0.0` targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- [x] Create GitHub Release for `v1.0.0`.
+- [x] Verify the tag resolves to the exact validated source commit.
+- [x] Verify the Release is published, non-draft, and non-prerelease.
+- [x] Record final tag/release URL and identifier.
 
-Tag: `v1.0.0` (pending creation)
-
-GitHub Release URL/ID: **PENDING**
-
-No substitute branch name should be treated as a tag, and the release gate must remain explicit until the hosting object exists.
+**HGFX v1.0.0 release closure is complete.** Later documentation or maintenance commits on `main` do not change the immutable `v1.0.0` source target.

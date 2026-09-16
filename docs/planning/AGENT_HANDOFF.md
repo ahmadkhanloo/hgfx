@@ -2,8 +2,9 @@
 
 Last synchronized: 2026-09-16
 Branch: `main`
+Release status: **HGFX v1.0.0 RELEASED / V1 GATE CLOSED**
 
-Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md), [FINAL_REVIEW_CHECKLIST](FINAL_REVIEW_CHECKLIST.md), [the evidence index](../validation/V1_EVIDENCE_INDEX.md), and [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md) before continuing.
+Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md), [FINAL_REVIEW_CHECKLIST](FINAL_REVIEW_CHECKLIST.md), [the evidence index](../validation/V1_EVIDENCE_INDEX.md), and [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md) before any post-v1 work.
 
 ## Current state
 
@@ -18,15 +19,25 @@ Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M2
 - PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed S10 (`35089882319`), M19/M20 preflight (`35089882608`), D10/D11 (`35089882668`), and Regression (`35089882392`, Ubuntu + Windows).
 - PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 - Main Regression run `35090329868` passed on Ubuntu and Windows for that exact final source target.
+- Git tag `v1.0.0` has been verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- GitHub Release `v1.0.0` is published, non-draft and non-prerelease: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0, Release ID `389966452`.
 
-## Next action
+## v1 closure
 
-The final source gate is complete. Do not reopen scientific validation.
+The HGFX v1.0.0 product/release objective is complete. There is no remaining blocking v1 task.
 
-The only remaining repository-hosting mechanic is:
+Do not reopen frozen scientific validation, move the release tag, or rewrite historical evidence. Later commits on `main` are post-release documentation/maintenance and do not alter the immutable release source target.
 
-1. create Git tag `v1.0.0` targeting exact commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`;
-2. create the GitHub Release for tag `v1.0.0`;
-3. record the resulting tag/release URL or identifier in `../validation/V1_FINAL_RELEASE_PROVENANCE.md` and mark the last checkbox in `V1_RELEASE_GATE.md` complete.
+## Future work policy
 
-If the available GitHub connector cannot create tag/release objects, leave this item explicitly pending rather than substituting a branch or weakening the gate.
+Any further work must begin with an explicit post-v1 objective and new milestone/release scope. Examples include:
+
+- non-blocking independent-review maintenance findings M1/L1/L2;
+- M18C.2/horizon-analysis research;
+- methods-paper/publication work;
+- PyPI publication;
+- new performance claims/benchmarks;
+- compatibility with a future upstream HGF Toolbox version;
+- new models, APIs, or product features.
+
+These items are not unfinished v1 release work and must not be used to revise the frozen v1 acceptance evidence.

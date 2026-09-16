@@ -1,17 +1,12 @@
 # HGFX Roadmap
 
-## Current execution authority — 2026-09-15
+## Current execution authority — 2026-09-16
 
-Use [live TODO](V1_TODO.md), [release gate](V1_RELEASE_GATE.md), and
-[M20 gate](M20_GATE.md). S1–S9 and historical S10 release preparation are
-accounted for; physical NVIDIA GPU applicability passed on T4 and M19 is frozen.
-Candidate metadata is `1.0.0rc1`; the next step is candidate validation and fresh
-release-readiness CI, not D04/S7/S8 re-investigation.
-Historical M18 scientific FAIL remains preserved. The prospective sections below
-retain design history and are not a current task queue. Milestone numbering is
-owned by `MILESTONES.md`; older G-number lists are design-stage identifiers.
-See [CI maintenance](CI_MAINTENANCE.md) for routine versus manual validation.
+HGFX `v1.0.0` is **RELEASED / CLOSED**. Use [live TODO](V1_TODO.md), [release gate](V1_RELEASE_GATE.md), [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md), and [evidence index](../validation/V1_EVIDENCE_INDEX.md) as the frozen v1 authority set.
 
+The immutable release source is `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, tagged `v1.0.0`; GitHub Release ID `389966452` is published at https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0. Physical NVIDIA GPU applicability passed on T4, M19 is frozen, M20 candidate accounting passed, independent-review H1/H2 were resolved, and final Ubuntu/Windows regression passed before tagging.
+
+Historical M18 scientific FAIL remains preserved. The prospective sections below retain design history and are **not a current task queue**. Older unchecked design-stage items do not override the closed v1 release gate. Any future research, methods-paper, maintenance, PyPI, upstream-compatibility, performance, or feature work requires an explicit post-v1 objective and new milestone/release scope. Milestone numbering is owned by `MILESTONES.md`; older G-number lists are design-stage identifiers. See [CI maintenance](CI_MAINTENANCE.md) for routine versus manual validation.
 
 ## Phase 0 — Freeze reference
 - [x] Freeze HGF reference version
@@ -190,14 +185,16 @@ M17 physical correctness is PASS. Shared-server scaling on H100 measured 1.000×
 these results are explicitly treated as realistic contended-node performance rather than
 uncontended peak scaling. See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
 
-## Phase 16 — Scientific validation
+## Phase 16 — Scientific validation (historical design-stage checklist)
 - [ ] parameter recovery
 - [ ] model recovery
 - [ ] robustness sweep
 - [ ] CPU/GPU agreement
 - [ ] optimizer agreement
 
-## Phase 17 — Methods paper
+This checklist predates the M18/M19/M20 evidence protocol and is retained as design history. Its unchecked boxes are not the v1 release gate. Current scientific classifications and accepted reference limitations are defined by `V1_RELEASE_GATE.md`, `M18_COMPLETION_PLAN.md`, and the frozen evidence index.
+
+## Phase 17 — Methods paper (optional post-v1 scope)
 - [ ] benchmark protocol freeze
 - [ ] benchmark runs
 - [ ] validation figures
@@ -205,3 +202,5 @@ uncontended peak scaling. See `docs/planning/M17_H100_GPU_EVIDENCE.md`.
 - [ ] speedup figures
 - [ ] manuscript
 - [ ] reproducibility package
+
+Methods-paper work is a separate future objective and was not required to close the HGFX v1.0.0 product/release milestone.

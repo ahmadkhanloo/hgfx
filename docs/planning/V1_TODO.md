@@ -1,9 +1,11 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-16
-Status: **FINAL `1.0.0` SOURCE PASS — TAG/GITHUB RELEASE OBJECT PENDING**
+Status: **V1.0.0 RELEASE COMPLETE — NO BLOCKING TODO**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
+Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
 
 ## Accepted evidence
 
@@ -27,8 +29,10 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
   - D10/D11 run `35089882668`: PASS.
   - Regression run `35089882392`: PASS on Ubuntu and Windows.
 - PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main Regression run `35090329868`: PASS on Ubuntu and Windows.
+- Tag `v1.0.0` verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- GitHub Release ID `389966452` is published, non-draft and non-prerelease.
 
-## Ordered remaining work
+## Ordered release work
 
 1. **DONE:** M20 RC gate and evidence freeze.
 2. **DONE:** independent final review.
@@ -37,11 +41,19 @@ Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44
 5. **DONE:** merge PR #29 and verify its main integration.
 6. **DONE:** promote package/citation metadata to `1.0.0` on PR #30.
 7. **DONE:** validate PR #30 exact head, merge to `main`, and verify final main source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
-8. **PENDING REPOSITORY-HOSTING MECHANIC:** create `v1.0.0` Git tag/GitHub Release targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, then record its URL/identifier in `../validation/V1_FINAL_RELEASE_PROVENANCE.md`.
-9. Non-blocking review findings (M1/L1/L2) remain maintenance items and must not be used to rewrite historical scientific evidence.
+8. **DONE:** create and verify `v1.0.0` Git tag/GitHub Release targeting the exact validated source; Release ID `389966452`.
+
+## Post-v1 items — not release blockers
+
+- Independent-review findings M1/L1/L2 remain optional maintenance work.
+- Existing M18C.2/horizon-analysis research remains separate research scope, not a v1 blocker.
+- Methods-paper/publication work is separate post-v1 scope unless explicitly reactivated as the project objective.
+- Future upstream-HGF compatibility, performance work, PyPI publication, or new features require a new milestone/release plan.
 
 ## Continuation policy
 
-Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, `FINAL_REVIEW_CHECKLIST.md`, `../validation/V1_EVIDENCE_INDEX.md`, `../validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as the continuity set.
+Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, `FINAL_REVIEW_CHECKLIST.md`, `../validation/V1_EVIDENCE_INDEX.md`, `../validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as the frozen v1 continuity set.
 
 Do not reopen completed D02/D08/S7/S8 diagnostics merely to manufacture a green scientific result. Historical failures remain immutable. No tolerance, seed, data, grid, model family, optimizer, or acceptance threshold may be changed post-hoc to obtain PASS.
+
+**There is no remaining blocking work for HGFX v1.0.0.**

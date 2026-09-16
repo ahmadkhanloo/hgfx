@@ -66,6 +66,8 @@ Current product closure follows `M18_COMPLETION_PLAN.md` and the frozen referenc
 **PASS.** Historical RC candidate metadata were `1.0.0rc1`. Finalizer run `34989737851` on source `b52dc06ca58d29afeb5c265f7eb67746824178e0` returned `PASS_M20_CANDIDATE` with `failures=[]`. M20 is preserved as the release-candidate gate and is not redefined by final promotion.
 
 ## Final v1.0.0 Promotion
-**SOURCE PASS.** The independent frontier review was completed; H1/H2 were resolved without changing frozen scientific criteria. Final metadata were promoted to `1.0.0` on PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b`. Active final-promotion gates all passed (`35089882319`, `35089882608`, `35089882668`, `35089882392`). PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, and main regression run `35090329868` passed on Ubuntu and Windows.
+**PASS / RELEASED.** The independent frontier review was completed; H1/H2 were resolved without changing frozen scientific criteria. Final metadata were promoted to `1.0.0` on PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b`. Active final-promotion gates all passed (`35089882319`, `35089882608`, `35089882668`, `35089882392`). PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, and main regression run `35090329868` passed on Ubuntu and Windows.
 
-The only remaining release mechanic is creation of the `v1.0.0` Git tag/GitHub Release object targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and recording its URL/identifier. This does not reopen scientific validation.
+Git tag `v1.0.0` is verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. GitHub Release ID `389966452` is published at https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 and is neither draft nor prerelease.
+
+**The HGFX v1.0.0 milestone/release sequence is closed.** Future research, publication, maintenance, upstream compatibility, packaging/distribution, or feature work requires explicit post-v1 milestones and does not reopen the frozen v1 evidence.

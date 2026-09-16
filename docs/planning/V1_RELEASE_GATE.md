@@ -1,7 +1,7 @@
 # HGFX v1.0 Release Gate
 
 Last synchronized: 2026-09-16
-Status: **FINAL `1.0.0` SOURCE PASS — TAG/GITHUB RELEASE OBJECT PENDING**
+Status: **FINAL `1.0.0` RELEASE PASS / CLOSED**
 
 ## Product definition
 
@@ -27,7 +27,8 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENC
 - [x] Package/citation metadata promoted from `1.0.0rc1` to `1.0.0`.
 - [x] Exact final promotion head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates.
 - [x] Final promotion merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and main regression run `35090329868` passed on Ubuntu and Windows.
-- [ ] `v1.0.0` Git tag/GitHub Release object created and its URL/identifier recorded.
+- [x] `v1.0.0` Git tag resolves exactly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- [x] GitHub Release `v1.0.0` is published, non-draft and non-prerelease; Release ID `389966452`, URL https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0.
 
 ## Current evidence snapshot
 
@@ -52,7 +53,8 @@ Historical evidence is preserved; release evidence is additive.
   - `M19 M20 Release Preflight` run `35089882608`: **PASS**.
   - `M18 D10 D11 Analysis Surfaces` run `35089882668`: **PASS**.
   - `HGFX Regression` run `35089882392`: **PASS** on Ubuntu and Windows.
-- Final main source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`: `HGFX Regression` run `35090329868`: **PASS** on Ubuntu and Windows.
+- Final v1.0.0 source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`: `HGFX Regression` run `35090329868`: **PASS** on Ubuntu and Windows.
+- Published release: tag `v1.0.0` -> exact final source target; GitHub Release ID `389966452`.
 
 ## Physical-GPU evidence boundary
 
@@ -79,7 +81,9 @@ Historical/direct/prospective failures remain immutable evidence.
 3. **DONE:** final package/citation metadata promotion to `1.0.0`.
 4. **DONE:** PR #30 exact-head release validation.
 5. **DONE:** merge to `main` and fresh Ubuntu/Windows regression on final source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
-6. **PENDING REPOSITORY-HOSTING MECHANIC:** create `v1.0.0` tag/GitHub Release targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and record the resulting release URL/identifier.
+6. **DONE:** publish Git tag/GitHub Release `v1.0.0` targeting the exact validated source and record Release ID `389966452`.
+
+**v1.0.0 release gate is CLOSED.** Future maintenance, research, publication, or compatibility work must start as explicit post-v1 scope and must not rewrite the frozen v1 evidence.
 
 ## Integrity
 
