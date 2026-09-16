@@ -24,6 +24,12 @@ def _load_reference_freeze_module():
     return module
 
 
+def _git(repo: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(repo), *args], text=True
+    ).strip()
+
+
 def test_theta_exp_is_independent_of_host_expm1(monkeypatch):
     """The frozen theta oracle must not inherit platform CRT expm1 rounding."""
 
@@ -51,45 +57,21 @@ def test_unitsq_normalizer_is_independent_of_numpy_vector_log(monkeypatch):
     assert logp[0] == np.float64(0.0)
 
 
-def test_frozen_m18_result_hash_accepts_crlf_checkout(tmp_path):
-    """Git line-ending conversion must not invalidate frozen text evidence."""
+def test_frozen_m18_files_are_lf_enforced_and_hash_clean():
+    """Git must materialize raw-hashed M18 evidence with canonical LF bytes."""
 
-    source = ROOT / "reference/validation/m18_scientific_validation.json"
-    crlf_copy = tmp_path / "m18_scientific_validation.json"
-    crlf_copy.write_bytes(source.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
-    assert verify_frozen_m18(crlf_copy)
-
-
-def test_frozen_m18_source_hash_accepts_crlf_checkout(monkeypatch):
-    """Frozen source checksums must be based on canonical LF text."""
-
-    source_paths = {
-        (ROOT / relative).resolve()
-        for relative in (
-            "scripts/run_m18_scientific_validation.py",
-            "src/hgfx/diagnostics/recovery.py",
-        )
-    }
-    native_read_bytes = Path.read_bytes
-
-    def crlf_read_bytes(path: Path):
-        data = native_read_bytes(path)
-        if path.resolve() in source_paths:
-            return data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
-        return data
-
-    monkeypatch.setattr(Path, "read_bytes", crlf_read_bytes)
+    for relative in (
+        "scripts/run_m18_scientific_validation.py",
+        "src/hgfx/diagnostics/recovery.py",
+        "reference/validation/m18_scientific_validation.json",
+    ):
+        attr = _git(ROOT, "check-attr", "eol", "--", relative)
+        assert attr.endswith(": eol: lf")
     assert verify_frozen_m18()
 
 
-def _git(repo: Path, *args: str) -> str:
-    return subprocess.check_output(
-        ["git", "-C", str(repo), *args], text=True
-    ).strip()
-
-
-def test_reference_freeze_uses_git_tree_not_working_tree_eol(tmp_path, monkeypatch, capsys):
-    """Reference verification must ignore checkout-only CRLF expansion."""
+def test_reference_freeze_ignores_checkout_only_crlf(tmp_path, monkeypatch, capsys):
+    """Submodule verification must ignore CRLF expansion but detect content changes."""
 
     reference_freeze = _load_reference_freeze_module()
     sub = tmp_path / "hgf-toolbox"
@@ -113,7 +95,7 @@ def test_reference_freeze_uses_git_tree_not_working_tree_eol(tmp_path, monkeypat
         encoding="utf-8",
     )
 
-    # Simulate a Windows checkout without changing the committed tree object.
+    # Simulate a Windows checkout without changing canonical source content.
     matlab.write_bytes(canonical.replace(b"\n", b"\r\n"))
 
     monkeypatch.setattr(reference_freeze, "SUB", sub)
@@ -122,3 +104,12 @@ def test_reference_freeze_uses_git_tree_not_working_tree_eol(tmp_path, monkeypat
 
     reference_freeze.main()
     assert "Reference freeze verification: PASS" in capsys.readouterr().out
+
+    # A semantic change must still fail after line-ending canonicalization.
+    matlab.write_bytes(canonical.replace(b"x + 1", b"x + 2"))
+    try:
+        reference_freeze.main()
+    except SystemExit as exc:
+        assert exc.code == 1
+    else:
+        raise AssertionError("semantic MATLAB source change was not detected")
