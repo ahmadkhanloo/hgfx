@@ -2,15 +2,26 @@
 
 from __future__ import annotations
 
+import importlib.util
 import subprocess
 from pathlib import Path
 
 import numpy as np
 
-import scripts.verify_reference_freeze as reference_freeze
 from hgfx.diagnostics.identifiability_validation import verify_frozen_m18
 from hgfx.math import matlab_exp
 from hgfx.responses import unitsq_sigmoid
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def _load_reference_freeze_module():
+    path = ROOT / "scripts/verify_reference_freeze.py"
+    spec = importlib.util.spec_from_file_location("hgfx_verify_reference_freeze", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_theta_exp_is_independent_of_host_expm1(monkeypatch):
@@ -43,8 +54,7 @@ def test_unitsq_normalizer_is_independent_of_numpy_vector_log(monkeypatch):
 def test_frozen_m18_result_hash_accepts_crlf_checkout(tmp_path):
     """Git line-ending conversion must not invalidate frozen text evidence."""
 
-    root = Path(__file__).resolve().parents[2]
-    source = root / "reference/validation/m18_scientific_validation.json"
+    source = ROOT / "reference/validation/m18_scientific_validation.json"
     crlf_copy = tmp_path / "m18_scientific_validation.json"
     crlf_copy.write_bytes(source.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
     assert verify_frozen_m18(crlf_copy)
@@ -53,9 +63,8 @@ def test_frozen_m18_result_hash_accepts_crlf_checkout(tmp_path):
 def test_frozen_m18_source_hash_accepts_crlf_checkout(monkeypatch):
     """Frozen source checksums must be based on canonical LF text."""
 
-    root = Path(__file__).resolve().parents[2]
     source_paths = {
-        (root / relative).resolve()
+        (ROOT / relative).resolve()
         for relative in (
             "scripts/run_m18_scientific_validation.py",
             "src/hgfx/diagnostics/recovery.py",
@@ -82,6 +91,7 @@ def _git(repo: Path, *args: str) -> str:
 def test_reference_freeze_uses_git_tree_not_working_tree_eol(tmp_path, monkeypatch, capsys):
     """Reference verification must ignore checkout-only CRLF expansion."""
 
+    reference_freeze = _load_reference_freeze_module()
     sub = tmp_path / "hgf-toolbox"
     ref = tmp_path / "reference"
     sub.mkdir()
