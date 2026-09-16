@@ -15,7 +15,11 @@ concurrency:
 
 jobs:
   regression:
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
     env:
       JAX_ENABLE_X64: 'true'
       JAX_PLATFORMS: cpu
@@ -37,6 +41,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: hgfx-regression
+          name: hgfx-regression-${{ runner.os }}
           path: regression-results.xml
           if-no-files-found: warn

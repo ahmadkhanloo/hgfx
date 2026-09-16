@@ -5,6 +5,8 @@ on:
   pull_request:
     paths:
       - 'src/hgfx/gpu/**'
+      - 'src/hgfx/math/**'
+      - 'src/hgfx/responses/unitsq_sigmoid.py'
       - 'src/hgfx/models/hgf_binary.py'
       - 'src/hgfx/models/ehgf_binary.py'
       - 'src/hgfx/models/uhgf_binary.py'

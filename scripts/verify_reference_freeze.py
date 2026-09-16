@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -17,6 +18,19 @@ def run(*args: str) -> str:
 def fail(msg: str) -> None:
     print(f"ERROR: {msg}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def canonical_lf(data: bytes) -> bytes:
+    """Normalize checkout-only CRLF expansion without hiding content changes."""
+
+    return data.replace(b"\r\n", b"\n")
+
+
+def git_blob_sha1(data: bytes) -> str:
+    """Return the SHA-1 Git blob id for canonical file bytes."""
+
+    header = f"blob {len(data)}\0".encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
 
 
 def main() -> None:
@@ -45,8 +59,9 @@ def main() -> None:
     bad = []
     for path, expected_blob, expected_size in rows:
         p = SUB / path
-        blob = run("git", "-C", str(SUB), "hash-object", str(p))
-        if blob != expected_blob or p.stat().st_size != expected_size:
+        canonical = canonical_lf(p.read_bytes())
+        blob = git_blob_sha1(canonical)
+        if blob != expected_blob or len(canonical) != expected_size:
             bad.append(path)
 
     if bad:

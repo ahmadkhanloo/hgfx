@@ -1,0 +1,4 @@
+/scripts/run_m18_scientific_validation.py text eol=lf
+/src/hgfx/diagnostics/recovery.py text eol=lf
+/reference/validation/m18_scientific_validation.json text eol=lf
+/reference/matlab_manifest.tsv text eol=lf

@@ -1,37 +1,24 @@
 """Unit-square sigmoid observation families."""
 from __future__ import annotations
 
-import math
 from collections.abc import Sequence
 
 import numpy as np
 
 from hgfx.math.matlab_exp import matlab_exp, matlab_exp_scalar
+from hgfx.math.matlab_log import matlab_log_scalar
 from .base import ignored_mask, output_arrays, response_vector
 
 
 def _scalar_log(values: np.ndarray) -> np.ndarray:
-    """Evaluate the active MATLAB-compatible log path elementwise.
-
-    The frozen D02 oracle exposes a one-ULP difference between NumPy's
-    vectorized ``log`` path and the scalar libm path at values that feed
-    Ridders finite differences.  Preserve NumPy handling for non-positive or
-    non-finite values, while using scalar ``math.log`` for ordinary positive
-    finite values.  Boundary-sensitive fallbacks are still applied by
-    ``_core`` exactly where they were before this helper was introduced.
-    """
+    """Evaluate the portable MATLAB-compatible log path elementwise."""
 
     array = np.asarray(values, dtype=np.float64)
     out = np.empty_like(array)
     source = array.reshape(-1)
     target = out.reshape(-1)
     for index, value in enumerate(source):
-        scalar = float(value)
-        if scalar > 0.0 and math.isfinite(scalar):
-            target[index] = math.log(scalar)
-        else:
-            with np.errstate(divide="ignore", invalid="ignore"):
-                target[index] = np.log(value)
+        target[index] = matlab_log_scalar(float(value))
     return out
 
 
@@ -49,9 +36,9 @@ def _core(responses, x, ze, *, irregular_trials):
     else:
         zr = zr.reshape(-1)[reg]
     with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
-        # MATLAB evaluates the ordinary log path elementwise.  NumPy's
-        # vector-log implementation can differ by one ULP on the D02 frozen
-        # oracle and that perturbation is amplified by Ridders gradients.
+        # MATLAB evaluates the ordinary log path elementwise. Host libm and
+        # NumPy vector-log implementations can differ by one ULP on the D02
+        # frozen oracle, so active logs use the portable fdlibm path.
         logx = _scalar_log(xr)
         alt = np.log1p(xr - 1.0)
         m = (1.0 - xr) < 1e-4
@@ -62,10 +49,11 @@ def _core(responses, x, ze, *, irregular_trials):
         m2 = xr < 1e-4
         log1mx[m2] = alt2[m2]
 
+        normalizer = (1.0 - xr) ** zr + xr**zr
         logp[reg] = (
             yr * zr * (logx - log1mx)
             + zr * log1mx
-            - np.log((1.0 - xr) ** zr + xr**zr)
+            - _scalar_log(normalizer)
         )
         yhat[reg] = xr
         res[reg] = (yr - xr) / np.sqrt(xr * (1.0 - xr))
