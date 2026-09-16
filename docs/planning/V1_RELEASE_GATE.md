@@ -1,13 +1,13 @@
 # HGFX v1.0 Release Gate
 
 Last synchronized: 2026-09-16
-Status: **`1.0.0` PROMOTION IN PROGRESS — PR #29 MAIN INTEGRATION PASS, FINAL PROMOTION CHECKS PENDING**
+Status: **FINAL `1.0.0` SOURCE PASS — TAG/GITHUB RELEASE OBJECT PENDING**
 
 ## Product definition
 
 HGFX v1.0 is a functional/scientific Python replacement for frozen MATLAB HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`, with no MATLAB runtime dependency for users. Bitwise identity is not generally required except where a frozen compatibility fixture explicitly requires it. Every accepted equivalence or reference limitation must follow the frozen validation policies and preserve failed evidence.
 
-Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`, `../validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as acceptance/provenance records.
+Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`, `../validation/M18_S9_PHYSICAL_GPU_AMENDMENT.md`, `../validation/INDEPENDENT_REVIEW_REMEDIATION.md`, and `../validation/V1_FINAL_RELEASE_PROVENANCE.md` as acceptance/provenance records.
 
 ## Mandatory release acceptance criteria
 
@@ -24,8 +24,10 @@ Use `../validation/MATLAB_EQUIVALENCE_POLICY.md`, `../validation/MATLAB_REFERENC
 - [x] Every Critical/High independent-review finding resolved without changing frozen scientific acceptance criteria.
 - [x] Fresh post-remediation cross-platform/release validation green.
 - [x] PR #29 merged to `main` and main/push regression green on integration commit `ffa84c616343714d7d384b0a21e6f8d73f7cb990` (run `35087865209`).
-- [x] Package/citation metadata promoted from `1.0.0rc1` to `1.0.0` on the final-promotion branch.
-- [ ] Exact `1.0.0` promotion revision passes final release checks and final tag/release provenance is recorded.
+- [x] Package/citation metadata promoted from `1.0.0rc1` to `1.0.0`.
+- [x] Exact final promotion head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates.
+- [x] Final promotion merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and main regression run `35090329868` passed on Ubuntu and Windows.
+- [ ] `v1.0.0` Git tag/GitHub Release object created and its URL/identifier recorded.
 
 ## Current evidence snapshot
 
@@ -43,13 +45,14 @@ Historical evidence is preserved; release evidence is additive.
 - M20 finalizer: run `34989737851`, **SUCCESS**, `PASS_M20_CANDIDATE`, `failures=[]`.
 - Independent review source report: `../validation/INDEPENDENT_REVIEW_REPORT.md`.
 - Blocking findings H1/H2: **RESOLVED**, documented in `../validation/INDEPENDENT_REVIEW_REMEDIATION.md`.
-- Post-remediation validated source: `09c49031cda95b449f8115030a9d32dcba36098e`.
-- `HGFX Regression` run `35080084509`: **PASS** on Ubuntu 24.04 and Windows Server 2025; Windows `178 passed, 4 skipped, 0 failed`; frozen MATLAB source verification `PASS`, 334 files.
-- `M18 S9 Backend Robustness` run `35080084517`: **PASS**.
-- `S10 v1 Release Readiness` run `35080084519`: **PASS**.
-- `M19 M20 Release Preflight` run `35080084594`: **PASS**.
-- `V1 Full MATLAB Demo Composition` run `35080084742`: **PASS**.
+- Post-remediation source `09c49031cda95b449f8115030a9d32dcba36098e` passed release workflows `35080084509`, `35080084517`, `35080084519`, `35080084594`, and `35080084742`.
 - PR #29 merge/main integration source `ffa84c616343714d7d384b0a21e6f8d73f7cb990`: `HGFX Regression` run `35087865209` **PASS**.
+- Final promotion head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b`:
+  - `S10 v1 Release Readiness` run `35089882319`: **PASS**.
+  - `M19 M20 Release Preflight` run `35089882608`: **PASS**.
+  - `M18 D10 D11 Analysis Surfaces` run `35089882668`: **PASS**.
+  - `HGFX Regression` run `35089882392`: **PASS** on Ubuntu and Windows.
+- Final main source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`: `HGFX Regression` run `35090329868`: **PASS** on Ubuntu and Windows.
 
 ## Physical-GPU evidence boundary
 
@@ -71,14 +74,13 @@ Historical/direct/prospective failures remain immutable evidence.
 
 ## Final `1.0.0` promotion gate
 
-The scientific/engineering acceptance surface and independent-review remediation are complete. Remaining work is release mechanics:
-
-1. **DONE:** merge PR #29 and verify main regression on `ffa84c616343714d7d384b0a21e6f8d73f7cb990` (`35087865209`).
-2. **DONE:** promote package/citation metadata from `1.0.0rc1` to `1.0.0` on `release/v1.0.0`.
-3. **NEXT:** run final PR/release checks on the exact promotion revision.
-4. **NEXT:** merge the validated promotion revision to `main` and verify main checks on that exact integration revision.
-5. **NEXT:** create final `v1.0.0` tag/GitHub release and record exact commit/tag/release provenance.
+1. **DONE:** independent review and H1/H2 remediation.
+2. **DONE:** post-remediation release validation.
+3. **DONE:** final package/citation metadata promotion to `1.0.0`.
+4. **DONE:** PR #30 exact-head release validation.
+5. **DONE:** merge to `main` and fresh Ubuntu/Windows regression on final source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+6. **PENDING REPOSITORY-HOSTING MECHANIC:** create `v1.0.0` tag/GitHub Release targeting `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and record the resulting release URL/identifier.
 
 ## Integrity
 
-No threshold, seed, dataset, start, grid, model family, optimizer, historical evidence, or physical-GPU acceptance criterion was changed post-hoc to manufacture final PASS. The original independent review remains preserved; remediation evidence is additive.
+No threshold, seed, dataset, start, grid, model family, optimizer, historical evidence, or physical-GPU acceptance criterion was changed post-hoc to manufacture final PASS. The original independent review remains preserved; remediation and final-promotion evidence are additive.

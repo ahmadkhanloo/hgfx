@@ -2,9 +2,9 @@
 
 Last synchronized: 2026-09-16
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
-Current remediation branch: `fix/independent-review-high-findings` (PR #29 -> `main`)
+Final validated v1.0.0 source target: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 
-This index preserves historical failures and distinguishes direct PASS, scoped reference limitations, physical-GPU applicability, frozen release evidence, candidate validation, independent-review findings, and post-review remediation evidence.
+This index preserves historical failures and distinguishes direct PASS, scoped reference limitations, physical-GPU applicability, frozen release evidence, candidate validation, independent-review findings, remediation evidence, and final `1.0.0` promotion evidence.
 
 ## M18/v1 closure evidence
 
@@ -16,15 +16,15 @@ This index preserves historical failures and distinguishes direct PASS, scoped r
 | D08 exact failed seed | REFERENCE_LIMITATION_MATCH | frozen decision JSON |
 | D04 uHGF → AR1 | PASS | recorded MATLAB-equivalence workflow evidence |
 | D09 sampleModel | PASS | recorded release workflow evidence |
-| D10/D11 analysis surfaces | PASS | recorded release workflow evidence |
+| D10/D11 analysis surfaces | PASS | post-review run `35080084742`; final-promotion run `35089882668` |
 | D12 BPA | PASS | recorded release workflow evidence |
 | S7 paired parameter recovery | REFERENCE_LIMITATION_MATCH | scientific result remains FAIL where MATLAB fails |
 | S7 paired model selection | PASS_PAIRED_MODEL_SELECTION | 36/36 BIC winners match |
 | S8 required repair scope | DONE | repair `0239f52f772825e0a4fc74cdf3559cafa18a603e` |
 | S9 CPU robustness/backend | PASS_CPU_BACKEND_EQUIVALENCE | post-review run `35080084517` |
 | S9 physical GPU | PASS_PHYSICAL_GPU_APPLICABILITY | source `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`; 2x Tesla T4; max objective gap `1.4210854715202004e-14` vs `1e-7` |
-| S10 release readiness | PASS | post-review run `35080084519` |
-| M19/M20 preflight | PASS_PREFLIGHT | post-review run `35080084594` |
+| S10 release readiness | PASS | post-review run `35080084519`; final-promotion run `35089882319` |
+| M19/M20 preflight | PASS_PREFLIGHT | post-review run `35080084594`; final-promotion run `35089882608` |
 | M19 evidence freeze | PASS_FROZEN | committed/finalizer manifest status `FROZEN`, failures empty |
 | M20 candidate | PASS_M20_CANDIDATE | run `34989737851`; failures `[]`; artifact `10405351087` |
 | Independent final review | REVIEW_COMPLETE | `INDEPENDENT_REVIEW_REPORT.md`; 2 HIGH blockers H1/H2 |
@@ -32,10 +32,15 @@ This index preserves historical failures and distinguishes direct PASS, scoped r
 | H2 CRLF/hash remediation | RESOLVED | LF/canonicalized reference verification; Windows reference guard PASS in run `35080084509` |
 | Post-review full regression | PASS | run `35080084509`, Ubuntu + Windows success; Windows `178 passed, 4 skipped, 0 failed` |
 | Full MATLAB Demo Composition | PASS | post-review run `35080084742` |
+| PR #29 main integration | PASS | source `ffa84c616343714d7d384b0a21e6f8d73f7cb990`; Regression `35087865209` |
+| Final metadata promotion | PASS | `pyproject.toml` + `CITATION.cff` = `1.0.0`; PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` |
+| Final promotion PR validation | PASS | S10 `35089882319`; preflight `35089882608`; D10/D11 `35089882668`; Regression `35089882392` |
+| Final v1.0.0 main source | PASS | `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; Regression `35090329868` Ubuntu + Windows |
+| Git tag / GitHub Release object | PENDING_HOSTING_MECHANIC | must target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` |
 
 ## M20 RC evidence
 
-`M20 Finalize v1.0 Candidate` run `34989737851` built a candidate-synchronized M19 manifest with `status=FROZEN`, `failures=[]`, accepted physical NVIDIA GPU evidence, and then returned `PASS_M20_CANDIDATE` for version `1.0.0rc1`.
+`M20 Finalize v1.0 Candidate` run `34989737851` built a candidate-synchronized M19 manifest with `status=FROZEN`, `failures=[]`, accepted physical NVIDIA GPU evidence, and then returned `PASS_M20_CANDIDATE` for historical candidate version `1.0.0rc1`.
 
 The uploaded M20 manifest artifact is `10405351087`, SHA-256 `d2ecfca5b858705eb36e8f40a6b55ae52ada0871e9e19e66c3bf3f20c5a0631e`.
 
@@ -58,9 +63,20 @@ Post-remediation source `09c49031cda95b449f8115030a9d32dcba36098e` passed all ac
 
 Full remediation details and the licensing erratum are in `INDEPENDENT_REVIEW_REMEDIATION.md`.
 
+## Final 1.0.0 promotion evidence
+
+Final package/citation metadata were promoted to `1.0.0` on PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b`. Fresh PR-head evidence on that exact revision:
+
+- `S10 v1 Release Readiness` run `35089882319`: success.
+- `M19 M20 Release Preflight` run `35089882608`: success.
+- `M18 D10 D11 Analysis Surfaces` run `35089882668`: success.
+- `HGFX Regression` run `35089882392`: success on Ubuntu and Windows.
+
+PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Fresh main/push `HGFX Regression` run `35090329868` succeeded on Ubuntu and Windows. This commit is the validated final source target for tag `v1.0.0`.
+
 ## Physical-GPU provenance after remediation
 
-The physical-GPU evidence was produced on two Tesla T4 devices at source `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`. The current post-review branch does not substitute CPU evidence for that run.
+The physical-GPU evidence was produced on two Tesla T4 devices at source `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`. Final promotion does not substitute CPU evidence for that run.
 
 Applicability is retained because the tested GPU executable path is unchanged: files under `src/hgfx/gpu/` have the same blob identities at the physical-GPU source and post-review source, and `scripts/run_m18_s9_backend_robustness.py` remains blob `d886819c2ef8fa4969f397310f39ca0ac4b02bc8`. The compatibility-vs-JAX CPU portion was freshly rerun after H1/H2 and passed.
 
@@ -74,13 +90,10 @@ Portable `exp`/`expm1`/`log` routines adapted from fdlibm preserve the applicabl
 
 ## Scientific interpretation
 
-None of the review remediation changes historical scientific evidence. Exact shared MATLAB/HGFX failures remain scoped `REFERENCE_LIMITATION_MATCH`; they are acceptable only for MATLAB-equivalent product accounting and are not scientific PASS claims. No threshold, seed, dataset, start, model family, optimizer, validation grid, or historical failure was changed to obtain release PASS.
+None of the review remediation or final-promotion changes alter historical scientific evidence. Exact shared MATLAB/HGFX failures remain scoped `REFERENCE_LIMITATION_MATCH`; they are acceptable only for MATLAB-equivalent product accounting and are not scientific PASS claims. No threshold, seed, dataset, start, model family, optimizer, validation grid, or historical failure was changed to obtain release PASS.
 
 ## Current release state
 
-All Critical/High independent-review findings are resolved and the post-remediation validation is green. Remaining work is:
+The final `1.0.0` source target is validated at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Scientific, engineering, independent-review, package metadata, PR-head, and main-branch validation gates are closed.
 
-1. merge PR #29 and verify main-branch checks on the integration commit;
-2. promote metadata from `1.0.0rc1` to `1.0.0`;
-3. validate that exact final revision;
-4. create the final tag/release and record release provenance.
+Only the repository-hosting object remains: create Git tag/GitHub Release `v1.0.0` targeting that exact commit and record its URL/identifier in `V1_FINAL_RELEASE_PROVENANCE.md`.

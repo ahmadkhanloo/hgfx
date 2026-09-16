@@ -6,7 +6,7 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 ## Current status
 
-HGFX is in final `1.0.0` promotion after the release candidate, independent review, remediation, and main-branch integration validation passed.
+HGFX `1.0.0` source promotion is validated on `main`.
 
 - M0–M17 are completed in their documented scopes.
 - Historical M18 scientific failures remain preserved rather than retuned away.
@@ -15,11 +15,13 @@ HGFX is in final `1.0.0` promotion after the release candidate, independent revi
 - S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; archived H100 results retain their original scope.
 - M19 evidence freeze is complete.
 - M20 candidate finalization passed as `PASS_M20_CANDIDATE`.
-- The independent frontier review completed; its release-blocking H1/H2 findings were resolved without changing frozen scientific criteria.
-- PR #29 was merged to `main` at `ffa84c616343714d7d384b0a21e6f8d73f7cb990`; main `HGFX Regression` run `35087865209` succeeded.
-- Package and citation metadata are being promoted from `1.0.0rc1` to `1.0.0`; the exact final promotion revision must pass release checks before the final tag/release is recorded.
+- The independent frontier review completed; release-blocking H1/H2 findings were resolved without changing frozen scientific criteria.
+- Final package and citation metadata are `1.0.0`.
+- PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates: S10 `35089882319`, M19/M20 preflight `35089882608`, D10/D11 `35089882668`, and HGFX Regression `35089882392`.
+- PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main HGFX Regression run `35090329868` passed on Ubuntu and Windows.
+- The tested final source target is therefore `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Creation of the `v1.0.0` Git tag/GitHub Release object is the only remaining repository-hosting mechanic.
 
-See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
+See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, and `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md` for the release evidence.
 
 ## Install
 
