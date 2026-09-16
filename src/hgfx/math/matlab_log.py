@@ -1,11 +1,21 @@
 """Portable MATLAB-compatible binary64 natural logarithm.
 
-The frozen D02 oracle is sensitive to one-ULP differences in ``log``.  Python's
+The frozen D02 oracle is sensitive to one-ULP differences in ``log``. Python's
 ``math.log`` and NumPy's vectorized ``log`` ultimately depend on platform math
-libraries and can therefore disagree between glibc and the Windows CRT.  This
+libraries and can therefore disagree between glibc and the Windows CRT. This
 module ports the classic fdlibm binary64 logarithm using only IEEE-754 bit
 manipulation and elementary arithmetic so the compatibility path is independent
 of the host libm implementation.
+
+fdlibm provenance
+-----------------
+The logarithm algorithm is adapted from fdlibm ``e_log.c``. The upstream
+notice is preserved here as required:
+
+Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
+Developed at SunSoft, a Sun Microsystems, Inc. business.
+Permission to use, copy, modify, and distribute this software is freely
+granted, provided that this notice is preserved.
 """
 
 from __future__ import annotations
