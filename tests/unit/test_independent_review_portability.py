@@ -10,6 +10,7 @@ import numpy as np
 
 from hgfx.diagnostics.identifiability_validation import verify_frozen_m18
 from hgfx.math import matlab_exp
+from hgfx.math.matlab_log import matlab_log_scalar
 from hgfx.responses import unitsq_sigmoid
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -37,6 +38,15 @@ def test_theta_exp_is_independent_of_host_expm1(monkeypatch):
     assert matlab_exp.matlab_theta_exp_scalar(2.2790816472336535) == np.float64(
         9.767706089455686
     )
+
+
+def test_portable_log_preserves_ieee_special_cases():
+    """The fdlibm port must preserve signed-zero and negative-input semantics."""
+
+    assert np.isneginf(matlab_log_scalar(0.0))
+    assert np.isneginf(matlab_log_scalar(-0.0))
+    assert np.isnan(matlab_log_scalar(-1.0))
+    assert np.isposinf(matlab_log_scalar(np.inf))
 
 
 def test_unitsq_normalizer_is_independent_of_numpy_vector_log(monkeypatch):
