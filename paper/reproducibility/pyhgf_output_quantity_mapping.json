@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.7",
+  "status": "PASS_FOR_MAPPED_TRAJECTORY_AND_RESPONSE_QUANTITIES_PENDING_P2A8",
+  "created_date": "2026-09-17",
+  "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+  "trajectory_mapping": [
+    {
+      "scientific_quantity": "binary predicted probability",
+      "hgfx": "traj.muhat[:,0] / inf_states[:,0,0]",
+      "pyhgf": "binary input node expected_mean",
+      "classification": "MATCH_IN_MEANING_PENDING_P2A8"
+    },
+    {
+      "scientific_quantity": "binary observed value",
+      "hgfx": "traj.mu[:,0] / inf_states[:,0,2]",
+      "pyhgf": "binary input node mean",
+      "classification": "MATCH_IN_MEANING",
+      "role": "integrity_check_only"
+    },
+    {
+      "scientific_quantity": "continuous posterior mean",
+      "levels": [2, 3],
+      "hgfx": "traj.mu",
+      "pyhgf": "continuous node mean",
+      "classification": "MATCH_IN_MEANING"
+    },
+    {
+      "scientific_quantity": "continuous predicted mean",
+      "levels": [2, 3],
+      "hgfx": "traj.muhat",
+      "pyhgf": "continuous node expected_mean",
+      "classification": "MATCH_IN_MEANING"
+    },
+    {
+      "scientific_quantity": "continuous posterior precision",
+      "levels": [2, 3],
+      "hgfx": "1 / traj.sa",
+      "pyhgf": "continuous node precision",
+      "classification": "MATCH_IN_MEANING"
+    },
+    {
+      "scientific_quantity": "continuous predicted precision",
+      "levels": [2, 3],
+      "hgfx": "1 / traj.sahat",
+      "pyhgf": "continuous node expected_precision",
+      "classification": "MATCH_IN_MEANING"
+    },
+    {
+      "scientific_quantity": "continuous posterior variance",
+      "levels": [2, 3],
+      "hgfx": "traj.sa",
+      "pyhgf": "1 / continuous node precision",
+      "classification": "TRANSFORM_REQUIRED"
+    },
+    {
+      "scientific_quantity": "continuous predicted variance",
+      "levels": [2, 3],
+      "hgfx": "traj.sahat",
+      "pyhgf": "1 / continuous node expected_precision",
+      "classification": "TRANSFORM_REQUIRED"
+    }
+  ],
+  "derived_common_quantities": [
+    {
+      "scientific_quantity": "first_level_prediction_error",
+      "definition": "input - predicted_probability",
+      "classification": "DERIVED_COMMON_QUANTITY"
+    },
+    {
+      "scientific_quantity": "first_level_input_surprise",
+      "definition": "-log(p) if input=1 else -log(1-p)",
+      "classification": "DERIVED_COMMON_QUANTITY_PENDING_CLIPPING_POLICY"
+    }
+  ],
+  "response_surface": {
+    "hgfx_function": "unitsq_sgm",
+    "pyhgf_function": "binary_softmax_inverse_temperature",
+    "belief": "same first-level predicted probability p",
+    "response": "same binary participant response y",
+    "inverse_temperature_mapping": "pyhgf response_function_parameters == HGFX native ze == exp(logze)",
+    "hgfx_predorpost": 1,
+    "transformed_probability": "q = p^ze / (p^ze + (1-p)^ze)",
+    "relation": "pyhgf surprise == - HGFX logp before numerical clipping/guard effects",
+    "classification": "ALGEBRAIC_MATCH_WITH_SIGN_CONVERSION_PENDING_CLIPPING_POLICY"
+  },
+  "important_non_equivalences": [
+    {
+      "surface": "pyhgf first_level_binary_surprise versus HGFX unitsq_sgm logp",
+      "classification": "DIFFERENT_QUANTITY",
+      "reason": "perceptual input surprise versus participant-response likelihood"
+    },
+    {
+      "surface": "binary first-level precision/variance internals",
+      "classification": "NOT_DIRECTLY_COMPARABLE_AS_REPORTED_INTERNALS"
+    },
+    {
+      "surface": "HGFX unitsq_sgm standardized residual",
+      "classification": "NO_DIRECT_PYHGF_RETURNED_COUNTERPART"
+    },
+    {
+      "surface": "HGFX unitsq_sgm yhat",
+      "classification": "REDUNDANT_WITH_MAPPED_PREDICTED_BELIEF",
+      "note": "HGFX yhat is raw p, not transformed response probability q"
+    }
+  ],
+  "authorized_candidate_outputs_after_p2a8": [
+    "first-level predicted probability",
+    "level-2 posterior mean",
+    "level-2 predicted mean",
+    "level-3 posterior mean",
+    "level-3 predicted mean",
+    "level-2 posterior precision or explicitly transformed reciprocal variance",
+    "level-2 predicted precision or explicitly transformed reciprocal variance",
+    "level-3 posterior precision or explicitly transformed reciprocal variance",
+    "level-3 predicted precision or explicitly transformed reciprocal variance",
+    "derived first-level prediction error",
+    "derived first-level input surprise under frozen clipping policy",
+    "participant-response negative log likelihood under frozen clipping policy"
+  ],
+  "excluded_from_direct_comparison": [
+    "binary first-level precision/variance internals",
+    "higher-level implementation-specific v/w/psi/epsi/wt intermediates",
+    "pyhgf perceptual input surprise versus HGFX participant-response likelihood",
+    "HGFX standardized response residual"
+  ],
+  "deferred": [
+    "dtype/precision mode (P2A.8)",
+    "pyhgf precision_clipping_value (P2A.8)",
+    "pyhgf binary_surprise probability clipping (P2A.8)",
+    "pyhgf max_posterior_precision (P2A.8)",
+    "final semantic gate decision (P2A.9)"
+  ],
+  "benchmark_authorized": false
+}
