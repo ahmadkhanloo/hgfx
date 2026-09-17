@@ -1,11 +1,12 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-17
-Status: **IN PROGRESS — external paper-readiness critique incorporated**
+Status: **IN PROGRESS — P1 PAPER PROTOCOL FROZEN; P2/P2A/P3 ACTIVE NEXT**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 Frozen MATLAB oracle: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
+Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
 
 ## Goal
 
@@ -15,9 +16,11 @@ Produce a submission-ready computational methods/software-methods paper and repr
 
 The manuscript is **not absent**: `paper/manuscript.md` already contains a substantive working Abstract, methodology/validation, Results, Discussion, Limitations, Reproducibility and Conclusion. It remains **IN PROGRESS**, because final generated tables/figures, paper-only prospective results, reproducibility bundle, declarations/journal formatting and independent review are still open.
 
+The paper-specific protocol is now frozen before final paper-only execution. It fixes the claim set, recovery/identifiability experiment, statistical summaries, `pyhgf==0.3.2` comparator identity and semantic gate, provenance requirements, and the decision not to make general performance/scaling a headline claim under protocol version 1.
+
 Historical M19 is already **PASS/FROZEN** for v1.0.0. Publication work must not reopen M19. This plan therefore uses two separate publication gates:
 
-- **Paper protocol freeze** — before new final paper-only experiments;
+- **Paper protocol freeze** — DONE as `hgfx-paper-protocol-1` before new final paper-only experiments;
 - **Final paper-evidence freeze** — after all evidence selected for submission has been generated and audited.
 
 D02/D08 are not open tasks to force into direct PASS. Their direct failures remain visible and the exact validated scopes are frozen as `REFERENCE_LIMITATION_MATCH`. The paper task is to report them accurately, not to retune them away.
@@ -26,7 +29,9 @@ D02/D08 are not open tasks to force into direct PASS. Their direct failures rema
 
 The primary claim is **reference-faithful Python/JAX reproduction of the frozen MATLAB HGF Toolbox 8.2.0 scientific and workflow behavior in validated scopes, with no MATLAB runtime dependency for users**.
 
-Secondary claims may cover JAX CPU/GPU execution, batching, multi-device infrastructure, recovery/identifiability and performance only when the corresponding paper-specific evidence is prospectively frozen and traceable. Correctness/applicability and throughput/scaling remain separate claims.
+Secondary claims may cover JAX CPU/GPU execution, batching, multi-device infrastructure, and recovery/identifiability only when the corresponding paper-specific evidence is prospectively frozen and traceable. Correctness/applicability and throughput/scaling remain separate claims.
+
+Under paper protocol 1, general speedup and multi-GPU scaling are **not** headline claims. Historical H100/T4 performance evidence remains in its original engineering scope only unless a future protocol revision prospectively activates a paper performance benchmark.
 
 `REFERENCE_LIMITATION_MATCH` means that HGFX reproduces a limitation observed in the frozen MATLAB oracle for the exact validated scope. It is not a scientific recovery PASS and must never be presented as one.
 
@@ -53,7 +58,7 @@ HGFX `1.0.0` is now publicly installable from PyPI. This improves reviewer usabi
 - `paper/figures/` — generated figures only.
 - `paper/tables/` — generated table outputs only.
 - `paper/scripts/` — scripts that regenerate figures/tables from committed evidence.
-- `paper/reproducibility/PAPER_PROTOCOL.md` — paper-only protocol; must be frozen before final new runs.
+- `paper/reproducibility/PAPER_PROTOCOL.md` — frozen paper-only protocol (`hgfx-paper-protocol-1`).
 - `paper/reproducibility/` — commands, environment manifests, hashes and final paper evidence manifest.
 - `docs/research/PAPER_EVIDENCE_MAP.md` — authoritative claim-to-evidence map.
 - `docs/research/PAPER_REVIEW_GAP_ASSESSMENT.md` — critique reconciliation and publication-gap inventory.
@@ -82,29 +87,33 @@ Acceptance:
 
 ### P1 — Freeze the paper-specific protocol
 
-**Status:** OPEN / REQUIRED BEFORE NEW FINAL PAPER RUNS.
+**Status:** DONE / `FROZEN_FOR_EXECUTION`.
 
-Create and finalize `paper/reproducibility/PAPER_PROTOCOL.md` with status `FROZEN_FOR_EXECUTION` before final new experiments. Freeze:
-- exact paper research questions and claim set;
-- datasets and checksums;
-- model families and observation models;
-- parameter-recovery and model-selection metrics;
-- trial horizons and replicate counts for identifiability experiments;
-- pyhgf comparator version and semantic mapping;
-- CPU/GPU/performance workload matrix;
-- warm-up/compile/repeat policy;
+Frozen protocol: `paper/reproducibility/PAPER_PROTOCOL.md`  
+Protocol ID: `hgfx-paper-protocol-1`
+
+The protocol freezes:
+- exact paper claim set;
+- immutable historical-evidence policy;
+- M18C.2 recovery/identifiability models, horizons, scales, replicates, seeds, fitting contracts and criteria;
+- input-manifest/checksum policy before paired execution;
 - statistical summaries and uncertainty intervals;
-- inclusion/exclusion rules;
-- acceptance/interpretation rules;
-- exact software and hardware fields required in provenance.
+- `pyhgf==0.3.2` comparator identity and source-distribution hash;
+- semantic gate for any direct HGFX↔pyhgf empirical comparison;
+- inclusion/exclusion and outcome-classification rules;
+- exact provenance fields required for every new paper result;
+- table/figure generation rules;
+- protocol-deviation/versioning rules;
+- general performance/scaling as **not activated** under protocol version 1.
 
 Acceptance:
 - protocol is committed before final paper-only executions;
-- no final paper-only result exists whose settings were chosen after inspection of its outcome.
+- no final paper-only result exists whose settings were chosen after inspection of its outcome;
+- any later activation of headline performance requires a new frozen protocol version before execution.
 
 ### P2 — Generate core equivalence tables from frozen v1 evidence
 
-**Status:** OPEN / HIGH PRIORITY.
+**Status:** OPEN / HIGH PRIORITY / NEXT.
 
 Generate, by script:
 1. model/workflow coverage table;
@@ -129,14 +138,19 @@ Acceptance:
 Reference literature:
 - Legrand et al. (2026), `pyhgf: A neural network library for predictive coding`, PLOS Computational Biology 22(6):e1014340, DOI `10.1371/journal.pcbi.1014340`.
 
+Frozen comparator for paper protocol 1:
+- package: `pyhgf==0.3.2`;
+- source distribution: `pyhgf-0.3.2.tar.gz`;
+- SHA-256: `8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d`;
+- release date: 2026-09-11.
+
 Required work:
-- pin the exact pyhgf release/commit used in the paper;
 - produce a qualitative feature/design matrix based on primary documentation and paper sources;
 - map which HGF workflows are scientifically comparable between HGFX and pyhgf;
 - identify non-overlap explicitly rather than treating it as failure;
-- where a common surface exists, define a prospective empirical comparison under the same input/hardware/precision/timing policy;
+- apply the frozen semantic gate before any direct numerical comparison;
+- where a common surface exists, use the same input/precision policy and the protocol-fixed scientific quantity;
 - compare forward/inference outputs only after parameterization and semantics are shown to match sufficiently;
-- compare fitting/performance only when workflows are genuinely equivalent;
 - report `NOT_DIRECTLY_COMPARABLE` where they are not.
 
 Required comparison dimensions:
@@ -162,7 +176,7 @@ Acceptance:
 **Status:** IN PROGRESS / STRONGLY RECOMMENDED FOR THE STRONGER METHODS PAPER.**
 Tracking: PV1-01 / issue #21.
 
-The protocol is already frozen in `docs/validation/M18C2_TRIAL_HORIZON_PROTOCOL.md`. Run the predefined trial horizons `128`, `256`, `512`, and `1024` for `hgf_binary`, `ehgf_binary`, and `uhgf_binary` without changing the historical M18 criterion or hiding failed configurations.
+The protocol is already frozen in the PV1-01 work as `m18c2-trial-horizon-identifiability-1`, and its settings are duplicated/frozen in `paper/reproducibility/PAPER_PROTOCOL.md` for the paper claim set. Run the predefined trial horizons `128`, `256`, `512`, and `1024` for `hgf_binary`, `ehgf_binary`, and `uhgf_binary` without changing the historical M18 criterion or hiding failed configurations.
 
 Report:
 - convergence fraction;
@@ -171,7 +185,7 @@ Report:
 - median parameter correlation where meaningful;
 - likelihood/profile diagnostics;
 - model-selection/model-recovery accuracy;
-- uncertainty across replicates.
+- uncertainty across replicates under the frozen paper summary policy.
 
 Interpretation must separate:
 - data-horizon limitation;
@@ -187,11 +201,15 @@ Acceptance:
 
 ### P4 — Paper-grade performance benchmark refresh
 
-**Status:** OPEN / REQUIRED ONLY IF PERFORMANCE IS A HEADLINE PAPER CLAIM.
+**Status:** NOT ACTIVATED IN `hgfx-paper-protocol-1` / OPTIONAL FUTURE PROTOCOL.
 
-Freeze and run representative workloads across CPU, single GPU and multi-GPU where suitable hardware is available. Report cold compilation separately from steady-state execution.
+General speedup and multi-GPU scaling are not headline paper claims under protocol 1. Therefore no new final paper performance run should be executed merely to add a stronger-looking result.
 
-Minimum provenance:
+Historical H100/T4 measurements remain available only in their original engineering scope. The frozen v1 physical Tesla T4 evidence may support GPU applicability/correctness, not a general throughput claim.
+
+If performance is later promoted to a headline contribution, first create and freeze a new paper protocol version that specifies representative CPU, single-GPU and multi-GPU workloads and reports cold compilation separately from steady-state execution.
+
+Minimum provenance for any future activated performance protocol:
 - CPU/GPU model and count;
 - RAM/VRAM;
 - OS/kernel;
@@ -204,7 +222,7 @@ Minimum provenance:
 - warmups/repeats;
 - contention/shared-host caveat.
 
-Acceptance:
+Acceptance if activated in a future protocol:
 - no historical H100/T4 result is silently substituted for a new paper benchmark;
 - performance claim is scoped to tested hardware/workload;
 - correctness evidence is not inferred from speed measurements.
@@ -219,8 +237,9 @@ Required figure set for the selected claim set:
 - recovery/identifiability plot across trial horizons if P3 is retained;
 - paired model-selection summary;
 - CPU/JAX/GPU objective agreement plot;
-- pyhgf common-scope comparison figure/table only where direct comparison is scientifically valid;
-- performance/scaling plot only if P4 is retained.
+- pyhgf common-scope comparison figure/table only where direct comparison is scientifically valid.
+
+A performance/scaling plot is not required under protocol 1 because P4 is not activated.
 
 Required script behavior:
 - read committed machine-readable inputs;
@@ -281,13 +300,14 @@ The working manuscript already contains evidence-backed sections for the release
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
 - integrating generated P2/P5 tables and figures;
 - updating recovery Results/Discussion after P3 if retained;
-- adding paper-grade performance Results only if P4 is retained;
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
 - selecting target journal and converting to its template;
 - completing code/data availability, funding and conflict statements;
 - ensuring the abstract contains only frozen supported claims.
+
+Paper-grade performance Results are not required under protocol 1 because general performance/scaling is not a headline claim.
 
 Acceptance:
 - Methods, Results and Discussion are complete as standalone scientific sections rather than repository summaries;
@@ -352,6 +372,6 @@ The paper is submission-ready only when all applicable items below are internall
 
 For the current evidence base, the defensible main contribution is **MATLAB-toolbox reproduction with rigorous evidence accounting and transparent reference-limit handling**, positioned explicitly alongside pyhgf rather than as a replacement for all modern Python HGF tooling.
 
-PV1-01 recovery/identifiability can materially strengthen the scientific analysis. Paper-grade performance can strengthen the engineering contribution if executed prospectively. Neither should be allowed to manufacture a stronger conclusion than the evidence supports.
+PV1-01 recovery/identifiability remains the prospective analysis most likely to strengthen the scientific contribution under protocol 1. General performance/scaling is intentionally excluded from the headline claim set unless prospectively activated by a later protocol revision.
 
-PyPI publication is now complete and can be cited as a reviewer-usability/distribution fact, but it is not a substitute for scientific validation or reproducibility.
+PyPI publication is complete and can be cited as a reviewer-usability/distribution fact, but it is not a substitute for scientific validation or reproducibility.
