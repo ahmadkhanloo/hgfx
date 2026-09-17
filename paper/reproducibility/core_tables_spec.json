@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "generator": "paper/scripts/generate_core_tables.py",
+  "sources": {
+    "d02": {"path": "reference/validation/m18_d02_reference_limitation/decision.json", "sha256": "037a16d245ff574ebc98c9dac41a92adb459b587207d58e8cf8c22e8d036c0cf"},
+    "d08": {"path": "reference/validation/m18_d08_reference_limitation/decision.json", "sha256": "a375ec68f1ca2fcb99b7eae3476b3800f86f4e298c7c2ff79acbac2724e669ff"},
+    "s7": {"path": "reference/validation/m18_s7_reference_limitation/decision.json", "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"},
+    "demo_model_selection": {"path": "paper/reproducibility/frozen_inputs/m18_demo_model_selection_classification.json", "sha256": "5914e3b5870020d4133a0bf322d4be2998cc809ce6b63161bf04fa0b52dd5109"},
+    "demo_uhgf_ar1": {"path": "paper/reproducibility/frozen_inputs/m18_demo_uhgf_ar1_classification.json", "sha256": "44242dc98df70d526c5cdf0f609fab0a4eb36fd4d0bdf41328988570c1b99452"},
+    "snapshot": {"path": "paper/reproducibility/frozen_inputs/p2_source_snapshot.json", "sha256": "2d225d133032ce3cc323d23cba5a6145cb54409b3f7401954193297e10618baa"}
+  },
+  "tables": [
+    {"id": "model_workflow_coverage", "title": "Model and workflow coverage"},
+    {"id": "official_demo_parity", "title": "Official MATLAB demo parity"},
+    {"id": "fitting_statistics_classification", "title": "Fitting and statistics classification"},
+    {"id": "recovery_model_selection", "title": "Recovery and paired model selection"},
+    {"id": "backend_gpu_applicability", "title": "Backend and physical GPU applicability"},
+    {"id": "release_reproducibility_provenance", "title": "Release and reproducibility provenance"}
+  ]
+}
