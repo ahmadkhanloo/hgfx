@@ -1,0 +1,40 @@
+{
+  "candidate_surface": "fixed_parameter_three_level_binary_hgf_forward",
+  "classification": "PASS_FOR_COMMON_SCOPE",
+  "comparator": {
+    "git_commit": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+    "git_tag": "v0.3.2",
+    "package": "pyhgf",
+    "sdist_sha256": "8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d",
+    "version": "0.3.2"
+  },
+  "feature_dimensions": [
+    "primary_design_goal",
+    "matlab_toolbox_relation",
+    "network_construction",
+    "model_coverage_extensibility",
+    "fitting_model_comparison",
+    "differentiability_jax",
+    "accelerator_support",
+    "recovery_evidence",
+    "reproducibility_provenance",
+    "packaging_documentation"
+  ],
+  "inputs": [
+    {
+      "path": "paper/comparison/pyhgf_comparison_spec.json",
+      "sha256": "55087738cffb36d0c2c816357b1e02287b6a92394a0b1e1f49ab1bb5a66babf8"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/comparison/pyhgf_semantic_mapping.json",
+      "sha256": "0f8adc2dcb74a11d83007f75f72b03522180d4c173737c4bc6dd97b8cafc202e"
+    },
+    {
+      "path": "paper/tables/pyhgf_feature_design_matrix.md",
+      "sha256": "ad914eadf1ba1d55a615a041b8a332908fc3a44dee9e9e15abf66c7750ef865e"
+    }
+  ],
+  "protocol_id": "hgfx-paper-protocol-1"
+}
