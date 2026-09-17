@@ -322,8 +322,9 @@ The working manuscript already contains evidence-backed sections for the release
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
-- recommended first target: *Frontiers in Neuroinformatics*; alternatives *Journal of Neuroscience Methods* or *PLOS Computational Biology* Software if shortened;
-- converting to the selected journal template after the authors choose;
+- selected target: *Journal of Neuroscience Methods* (Elsevier hybrid, subscription track / no APC);
+- not JCR Q1 (Neurosciences Q3; Biochemical Research Methods Q2);
+- converting to the JNM Research Article format (Highlights, Materials and methods, abstract ≤250 words);
 - funding recorded as none; remaining conflict/author metadata left for the authors;
 - ensuring the abstract contains only frozen supported claims.
 
