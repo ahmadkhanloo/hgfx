@@ -1,10 +1,11 @@
 # HGFX: a validated Python/JAX reproduction of the Hierarchical Gaussian Filter toolbox
 
-**Target journal:** *Frontiers in Neuroinformatics*  
-**Article type:** Technology and Code  
-**Running title:** Validated Python HGF toolbox  
+**Target journal:** *Journal of Neuroscience Methods* (Elsevier; hybrid; **subscription track, no APC**)  
+**Article type:** Research Article (methods)  
+**Highlights:** `paper/highlights.txt`  
 **Word count (main text, approximate):** 2,400  
-**Figures:** 5  **Tables:** 6
+**Figures:** 5  **Tables:** 6  
+**Abstract:** ≤250 words (this draft ≈ 230)
 
 **Authors and affiliations:** to be completed before submission.  
 **Correspondence:** to be completed before submission.
@@ -25,7 +26,7 @@ Python/JAX toolboxes already exist in this space. pyhgf represents predictive-co
 
 This paper asks whether a legacy scientific toolbox can be reproduced in an accelerator-compatible stack without silently changing the scientific contract. We report the released HGFX 1.0.0 evidence: workflow reproduction, paired model-selection agreement, CPU/backend and physical-GPU applicability, a scoped pyhgf comparison, and preserved historical failures. General speedup and multi-GPU scaling are not headline claims.
 
-## 2 Method
+## 2 Materials and methods
 
 ### 2.1 Software description
 

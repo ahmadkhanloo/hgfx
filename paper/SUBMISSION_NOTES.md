@@ -1,30 +1,33 @@
 # Submission notes (not part of the article)
 
-Target: *Frontiers in Neuroinformatics*, article type **Technology and Code**.
+Target: *Journal of Neuroscience Methods* (Elsevier).  
+Article type: **Research Article** (new/refined neuroscience method).  
+Publishing route: **subscription (default) — no author fee**. Do not select Gold Open Access unless an external payer exists (OA APC is about USD 3,680).
 
-Limits: abstract ≤ 350 words; main text ≤ 12,000 words; ≤ 15 figures/tables combined. Current draft: 5 figures + 6 tables.
+Quartile (honest): **not Q1**. Typical recent JCR: Neurosciences **Q3**; Biochemical Research Methods **Q2**. CiteScore General Neuroscience **Q2**. CAS/中科院: 医学 4区. Impact factor ≈ 2.3–2.5.
 
-## Ready in this draft
+## Journal constraints already applied
 
-- IMRaD matching Technology and Code: Abstract, Introduction, Method, Results (with use/limitations), Discussion (with scalability/limitations)
-- Software metadata table (repo, OS, language, license)
-- In-text Figure 1–5 and Table 1–6
+- Abstract ≤ 250 words
+- Highlights: `paper/highlights.txt` (5 bullets, ≤85 characters)
+- IMRaD: Introduction; Materials and methods; Results; Discussion
 - 300 dpi PNG + PDF figures
-- Expanded bibliography including TAPAS, HGF applications, pyhgf, VBA, reproducibility
+- Data/code: GitHub + PyPI (Elsevier research-data Option C)
 - Funding: none
-- No internal P2/P5/issue banners in the article body
+- Subscription track: no APC for corresponding authors in Iran
+
+## Elsevier upload
+
+- Manuscript: `paper/manuscript.md` (convert to Word/LaTeX in the submission system)
+- Highlights file: `paper/highlights.txt`
+- Figures as separate files: `paper/figures/fig_*.png` or `.pdf`
+- Tables may remain in the manuscript (editable text)
+- Choose **subscription** when asked about open access
+- Competing interests / CRediT / affiliations: author-supplied
 
 ## Still required from the authors
 
-- Names, affiliations, corresponding author, contributions, competing interests, acknowledgments
-- Frontiers submission system upload (Word/LaTeX); this Markdown is the source
-- P3 trial-horizon classification and an optional Figure 6 after run `35272347167` completes
-- Independent P8 review of the frozen candidate
+- Names, affiliations, corresponding author, CRediT, competing interests, acknowledgments
+- P3 trial-horizon classification after Actions run `35272347167`
+- Independent P8 review
 - `FROZEN_FOR_SUBMISSION` paper-evidence manifest
-
-## Upload files
-
-- `paper/manuscript.md`
-- `paper/references.bib`
-- `paper/figures/fig_*.png` and `fig_*.pdf`
-- `paper/tables/*.md` as supplement if desired
