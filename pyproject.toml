@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hgfx"
-version = "1.0.0"
+version = "1.1.0"
 description = "GPU-native Python/JAX toolbox for Hierarchical Gaussian Filters"
 readme = "README.md"
 requires-python = ">=3.11"
