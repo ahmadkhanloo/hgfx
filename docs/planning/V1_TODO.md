@@ -102,7 +102,7 @@ Current state:
 - P5 figures generated from frozen S7/P2A.10 evidence (`paper/figures/`);
 - P6 reviewer entry point at `paper/reproducibility/README.md`;
 - P3 M18C.2 24-shard MATLAB/HGFX matrix running on GitHub Actions (`35272347167`); invalid 512-trial simulations are retained, not dropped;
-- remaining: complete P3 coverage/classification, P3 figure, P6A freeze, P7 lock, P8 independent audit.
+- remaining: complete P3 coverage/classification, P3 figure, P6A freeze, P7 lock, P8 independent audit (checklist prepared).
 
 Planned scope:
 

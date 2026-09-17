@@ -7,7 +7,7 @@
 
 **Authors and affiliations:** to be finalized before submission.
 
-> Submission note: this draft is evidence-backed for the released v1.0.0 validation record. Core equivalence tables (P2), the frozen pyhgf common-scope comparison (P2A), generated figures (P5), and the paper reproduction entry point are now committed. Remaining blockers: P3 trial-horizon execution on GitHub Actions MATLAB, final paper-evidence freeze, author/affiliation/journal metadata, and independent pre-submission review.
+> Submission note: this draft is evidence-backed for the released v1.0.0 validation record. Core equivalence tables (P2), the frozen pyhgf common-scope comparison (P2A), generated figures (P5), and the paper reproduction entry point (P6) are committed. Remaining blockers: complete P3 trial-horizon coverage and classification, P3 figure, paper-evidence freeze (`FROZEN_FOR_SUBMISSION`), author/affiliation/journal metadata, and independent pre-submission review.
 
 ## Abstract
 
@@ -171,13 +171,13 @@ First, validation is scoped to the frozen HGF Toolbox 8.2.0 reference and the do
 
 Second, exact optimizer endpoint identity is not achieved or claimed for every numerically sensitive fitting case. D02 and D08 are retained as scoped reference-limitation matches, and their underlying scientific limitations remain visible.
 
-Third, historical parameter-recovery results include failures. The current evidence supports paired model-selection agreement more strongly than general parameter identifiability. A prospective trial-horizon analysis is planned to characterize this distinction.
+Third, historical parameter-recovery results include failures. The current evidence supports paired model-selection agreement more strongly than general parameter identifiability. A prospectively frozen trial-horizon analysis is executing on GitHub Actions MATLAB; classification is withheld until all 24 shards are complete.
 
 Fourth, the physical-GPU result establishes numerical applicability on the tested Tesla T4 environment. It does not establish general speedup, H100 performance, uncontended peak performance, or strong multi-GPU scaling. Those claims require a new frozen paper benchmark.
 
 Fifth, the direct pyhgf evidence is intentionally narrow: one fixed-parameter, fully observed, three-level binary-HGF case under an explicitly mapped standard/mean-field configuration. It supports the reported common-scope trajectory result but not general equivalence across model families, fitting workflows, missing-data semantics, observation models, or package capabilities. The participant-response NLL surface is explicitly retained as not directly comparable under the frozen numerical construction.
 
-Sixth, the current working manuscript still requires generated paper tables/figures, a complete paper-specific reproduction bundle, final author/affiliation metadata, target-journal formatting, and an independent pre-submission review.
+Sixth, this working manuscript still requires the completed P3 classification and figure, the paper-evidence freeze (`FROZEN_FOR_SUBMISSION`), author/affiliation/journal metadata, and an independent pre-submission review. Core tables and figures for the current claim set are already generated.
 
 ## 7. Reproducibility and availability
 
@@ -185,7 +185,22 @@ HGFX v1.0.0 is released under the MIT license. The immutable source target is `4
 
 The repository records aggregate evidence in `docs/validation/V1_EVIDENCE_INDEX.md`, the M19 freeze in `docs/planning/M19_GATE.md`, official demo reproduction instructions in `docs/user/MATLAB_DEMOS.md`, and paper claim provenance in `docs/research/PAPER_EVIDENCE_MAP.md`.
 
-`paper/reproducibility/` now includes the frozen paper protocol and the P2A external-comparator case, authorization gate, byte-for-byte raw numerical result, post-hash comparison artifact, exact resolved environment, and workflow/artifact provenance. Before submission, the remaining selected paper outputs must receive the same input-hash and regeneration treatment, followed by the final `FROZEN_FOR_SUBMISSION` evidence manifest.
+`paper/reproducibility/` includes the frozen paper protocol, P2A external-comparator artifacts, and a reviewer entry point (`README.md`) that distinguishes MATLAB-required steps from MATLAB-free regeneration of P2 tables and P5 figures. Before submission, remaining selected paper outputs (P3 horizon evidence/figure) must receive the same input-hash treatment, followed by the final `FROZEN_FOR_SUBMISSION` evidence manifest.
+
+Source, tag, and package:
+
+- GitHub: https://github.com/ahmadkhanloo/hgfx
+- Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0
+- PyPI: `hgfx==1.0.0`
+
+## Figure list
+
+- Figure 1. Evidence classes used in this manuscript (`paper/figures/fig_evidence_classes.png`).
+- Figure 2. Historical S7 paired parameter-recovery metrics against frozen M18 thresholds (`paper/figures/fig_recovery_metrics.png`). This is not a scientific PASS.
+- Figure 3. Paired model-selection agreement (`paper/figures/fig_model_selection.png`).
+- Figure 4. CPU versus physical-GPU final-objective agreement on Tesla T4 (`paper/figures/fig_gpu_applicability.png`).
+- Figure 5. Frozen HGFX↔pyhgf common-scope comparison, including the retained NDC response-NLL surface (`paper/figures/fig_pyhgf_common_scope.png`).
+- Figure 6. Trial-horizon identifiability (deferred until M18C.2 aggregate evidence is committed).
 
 ## 8. Conclusion
 

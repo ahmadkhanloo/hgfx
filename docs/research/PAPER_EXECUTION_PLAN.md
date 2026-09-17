@@ -335,7 +335,9 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** OPEN / FINAL SCIENTIFIC GATE.
+**Status:** OPEN / FINAL SCIENTIFIC GATE / CHECKLIST PREPARED.
+
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. The checklist is not a completed review.
 
 Review the exact submission candidate for:
 - scientific overclaiming;
