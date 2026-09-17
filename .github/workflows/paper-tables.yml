@@ -1,0 +1,46 @@
+name: Paper Core Tables
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'paper/scripts/generate_core_tables.py'
+      - 'paper/reproducibility/PAPER_PROTOCOL.md'
+      - 'paper/tables/**'
+      - 'tests/unit/test_paper_table_generation.py'
+      - 'benchmarks/m18_validation_matrix.json'
+      - 'reference/validation/v1_release/**'
+      - 'reference/validation/m18_d02_reference_limitation/**'
+      - 'reference/validation/m18_d08_reference_limitation/**'
+      - 'reference/validation/m18_s7_reference_limitation/**'
+      - 'reference/validation/m18_scientific_validation.json'
+      - 'reference/validation/m18_d09/**'
+      - 'gpu_validation_results/m18_s9_physical_gpu_revalidation.json'
+      - 'docs/research/PAPER_EVIDENCE_MAP.md'
+      - 'docs/validation/V1_FINAL_RELEASE_PROVENANCE.md'
+      - 'docs/planning/PYPI_PUBLISHING.md'
+      - '.github/workflows/paper-tables.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate P2 core tables
+        run: python paper/scripts/generate_core_tables.py --output /tmp/hgfx-paper-tables
+      - name: Upload generated tables and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-p2-core-paper-tables
+          path: /tmp/hgfx-paper-tables
+          if-no-files-found: error
