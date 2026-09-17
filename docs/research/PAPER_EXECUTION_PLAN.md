@@ -313,7 +313,7 @@ Acceptance:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / SUBSTANTIVE DRAFT EXISTS.
+**Status:** IN PROGRESS / SUBSTANTIVE DRAFT WITH P2/P2A/P5/P6 INTEGRATED.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
