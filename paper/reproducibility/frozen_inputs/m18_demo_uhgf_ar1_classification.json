@@ -1,0 +1,38 @@
+{
+  "case_id": "D04_UHGF_TO_AR1_WORKFLOW",
+  "classification": "PASS_UHGF_AR1_WORKFLOW_PARITY",
+  "gate_semantics": "Both official MATLAB model paths must execute and HGFX must reproduce their trajectories/inference states. Excursion reduction is recorded descriptively, not used as an invented acceptance threshold.",
+  "hgfx": {
+    "level3_excursion": {
+      "uhgf_ar1_binary_max_abs_mu_level3": 4.0927117005012175,
+      "uhgf_binary_max_abs_mu_level3": 16.99162398501939
+    },
+    "uhgf_ar1_binary": {
+      "error": null,
+      "success": true
+    },
+    "uhgf_binary": {
+      "error": null,
+      "success": true
+    }
+  },
+  "matlab": {
+    "level3_excursion": {
+      "uhgf_ar1_binary_max_abs_mu_level3": 4.0927117005012175,
+      "uhgf_binary_max_abs_mu_level3": 16.99162398501939
+    },
+    "uhgf_ar1_binary": {
+      "error_identifier": "",
+      "error_message": "",
+      "success": true
+    },
+    "uhgf_binary": {
+      "error_identifier": "",
+      "error_message": "",
+      "success": true
+    }
+  },
+  "mismatches": [],
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "schema_version": 1
+}
