@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "case_id": "p2a9-binary-hgf-common-scope-001",
+  "scientific_workflow": "P2A.10 Frozen Common-Scope Execution",
+  "scientific_run_id": 35268575414,
+  "scientific_job_id": 105361841212,
+  "scientific_head_sha": "af9000f59ecb156a92cae6fcd063b8b8b9730dd1",
+  "artifact_id": 10517407320,
+  "artifact_archive_sha256": "ca449164064a2f345f73ee08098fe1c6e5aa8f4b7d45166723ed850f177d5e53",
+  "raw_file_sha256": "5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2",
+  "comparison_file_sha256": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14",
+  "pip_freeze_sha256": "ea927b9e643095d51f060026a0e2cc144afa8a99bd0e415028ef2bb1f9cb130e",
+  "embedded_raw_result_sha256": "202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b",
+  "byte_for_byte_artifact_copy": true,
+  "scientific_settings_changed_during_ingest": false
+}
