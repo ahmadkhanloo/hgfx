@@ -1,6 +1,6 @@
 # P2A.10 — Execute frozen HGFX ↔ pyhgf common-scope case
 
-Status: **COMPLETE PENDING FINAL REGRESSION / MERGE**
+Status: **COMPLETE / MERGED / FINAL CI PASS**
 Date: 2026-09-17
 Protocol: `hgfx-paper-protocol-1`
 Case: `p2a9-binary-hgf-common-scope-001`
@@ -23,6 +23,15 @@ Scientific run: `35268575414` / job `105361841212` / head `af9000f59ecb156a92cae
 Artifact: `10517407320`; archive SHA-256 `ca449164064a2f345f73ee08098fe1c6e5aa8f4b7d45166723ed850f177d5e53`.  
 Canonical raw-result SHA-256: `202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b`.
 
+## Final integration evidence
+
+- PR #44 final validated head: `a80d74e2b77db6dec4c718f50defc1c13ec4067c`.
+- Final cross-platform regression: `HGFX Regression` #151 / run `35269599451` — **PASS** on Ubuntu 24.04 and Windows.
+- Ubuntu result: `194 passed, 4 skipped, 5 warnings`; frozen-reference guard PASS; frozen MATLAB source classification PASS.
+- Windows result: `194 passed, 4 skipped, 5 warnings`; frozen-reference guard PASS; frozen MATLAB source classification PASS.
+- PR #44 squash merge commit: `e8160d4874f2c3bce5c0492c6986b4b4e2717ffb`.
+- The merge did not alter the frozen P2A case, tolerances, package versions, numerical policy, or scientific classification.
+
 ## Integrity order
 1. Validate final-gate authorization and immutable case hashes.
 2. Execute both implementations in the exact frozen CPU/x64 environment.
@@ -42,15 +51,16 @@ All six steps were followed. The raw artifact was also independently downloaded 
 - No timing/performance comparison.
 
 ## Workflow trigger note
-The available repository connector does not expose GitHub's workflow-dispatch write action. To execute directly without asking for a manual UI action, the benchmark workflow was implemented as a **one-shot branch/path-limited push workflow**: it ran only when `.github/workflows/p2a10-common-scope.yml` was first added on `paper/p2a10-execute-common-scope`. Later result/evidence commits do not match its path filter, and merging to `main` does not match its branch filter. This operational trigger substitution did not alter any scientific setting or frozen acceptance criterion.
+The available repository connector did not expose a workflow-dispatch write action at the time of execution. To execute directly without asking for a manual UI action, the benchmark workflow was implemented as a **one-shot branch/path-limited push workflow**: it ran only when `.github/workflows/p2a10-common-scope.yml` was first added on `paper/p2a10-execute-common-scope`. Later result/evidence commits did not match its path filter, and merging to `main` did not match its branch filter. This operational trigger substitution did not alter any scientific setting or frozen acceptance criterion.
 
 ## Tasks
 - [x] TDD RED: add focused tests for immutable authorization, native parameter assembly, deterministic raw hashing, comparison metrics and nonfinite classification. Evidence: HGFX Regression #141 / `35267813986`, Ubuntu: 6 expected failures because the runner was absent; 188 other tests passed, 4 GPU tests skipped.
 - [x] TDD GREEN: implement `tools/run_p2a10_common_scope.py` with lazy scientific imports. Ubuntu full regression on HGFX Regression #142 passed before scientific execution.
 - [x] Add the one-shot GitHub Actions execution workflow using only exact frozen package versions; HGFX was installed as `hgfx==1.0.0`, not editable from the branch.
-- [ ] Verify fresh repository regression on the final evidence/documentation head on both Ubuntu and Windows.
+- [x] Verify fresh repository regression on the final evidence/documentation head on both Ubuntu and Windows: run `35269599451`, `194 passed, 4 skipped` on each OS.
 - [x] Execute the benchmark workflow exactly once for the frozen case: run `35268575414` — SUCCESS.
 - [x] Download and inspect the raw artifact; independently verify embedded SHA-256 `202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b` before interpreting comparison output.
 - [x] Commit raw result, comparison result and resolved environment unchanged from the artifact. Evidence-ingest run `35268965774` verified archive/file hashes and byte-for-byte copies; evidence commit `0c5611500a71ce8a7d7c4cb75e434a5bec224d29`.
 - [x] Update issue #33 and paper evidence map/manuscript comparison text according to the observed classification without changing the frozen protocol. Paper-sync run `35269395863` — SUCCESS; issue comment `5720618907`.
-- [ ] Merge only after fresh regression CI passes; then verify `main` and close issue #33.
+- [x] Merge only after fresh regression CI passes; PR #44 squash-merged as `e8160d4874f2c3bce5c0492c6986b4b4e2717ffb` after final Ubuntu/Windows PASS.
+- [x] Verify the P2A closeout is represented in the repository; broader paper planning remains current with P2A complete and P3 active.
