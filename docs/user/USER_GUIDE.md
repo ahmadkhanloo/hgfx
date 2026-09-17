@@ -8,9 +8,17 @@ The v1 product goal is practical MATLAB-toolbox-equivalent use without requiring
 
 HGFX requires Python 3.11 or newer.
 
-### Current release candidate
+### Public release
 
-Until the package is formally published to PyPI, install it from a source checkout:
+HGFX `1.0.0` is published on PyPI. For normal use, install the released package directly:
+
+```bash
+python -m pip install hgfx==1.0.0
+```
+
+The public-index installation was independently verified from `https://pypi.org/simple`; publication provenance is recorded in `docs/planning/PYPI_PUBLISHING.md`.
+
+For development or repository-level validation, use a source checkout:
 
 ```bash
 git clone --recurse-submodules https://github.com/ahmadkhanloo/hgfx.git
@@ -18,23 +26,9 @@ cd hgfx
 python -m venv .venv
 source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install .
-```
-
-For development:
-
-```bash
 python -m pip install -e '.[dev]'
 pytest
 ```
-
-After a future PyPI publication, the intended installation form is simply:
-
-```bash
-python -m pip install hgfx
-```
-
-Do not assume that command is available until a PyPI release has actually been published.
 
 ## 2. The basic mental model
 
@@ -224,11 +218,13 @@ See `docs/user/API.md` for the exact accepted input surface and returned fields.
 
 ## 11. Plotting and diagnostics
 
-Install the plotting extra when needed:
+For a PyPI installation, install the plotting extra when needed:
 
 ```bash
-python -m pip install '.[plot]'
+python -m pip install 'hgfx[plot]==1.0.0'
 ```
+
+For a source checkout under development, `python -m pip install '.[plot]'` is also valid.
 
 HGFX exposes release-supported fit diagnostics, including residual and parameter-correlation plotting helpers. Keep numerical analysis separate from presentation code so that plots do not become part of scientific acceptance criteria.
 
@@ -329,7 +325,7 @@ hgfx.enable_x64()
 result = hgfx.fit_model(y, u)
 ```
 
-Pin a specific HGFX version for reproducible research. Once v1.0 is formally released, prefer a version constraint such as `hgfx==1.0.0` rather than tracking a moving branch.
+Pin a specific HGFX version for reproducible research. For the current public release, prefer `hgfx==1.0.0` rather than tracking a moving branch.
 
 ## 17. What to cite and archive for reproducibility
 
