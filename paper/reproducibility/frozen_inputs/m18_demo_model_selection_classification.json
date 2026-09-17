@@ -6,12 +6,26 @@
     "hgf_binary": "FAIL_VARIATIONAL_APPROXIMATION_INVALID"
   },
   "hgfx": {
-    "ehgf_binary": {"error": null, "success": true},
-    "hgf_binary": {"error": "ValueError: Negative posterior precision. Parameters are in a region where model assumptions are violated.", "success": false}
+    "ehgf_binary": {
+      "error": null,
+      "success": true
+    },
+    "hgf_binary": {
+      "error": "ValueError: Negative posterior precision. Parameters are in a region where model assumptions are violated.",
+      "success": false
+    }
   },
   "matlab": {
-    "ehgf_binary": {"error_identifier": "", "error_message": "", "success": true},
-    "hgf_binary": {"error_identifier": "tapas:hgf:NegPostPrec", "error_message": "Negative posterior precision. Parameters are in a region where model assumptions are violated.", "success": false}
+    "ehgf_binary": {
+      "error_identifier": "",
+      "error_message": "",
+      "success": true
+    },
+    "hgf_binary": {
+      "error_identifier": "tapas:hgf:NegPostPrec",
+      "error_message": "Negative posterior precision. Parameters are in a region where model assumptions are violated.",
+      "success": false
+    }
   },
   "mismatches": [],
   "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
