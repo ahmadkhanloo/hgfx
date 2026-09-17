@@ -1,9 +1,9 @@
 # PV1-02A — HGFX vs pyhgf frozen common-scope numerical result
 
-Status: **P2A.10 COMPLETE — PARTIAL MATCH WITH RESPONSE-NLL NDC**  
+Status: **P2A.10 COMPLETE / MERGED — PARTIAL MATCH WITH RESPONSE-NLL NDC**  
 Paper protocol: `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`  
 Case: `p2a9-binary-hgf-common-scope-001`  
-Tracking: issue #33  
+Tracking: issue #33 / PR #44  
 Date: 2026-09-17
 
 ## Decision
@@ -104,6 +104,18 @@ This result does not establish that HGFX is generally more accurate, faster, or 
 - `paper/reproducibility/pyhgf_common_scope_case.json` — immutable prospectively frozen case.
 - `paper/reproducibility/pyhgf_final_semantic_gate.json` — pre-execution authorization record.
 
+## Final integration verification
+
+P2A.10 was integrated only after a fresh cross-platform regression on the final PR head:
+
+- final PR head: `a80d74e2b77db6dec4c718f50defc1c13ec4067c`;
+- `HGFX Regression` #151 / run `35269599451`;
+- Ubuntu 24.04: `194 passed, 4 skipped, 5 warnings`; frozen-reference guard PASS; source classification PASS;
+- Windows: `194 passed, 4 skipped, 5 warnings`; frozen-reference guard PASS; source classification PASS;
+- PR #44 squash merge: `e8160d4874f2c3bce5c0492c6986b4b4e2717ffb`.
+
+The warnings are preserved existing numerical-runtime warnings in regression cases; they were not hidden or converted into failures. Physical-GPU tests were skipped on these CPU-only hosted runners exactly as declared by the regression suite. No P2A scientific setting or classification changed during integration.
+
 ## P2A status consequence
 
-The empirical common-scope requirement of issue #33 is now satisfied for the semantically authorized case. The remaining P2A closeout work is documentary: synchronize the manuscript, evidence map and execution plan with this observed scoped result and complete the claim audit. No post-result scientific retuning is required or permitted.
+The empirical common-scope requirement of issue #33 is satisfied for the semantically authorized case, the manuscript/evidence-map claim synchronization is committed, final Ubuntu/Windows regression passed, and PR #44 is merged. **P2A is complete.** The broader paper roadmap has already moved on: P5/P6 are recorded complete in current planning documents and P3 recovery/identifiability execution is active separately under its frozen protocol.
