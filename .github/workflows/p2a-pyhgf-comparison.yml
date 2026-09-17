@@ -1,0 +1,66 @@
+name: P2A pyhgf Common-Scope Comparison
+
+on:
+  pull_request:
+    paths:
+      - 'paper/scripts/generate_p2a_comparison.py'
+      - 'paper/evidence/p2a/**'
+      - 'paper/reproducibility/p2a_*'
+      - 'paper/reproducibility/pyhgf_semantic_mapping.json'
+      - 'paper/tables/pyhgf_common_scope_comparison.md'
+      - 'tests/paper/test_p2a_comparison.py'
+      - 'docs/research/**'
+      - 'paper/manuscript.md'
+      - '.github/workflows/p2a-pyhgf-comparison.yml'
+  push:
+    branches:
+      - main
+      - 'paper/**'
+    paths:
+      - 'paper/scripts/generate_p2a_comparison.py'
+      - 'paper/evidence/p2a/**'
+      - 'paper/reproducibility/p2a_*'
+      - 'paper/reproducibility/pyhgf_semantic_mapping.json'
+      - 'paper/tables/pyhgf_common_scope_comparison.md'
+      - 'tests/paper/test_p2a_comparison.py'
+      - 'docs/research/**'
+      - 'paper/manuscript.md'
+      - '.github/workflows/p2a-pyhgf-comparison.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p2a-common-scope:
+    runs-on: ubuntu-24.04
+    env:
+      JAX_ENABLE_X64: '1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install HGFX, frozen pyhgf comparator, and tests
+        run: python -m pip install -e . 'pyhgf==0.3.2' 'pytest>=8'
+      - name: Verify frozen comparator version
+        run: python -c "import importlib.metadata as m; assert m.version('pyhgf') == '0.3.2'"
+      - name: Run P2A acceptance tests
+        run: pytest -q tests/paper/test_p2a_comparison.py
+      - name: Regenerate P2A outputs
+        if: always()
+        run: python paper/scripts/generate_p2a_comparison.py
+      - name: Verify committed outputs are reproducible
+        if: always()
+        run: git diff --exit-code -- paper/evidence/p2a paper/reproducibility/pyhgf_semantic_mapping.json paper/reproducibility/p2a_output_manifest.json paper/tables/pyhgf_common_scope_comparison.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p2a-common-scope-evidence
+          path: |
+            paper/evidence/p2a/
+            paper/reproducibility/pyhgf_semantic_mapping.json
+            paper/reproducibility/p2a_output_manifest.json
+            paper/tables/pyhgf_common_scope_comparison.md
+          if-no-files-found: warn

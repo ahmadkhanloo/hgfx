@@ -1,0 +1,31 @@
+{
+  "comparator": {
+    "git_commit": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+    "git_tag": "v0.3.2",
+    "package": "pyhgf",
+    "sdist": "pyhgf-0.3.2.tar.gz",
+    "sdist_sha256": "8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d",
+    "version": "0.3.2"
+  },
+  "freeze_status": "FROZEN_BEFORE_EXECUTION",
+  "frozen_at": "2026-09-17",
+  "hgfx_base_commit": "46c5b0e7a14c9fdb40ae043bd9673dcbf0c6b091",
+  "inputs": [
+    {
+      "case_id": "P2A-BINARY3-FORWARD-001",
+      "n_trials": 64,
+      "path": "paper/evidence/p2a/common_scope_input.json",
+      "sha256": "5af5578f57925974490f45b0c554e31aeb7b5617e46868d267d6165309c2b4f2"
+    }
+  ],
+  "notes": [
+    "This manifest was committed before any HGFX↔pyhgf numerical result was executed.",
+    "Thresholds, input sequence, fixed parameters, and comparator identity must not be changed after inspecting results."
+  ],
+  "paper_protocol_blob_sha": "ce4cd71a2087a7836fb416d4c99e96cbe15501b5",
+  "protocol_id": "hgfx-paper-protocol-1",
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-07
+  }
+}
