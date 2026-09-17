@@ -25,6 +25,7 @@ These points are accepted and must not be revised by later feature work.
 7. **pyhgf relation.** pyhgf (`==0.3.2` in paper protocol 1) is an external comparator with a different center of design. Common-scope trajectory agreement does not imply interchangeable response-likelihood or fitting surfaces. Quantities without a mapped contract remain `NOT_DIRECTLY_COMPARABLE`. HGFX does not race pyhgf on nodal/gHGF/network construction.
 8. **P3 is optional for paper 1.** The trial-horizon identifiability study (issue #21) may enter the supplement if it finishes cleanly under its frozen protocol. Paper 1 must not wait on P3, and P3 must not rewrite historical M18 FAIL.
 9. **Audience.** v1 is for researchers who already use the MATLAB HGF Toolbox and need the same analysis contract in Python. It is not the default toolkit for building arbitrary predictive-coding graphs.
+10. **Opt-in MAP.** `hgfx.optim.minimize_map` is an additive analysis helper. It must not become the `fit_model` default, must not enter paper-1 headlines, and must not rewrite frozen fitting evidence. See `OPT_IN_MAP.md`.
 
 ## v2 — current owner decision, not a plan
 
