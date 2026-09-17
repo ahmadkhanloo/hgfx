@@ -23,6 +23,7 @@ Read [VERSION_POLICY](VERSION_POLICY.md), [V1_TODO](V1_TODO.md), [V1_RELEASE_GAT
 - Git tag `v1.0.0` has been verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 - GitHub Release `v1.0.0` is published, non-draft and non-prerelease: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0, Release ID `389966452`.
 - Owner product decision recorded 2026-09-18: v1 stays the MATLAB-compatibility line and paper-1 claim; v2 is not started.
+- Additive opt-in MAP helper lives at `hgfx.optim.minimize_map`. It is not the `fit_model` default. See [OPT_IN_MAP.md](OPT_IN_MAP.md).
 
 ## v1 closure
 
