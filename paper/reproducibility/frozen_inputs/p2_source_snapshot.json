@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_FOR_P2_TABLE_GENERATION",
+  "frozen_on": "2026-09-17",
+  "frozen_matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "frozen_hgfx_release": {
+    "version": "1.0.0",
+    "tag": "v1.0.0",
+    "commit": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+  },
+  "model_workflows": [
+    {
+      "id": "binary-hgf",
+      "perceptual_model": "hgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Baseline binary HGF workflow.",
+      "evidence": "benchmarks/m18_validation_matrix.json#reference_workflows/0"
+    },
+    {
+      "id": "binary-ehgf",
+      "perceptual_model": "ehgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Use eHGF when the MATLAB reference workflow requires enhanced updates; failure of base HGF alone is not a v1 failure.",
+      "evidence": "benchmarks/m18_validation_matrix.json#reference_workflows/1"
+    },
+    {
+      "id": "binary-uhgf",
+      "perceptual_model": "uhgf_binary",
+      "observation_model": "unitsq_sgm",
+      "required": true,
+      "recovery": true,
+      "notes": "Use uHGF when the MATLAB reference workflow requires uncertainty-aware updates; failure of base HGF alone is not a v1 failure.",
+      "evidence": "benchmarks/m18_validation_matrix.json#reference_workflows/2"
+    },
+    {
+      "id": "specialized-families",
+      "perceptual_model": "M12_complete_inventory",
+      "observation_model": "matching_MATLAB_family",
+      "required": true,
+      "recovery": false,
+      "notes": "PU/PU-TBT, AR1, MAB, JGET, categorical, RW/dual-RW, Pearce-Hall, Sutton K1, Kalman, HMM/HHMM, WhatWorld/WhichWorld and auxiliary families are validated by frozen MATLAB parity evidence. Recovery is required only where the MATLAB toolbox presents a scientifically meaningful recovery workflow.",
+      "evidence": "benchmarks/m18_validation_matrix.json#reference_workflows/3"
+    }
+  ],
+  "demo_artifacts": {
+    "model_selection": {
+      "workflow_run": 35028441041,
+      "artifact_id": 10420615907,
+      "artifact_sha256": "bcae2b97272d4403d75f4a97ff07adebcf0e199adf6fdb57494646c800cea982",
+      "head_sha": "443ff678575f5494aebd59083b0bbf4cd7e4154b",
+      "classification_file": "paper/reproducibility/frozen_inputs/m18_demo_model_selection_classification.json"
+    },
+    "uhgf_ar1": {
+      "workflow_run": 35028441038,
+      "artifact_id": 10420651501,
+      "artifact_sha256": "d9cc69b6292158cbc401835aa5b953d009440ce60910ff7dda99ca275e251768",
+      "head_sha": "443ff678575f5494aebd59083b0bbf4cd7e4154b",
+      "classification_file": "paper/reproducibility/frozen_inputs/m18_demo_uhgf_ar1_classification.json"
+    }
+  },
+  "fitting_statistics_passes": [
+    {
+      "id": "D09_SAMPLEMODEL",
+      "surface": "official sampleModel / prior-predictive workflow",
+      "classification": "PASS",
+      "workflow_run": 34842943557,
+      "artifact_id": 10346184455,
+      "artifact_sha256": "6c754cc02ce621c66d67224884c5347c61468cdfb6f3de81dffb03898d02b85c",
+      "head_sha": "2a9a70516966451a6affa7ebe25881cec7285bb1",
+      "evidence": "reference/validation/v1_release/evidence_manifest.json#D09_SAMPLEMODEL"
+    },
+    {
+      "id": "D10_D11_ANALYSIS",
+      "surface": "Corr/Sigma and residual-diagnostics analysis surfaces",
+      "classification": "PASS",
+      "workflow_run": 34847266268,
+      "artifact_id": 10348099156,
+      "artifact_sha256": "a69045cc4e1ad388c64dec7235f8c9d2ad42f6885c6210d31b979d2284b48317",
+      "head_sha": "c3f3f00dda18015f480add972e0edea26fd95ad1",
+      "evidence": "reference/validation/v1_release/evidence_manifest.json#D10_D11_ANALYSIS"
+    },
+    {
+      "id": "D12_BPA",
+      "surface": "Bayesian parameter averaging",
+      "classification": "PASS",
+      "workflow_run": 34854238549,
+      "artifact_id": 10352486569,
+      "artifact_sha256": "14ab041b2473a13496377f63d6d1897578d1785128406eadbc1d6d44ae119883",
+      "head_sha": "21a6e9cc38c9c480745b6eade8ed9ec3bb1e9a56",
+      "evidence": "reference/validation/v1_release/evidence_manifest.json#D12_BPA"
+    }
+  ],
+  "historical_m18": {
+    "id": "M18_HISTORICAL_SCIENTIFIC",
+    "classification": "FAIL_PRESERVED",
+    "evidence": "reference/validation/v1_release/evidence_manifest.json#M18_HISTORICAL_SCIENTIFIC"
+  },
+  "backend": {
+    "cpu": {
+      "id": "S9_CPU_BACKEND",
+      "classification": "PASS_CPU_BACKEND_EQUIVALENCE",
+      "workflow_run": 34901924475,
+      "artifact_id": 10371308067,
+      "artifact_sha256": "875e20dedc50618d72cd4a301fd1cccbeb9d941f918a90209e2ad1b05fa48826",
+      "evidence": "reference/validation/v1_release/evidence_manifest.json#S9_CPU_BACKEND"
+    },
+    "physical_gpu": {
+      "id": "S9_PHYSICAL_GPU",
+      "classification": "PASS_PHYSICAL_GPU_APPLICABILITY",
+      "hardware": "2x Tesla T4",
+      "backend": "gpu",
+      "python": "3.12.13",
+      "jax": "0.11.1",
+      "jaxlib": "0.11.1",
+      "max_objective_gap": 1.4210854715202004e-14,
+      "criterion": 1e-07,
+      "source_commit": "07b45a569e04e8e71244c5310dd2cc53dbb2b0ec",
+      "raw_artifact_sha256": "6cd35c82be1e542830c06f6b7b7e444fda0ff4fe93773f080e6c13725212dfdf",
+      "environment_note": "Kaggle Notebook; hosted/shared NVIDIA GPU environment; numerical applicability validation, not uncontended peak-performance benchmarking.",
+      "evidence": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json"
+    }
+  },
+  "release": {
+    "m19": {
+      "classification": "PASS_FROZEN",
+      "workflow_run": 34966661492,
+      "manifest_status": "FROZEN",
+      "evidence": "reference/validation/v1_release/evidence_manifest.json"
+    },
+    "github_release": {
+      "tag": "v1.0.0",
+      "version": "1.0.0",
+      "release_id": 389966452,
+      "target_commit": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+      "published_at": "2026-09-16T13:45:06Z",
+      "draft": false,
+      "prerelease": false,
+      "api_source": "https://api.github.com/repos/ahmadkhanloo/hgfx/releases/tags/v1.0.0"
+    },
+    "final_regression": {
+      "workflow_run": 35090329868,
+      "head_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+      "conclusion": "success",
+      "ubuntu": "success",
+      "windows": "success",
+      "api_source": "https://api.github.com/repos/ahmadkhanloo/hgfx/actions/runs/35090329868"
+    },
+    "pypi": {
+      "package": "hgfx",
+      "version": "1.0.0",
+      "publish_workflow_run": 35207257208,
+      "publish_conclusion": "success",
+      "publish_head_sha": "8d46da2a559d869c693eb33602ac3fb0b49ab5eb",
+      "verify_workflow_run": 35207903084,
+      "verify_conclusion": "success",
+      "verify_head_sha": "7e37735f2521695fc20e014acab80ebfaee4bce6",
+      "install_command": "python -m pip install hgfx==1.0.0",
+      "evidence": "docs/planning/PYPI_PUBLISHING.md"
+    }
+  }
+}
