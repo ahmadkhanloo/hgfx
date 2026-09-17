@@ -25,12 +25,15 @@ Execute exactly the P2A.9-authorized 128-trial HGFX v1.0.0 ↔ pyhgf 0.3.2 case 
 - pyhgf: `volatility_updates="standard"`, `mean_field_updates=True`, `precision_clipping_value=0.0`, `max_posterior_precision=inf`
 - No timing/performance comparison.
 
+## Workflow trigger note
+The available repository connector does not expose GitHub's workflow-dispatch write action. To execute directly without asking for a manual UI action, the benchmark workflow is therefore a **one-shot branch/path-limited push workflow**: it runs only when `.github/workflows/p2a10-common-scope.yml` is first added on `paper/p2a10-execute-common-scope`. Later result/evidence commits do not match its path filter, and merging to `main` does not match its branch filter. This operational trigger substitution does not alter any scientific setting or frozen acceptance criterion.
+
 ## Tasks
-- [ ] TDD RED: add focused tests for immutable authorization, native parameter assembly, deterministic raw hashing, comparison metrics and nonfinite classification.
-- [ ] TDD GREEN: implement `tools/run_p2a10_common_scope.py` with lazy scientific imports.
-- [ ] Add a manual-only GitHub Actions workflow using only exact frozen package versions; do not install HGFX editable from the branch.
+- [x] TDD RED: add focused tests for immutable authorization, native parameter assembly, deterministic raw hashing, comparison metrics and nonfinite classification. Evidence: HGFX Regression #141 / `35267813986`, Ubuntu: 6 expected failures because the runner was absent; 188 other tests passed, 4 GPU tests skipped.
+- [x] TDD GREEN: implement `tools/run_p2a10_common_scope.py` with lazy scientific imports. Ubuntu full regression on HGFX Regression #142 is PASS; Windows completion is tracked before final merge.
+- [ ] Add the one-shot GitHub Actions execution workflow using only exact frozen package versions; do not install HGFX editable from the branch.
 - [ ] Verify repository regression on the final runner/workflow head.
-- [ ] Dispatch the benchmark workflow exactly once for the frozen case.
+- [ ] Execute the benchmark workflow exactly once for the frozen case.
 - [ ] Download and inspect the raw artifact; verify its embedded SHA-256 before interpreting comparison output.
 - [ ] Commit raw result, comparison result and workflow provenance unchanged from the artifact.
 - [ ] Update issue #33 and paper evidence map/manuscript comparison text according to the observed classification; do not change the frozen protocol after seeing results.
