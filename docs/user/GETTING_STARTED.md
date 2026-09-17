@@ -2,6 +2,8 @@
 
 HGFX v1 targets functional/scientific equivalence with the frozen MATLAB HGF Toolbox 8.2.0 reference while running as a Python package without MATLAB at user runtime.
 
+Additive 1.1.0 helpers (opt-in MAP, VKF, dual-stream AR1, social-gaze and 3PLR softmax) are documented in `docs/user/V1_1.md`.
+
 ## Requirements
 
 - Python 3.11 or newer
@@ -16,6 +18,8 @@ HGFX `1.0.0` is published on the public Python Package Index:
 ```bash
 python -m pip install hgfx==1.0.0
 ```
+
+That published wheel does **not** include the 1.1.0 helpers. For 1.1.0 install from `main` or an editable checkout (`python -m pip install -e '.[optim]'`). See `docs/user/V1_1.md`.
 
 The publication provenance and public-index verification are recorded in `docs/planning/PYPI_PUBLISHING.md`.
 
