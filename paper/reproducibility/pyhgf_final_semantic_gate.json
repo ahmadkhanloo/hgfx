@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.9",
+  "status": "PASS_FOR_FROZEN_COMMON_SCOPE",
+  "decision": "FINAL_SEMANTIC_GATE=PASS_FOR_FROZEN_COMMON_SCOPE",
+  "created_date": "2026-09-17",
+  "benchmark_authorized": true,
+  "authorization_scope": "p2a9-binary-hgf-common-scope-001 only",
+  "cross_tool_numerical_outputs_inspected_before_authorization": false,
+  "scientific_execution_performed_during_gate": false,
+  "frozen_case": {
+    "path": "paper/reproducibility/pyhgf_common_scope_case.json",
+    "case_id": "p2a9-binary-hgf-common-scope-001",
+    "inputs_sha256": "502c5ea2344d42d72a853a4a438a95c010c9c7a42a696815a03314b61ece0062",
+    "responses_sha256": "c2a910ff2ff4fd35cf3b4b7e8eb0cc69d41b80fd6239750812d5f56687d0bae2",
+    "n_trials": 128,
+    "inverse_temperature_native_ze": 48.0,
+    "case_manifest_benchmark_authorized_field_remains_false": true,
+    "note": "The case manifest is preserved as immutable pre-authorization evidence. This final-gate artifact is the authorization record."
+  },
+  "source_identities": {
+    "hgfx_package": "hgfx==1.0.0",
+    "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+    "pyhgf_package": "pyhgf==0.3.2",
+    "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+    "pyhgf_sdist_sha256": "8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d"
+  },
+  "semantic_gate_chain": [
+    {
+      "microstep": "P2A.2",
+      "gate": "MODEL_STRUCTURE_GATE",
+      "status": "PASS_FOR_TOPOLOGY_ONLY",
+      "restriction": "fixed three-level binary topology only"
+    },
+    {
+      "microstep": "P2A.3",
+      "gate": "UPDATE_EQUATION_GATE",
+      "status": "CONDITIONAL_MATCH",
+      "restriction": "pyhgf volatility_updates=standard and mean_field_updates=true"
+    },
+    {
+      "microstep": "P2A.4",
+      "gate": "PARAMETER_MAPPING_GATE",
+      "status": "PASS_FOR_FROZEN_DEFAULT_CANDIDATE_ONLY",
+      "restriction": "unit binary value coupling and frozen mapped parameters"
+    },
+    {
+      "microstep": "P2A.5",
+      "gate": "INITIAL_STATE_GATE",
+      "status": "PASS_FOR_FROZEN_DEFAULT_CANDIDATE_ONLY",
+      "restriction": "zero top-level drift and frozen initial means/precisions"
+    },
+    {
+      "microstep": "P2A.6",
+      "gate": "INPUT_MASKING_GATE",
+      "status": "PASS_FOR_FULLY_OBSERVED_UNIT_TIME_CANDIDATE_ONLY",
+      "restriction": "finite binary fully observed inputs, no ignored trials, unit time"
+    },
+    {
+      "microstep": "P2A.7",
+      "gate": "OUTPUT_QUANTITY_GATE",
+      "status": "PASS_FOR_MAPPED_TRAJECTORY_AND_RESPONSE_QUANTITIES_PENDING_P2A8",
+      "restriction": "mapped scientific quantities only; no first-level precision/internal weighting fields"
+    },
+    {
+      "microstep": "P2A.8",
+      "gate": "PRECISION_NUMERICAL_GATE",
+      "status": "PASS_FOR_EXPLICIT_X64_UNCLIPPED_COMMON_SCOPE",
+      "restriction": "CPU/x64, no pyhgf binary clipping or posterior precision cap, unclipped derived surprise"
+    },
+    {
+      "microstep": "P2A.9",
+      "gate": "ENVIRONMENT_API_PREFLIGHT",
+      "status": "PASS",
+      "restriction": "exact frozen versions and public API settings below"
+    }
+  ],
+  "preflight_evidence": {
+    "workflow": "P2A.9 Comparator Preflight",
+    "workflow_run_id": 35265386637,
+    "workflow_run_number": 4,
+    "job_id": 105351252916,
+    "job_name": "preflight",
+    "head_branch": "paper/p2a9-final-semantic-gate",
+    "preflight_head_sha": "94209537691df032e93e71d886b2fda0995932e1",
+    "pull_request_merge_ref_sha_recorded_by_runner": "995fdd3a78ac538c7f70362bb924001d348d5c7a",
+    "artifact_id": 10516800718,
+    "artifact_name": "p2a9-comparator-preflight-35265386637",
+    "artifact_digest": "sha256:6cc5cfd7f5bb264ed7a8cac34783b82fbb6245a56fb8e10e28a7ee42422a3e9f",
+    "environment_json_sha256": "6a3833d6cd63ea0baf002454d5a9dab2e118d54d1e5759c3c68e0ad4235d9ab6",
+    "pip_freeze_sha256": "ea927b9e643095d51f060026a0e2cc144afa8a99bd0e415028ef2bb1f9cb130e",
+    "preserved_environment_path": "paper/reproducibility/pyhgf_preflight_environment_35265386637.json",
+    "conclusion": "success"
+  },
+  "verified_environment": {
+    "runner_os": "Ubuntu 24.04.5 LTS",
+    "python": "3.12.14",
+    "numpy": "2.3.3",
+    "jax": "0.6.2",
+    "jaxlib": "0.6.2",
+    "hgfx": "1.0.0",
+    "pyhgf": "0.3.2",
+    "backend": "cpu",
+    "jax_enable_x64": true,
+    "numpy_dtype_probe": "float64",
+    "jax_dtype_probe": "float64",
+    "cpu_model": "AMD EPYC 7763 64-Core Processor",
+    "machine": "x86_64",
+    "kernel": "6.17.0-1022-azure",
+    "memory_kib": 16373452
+  },
+  "verified_pyhgf_public_configuration": {
+    "volatility_updates": "standard",
+    "mean_field_updates": true,
+    "precision_clipping_value": 0.0,
+    "max_posterior_precision": "inf",
+    "binary_surprise_has_clipping_parameter": true
+  },
+  "frozen_tolerances": {
+    "trajectory_and_per_trial_quantities": {
+      "atol": 1e-10,
+      "rtol": 1e-8
+    },
+    "participant_response_nll_total": {
+      "atol": 1e-7,
+      "rtol": 1e-8
+    },
+    "observed_input_integrity": "exact"
+  },
+  "execution_constraints": [
+    "execute the explicit committed 128-trial inputs and responses without regeneration",
+    "use only the exact package/runtime versions recorded by the successful preflight",
+    "use CPU with JAX x64 and mapped float64 arrays",
+    "use only the frozen model parameters and public pyhgf guard settings",
+    "compare only the field list in pyhgf_common_scope_case.json",
+    "preserve per-implementation raw arrays, nonfinite coordinates, diagnostics, and raw-result SHA-256",
+    "do not change tolerances, inputs, responses, versions, dtype, guards, or compared fields after seeing a result",
+    "do not interpret this authorization as general HGFX/pyhgf equivalence or a performance comparison"
+  ],
+  "failure_classification_policy": {
+    "within_frozen_tolerance": "PASS_FOR_EXECUTED_QUANTITY",
+    "finite_trajectory_or_mapped_state_disagreement": "IMPLEMENTATION_MISMATCH",
+    "nonfinite_mask_disagreement_on_trajectory": "IMPLEMENTATION_MISMATCH",
+    "derived_surprise_or_response_nll_boundary_nonfinite": "NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY",
+    "environment_or_identity_preflight_violation": "INVALID_RUN_DO_NOT_INTERPRET"
+  },
+  "next_action": "Execute the first direct numerical HGFX v1.0.0 versus pyhgf 0.3.2 run for exactly p2a9-binary-hgf-common-scope-001 and preserve the raw result before interpretation."
+}
