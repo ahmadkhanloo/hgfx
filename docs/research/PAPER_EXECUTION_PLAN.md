@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-17
-Status: **IN PROGRESS — P1 PAPER PROTOCOL FROZEN; P2/P2A/P3 ACTIVE NEXT**
+Status: **IN PROGRESS — P1/P2 DONE; P2A/P3 ACTIVE NEXT**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -14,7 +14,7 @@ Produce a submission-ready computational methods/software-methods paper and repr
 
 ## Current readiness correction
 
-The manuscript is **not absent**: `paper/manuscript.md` already contains a substantive working Abstract, methodology/validation, Results, Discussion, Limitations, Reproducibility and Conclusion. It remains **IN PROGRESS**, because final generated tables/figures, paper-only prospective results, reproducibility bundle, declarations/journal formatting and independent review are still open.
+The manuscript is **not absent**: `paper/manuscript.md` already contains a substantive working Abstract, methodology/validation, Results, Discussion, Limitations, Reproducibility and Conclusion. It remains **IN PROGRESS**, because final generated figures, paper-only prospective results, reproducibility bundle, declarations/journal formatting and independent review are still open. The six P2 core equivalence tables are now generated, committed and provenance-checked.
 
 The paper-specific protocol is now frozen before final paper-only execution. It fixes the claim set, recovery/identifiability experiment, statistical summaries, `pyhgf==0.3.2` comparator identity and semantic gate, provenance requirements, and the decision not to make general performance/scaling a headline claim under protocol version 1.
 
@@ -56,7 +56,7 @@ HGFX `1.0.0` is now publicly installable from PyPI. This improves reviewer usabi
 - `paper/manuscript.md` — evidence-backed working manuscript.
 - `paper/references.bib` — bibliography for the working manuscript.
 - `paper/figures/` — generated figures only.
-- `paper/tables/` — generated table outputs only.
+- `paper/tables/` — generated table outputs and the P2 table provenance manifest.
 - `paper/scripts/` — scripts that regenerate figures/tables from committed evidence.
 - `paper/reproducibility/PAPER_PROTOCOL.md` — frozen paper-only protocol (`hgfx-paper-protocol-1`).
 - `paper/reproducibility/` — commands, environment manifests, hashes and final paper evidence manifest.
@@ -113,23 +113,31 @@ Acceptance:
 
 ### P2 — Generate core equivalence tables from frozen v1 evidence
 
-**Status:** OPEN / HIGH PRIORITY / NEXT.
+**Status:** DONE / PASS.
 
-Generate, by script:
-1. model/workflow coverage table;
-2. official MATLAB demo parity table;
-3. fitting/statistics classification table;
-4. recovery/model-selection table;
-5. backend/GPU applicability table;
-6. release/reproducibility provenance table.
+Generated deterministically by `paper/scripts/generate_p2_tables.py`:
+1. `paper/tables/model_workflow_coverage.md`;
+2. `paper/tables/matlab_demo_parity.md`;
+3. `paper/tables/fitting_statistics_classification.md`;
+4. `paper/tables/recovery_model_selection.md`;
+5. `paper/tables/backend_gpu_applicability.md`;
+6. `paper/tables/release_reproducibility_provenance.md`.
 
-Use the frozen evidence index and machine-readable artifacts as inputs. The script must fail if a required input is absent rather than silently dropping a row.
+Provenance:
+- committed checksum manifest: `paper/tables/p2_tables_manifest.json`;
+- required inputs include the frozen v1 evidence manifest/index, D02/D08 reference-limitation decisions, S7 paired-recovery decision and `pyproject.toml`;
+- generator fails loudly when a required input is missing;
+- focused CI gate: `.github/workflows/p2-paper-tables.yml`;
+- validation run `35231582282` on paper commit `332d248a7ba51ae4ba5d25a387d78bfbc71855b0`: **PASS**;
+- the gate regenerated the tables, verified zero diff against committed Markdown, ran the P2 acceptance tests, and regenerated/uploaded the provenance manifest.
 
 Acceptance:
-- every cell has an evidence source;
-- `REFERENCE_LIMITATION_MATCH` rows are visually/textually distinct from PASS rows;
-- D02/D08 direct failures remain visible rather than being presented as unresolved bugs or artificial PASS;
-- historical FAIL rows remain present where scientifically relevant.
+- PASS — every generated row/cell carries an evidence source;
+- PASS — `REFERENCE_LIMITATION_MATCH` is textually distinct from direct PASS;
+- PASS — D02/D08 direct failures remain visible and are not converted into artificial PASS;
+- PASS — historical M18 scientific FAIL and S7 scientific recovery limitations remain visible;
+- PASS — committed table outputs reproduce from frozen machine-readable inputs;
+- PASS — input/output SHA-256 values are recorded in the committed P2 manifest.
 
 ### P2A — Fair pyhgf positioning and common-scope comparison
 
