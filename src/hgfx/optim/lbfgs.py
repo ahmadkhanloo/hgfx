@@ -1,7 +1,7 @@
-"""Opt-in L-BFGS MAP solver.
+"""Opt-in MAP solver.
 
-Default ``hgfx.fit_model`` is unchanged. Use ``minimize_map`` when the
-scientific target is a tighter MAP than the frozen MATLAB quasi-Newton.
+Default engine is SciPy ``L-BFGS-B`` when SciPy is installed. The handwritten
+L-BFGS is only a fallback. ``hgfx.fit_model`` is unchanged.
 """
 
 from __future__ import annotations
@@ -175,7 +175,7 @@ def _two_loop_direction(
     return -r
 
 
-def _minimize_one(
+def _minimize_internal(
     value,
     grad,
     x0: np.ndarray,
@@ -186,15 +186,7 @@ def _minimize_one(
     nfev = 1
     njev = 0
     if not np.isfinite(f):
-        return MapStartResult(
-            x=x,
-            fun=f,
-            nit=0,
-            nfev=nfev,
-            njev=njev,
-            termination="unstable",
-            grad_norm=float("nan"),
-        )
+        return MapStartResult(x, f, 0, nfev, njev, "unstable", float("nan"))
     g = grad(x)
     njev += 1
     s_hist: list[np.ndarray] = []
@@ -237,12 +229,82 @@ def _minimize_one(
                 "ftol",
                 float(np.linalg.norm(g_new, ord=np.inf)),
             )
-
         x, f, g = x_new, f_new, g_new
 
     return MapStartResult(
         x, f, options.maxiter, nfev, njev, "maxiter", float(np.linalg.norm(g, ord=np.inf))
     )
+
+
+def _scipy_available() -> bool:
+    try:
+        import scipy.optimize  # noqa: F401
+    except ImportError:
+        return False
+    return True
+
+
+def _minimize_scipy(
+    value,
+    grad,
+    x0: np.ndarray,
+    options: MapOptions,
+) -> MapStartResult:
+    from scipy.optimize import minimize
+
+    def fun(x):
+        x = np.asarray(x, dtype=np.float64).reshape(-1)
+        val = value(x)
+        return float(val) if np.isfinite(val) else 1e20
+
+    def jac(x):
+        x = np.asarray(x, dtype=np.float64).reshape(-1)
+        g = np.asarray(grad(x), dtype=np.float64).reshape(-1)
+        return np.where(np.isfinite(g), g, 0.0)
+
+    result = minimize(
+        fun,
+        x0,
+        method=options.method,
+        jac=jac,
+        options={
+            "maxiter": options.maxiter,
+            "gtol": options.gtol,
+            "ftol": options.ftol,
+            "maxcor": options.history,
+        },
+    )
+    x = np.asarray(result.x, dtype=np.float64).reshape(-1)
+    fun_val = float(result.fun)
+    grad_norm = float(np.linalg.norm(jac(x), ord=np.inf)) if np.isfinite(fun_val) else float("nan")
+    if not np.isfinite(fun_val):
+        termination: Termination = "unstable"
+    elif result.success:
+        termination = "scipy"
+    elif result.status == 1:
+        termination = "maxiter"
+    else:
+        termination = "line_search"
+    return MapStartResult(
+        x=x,
+        fun=fun_val,
+        nit=int(getattr(result, "nit", 0) or 0),
+        nfev=int(getattr(result, "nfev", 0) or 0),
+        njev=int(getattr(result, "njev", 0) or 0),
+        termination=termination,
+        grad_norm=grad_norm,
+    )
+
+
+def _minimize_one(
+    value,
+    grad,
+    x0: np.ndarray,
+    options: MapOptions,
+) -> tuple[MapStartResult, str]:
+    if options.solver == "scipy" and _scipy_available():
+        return _minimize_scipy(value, grad, x0, options), "scipy"
+    return _minimize_internal(value, grad, x0, options), "internal"
 
 
 def _start_set(
@@ -277,9 +339,8 @@ def minimize_map(
 ) -> MapResult:
     """Minimize a scalar objective with multi-start L-BFGS.
 
-    The callable must return the quantity to minimize, typically the transformed
-    negative log-joint used by TAPAS/HGFX. This solver is opt-in and must not be
-    used as evidence that ``fit_model`` changed.
+    Prefers SciPy ``L-BFGS-B``. Falls back to the internal solver if SciPy is
+    missing. The callable should return the transformed negative log-joint.
     """
 
     opts = options or MapOptions()
@@ -293,7 +354,9 @@ def minimize_map(
     candidates = _start_set(
         x_init, starts, n_random_starts, opts.jitter, opts.seed
     )
-    results = [_minimize_one(value, grad, start, opts) for start in candidates]
+    packed = [_minimize_one(value, grad, start, opts) for start in candidates]
+    results = [item[0] for item in packed]
+    solver = packed[0][1]
     finite = [item for item in results if np.isfinite(item.fun)]
     best = min(finite, key=lambda item: item.fun) if finite else results[0]
     return MapResult(
@@ -305,6 +368,8 @@ def minimize_map(
         termination=best.termination,
         grad_norm=best.grad_norm,
         gradient_kind=kind,
+        solver=solver,
+        method=opts.method if solver == "scipy" else "internal-lbfgs",
         n_starts=len(results),
         starts=tuple(results),
     )
