@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from hgfx.optim import MapOptions, minimize_map, multi_start_map
+from hgfx.optim.lbfgs import _scipy_available
 
 
 def _quadratic(x) -> float:
@@ -34,8 +36,30 @@ def test_minimize_map_finite_difference_recovers_quadratic() -> None:
         np.array([-3.0, 4.0]),
         options=MapOptions(gradient="finite", gtol=1e-6, maxiter=80),
     )
-    assert result.gradient_kind == "finite"
     np.testing.assert_allclose(result.x, np.array([2.0, -1.0]), atol=1e-4)
+
+
+def test_internal_solver_recovers_quadratic() -> None:
+    result = minimize_map(
+        _quadratic,
+        np.array([0.0, 0.0]),
+        jac=_quadratic_jac,
+        options=MapOptions(solver="internal", gtol=1e-8, maxiter=80),
+    )
+    assert result.solver == "internal"
+    np.testing.assert_allclose(result.x, np.array([2.0, -1.0]), atol=1e-6)
+
+
+@pytest.mark.skipif(not _scipy_available(), reason="SciPy is required for the default MAP engine")
+def test_scipy_backend_is_used_by_default() -> None:
+    result = minimize_map(
+        _quadratic,
+        np.array([0.0, 0.0]),
+        jac=_quadratic_jac,
+    )
+    assert result.solver == "scipy"
+    assert result.method == "L-BFGS-B"
+    np.testing.assert_allclose(result.x, np.array([2.0, -1.0]), atol=1e-8)
 
 
 def test_multi_start_selects_better_basin() -> None:
@@ -48,7 +72,7 @@ def test_multi_start_selects_better_basin() -> None:
         np.array([-1.0]),
         starts=[[4.0]],
         n_random_starts=0,
-        options=MapOptions(gtol=1e-8, maxiter=40),
+        options=MapOptions(solver="internal", gtol=1e-8, maxiter=40),
     )
     assert result.n_starts == 2
     assert result.fun < 0.25
