@@ -1,0 +1,30 @@
+name: P2A pyhgf Comparison
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/p2a-pyhgf-comparison.yml'
+      - 'tests/paper/test_p2a_pyhgf_comparison.py'
+      - 'paper/comparison/**'
+      - 'paper/scripts/generate_p2a_pyhgf_comparison.py'
+      - 'paper/tables/pyhgf_feature_design_matrix.md'
+      - 'paper/reproducibility/PAPER_PROTOCOL.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantic-evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e '.[dev]'
+      - name: P2A evidence contract
+        run: pytest -q tests/paper/test_p2a_pyhgf_comparison.py
