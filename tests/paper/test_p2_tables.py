@@ -63,3 +63,12 @@ def test_output_is_deterministic():
     tables_b, manifest_b = generator.build_outputs(ROOT)
     assert tables_a == tables_b
     assert json.dumps(manifest_a, sort_keys=True) == json.dumps(manifest_b, sort_keys=True)
+
+
+def test_committed_tables_match_generator():
+    generator = load_generator()
+    tables, _ = generator.build_outputs(ROOT)
+    for name, text in tables.items():
+        path = ROOT / "paper" / "tables" / name
+        assert path.is_file(), name
+        assert path.read_text(encoding="utf-8") == text, name
