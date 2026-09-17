@@ -1,7 +1,7 @@
 # Paper Evidence Map
 
 Last synchronized: 2026-09-17
-Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / PAPER EVIDENCE OPEN**
+Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / PAPER EVIDENCE OPEN**
 Tracking: PV1-02 / GitHub issue #32
 Comparator tracking: PV1-02A / GitHub issue #33
 Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
@@ -9,6 +9,8 @@ Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol
 This file maps paper-facing claims to the strongest currently committed evidence. Historical failures and scoped reference limitations remain visible. New paper-only recovery and comparator claims may be added only under the frozen paper protocol and after committed machine-readable results exist.
 
 Historical M19 is the frozen v1.0.0 release-evidence gate. It is complete and is not the final paper-evidence freeze. The publication package will receive a separate `FROZEN_FOR_SUBMISSION` manifest after all paper-used evidence is generated and audited.
+
+P2 core equivalence tables are now generated deterministically from frozen machine-readable evidence, committed under `paper/tables/`, and protected by a focused CI reproducibility gate. This P2 completion does not imply that the complete paper evidence set is frozen.
 
 Paper protocol 1 deliberately does not activate general speedup or multi-GPU scaling as headline paper claims. Historical performance evidence therefore remains engineering context unless a later prospectively frozen protocol revision activates a paper performance benchmark.
 
@@ -33,6 +35,8 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | Parameter recovery is generally strong/complete | **NOT SUPPORTED** | historical M18 FAIL preserved; S7 exact-grid parameter recovery includes scoped reference limitation matches |
 | Historical recovery failures are reproduced/retained transparently | READY | historical M18 + S7 evidence + v1 evidence index |
 | Paper-only prospective settings were frozen before final execution | READY | `paper/reproducibility/PAPER_PROTOCOL.md`; protocol `hgfx-paper-protocol-1`; status `FROZEN_FOR_EXECUTION` |
+| P2 core equivalence tables reproduce deterministically from frozen v1 evidence | READY / P2 PASS | `paper/scripts/generate_p2_tables.py`; six committed `paper/tables/*.md` outputs; `paper/tables/p2_tables_manifest.json`; focused CI run `35231582282` on `332d248a7ba51ae4ba5d25a387d78bfbc71855b0` |
+| P2 table provenance is checksum-traceable | READY / P2 PASS | committed P2 manifest records SHA-256 for all required evidence inputs and six generated table outputs; CI regenerates and checks zero Markdown diff |
 | Trial horizon explains the recovery failures | OPEN / UNKNOWN | PV1-01 / issue #21 prospective 128/256/512/1024 analysis is frozen prospectively and in progress; do not infer before results |
 | CPU compatibility and JAX CPU backend preserve tested outputs | READY | S9 `PASS_CPU_BACKEND_EQUIVALENCE`; post-review run `35080084517` |
 | Physical NVIDIA GPU path preserves tested final objective values | READY / SCOPED | 2x Tesla T4; `PASS_PHYSICAL_GPU_APPLICABILITY`; max gap `1.4210854715202004e-14` vs `1e-7` |
@@ -82,6 +86,14 @@ It does not support a general speedup or scaling claim. Under `hgfx-paper-protoc
 ## Primary paper evidence sources
 
 - `paper/reproducibility/PAPER_PROTOCOL.md`
+- `paper/scripts/generate_p2_tables.py`
+- `paper/tables/p2_tables_manifest.json`
+- `paper/tables/model_workflow_coverage.md`
+- `paper/tables/matlab_demo_parity.md`
+- `paper/tables/fitting_statistics_classification.md`
+- `paper/tables/recovery_model_selection.md`
+- `paper/tables/backend_gpu_applicability.md`
+- `paper/tables/release_reproducibility_provenance.md`
 - `docs/validation/V1_EVIDENCE_INDEX.md`
 - `docs/planning/M19_GATE.md`
 - `docs/planning/V1_RELEASE_GATE.md`
@@ -100,8 +112,8 @@ It does not support a general speedup or scaling claim. Under `hgfx-paper-protoc
 Before submission, add evidence entries for:
 
 - immutable input/checksum manifests for prospective recovery/comparator runs before their result stage;
-- generated manuscript table inputs/outputs and hashes;
-- generated figure inputs/outputs and hashes;
+- generated remaining paper figure inputs/outputs and hashes;
+- any additional P2A comparison table inputs/outputs and hashes where the semantic gate permits comparison;
 - paper-specific reproducibility environment/commands;
 - PV1-01 recovery-horizon analysis if used in the manuscript;
 - PV1-02A pyhgf semantic mapping and any valid common-scope empirical outputs;
