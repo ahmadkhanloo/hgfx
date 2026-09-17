@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-17
-Status: **IN PROGRESS — P1/P2/P2A DONE; P3 ACTIVE NEXT**
+Status: **IN PROGRESS — P1/P2/P2A/P5/P6 DONE; P3 ACTIVE ON GITHUB ACTIONS**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -247,7 +247,7 @@ Acceptance if activated in a future protocol:
 
 ### P5 — Figures and statistical summaries
 
-**Status:** OPEN / REQUIRED.
+**Status:** DONE FOR CURRENT CLAIM SET / P3 FIGURE DEFERRED.
 
 Required figure set for the selected claim set:
 - validation overview / evidence-flow schematic;
@@ -266,11 +266,12 @@ Required script behavior:
 - avoid manual data edits.
 
 Acceptance:
-- deleting generated figures/tables and rerunning scripts reproduces them from committed inputs.
+- PASS for the current claim set — figures are script-generated from committed evidence (`paper/scripts/generate_p5_figures.py`, `paper/figures/p5_figures_manifest.json`);
+- OPEN for the P3 horizon figure only.
 
 ### P6 — Reproducibility package
 
-**Status:** OPEN / REQUIRED.
+**Status:** DONE FOR PROTOCOL-1 ENTRY POINT (`paper/reproducibility/README.md`).
 
 Create a paper reproduction entry point documenting:
 - checkout/tag command;
