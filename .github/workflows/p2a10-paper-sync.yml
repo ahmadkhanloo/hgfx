@@ -1,0 +1,44 @@
+name: P2A.10 Paper Evidence Sync
+
+on:
+  push:
+    branches:
+      - paper/p2a10-execute-common-scope
+    paths:
+      - '.github/workflows/p2a10-paper-sync.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+
+      - name: Apply evidence-backed paper synchronization
+        run: python tools/apply_p2a10_paper_updates.py
+
+      - name: Validate synchronized claims
+        run: |
+          git diff --check
+          grep -F '### 4.5 Frozen common-scope comparison with pyhgf' paper/manuscript.md
+          grep -F 'PARTIAL_MATCH_WITH_NOT_DIRECTLY_COMPARABLE_QUANTITIES' paper/manuscript.md
+          grep -F 'P2A COMMON-SCOPE COMPLETE' docs/research/PAPER_EVIDENCE_MAP.md
+          grep -F 'P1/P2/P2A DONE; P3 ACTIVE NEXT' docs/research/PAPER_EXECUTION_PLAN.md
+
+      - name: Commit synchronized paper documents
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add paper/manuscript.md docs/research/PAPER_EVIDENCE_MAP.md docs/research/PAPER_EXECUTION_PLAN.md
+          git diff --cached --check
+          git commit -m 'paper: synchronize P2A.10 comparator evidence'
+          git push origin HEAD:paper/p2a10-execute-common-scope
