@@ -1,5 +1,12 @@
 """Scientific diagnostics and validation utilities."""
 
+from .horizon import (
+    CRITERIA as HORIZON_CRITERIA,
+    PROTOCOL as HORIZON_PROTOCOL,
+    TRIAL_HORIZONS,
+    classify_horizon_evidence,
+    parameter_check_flags,
+)
 from .recovery import (
     BINARY_VARIANTS,
     ModelRecoveryRecord,
@@ -18,10 +25,15 @@ from .recovery import (
 
 __all__ = [
     "BINARY_VARIANTS",
+    "HORIZON_CRITERIA",
+    "HORIZON_PROTOCOL",
+    "TRIAL_HORIZONS",
     "RecoveryFit",
     "ParameterRecoveryRecord",
     "ParameterRecoverySummary",
     "ModelRecoveryRecord",
+    "classify_horizon_evidence",
+    "parameter_check_flags",
     "fit_binary_variant",
     "summarize_parameter_recovery",
     "deterministic_binary_inputs",
