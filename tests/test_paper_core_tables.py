@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,9 +32,32 @@ def run_check() -> subprocess.CompletedProcess[str]:
     )
 
 
+def load_generator_module():
+    spec = importlib.util.spec_from_file_location("paper_core_tables_generator", SCRIPT)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def test_core_table_generator_check_passes() -> None:
     result = run_check()
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_missing_required_source_is_a_hard_error(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    module = load_generator_module()
+    monkeypatch.setattr(module, "R", tmp_path)
+    spec = {
+        "sources": {
+            "missing": {
+                "path": "reference/validation/required.json",
+                "sha256": "0" * 64,
+            }
+        }
+    }
+    with pytest.raises(FileNotFoundError, match="Required evidence file is missing"):
+        module.sources(spec)
 
 
 def test_exactly_six_core_table_pairs_are_committed() -> None:
