@@ -206,15 +206,13 @@ Source, tag, and package:
 
 HGFX v1.0.0 provides a Python/JAX implementation of the Hierarchical Gaussian Filter toolbox whose validation target is explicitly anchored to a frozen MATLAB HGF Toolbox 8.2.0 oracle. The release reproduces required workflows in documented scopes, preserves paired model-selection behavior, validates CPU/backend and physical-GPU numerical applicability, and removes MATLAB from the user runtime. Equally importantly, it preserves failed recovery experiments and distinguishes exact reference-limit matches from scientific success. This evidence discipline is central to using modern numerical and accelerator software without silently changing the behavior of an established scientific reference implementation.
 
-## Declarations to complete for submission
+## Declarations
 
-- Author contributions.
-- Affiliations and corresponding author.
-- Funding statement.
-- Conflict-of-interest statement.
-- Acknowledgments.
-- Target-journal-specific data/code availability wording.
-- Target-journal formatting and supplementary-material structure.
+**Funding.** The authors received no specific funding for this work.
+
+**Competing interests, authors, affiliations, contributions, and acknowledgments.** To be completed by the authors before submission.
+
+**Data and code availability.** HGFX v1.0.0 is MIT-licensed and available at https://github.com/ahmadkhanloo/hgfx and https://pypi.org/project/hgfx/1.0.0/. The frozen MATLAB oracle is used only for validation. Paper tables and figures regenerate from committed evidence as described in `paper/reproducibility/README.md`.
 
 ## References
 

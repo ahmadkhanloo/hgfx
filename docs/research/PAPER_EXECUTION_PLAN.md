@@ -322,8 +322,9 @@ The working manuscript already contains evidence-backed sections for the release
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
-- selecting target journal and converting to its template;
-- completing code/data availability, funding and conflict statements;
+- recommended first target: *Frontiers in Neuroinformatics*; alternatives *Journal of Neuroscience Methods* or *PLOS Computational Biology* Software if shortened;
+- converting to the selected journal template after the authors choose;
+- funding recorded as none; remaining conflict/author metadata left for the authors;
 - ensuring the abstract contains only frozen supported claims.
 
 Paper-grade performance Results are not required under protocol 1 because general performance/scaling is not a headline claim.
