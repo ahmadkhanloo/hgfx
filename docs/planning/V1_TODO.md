@@ -1,7 +1,7 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-17
-Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1 FROZEN**
+Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P2A/P5/P6 DONE; P3 RUNNING ON GITHUB ACTIONS**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -61,7 +61,7 @@ These items are the explicit forward backlog after the completed `v1.0.0` releas
 
 ### PV1-01 — M18C.2 trial-horizon / identifiability analysis
 
-**Status:** IN PROGRESS / RESEARCH  
+**Status:** IN PROGRESS / RESEARCH / GITHUB ACTIONS EXECUTION 
 **Tracking:** GitHub issue #21
 
 Goal: determine whether the preserved M18 parameter-recovery failures are primarily data-horizon limited or reflect structural/weak identifiability.
@@ -97,7 +97,12 @@ Current state:
 - paper protocol P1 is frozen as `hgfx-paper-protocol-1` with status `FROZEN_FOR_EXECUTION`;
 - `pyhgf==0.3.2` is the frozen comparator identity for protocol 1, subject to a semantic gate before direct empirical comparison;
 - general speedup/multi-GPU scaling is intentionally not a headline claim under protocol 1;
-- generated core tables/figures, comparator mapping, recovery/identifiability results, reproducibility bundle, final paper-evidence freeze, and independent manuscript audit remain open.
+- P2 tables generated and CI-gated (`paper/tables/`);
+- P2A common-scope comparison complete (issue #33 closed);
+- P5 figures generated from frozen S7/P2A.10 evidence (`paper/figures/`);
+- P6 reviewer entry point at `paper/reproducibility/README.md`;
+- P3 M18C.2 24-shard MATLAB/HGFX matrix running on GitHub Actions (`35272347167`); invalid 512-trial simulations are retained, not dropped;
+- remaining: complete P3 coverage/classification, P3 figure, P6A freeze, P7 lock, P8 independent audit.
 
 Planned scope:
 

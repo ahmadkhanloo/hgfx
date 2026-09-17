@@ -1,7 +1,7 @@
 # Paper Evidence Map
 
 Last synchronized: 2026-09-17
-Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / P2A COMMON-SCOPE COMPLETE / PAPER EVIDENCE OPEN**
+Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / P2A COMPLETE / P5 FIGURES PASS / P6 ENTRY POINT PASS / P3 EXECUTION IN PROGRESS**
 Tracking: PV1-02 / GitHub issue #32
 Comparator tracking: PV1-02A / GitHub issue #33
 Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
@@ -37,7 +37,9 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | Paper-only prospective settings were frozen before final execution | READY | `paper/reproducibility/PAPER_PROTOCOL.md`; protocol `hgfx-paper-protocol-1`; status `FROZEN_FOR_EXECUTION` |
 | P2 core equivalence tables reproduce deterministically from frozen v1 evidence | READY / P2 PASS | `paper/scripts/generate_p2_tables.py`; six committed `paper/tables/*.md` outputs; `paper/tables/p2_tables_manifest.json`; focused CI run `35231582282` on `332d248a7ba51ae4ba5d25a387d78bfbc71855b0` |
 | P2 table provenance is checksum-traceable | READY / P2 PASS | committed P2 manifest records SHA-256 for all required evidence inputs and six generated table outputs; CI regenerates and checks zero Markdown diff |
-| Trial horizon explains the recovery failures | OPEN / UNKNOWN | PV1-01 / issue #21 prospective 128/256/512/1024 analysis is frozen prospectively and in progress; do not infer before results |
+| P5 paper figures are generated from committed evidence | READY / P5 PASS | `paper/scripts/generate_p5_figures.py`; `paper/figures/p5_figures_manifest.json`; five PNG figures; CI run on PR #46 |
+| P6 paper reproduction entry point exists | READY / P6 PASS | `paper/reproducibility/README.md`; records MATLAB vs no-MATLAB steps, P2/P5 regeneration, P2A.10 replay hash, and P3 Actions dispatch |
+| Trial horizon explains the recovery failures | OPEN / UNKNOWN / EXECUTION IN PROGRESS | PV1-01 / issue #21; workflow run `35272347167`; 24-shard MATLAB/HGFX matrix on GitHub Actions; do not classify before complete coverage |
 | CPU compatibility and JAX CPU backend preserve tested outputs | READY | S9 `PASS_CPU_BACKEND_EQUIVALENCE`; post-review run `35080084517` |
 | Physical NVIDIA GPU path preserves tested final objective values | READY / SCOPED | 2x Tesla T4; `PASS_PHYSICAL_GPU_APPLICABILITY`; max gap `1.4210854715202004e-14` vs `1e-7` |
 | HGFX is faster than MATLAB/CPU in general | **OUT OF PROTOCOL-1 CLAIM SET** | no prospective performance benchmark is activated in `hgfx-paper-protocol-1`; historical measurements cannot support a general speed claim |
@@ -92,7 +94,14 @@ It does not support a general speedup or scaling claim. Under `hgfx-paper-protoc
 - `paper/reproducibility/p2a10_raw_numeric_result_35268575414.json`
 - `paper/reproducibility/p2a10_comparison_35268575414.json`
 - `paper/reproducibility/p2a10_workflow_provenance_35268575414.json`
-- `paper/scripts/generate_p2_tables.py`
+- `paper/scripts/generate_p5_figures.py`
+- `paper/figures/p5_figures_manifest.json`
+- `paper/figures/fig_evidence_classes.png`
+- `paper/figures/fig_recovery_metrics.png`
+- `paper/figures/fig_model_selection.png`
+- `paper/figures/fig_gpu_applicability.png`
+- `paper/figures/fig_pyhgf_common_scope.png`
+- `paper/reproducibility/README.md`
 - `paper/tables/p2_tables_manifest.json`
 - `paper/tables/model_workflow_coverage.md`
 - `paper/tables/matlab_demo_parity.md`

@@ -103,7 +103,13 @@ The external-comparator cell used `hgfx==1.0.0` and `pyhgf==0.3.2` in an Ubuntu 
 
 Trajectory and per-trial quantities used prospectively frozen `atol=1e-10` and `rtol=1e-8`; participant-response total NLL used `atol=1e-7` and `rtol=1e-8`. The raw per-implementation arrays and boundary diagnostics were written first, assigned a canonical SHA-256, reopened and verified, and only then interpreted. The protocol also prospectively specified that a derived surprise/response-NLL boundary nonfinite would be `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY`, rather than triggering post-result clipping or tolerance changes.
 
-### 3.8 Independent review and release freeze
+### 3.8 Prospective trial-horizon identifiability protocol
+
+The historical recovery limitation is retained as a scientific result, not as a bug to be tuned away. Paper protocol 1 therefore includes a prospectively frozen paired MATLAB/HGFX trial-horizon experiment (`m18c2-trial-horizon-identifiability-1`; GitHub issue #21) at 128, 256, 512 and 1024 trials, using the same three binary perceptual models, truth scales, replicate counts, seed formulae, Quasi-Newton budget, and M18 pass/fail thresholds as the frozen S7 grid. The 128 and 512 horizons are trajectory diagnostics; the preregistered scientific comparison is 256 versus 1024 after a paired-integrity gate. Failed simulations, failed fits, and BIC disagreements are retained. Historical M18 FAIL is not rewritten by this experiment.
+
+The experiment is executed on GitHub Actions with MATLAB provisioned by `matlab-actions`; local MATLAB is not required. Classification is withheld until all 24 shards are complete.
+
+### 3.9 Independent review and release freeze
 
 Before the final release, an independent review identified two HIGH portability blockers: host CRT/libm dependence in compatibility-sensitive `expm1`/`log` paths and Windows CRLF behavior that could trigger false frozen-reference hash failures. Both were remediated without modifying frozen acceptance criteria.
 
@@ -125,7 +131,7 @@ The v1 validation matrix covers objective, fitting, Hessian/covariance/correlati
 
 Historical parameter-recovery failure remains part of the scientific record (Figure `paper/figures/fig_recovery_metrics.png`). Paired model selection is stronger: all 36 BIC winners match between the MATLAB and HGFX runs under the frozen paired protocol (Figure `paper/figures/fig_model_selection.png`). This supports preservation of the tested model-selection decision surface while leaving parameter identifiability as a separate scientific question.
 
-A post-v1 trial-horizon study is planned to distinguish data-horizon limitation from weak or structural identifiability without changing the historical criterion. Until that prospective experiment is completed, the manuscript does not claim that HGFX or the MATLAB reference provides generally strong parameter recovery across the tested HGF families.
+A post-v1 trial-horizon study is prospectively frozen and executing on GitHub Actions MATLAB (section 3.8). Until all 24 shards are complete and classified, the manuscript does not claim that HGFX or the MATLAB reference provides generally strong parameter recovery across the tested HGF families.
 
 ### 4.4 Backend and accelerator applicability
 
