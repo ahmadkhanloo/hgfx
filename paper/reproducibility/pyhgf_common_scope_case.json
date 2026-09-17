@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.9",
+  "case_id": "p2a9-binary-hgf-common-scope-001",
+  "status": "FROZEN_PENDING_ENVIRONMENT_PREFLIGHT",
+  "created_date": "2026-09-17",
+  "cross_tool_numerical_outputs_inspected": false,
+  "benchmark_authorized": false,
+  "identities": {
+    "hgfx_package": "hgfx==1.0.0",
+    "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+    "pyhgf_package": "pyhgf==0.3.2",
+    "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+    "pyhgf_sdist_sha256": "8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d"
+  },
+  "environment": {
+    "os": "ubuntu-24.04",
+    "backend": "cpu",
+    "python": "3.12.14",
+    "numpy": "2.3.3",
+    "jax": "0.6.2",
+    "jaxlib": "0.6.2",
+    "environment_variables": {
+      "JAX_ENABLE_X64": "1",
+      "JAX_PLATFORMS": "cpu"
+    },
+    "required_dtype": "float64",
+    "full_resolved_environment_must_be_captured": true
+  },
+  "model": {
+    "family": "three-level binary HGF",
+    "hgfx_model": "hgf_binary",
+    "hgfx_native_parameters": {
+      "mu_0": [null, 0.0, 1.0],
+      "sa_0": [null, 0.1, 1.0],
+      "rho": [null, 0.0, 0.0],
+      "ka": [1.0, 1.0],
+      "om": [null, -3.0, -6.0]
+    },
+    "pyhgf_network": {
+      "volatility_updates": "standard",
+      "mean_field_updates": true,
+      "precision_clipping_value": 0.0,
+      "max_posterior_precision": "inf",
+      "level_2": {
+        "mean": 0.0,
+        "precision": 10.0,
+        "tonic_drift": 0.0,
+        "tonic_volatility": -3.0,
+        "autoconnection_strength": 1.0,
+        "value_child": 0,
+        "value_coupling_strength": 1.0
+      },
+      "level_3": {
+        "mean": 1.0,
+        "precision": 1.0,
+        "tonic_drift": 0.0,
+        "tonic_volatility": -6.0,
+        "autoconnection_strength": 1.0,
+        "volatility_child": 1,
+        "volatility_coupling_strength": 1.0
+      }
+    }
+  },
+  "trial_contract": {
+    "n_trials": 128,
+    "input_dimension": 1,
+    "allowed_input_values": [0, 1],
+    "fully_observed": true,
+    "hgfx_ignored_trials": [],
+    "hgfx_irregular_intervals": false,
+    "pyhgf_observed_mask": "all_ones",
+    "pyhgf_time_steps": "all_ones",
+    "canonical_bit_hash_serialization": "comma-separated ASCII 0/1 values with no whitespace"
+  },
+  "input_generation_provenance": {
+    "authoritative_representation": "explicit input array below",
+    "generator": "numpy.random.default_rng(20260917)",
+    "piecewise_bernoulli_probabilities": [0.2, 0.8, 0.35, 0.65],
+    "trials_per_block": 32,
+    "note": "Generation provenance is descriptive only; the committed explicit array and hash are authoritative."
+  },
+  "inputs": [0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,1,0,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1,0,1,1,1,0,0,1,0,1,1,1,1,0,1,1,1,1,0,1,0,1,0,1],
+  "inputs_sha256": "502c5ea2344d42d72a853a4a438a95c010c9c7a42a696815a03314b61ece0062",
+  "response_contract": {
+    "retained": true,
+    "authoritative_representation": "explicit response array below",
+    "generation_provenance": "numpy.random.default_rng(20260918), Bernoulli(0.5)",
+    "observation_model": "unitsq_sgm / inverse-temperature binary softmax common quantity",
+    "inverse_temperature_native_ze": 48.0,
+    "hgfx_predorpost": 1,
+    "pyhgf_surprise_clipping": false
+  },
+  "responses": [0,1,0,0,0,0,0,1,0,1,1,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,1,1,1,0,0,1,1,1,1,1,1,0,1,0,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,0,1,0,1,1,0,1,0,1,1,1,0,0,1,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,0,1,0,1,0,1,0,1,0,0,1,1,0,1,1,0,1,0,0,0,1,1,0,1,0,1,0,0,0,1,0,0,1,0,1,0],
+  "responses_sha256": "c2a910ff2ff4fd35cf3b4b7e8eb0cc69d41b80fd6239750812d5f56687d0bae2",
+  "compared_fields": [
+    "first_level_predicted_probability",
+    "level_2_posterior_mean",
+    "level_2_predicted_mean",
+    "level_2_posterior_precision",
+    "level_2_predicted_precision",
+    "level_3_posterior_mean",
+    "level_3_predicted_mean",
+    "level_3_posterior_precision",
+    "level_3_predicted_precision",
+    "derived_first_level_prediction_error",
+    "derived_first_level_input_surprise",
+    "participant_response_nll_per_trial",
+    "participant_response_nll_total"
+  ],
+  "integrity_only_fields": [
+    "observed_binary_input"
+  ],
+  "excluded_fields": [
+    "first_level_binary_precision_or_variance_internals",
+    "v",
+    "w",
+    "psi",
+    "epsi",
+    "wt",
+    "HGFX standardized response residual",
+    "pyhgf default-clipped surprise wrappers"
+  ],
+  "error_metrics": {
+    "per_field": ["max_abs_error", "max_rel_error", "finite_mask_agreement"],
+    "aggregate": ["all_finite_values_within_tolerance", "nonfinite_coordinate_agreement"]
+  },
+  "tolerances": {
+    "trajectory_and_per_trial_quantities": {
+      "atol": 1e-10,
+      "rtol": 1e-8
+    },
+    "participant_response_nll_total": {
+      "atol": 1e-7,
+      "rtol": 1e-8
+    },
+    "integrity_observed_input": {
+      "exact": true
+    }
+  },
+  "nonfinite_policy": {
+    "record_coordinates": true,
+    "trajectory_nonfinite_mask_disagreement": "IMPLEMENTATION_MISMATCH",
+    "derived_surprise_or_nll_nonfinite_in_either_implementation": "NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY",
+    "do_not_drop_nonfinite_trials": true
+  },
+  "required_boundary_diagnostics": [
+    "min/max first-level predicted probability per implementation",
+    "count and coordinates of predicted probability exactly 0 or 1",
+    "maximum finite level-2 posterior precision per implementation",
+    "maximum finite level-3 posterior precision per implementation",
+    "NaN/+inf/-inf counts and coordinates for every compared field",
+    "actual dtype for every compared array"
+  ],
+  "raw_output_schema": {
+    "required_top_level_keys": [
+      "schema_version",
+      "protocol_id",
+      "case_id",
+      "environment",
+      "identities",
+      "input_hashes",
+      "settings",
+      "hgfx",
+      "pyhgf",
+      "comparison",
+      "boundary_diagnostics",
+      "classification"
+    ],
+    "arrays_must_be_stored_per_implementation": true,
+    "manual_numeric_transcription_allowed": false,
+    "raw_result_sha256_required": true
+  },
+  "post_result_changes_prohibited": [
+    "inputs",
+    "responses",
+    "inverse_temperature",
+    "model parameters",
+    "pyhgf guard settings",
+    "dtype or JAX x64 policy",
+    "Python/NumPy/JAX/JAXLIB/HGFX/pyhgf versions",
+    "compared field list",
+    "tolerances"
+  ],
+  "authorization_condition": "benchmark_authorized may become true only after the dedicated P2A.9 environment/API preflight passes and the final semantic-gate artifact records that run."
+}
