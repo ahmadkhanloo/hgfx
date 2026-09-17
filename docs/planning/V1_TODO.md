@@ -1,14 +1,14 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-17
-Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE**
+Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1 FROZEN**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
 PyPI: https://pypi.org/project/hgfx/1.0.0/
 
-The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`.
+The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`. Paper protocol P1 is frozen as `hgfx-paper-protocol-1`; P2/P2A/P3 are the next active publication work packages.
 
 ## Accepted evidence
 
@@ -38,6 +38,10 @@ The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 m
   - Trusted Publishing run `35207257208`: PASS.
   - Independent public-PyPI install/smoke run `35207903084`: PASS.
   - Public install: `python -m pip install hgfx==1.0.0`.
+- PV1-02 P1 paper protocol freeze: **DONE / FROZEN_FOR_EXECUTION**.
+  - protocol: `paper/reproducibility/PAPER_PROTOCOL.md`;
+  - protocol ID: `hgfx-paper-protocol-1`;
+  - recovery/identifiability settings, statistical summaries, comparator identity, provenance requirements, and claim exclusions frozen before final paper-only execution.
 
 ## Ordered release work
 
@@ -57,7 +61,7 @@ These items are the explicit forward backlog after the completed `v1.0.0` releas
 
 ### PV1-01 — M18C.2 trial-horizon / identifiability analysis
 
-**Status:** OPEN / RESEARCH  
+**Status:** IN PROGRESS / RESEARCH  
 **Tracking:** GitHub issue #21
 
 Goal: determine whether the preserved M18 parameter-recovery failures are primarily data-horizon limited or reflect structural/weak identifiability.
@@ -77,7 +81,7 @@ Exit evidence:
 
 ### PV1-02 — Methods paper and reproducibility package
 
-**Status:** IN PROGRESS / PUBLICATION  
+**Status:** IN PROGRESS / PUBLICATION / P1 FROZEN  
 **Tracking:** GitHub issue #32  
 **Plan:** `../research/PAPER_EXECUTION_PLAN.md`
 
@@ -90,13 +94,17 @@ Current state:
 - paper plan and evidence map synchronized to post-M19/v1.0.0 reality;
 - v1 equivalence narrative is drafted from frozen evidence;
 - HGFX `1.0.0` is now publicly installable from PyPI;
-- paper-specific generated tables/figures, protocol, reproducibility bundle, and independent manuscript audit remain open.
+- paper protocol P1 is frozen as `hgfx-paper-protocol-1` with status `FROZEN_FOR_EXECUTION`;
+- `pyhgf==0.3.2` is the frozen comparator identity for protocol 1, subject to a semantic gate before direct empirical comparison;
+- general speedup/multi-GPU scaling is intentionally not a headline claim under protocol 1;
+- generated core tables/figures, comparator mapping, recovery/identifiability results, reproducibility bundle, final paper-evidence freeze, and independent manuscript audit remain open.
 
 Planned scope:
 
-- freeze the paper benchmark protocol before running final paper-only experiments;
-- define the exact hardware/software/runtime matrix;
-- produce validation, recovery, model-selection, and performance figures/tables;
+- generate core equivalence tables from frozen v1 evidence;
+- complete fair pyhgf semantic mapping and qualitative comparison, allowing `NOT_DIRECTLY_COMPARABLE` where appropriate;
+- execute the frozen PV1-01 recovery/identifiability analysis if retained for the stronger methods paper;
+- define and record exact software/runtime environments for every new paper execution;
 - describe MATLAB-equivalence policy and `REFERENCE_LIMITATION_MATCH` semantics accurately;
 - include physical-GPU evidence and clearly distinguish correctness/applicability from scaling claims;
 - prepare a reproducibility bundle with commands, configs, seeds, data references, environment information, and exact HGFX commit/tag identifiers;
@@ -105,9 +113,10 @@ Planned scope:
 Exit evidence:
 
 - complete manuscript source;
-- frozen paper benchmark protocol;
+- frozen paper protocol;
 - reproducibility package;
 - all reported figures/tables traceable to committed evidence;
+- final paper evidence manifest marked `FROZEN_FOR_SUBMISSION`;
 - independent pre-submission review with no unresolved CRITICAL/HIGH findings.
 
 ### PV1-03 — PyPI publication
@@ -132,11 +141,13 @@ Provenance:
 
 ### PV1-04 — Post-v1 performance benchmark refresh
 
-**Status:** TODO / PERFORMANCE
+**Status:** TODO / PERFORMANCE / NOT ACTIVATED FOR PAPER PROTOCOL 1
 
 Goal: produce a clean, reproducible performance characterization of released HGFX without mixing correctness evidence with throughput claims.
 
-Planned scope:
+This remains a separate future task. `hgfx-paper-protocol-1` deliberately does not activate general speedup or multi-GPU scaling as a headline paper claim. If a later paper revision requires performance as a headline contribution, a new paper protocol version must be frozen before final benchmark execution.
+
+Planned scope when selected:
 
 - freeze benchmark workloads before execution;
 - report compile time separately from steady-state execution;
@@ -193,7 +204,7 @@ Exit evidence depends on the selected maintenance/feature item and must be defin
 
 Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, `FINAL_REVIEW_CHECKLIST.md`, `../validation/V1_EVIDENCE_INDEX.md`, `../validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as the frozen v1 continuity set.
 
-For the active publication objective, use `../research/PAPER_EXECUTION_PLAN.md`, `../research/LEVEL2_PAPER_PLAN.md`, `../research/PAPER_EVIDENCE_MAP.md`, and `../../paper/manuscript.md` as the continuity set.
+For the active publication objective, use `../research/PAPER_EXECUTION_PLAN.md`, `../research/LEVEL2_PAPER_PLAN.md`, `../research/PAPER_EVIDENCE_MAP.md`, `../../paper/reproducibility/PAPER_PROTOCOL.md`, and `../../paper/manuscript.md` as the continuity set.
 
 For public distribution provenance, use `PYPI_PUBLISHING.md` and `.github/workflows/verify-pypi.yml`.
 
