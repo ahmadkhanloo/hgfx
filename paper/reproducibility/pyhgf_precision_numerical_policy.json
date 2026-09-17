@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.8",
+  "status": "PASS_FOR_EXPLICIT_X64_UNCLIPPED_COMMON_SCOPE",
+  "created_date": "2026-09-17",
+  "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+  "execution_policy": {
+    "backend": "cpu",
+    "jax_enable_x64": true,
+    "required_mapped_dtype": "float64",
+    "environment_variables": {
+      "JAX_ENABLE_X64": "1",
+      "JAX_PLATFORMS": "cpu"
+    },
+    "common_python_constraint": "3.12.x",
+    "common_jax_constraint": ">=0.4.30,<0.7",
+    "common_jaxlib_constraint": ">=0.4.30,<0.7",
+    "exact_versions_frozen_before_empirical_run": true
+  },
+  "pyhgf_network_configuration": {
+    "volatility_updates": "standard",
+    "mean_field_updates": true,
+    "precision_clipping_value": 0.0,
+    "max_posterior_precision": "inf",
+    "classification": "PUBLIC_GUARDS_NEUTRALIZED_FOR_COMMON_SCOPE"
+  },
+  "guard_mapping": [
+    {
+      "guard": "binary prediction clipping",
+      "pyhgf_default": "precision_clipping_value=1e-6",
+      "hgfx_frozen_standard_hgf": "unclipped",
+      "common_scope": "precision_clipping_value=0.0",
+      "classification": "PUBLIC_GUARD_NEUTRALIZED_FOR_COMMON_SCOPE"
+    },
+    {
+      "guard": "posterior precision cap",
+      "pyhgf_default": "max_posterior_precision=1e10",
+      "hgfx_frozen_standard_hgf": "no general corresponding cap",
+      "common_scope": "max_posterior_precision=inf",
+      "classification": "PUBLIC_GUARD_NEUTRALIZED_FOR_COMMON_SCOPE"
+    },
+    {
+      "guard": "binary_surprise probability clipping",
+      "pyhgf_default": "clipping=true -> [1e-6,1-1e-6]",
+      "common_scope": "binary_surprise(..., clipping=false)",
+      "classification": "PUBLIC_PRIMITIVE_UNCLIPPED_FOR_COMMON_QUANTITY"
+    }
+  ],
+  "common_derived_quantities": {
+    "first_level_input_surprise": {
+      "definition": "-log(p) if u=1 else -log(1-p)",
+      "pyhgf_evaluation": "binary_surprise(u, p, clipping=false)",
+      "native_clipped_wrapper_is_direct_oracle": false
+    },
+    "participant_response_nll": {
+      "transformed_probability": "q = p^ze / (p^ze + (1-p)^ze)",
+      "definition": "-[y*log(q) + (1-y)*log(1-q)]",
+      "hgfx_evaluation": "-unitsq_sgm.logp",
+      "pyhgf_evaluation": "binary_surprise(y, q, clipping=false)",
+      "native_clipped_wrapper_is_direct_oracle": false
+    }
+  },
+  "runtime_preflight_assertions": [
+    "jax.config.read('jax_enable_x64') is True",
+    "jax.default_backend() == 'cpu'",
+    "all mapped pyhgf floating trajectory arrays are float64",
+    "pyhgf precision_clipping_value == 0.0",
+    "pyhgf max_posterior_precision is positive infinity"
+  ],
+  "required_boundary_diagnostics": [
+    "min/max first-level predicted probability per implementation",
+    "count and coordinates of p exactly equal to 0 or 1",
+    "maximum finite level-2 posterior precision per implementation",
+    "maximum finite level-3 posterior precision per implementation",
+    "NaN/+inf/-inf counts and coordinates for every compared field",
+    "actual dtype for every compared array"
+  ],
+  "boundary_failure_policy": {
+    "preserve_raw_result": true,
+    "post_result_guard_tuning_allowed": false,
+    "post_result_dtype_change_allowed": false,
+    "post_result_package_version_change_allowed": false,
+    "post_result_input_change_allowed": false,
+    "classification_if_fair_quantity_cannot_be_compared": "NOT_DIRECTLY_COMPARABLE"
+  },
+  "direct_oracle_exclusions": [
+    "pyhgf first_level_binary_surprise convenience wrapper with default clipping",
+    "pyhgf binary_softmax_inverse_temperature convenience wrapper with default clipping",
+    "pyhgf default precision_clipping_value=1e-6",
+    "pyhgf default max_posterior_precision=1e10",
+    "JAX lower-precision execution"
+  ],
+  "deferred_to_p2a9": [
+    "exact input sequence",
+    "exact participant response sequence if response NLL is retained",
+    "exact inverse temperature if response NLL is retained",
+    "exact resolved Python/NumPy/JAX/JAXLIB versions",
+    "exact compared output field list",
+    "absolute and relative error metrics",
+    "prospectively frozen numerical tolerances",
+    "raw output schema and hashes",
+    "final semantic gate authorization"
+  ],
+  "cross_tool_numerical_outputs_inspected_for_this_policy": false,
+  "benchmark_authorized": false
+}
