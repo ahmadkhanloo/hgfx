@@ -51,9 +51,19 @@ def _case_payload(*, kind: str, model: str, trials: int, scale: float, replicate
     truth_full, truth_free, free_indices = _truth_vector(
         model, inputs, replicate=replicate, scale=scale
     )
-    responses, probabilities = simulate_binary_variant(
-        model, inputs, truth_full, seed=seed + 1
-    )
+    try:
+        responses, probabilities = simulate_binary_variant(
+            model, inputs, truth_full, seed=seed + 1
+        )
+        simulation_success = True
+        simulation_error = None
+        y = np.asarray(responses, dtype=np.float64).reshape(-1).tolist()
+        response_probabilities = np.asarray(probabilities, dtype=np.float64).reshape(-1).tolist()
+    except Exception as exc:
+        simulation_success = False
+        simulation_error = f"{type(exc).__name__}: {exc}"
+        y = []
+        response_probabilities = []
     case = {
         "kind": kind,
         "model": model,
@@ -62,9 +72,11 @@ def _case_payload(*, kind: str, model: str, trials: int, scale: float, replicate
         "replicate": replicate,
         "seed": seed,
         "simulation_seed": seed + 1,
+        "simulation_success": simulation_success,
+        "simulation_error": simulation_error,
         "u": np.asarray(inputs, dtype=np.float64).reshape(-1).tolist(),
-        "y": np.asarray(responses, dtype=np.float64).reshape(-1).tolist(),
-        "response_probabilities": np.asarray(probabilities, dtype=np.float64).reshape(-1).tolist(),
+        "y": y,
+        "response_probabilities": response_probabilities,
         "truth_free": np.asarray(truth_free, dtype=np.float64).reshape(-1).tolist(),
         "free_indices_zero_based": [int(i) for i in free_indices],
     }

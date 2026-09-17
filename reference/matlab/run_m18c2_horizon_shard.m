@@ -91,6 +91,13 @@ out.termination_inferred = 'unknown';
 out.max_resets_warning = false;
 out.max_iterations_warning = false;
 
+if isempty(y)
+    out.error_identifier = 'HGFX:SimulationInvalid';
+    out.error_message = 'SIMULATION_INVALID_TRAJECTORY';
+    out.termination_inferred = 'simulation_invalid';
+    return;
+end
+
 try
     pc = feval([model '_config']);
     oc = unitsq_sgm_config();

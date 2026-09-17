@@ -37,6 +37,26 @@ def _scalar(value: Any) -> float:
 
 
 def _fit(model: str, y, u) -> dict[str, Any]:
+    if y is None or (hasattr(y, "__len__") and len(y) == 0):
+        return {
+            "model": model,
+            "success": False,
+            "error": "SIMULATION_INVALID_TRAJECTORY",
+            "final_free": [],
+            "initial_free": [],
+            "free_indices_zero_based": [],
+            "negLj": None,
+            "negLl": None,
+            "AIC": None,
+            "BIC": None,
+            "termination": "simulation_invalid",
+            "iterations": 0,
+            "reset_count": 0,
+            "converged": False,
+            "inverse_hessian_eigenvalues": [],
+            "inverse_hessian_rank": 0,
+            "inverse_hessian_condition": None,
+        }
     try:
         fit = fit_binary_variant(
             np.asarray(y, dtype=np.float64),

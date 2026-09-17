@@ -71,6 +71,7 @@ def test_build_shard_frozen_512_contract() -> None:
     assert len(shard["parameter_cases"]) == 6
     assert len(shard["model_cases"]) == 3
     assert shard["parameter_cases"][0]["seed"] == 18018 + 1500 + 100 * 512
+    assert all("simulation_success" in case for case in shard["parameter_cases"])
     again = prepare.build_shard("hgf_binary", 512, 0.15)
     assert shard["shard_sha256"] == again["shard_sha256"]
 
