@@ -23,9 +23,13 @@ dev = [
   "ruff>=0.6",
   "mypy>=1.11",
   "matplotlib>=3.9",
+  "scipy>=1.11",
 ]
 plot = [
   "matplotlib>=3.9",
+]
+optim = [
+  "scipy>=1.11",
 ]
 
 [tool.pytest.ini_options]
