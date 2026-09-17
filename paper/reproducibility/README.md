@@ -59,7 +59,7 @@ Committed Markdown in `paper/tables/` must be identical. CI workflow `p2-paper-t
 python paper/scripts/generate_p5_figures.py
 ```
 
-Outputs: `paper/figures/*.png` and `paper/figures/p5_figures_manifest.json`.
+Outputs: `paper/figures/*.png`, matching `.pdf` vector files, and `paper/figures/p5_figures_manifest.json`. PNG export is 300 dpi.
 
 The P3 trial-horizon figure is generated only after M18C.2 aggregate evidence is committed. Protocol 1 does not activate a performance/scaling figure.
 

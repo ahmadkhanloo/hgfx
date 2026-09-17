@@ -35,6 +35,9 @@ def test_generate_p5_writes_manifest_and_pngs(tmp_path: Path) -> None:
         path = ROOT / meta["path"]
         assert path.is_file()
         assert path.stat().st_size > 1000
+        pdf = path.with_suffix(".pdf")
+        assert pdf.is_file()
+        assert pdf.stat().st_size > 1000
     manifest = json.loads((ROOT / "paper/figures/p5_figures_manifest.json").read_text(encoding="utf-8"))
     assert manifest["inputs"]
     assert "P4 performance" in " ".join(manifest["notes"])
