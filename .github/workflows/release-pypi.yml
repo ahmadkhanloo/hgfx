@@ -131,6 +131,8 @@ jobs:
 
       - name: Clean-install wheel and run public API smoke test
         shell: bash
+        env:
+          EXPECTED_VERSION: ${{ steps.meta.outputs.version }}
         run: |
           set -euo pipefail
           python -m venv /tmp/hgfx-pypi-smoke
@@ -138,10 +140,12 @@ jobs:
           /tmp/hgfx-pypi-smoke/bin/python -m pip install dist/*.whl
           /tmp/hgfx-pypi-smoke/bin/python - <<'PY'
           from importlib.metadata import version
+          import os
           import numpy as np
           import hgfx
 
-          assert version("hgfx") == "1.0.0"
+          expected = os.environ["EXPECTED_VERSION"]
+          assert version("hgfx") == expected
           assert callable(hgfx.fit_model)
           assert callable(hgfx.sim_model)
           assert callable(hgfx.sample_model)
@@ -151,7 +155,7 @@ jobs:
           result = hgfx.fit_model(y, u)
           assert np.isfinite(result.optim.LME)
           assert np.isfinite(result.optim.BIC)
-          print("HGFX public API smoke test PASS")
+          print(f"HGFX {expected} public API smoke test PASS")
           PY
 
       - name: Upload validated distributions
