@@ -6,36 +6,42 @@ Recorded: 2026-09-18
 `hgfx.fit_model` still uses the frozen MATLAB `quasinewton` path. That contract
 is the methods-paper claim and must stay bit-stable.
 
-This module exists because a TAPAS-compatible optimizer is not the same thing as
-a good MAP optimizer. Use it from analysis code when the target is a tighter
-point estimate on a known objective.
+The production opt-in engine is SciPy `L-BFGS-B`:
+
+```bash
+pip install 'hgfx[optim]'
+```
+
+If SciPy is missing, HGFX falls back to the internal L-BFGS. Install SciPy for
+analysis work.
 
 ## API
 
 ```python
-from hgfx.optim import MapOptions, minimize_map, multi_start_map
+from hgfx.optim import MapOptions, fit_map, minimize_map, multi_start_map
 
-result = minimize_map(
-    neg_log_joint,           # transformed-space objective
+# Same objective as fit_model, better optimizer:
+fit = fit_map(y, u, n_random_starts=8)
+
+# Custom objective (dual-stream wrapper, etc.):
+result = multi_start_map(
+    neg_log_joint,
     x0,
-    jac=None,                # optional exact gradient
-    starts=None,             # extra deterministic restarts
-    n_random_starts=4,
-    options=MapOptions(gradient="finite"),  # or "ridders" / "jax"
+    n_random_starts=8,
+    options=MapOptions(solver="scipy", method="L-BFGS-B", gradient="finite"),
 )
 ```
 
-`result.x` is the best free-parameter vector. `result.fun` is the minimized
-value. This object is not a `QuasiNewtonResult` and must not be fed into frozen
-LME-parity helpers unless you know they only need `arg_min`.
+`fit_model` remains the MATLAB-parity path. `fit_map` / `minimize_map` are the
+tighter MAP path.
 
 ## Gradient rules
 
 | `gradient` | When to use |
 |---|---|
-| `finite` | Default. Works with NumPy HGFX models (`hgf_ar1_binary`, dual-stream wrappers). |
-| `ridders` | Same models, slower and closer to the TAPAS gradient estimator. |
-| `jax` | Only if the objective is JAX-traceable end-to-end. Do not point this at NumPy forwards; the gradient will be wrong. |
+| `finite` | Default with SciPy. Works with NumPy HGFX models. |
+| `ridders` | Same models, slower, closer to the TAPAS gradient estimator. |
+| `jax` | Only if the objective is JAX-traceable end-to-end. |
 | user `jac` | Best option when you have an analytic or JAX gradient of *your* wrapper. |
 
 ## What this is not
