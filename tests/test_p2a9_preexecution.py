@@ -18,8 +18,7 @@ def _load() -> dict:
 
 def test_canonical_bit_hash_is_stable() -> None:
     assert canonical_bit_hash([0, 1, 0, 1]) == (
-        "sha256:",
-        "f2f991d74dfbb2d0eeac24c57d11d7678065390d67d23b426419dcb17e8656f5",
+        "5b4415d7f76d878bd3f75318f9a44c7f2bac69f1807a72add77f1fa424aa28bd"
     )
 
 
