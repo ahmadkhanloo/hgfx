@@ -1,0 +1,6 @@
+Item,Classification,MATLAB convergence,HGFX convergence,MATLAB corr/BA,HGFX corr/BA,MATLAB std RMSE,HGFX std RMSE,Failure/winner summary,Evidence
+M18_HISTORICAL_SCIENTIFIC,FAIL_PRESERVED,—,—,—,—,—,—,historical FAIL remains immutable,reference/validation/v1_release/evidence_manifest.json#M18_HISTORICAL_SCIENTIFIC
+S7 parameter recovery: hgf_binary,REFERENCE_LIMITATION_MATCH,0.8333333333333334,0.8333333333333334,0.20268457015781036,0.2026845701405167,2.609662845472688,2.6096628455058144,"median_correlation, median_standardized_rmse",reference/validation/m18_s7_reference_limitation/decision.json
+S7 parameter recovery: ehgf_binary,REFERENCE_LIMITATION_MATCH,0.9166666666666666,0.9166666666666666,0.4619183691009534,0.4619183690777424,2.35912688822566,2.3591268886719896,"median_correlation, median_standardized_rmse",reference/validation/m18_s7_reference_limitation/decision.json
+S7 parameter recovery: uhgf_binary,REFERENCE_LIMITATION_MATCH,0.7916666666666666,0.7916666666666666,0.3809683135827406,0.38096831359106725,2.9578866196547637,2.9578866180685117,"convergence_rate, median_correlation, median_standardized_rmse",reference/validation/m18_s7_reference_limitation/decision.json
+S7 model selection,PASS_PAIRED_MODEL_SELECTION,—,—,0.5833333333333334,0.5833333333333334,—,—,36/36 BIC winners match,reference/validation/m18_s7_reference_limitation/decision.json

@@ -1,0 +1,82 @@
+{
+  "generator": {
+    "path": "paper/scripts/generate_core_tables.py",
+    "sha256": "d5459afc6f43cc38875af598082dd3fb89650aea8c7468bdc5d1e4dbd2074d7f"
+  },
+  "inputs": {
+    "d02": {
+      "path": "reference/validation/m18_d02_reference_limitation/decision.json",
+      "sha256": "037a16d245ff574ebc98c9dac41a92adb459b587207d58e8cf8c22e8d036c0cf"
+    },
+    "d08": {
+      "path": "reference/validation/m18_d08_reference_limitation/decision.json",
+      "sha256": "a375ec68f1ca2fcb99b7eae3476b3800f86f4e298c7c2ff79acbac2724e669ff"
+    },
+    "demo_model_selection": {
+      "path": "paper/reproducibility/frozen_inputs/m18_demo_model_selection_classification.json",
+      "sha256": "5914e3b5870020d4133a0bf322d4be2998cc809ce6b63161bf04fa0b52dd5109"
+    },
+    "demo_uhgf_ar1": {
+      "path": "paper/reproducibility/frozen_inputs/m18_demo_uhgf_ar1_classification.json",
+      "sha256": "44242dc98df70d526c5cdf0f609fab0a4eb36fd4d0bdf41328988570c1b99452"
+    },
+    "s7": {
+      "path": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    "snapshot": {
+      "path": "paper/reproducibility/frozen_inputs/p2_source_snapshot.json",
+      "sha256": "2d225d133032ce3cc323d23cba5a6145cb54409b3f7401954193297e10618baa"
+    }
+  },
+  "schema_version": 1,
+  "spec": {
+    "path": "paper/reproducibility/core_tables_spec.json",
+    "sha256": "bcd82868abe6db14bdf19be0b1d54cfcb03464900425bef60be82ea25dfca476"
+  },
+  "status": "GENERATED_FROM_FROZEN_EVIDENCE",
+  "tables": {
+    "backend_gpu_applicability": {
+      "outputs": {
+        "csv": {"path": "paper/tables/backend_gpu_applicability.csv", "sha256": "a8f403f816330ce9330aba19c722d0568138577185d2c02e73395804d5cedd6c"},
+        "markdown": {"path": "paper/tables/backend_gpu_applicability.md", "sha256": "e956d56547d73fb8370612068a1d520593c6853f1ca0328665534ed213fea21b"}
+      },
+      "title": "Backend and physical GPU applicability"
+    },
+    "fitting_statistics_classification": {
+      "outputs": {
+        "csv": {"path": "paper/tables/fitting_statistics_classification.csv", "sha256": "b404ecda52f6a773d36d474bcb9dd9fd07436965fae7888d0c1ccfc18e469853"},
+        "markdown": {"path": "paper/tables/fitting_statistics_classification.md", "sha256": "7eb0cb5065c6d8b4be393c605a3f289458f46d2e537038eaf50ba6f00d79ea0a"}
+      },
+      "title": "Fitting and statistics classification"
+    },
+    "model_workflow_coverage": {
+      "outputs": {
+        "csv": {"path": "paper/tables/model_workflow_coverage.csv", "sha256": "73d21a70a77b8813846ed5a9561f9e6df149cbce8c4c2ecb3424f52f7bab60f8"},
+        "markdown": {"path": "paper/tables/model_workflow_coverage.md", "sha256": "84787b28c4fe5ef2eba47e92c092631282b14019843170320ba099ddc03bfdcf"}
+      },
+      "title": "Model and workflow coverage"
+    },
+    "official_demo_parity": {
+      "outputs": {
+        "csv": {"path": "paper/tables/official_demo_parity.csv", "sha256": "d0809d27a80ac88760c61dbfba3edd5e2b5b024b9c7da46d4984c95b6f0acfef"},
+        "markdown": {"path": "paper/tables/official_demo_parity.md", "sha256": "54a74e985a3f640695c094d2f79e0db5548fa9fa3a6a2495a4dae1ee5b615328"}
+      },
+      "title": "Official MATLAB demo parity"
+    },
+    "recovery_model_selection": {
+      "outputs": {
+        "csv": {"path": "paper/tables/recovery_model_selection.csv", "sha256": "8a870eedd66b091c5fc1d1d8c96422e24ee131a4bd103b4f31b6a6c2a22130dd"},
+        "markdown": {"path": "paper/tables/recovery_model_selection.md", "sha256": "b037a34b1e636883f1b9034b508ca50d1193d2eb422bd8d303cee1efe1c7200d"}
+      },
+      "title": "Recovery and paired model selection"
+    },
+    "release_reproducibility_provenance": {
+      "outputs": {
+        "csv": {"path": "paper/tables/release_reproducibility_provenance.csv", "sha256": "139146cc85ae594f8cc7847ae5724541132c4146af784deb6afc4a219187fa31"},
+        "markdown": {"path": "paper/tables/release_reproducibility_provenance.md", "sha256": "d63c0049271615732531ba6bd31fd6c90c7e66dc1af496fd92f4347bc65bafab"}
+      },
+      "title": "Release and reproducibility provenance"
+    }
+  }
+}
