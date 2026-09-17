@@ -1,0 +1,186 @@
+name: PyPI Release
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/release-pypi.yml"
+      - "pyproject.toml"
+      - "src/**"
+      - "README.md"
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Immutable release tag/ref to build and publish"
+        required: true
+        default: "v1.0.0"
+        type: string
+      publish:
+        description: "Publish validated distributions to PyPI"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build-audit-smoke:
+    name: Build, audit, and smoke-test distributions
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      tag: ${{ steps.meta.outputs.tag }}
+      source_sha: ${{ steps.meta.outputs.source_sha }}
+    steps:
+      - name: Check out immutable release source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.source_ref || 'v1.0.0' }}
+          fetch-depth: 0
+          submodules: false
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify release tag, version, and frozen v1 provenance
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          VERSION="$(python - <<'PY'
+          import tomllib
+          from pathlib import Path
+          data = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+          print(data["project"]["version"])
+          PY
+          )"
+          TAG="$(git describe --tags --exact-match HEAD)"
+          SOURCE_SHA="$(git rev-parse HEAD)"
+
+          if [[ "$TAG" != "v${VERSION}" ]]; then
+            echo "Expected exact tag v${VERSION}, got ${TAG}" >&2
+            exit 1
+          fi
+
+          if [[ "$TAG" == "v1.0.0" ]]; then
+            EXPECTED_V1_SHA="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+            if [[ "$SOURCE_SHA" != "$EXPECTED_V1_SHA" ]]; then
+              echo "v1.0.0 provenance mismatch: expected ${EXPECTED_V1_SHA}, got ${SOURCE_SHA}" >&2
+              exit 1
+            fi
+          fi
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "source_sha=${SOURCE_SHA}" >> "$GITHUB_OUTPUT"
+          printf 'Validated source: %s @ %s (version %s)\n' "$TAG" "$SOURCE_SHA" "$VERSION"
+
+      - name: Install packaging tools
+        run: python -m pip install --upgrade pip build twine
+
+      - name: Build wheel and source distribution
+        run: python -m build
+
+      - name: Validate package metadata
+        run: python -m twine check dist/*
+
+      - name: Audit distribution contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile
+          import zipfile
+
+          dist = Path("dist")
+          artifacts = sorted(dist.iterdir())
+          if len(artifacts) != 2:
+              raise SystemExit(f"Expected exactly wheel + sdist, found: {[p.name for p in artifacts]}")
+
+          forbidden_fragments = (
+              "/external/hgf-toolbox/",
+              "external/hgf-toolbox/",
+              "/.git/",
+          )
+
+          def names(path: Path):
+              if path.suffix == ".whl":
+                  with zipfile.ZipFile(path) as zf:
+                      return zf.namelist()
+              if path.name.endswith(".tar.gz"):
+                  with tarfile.open(path, "r:gz") as tf:
+                      return tf.getnames()
+              raise SystemExit(f"Unexpected distribution type: {path.name}")
+
+          for artifact in artifacts:
+              members = names(artifact)
+              bad = [
+                  name for name in members
+                  if any(fragment in f"/{name}" for fragment in forbidden_fragments)
+              ]
+              print(f"{artifact.name}: {len(members)} entries")
+              if bad:
+                  raise SystemExit(
+                      f"Forbidden MATLAB/reference or VCS payload in {artifact.name}: {bad[:20]}"
+                  )
+          PY
+
+      - name: Clean-install wheel and run public API smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/hgfx-pypi-smoke
+          /tmp/hgfx-pypi-smoke/bin/python -m pip install --upgrade pip
+          /tmp/hgfx-pypi-smoke/bin/python -m pip install dist/*.whl
+          /tmp/hgfx-pypi-smoke/bin/python - <<'PY'
+          from importlib.metadata import version
+          import numpy as np
+          import hgfx
+
+          assert version("hgfx") == "1.0.0"
+          assert callable(hgfx.fit_model)
+          assert callable(hgfx.sim_model)
+          assert callable(hgfx.sample_model)
+
+          u = np.array([0, 1, 1, 0, 1, 0, 0, 1], dtype=float)
+          y = np.array([0, 1, 1, 0, 1, 0, 0, 1], dtype=float)
+          result = hgfx.fit_model(y, u)
+          assert np.isfinite(result.optim.LME)
+          assert np.isfinite(result.optim.BIC)
+          print("HGFX public API smoke test PASS")
+          PY
+
+      - name: Upload validated distributions
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: pypi-distributions-${{ steps.meta.outputs.version }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish validated distributions to PyPI
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+    needs: build-audit-smoke
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/hgfx/${{ needs.build-audit-smoke.outputs.version }}/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download validated distributions
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: pypi-distributions-${{ needs.build-audit-smoke.outputs.version }}
+          path: dist/
+
+      - name: Publish to PyPI with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1
+        with:
+          packages-dir: dist/
