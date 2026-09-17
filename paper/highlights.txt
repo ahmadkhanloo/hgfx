@@ -1,0 +1,5 @@
+HGFX 1.0.0 matches frozen MATLAB HGF Toolbox 8.2.0 in documented scopes.
+36/36 paired BIC winners agree; historical recovery failures are preserved.
+Physical GPU path keeps the tested objective (max gap 1.42e-14).
+pyhgf comparison is scoped; response NLL is not directly comparable.
+Users need no MATLAB; evidence classes separate parity from success.

@@ -34,7 +34,8 @@ def _load_json(path: Path) -> dict:
 
 def _save(fig: plt.Figure, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=200, bbox_inches="tight", facecolor="white")
+    fig.savefig(path, dpi=300, bbox_inches="tight", facecolor="white")
+    fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
 
@@ -172,6 +173,7 @@ def build(repo: Path) -> dict:
         "figures": outputs,
         "notes": [
             "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
+            "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
             "P3 trial-horizon figure is omitted until M18C.2 execution artifacts exist.",
             "P4 performance/scaling figure is not activated under protocol 1.",
         ],

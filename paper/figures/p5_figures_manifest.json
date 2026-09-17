@@ -2,23 +2,23 @@
   "figures": {
     "fig_evidence_classes.png": {
       "path": "paper/figures/fig_evidence_classes.png",
-      "sha256": "123142f5cab690a7fab9a3dfb5b5b763bf992ea2200f569b294f306f2db0cb5e"
+      "sha256": "16133eba4515592c2b020495d3727d40682f641ab33497091537009eefbd9e39"
     },
     "fig_gpu_applicability.png": {
       "path": "paper/figures/fig_gpu_applicability.png",
-      "sha256": "23850ff74e2d3d6c1ca7b89a6fda82cc20e299485f0a4236a8f2113b0f400c8f"
+      "sha256": "10a103ce3ffab2ff5c5c1d352bffab65345cd8d58829ce4dd806f66bfefe028c"
     },
     "fig_model_selection.png": {
       "path": "paper/figures/fig_model_selection.png",
-      "sha256": "683d371b78a97479fd03d7ed6ded0c379fdb3b9c206f7d26d9b45be358664e53"
+      "sha256": "437e8cb1eec055657207de203ef747fc261ef8474045eb3782cdcaa3b50bf515"
     },
     "fig_pyhgf_common_scope.png": {
       "path": "paper/figures/fig_pyhgf_common_scope.png",
-      "sha256": "eff0619bb345fd28bc942880190651ebca7d9b506f62ca00f1d73a77b137b3b3"
+      "sha256": "e449efdcf7de8920d06082e60c1b6a3aa00e1322368a57fd98e3224923e11680"
     },
     "fig_recovery_metrics.png": {
       "path": "paper/figures/fig_recovery_metrics.png",
-      "sha256": "c72a5655062fa32ac58545acd860587d45f8718874a2e3433374dc8a730a4f87"
+      "sha256": "6659396439db9902f1d147119e4d426526a0c9302603bea26b62b8b06809afb4"
     }
   },
   "generator": "paper/scripts/generate_p5_figures.py",
@@ -31,6 +31,7 @@
   },
   "notes": [
     "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
+    "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
     "P3 trial-horizon figure is omitted until M18C.2 execution artifacts exist.",
     "P4 performance/scaling figure is not activated under protocol 1."
   ],

@@ -313,7 +313,7 @@ Acceptance:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / SUBSTANTIVE DRAFT WITH P2/P2A/P5/P6 INTEGRATED.
+**Status:** IN PROGRESS / FRONTIERS TECHNOLOGY-AND-CODE DRAFT; P3 FIGURE STILL OPEN.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
@@ -322,8 +322,10 @@ The working manuscript already contains evidence-backed sections for the release
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
-- selecting target journal and converting to its template;
-- completing code/data availability, funding and conflict statements;
+- selected target: *Journal of Neuroscience Methods* (Elsevier hybrid, subscription track / no APC);
+- not JCR Q1 (Neurosciences Q3; Biochemical Research Methods Q2);
+- converting to the JNM Research Article format (Highlights, Materials and methods, abstract ≤250 words);
+- funding recorded as none; remaining conflict/author metadata left for the authors;
 - ensuring the abstract contains only frozen supported claims.
 
 Paper-grade performance Results are not required under protocol 1 because general performance/scaling is not a headline claim.
@@ -335,7 +337,9 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** OPEN / FINAL SCIENTIFIC GATE.
+**Status:** OPEN / FINAL SCIENTIFIC GATE / CHECKLIST PREPARED.
+
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. The checklist is not a completed review.
 
 Review the exact submission candidate for:
 - scientific overclaiming;
