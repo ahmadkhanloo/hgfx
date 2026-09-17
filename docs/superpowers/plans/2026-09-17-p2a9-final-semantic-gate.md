@@ -1,6 +1,10 @@
 # P2A.9 Final Semantic Gate Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+Status: **COMPLETE / PASS**  
+Completed: 2026-09-17  
+Merged implementation: PR #43 / `58adbca4fab138792040e9ccb1e909f2f647f33c`
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for completed work.
 
 **Goal:** Freeze and verify the exact pre-execution common-scope protocol that can authorize the first HGFX v1.0.0 ↔ pyhgf 0.3.2 numerical comparison without inspecting cross-tool numerical outcomes first.
 
@@ -8,7 +12,7 @@
 
 **Tech Stack:** Python 3.12, NumPy, JAX/JAXLIB, HGFX 1.0.0, pyhgf 0.3.2, pytest, GitHub Actions, JSON/SHA-256.
 
-**Spec:** `paper/reproducibility/PAPER_PROTOCOL.md`, especially sections 6.2, 8, 9, and 12; P2A.3–P2A.8 mapping artifacts under `docs/research/` and `paper/reproducibility/`.
+**Spec:** `paper/reproducibility/PAPER_PROTOCOL.md`, especially sections 6.2, 8, 9, and 12; P2A.2–P2A.8 mapping artifacts under `docs/research/` and `paper/reproducibility/`.
 
 ## Global Constraints
 
@@ -21,63 +25,66 @@
 
 ---
 
-### Task 1: Freeze the exact common-scope case
+### Task 1: Freeze the exact common-scope case — COMPLETE
 
 **Files:**
-- Create: `paper/reproducibility/pyhgf_common_scope_case.json`
-- Test: `tests/test_p2a9_preexecution.py`
+- `paper/reproducibility/pyhgf_common_scope_case.json`
+- `tests/test_p2a9_preexecution.py`
 
-**Interfaces:**
-- Consumes: P2A.4 parameter mapping, P2A.5 initialization mapping, P2A.6 input/masking mapping, P2A.7 output mapping, P2A.8 precision policy.
-- Produces: one immutable `case_id`, exact `inputs`, exact `responses`, canonical SHA-256 hashes, inverse temperature, environment pins, output-field list, tolerances, and classification rules.
+- [x] Write tests for canonical bit-array hashing, manifest integrity, binary values/lengths, expected fixed parameters, and exact prospective tolerances.
+- [x] Verify the RED state before implementation. HGFX Regression run #129 (`35265057143`) failed while collecting `tests/test_p2a9_preexecution.py` because the checker was not yet present; frozen-reference and MATLAB-source guards passed first.
+- [x] Commit the frozen manifest without changing product runtime/scientific source.
 
-- [ ] **Step 1: Write the failing tests** for canonical bit-array hashing, manifest integrity, binary values/lengths, expected fixed parameters, and exact prospective tolerances.
-- [ ] **Step 2: Run `pytest tests/test_p2a9_preexecution.py -q` and verify RED** because `tools.check_p2a9_preexecution` does not yet exist.
-- [ ] **Step 3: Commit the frozen manifest without changing any product runtime source.**
-
-### Task 2: Implement a non-empirical P2A.9 checker
+### Task 2: Implement a non-empirical P2A.9 checker — COMPLETE
 
 **Files:**
-- Create: `tools/check_p2a9_preexecution.py`
-- Test: `tests/test_p2a9_preexecution.py`
+- `tools/check_p2a9_preexecution.py`
+- `tests/test_p2a9_preexecution.py`
 
-**Interfaces:**
-- Consumes: `paper/reproducibility/pyhgf_common_scope_case.json`.
-- Produces: deterministic schema/hash validation plus an optional environment provenance JSON. It must not call `hgf_binary`, `Network.input_data`, response likelihood evaluation, or any other cross-tool scientific execution.
+- [x] Implement `canonical_bit_hash(values)` using comma-separated ASCII `0`/`1` values with no whitespace.
+- [x] Implement `validate_manifest(data)` and rejection of changed hashes, binary contract, fixed settings, field list, or tolerances.
+- [x] Implement `runtime_preflight(data)` for exact versions, CPU backend, JAX x64, package identities, public pyhgf guard settings, and unclipped-surprise API availability without scientific data execution.
+- [x] Verify GREEN through the complete repository regression suite, which includes `tests/test_p2a9_preexecution.py`; final PR-head HGFX Regression run #138 (`35265721711`) passed on Ubuntu and Windows.
 
-- [ ] **Step 1: Implement `canonical_bit_hash(values)`** using comma-separated ASCII `0`/`1` values with no whitespace.
-- [ ] **Step 2: Implement `validate_manifest(data)`** and reject changed hashes, non-binary values, unequal lengths, missing fixed settings, or changed tolerances.
-- [ ] **Step 3: Implement `runtime_preflight(data)`** to verify exact Python/core-package versions, CPU backend, JAX x64, installed HGFX/pyhgf identities, `Network` public guard settings, and availability of the unclipped `binary_surprise` API without feeding scientific data through either implementation.
-- [ ] **Step 4: Run the focused pytest target and verify GREEN.**
-
-### Task 3: Add and execute the dedicated preflight workflow
+### Task 3: Add and execute the dedicated preflight workflow — COMPLETE
 
 **Files:**
-- Create: `.github/workflows/p2a9-preflight.yml`
-- Output artifact: `p2a9-preflight-environment.json`
+- `.github/workflows/p2a9-preflight.yml`
+- Preserved output: `paper/reproducibility/pyhgf_preflight_environment_35265386637.json`
 
-**Interfaces:**
-- Consumes: exact environment pins from the case manifest and `tools/check_p2a9_preexecution.py`.
-- Produces: GitHub run/job identity plus actual Python/NumPy/JAX/JAXLIB/HGFX/pyhgf versions, import locations, OS/platform details, CPU backend and x64 evidence.
+- [x] Configure Ubuntu-only preflight with `JAX_ENABLE_X64=1` and `JAX_PLATFORMS=cpu`.
+- [x] Install exact prospective versions and execute the checker in runtime-preflight mode.
+- [x] Upload environment JSON and `pip freeze` as an Actions artifact.
+- [x] Confirm preflight success before authorization: run #4 / ID `35265386637` passed and supplied the frozen environment artifact; final PR head was reverified by preflight run #7 / ID `35265721724`.
 
-- [ ] **Step 1: Configure Ubuntu-only preflight with `JAX_ENABLE_X64=1` and `JAX_PLATFORMS=cpu`.**
-- [ ] **Step 2: Install exact prospective versions and run the checker in runtime-preflight mode.**
-- [ ] **Step 3: Upload the environment JSON and print it in the log.**
-- [ ] **Step 4: Confirm the workflow succeeds before authorizing numerical execution.**
-
-### Task 4: Freeze the final semantic gate
+### Task 4: Freeze the final semantic gate — COMPLETE
 
 **Files:**
-- Create: `docs/research/PYHGF_FINAL_SEMANTIC_GATE.md`
-- Create: `paper/reproducibility/pyhgf_final_semantic_gate.json`
-- Modify: GitHub issue #33 progress section.
+- `docs/research/PYHGF_FINAL_SEMANTIC_GATE.md`
+- `paper/reproducibility/pyhgf_final_semantic_gate.json`
+- GitHub issue #33 progress record
 
-**Interfaces:**
-- Consumes: P2A.2–P2A.8 evidence, the exact case manifest, and the successful P2A.9 environment-preflight run.
-- Produces: the single pre-execution authorization decision for the first numerical comparator run.
+- [x] Record every semantic restriction carried forward from P2A.2–P2A.8.
+- [x] Record environment-preflight run identity, exact versions, hardware/runtime evidence, artifact ID/digest, and file hashes.
+- [x] Set `FINAL_SEMANTIC_GATE=PASS_FOR_FROZEN_COMMON_SCOPE` and `benchmark_authorized=true` only after preflight PASS.
+- [x] State the next action as execution of the already-frozen case with no input/response/tolerance/version changes.
+- [x] Run repository regression CI, merge only on PASS, and verify `main` points to merged commit `58adbca4fab138792040e9ccb1e909f2f647f33c` before this closeout update.
 
-- [ ] **Step 1: Record every semantic restriction carried forward from P2A.2–P2A.8.**
-- [ ] **Step 2: Record the exact environment-preflight run ID and verified versions.**
-- [ ] **Step 3: Set `FINAL_SEMANTIC_GATE=PASS_FOR_FROZEN_COMMON_SCOPE` and `benchmark_authorized=true` only if all required checks are satisfied.**
-- [ ] **Step 4: State that the next action is execution of the already-frozen case with no tolerance/input/version changes.**
-- [ ] **Step 5: Run repository regression CI, merge only on PASS, then verify `main` points to the merged commit.**
+## Verification evidence
+
+- TDD RED: HGFX Regression #129 / `35265057143` — expected failure before checker implementation.
+- Environment/API preflight used for authorization: P2A.9 Comparator Preflight #4 / `35265386637` — PASS, no scientific execution.
+- Final-head environment revalidation: P2A.9 Comparator Preflight #7 / `35265721724` — PASS.
+- Final-head repository regression: HGFX Regression #138 / `35265721711` — PASS on Ubuntu 24.04 and Windows.
+- PR #43 squash-merged to `main`: `58adbca4fab138792040e9ccb1e909f2f647f33c`.
+
+## Exit state
+
+```text
+P2A.9 = DONE / PASS
+FINAL_SEMANTIC_GATE = PASS_FOR_FROZEN_COMMON_SCOPE
+benchmark_authorized = true for p2a9-binary-hgf-common-scope-001 only
+cross-tool numerical result = NOT YET EXECUTED
+```
+
+The next project action is the first authorized numerical execution of the frozen case. Its raw outputs and SHA-256 must be persisted before interpretation.
