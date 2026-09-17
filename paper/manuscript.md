@@ -7,7 +7,7 @@
 
 **Authors and affiliations:** to be finalized before submission.
 
-> Submission note: this draft is evidence-backed for the released v1.0.0 validation record, but it is not yet submission-ready. Final paper-specific generated tables/figures, the reproducibility bundle, target-journal formatting, and the independent manuscript audit remain open. New recovery-horizon or performance experiments must be prospectively frozen before they can be added as final results.
+> Submission note: this draft is evidence-backed for the released v1.0.0 validation record. Core equivalence tables (P2), the frozen pyhgf common-scope comparison (P2A), generated figures (P5), and the paper reproduction entry point are now committed. Remaining blockers: P3 trial-horizon execution on GitHub Actions MATLAB, final paper-evidence freeze, author/affiliation/journal metadata, and independent pre-submission review.
 
 ## Abstract
 
@@ -115,7 +115,7 @@ Post-remediation regression passed on Ubuntu and Windows; the recorded Windows r
 
 HGFX v1.0.0 was released from the immutable source commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. The release requires no MATLAB runtime for users. MATLAB is needed only when regenerating cross-language oracle evidence.
 
-The official demo reproductions establish concrete workflow equivalence for the tested model-family selection and uHGF-AR(1) workflows. These results are stronger than a code-path smoke test because the CI workflows execute the MATLAB oracle, execute the Python reproduction, compare complete release-relevant outputs under frozen tolerances, and archive machine-readable evidence artifacts.
+The official demo reproductions establish concrete workflow equivalence for the tested model-family selection and uHGF-AR(1) workflows. These results are stronger than a code-path smoke test because the CI workflows execute the MATLAB oracle, execute the Python reproduction, compare complete release-relevant outputs under frozen tolerances, and archive machine-readable evidence artifacts. Figure `paper/figures/fig_evidence_classes.png` summarizes the four evidence classes used in this manuscript.
 
 ### 4.2 Fitting and statistical outputs
 
@@ -123,7 +123,7 @@ The v1 validation matrix covers objective, fitting, Hessian/covariance/correlati
 
 ### 4.3 Recovery and paired model selection
 
-Historical parameter-recovery failure remains part of the scientific record. Paired model selection is stronger: all 36 BIC winners match between the MATLAB and HGFX runs under the frozen paired protocol. This supports preservation of the tested model-selection decision surface while leaving parameter identifiability as a separate scientific question.
+Historical parameter-recovery failure remains part of the scientific record (Figure `paper/figures/fig_recovery_metrics.png`). Paired model selection is stronger: all 36 BIC winners match between the MATLAB and HGFX runs under the frozen paired protocol (Figure `paper/figures/fig_model_selection.png`). This supports preservation of the tested model-selection decision surface while leaving parameter identifiability as a separate scientific question.
 
 A post-v1 trial-horizon study is planned to distinguish data-horizon limitation from weak or structural identifiability without changing the historical criterion. Until that prospective experiment is completed, the manuscript does not claim that HGFX or the MATLAB reference provides generally strong parameter recovery across the tested HGF families.
 
@@ -131,11 +131,11 @@ A post-v1 trial-horizon study is planned to distinguish data-horizon limitation 
 
 Compatibility CPU and JAX-backed CPU outputs pass the post-review backend-equivalence gate. On physical Tesla T4 hardware, the maximum final-objective difference between required CPU and GPU fitting cells is `1.4210854715202004e-14`, substantially below the pre-existing `1e-7` criterion.
 
-This result demonstrates that the tested JAX GPU path can preserve the validated numerical objective surface on physical hardware. Performance is intentionally not inferred from this result. Historical H100/T4 scaling measurements are retained in the repository in their original scope, but a new prospectively frozen paper benchmark is required before speed or scaling becomes a headline claim.
+This result demonstrates that the tested JAX GPU path can preserve the validated numerical objective surface on physical hardware (Figure `paper/figures/fig_gpu_applicability.png`). Performance is intentionally not inferred from this result. Historical H100/T4 scaling measurements are retained in the repository in their original scope, but a new prospectively frozen paper benchmark is required before speed or scaling becomes a headline claim.
 
 ### 4.5 Frozen common-scope comparison with pyhgf
 
-In the prospectively frozen 128-trial comparator case, all 11 mapped perceptual/inference quantities passed their predeclared tolerances. Maximum absolute differences were at binary64 rounding scale: `1.1102230246251565e-16` for first-level predicted probability, `4.440892098500626e-16` for level-2 means, `6.661338147750939e-16` for level-2 precisions, and `1.5543122344752192e-15` for level-3 precisions. Derived first-level prediction error and input surprise also passed, with maximum absolute differences of `1.1102230246251565e-16` and `4.440892098500626e-16`, respectively. Observed-input integrity was exact.
+In the prospectively frozen 128-trial comparator case, all 11 mapped perceptual/inference quantities passed their predeclared tolerances (Figure `paper/figures/fig_pyhgf_common_scope.png`). Maximum absolute differences were at binary64 rounding scale: `1.1102230246251565e-16` for first-level predicted probability, `4.440892098500626e-16` for level-2 means, `6.661338147750939e-16` for level-2 precisions, and `1.5543122344752192e-15` for level-3 precisions. Derived first-level prediction error and input surprise also passed, with maximum absolute differences of `1.1102230246251565e-16` and `4.440892098500626e-16`, respectively. Observed-input integrity was exact.
 
 The retained participant-response NLL surface was not directly comparable under the frozen numerical construction. With inverse temperature `ze=48`, the explicit power-ratio response transformation on the pyhgf side reached an exact probability boundary on 13 trials and the unclipped surprise became `+Inf`; the HGFX log-domain `unitsq_sgm` evaluation remained finite, with total NLL `1808.855415351429`. Because the pre-execution protocol had already classified response-NLL boundary nonfinites as `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY`, no clipping, formula, precision, parameter, input, or tolerance was changed after observing the result. The overall comparator classification is therefore `PARTIAL_MATCH_WITH_NOT_DIRECTLY_COMPARABLE_QUANTITIES`, not general tool equivalence.
 
@@ -143,7 +143,7 @@ The retained participant-response NLL surface was not directly comparable under 
 
 The release evidence index records the frozen MATLAB reference, final source revision, workflow classifications, physical-GPU evidence, independent review/remediation, release-gate runs, and final release provenance. M19 committed a machine-readable frozen evidence manifest rather than relying on a narrative statement that validation had completed.
 
-The paper-specific reproducibility package will build on this foundation by generating manuscript tables and figures from committed evidence and recording the exact inputs and hashes used by each output.
+The paper-specific reproduction entry point is `paper/reproducibility/README.md`. Tables and figures are generated from committed machine-readable evidence by `paper/scripts/generate_p2_tables.py` and `paper/scripts/generate_p5_figures.py`. MATLAB is required only to regenerate cross-language oracle evidence; it is not required to install or use HGFX, nor to regenerate the P2/P5 paper artifacts.
 
 ## 5. Discussion
 

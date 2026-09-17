@@ -1,0 +1,38 @@
+{
+  "figures": {
+    "fig_evidence_classes.png": {
+      "path": "paper/figures/fig_evidence_classes.png",
+      "sha256": "123142f5cab690a7fab9a3dfb5b5b763bf992ea2200f569b294f306f2db0cb5e"
+    },
+    "fig_gpu_applicability.png": {
+      "path": "paper/figures/fig_gpu_applicability.png",
+      "sha256": "23850ff74e2d3d6c1ca7b89a6fda82cc20e299485f0a4236a8f2113b0f400c8f"
+    },
+    "fig_model_selection.png": {
+      "path": "paper/figures/fig_model_selection.png",
+      "sha256": "683d371b78a97479fd03d7ed6ded0c379fdb3b9c206f7d26d9b45be358664e53"
+    },
+    "fig_pyhgf_common_scope.png": {
+      "path": "paper/figures/fig_pyhgf_common_scope.png",
+      "sha256": "eff0619bb345fd28bc942880190651ebca7d9b506f62ca00f1d73a77b137b3b3"
+    },
+    "fig_recovery_metrics.png": {
+      "path": "paper/figures/fig_recovery_metrics.png",
+      "sha256": "c72a5655062fa32ac58545acd860587d45f8718874a2e3433374dc8a730a4f87"
+    }
+  },
+  "generator": "paper/scripts/generate_p5_figures.py",
+  "inputs": {
+    "paper/reproducibility/p2a10_comparison_35268575414.json": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14",
+    "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2",
+    "paper/tables/backend_gpu_applicability.md": "66e90359574683a415d309a7e1c1ec43f444d00f5d625d865d0aa2c6ea09f676",
+    "paper/tables/p2_tables_manifest.json": "fa8698735bef345235593c5d0c6a85744ec7593af227d114d52370a25b6f2ba1",
+    "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+  },
+  "notes": [
+    "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
+    "P3 trial-horizon figure is omitted until M18C.2 execution artifacts exist.",
+    "P4 performance/scaling figure is not activated under protocol 1."
+  ],
+  "protocol_id": "hgfx-paper-protocol-1"
+}
