@@ -21,7 +21,7 @@ This document reconciles external paper-readiness criticism with the current HGF
 | Reproducibility package is incomplete | **VALID / REQUIRED** | The final package must contain exact commands, seeds/stochastic drivers, configs, dataset checksums, environment manifests, source/reference SHAs, artifact hashes and regeneration instructions. |
 | Limitations and MATLAB differences need clearer disclosure | **VALID / PARTLY IMPLEMENTED** | Current manuscript and evidence map already distinguish PASS, `REFERENCE_LIMITATION_MATCH`, and `FAIL_PRESERVED`, but the final manuscript must retain this distinction in Abstract/Results/Discussion/tables and supplement. |
 | A fair comparison with pyhgf is needed | **VALID / HIGH PRIORITY** | `pyhgf` is an established Python library published in PLOS Computational Biology in 2026. HGFX must not claim to be the first/only modern Python/JAX HGF. The paper needs a neutral related-work comparison and, where semantics overlap sufficiently, a prospectively defined common-scope empirical comparison. |
-| PyPI publication would help | **VALID / OPTIONAL** | HGFX is currently installable from source/release but not formally published on PyPI. PV1-03 remains a separate distribution task. PyPI publication improves accessibility but is not a scientific submission gate unless required by the selected venue. |
+| PyPI publication would help | **COMPLETED / NON-SCIENTIFIC** | HGFX `1.0.0` is now published on PyPI and independently verified by clean installation from `https://pypi.org/simple`. PV1-03 is DONE/PASS. This improves reviewer accessibility but does not substitute for scientific evidence or paper reproducibility. |
 
 ## pyhgf positioning facts to preserve
 
@@ -35,7 +35,7 @@ Paper consequence: HGFX should be positioned around **frozen MATLAB HGF Toolbox 
 
 ## Required plan changes
 
-The publication plan must therefore include:
+The publication plan therefore includes:
 
 1. completion of the substantive manuscript rather than creation from scratch;
 2. a paper-specific protocol freeze distinct from historical M19;
@@ -46,7 +46,16 @@ The publication plan must therefore include:
 7. a complete reproducibility bundle;
 8. a final paper-evidence freeze after all included evidence is generated;
 9. independent pre-submission review;
-10. optional PyPI publication tracked separately from the scientific submission gate.
+10. preserve completed PyPI distribution provenance separately from the scientific submission gate.
+
+## Distribution evidence now available
+
+HGFX distribution evidence is recorded in `docs/planning/PYPI_PUBLISHING.md`:
+
+- `hgfx==1.0.0` published through PyPI Trusted Publishing / GitHub OIDC;
+- publication run `35207257208`: PASS;
+- independent public-index install and API smoke run `35207903084`: PASS;
+- exact package source remains `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 
 ## Integrity rule
 

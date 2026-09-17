@@ -32,6 +32,8 @@ Secondary claims may cover JAX CPU/GPU execution, batching, multi-device infrast
 
 `pyhgf` is already an established modern Python/JAX HGF-related package and was published in PLOS Computational Biology in 2026. HGFX must therefore not be positioned as the first/only Python/JAX HGF. The defensible differentiator is the frozen MATLAB 8.2.0 behavioral-compatibility target, cross-language evidence/provenance, and explicit reference-limitation accounting.
 
+HGFX `1.0.0` is now publicly installable from PyPI. This improves reviewer usability but does not change or strengthen any scientific validation claim.
+
 ## Global constraints
 
 - Do not change frozen v1 thresholds, seeds, datasets, starts, grids, model families, optimizers, or historical classifications to improve paper results.
@@ -58,6 +60,7 @@ Secondary claims may cover JAX CPU/GPU execution, batching, multi-device infrast
 - `docs/research/BENCHMARK_PLAN.md` — benchmark/comparator discipline.
 - `docs/research/LEVEL2_PAPER_PLAN.md` — scientific positioning and research questions.
 - `docs/validation/V1_EVIDENCE_INDEX.md` — frozen v1 release evidence authority.
+- `docs/planning/PYPI_PUBLISHING.md` — public distribution provenance and independent PyPI verification.
 
 ## Work packages
 
@@ -307,20 +310,26 @@ Review the exact submission candidate for:
 
 Classify findings as CRITICAL/HIGH/MEDIUM/LOW/INFO. Submission is blocked by unresolved CRITICAL/HIGH findings.
 
-### P9 — Optional distribution polish / PyPI
+### P9 — Distribution / PyPI
 
-**Status:** OPEN / NON-BLOCKING FOR SCIENCE.
-Tracking: PV1-03.
+**Status:** DONE / PASS / NON-BLOCKING FOR SCIENCE.
+Tracking: PV1-03 / issue #34.
 
-PyPI publication is useful for discoverability and reviewer usability but remains separate from the scientific evidence gate. If executed before submission:
-- verify package namespace/metadata;
-- build wheel/sdist from an exact source revision;
-- verify that frozen MATLAB/reference source payload is not unintentionally shipped;
-- clean-install from PyPI in a supported environment;
-- run public API/quickstart smoke tests;
-- map the published version back to an exact commit/tag.
+HGFX `1.0.0` is publicly distributed through PyPI:
 
-A venue-specific requirement can promote this to a submission blocker; otherwise it remains optional.
+```text
+https://pypi.org/project/hgfx/1.0.0/
+```
+
+Evidence:
+- exact source: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`;
+- Trusted Publishing / GitHub OIDC publication run `35207257208`: PASS;
+- build, metadata validation, archive audit and pre-upload clean-install smoke: PASS;
+- independent install from `https://pypi.org/simple` in run `35207903084`: PASS;
+- public API import and minimal fitting smoke from the installed PyPI artifact: PASS;
+- provenance: `docs/planning/PYPI_PUBLISHING.md`.
+
+This remains distribution evidence only; it does not substitute for scientific validation or paper reproducibility evidence.
 
 ## Minimum submission package
 
@@ -345,4 +354,4 @@ For the current evidence base, the defensible main contribution is **MATLAB-tool
 
 PV1-01 recovery/identifiability can materially strengthen the scientific analysis. Paper-grade performance can strengthen the engineering contribution if executed prospectively. Neither should be allowed to manufacture a stronger conclusion than the evidence supports.
 
-PyPI publication is useful distribution polish, not a substitute for scientific validation or reproducibility.
+PyPI publication is now complete and can be cited as a reviewer-usability/distribution fact, but it is not a substitute for scientific validation or reproducibility.

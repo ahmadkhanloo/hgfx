@@ -6,6 +6,7 @@ Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
+PyPI: https://pypi.org/project/hgfx/1.0.0/
 
 The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`.
 
@@ -33,6 +34,10 @@ The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 m
 - PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main Regression run `35090329868`: PASS on Ubuntu and Windows.
 - Tag `v1.0.0` verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 - GitHub Release ID `389966452` is published, non-draft and non-prerelease.
+- PV1-03 PyPI publication: **DONE / PASS**.
+  - Trusted Publishing run `35207257208`: PASS.
+  - Independent public-PyPI install/smoke run `35207903084`: PASS.
+  - Public install: `python -m pip install hgfx==1.0.0`.
 
 ## Ordered release work
 
@@ -44,6 +49,7 @@ The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 m
 6. **DONE:** promote package/citation metadata to `1.0.0` on PR #30.
 7. **DONE:** validate PR #30 exact head, merge to `main`, and verify final main source target `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 8. **DONE:** create and verify `v1.0.0` Git tag/GitHub Release targeting the exact validated source; Release ID `389966452`.
+9. **DONE:** publish `hgfx==1.0.0` to PyPI from the exact frozen tag through Trusted Publishing and independently verify clean installation from the public index.
 
 ## Post-v1 backlog — future tasks, not v1 release blockers
 
@@ -83,6 +89,7 @@ Current state:
 - initial bibliography created at `../../paper/references.bib`;
 - paper plan and evidence map synchronized to post-M19/v1.0.0 reality;
 - v1 equivalence narrative is drafted from frozen evidence;
+- HGFX `1.0.0` is now publicly installable from PyPI;
 - paper-specific generated tables/figures, protocol, reproducibility bundle, and independent manuscript audit remain open.
 
 Planned scope:
@@ -105,24 +112,23 @@ Exit evidence:
 
 ### PV1-03 — PyPI publication
 
-**Status:** TODO / DISTRIBUTION
+**Status:** DONE / PASS / DISTRIBUTION
 
-Goal: publish a reproducible installable HGFX package to PyPI after confirming packaging and naming requirements.
+Published package:
 
-Planned scope:
+```text
+hgfx==1.0.0
+https://pypi.org/project/hgfx/1.0.0/
+```
 
-- verify final package name/version/metadata and PyPI namespace availability;
-- build clean wheel and source distribution from the intended publication revision;
-- verify that no MATLAB/reference source payload is unintentionally shipped;
-- test installation in a clean supported Python environment outside the repository checkout;
-- run public API import and quickstart smoke tests from the installed artifact;
-- publish using a controlled release process and record the resulting package URL/version provenance.
+Provenance:
 
-Exit evidence:
-
-- successful clean install from the public package index;
-- public API + quickstart smoke PASS from the published artifact;
-- PyPI version mapped to an exact Git commit/tag and release record.
+- package source: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`;
+- publication mechanism: PyPI Trusted Publishing / GitHub OIDC;
+- publication workflow run `35207257208`: PASS;
+- public-index clean-install verification run `35207903084`: PASS on CPython 3.12.14 / Ubuntu 24.04.5;
+- verification installed from `https://pypi.org/simple` and confirmed public API imports plus a minimal fitting smoke test;
+- distribution provenance and future release rules recorded in `PYPI_PUBLISHING.md`.
 
 ### PV1-04 — Post-v1 performance benchmark refresh
 
@@ -188,6 +194,8 @@ Exit evidence depends on the selected maintenance/feature item and must be defin
 Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, `FINAL_REVIEW_CHECKLIST.md`, `../validation/V1_EVIDENCE_INDEX.md`, `../validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as the frozen v1 continuity set.
 
 For the active publication objective, use `../research/PAPER_EXECUTION_PLAN.md`, `../research/LEVEL2_PAPER_PLAN.md`, `../research/PAPER_EVIDENCE_MAP.md`, and `../../paper/manuscript.md` as the continuity set.
+
+For public distribution provenance, use `PYPI_PUBLISHING.md` and `.github/workflows/verify-pypi.yml`.
 
 Do not reopen completed D02/D08/S7/S8 diagnostics merely to manufacture a green scientific result. Historical failures remain immutable. No tolerance, seed, data, grid, model family, optimizer, or acceptance threshold may be changed post-hoc to obtain PASS.
 
