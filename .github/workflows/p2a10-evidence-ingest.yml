@@ -1,0 +1,121 @@
+name: P2A.10 Evidence Ingest
+
+on:
+  push:
+    branches:
+      - paper/p2a10-execute-common-scope
+    paths:
+      - '.github/workflows/p2a10-evidence-ingest.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-24.04
+    env:
+      ARTIFACT_ID: '10517407320'
+      SCIENTIFIC_RUN_ID: '35268575414'
+      SCIENTIFIC_JOB_ID: '105361841212'
+      SCIENTIFIC_HEAD_SHA: 'af9000f59ecb156a92cae6fcd063b8b8b9730dd1'
+      ARTIFACT_ARCHIVE_SHA256: 'ca449164064a2f345f73ee08098fe1c6e5aa8f4b7d45166723ed850f177d5e53'
+      RAW_FILE_SHA256: '5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2'
+      COMPARISON_FILE_SHA256: '6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14'
+      PIP_FREEZE_SHA256: 'ea927b9e643095d51f060026a0e2cc144afa8a99bd0e415028ef2bb1f9cb130e'
+      EMBEDDED_RAW_RESULT_SHA256: '202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          fetch-depth: 0
+
+      - name: Download immutable scientific artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" \
+            > /tmp/p2a10-artifact.zip
+          echo "${ARTIFACT_ARCHIVE_SHA256}  /tmp/p2a10-artifact.zip" | sha256sum -c -
+          mkdir /tmp/p2a10-artifact
+          unzip -q /tmp/p2a10-artifact.zip -d /tmp/p2a10-artifact
+
+      - name: Verify artifact files and embedded raw hash
+        run: |
+          echo "${RAW_FILE_SHA256}  /tmp/p2a10-artifact/p2a10_raw_numeric_result.json" | sha256sum -c -
+          echo "${COMPARISON_FILE_SHA256}  /tmp/p2a10-artifact/p2a10_comparison.json" | sha256sum -c -
+          echo "${PIP_FREEZE_SHA256}  /tmp/p2a10-artifact/p2a10-pip-freeze.txt" | sha256sum -c -
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          p = Path('/tmp/p2a10-artifact/p2a10_raw_numeric_result.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          embedded = data['raw_result_sha256']
+          canonical = dict(data)
+          canonical.pop('raw_result_sha256', None)
+          payload = json.dumps(
+              canonical,
+              sort_keys=True,
+              separators=(',', ':'),
+              ensure_ascii=False,
+              allow_nan=False,
+          ).encode('utf-8')
+          calculated = hashlib.sha256(payload).hexdigest()
+          expected = os.environ['EMBEDDED_RAW_RESULT_SHA256']
+          if embedded != expected or calculated != expected:
+              raise SystemExit(
+                  f'raw hash mismatch embedded={embedded} calculated={calculated} expected={expected}'
+              )
+          if data.get('classification') != 'RAW_UNINTERPRETED' or data.get('comparison') is not None:
+              raise SystemExit('raw artifact is not uninterpreted')
+          print(f'raw_result_sha256={expected}')
+          PY
+
+      - name: Copy artifact bytes into reproducibility evidence
+        run: |
+          cp /tmp/p2a10-artifact/p2a10_raw_numeric_result.json \
+            paper/reproducibility/p2a10_raw_numeric_result_35268575414.json
+          cp /tmp/p2a10-artifact/p2a10_comparison.json \
+            paper/reproducibility/p2a10_comparison_35268575414.json
+          cp /tmp/p2a10-artifact/p2a10-pip-freeze.txt \
+            paper/reproducibility/p2a10_pip_freeze_35268575414.txt
+          cat > paper/reproducibility/p2a10_workflow_provenance_35268575414.json <<EOF
+          {
+            "schema_version": 1,
+            "protocol_id": "hgfx-paper-protocol-1",
+            "case_id": "p2a9-binary-hgf-common-scope-001",
+            "scientific_workflow": "P2A.10 Frozen Common-Scope Execution",
+            "scientific_run_id": ${SCIENTIFIC_RUN_ID},
+            "scientific_job_id": ${SCIENTIFIC_JOB_ID},
+            "scientific_head_sha": "${SCIENTIFIC_HEAD_SHA}",
+            "artifact_id": ${ARTIFACT_ID},
+            "artifact_archive_sha256": "${ARTIFACT_ARCHIVE_SHA256}",
+            "raw_file_sha256": "${RAW_FILE_SHA256}",
+            "comparison_file_sha256": "${COMPARISON_FILE_SHA256}",
+            "pip_freeze_sha256": "${PIP_FREEZE_SHA256}",
+            "embedded_raw_result_sha256": "${EMBEDDED_RAW_RESULT_SHA256}",
+            "byte_for_byte_artifact_copy": true,
+            "scientific_settings_changed_during_ingest": false
+          }
+          EOF
+
+      - name: Verify copied bytes are unchanged
+        run: |
+          echo "${RAW_FILE_SHA256}  paper/reproducibility/p2a10_raw_numeric_result_35268575414.json" | sha256sum -c -
+          echo "${COMPARISON_FILE_SHA256}  paper/reproducibility/p2a10_comparison_35268575414.json" | sha256sum -c -
+          echo "${PIP_FREEZE_SHA256}  paper/reproducibility/p2a10_pip_freeze_35268575414.txt" | sha256sum -c -
+
+      - name: Commit verified evidence to the execution branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            paper/reproducibility/p2a10_raw_numeric_result_35268575414.json \
+            paper/reproducibility/p2a10_comparison_35268575414.json \
+            paper/reproducibility/p2a10_pip_freeze_35268575414.txt \
+            paper/reproducibility/p2a10_workflow_provenance_35268575414.json
+          git diff --cached --check
+          git commit -m 'evidence: preserve P2A.10 frozen comparator results'
+          git push origin HEAD:paper/p2a10-execute-common-scope

@@ -1,0 +1,200 @@
+{
+  "case_id": "p2a9-binary-hgf-common-scope-001",
+  "comparison_formulae": {
+    "classification_test": "numpy.isclose using the prospectively frozen field tolerance",
+    "max_abs_error": "max(abs(hgfx - pyhgf)) over coordinates finite in both",
+    "max_rel_error": "max(abs(hgfx-pyhgf)/max(abs(hgfx),abs(pyhgf),float64_tiny)) over coordinates finite in both"
+  },
+  "field_results": {
+    "derived_first_level_input_surprise": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 4.440892098500626e-16,
+      "max_rel_error": 6.647587541504817e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "derived_first_level_prediction_error": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.1102230246251565e-16,
+      "max_rel_error": 3.909751290281609e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "first_level_predicted_probability": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.1102230246251565e-16,
+      "max_rel_error": 4.398297788315473e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_2_posterior_mean": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 4.440892098500626e-16,
+      "max_rel_error": 6.10894723045687e-15,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_2_posterior_precision": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 6.661338147750939e-16,
+      "max_rel_error": 4.616876670111438e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_2_predicted_mean": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 4.440892098500626e-16,
+      "max_rel_error": 6.10894723045687e-15,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_2_predicted_precision": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 6.661338147750939e-16,
+      "max_rel_error": 5.504358933166012e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_3_posterior_mean": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.1102230246251565e-16,
+      "max_rel_error": 1.1425234718806022e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_3_posterior_precision": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.5543122344752192e-15,
+      "max_rel_error": 9.227265334738466e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_3_predicted_mean": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.1102230246251565e-16,
+      "max_rel_error": 1.1425234718806022e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "level_3_predicted_precision": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-10,
+      "classification": "PASS_FOR_EXECUTED_QUANTITY",
+      "finite_mask_agreement": true,
+      "max_abs_error": 1.5543122344752192e-15,
+      "max_rel_error": 9.265792883082711e-16,
+      "nonfinite_coordinates": [],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "participant_response_nll_per_trial": {
+      "all_finite_values_within_tolerance": false,
+      "atol": 1e-10,
+      "classification": "NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY",
+      "finite_mask_agreement": false,
+      "max_abs_error": 0.378164539754998,
+      "max_rel_error": 1.0,
+      "nonfinite_coordinates": [
+        48,
+        50,
+        54,
+        62,
+        64,
+        104,
+        107,
+        109,
+        116,
+        119,
+        120,
+        122,
+        123
+      ],
+      "rtol": 1e-08,
+      "shape": [
+        128
+      ]
+    },
+    "participant_response_nll_total": {
+      "all_finite_values_within_tolerance": true,
+      "atol": 1e-07,
+      "classification": "NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY",
+      "finite_mask_agreement": false,
+      "max_abs_error": null,
+      "max_rel_error": null,
+      "nonfinite_coordinates": [
+        0
+      ],
+      "rtol": 1e-08,
+      "shape": []
+    }
+  },
+  "observed_input_integrity": "PASS_EXACT",
+  "overall_classification": "PARTIAL_MATCH_WITH_NOT_DIRECTLY_COMPARABLE_QUANTITIES",
+  "post_result_changes_applied": false,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "raw_result_sha256": "202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b",
+  "raw_result_verified_before_interpretation": true,
+  "schema_version": 1
+}

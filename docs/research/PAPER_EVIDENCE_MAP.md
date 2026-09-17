@@ -1,7 +1,7 @@
 # Paper Evidence Map
 
 Last synchronized: 2026-09-17
-Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / PAPER EVIDENCE OPEN**
+Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / P2A COMMON-SCOPE COMPLETE / PAPER EVIDENCE OPEN**
 Tracking: PV1-02 / GitHub issue #32
 Comparator tracking: PV1-02A / GitHub issue #33
 Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
@@ -52,8 +52,10 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | pyhgf is relevant related work and must be discussed | READY AS LITERATURE FACT | Legrand et al. 2026, PLOS Computational Biology 22(6):e1014340, DOI `10.1371/journal.pcbi.1014340` |
 | `pyhgf==0.3.2` is the frozen paper comparator identity | READY AS PROTOCOL FACT | `hgfx-paper-protocol-1`; sdist SHA-256 `8289f6746668e3af9878c3b5638484c70cd44a596e796ec281986da47e9c723d` |
 | HGFX has a distinct frozen-MATLAB-8.2.0 compatibility/evidence objective | READY AS HGFX DESIGN CLAIM | v1 product definition, release evidence, MATLAB equivalence/reference-limitation policies; comparison must avoid implying this is pyhgf's objective |
-| HGFX is generally more accurate/faster/better than pyhgf | **NOT SUPPORTED** | prohibited without direct prospectively frozen common-scope evidence; protocol 1 explicitly forbids a general superiority claim |
-| A fair common-scope HGFX↔pyhgf comparison is complete | **OPEN / REQUIRED FOR POSITIONING** | PV1-02A / issue #33; comparator is pinned, but semantic overlap mapping and any valid common-scope result remain open; `NOT_DIRECTLY_COMPARABLE` is allowed |
+| HGFX is generally more accurate/faster/better than pyhgf | **NOT SUPPORTED** | P2A supplies one prospectively frozen common-scope numerical result, but it does not support a general superiority, speed, or package-wide equivalence claim |
+| A fair common-scope HGFX↔pyhgf comparison is complete | **READY / SCOPED** | P2A.2–P2A.10; frozen case `p2a9-binary-hgf-common-scope-001`; run `35268575414`; 11/11 mapped perceptual/inference quantities PASS; response-NLL per-trial/total retained as `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY` |
+| The frozen common-scope perceptual trajectories establish general HGFX↔pyhgf equivalence | **REJECTED** | the observed binary64-scale agreement applies only to the authorized three-level binary-HGF cell; model families, fitting, masking/missingness, observation surfaces and broader capabilities remain outside this direct claim |
+| Participant-response NLL directly matches pyhgf under the frozen P2A case | **NOT SUPPORTED / NDC** | pyhgf-derived unclipped response NLL reaches `+Inf` on 13 trials under the frozen `ze=48` power-ratio transformation; HGFX remains finite; predeclared classification is `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY` |
 | PyPI availability is required for scientific validity | **REJECTED** | distribution is separate from science; PV1-03 is useful reviewer-access evidence but not scientific validity evidence |
 
 ## Paper-facing interpretation of D02/D08
@@ -75,7 +77,7 @@ PV1-01 / issue #21 is a prospective trial-horizon/identifiability study. Its gri
 
 pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized/nodalized predictive-coding networks, modular graph construction, differentiability and modern JAX/Rust integration. HGFX v1.0 emphasizes behavioral compatibility with one frozen MATLAB HGF Toolbox 8.2.0 oracle and explicit cross-language evidence/provenance.
 
-Paper protocol 1 freezes `pyhgf==0.3.2` as the comparator identity. The manuscript must compare the project goals neutrally. The feature matrix may include non-overlapping capabilities, but empirical numerical comparison is permitted only after a committed semantic mapping passes the protocol gate for the intended scientific quantity. `NOT_DIRECTLY_COMPARABLE` is an acceptable and scientifically preferable result to a forced ranking.
+Paper protocol 1 freezes `pyhgf==0.3.2` as the comparator identity. The P2A semantic chain subsequently authorized exactly one fixed-parameter, fully observed three-level binary-HGF cell. Run `35268575414` preserved a canonical raw result before interpretation (`raw_result_sha256=202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b`). All 11 mapped perceptual/inference quantities pass their prospectively frozen tolerances with maximum absolute errors between approximately `1.1e-16` and `1.6e-15`. The two response-NLL quantities are retained as `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY` because the frozen pyhgf-side response transformation reaches `+Inf` on 13 trials while the HGFX log-domain formulation remains finite. No post-result clipping, formula, dtype, parameter, input, version or tolerance change was made. This scoped result does not rank the packages or imply general equivalence.
 
 ## GPU and performance interpretation
 
@@ -86,6 +88,10 @@ It does not support a general speedup or scaling claim. Under `hgfx-paper-protoc
 ## Primary paper evidence sources
 
 - `paper/reproducibility/PAPER_PROTOCOL.md`
+- `docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md`
+- `paper/reproducibility/p2a10_raw_numeric_result_35268575414.json`
+- `paper/reproducibility/p2a10_comparison_35268575414.json`
+- `paper/reproducibility/p2a10_workflow_provenance_35268575414.json`
 - `paper/scripts/generate_p2_tables.py`
 - `paper/tables/p2_tables_manifest.json`
 - `paper/tables/model_workflow_coverage.md`
@@ -116,7 +122,7 @@ Before submission, add evidence entries for:
 - any additional P2A comparison table inputs/outputs and hashes where the semantic gate permits comparison;
 - paper-specific reproducibility environment/commands;
 - PV1-01 recovery-horizon analysis if used in the manuscript;
-- PV1-02A pyhgf semantic mapping and any valid common-scope empirical outputs;
+- generated P2A comparison table/figure only if selected for the final manuscript; semantic mapping and the valid common-scope empirical outputs are now committed;
 - a post-v1 performance benchmark only if a later protocol revision activates speed/scaling as a paper claim;
 - final machine-readable paper evidence manifest marked `FROZEN_FOR_SUBMISSION`;
 - independent pre-submission review of the exact manuscript candidate.

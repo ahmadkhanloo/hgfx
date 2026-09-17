@@ -51,6 +51,12 @@ We use the following interpretation classes throughout the project and manuscrip
 
 This classification scheme prevents product-compatibility acceptance from being confused with scientific identifiability or parameter-recovery success.
 
+### 2.4 Relationship to pyhgf
+
+pyhgf is an established Python/JAX HGF-related library that represents predictive-coding systems as configurable node/edge networks and supports differentiable modern inference workflows [@legrand2026pyhgf]. HGFX and pyhgf therefore overlap scientifically, but their design centers are not identical. HGFX v1.0 is organized around behavioral compatibility with a frozen MATLAB HGF Toolbox 8.2.0 oracle and explicit cross-language validation/provenance, whereas pyhgf emphasizes generalized network construction and extensibility. We treat these as design differences rather than a ranking.
+
+For empirical positioning, `pyhgf==0.3.2` was pinned before execution and a direct comparison was allowed only after model structure, update equations, parameters, initialization, input/masking semantics, reported quantities, precision mode, and numerical guards had been mapped. Quantities without a defensible common semantic/numerical surface are reported as not directly comparable rather than forced into a winner/loser comparison.
+
 ## 3. Validation methodology
 
 ### 3.1 Reference-first validation hierarchy
@@ -91,7 +97,13 @@ The post-review CPU/backend gate returns `PASS_CPU_BACKEND_EQUIVALENCE`. Physica
 
 All four required CPU-versus-GPU fitting cells pass the unchanged final-objective criterion of `<=1e-7`. The maximum observed objective gap is `1.4210854715202004e-14`. This evidence supports numerical applicability of the tested NVIDIA/JAX/CUDA path. It does not establish peak speed, H100 performance, or general multi-GPU scaling.
 
-### 3.7 Independent review and release freeze
+### 3.7 Prospectively frozen pyhgf common-scope comparison
+
+The external-comparator cell used `hgfx==1.0.0` and `pyhgf==0.3.2` in an Ubuntu 24.04 CPU environment with Python 3.12.14, NumPy 2.3.3, JAX/JAXLIB 0.6.2, JAX x64 enabled, and float64 mapped arrays. The test case was a fixed-parameter three-level binary HGF with standard volatility updates, mean-field updates, unit value/volatility coupling, zero drift, fully observed binary input, and unit time. The explicit 128-trial input and response arrays, package identities, inverse temperature, output fields, guards, and tolerances were committed before any cross-tool numerical output was inspected.
+
+Trajectory and per-trial quantities used prospectively frozen `atol=1e-10` and `rtol=1e-8`; participant-response total NLL used `atol=1e-7` and `rtol=1e-8`. The raw per-implementation arrays and boundary diagnostics were written first, assigned a canonical SHA-256, reopened and verified, and only then interpreted. The protocol also prospectively specified that a derived surprise/response-NLL boundary nonfinite would be `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY`, rather than triggering post-result clipping or tolerance changes.
+
+### 3.8 Independent review and release freeze
 
 Before the final release, an independent review identified two HIGH portability blockers: host CRT/libm dependence in compatibility-sensitive `expm1`/`log` paths and Windows CRLF behavior that could trigger false frozen-reference hash failures. Both were remediated without modifying frozen acceptance criteria.
 
@@ -121,7 +133,13 @@ Compatibility CPU and JAX-backed CPU outputs pass the post-review backend-equiva
 
 This result demonstrates that the tested JAX GPU path can preserve the validated numerical objective surface on physical hardware. Performance is intentionally not inferred from this result. Historical H100/T4 scaling measurements are retained in the repository in their original scope, but a new prospectively frozen paper benchmark is required before speed or scaling becomes a headline claim.
 
-### 4.5 Reproducibility and provenance
+### 4.5 Frozen common-scope comparison with pyhgf
+
+In the prospectively frozen 128-trial comparator case, all 11 mapped perceptual/inference quantities passed their predeclared tolerances. Maximum absolute differences were at binary64 rounding scale: `1.1102230246251565e-16` for first-level predicted probability, `4.440892098500626e-16` for level-2 means, `6.661338147750939e-16` for level-2 precisions, and `1.5543122344752192e-15` for level-3 precisions. Derived first-level prediction error and input surprise also passed, with maximum absolute differences of `1.1102230246251565e-16` and `4.440892098500626e-16`, respectively. Observed-input integrity was exact.
+
+The retained participant-response NLL surface was not directly comparable under the frozen numerical construction. With inverse temperature `ze=48`, the explicit power-ratio response transformation on the pyhgf side reached an exact probability boundary on 13 trials and the unclipped surprise became `+Inf`; the HGFX log-domain `unitsq_sgm` evaluation remained finite, with total NLL `1808.855415351429`. Because the pre-execution protocol had already classified response-NLL boundary nonfinites as `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY`, no clipping, formula, precision, parameter, input, or tolerance was changed after observing the result. The overall comparator classification is therefore `PARTIAL_MATCH_WITH_NOT_DIRECTLY_COMPARABLE_QUANTITIES`, not general tool equivalence.
+
+### 4.6 Reproducibility and provenance
 
 The release evidence index records the frozen MATLAB reference, final source revision, workflow classifications, physical-GPU evidence, independent review/remediation, release-gate runs, and final release provenance. M19 committed a machine-readable frozen evidence manifest rather than relying on a narrative statement that validation had completed.
 
@@ -137,6 +155,8 @@ The official demo results also illustrate why workflow-level validation matters.
 
 JAX enables a modern path toward compiled CPU/GPU execution, batching, and multi-device workloads [@jax2018github; @frostig2018]. However, accelerator-native implementation is useful for scientific software only if the accelerated path preserves the relevant scientific outputs. The physical-GPU evidence in this paper is therefore framed as applicability/correctness evidence. A separate prospective benchmark is required for performance claims because throughput depends strongly on workload size, compilation amortization, hardware, device count, and host contention.
 
+The external pyhgf comparison reinforces the value of quantity-specific compatibility claims. The mapped HGF belief trajectories agree to binary64 rounding scale in the single authorized common-scope case, while the response-NLL surface exposes a numerical-boundary difference despite sharing the same underlying predicted belief. Preserving the prospectively defined `NOT_DIRECTLY_COMPARABLE` outcome is more informative than changing clipping or reformulating the response computation after inspecting the result.
+
 The strongest current contribution is thus methodological: a Python/JAX reproduction process that makes the reference oracle, evidence classifications, numerical compatibility policy, historical failures, and release provenance explicit. This reduces the risk that a modern implementation gains convenience or speed by silently changing the scientific contract.
 
 ## 6. Limitations
@@ -149,7 +169,9 @@ Third, historical parameter-recovery results include failures. The current evide
 
 Fourth, the physical-GPU result establishes numerical applicability on the tested Tesla T4 environment. It does not establish general speedup, H100 performance, uncontended peak performance, or strong multi-GPU scaling. Those claims require a new frozen paper benchmark.
 
-Fifth, the current working manuscript still requires generated paper tables/figures, a complete paper-specific reproduction bundle, final author/affiliation metadata, target-journal formatting, and an independent pre-submission review.
+Fifth, the direct pyhgf evidence is intentionally narrow: one fixed-parameter, fully observed, three-level binary-HGF case under an explicitly mapped standard/mean-field configuration. It supports the reported common-scope trajectory result but not general equivalence across model families, fitting workflows, missing-data semantics, observation models, or package capabilities. The participant-response NLL surface is explicitly retained as not directly comparable under the frozen numerical construction.
+
+Sixth, the current working manuscript still requires generated paper tables/figures, a complete paper-specific reproduction bundle, final author/affiliation metadata, target-journal formatting, and an independent pre-submission review.
 
 ## 7. Reproducibility and availability
 
@@ -157,7 +179,7 @@ HGFX v1.0.0 is released under the MIT license. The immutable source target is `4
 
 The repository records aggregate evidence in `docs/validation/V1_EVIDENCE_INDEX.md`, the M19 freeze in `docs/planning/M19_GATE.md`, official demo reproduction instructions in `docs/user/MATLAB_DEMOS.md`, and paper claim provenance in `docs/research/PAPER_EVIDENCE_MAP.md`.
 
-Before submission, `paper/reproducibility/` will contain the frozen paper protocol, exact environment manifests, commands, evidence-input hashes, and table/figure regeneration instructions.
+`paper/reproducibility/` now includes the frozen paper protocol and the P2A external-comparator case, authorization gate, byte-for-byte raw numerical result, post-hash comparison artifact, exact resolved environment, and workflow/artifact provenance. Before submission, the remaining selected paper outputs must receive the same input-hash and regeneration treatment, followed by the final `FROZEN_FOR_SUBMISSION` evidence manifest.
 
 ## 8. Conclusion
 

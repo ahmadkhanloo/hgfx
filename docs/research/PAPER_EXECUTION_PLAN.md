@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-17
-Status: **IN PROGRESS — P1/P2 DONE; P2A/P3 ACTIVE NEXT**
+Status: **IN PROGRESS — P1/P2/P2A DONE; P3 ACTIVE NEXT**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -141,7 +141,15 @@ Acceptance:
 
 ### P2A — Fair pyhgf positioning and common-scope comparison
 
-**Status:** OPEN / HIGH PRIORITY FOR SUBMISSION POSITIONING.
+**Status:** DONE / PASS WITH SCOPED RESPONSE-NLL NDC.
+
+Completion evidence:
+- P2A.1–P2A.9 froze the feature/design matrix, semantic mappings, numerical policy and exact common-scope case before execution;
+- P2A.10 scientific run `35268575414` executed `p2a9-binary-hgf-common-scope-001` without changing the frozen protocol;
+- 11/11 mapped perceptual/inference quantities are `PASS_FOR_EXECUTED_QUANTITY`;
+- participant-response NLL per-trial and total are `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY` under the predeclared boundary-nonfinite policy;
+- raw result was hash-verified before interpretation and preserved byte-for-byte with exact environment/workflow provenance;
+- no general accuracy, performance or superiority conclusion is drawn.
 
 Reference literature:
 - Legrand et al. (2026), `pyhgf: A neural network library for predictive coding`, PLOS Computational Biology 22(6):e1014340, DOI `10.1371/journal.pcbi.1014340`.
@@ -178,6 +186,8 @@ Acceptance:
 - no first/only-Python-HGF claim remains;
 - no superiority claim appears without direct prospective evidence;
 - empirical comparison, if executed, follows the frozen paper protocol.
+
+Acceptance result: **PASS**. The manuscript/evidence map now report the prospectively frozen scoped result, including the response-NLL NDC outcome without post-result retuning.
 
 ### P3 — Recovery and identifiability analysis
 
