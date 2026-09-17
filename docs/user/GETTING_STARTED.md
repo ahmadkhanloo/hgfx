@@ -9,31 +9,39 @@ HGFX v1 targets functional/scientific equivalence with the frozen MATLAB HGF Too
 - JAX
 - MATLAB is **not** required for ordinary HGFX use
 
-## Install from a source checkout
+## Install from PyPI
+
+HGFX `1.0.0` is published on the public Python Package Index:
 
 ```bash
+python -m pip install hgfx==1.0.0
+```
+
+The publication provenance and public-index verification are recorded in `docs/planning/PYPI_PUBLISHING.md`.
+
+## Source/development install
+
+For development or repository-level validation:
+
+```bash
+git clone https://github.com/ahmadkhanloo/hgfx.git
+cd hgfx
 python -m venv .venv
 source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install .
-```
-
-For development/testing:
-
-```bash
 python -m pip install -e '.[dev]'
 pytest
 ```
 
 ## First fit
 
-Run the maintained release smoke example:
+From a source checkout, run the maintained release smoke example:
 
 ```bash
 python examples/quickstart.py
 ```
 
-Equivalent minimal Python code:
+Equivalent minimal Python code, which also works with the PyPI installation:
 
 ```python
 import numpy as np
