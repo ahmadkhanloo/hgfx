@@ -1,0 +1,25 @@
+# P3 trial-horizon summary (diagnostic)
+
+Generated from Actions aggregate `35272347167`.
+Protocol `m18c2-trial-horizon-identifiability-1`.
+Official overall class: `INSUFFICIENT_REFERENCE_EVIDENCE` (`gate_pass=false`).
+Do not treat rows marked PASS as a paper-1 identifiability result.
+
+Thresholds: convergence ≥ 0.80; median *r* ≥ 0.50; median sRMSE ≤ 1.00.
+
+| Model | T | MATLAB/HGFX conv | MATLAB/HGFX median *r* | MATLAB/HGFX median sRMSE | scientific_pass |
+|---|---:|---|---|---|---|
+| hgf_binary | 128 | 0.917 / 0.917 | 0.148 / 0.148 | 1.114 / 1.114 | FAIL |
+| hgf_binary | 256 | 0.750 / 0.750 | 0.298 / 0.298 | 1.957 / 1.957 | FAIL |
+| hgf_binary | 512 | — | — | — | no metrics; invalid trajectories retained |
+| hgf_binary | 1024 | — | — | — | no metrics; invalid trajectories retained |
+| ehgf_binary | 128 | 0.917 / 0.917 | 0.501 / 0.501 | 2.623 / 2.623 | FAIL |
+| ehgf_binary | 256 | 0.917 / 0.917 | 0.480 / 0.480 | 1.995 / 1.995 | FAIL |
+| ehgf_binary | 512 | 0.833 / 0.833 | 0.860 / 0.860 | 0.920 / 0.920 | PASS (diagnostic) |
+| ehgf_binary | 1024 | 1.000 / 1.000 | 0.838 / 0.838 | 0.690 / 0.690 | PASS (diagnostic) |
+| uhgf_binary | 128 | 0.917 / 0.917 | 0.245 / 0.245 | 3.082 / 3.082 | FAIL |
+| uhgf_binary | 256 | 0.667 / 0.667 | 0.507 / 0.507 | 2.829 / 2.829 | FAIL |
+| uhgf_binary | 512 | 0.750 / 0.750 | 0.750 / 0.750 | 1.169 / 1.169 | FAIL |
+| uhgf_binary | 1024 | 0.833 / 0.833 | 0.819 / 0.819 | 0.755 / 0.755 | PASS (diagnostic) |
+
+Model-recovery BIC winners: 62/72 agree. All 10 disagreements are `hgf_binary` at T=512 or T=1024.
