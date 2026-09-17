@@ -28,7 +28,9 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 - PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates: S10 `35089882319`, M19/M20 preflight `35089882608`, D10/D11 `35089882668`, and HGFX Regression `35089882392`.
 - PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main HGFX Regression run `35090329868` passed on Ubuntu and Windows.
 
-The v1.0.0 release gate is closed. Subsequent `main` commits are post-release documentation/maintenance and do not alter the immutable release source or frozen evidence.
+The v1.0.0 release gate is closed. The immutable release source and frozen evidence are `4dd8fbd8`.
+
+`main` also carries additive **1.1.0** package metadata (`pyproject.toml`) for opt-in MAP, VKF, dual-stream AR1, and project softmax helpers. Those APIs are not on PyPI and have no GitHub release tag. Usage: `docs/user/V1_1.md`.
 
 See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `docs/planning/PYPI_PUBLISHING.md` for release and distribution evidence.
 
@@ -83,6 +85,7 @@ User documentation:
 - `docs/user/GETTING_STARTED.md` — minimal installation and first fit
 - `docs/user/USER_GUIDE.md` — practical v1 guide for fitting, simulation, sampling, GPU use, migration from MATLAB, and reproducibility
 - `docs/user/API.md` — public API surface
+- `docs/user/V1_1.md` — additive 1.1.0 usage (MAP, VKF, dual-stream, project softmax)
 - `docs/user/MATLAB_DEMOS.md` — exact official MATLAB demo reproductions and cross-language parity evidence
 - `examples/README.md` — runnable examples
 
