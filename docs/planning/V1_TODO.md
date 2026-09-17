@@ -1,11 +1,13 @@
 # HGFX v1.0 Live TODO
 
-Last synchronized: 2026-09-16
-Status: **V1.0.0 RELEASE COMPLETE — NO BLOCKING TODO**
+Last synchronized: 2026-09-17
+Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
+
+The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`.
 
 ## Accepted evidence
 
@@ -69,13 +71,23 @@ Exit evidence:
 
 ### PV1-02 — Methods paper and reproducibility package
 
-**Status:** TODO / PUBLICATION
+**Status:** IN PROGRESS / PUBLICATION  
+**Tracking:** GitHub issue #32  
+**Plan:** `../research/PAPER_EXECUTION_PLAN.md`
 
 Goal: turn the validated HGFX implementation and evidence base into a methods-paper-quality research package.
 
+Current state:
+
+- working manuscript created at `../../paper/manuscript.md`;
+- initial bibliography created at `../../paper/references.bib`;
+- paper plan and evidence map synchronized to post-M19/v1.0.0 reality;
+- v1 equivalence narrative is drafted from frozen evidence;
+- paper-specific generated tables/figures, protocol, reproducibility bundle, and independent manuscript audit remain open.
+
 Planned scope:
 
-- freeze the paper benchmark protocol before running final paper experiments;
+- freeze the paper benchmark protocol before running final paper-only experiments;
 - define the exact hardware/software/runtime matrix;
 - produce validation, recovery, model-selection, and performance figures/tables;
 - describe MATLAB-equivalence policy and `REFERENCE_LIMITATION_MATCH` semantics accurately;
@@ -85,10 +97,11 @@ Planned scope:
 
 Exit evidence:
 
-- manuscript source;
+- complete manuscript source;
 - frozen paper benchmark protocol;
 - reproducibility package;
-- all reported figures/tables traceable to committed evidence.
+- all reported figures/tables traceable to committed evidence;
+- independent pre-submission review with no unresolved CRITICAL/HIGH findings.
 
 ### PV1-03 — PyPI publication
 
@@ -174,8 +187,8 @@ Exit evidence depends on the selected maintenance/feature item and must be defin
 
 Use `V1_RELEASE_GATE.md`, `M19_GATE.md`, `M20_GATE.md`, `FINAL_REVIEW_CHECKLIST.md`, `../validation/V1_EVIDENCE_INDEX.md`, `../validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `../validation/INDEPENDENT_REVIEW_REMEDIATION.md` as the frozen v1 continuity set.
 
-Use this file as the canonical starting point for selecting post-v1 work. When one of `PV1-01` through `PV1-06` becomes active, create or update the corresponding milestone/issue/plan before implementation and keep this status synchronized.
+For the active publication objective, use `../research/PAPER_EXECUTION_PLAN.md`, `../research/LEVEL2_PAPER_PLAN.md`, `../research/PAPER_EVIDENCE_MAP.md`, and `../../paper/manuscript.md` as the continuity set.
 
 Do not reopen completed D02/D08/S7/S8 diagnostics merely to manufacture a green scientific result. Historical failures remain immutable. No tolerance, seed, data, grid, model family, optimizer, or acceptance threshold may be changed post-hoc to obtain PASS.
 
-**There is no remaining blocking work for HGFX v1.0.0.**
+**There is no remaining blocking work for HGFX v1.0.0. Publication work is separate post-v1 scope.**

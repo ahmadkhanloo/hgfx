@@ -1,182 +1,157 @@
 # Methods-Level Paper Plan
 
-Last synchronized: 2026-09-13
-Status: **IN PROGRESS — manuscript evidence not frozen**
+Last synchronized: 2026-09-17
+Status: **ACTIVE / POST-v1.0.0 — manuscript drafting and paper evidence production in progress**
+Tracking: PV1-02 / GitHub issue #32
+Execution plan: `PAPER_EXECUTION_PLAN.md`
 
 ## Working title
 
-**HGFX: A Python/JAX Reproduction of the Hierarchical Gaussian Filter Toolbox with Validated Scientific and GPU-Compatible Workflows**
+**HGFX: A Python/JAX Reproduction of the Hierarchical Gaussian Filter Toolbox with Validated MATLAB Equivalence and Accelerator-Compatible Execution**
 
-The title is provisional. The final title must reflect the evidence that survives M19 freeze; GPU/scaling claims must not outrank MATLAB-equivalence unless the final benchmark evidence supports them.
+The primary contribution is MATLAB-reference reproduction. GPU/scaling must not outrank equivalence unless a prospectively frozen paper benchmark supports the stronger claim.
+
+## Frozen anchors
+
+- HGFX release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
+- MATLAB oracle: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`.
+- M19: **DONE / PASS — evidence manifest frozen**.
+- M20: **PASS_M20_CANDIDATE** before final 1.0.0 promotion.
+- Independent review H1/H2: **RESOLVED** without changing frozen scientific criteria.
+- v1.0.0 release gate: closed.
 
 ## Current paper objective
 
-The primary scientific/software claim for v1 is no longer merely that HGFX implements HGF-like algorithms or provides GPU acceleration. HGFX v1.0 is intended to be a Python replacement for the frozen MATLAB HGF Toolbox 8.2.0 reference at commit `2437f4dc241541072722a2695ddeca7b44d83dd3`.
+Establish that HGFX reproduces the frozen MATLAB toolbox's required model/configuration semantics, trajectories, observation/objective calculations, fitting/statistical surfaces, simulation and official demo workflows, and paired model-selection behavior without requiring MATLAB at user runtime.
 
-The paper must therefore establish, with paired evidence, that HGFX reproduces the reference toolbox's required model coverage, fitting and simulation workflows, trajectories, likelihood/objective calculations, model-quality statistics, official demonstrations, and scientifically relevant recovery behavior without requiring MATLAB at user runtime.
+The manuscript must preserve the distinction between:
 
-GPU acceleration, batching, differentiability and multi-GPU execution are secondary methodological contributions. They are publishable only where they preserve the validated scientific behavior of the compatibility path.
+1. direct numerical/workflow parity;
+2. exact-scope `REFERENCE_LIMITATION_MATCH` behavior;
+3. historical scientific FAIL evidence;
+4. CPU/JAX/GPU correctness/applicability;
+5. performance/scaling.
+
+A matched MATLAB limitation is compatible with the product-equivalence objective but is not a scientific recovery PASS.
 
 ## Publication position
 
-Primary target: a computational methods/software-methods paper with two linked contributions:
+Primary target: computational methods/software-methods paper with two linked contributions:
 
-1. **Reference-faithful Python reproduction** of the MATLAB HGF Toolbox, including explicit treatment of reference limitations and model-family choices.
-2. **Scalable modern execution paths** (JAX/CPU/GPU/batch/multi-GPU) whose scientific outputs are checked against the compatibility/reference path.
+1. **Reference-faithful Python reproduction** of the HGF Toolbox with explicit evidence accounting and transparent treatment of reference limitations.
+2. **Modern accelerator-compatible execution** in Python/JAX, with backend/GPU correctness demonstrated separately from throughput claims.
 
-A software-only article remains a fallback if the final recovery/scaling evidence does not support the stronger methods positioning.
+A stronger methods framing may add prospective identifiability and performance experiments. A software-methods submission remains scientifically defensible without making recovery/scaling headline claims.
 
 ## Core research questions
 
 ### RQ1 — Functional and numerical equivalence
-Can HGFX reproduce the frozen MATLAB toolbox's required configurations, parameter transforms, trajectories, observation likelihoods, objectives, fitting outputs, Hessian/covariance/statistics and simulation workflows within predeclared tolerances?
+Can HGFX reproduce required configurations, transforms, trajectories, observation likelihoods, objectives, fitting outputs, Hessian/covariance/statistics, and simulation workflows within frozen tolerances?
 
 ### RQ2 — Workflow equivalence
-Can official MATLAB demo/workflow behavior be reproduced in Python using the same model family, observation model, data, priors, fixed/free parameters, starts, seeds/stochastic drivers and workflow semantics?
+Can official MATLAB demo behavior be reproduced in Python using the same model family, data, priors, fixed/free parameters, starts, and workflow semantics?
 
-### RQ3 — Recovery equivalence
-When MATLAB and HGFX are run under matched protocols, do parameter-recovery and model-recovery conclusions agree? A MATLAB limitation may be reported as a matched reference limitation; it must not be relabeled as scientific recovery PASS.
+### RQ3 — Recovery and model-selection behavior
+Under matched protocols, which recovery/model-selection conclusions agree, and which failures reflect reference limitations or identifiability rather than implementation mismatch?
 
-### RQ4 — Numerical reproducibility across runtimes
-Which elementary floating-point/runtime differences are scientifically irrelevant, and which are amplified by finite-difference gradients or optimization enough to require compatibility handling? Can such cases be isolated with regression evidence rather than post-hoc tolerance changes?
+### RQ4 — Numerical reproducibility
+Which binary64/runtime differences are scientifically negligible, and which are amplified by finite differences or optimization enough to require compatibility handling?
 
 ### RQ5 — Backend equivalence
-Do compatibility CPU, JAX CPU and physical-GPU paths preserve required scientific outputs on the validated workload surface?
+Do compatibility CPU, JAX CPU, and physical-GPU paths preserve the required scientific outputs on validated workloads?
 
 ### RQ6 — Performance and scaling
-After scientific equivalence is established, how do runtime, throughput, compilation overhead and memory scale with trials, subjects, model candidates, restarts and device count?
+If retained as a paper claim, how do compile time, steady-state runtime, throughput, memory, and device scaling behave under a prospectively frozen benchmark matrix?
 
-## Required evidence hierarchy
+## Evidence hierarchy
 
 Paper claims must be sourced in this order:
 
-1. frozen reference identity and manifests;
+1. frozen reference identity and v1 manifests;
 2. milestone/gate documents and machine-readable validation artifacts;
 3. paired MATLAB/HGFX raw outputs;
 4. CI run/job/artifact provenance;
-5. paper tables/figures generated from frozen machine-readable data.
+5. generated paper tables/figures.
 
-Do not promote an engineering observation to a paper result until it has a stable protocol, provenance and acceptance interpretation.
+No engineering observation becomes a paper result without a stable protocol, provenance, and explicit interpretation.
 
-## Experimental program
+## Current evidence status
 
-### Experiment 1 — Reference and configuration equivalence
-Covers reference freeze, model/config inventory, parameter order/transforms, priors, fixed/free semantics, placeholders, masks and public compatibility surface.
+- Frozen MATLAB reference: **PASS**.
+- HGFX v1.0.0 release: **RELEASED / VERIFIED**.
+- M0–M17: complete in documented scopes.
+- Historical M18 scientific recovery experiment: **FAIL_PRESERVED**.
+- D02 exact official scope: **REFERENCE_LIMITATION_MATCH**.
+- D08 exact failed seed: **REFERENCE_LIMITATION_MATCH**.
+- Official eHGF model-selection demo: **PASS_MODEL_SELECTION_PARITY**.
+- Official uHGF→AR(1) workflow: **PASS_UHGF_AR1_WORKFLOW_PARITY**.
+- S7 paired parameter recovery: scoped **REFERENCE_LIMITATION_MATCH** where MATLAB also fails.
+- S7 paired model selection: **PASS_PAIRED_MODEL_SELECTION**, 36/36 BIC winners match.
+- S9 CPU/backend: **PASS_CPU_BACKEND_EQUIVALENCE**.
+- S9 physical GPU: **PASS_PHYSICAL_GPU_APPLICABILITY** on 2x Tesla T4, maximum final-objective gap `1.4210854715202004e-14` vs frozen `1e-7`.
+- S10 release readiness: **PASS**.
+- M19 evidence freeze: **PASS_FROZEN**.
+- Independent release review: completed; H1/H2 resolved; post-review Ubuntu/Windows regression passed.
 
-Primary sources: M0–M2 and M12–M13 evidence.
+## Experimental program for the paper
 
-### Experiment 2 — Numerical forward/observation/objective equivalence
-Paired MATLAB vs HGFX comparisons for scalar primitives, HGF/eHGF/uHGF forward trajectories, observation likelihoods and fixed-parameter objective decomposition.
+### E1 — Frozen v1 equivalence synthesis
 
-Primary sources: M3–M8.
+Generate manuscript tables from the frozen v1 evidence for configuration/model coverage, forward/observation/objective parity, fitting/statistics, simulation/workflows, recovery/model selection, backend agreement, and release provenance.
 
-### Experiment 3 — Fitting and model-quality equivalence
-Matched fitting workflows using the MATLAB-compatible optimization path, including MAP/final parameters, trajectories, predictions/residuals, Hessian, covariance/correlation, AIC/BIC/LME and optimizer-path diagnostics where required.
+Status: **required / open for paper generation**. The underlying v1 evidence is frozen; the paper synthesis scripts are not yet complete.
 
-Primary sources: M9–M10 plus the M18 official workflow-closure evidence.
+### E2 — Official workflow figures
 
-### Experiment 4 — Simulation and official workflow reproduction
-Reproduce required MATLAB simulation/demo workflows, including correct model-family selection and documented reference limitations.
+Generate representative MATLAB-vs-HGFX trajectory/inference plots from committed paired evidence for the official demo workflows.
 
-Primary sources: M11–M13, D01–D12 workflow matrix and M18 product-closure evidence.
+Status: **open**.
 
-### Experiment 5 — Parameter and model recovery
-Run paired MATLAB/HGFX recovery under the same data, candidate models, seeds, priors, parameterization and selection rule. Historical failed recovery experiments remain part of the provenance and are not overwritten by redesigned protocols.
+### E3 — Trial-horizon / identifiability study
 
-Primary sources: historical M18, M18A/M18B, and product-level paired recovery work in M18 S7/S8.
+Run the prospectively defined 128/256/512/1024-trial recovery analysis across `hgf_binary`, `ehgf_binary`, and `uhgf_binary` if the stronger recovery/identifiability contribution is desired. This is PV1-01 / issue #21.
 
-### Experiment 6 — CPU/GPU/backend agreement
-Validate required outputs across compatibility CPU, JAX CPU and physical GPU. GPU claims require physical-device evidence; CPU or mocked-device results are not substitutes.
+Status: **open / recommended for stronger methods paper**.
 
-Primary sources: M14–M16 plus M18 S9 applicability audit.
+### E4 — Paper-grade backend/performance benchmark
 
-### Experiment 7 — Scaling and throughput
-Measure realistic scientific workloads across subjects, trials, model candidates, restarts and GPU count. Report cold compile separately from steady-state execution and distinguish throughput from scientific compatibility.
+Freeze a new workload matrix before execution. Separate cold compilation from steady-state execution and record complete hardware/runtime provenance.
 
-Primary sources: M17 and final paper benchmark matrix.
+Status: **open / required only for headline performance claims**.
 
-### Experiment 8 — Numerical compatibility case studies
-Only scientifically consequential cases belong here. Detailed debugging remains in repository artifacts/supplement.
+Historical H100/T4 measurements remain historical evidence and must not be silently repurposed as the final paper benchmark.
 
-Current candidate: D02, where sub-ULP/ULP elementary/runtime differences are amplified by Ridders finite differences and quasi-Newton fitting. As of run `34776952053` at head `4e92ccf3e3812564c4fa93cd85c9500b6a3436e1`, the selected residual case is classified `FORWARD_NUMERICAL_DIVERGENCE`; replaying observation arithmetic on exact MATLAB state removes the log-likelihood mismatch. This is **diagnostic evidence, not a closed result**.
+### E5 — Reproducibility package and independent manuscript review
 
-## Metrics
+Package exact commands, environments, hashes, and regeneration scripts, then review the exact submission candidate for claim/evidence consistency.
 
-Scientific metrics:
-- configuration/parameter identity;
-- trajectory absolute/relative error;
-- per-trial and total likelihood error;
-- objective and objective-decomposition error;
-- optimizer-path/final-parameter agreement where required;
-- Hessian/covariance/correlation error;
-- AIC/BIC/LME agreement;
-- parameter-recovery metrics;
-- model-selection/model-recovery agreement;
-- reference-limitation classification.
+Status: **open / required**.
 
-Engineering metrics:
-- wall time;
-- cold compile time;
-- steady-state time;
-- fits/sec and subjects/sec;
-- peak RAM and VRAM;
-- scaling speedup and efficiency;
-- failure count.
+## Floating-point and numerical policy
 
-## Floating-point and numerical policy for the paper
+The compatibility target is the scientific behavior of the frozen MATLAB reference, generally in IEEE-754 binary64. The project does not prefer mathematically higher precision when that would change the frozen reference behavior.
 
-The compatibility target is the scientific behavior of the frozen MATLAB reference, generally in IEEE-754 double precision. The project does **not** seek arbitrary-precision results that are mathematically more accurate but behaviorally different from MATLAB.
-
-When a runtime primitive differs materially:
+For consequential runtime differences:
 
 1. freeze an exact MATLAB oracle case;
-2. add a regression test before the repair;
+2. preserve/add a regression;
 3. apply the smallest evidence-backed compatibility repair;
 4. rerun unchanged scientific gates;
-5. retain failed historical evidence.
+5. retain historical failed evidence.
 
-Never change seeds, datasets, model families, optimization settings or acceptance thresholds after seeing results to manufacture agreement.
+Never change seeds, datasets, model families, optimization settings, or thresholds after seeing outcomes to manufacture agreement.
 
 ## Main paper vs supplement vs repository
 
 ### Main paper
-Include the reference version, validation design, preregistered/declared acceptance logic, aggregate parity results, recovery results, backend/GPU results, performance results and concise discussion of consequential numerical-compatibility findings.
+Reference identity, validation design, aggregate parity/workflow results, paired model-selection/recovery interpretation, backend/GPU applicability, selected numerical compatibility findings, and prospective performance/recovery results only if their paper protocols are frozen before execution.
 
 ### Supplement
-Include model/workflow matrices, detailed tolerances/error distributions, matched limitation cases, extended recovery grids, environment details and selected numerical case studies such as D02/D08 if they remain scientifically informative.
+Full model/workflow matrices, tolerance/error distributions, exact reference-limitation cases, extended recovery grids, environments, and numerical case studies.
 
-### Repository/evidence artifacts
-Retain full JSON outputs, intermediate probes, trial-level values, CI logs, run/job/artifact IDs, hashes, failed experiments and debugging-only diagnostics. These should not be copied wholesale into the manuscript.
-
-## Current evidence status
-
-- Frozen MATLAB reference: **PASS** — HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`.
-- M0–M17: historical gate evidence exists; physical H100 evidence exists for GPU milestones, subject to M18 applicability audit for final paper claims.
-- Historical M18 scientific recovery experiment: **FAIL, preserved**.
-- M18B protocol/integrity gate: **PASS recorded**, but not equivalent to full product/recovery closure.
-- D02 model-family selection behavior: **PASS_MODEL_SELECTION_PARITY**.
-- D04 uHGF→AR(1) official workflow: **PASS**.
-- Latest official nine-case fit/Bayes closure: **7/9 PASS**; D02_fit and D08_fit remain blocking.
-- Latest diagnostic run: `34776952053`, job `103776700085`, head `4e92ccf3e3812564c4fa93cd85c9500b6a3436e1`; artifact `10323968264`, SHA-256 `ac4d0094cfe49b5e5ee8d5c75f89311c35a2727b46ed433078412be63c3b5f9c`.
-- M18 product closure: **OPEN / IN PROGRESS**.
-- M19 paper dataset freeze: **OPEN / TODO**.
-- M20 v1.0 candidate: **OPEN / TODO**.
-
-## M19 paper freeze rule
-
-M19 may be declared complete only after the required v1 evidence surface is closed and the exact paper benchmark/validation dataset is frozen. At freeze time record:
-
-- HGFX commit/tag;
-- MATLAB reference commit;
-- protocol versions/hashes;
-- datasets and checksums;
-- environments;
-- run/job/artifact IDs and artifact SHA-256 hashes;
-- machine-readable aggregate result files;
-- scripts that regenerate every paper table/figure.
-
-After M19, paper tables and figures must be regenerated from frozen data rather than manually edited.
+### Repository
+Raw JSON, trial-level values, intermediate probes, CI logs, run/job/artifact IDs, hashes, failed experiments, debugging diagnostics, and figure/table source data.
 
 ## Manuscript readiness
 
-The manuscript may be outlined before M19, but final Results/Discussion claims must remain provisional until M19. `docs/research/PAPER_EVIDENCE_MAP.md` is the live mapping from candidate paper claims to validated repository evidence.
+`paper/manuscript.md` now exists as the working manuscript and is synchronized to the released v1 evidence. It is **not submission-ready** until the PV1-02 submission gate in `PAPER_EXECUTION_PLAN.md` is satisfied.
