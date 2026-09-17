@@ -1,0 +1,63 @@
+name: Verify PyPI Distribution
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/verify-pypi.yml"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Published HGFX version to verify from public PyPI"
+        required: true
+        default: "1.0.0"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-pypi:
+    name: Clean install and smoke-test from public PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Install HGFX from public PyPI only
+        shell: bash
+        env:
+          EXPECTED_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '1.0.0' }}
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://pypi.org/simple --no-cache-dir "hgfx==${EXPECTED_VERSION}"
+
+      - name: Verify installed distribution and public API
+        shell: bash
+        env:
+          EXPECTED_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '1.0.0' }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from importlib.metadata import version
+          import os
+          import numpy as np
+          import hgfx
+
+          expected = os.environ["EXPECTED_VERSION"]
+          installed = version("hgfx")
+          assert installed == expected, (installed, expected)
+          assert callable(hgfx.fit_model)
+          assert callable(hgfx.sim_model)
+          assert callable(hgfx.sample_model)
+
+          u = np.array([0, 1, 1, 0, 1, 0, 0, 1], dtype=float)
+          y = np.array([0, 1, 1, 0, 1, 0, 0, 1], dtype=float)
+          result = hgfx.fit_model(y, u)
+          assert np.isfinite(result.optim.LME)
+          assert np.isfinite(result.optim.BIC)
+          print(f"Public PyPI verification PASS: hgfx=={installed}")
+          print(f"Imported from: {hgfx.__file__}")
+          PY
