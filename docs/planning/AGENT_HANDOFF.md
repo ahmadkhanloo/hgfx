@@ -1,10 +1,11 @@
 # Agent Handoff
 
-Last synchronized: 2026-09-16
+Last synchronized: 2026-09-18
 Branch: `main`
 Release status: **HGFX v1.0.0 RELEASED / V1 GATE CLOSED**
+Product-line policy: [VERSION_POLICY.md](VERSION_POLICY.md)
 
-Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md), [FINAL_REVIEW_CHECKLIST](FINAL_REVIEW_CHECKLIST.md), [the evidence index](../validation/V1_EVIDENCE_INDEX.md), and [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md) before any post-v1 work.
+Read [VERSION_POLICY](VERSION_POLICY.md), [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M20_GATE.md), [FINAL_REVIEW_CHECKLIST](FINAL_REVIEW_CHECKLIST.md), [the evidence index](../validation/V1_EVIDENCE_INDEX.md), and [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md) before any post-v1 work.
 
 ## Current state
 
@@ -21,12 +22,23 @@ Read [V1_TODO](V1_TODO.md), [V1_RELEASE_GATE](V1_RELEASE_GATE.md), [M20_GATE](M2
 - Main Regression run `35090329868` passed on Ubuntu and Windows for that exact final source target.
 - Git tag `v1.0.0` has been verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.
 - GitHub Release `v1.0.0` is published, non-draft and non-prerelease: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0, Release ID `389966452`.
+- Owner product decision recorded 2026-09-18: v1 stays the MATLAB-compatibility line and paper-1 claim; v2 is not started.
 
 ## v1 closure
 
 The HGFX v1.0.0 product/release objective is complete. There is no remaining blocking v1 task.
 
 Do not reopen frozen scientific validation, move the release tag, or rewrite historical evidence. Later commits on `main` are post-release documentation/maintenance and do not alter the immutable release source target.
+
+v1.x may only restore or document the frozen compatibility contract. It may not introduce new scientific semantics, inflate tolerances, or convert preserved FAIL / `REFERENCE_LIMITATION_MATCH` results into PASS.
+
+## Paper 1
+
+The active post-v1 objective is the v1 methods paper as a validated MATLAB reproduction, not a generic new HGF library and not a pyhgf bake-off. GPU speedup and general recovery success are not paper-1 headlines. P3 identifiability is optional supplement evidence and must not block submission or rewrite M18.
+
+## v2
+
+v2 is **not started**. The current owner decision, recorded in [VERSION_POLICY.md](VERSION_POLICY.md), is provisional only: if opened later, v2 would be a native Python modeling layer on the v1 core after a second scientific question exists. Do not implement v2 work, and do not describe v2 as "higher precision."
 
 ## Future work policy
 
@@ -35,9 +47,9 @@ Any further work must begin with an explicit post-v1 objective and new milestone
 - non-blocking independent-review maintenance findings M1/L1/L2;
 - M18C.2/horizon-analysis research;
 - methods-paper/publication work;
-- PyPI publication;
-- new performance claims/benchmarks;
+- v1.x compatibility maintenance;
+- new performance claims/benchmarks (not paper 1);
 - compatibility with a future upstream HGF Toolbox version;
-- new models, APIs, or product features.
+- a separately gated v2 line, only after VERSION_POLICY is explicitly revised.
 
 These items are not unfinished v1 release work and must not be used to revise the frozen v1 acceptance evidence.
