@@ -1,15 +1,28 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
 import pytest
 
-from tools.check_p2a9_preexecution import canonical_bit_hash, validate_manifest
-
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "paper" / "reproducibility" / "pyhgf_common_scope_case.json"
+CHECKER = ROOT / "tools" / "check_p2a9_preexecution.py"
+
+
+def _load_checker():
+    spec = importlib.util.spec_from_file_location("check_p2a9_preexecution", CHECKER)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+checker = _load_checker()
+canonical_bit_hash = checker.canonical_bit_hash
+validate_manifest = checker.validate_manifest
 
 
 def _load() -> dict:
