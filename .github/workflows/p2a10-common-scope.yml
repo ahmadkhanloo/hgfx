@@ -1,0 +1,55 @@
+name: P2A.10 Frozen Common-Scope Execution
+
+on:
+  push:
+    branches:
+      - paper/p2a10-execute-common-scope
+    paths:
+      - '.github/workflows/p2a10-common-scope.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  execute-frozen-case:
+    runs-on: ubuntu-24.04
+    env:
+      JAX_ENABLE_X64: '1'
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+          cache: pip
+
+      - name: Install exact frozen scientific environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            'numpy==2.3.3' \
+            'jax==0.6.2' \
+            'jaxlib==0.6.2' \
+            'hgfx==1.0.0' \
+            'pyhgf==0.3.2'
+          python -m pip check
+
+      - name: Execute authorized frozen case
+        run: |
+          python tools/run_p2a10_common_scope.py \
+            --case paper/reproducibility/pyhgf_common_scope_case.json \
+            --gate paper/reproducibility/pyhgf_final_semantic_gate.json \
+            --output-dir p2a10-artifact
+
+      - name: Record exact resolved environment
+        run: python -m pip freeze --all > p2a10-artifact/p2a10-pip-freeze.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p2a10-frozen-common-scope-${{ github.run_id }}
+          path: p2a10-artifact/
+          if-no-files-found: error
+          retention-days: 90
