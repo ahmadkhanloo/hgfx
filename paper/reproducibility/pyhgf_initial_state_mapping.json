@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.5",
+  "status": "PASS_FOR_FROZEN_DEFAULT_CANDIDATE_ONLY",
+  "created_date": "2026-09-17",
+  "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+  "candidate": {
+    "model": "three-level binary HGF",
+    "initial_states": {
+      "level_2_mean": 0.0,
+      "level_2_precision": 10.0,
+      "level_3_mean": 1.0,
+      "level_3_precision": 1.0
+    },
+    "top_level_drift": 0.0,
+    "time_step_first_trial": 1.0
+  },
+  "checks": [
+    {
+      "surface": "continuous posterior initial states",
+      "classification": "MATCH",
+      "note": "HGFX levels 2/3 and pyhgf nodes 1/2 start from the same mapped mean and precision values."
+    },
+    {
+      "surface": "pre-scan expected-state cache",
+      "classification": "DIFFERENT_UNUSED_CACHE_NON_BLOCKING",
+      "note": "pyhgf expected_mean/expected_precision defaults can differ initially but are overwritten by prediction before the first observation/inference step."
+    },
+    {
+      "surface": "pre-trial binary posterior state",
+      "classification": "NO_DIRECT_EQUIVALENT_NON_BLOCKING",
+      "note": "Both implementations recompute the binary prediction from the level-2/value-parent prediction before consuming the first observation."
+    },
+    {
+      "surface": "first-trial time step",
+      "classification": "MATCH",
+      "hgfx": 1.0,
+      "pyhgf": 1.0
+    },
+    {
+      "surface": "prediction and inference dependency order",
+      "classification": "CONDITIONAL_MATCH_FOR_FROZEN_TOP_DRIFT_ZERO",
+      "restriction": "Direct comparison is not authorized for non-zero top-level drift because pyhgf predicts the top node before middle-level precision prediction, while HGFX uses the previous top posterior mean for that calculation."
+    }
+  ],
+  "pyhgf_conceptual_order": [
+    "predict node 2",
+    "predict node 1",
+    "predict node 0",
+    "assign observation to node 0",
+    "binary prediction error at node 0",
+    "posterior update node 1",
+    "volatility prediction error at node 1",
+    "posterior update node 2"
+  ],
+  "hgfx_conceptual_order": [
+    "predict level-2 mean",
+    "binary prediction and binary prediction error",
+    "predict level-2 precision",
+    "posterior update level 2",
+    "predict level-3 mean and precision",
+    "volatility prediction error at level 2",
+    "posterior update level 3"
+  ],
+  "restrictions": [
+    "top-level drift must remain zero for the current common-scope candidate",
+    "pre-trial binary state is not a directly compared scientific quantity"
+  ],
+  "deferred": [
+    "input and masking semantics (P2A.6)",
+    "output quantity semantics (P2A.7)",
+    "precision and numerical guards (P2A.8)",
+    "semantic gate decision (P2A.9)"
+  ],
+  "benchmark_authorized": false
+}
