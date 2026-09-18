@@ -7,7 +7,7 @@ This is **not** M19 and is **not** an implementer self-review.
 Use this checklist on the exact submission candidate after:
 
 - [x] P3 aggregate is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, hash-verified as `83ccbb7f...31b4`, and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`;
-- [ ] the P3 diagnostic figure is generated from that committed aggregate if P3 is retained in the submission package;
+- [x] P3 diagnostic Figure 6 is generated from that committed aggregate, committed as `paper/figures/fig_p3_horizon_diagnostics.png`, and zero-diff gated by P5 CI;
 - [ ] the paper evidence manifest is `FROZEN_FOR_SUBMISSION`.
 
 Do not treat this file as a completed review. An independent reviewer must fill it.
