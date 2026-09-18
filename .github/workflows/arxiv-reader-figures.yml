@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   arxiv-reader-figures:
@@ -42,6 +42,19 @@ jobs:
           fi
       - name: List generated files
         run: find paper/arxiv/figures -maxdepth 1 -type f -printf '%f\n' | sort
+      - name: Commit rendered arXiv figures
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add paper/arxiv/figures
+          if git diff --cached --quiet; then
+            echo "Rendered figures already match the committed outputs."
+            exit 0
+          fi
+          git commit -m "paper: render arXiv reader figures"
+          git push
       - uses: actions/upload-artifact@v4
         with:
           name: arxiv-reader-figures
