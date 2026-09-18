@@ -87,7 +87,7 @@ Therefore no data-horizon or structural-identifiability conclusion is promoted. 
 
 ### PV1-02 — Methods paper and reproducibility package
 
-**Status:** IN PROGRESS / PUBLICATION / P1–P3/P5/P6 DONE; P6A-1 DONE; P6A-2/P7/P8 OPEN  
+**Status:** IN PROGRESS / PUBLICATION / P1–P3/P5/P6 DONE; P6A-1/P6A-2 DONE; P7/P8 OPEN  
 **Tracking:** GitHub issue #32  
 **Plan:** `../research/PAPER_EXECUTION_PLAN.md`
 
@@ -109,7 +109,8 @@ Current state:
 - P6 reviewer entry point at `paper/reproducibility/README.md`;
 - P3 M18C.2 execution/classification complete from run `35272347167`: `INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; invalid simulations remain preserved;
 - P6A-1 evidence inventory/integrity manifest: DONE/PASS (51 artifacts; canonical Git-byte hashes; run `35333572515`; merge `56c64678550ef87744b27630d20bf8de0c72a5a8`);
-- remaining: perform P6A-2 numerical claim audit, lock exact P7 candidate, run P8 independent audit, then freeze P6A only after P8 PASS.
+- P6A-2 numerical claim audit: DONE/PASS (48 mapped claim lines; 0 unmapped; direct demo/S7/GPU/pyhgf/P3 machine checks PASS; merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`);
+- remaining: lock exact P7 candidate, run P8 independent audit, then freeze P6A only after P8 PASS.
 
 Publication scope:
 
@@ -118,7 +119,7 @@ Publication scope:
 - keep exact software/runtime environments and provenance for all paper-used executions;
 - describe MATLAB-equivalence policy and `REFERENCE_LIMITATION_MATCH` semantics accurately;
 - include physical-GPU evidence while clearly distinguishing correctness/applicability from scaling claims;
-- complete P6A-2 claim audit, P7 manuscript lock, P8 independent review, then the final P6A submission freeze;
+- lock P7 manuscript candidate, perform P8 independent review, then complete the final P6A submission freeze;
 - preserve historical failed experiments and scoped limitations unchanged.
 
 Exit evidence:
