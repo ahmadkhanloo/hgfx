@@ -1,51 +1,82 @@
 # HGFX version policy
 
-Recorded: 2026-09-18
-Status: **v1 FROZEN / v2 NOT STARTED — current owner decision, not a release gate**
-Authority: this file is the product-line decision record. It does not reopen the v1.0.0 scientific gate.
+Recorded: 2026-09-18  
+Status: **v1.0.0 FROZEN / v1.1.x ACTIVE ADDITIVE DEVELOPMENT**  
+Authority: this file is the product-line decision record. It does not reopen the v1.0.0 scientific or release gate.
 
-Immutable v1 source: `v1.0.0` → `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
-Frozen MATLAB oracle: HGF Toolbox 8.2.0 → `2437f4dc241541072722a2695ddeca7b44d83dd3`
-PyPI: `hgfx==1.0.0`
+Immutable v1.0.0 source: `v1.0.0` → `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`  
+Frozen MATLAB oracle: HGF Toolbox 8.2.0 → `2437f4dc241541072722a2695ddeca7b44d83dd3`  
+Public PyPI release: `hgfx==1.0.0`  
+Current development metadata on `main`: `1.1.0`
 
-## Decision in one paragraph
+## Product-line decision
 
-HGFX v1 is the locked MATLAB-compatibility product and the claim of the first methods paper: a validated Python/JAX reproduction of the frozen HGF Toolbox 8.2.0 scientific and workflow contract, with no MATLAB runtime for users. pyhgf is a different design center (generalized / nodal predictive-coding networks) and is not the competitor v1 tries to beat. v2 is not open. The current owner decision is that a future v2, if started at all, would be a native Python modeling layer on top of the v1 core after a second scientific question exists — not a precision contest with MATLAB or pyhgf, and not a silent change to v1 behavior.
+HGFX keeps one continuous v1 product line.
 
-## v1 — frozen compatibility line
+- **v1.0.0 is immutable compatibility evidence.** It is the released Python/JAX reproduction of the frozen MATLAB HGF Toolbox 8.2.0 contract in the documented validated scopes.
+- **v1.1.x is the active additive development line.** It may add analysis helpers, models and response functions while preserving the frozen v1.0.0 compatibility path and historical evidence.
+- There is no separate major-version roadmap in the current project plan. New work must be classified either as v1.1.x-compatible additive work, v1.0.x compatibility maintenance, paper/research work, or a separately approved future scope.
+- The first methods paper remains anchored to the immutable v1.0.0 evidence set. Later additive APIs do not retroactively enlarge the paper-1 equivalence claim.
 
-These points are accepted and must not be revised by later feature work.
+## v1.0.0 — frozen MATLAB compatibility release
 
-1. **Product identity.** v1 is a TAPAS/HGF Toolbox compatibility surface in Python/JAX. It is not a generic new HGF library and is not a GPU-performance product.
-2. **Scientific ceiling for v1.** Matching the frozen MATLAB 8.2.0 oracle is the acceptance criterion. Higher mathematical precision that would change reference behavior is out of scope for v1.
-3. **Release immutability.** Tag `v1.0.0` and commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` do not move. Later `main` commits are post-release documentation, publication assets, or v1.x maintenance. They do not rewrite frozen evidence.
-4. **v1.x maintenance only.** Allowed on the compatibility line: bugfixes that restore the frozen contract, portability, packaging, documentation, and citation metadata. Forbidden: new model semantics, tolerance inflation, retuning failed experiments into PASS, and headline speed/scaling claims.
-5. **Evidence honesty.** Historical M18 FAIL stays FAIL. D02/D08 and exact-grid S7 recovery stay `REFERENCE_LIMITATION_MATCH` where that is the recorded class. Shared MATLAB limitations are reproduced, not repaired into scientific success.
-6. **Paper 1 claim.** The printable v1 paper is a software-methods / validated-reproduction article. Allowed headlines: workflow and statistical-surface equivalence, official demo parity, paired model-selection agreement, backend/GPU applicability, explicit reference limitations. Disallowed headlines for paper 1: general superiority to pyhgf, general parameter-recovery success, peak GPU speedup, multi-GPU scaling.
-7. **pyhgf relation.** pyhgf (`==0.3.2` in paper protocol 1) is an external comparator with a different center of design. Common-scope trajectory agreement does not imply interchangeable response-likelihood or fitting surfaces. Quantities without a mapped contract remain `NOT_DIRECTLY_COMPARABLE`. HGFX does not race pyhgf on nodal/gHGF/network construction.
-8. **P3 is optional for paper 1.** The trial-horizon identifiability study (issue #21) may enter the supplement if it finishes cleanly under its frozen protocol. Paper 1 must not wait on P3, and P3 must not rewrite historical M18 FAIL.
-9. **Audience.** v1 is for researchers who already use the MATLAB HGF Toolbox and need the same analysis contract in Python. It is not the default toolkit for building arbitrary predictive-coding graphs.
-10. **Opt-in MAP.** `hgfx.optim.minimize_map` is an additive analysis helper. It must not become the `fit_model` default, must not enter paper-1 headlines, and must not rewrite frozen fitting evidence. See `OPT_IN_MAP.md`.
+The following rules are immutable:
 
-## v2 — current owner decision, not a plan
+1. **Compatibility identity.** The v1.0.0 acceptance oracle is HGF Toolbox 8.2.0 at `2437f4dc241541072722a2695ddeca7b44d83dd3`.
+2. **Frozen source.** Tag `v1.0.0` and commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` do not move.
+3. **Historical evidence.** M18 scientific FAIL remains FAIL. D02/D08 and exact-grid S7 recovery remain scoped `REFERENCE_LIMITATION_MATCH` where recorded; they are not converted into scientific PASS.
+4. **Default fitting contract.** `hgfx.fit_model` remains the frozen MATLAB-compatible quasi-Newton/Laplace path for reproducing v1.0.0 and paper-1 numbers.
+5. **Paper-1 claim.** The methods paper may claim only the documented validated reproduction scopes, workflow/statistical-surface equivalence, official demo parity, paired model-selection agreement, backend/GPU applicability, and explicit reference-limit handling.
+6. **pyhgf relation.** `pyhgf==0.3.2` is an external comparator with a different design center. The completed common-scope comparison does not imply global interchangeability, superiority, or response-likelihood equivalence.
+7. **P3/M18C.2 result.** The completed trial-horizon study is classified `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`; no data-horizon or structural-identifiability conclusion is promoted, and historical M18 remains unchanged.
 
-Status: **NOT STARTED / NOT COMMITTED / NO MILESTONE**
+## v1.1.x — active additive line
 
-This section records the owner's present intent. It is not a specification, not a backlog, and not authorization to implement.
+The package metadata on `main` is currently `1.1.0`. The first 1.1.0 feature integration starts at commit `b74a3199077d0afc7af730d32b19cb3f158f9516`.
 
-Current decision:
+The current additive surface includes:
 
-- Do not start v2 while paper 1 is unsubmitted.
-- Do not name v2 "higher precision." float64 MATLAB fidelity is a v1 job. pyhgf already provides JAX float64. Numerics that diverge from MATLAB belong in a separately versioned line so that old TAPAS analyses remain reproducible on v1.
-- If v2 is opened later, its job is a native Python modeling layer on the existing v1 mathematical core: compositional models, explicit priors/transforms, first-class trajectory arrays, and tools that answer a question neither frozen MATLAB nor pyhgf already answers well for TAPAS users (for example identifiability of the toolbox HGF family, or inference beyond the compatibility quasi-Newton/Laplace surface).
-- MATLAB remains a regression oracle for any shared equation. It is not the scientific ceiling of a future v2 line.
-- Opening v2 requires an explicit second scientific question, a new milestone/release gate, and a versioning rule that leaves the v1 compatibility contract untouched.
+- **opt-in MAP fitting** through `hgfx.optim.fit_map`, `minimize_map`, and `multi_start_map`; SciPy `L-BFGS-B` is the production opt-in engine when available, with the internal solver retained as fallback;
+- **binary and dual-stream Volatile Kalman Filter (VKF)** helpers;
+- **dual-stream AR1 binary** helpers for reward/social analyses;
+- **social-gaze softmax** response variants;
+- **three-choice card-volatility softmax** support for the 3PLR-style workflow.
 
-Until that happens, treat every new feature request as either v1.x maintenance or out of scope.
+These additions are intentionally separate from the frozen compatibility default:
 
-## What this file does not do
+- `hgfx.fit_model` is not replaced by the opt-in MAP solver;
+- v1.1.x additions do not rewrite v1.0.0 validation results or historical scientific classifications;
+- project-specific priors, parameter numbers and analysis-specific wiring remain outside the core library unless explicitly generalized and validated;
+- any new scientific claim using a v1.1.x API requires its own prospective protocol and evidence.
 
-- It does not change frozen tolerances, seeds, datasets, grids, models, or optimizers.
-- It does not activate PV1-04 performance work or PV1-06 feature work.
-- It does not authorize a pyhgf fork or a gHGF/network-builder rewrite.
-- It does not make paper 1 submission-ready by itself. Submission still follows `../research/PAPER_EXECUTION_PLAN.md`.
+User-facing usage is documented in `docs/user/V1_1.md`.
+
+## v1.1.0 release status
+
+As of 2026-09-18:
+
+- package metadata on `main` is `1.1.0`;
+- the additive APIs are implemented and unit-tested on `main`;
+- there is **no Git tag or GitHub Release for 1.1.0 yet**;
+- public PyPI remains `hgfx==1.0.0`;
+- therefore v1.1.0 is **IMPLEMENTED ON MAIN / NOT YET RELEASED**.
+
+Publishing v1.1.0 requires a dedicated release gate that at minimum verifies:
+
+- full regression against the frozen v1.0.0 compatibility path;
+- focused tests for every additive 1.1 API;
+- clean wheel/sdist metadata and installation smoke tests;
+- API/documentation consistency;
+- exact source SHA, tag and release provenance;
+- explicit confirmation that the release does not alter the immutable v1.0.0 evidence set.
+
+## Change policy
+
+Classify future work before implementation:
+
+- **v1.0.x maintenance:** fixes required to restore the frozen v1.0.0 contract, packaging portability, documentation and citation corrections that do not alter scientific behavior.
+- **v1.1.x additive development:** new opt-in models, response functions, fitting helpers and ergonomics that preserve the existing compatibility APIs and are covered by explicit tests.
+- **paper/research work:** manuscript, reproducibility, prospective scientific analyses and comparison evidence; these do not silently change package acceptance criteria.
+- **incompatible product changes:** require a new explicit owner decision and release policy before implementation. Do not infer such a roadmap from old planning documents.
+
+No tolerance, seed, dataset, validation grid, model family, optimizer, or historical result may be changed post-hoc to manufacture a PASS.
