@@ -63,47 +63,7 @@ jobs:
         run: |
           pdfinfo paper/arxiv/dist/HGFX_arXiv_preprint.pdf
           unzip -l paper/arxiv/dist/HGFX_arXiv_source.zip
-          test "$(unzip -Z1 paper/arxiv/dist/HGFX_arXiv_source.zip | grep -c '^main.tex
-      - name: Freeze submission candidate in repository
-        if: contains(github.event.head_commit.message, '[freeze-arxiv]')
-        shell: bash
-        run: |
-          FREEZE_DIR="paper/arxiv/frozen/${FREEZE_ID}"
-          mkdir -p "${FREEZE_DIR}"
-          cp paper/arxiv/dist/HGFX_arXiv_preprint.pdf "${FREEZE_DIR}/HGFX_arXiv_preprint.pdf"
-          cp paper/arxiv/dist/HGFX_arXiv_source.zip "${FREEZE_DIR}/HGFX_arXiv_source.zip"
-          (
-            cd "${FREEZE_DIR}"
-            sha256sum HGFX_arXiv_preprint.pdf HGFX_arXiv_source.zip > SHA256SUMS.txt
-          )
-          cat > "${FREEZE_DIR}/MANIFEST.md" <<EOF
-          # HGFX arXiv freeze ${FREEZE_ID}
-
-          This directory is the immutable repository copy of the arXiv submission candidate.
-
-          - Source commit: \`${GITHUB_SHA}\`
-          - Workflow run: \`${GITHUB_RUN_ID}\`
-          - Build workflow: \`.github/workflows/arxiv-package.yml\`
-          - PDF: \`HGFX_arXiv_preprint.pdf\`
-          - arXiv source: \`HGFX_arXiv_source.zip\`
-          - Checksums: \`SHA256SUMS.txt\`
-
-          The ZIP was compiled from scratch during this workflow before freezing.
-          EOF
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${FREEZE_DIR}"
-          git commit -m "paper: freeze arXiv submission ${FREEZE_ID} [skip ci]"
-          git push
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: hgfx-arxiv-submission
-          path: |
-            paper/arxiv/dist/HGFX_arXiv_preprint.pdf
-            paper/arxiv/dist/HGFX_arXiv_source.zip
-          if-no-files-found: error
-)" -eq 1
+          test "$(unzip -Z1 paper/arxiv/dist/HGFX_arXiv_source.zip | grep -c '^main[.]tex$')" -eq 1
           pdftotext paper/arxiv/dist/HGFX_arXiv_preprint.pdf paper/arxiv/dist/preflight.txt
           if grep -F '\\begin{figure}' paper/arxiv/dist/preflight.txt || grep -F '\\includegraphics' paper/arxiv/dist/preflight.txt; then
             echo 'Raw LaTeX figure commands leaked into the rendered PDF.'
