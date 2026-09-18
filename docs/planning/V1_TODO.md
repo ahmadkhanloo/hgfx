@@ -112,7 +112,7 @@ Current state:
 - P6A-2 numerical claim audit: DONE/PASS (48 mapped claim lines; 0 unmapped; direct demo/S7/GPU/pyhgf/P3 machine checks PASS; merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`);
 - P7-1 JNM/Elsevier preflight: DONE/PASS (PR #64, merge `6257bc5b87551baeaefd6fe345c8b9d9ffdb7d68`; P7 run `35337207046`; P6A run `35337207243`; regression run `35337207135`);
 - P7-2 exact candidate lock: DONE/PASS; approved correspondence email committed; exact candidate `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`; strict P7/P6A/P2/regression gates PASS;
-- prior independent v1 review is accepted as baseline and must not be repeated; remaining P8 work is only an independent paper/post-review delta audit of candidate `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`, followed by final P6A freeze after PASS.
+- prior independent v1 review is accepted as baseline and must not be repeated; deterministic P8 delta packet is DONE/PASS (109 commits / 132 changed files / 91 direct paper-review files; PR #66, run `35344626071`); remaining work is only the independent paper/post-review delta audit of candidate `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`, followed by final P6A freeze after PASS.
 
 Publication scope:
 
