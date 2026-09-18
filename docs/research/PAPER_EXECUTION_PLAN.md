@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6 DONE; P6A-1/P6A-2 DONE; P7/P8 OPEN; FINAL P6A FREEZE DEFERRED**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2/P7 DONE; P8 READY FOR INDEPENDENT REVIEW; FINAL P6A FREEZE DEFERRED**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -332,7 +332,7 @@ Acceptance for final P6A:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / P7-1 JNM PREFLIGHT DONE-PASS; P7-2 EXACT CANDIDATE LOCK BLOCKED BY AUTHOR INPUT; P8 OPEN.
+**Status:** DONE / PASS — P7-1 + P7-2 COMPLETE; EXACT CANDIDATE LOCKED FOR P8.
 
 P7-1 completed in PR #64 / merge `6257bc5b87551baeaefd6fe345c8b9d9ffdb7d68`.
 
@@ -348,7 +348,19 @@ P7-1 evidence:
 - P6A read-only run `35337207243`: PASS / zero diff;
 - regression run `35337207135`: PASS on Ubuntu and Windows, 214 passed / 4 skipped on each platform.
 
-The only remaining P7-2 blocker is `MISSING_CORRESPONDING_AUTHOR_EMAIL`. The address is author input and must not be inferred or guessed. Until it is supplied/approved, do not lock the candidate SHA and do not start P8.
+P7-2 completed after the author supplied and approved the institutional email `m.ahmadkhanloo@ipm.ir`.
+
+Exact locked candidate:
+- SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`;
+- candidate tree: `a6a98456335cf2bc2c32442d0f217aed53604955`;
+- preserving merge: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`;
+- merge tree matches candidate tree exactly;
+- P7 run `35342538568`: PASS;
+- P6A zero-diff run `35342538572`: PASS;
+- P2 run `35342538617`: PASS;
+- regression run `35342538746`: PASS on Ubuntu and Windows (214 passed, 4 skipped each).
+
+P7 is now closed. P8 must review this exact candidate SHA.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
@@ -372,9 +384,9 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** OPEN / FINAL SCIENTIFIC GATE / CHECKLIST PREPARED.
+**Status:** READY FOR INDEPENDENT REVIEW / FINAL SCIENTIFIC GATE / NOT STARTED.
 
-Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. The checklist is not a completed review.
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`. The checklist is not a completed review.
 
 Review the exact submission candidate for:
 - scientific overclaiming;
