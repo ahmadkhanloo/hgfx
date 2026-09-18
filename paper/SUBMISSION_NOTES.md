@@ -28,6 +28,5 @@ Quartile (honest): **not Q1**. Typical recent JCR: Neurosciences **Q3**; Biochem
 ## Still required from the authors
 
 - Names, affiliations, corresponding author, CRediT, competing interests, acknowledgments
-- P3 diagnostic horizon figure generated from the committed/classified aggregate if P3 remains in the submission package
 - Independent P8 review
 - `FROZEN_FOR_SUBMISSION` paper-evidence manifest
