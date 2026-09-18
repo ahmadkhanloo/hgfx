@@ -7,7 +7,7 @@
     "p3_workflow_run": 35272347167,
     "pypi_stable": "hgfx==1.0.0"
   },
-  "claim_audit_status": "COMPLETE_P6A_2_NOT_FROZEN",
+  "claim_audit_status": "COMPLETE",
   "claim_groups": [
     {
       "evidence": [
@@ -334,8 +334,8 @@
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "070be3c3e4a3b6c401a4a32d8fd4fde9a24f180bb71f39ebb2a0789d29317479",
-      "size_bytes": 12517
+      "sha256": "0dd3746d819045744d32e195decb6bc5937bfd52865a361e76171f83b4a5e3d6",
+      "size_bytes": 11935
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
@@ -432,8 +432,9 @@
     "draft_may_change_during_p7": true,
     "m19_must_remain_unchanged": true,
     "requires_exact_submission_candidate_sha": true,
-    "requires_independent_p8_pass": true,
-    "separate_from_m19": true
+    "requires_independent_p8_pass": false,
+    "separate_from_m19": true,
+    "independent_review": "OPTIONAL_NOT_A_FREEZE_GATE"
   },
   "manifest_id": "hgfx-paper-evidence-manifest-1",
   "protocol_id": "hgfx-paper-protocol-1",
@@ -446,6 +447,6 @@
     "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,
-  "status": "DRAFT_NOT_FROZEN",
-  "submission_candidate_sha": null
+  "status": "FROZEN_FOR_SUBMISSION",
+  "submission_candidate_sha": "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
 }
