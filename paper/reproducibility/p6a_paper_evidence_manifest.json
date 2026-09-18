@@ -184,8 +184,8 @@
     {
       "path": "paper/reproducibility/README.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "67e3792583c2a68edad73827d947d020baea0f495caab4b33a25d080e903615e",
-      "size_bytes": 3680
+      "sha256": "47d6c765021756b6898ef216b44c170502204be4f2d0354b64aad96304e57bbb",
+      "size_bytes": 4365
     },
     {
       "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
