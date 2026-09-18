@@ -24,42 +24,18 @@ AUTHOR = "Mohammad Ahmadkhanloo"
 
 FIGURES = [
     (
-        "fig1_reference_sensitivity.pdf",
-        "Sensitivity of the frozen MATLAB reference in the two numerically fragile fitting workflows. "
-        "Bars show the fraction of one-local-spacing perturbations of the official start that move the MATLAB "
-        "optimizer endpoint outside the original endpoint tolerance: 6/6 for the enhanced-HGF fitting stress case "
-        "and 13/14 for the fixed-seed uHGF holdout. This supports an exact-scope reference-limitation interpretation "
-        "without converting either endpoint mismatch into direct fitting parity.",
+        "fig1_recovery_metrics.pdf",
+        "Close paired agreement coexists with weak recovery. Original-scale parameter-recovery summaries are shown for classic, enhanced, and unbounded HGF. Circles denote MATLAB 8.2.0 and crosses denote HGFX 1.0.0; dotted lines mark the unchanged targets. The convergence panel includes descriptive Wilson 95% intervals for 24 cases per family. Correlation and standardized-RMSE panels show point summaries because replicate-level bootstrap inputs are not available in the archived aggregate.",
     ),
     (
-        "fig2_model_selection_agreement.pdf",
-        "Paired model-selection agreement on the frozen three-model grid. MATLAB 8.2.0 and HGFX 1.0.0 have the same "
-        "balanced accuracy (0.583) and identical BIC winner decisions in all 36/36 paired datasets. The dashed line "
-        "marks the predeclared balanced-accuracy criterion of 0.50. Parameter-recovery metrics are reported separately "
-        "in Table 4 and Supplementary Appendix S3.",
+        "fig2_horizon_diagnostics.pdf",
+        "Trial-horizon diagnostics with incomplete cells retained. Columns separate classic, enhanced, and unbounded HGF; rows show median parameter correlation and median standardized RMSE at 128, 256, 512, and 1024 trials. Dotted lines mark the original targets. Shaded regions denote incomplete classic-HGF summaries at 512 and 1024 trials and are not zeros or interpolated estimates. The whole-study paired-integrity requirement was not satisfied, so these trends do not establish identifiability.",
     ),
     (
-        "fig3_horizon_diagnostics.pdf",
-        "Prospective trial-horizon diagnostic at 128, 256, 512 and 1024 trials. MATLAB and HGFX trajectories are shown "
-        "together for complete cells; incomplete classic-HGF cells remain as gaps. Because the paired-integrity "
-        "requirement was not satisfied, the figure is diagnostic and does not establish a stronger identifiability conclusion.",
-    ),
-    (
-        "fig4_gpu_numerical_agreement.pdf",
-        "Absolute CPU-versus-physical-GPU final-objective differences for all four preregistered fitting cells on two "
-        "Tesla T4 devices. The dashed line is the predeclared 1e-7 criterion; three cells are exactly equal at the "
-        "reported precision and the maximum observed difference is 1.42e-14. This is numerical applicability evidence, "
-        "not a speed claim.",
-    ),
-    (
-        "fig5_pyhgf_common_scope.pdf",
-        "HGFX versus pyhgf 0.3.2 on the authorized common-scope 128-trial binary-HGF cell. Predicted probability and "
-        "level-2 posterior mean overlap at plotting scale, while the residual panel shows the remaining binary64-scale "
-        "difference directly. Participant-response NLL is reported separately as not directly comparable at the exact "
-        "probability boundary.",
+        "fig3_pyhgf_common_scope.pdf",
+        "Perceptual trajectories agree at binary64 rounding scale, with residuals shown separately. HGFX 1.0.0 and pyhgf 0.3.2 are compared on the frozen 128-trial three-level binary-HGF cell. Panels show predicted input probability, level-2 posterior mean, and the signed HGFX-minus-pyhgf probability residual in units of 1e-16. Participant-response NLL is a separate quantity and remains not directly comparable in this cell.",
     ),
 ]
-
 
 def run(*args: str, cwd: Path | None = None) -> None:
     subprocess.run(args, cwd=cwd, check=True)
@@ -130,11 +106,9 @@ Software: \\url{{https://github.com/ahmadkhanloo/hgfx}}
     # Place every figure next to the result it supports instead of collecting
     # detached full-page figures at the end of the manuscript.
     placements = [
-        ("### 3.3 Parameter recovery versus model selection", 1),
-        ("The trial-horizon study (section 2.6)", 2),
-        ("### 3.4 Backend and physical-GPU applicability", 3),
-        ("### 3.5 Common-scope comparison with pyhgf", 4),
-        ("### 3.6 Examples of use and current limitations", 5),
+        ("The trial-horizon study (section 2.6)", 1),
+        ("**Table 4.** Paired parameter recovery", 2),
+        ("Participant-response NLL was not directly comparable.", 3),
     ]
     for anchor, index in placements:
         if anchor not in main_body:
