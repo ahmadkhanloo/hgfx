@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2/P7 DONE; P8 READY FOR INDEPENDENT REVIEW; FINAL P6A FREEZE DEFERRED**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2/P7 DONE; P8 WAIVED BY AUTHOR; FINAL P6A FREEZE IS NEXT**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -294,7 +294,7 @@ Acceptance:
 
 ### P6A — Final paper-evidence freeze
 
-**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 DONE/PASS; FINAL FREEZE DEFERRED UNTIL P8 PASS.
+**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 DONE/PASS; FINAL FREEZE NEXT. Independent P8 was explicitly waived by the author on 2026-09-18.
 
 This is a new publication gate and is **not M19**.
 
@@ -320,9 +320,9 @@ P6A-2 completed in PR #63 / merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`:
 - full regression run `35335397063`: PASS on Ubuntu and Windows.
 
 Ordering now:
-1. lock the exact P7 manuscript candidate;
-2. run independent P8 on that candidate;
-3. only after P8 PASS, regenerate P6A as `FROZEN_FOR_SUBMISSION` with the exact candidate SHA.
+1. exact P7 manuscript candidate is locked;
+2. independent P8 is optional and was explicitly waived by the author;
+3. regenerate P6A as `FROZEN_FOR_SUBMISSION` with the exact candidate SHA.
 
 Acceptance for final P6A:
 - paper results can be reconstructed without narrative notes or chat history;
@@ -384,7 +384,7 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** PRIOR INDEPENDENT V1 REVIEW ACCEPTED / DETERMINISTIC PAPER-DELTA PACKET READY / INDEPENDENT DELTA REVIEW OPEN.
+**Status:** WAIVED BY AUTHOR / OPTIONAL NON-BLOCKING REVIEW.
 
 Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`. The checklist is not a completed review.
  Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`; PR #66 / run `35344626071` PASS.
@@ -401,7 +401,7 @@ Review the exact submission candidate only for the paper/post-review delta:
 - citation accuracy;
 - consistency between abstract, results, tables, figures and supplement.
 
-Classify findings as CRITICAL/HIGH/MEDIUM/LOW/INFO. Submission is blocked by unresolved CRITICAL/HIGH findings.
+Classify findings as CRITICAL/HIGH/MEDIUM/LOW/INFO. If an independent review is later commissioned, CRITICAL/HIGH findings must be resolved before using that reviewed version for submission. The review itself is no longer a repository publication gate.
 
 ### P9 — Distribution / PyPI
 
@@ -439,7 +439,7 @@ The paper is submission-ready only when all applicable items below are internall
 - final paper evidence manifest marked `FROZEN_FOR_SUBMISSION`;
 - explicit mapping from every main numerical claim to evidence;
 - historical failures/reference limitations clearly disclosed;
-- independent review with no unresolved CRITICAL/HIGH findings.
+- independent review is optional; if performed, no unresolved CRITICAL/HIGH findings may be ignored.
 
 ## Recommended claim strategy
 
