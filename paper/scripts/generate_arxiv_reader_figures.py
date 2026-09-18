@@ -91,100 +91,57 @@ fig.tight_layout()
 save(fig, "fig1_reference_sensitivity")
 
 
-# Figure 2 — parameter recovery and model selection, with raw metrics against criteria.
+# Figure 2 — paired model-selection agreement as one clear reader-facing claim.
 models = ["hgf_binary", "ehgf_binary", "uhgf_binary"]
 model_labels = ["classic HGF", "enhanced HGF", "unbounded HGF"]
 criteria = s7["criteria_unchanged"]
-metrics = [
-    ("convergence_rate", criteria["convergence_rate_min"], "Convergence rate", "≥"),
-    ("median_correlation", criteria["median_correlation_min"], "Median parameter correlation", "≥"),
-    (
-        "median_standardized_rmse",
-        criteria["median_standardized_rmse_max"],
-        "Median standardized RMSE",
-        "≤",
-    ),
-]
-
-fig, axes = plt.subplots(2, 2, figsize=(10.4, 7.1))
-x = np.arange(len(models), dtype=float)
-offset = 0.055
-for ax, (key, threshold, title, inequality) in zip(axes.flat[:3], metrics):
-    matlab_vals = np.array([s7["parameter_recovery"][m]["matlab"][key] for m in models])
-    hgfx_vals = np.array([s7["parameter_recovery"][m]["hgfx"][key] for m in models])
-    for i in range(len(models)):
-        ax.plot(
-            [x[i] - offset, x[i] + offset],
-            [matlab_vals[i], hgfx_vals[i]],
-            color="#B5B5B5",
-            linewidth=1.2,
-            zorder=1,
-        )
-    ax.scatter(
-        x - offset,
-        matlab_vals,
-        s=58,
-        color=MATLAB,
-        marker="o",
-        label="MATLAB 8.2.0",
-        zorder=3,
-    )
-    ax.scatter(
-        x + offset,
-        hgfx_vals,
-        s=66,
-        color=HGFX,
-        marker="X",
-        label="HGFX 1.0.0",
-        zorder=3,
-    )
-    ax.axhline(threshold, color=DARK, linestyle="--", linewidth=1.1)
-    ax.set_xticks(x, model_labels, rotation=10)
-    ax.set_title(f"{title}  (target {inequality} {threshold:g})")
-    style_axis(ax)
-
 mr = s7["model_recovery"]
-ax = axes.flat[3]
-model_values = [
-    mr["matlab_balanced_accuracy"],
-    mr["hgfx_balanced_accuracy"],
-    mr["winner_matches"] / mr["total_cases"],
-]
-model_names = ["MATLAB\nbalanced accuracy", "HGFX\nbalanced accuracy", "BIC winner\nagreement"]
-bars = ax.bar(model_names, model_values, color=[MATLAB, HGFX, ACCENT], width=0.60)
-ax.axhline(criteria["model_balanced_accuracy_min"], color=DARK, linestyle="--", linewidth=1.1)
-ax.set_ylim(0, 1.08)
-ax.set_title(f"Model selection  (accuracy target ≥ {criteria['model_balanced_accuracy_min']:g})")
-for i, (bar, value) in enumerate(zip(bars, model_values)):
-    label = f"{value:.3f}"
-    if i == 2:
-        label += f"\n{mr['winner_matches']}/{mr['total_cases']} winners"
+
+# Remove the superseded mixed recovery/model-selection rendering.
+for suffix in ("png", "pdf"):
+    (OUT / f"fig2_recovery_and_model_selection.{suffix}").unlink(missing_ok=True)
+
+fig, ax = plt.subplots(figsize=(7.4, 4.5))
+values = [mr["matlab_balanced_accuracy"], mr["hgfx_balanced_accuracy"]]
+bars = ax.bar(
+    ["MATLAB 8.2.0", "HGFX 1.0.0"],
+    values,
+    width=0.48,
+    color=[MATLAB, HGFX],
+    alpha=0.9,
+)
+threshold = criteria["model_balanced_accuracy_min"]
+ax.axhline(
+    threshold,
+    color=DARK,
+    linestyle="--",
+    linewidth=1.1,
+    label=f"predeclared balanced-accuracy criterion = {threshold:g}",
+)
+ax.set_ylim(0, 1.02)
+ax.set_ylabel("Balanced accuracy")
+ax.set_title("Paired model selection is identical across MATLAB and HGFX", pad=12)
+for bar, value in zip(bars, values):
     ax.text(
         bar.get_x() + bar.get_width() / 2,
         value + 0.025,
-        label,
+        f"{value:.3f}",
         ha="center",
         va="bottom",
-        fontsize=8.5,
+        fontsize=10,
     )
+ax.legend(frameon=False, loc="upper right")
 style_axis(ax)
-
-handles, labels_legend = axes.flat[0].get_legend_handles_labels()
-fig.legend(
-    handles,
-    labels_legend,
-    loc="upper center",
-    ncol=2,
-    frameon=False,
-    bbox_to_anchor=(0.5, 0.985),
+fig.text(
+    0.5,
+    0.02,
+    f'{mr["winner_matches"]}/{mr["total_cases"]} paired BIC winner decisions agree exactly',
+    ha="center",
+    fontsize=10,
+    weight="bold",
 )
-fig.suptitle(
-    "MATLAB and HGFX reproduce the same recovery metrics and all 36 BIC winners",
-    y=1.025,
-    fontsize=12,
-)
-fig.tight_layout(rect=(0, 0, 1, 0.94))
-save(fig, "fig2_recovery_and_model_selection")
+fig.tight_layout(rect=(0, 0.06, 1, 1))
+save(fig, "fig2_model_selection_agreement")
 
 
 # Figure 3 — prospective trial-horizon diagnostic.
