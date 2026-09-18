@@ -20,7 +20,7 @@ The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learn
 
 Computational models of learning under uncertainty must represent uncertainty about latent states and about the volatility of those states. The Hierarchical Gaussian Filter (HGF) was introduced as a generic hierarchical Bayesian framework for individual learning under uncertainty [@mathys2011] and later developed into a practical filtering framework for perception and learning [@mathys2014]. It has been used to recover hierarchical prediction errors in neuroimaging [@iglesias2013] and to model inference about others' intentions [@diaconescu2014]. The associated MATLAB toolbox is distributed as part of TAPAS, an open-source collection of translational neuromodeling tools [@fraessle2021tapas], and remains a reference implementation for fitting, simulation, model comparison, and analysis.
 
-Reproducing such a toolbox in another language is not equivalent to translating published equations. Scientific behavior also depends on parameter ordering, transforms, prior conventions, fixed and free parameter semantics, placeholder values, numerical primitives, finite-difference behavior, optimizer trajectories, failure modes, and model-family selection. Small floating-point differences that are negligible at a shared state can be amplified by derivative estimation and non-convex optimization [@wilson2019ten; @peng2011reproducible]. A replacement implementation can therefore appear mathematically correct while producing materially different fitted inferences or model-selection outcomes.
+Reproducing such a toolbox in another language is not equivalent to translating published equations. Scientific behavior also depends on parameter ordering, transforms, prior conventions, fixed and free parameter semantics, placeholder values, numerical primitives, finite-difference behavior, optimizer trajectories, adverse numerical modes, and model-family selection. Small floating-point differences that are negligible at a shared state can be amplified by derivative estimation and non-convex optimization [@wilson2019ten; @peng2011reproducible]. A replacement implementation can therefore appear mathematically correct while producing materially different fitted inferences or model-selection outcomes.
 
 Python/JAX toolboxes already exist in this space. pyhgf represents predictive-coding systems as configurable node/edge networks and supports differentiable modern inference [@legrand2026pyhgf]. HGFX does not claim to be the first Python or JAX HGF. Its v1.0 objective is narrower and complementary: behavioral compatibility with one frozen MATLAB HGF Toolbox 8.2.0 oracle, explicit cross-language evidence, and removal of MATLAB from the user runtime.
 
@@ -32,7 +32,7 @@ For neuroscience methodology, the contribution is a reproducible route for re-ru
 
 ### 2.1 Software description
 
-HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
+HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a regression that violated expected behavior.
 
 OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
 
@@ -85,7 +85,7 @@ Fitting validation covers objectives at fixed parameters, MATLAB-compatible opti
 
 An earlier frozen parameter-recovery experiment did not meet its scientific acceptance criteria and remains preserved. Subsequent paired validation distinguishes parameter recovery from model selection on a frozen three-model grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; predeclared thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
 
-CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds.
+CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash mismatches). Both blockers were remediated without changing scientific thresholds.
 
 ### 2.5 pyhgf common-scope protocol
 
@@ -117,9 +117,9 @@ The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolu
 
 ### 3.2 Fitting statistics and scoped limitations
 
-Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3; Figure 1). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, inference-equivalence fails for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
+Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3; Figure 1). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, the inference-equivalence criterion is not met for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
 
-**Table 3.** Fitting and recovery classifications. Direct failures are retained.
+**Table 3.** Fitting and recovery classifications. Direct mismatches and negative results are retained.
 
 | Surface | Direct result | Paper disposition |
 |---|---|---|
@@ -170,9 +170,9 @@ Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not futur
 
 Reproducing a scientific toolbox requires a broader notion of compatibility than implementing published equations. In numerically sensitive fitting problems, binary64-scale elementary differences can be amplified through finite-difference derivatives and quasi-Newton optimization, producing different endpoints even when shared-state objectives are extremely close.
 
-This motivates separating scientific correctness from reference faithfulness. When the MATLAB oracle is itself unstable in a tested scope, forcing Python toward a preferred endpoint can be less faithful than preserving the oracle's limitation. A matched limitation is not evidence that the recovered parameter is identifiable. HGFX therefore preserves original failures and reports the narrow product-compatibility interpretation separately.
+This motivates separating scientific correctness from reference faithfulness. When the MATLAB oracle is itself unstable in a tested scope, forcing Python toward a preferred endpoint can be less faithful than preserving the oracle's limitation. A matched limitation is not evidence that the recovered parameter is identifiable. HGFX therefore preserves the original negative results and reports the narrow product-compatibility interpretation separately.
 
-Workflow-level validation matters for the same reason. Reproducing the expected failure of classic HGF in a documented regime, while reproducing successful eHGF behavior, is part of compatibility. Treating every adverse or unstable outcome as an implementation bug would have encouraged divergence from the reference.
+Workflow-level validation matters for the same reason. Reproducing the expected negative-posterior-precision behavior of classic HGF in a documented regime, while reproducing successful eHGF behavior, is part of compatibility. Treating every adverse or unstable outcome as an implementation bug would have encouraged divergence from the reference.
 
 pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference despite sharing the same predicted belief.
 
