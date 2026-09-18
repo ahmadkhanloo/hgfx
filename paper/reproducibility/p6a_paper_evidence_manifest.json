@@ -286,8 +286,8 @@
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "d0105a81e839185b9a366b17790d830883d1235532e9ea3cde0a660fc679764a",
-      "size_bytes": 11187
+      "sha256": "c096a6d7c0f631bb31de502aa2512634a66e76af1d150f4501ca70e959c1daa1",
+      "size_bytes": 11652
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
