@@ -118,12 +118,12 @@ Software: \\url{{https://github.com/ahmadkhanloo/hgfx}}
         filename, caption = FIGURES[index - 1]
         return "\n".join(
             [
-                r"\\begin{figure}[H]",
-                r"\\centering",
-                rf"\\includegraphics[width=0.92\\linewidth]{{figures/{filename}}}",
-                rf"\\caption{{{latex_escape_caption(caption)}}}",
-                rf"\\label{{fig:reader{index}}}",
-                r"\\end{figure}",
+                r"\begin{figure}[H]",
+                r"\centering",
+                rf"\includegraphics[width=0.92\linewidth]{{figures/{filename}}}",
+                rf"\caption{{{latex_escape_caption(caption)}}}",
+                rf"\label{{fig:reader{index}}}",
+                r"\end{figure}",
             ]
         )
 
@@ -147,11 +147,11 @@ Software: \\url{{https://github.com/ahmadkhanloo/hgfx}}
 
     # Keep the supplementary title/overview, but normalize it as a continuation
     # of the same preprint rather than as a separate Markdown document.
-    supplementary = re.sub(r"^# Supplementary Appendices\\s*", "", supplementary, count=1)
+    supplementary = re.sub(r"^# Supplementary Appendices\s*", "", supplementary, count=1)
     combined = (
         front
         + main_body
-        + "\n\n\\\\clearpage\n\n"
+        + "\n\n\\clearpage\n\n"
         + "# Supplementary Appendices\n\n"
         + supplementary.strip()
         + "\n"
