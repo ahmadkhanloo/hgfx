@@ -99,6 +99,9 @@ reference-section-title: References
 geometry: margin=1in
 fontsize: 10pt
 documentclass: article
+header-includes:
+  - \\usepackage{graphicx}
+  - \\usepackage{float}
 ---
 
 \\begin{{center}}
