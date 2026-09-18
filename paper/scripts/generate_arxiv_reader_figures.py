@@ -2,7 +2,7 @@
 
 The canonical validation figures and frozen evidence are intentionally left unchanged.
 This script only changes presentation: it uses reader-facing labels, quantitative
-values and predeclared criteria, while preserving the original data and outcomes.
+values and predeclared criteria, while preserving the original data and outcomes. The canonical arXiv assets are vector PDFs; redundant PNG copies are intentionally not retained.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ def style_axis(ax):
 
 
 def save(fig, stem: str):
-    fig.savefig(OUT / f"{stem}.png", dpi=300, bbox_inches="tight", facecolor="white")
+    """Persist the canonical reader-facing figure as vector PDF only."""
     fig.savefig(
         OUT / f"{stem}.pdf",
         bbox_inches="tight",
