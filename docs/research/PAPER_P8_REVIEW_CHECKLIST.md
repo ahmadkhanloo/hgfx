@@ -1,6 +1,6 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **READY FOR INDEPENDENT REVIEW / NOT STARTED**
+Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED / PAPER-DELTA REVIEW OPEN**
 Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
 Review packet: `docs/research/P8_REVIEW_PACKET.md`
 Tracking: PV1-02 / GitHub issue #32
@@ -16,6 +16,18 @@ Use this checklist on the exact submission candidate after:
 The final `FROZEN_FOR_SUBMISSION` manifest is intentionally **post-P8**: an independent P8 PASS for this exact candidate is a prerequisite for the final P6A freeze.
 
 Do not treat this file as a completed review. An independent reviewer must fill it.
+
+## Prior independent baseline
+
+The repository already contains a completed independent frontier review at `docs/validation/INDEPENDENT_REVIEW_REPORT.md`, with remediation at `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`.
+
+Accepted baseline:
+- reviewed source: `ad8f5cd6fbea3bd1e5ac1cef8b51dbbb9a970a84`;
+- H1/H2 were HIGH release blockers and are both RESOLVED;
+- post-remediation status: no unresolved CRITICAL/HIGH findings;
+- this baseline covers the v1 implementation/release integrity areas actually examined by that review.
+
+Do **not** re-review unchanged baseline areas merely to satisfy P8 bookkeeping. Review only the paper/post-review delta and any changed evidence that could alter a manuscript claim.
 
 ## Scope
 
