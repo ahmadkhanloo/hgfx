@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 from pathlib import Path
 
 PROTOCOL_ID = "hgfx-paper-protocol-1"
@@ -90,19 +91,29 @@ MANUSCRIPT_INPUTS = (
 )
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _entry(repo: Path, rel: str, role: str) -> dict:
+def _canonical_bytes(repo: Path, rel: str) -> bytes:
+    """Read the committed Git bytes, independent of checkout line-ending policy."""
     path = repo / rel
     if not path.is_file():
         raise FileNotFoundError(f"missing required P6A evidence file: {rel}")
+    try:
+        return subprocess.check_output(
+            ["git", "show", f"HEAD:{rel}"],
+            cwd=repo,
+            stderr=subprocess.DEVNULL,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # Supports first-generation/local use before a new artifact is committed.
+        return path.read_bytes()
+
+
+def _entry(repo: Path, rel: str, role: str) -> dict:
+    payload = _canonical_bytes(repo, rel)
     return {
         "path": rel,
         "role": role,
-        "size_bytes": path.stat().st_size,
-        "sha256": _sha256(path),
+        "size_bytes": len(payload),
+        "sha256": hashlib.sha256(payload).hexdigest(),
     }
 
 
