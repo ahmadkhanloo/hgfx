@@ -6,9 +6,9 @@ This is **not** M19 and is **not** an implementer self-review.
 
 Use this checklist on the exact submission candidate after:
 
-1. P3 aggregate is committed and classified under `m18c2-trial-horizon-identifiability-1`;
-2. the P3 figure is generated from that aggregate;
-3. the paper evidence manifest is `FROZEN_FOR_SUBMISSION`.
+- [x] P3 aggregate is committed and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`;
+- [ ] the P3 diagnostic figure is generated from that committed aggregate if P3 is retained in the submission package;
+- [ ] the paper evidence manifest is `FROZEN_FOR_SUBMISSION`.
 
 Do not treat this file as a completed review. An independent reviewer must fill it.
 
