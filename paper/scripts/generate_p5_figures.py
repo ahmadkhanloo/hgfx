@@ -37,7 +37,12 @@ def _load_json(path: Path) -> dict:
 def _save(fig: plt.Figure, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=300, bbox_inches="tight", facecolor="white")
-    fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight", facecolor="white")
+    fig.savefig(
+        path.with_suffix(".pdf"),
+        bbox_inches="tight",
+        facecolor="white",
+        metadata={"CreationDate": None, "ModDate": None},
+    )
     plt.close(fig)
 
 
@@ -251,7 +256,13 @@ def build(repo: Path) -> dict:
     for name, fn in figures.items():
         path = fig_dir / name
         fn(repo, path)
-        outputs[name] = {"path": str(path.relative_to(repo)), "sha256": _sha256(path)}
+        pdf = path.with_suffix(".pdf")
+        outputs[name] = {
+            "path": str(path.relative_to(repo)),
+            "sha256": _sha256(path),
+            "pdf_path": str(pdf.relative_to(repo)),
+            "pdf_sha256": _sha256(pdf),
+        }
     inputs = {rel: _sha256(repo / rel) for rel in REQUIRED_INPUTS}
     manifest = {
         "protocol_id": PROTOCOL_ID,
