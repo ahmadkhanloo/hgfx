@@ -80,6 +80,12 @@
       "size_bytes": 696
     },
     {
+      "path": "docs/research/P7_JNM_PREFLIGHT.md",
+      "role": "protocol_or_reproducibility",
+      "sha256": "f1983f8cda71970572ba8e04b84c4d72465ded959681b8404a36d2845b456bc2",
+      "size_bytes": 2488
+    },
+    {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
       "role": "protocol_or_reproducibility",
       "sha256": "8745d6c71c20ff2909e0f3e52dd976951d56d6828c7914f57b717da78ab82cdb",
@@ -184,14 +190,14 @@
     {
       "path": "paper/highlights.txt",
       "role": "submission_working_source",
-      "sha256": "f8da20ed3aed51b48a3bc65e2b5df4edeeb4ac0f7aae8172d1e9372979c3e1fc",
-      "size_bytes": 352
+      "sha256": "25c22fe73a20c54bf1aec695f1df00eae8795c0beb93cea15483ad90f5cf892b",
+      "size_bytes": 363
     },
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "54e21f6ec3dd149b0aab7a18ea47cd1626904436dce18815f0112237a35be491",
-      "size_bytes": 23041
+      "sha256": "06cd45b7f3ade121c80656002b8df7ab8479f5384961cc31ae16a6d2287f9466",
+      "size_bytes": 24536
     },
     {
       "path": "paper/references.bib",
@@ -208,8 +214,8 @@
     {
       "path": "paper/reproducibility/README.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "47d6c765021756b6898ef216b44c170502204be4f2d0354b64aad96304e57bbb",
-      "size_bytes": 4365
+      "sha256": "98dedf7e65a20fdd8820ab9cb7ca7aa4dbdd037d32132a903923be95f2e2c87a",
+      "size_bytes": 4684
     },
     {
       "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
@@ -302,6 +308,12 @@
       "size_bytes": 3460
     },
     {
+      "path": "paper/scripts/check_p7_submission.py",
+      "role": "generator",
+      "sha256": "de99033c690591447c3d308912f88b4730afae28ee47208294ed6457eb691040",
+      "size_bytes": 6012
+    },
+    {
       "path": "paper/scripts/generate_p2_tables.py",
       "role": "generator",
       "sha256": "3090433e54d39affb0a6c184d8c62a011735a3e6ee89179d07cb5c2e910176c5",
@@ -316,14 +328,14 @@
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "1c1345b423335f90d8c50778eaa0010ced1071318a5e0fdf8f2d575c2bd04ffc",
-      "size_bytes": 36429
+      "sha256": "93806a182d8d26bc89e11809dbbeb6ab83180b843acb791f37c7a0031ebb4460",
+      "size_bytes": 36424
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "ba91dffe0b477410c0af5245af5e48f8e5e39a5ba8f64d39b6b8784052c30a4a",
-      "size_bytes": 12432
+      "sha256": "070be3c3e4a3b6c401a4a32d8fd4fde9a24f180bb71f39ebb2a0789d29317479",
+      "size_bytes": 12517
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
