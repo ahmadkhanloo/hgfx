@@ -39,7 +39,7 @@ For neuroscience methodology, the contribution is a reproducible route for re-ru
 
 HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
 
-OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
+OpenAI ChatGPT provided limited assistance with code drafting and review; all resulting changes were author-reviewed and subjected to the same validation and reproducibility checks as other changes.
 
 Software metadata and frozen validation identities are summarized in Table 1.
 
@@ -222,7 +222,7 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
-During the preparation of this work, the author used OpenAI ChatGPT to assist with code drafting and review, repository/document consistency checks, manuscript organization, and language refinement. The author reviewed and edited the resulting material as needed, and all reported scientific results remained subject to the repository's frozen validation, evidence, and reproducibility gates. The author takes full responsibility for the content of the publication.
+During the preparation of this work, the author used OpenAI ChatGPT for language refinement, manuscript organization, and limited assistance with code drafting and review. The author reviewed and edited all AI-assisted material and takes full responsibility for the content of the publication.
 
 ## References
 
