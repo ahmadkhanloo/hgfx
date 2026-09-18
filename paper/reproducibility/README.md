@@ -72,7 +72,15 @@ pytest -q tests/paper/test_p6a_manifest.py
 
 Output: `paper/reproducibility/p6a_paper_evidence_manifest.json`.
 
-Current status is `DRAFT_NOT_FROZEN`. P6A-1 inventories 51 committed paper evidence/source artifacts using canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until P6A-2 claim audit is complete, an exact P7 candidate is locked, and independent P8 records PASS for that exact candidate SHA.
+Current status is `DRAFT_NOT_FROZEN`. P6A-1/P6A-2 inventory 57 committed paper evidence/source artifacts using canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The numerical claim audit is complete with zero unmapped current manuscript claim lines, and the manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until an exact P7 candidate is locked and independent P8 records PASS for that exact candidate SHA.
+
+Regenerate the current numerical claim audit before the manifest:
+
+```bash
+python paper/scripts/generate_p6a_claim_audit.py
+python paper/scripts/generate_p6a_manifest.py
+pytest -q tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py
+```
 
 ## Replay the frozen pyhgf common-scope cell (P2A.10)
 

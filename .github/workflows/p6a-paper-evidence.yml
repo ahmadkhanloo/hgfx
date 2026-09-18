@@ -4,13 +4,16 @@ on:
   pull_request:
     paths:
       - 'paper/manuscript.md'
+      - 'paper/highlights.txt'
       - 'paper/references.bib'
+      - 'docs/research/P7_JNM_PREFLIGHT.md'
       - 'paper/reproducibility/**'
       - 'paper/tables/**'
       - 'paper/figures/**'
       - 'paper/scripts/generate_p2_tables.py'
       - 'paper/scripts/generate_p5_figures.py'
       - 'paper/scripts/generate_p6a_claim_audit.py'
+      - 'paper/scripts/check_p7_submission.py'
       - 'paper/scripts/generate_p6a_manifest.py'
       - 'reference/validation/**'
       - 'tests/paper/test_p6a_claim_audit.py'
