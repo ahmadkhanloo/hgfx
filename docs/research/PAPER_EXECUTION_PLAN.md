@@ -332,7 +332,23 @@ Acceptance for final P6A:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A-1/P6A-2 PASS; P7 LOCK + P8 STILL OPEN.
+**Status:** IN PROGRESS / P7-1 JNM PREFLIGHT DONE-PASS; P7-2 EXACT CANDIDATE LOCK BLOCKED BY AUTHOR INPUT; P8 OPEN.
+
+P7-1 completed in PR #64 / merge `6257bc5b87551baeaefd6fe345c8b9d9ffdb7d68`.
+
+P7-1 evidence:
+- P7 JNM preflight run `35337207046`: PASS;
+- abstract: 237 words;
+- keywords: 6;
+- highlights: 5, each <=85 characters and without acronym/jargon violations under the automated check;
+- bibliography: zero unresolved citation keys;
+- stale Technology-and-Code wording removed;
+- neuroscience-method research component made explicit;
+- Elsevier-style competing-interest, CRediT, funding and generative-AI disclosures added;
+- P6A read-only run `35337207243`: PASS / zero diff;
+- regression run `35337207135`: PASS on Ubuntu and Windows, 214 passed / 4 skipped on each platform.
+
+The only remaining P7-2 blocker is `MISSING_CORRESPONDING_AUTHOR_EMAIL`. The address is author input and must not be inferred or guessed. Until it is supplied/approved, do not lock the candidate SHA and do not start P8.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
@@ -340,7 +356,7 @@ The working manuscript already contains evidence-backed sections for the release
 - keep the completed P3 `INSUFFICIENT_REFERENCE_EVIDENCE` result and its diagnostic Figure 6 explicit in Results/Limitations without upgrading the scientific conclusion;
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
-- finalizing authors, affiliations, corresponding author and acknowledgments;
+- finalizing the corresponding-author institutional email; author/affiliation/declarations/acknowledgments are otherwise preflighted;
 - selected target: *Journal of Neuroscience Methods* (Elsevier hybrid, subscription track / no APC);
 - not JCR Q1 (Neurosciences Q3; Biochemical Research Methods Q2);
 - converting to the JNM Research Article format (Highlights, Materials and methods, abstract ≤250 words);
