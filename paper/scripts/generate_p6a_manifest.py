@@ -45,6 +45,9 @@ RAW_EVIDENCE = (
     "paper/reproducibility/pyhgf_parameter_mapping.json",
     "paper/reproducibility/pyhgf_precision_numerical_policy.json",
     "paper/reproducibility/pyhgf_preflight_environment_35265386637.json",
+    "docs/user/MATLAB_DEMOS.md",
+    "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+    "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md",
 )
 
 GENERATED_TABLES = (
@@ -75,6 +78,7 @@ GENERATED_FIGURES = tuple(
 GENERATORS = (
     "paper/scripts/generate_p2_tables.py",
     "paper/scripts/generate_p5_figures.py",
+    "paper/scripts/generate_p6a_claim_audit.py",
     "paper/scripts/generate_p6a_manifest.py",
 )
 
@@ -83,11 +87,13 @@ PROTOCOL_AND_REPRO = (
     "paper/reproducibility/README.md",
     "docs/research/P3_M18C2_RESULT.md",
     "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
+    "paper/reproducibility/p6a_claim_audit.json",
 )
 
 MANUSCRIPT_INPUTS = (
     "paper/manuscript.md",
     "paper/references.bib",
+    "paper/highlights.txt",
 )
 
 
@@ -158,6 +164,12 @@ def build(
         files.append(_entry(repo, rel, "protocol_or_reproducibility"))
     for rel in MANUSCRIPT_INPUTS:
         files.append(_entry(repo, rel, "submission_working_source"))
+
+    claim_audit = json.loads((repo / "paper/reproducibility/p6a_claim_audit.json").read_text(encoding="utf-8"))
+    if claim_audit.get("status") != "COMPLETE_P6A_2_NOT_FROZEN":
+        raise RuntimeError("P6A-2 claim audit is not complete")
+    if claim_audit.get("unmapped_numeric_lines") != []:
+        raise RuntimeError("P6A-2 claim audit has unmapped numerical manuscript lines")
 
     aggregate_entry = next(
         item for item in files
@@ -243,7 +255,7 @@ def build(
         "recorded_date": "2026-09-18",
         "submission_candidate_sha": candidate_sha,
         "claim_audit_status": (
-            "PENDING_P6A_2" if status == "DRAFT_NOT_FROZEN" else "COMPLETE"
+            "COMPLETE_P6A_2_NOT_FROZEN" if status == "DRAFT_NOT_FROZEN" else "COMPLETE"
         ),
         "anchors": {
             "hgfx_v1_0_0_sha": HGFX_V1_SHA,
@@ -263,8 +275,9 @@ def build(
         "regeneration_commands": [
             "python paper/scripts/generate_p2_tables.py",
             "python paper/scripts/generate_p5_figures.py",
+            "python paper/scripts/generate_p6a_claim_audit.py",
             "python paper/scripts/generate_p6a_manifest.py",
-            "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_manifest.py",
+            "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py",
         ],
         "classifications": classifications,
         "claim_groups": claim_groups,
