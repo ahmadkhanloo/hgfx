@@ -29,7 +29,8 @@ def test_p6a_draft_manifest_is_deterministic_and_not_frozen() -> None:
     assert first["submission_candidate_sha"] is None
     assert first["claim_audit_status"] == "COMPLETE_P6A_2_NOT_FROZEN"
     assert first["freeze_policy"]["separate_from_m19"] is True
-    assert first["freeze_policy"]["requires_independent_p8_pass"] is True
+    assert first["freeze_policy"]["requires_independent_p8_pass"] is False
+    assert first["freeze_policy"]["independent_review"] == "OPTIONAL_NOT_A_FREEZE_GATE"
     assert first["anchors"]["hgfx_v1_0_0_sha"] == "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
     assert first["anchors"]["matlab_hgf_toolbox_8_2_0_sha"] == "2437f4dc241541072722a2695ddeca7b44d83dd3"
     assert first["anchors"]["p3_aggregate_sha256"] == "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
@@ -64,11 +65,16 @@ def test_committed_p6a_manifest_matches_generator() -> None:
     assert committed == expected
 
 
-def test_p6a_freeze_guard_rejects_unsigned_p8() -> None:
+def test_p6a_freeze_requires_exact_candidate_sha() -> None:
     generator = load_generator()
-    with pytest.raises(RuntimeError, match="P6A freeze refused"):
-        generator.build(
-            ROOT,
-            status="FROZEN_FOR_SUBMISSION",
-            candidate_sha="0" * 40,
-        )
+    with pytest.raises(ValueError, match="requires --candidate-sha"):
+        generator.build(ROOT, status="FROZEN_FOR_SUBMISSION", candidate_sha=None)
+
+    frozen = generator.build(
+        ROOT,
+        status="FROZEN_FOR_SUBMISSION",
+        candidate_sha="8750bfe5c78a6ece7e3985cb8c182adf231c1bb8",
+    )
+    assert frozen["status"] == "FROZEN_FOR_SUBMISSION"
+    assert frozen["submission_candidate_sha"] == "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
+    assert frozen["claim_audit_status"] == "COMPLETE"
