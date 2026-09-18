@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "paper/scripts/generate_p8_delta_manifest.py"
@@ -15,6 +18,17 @@ def load_generator():
 
 def test_p8_delta_manifest_is_complete_and_scoped() -> None:
     module = load_generator()
+    history = subprocess.run(
+        ["git", "cat-file", "-e", f"{module.BASELINE_SHA}^{{commit}}"],
+        cwd=ROOT,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    if history.returncode != 0:
+        pytest.skip(
+            "full git history required; enforced non-skipped by P8 Delta Scope workflow (fetch-depth: 0)"
+        )
     payload = module.build(ROOT)
 
     assert payload["status"] == "READY_FOR_INDEPENDENT_PAPER_DELTA_REVIEW"
