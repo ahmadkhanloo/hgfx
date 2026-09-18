@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   p6a-draft:
@@ -43,23 +43,8 @@ jobs:
         run: python paper/scripts/generate_p6a_manifest.py
       - name: Run P6A integrity tests
         run: pytest -q tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
-      - name: Verify committed P2/P5 outputs reproduce exactly
+      - name: Verify all committed P6A outputs reproduce exactly
         run: |
           git diff --exit-code -- paper/tables/
           git diff --exit-code -- paper/figures/
-      - name: Commit P6A-2 claim audit and refreshed draft manifest
-        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
-        shell: bash
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          set -euo pipefail
-          git add paper/reproducibility/p6a_claim_audit.json paper/reproducibility/p6a_paper_evidence_manifest.json
-          if git diff --cached --quiet; then
-            echo "P6A-2 outputs already current."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "paper: commit P6A-2 numerical claim audit"
-          git push origin HEAD:"${HEAD_REF}"
+          git diff --exit-code -- paper/reproducibility/p6a_claim_audit.json paper/reproducibility/p6a_paper_evidence_manifest.json
