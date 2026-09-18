@@ -1,6 +1,8 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **OPEN / NOT STARTED**
+Status: **READY FOR INDEPENDENT REVIEW / NOT STARTED**
+Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
+Review packet: `docs/research/P8_REVIEW_PACKET.md`
 Tracking: PV1-02 / GitHub issue #32
 This is **not** M19 and is **not** an implementer self-review.
 
@@ -9,7 +11,7 @@ Use this checklist on the exact submission candidate after:
 - [x] P3 aggregate is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, hash-verified as `83ccbb7f...31b4`, and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`;
 - [x] P3 diagnostic Figure 6 is generated from that committed aggregate, committed as `paper/figures/fig_p3_horizon_diagnostics.png`, and zero-diff gated by P5 CI;
 - [x] the P6A draft evidence manifest and P6A-2 numerical claim audit are complete and reproducible;
-- [ ] the exact P7 submission-candidate SHA is locked.
+- [x] exact P7 submission-candidate SHA is locked as `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`; strict P7/P6A/P2/regression gates passed on that exact SHA.
 
 The final `FROZEN_FOR_SUBMISSION` manifest is intentionally **post-P8**: an independent P8 PASS for this exact candidate is a prerequisite for the final P6A freeze.
 
@@ -72,5 +74,5 @@ Submission is blocked by unresolved `CRITICAL` or `HIGH` findings.
 
 Reviewer:
 Date:
-Candidate SHA:
+Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
 Result: `PASS` / `FAIL` (unresolved CRITICAL/HIGH)
