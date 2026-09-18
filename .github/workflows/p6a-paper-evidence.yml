@@ -10,8 +10,10 @@ on:
       - 'paper/figures/**'
       - 'paper/scripts/generate_p2_tables.py'
       - 'paper/scripts/generate_p5_figures.py'
+      - 'paper/scripts/generate_p6a_claim_audit.py'
       - 'paper/scripts/generate_p6a_manifest.py'
       - 'reference/validation/**'
+      - 'tests/paper/test_p6a_claim_audit.py'
       - 'tests/paper/test_p6a_manifest.py'
       - '.github/workflows/p6a-paper-evidence.yml'
   workflow_dispatch:
@@ -35,12 +37,14 @@ jobs:
         run: python paper/scripts/generate_p2_tables.py
       - name: Regenerate P5 figures and missing vector output
         run: python paper/scripts/generate_p5_figures.py
+      - name: Generate P6A-2 numerical claim audit
+        run: python paper/scripts/generate_p6a_claim_audit.py
       - name: Generate P6A draft manifest
         run: python paper/scripts/generate_p6a_manifest.py
       - name: Run P6A integrity tests
-        run: pytest -q tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
+        run: pytest -q tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
       - name: Verify all committed P6A outputs reproduce exactly
         run: |
           git diff --exit-code -- paper/tables/
           git diff --exit-code -- paper/figures/
-          git diff --exit-code -- paper/reproducibility/p6a_paper_evidence_manifest.json
+          git diff --exit-code -- paper/reproducibility/p6a_claim_audit.json paper/reproducibility/p6a_paper_evidence_manifest.json
