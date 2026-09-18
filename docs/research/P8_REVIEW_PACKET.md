@@ -1,8 +1,25 @@
 # P8 independent review packet
 
-Status: **READY FOR INDEPENDENT REVIEW / NOT REVIEWED**  
+Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED AS BASELINE / PAPER-DELTA REVIEW OPEN**  
 Prepared: 2026-09-18  
 Tracking: PV1-02 / issue #32
+
+## Accepted prior independent-review baseline
+
+An independent frontier review **was already completed** before v1.0.0 release:
+
+- report: `docs/validation/INDEPENDENT_REVIEW_REPORT.md`;
+- reviewer: Independent Frontier AI Reasoning Agent (Antigravity);
+- reviewed RC source: `ad8f5cd6fbea3bd1e5ac1cef8b51dbbb9a970a84`;
+- two release-blocking HIGH findings (H1/H2) were identified;
+- remediation record: `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`;
+- post-remediation validated source: `09c49031cda95b449f8115030a9d32dcba36098e`;
+- remediation status: **POST-REVIEW VALIDATION PASS — NO UNRESOLVED CRITICAL/HIGH FINDINGS**;
+- final v1.0.0 promotion subsequently passed its release gates.
+
+This prior review is accepted as the independent baseline for implementation, scientific-release integrity, cross-platform portability, frozen-source coverage, GPU applicability and release-readiness areas that it actually reviewed. P8 must **not repeat those checks from scratch** unless a later paper change invalidates the old evidence.
+
+The remaining P8 scope is therefore a **delta review** of the current paper candidate: manuscript wording/overclaiming, paper-only P2A/P3 evidence, paper tables/figures, claim-to-evidence mapping, declarations/journal metadata, and any post-review code/evidence changes that affect manuscript claims.
 
 ## Exact submission candidate
 
