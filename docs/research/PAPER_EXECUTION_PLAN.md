@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-17
-Status: **IN PROGRESS — P1/P2/P2A/P5/P6 DONE; P3 ACTIVE ON GITHUB ACTIONS**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6 DONE; P6A/P7/P8 OPEN**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -191,31 +191,30 @@ Acceptance result: **PASS**. The manuscript/evidence map now report the prospect
 
 ### P3 — Recovery and identifiability analysis
 
-**Status:** IN PROGRESS / STRONGLY RECOMMENDED FOR THE STRONGER METHODS PAPER.**
-Tracking: PV1-01 / issue #21.
+**Status:** DONE / EXECUTED / `INSUFFICIENT_REFERENCE_EVIDENCE` / `gate_pass=false`.  
+Tracking: PV1-01 / issue #21.  
+Protocol: `m18c2-trial-horizon-identifiability-1`.  
+GitHub Actions run: `35272347167`.  
+Aggregate SHA-256: `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`.  
+Official result: `docs/research/P3_M18C2_RESULT.md`.
 
-The protocol is already frozen in the PV1-01 work as `m18c2-trial-horizon-identifiability-1`, and its settings are duplicated/frozen in `paper/reproducibility/PAPER_PROTOCOL.md` for the paper claim set. Run the predefined trial horizons `128`, `256`, `512`, and `1024` for `hgf_binary`, `ehgf_binary`, and `uhgf_binary` without changing the historical M18 criterion or hiding failed configurations.
+The prospectively frozen 24-shard MATLAB/HGFX matrix executed the predefined horizons `128`, `256`, `512`, and `1024` for `hgf_binary`, `ehgf_binary`, and `uhgf_binary`. Invalid/failed simulations were retained rather than dropped.
 
-Report:
-- convergence fraction;
-- RMSE and standardized RMSE by parameter;
-- bias;
-- median parameter correlation where meaningful;
-- likelihood/profile diagnostics;
-- model-selection/model-recovery accuracy;
-- uncertainty across replicates under the frozen paper summary policy.
+Official classification:
 
-Interpretation must separate:
-- data-horizon limitation;
-- weak/structural identifiability;
-- optimizer/numerical mismatch;
-- model-selection mismatch;
-- matched MATLAB reference limitation.
+- overall: `INSUFFICIENT_REFERENCE_EVIDENCE`;
+- per-model: `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`;
+- historical M18 unchanged: true.
 
-Acceptance:
-- machine-readable results and exact commands committed;
-- conclusion does not retroactively convert historical M18 FAIL into PASS;
-- manuscript language follows the observed evidence rather than the desired result.
+Interpretation boundary:
+
+- do not promote a data-horizon explanation;
+- do not promote a structural/weak-identifiability explanation;
+- do not describe P3 as parameter-recovery success;
+- preserve the completed inconclusive result in Results/Limitations and the reproducibility package;
+- any follow-up intended to distinguish implementation from optimizer behavior requires a new prospectively frozen protocol and may not rewrite this result.
+
+Acceptance result: **EXECUTION COMPLETE / SCIENTIFIC GATE NOT PASSED**.
 
 ### P4 — Paper-grade performance benchmark refresh
 
@@ -247,7 +246,7 @@ Acceptance if activated in a future protocol:
 
 ### P5 — Figures and statistical summaries
 
-**Status:** DONE FOR CURRENT CLAIM SET / P3 FIGURE DEFERRED.
+**Status:** DONE FOR CURRENT CLAIM SET / P3 DIAGNOSTIC FIGURE STILL OPEN.
 
 Required figure set for the selected claim set:
 - validation overview / evidence-flow schematic;
@@ -267,7 +266,7 @@ Required script behavior:
 
 Acceptance:
 - PASS for the current claim set — figures are script-generated from committed evidence (`paper/scripts/generate_p5_figures.py`, `paper/figures/p5_figures_manifest.json`);
-- OPEN for the P3 horizon figure only.
+- OPEN for the P3 diagnostic horizon figure, which must be generated from the now-committed P3 aggregate before P8 review if P3 remains reported in the submission package.
 
 ### P6 — Reproducibility package
 
@@ -313,12 +312,12 @@ Acceptance:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / FRONTIERS TECHNOLOGY-AND-CODE DRAFT; P3 FIGURE STILL OPEN.
+**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION INTEGRATED; P3 FIGURE/P6A/P8 STILL OPEN.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
 - integrating generated P2/P5 tables and figures;
-- updating recovery Results/Discussion after P3 if retained;
+- keep the completed P3 `INSUFFICIENT_REFERENCE_EVIDENCE` result explicit in Results/Limitations and integrate its diagnostic figure from committed aggregate evidence;
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
