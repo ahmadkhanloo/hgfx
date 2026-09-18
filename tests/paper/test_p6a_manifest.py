@@ -27,7 +27,7 @@ def test_p6a_draft_manifest_is_deterministic_and_not_frozen() -> None:
 
     assert first["status"] == "DRAFT_NOT_FROZEN"
     assert first["submission_candidate_sha"] is None
-    assert first["claim_audit_status"] == "PENDING_P6A_2"
+    assert first["claim_audit_status"] == "COMPLETE_P6A_2_NOT_FROZEN"
     assert first["freeze_policy"]["separate_from_m19"] is True
     assert first["freeze_policy"]["requires_independent_p8_pass"] is True
     assert first["anchors"]["hgfx_v1_0_0_sha"] == "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
@@ -48,6 +48,11 @@ def test_p6a_draft_manifest_is_deterministic_and_not_frozen() -> None:
     assert "paper/figures/fig_p3_horizon_diagnostics.pdf" in paths
     assert "paper/manuscript.md" in paths
     assert "paper/scripts/generate_p6a_manifest.py" in paths
+    assert "paper/scripts/generate_p6a_claim_audit.py" in paths
+    assert "paper/reproducibility/p6a_claim_audit.json" in paths
+    assert "docs/user/MATLAB_DEMOS.md" in paths
+    assert "gpu_validation_results/m18_s9_physical_gpu_revalidation.json" in paths
+    assert "paper/highlights.txt" in paths
     assert len([p for p in paths if p.startswith("paper/figures/") and p.endswith(".png")]) == 6
     assert len([p for p in paths if p.startswith("paper/figures/") and p.endswith(".pdf")]) == 6
 
