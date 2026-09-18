@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2/P7 DONE; P8 WAIVED BY AUTHOR; FINAL P6A FREEZE IS NEXT**
+Status: **DONE — paper evidence package frozen for submission; optional external review is not a repository gate**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -14,7 +14,7 @@ Produce a submission-ready computational methods/software-methods paper and repr
 
 ## Current readiness correction
 
-The manuscript is **not absent**: `paper/manuscript.md` already contains a substantive working Abstract, methodology/validation, Results, Discussion, Limitations, Reproducibility and Conclusion. It remains **IN PROGRESS**, because final generated figures, paper-only prospective results, reproducibility bundle, declarations/journal formatting and independent review are still open. The six P2 core equivalence tables are now generated, committed and provenance-checked.
+The manuscript is **not absent**: `paper/manuscript.md` already contains a substantive working Abstract, methodology/validation, Results, Discussion, Limitations, Reproducibility and Conclusion. The evidence-backed manuscript, generated figures/tables, reproducibility bundle, declarations/journal preflight, and final evidence freeze are complete for the current submission package. Independent external review remains optional and is not a repository gate.
 
 The paper-specific protocol is now frozen before final paper-only execution. It fixes the claim set, recovery/identifiability experiment, statistical summaries, `pyhgf==0.3.2` comparator identity and semantic gate, provenance requirements, and the decision not to make general performance/scaling a headline claim under protocol version 1.
 
@@ -294,7 +294,7 @@ Acceptance:
 
 ### P6A — Final paper-evidence freeze
 
-**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 DONE/PASS; FINAL FREEZE NEXT. Independent P8 was explicitly waived by the author on 2026-09-18.
+**Status:** DONE — P6A-1 DONE/PASS; P6A-2 DONE/PASS; final manifest committed as `FROZEN_FOR_SUBMISSION`. Independent review is optional.
 
 This is a new publication gate and is **not M19**.
 
