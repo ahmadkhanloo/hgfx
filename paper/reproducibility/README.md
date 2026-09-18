@@ -63,6 +63,17 @@ Outputs: `paper/figures/*.png`, matching `.pdf` vector files, and `paper/figures
 
 The P3 M18C.2 aggregate evidence is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json` with SHA-256 `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`; Actions provenance is recorded in `p3_m18c2_provenance_35272347167.json`. It is officially classified as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`. Figure 6 (`paper/figures/fig_p3_horizon_diagnostics.png`) is generated directly from this machine-readable aggregate and is zero-diff gated by the P5 workflow; it remains diagnostic-only evidence and does not establish identifiability. Protocol 1 does not activate a performance/scaling figure.
 
+## Generate the P6A draft paper-evidence manifest
+
+```bash
+python paper/scripts/generate_p6a_manifest.py
+pytest -q tests/paper/test_p6a_manifest.py
+```
+
+Output: `paper/reproducibility/p6a_paper_evidence_manifest.json`.
+
+Current status is `DRAFT_NOT_FROZEN`. P6A-1 inventories 51 committed paper evidence/source artifacts using canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until P6A-2 claim audit is complete, an exact P7 candidate is locked, and independent P8 records PASS for that exact candidate SHA.
+
 ## Replay the frozen pyhgf common-scope cell (P2A.10)
 
 CPU, `JAX_ENABLE_X64=1`, `JAX_PLATFORMS=cpu`:
