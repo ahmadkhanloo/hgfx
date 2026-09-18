@@ -27,9 +27,9 @@ Demo parity is a release gate, not an optional example.
 
 ## Versioning Rule
 
-Any capability required for MATLAB HGF Toolbox equivalence belongs to HGFX v1.x.
+Any capability required for MATLAB HGF Toolbox equivalence is protected by the immutable v1.0.x compatibility contract.
 
-Capabilities beyond MATLAB Toolbox functionality may be scheduled for HGFX v2.x.
+Capabilities beyond the frozen MATLAB Toolbox scope may be added in v1.1.x when they preserve the compatibility APIs/defaults and have explicit tests and scientific/engineering acceptance criteria.
 
 ## Validation Philosophy
 
