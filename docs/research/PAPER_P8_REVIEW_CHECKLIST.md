@@ -8,7 +8,10 @@ Use this checklist on the exact submission candidate after:
 
 - [x] P3 aggregate is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, hash-verified as `83ccbb7f...31b4`, and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`;
 - [x] P3 diagnostic Figure 6 is generated from that committed aggregate, committed as `paper/figures/fig_p3_horizon_diagnostics.png`, and zero-diff gated by P5 CI;
-- [ ] the paper evidence manifest is `FROZEN_FOR_SUBMISSION`.
+- [x] the P6A draft evidence manifest and P6A-2 numerical claim audit are complete and reproducible;
+- [ ] the exact P7 submission-candidate SHA is locked.
+
+The final `FROZEN_FOR_SUBMISSION` manifest is intentionally **post-P8**: an independent P8 PASS for this exact candidate is a prerequisite for the final P6A freeze.
 
 Do not treat this file as a completed review. An independent reviewer must fill it.
 
@@ -41,7 +44,9 @@ Submission is blocked by unresolved `CRITICAL` or `HIGH` findings.
 - [ ] P2 tables regenerate with zero Markdown diff.
 - [ ] P5 figures regenerate from committed inputs.
 - [ ] P3 aggregate SHA-256 matches the frozen Actions artifacts.
-- [ ] Paper evidence manifest is `FROZEN_FOR_SUBMISSION` and does not modify M19.
+- [ ] P6A draft manifest and P6A-2 claim audit reproduce with zero diff and do not modify M19.
+- [ ] Candidate SHA in this review matches the exact P7 lock.
+- [ ] If the review result is PASS, final P6A freeze is performed afterward for this exact candidate SHA.
 
 ### Reproducibility
 
