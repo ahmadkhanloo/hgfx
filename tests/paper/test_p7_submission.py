@@ -15,14 +15,16 @@ def load_preflight():
     return module
 
 
-def test_p7_jnm_preflight_has_only_author_email_blocker() -> None:
+def test_p7_jnm_preflight_passes_strict_candidate_gate() -> None:
     module = load_preflight()
     report = module.build(ROOT)
 
-    assert report["status"] == "BLOCKED_AUTHOR_INPUT"
+    assert report["status"] == "PASS_P7_PREFLIGHT"
     assert report["errors"] == []
-    assert report["blockers"] == ["MISSING_CORRESPONDING_AUTHOR_EMAIL"]
-    assert report["corresponding_author_email_present"] is False
+    assert report["blockers"] == []
+    assert report["corresponding_author_email_present"] is True
+    assert report["approved_corresponding_author_email"] == "m.ahmadkhanloo@ipm.ir"
+    assert report["corresponding_author_email_matches_approved"] is True
 
     assert report["abstract_word_count"] <= 250
     assert report["keyword_count"] <= 6

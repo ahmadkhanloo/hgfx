@@ -82,8 +82,8 @@
     {
       "path": "docs/research/P7_JNM_PREFLIGHT.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "f1983f8cda71970572ba8e04b84c4d72465ded959681b8404a36d2845b456bc2",
-      "size_bytes": 2488
+      "sha256": "3f35ca8df4f1a0a33c8f9168f11f9da73a7db09778a6f3caf1454d819ed918a7",
+      "size_bytes": 2765
     },
     {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
@@ -196,8 +196,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "06cd45b7f3ade121c80656002b8df7ab8479f5384961cc31ae16a6d2287f9466",
-      "size_bytes": 24536
+      "sha256": "9e5ce4d182ec30d1a5f16c8b6abc3937a54a322784828cb29351bdd38d65e74c",
+      "size_bytes": 24485
     },
     {
       "path": "paper/references.bib",
@@ -256,7 +256,7 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "f96eb435f72ea08340ddbc9e451f0a60f0579397e795db48785c0d54125b626a",
+      "sha256": "751e41ab4b8977ea3cd9ce68c83f54418cd5152f3c041950acdc0365483cde87",
       "size_bytes": 49190
     },
     {
@@ -310,8 +310,8 @@
     {
       "path": "paper/scripts/check_p7_submission.py",
       "role": "generator",
-      "sha256": "de99033c690591447c3d308912f88b4730afae28ee47208294ed6457eb691040",
-      "size_bytes": 6012
+      "sha256": "d4ec6d67cbf2d807971d99aa57d1bb34d931a3317ccfe51689fb0c17b384ee62",
+      "size_bytes": 6469
     },
     {
       "path": "paper/scripts/generate_p2_tables.py",
