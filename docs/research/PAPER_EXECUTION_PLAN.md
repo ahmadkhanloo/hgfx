@@ -384,9 +384,10 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** PRIOR INDEPENDENT V1 REVIEW ACCEPTED AS BASELINE / PAPER-DELTA REVIEW OPEN.
+**Status:** PRIOR INDEPENDENT V1 REVIEW ACCEPTED / DETERMINISTIC PAPER-DELTA PACKET READY / INDEPENDENT DELTA REVIEW OPEN.
 
 Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`. The checklist is not a completed review.
+ Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`; PR #66 / run `35344626071` PASS.
 
 The v1 implementation/release baseline was already independently reviewed in `docs/validation/INDEPENDENT_REVIEW_REPORT.md`; H1/H2 were remediated and closed in `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`. Do not repeat that unchanged baseline.
 
