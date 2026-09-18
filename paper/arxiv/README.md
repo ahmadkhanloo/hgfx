@@ -13,7 +13,7 @@ Scientific data, thresholds, seeds, datasets, model families, optimizers, and fr
 ## Canonical arXiv sources
 
 - `manuscript.md` — reader-facing manuscript
-- `figures/*.pdf` — the five canonical vector figures
+- `figures/*.pdf` — the three canonical vector figures used in the final preprint
 - `build_submission.py` — deterministic PDF/source-bundle builder
 - `paper/references.bib` — bibliography
 - `paper/SUPPLEMENTARY_APPENDICES.md` — S1–S6
@@ -31,5 +31,5 @@ The submission package is built and smoke-tested by `.github/workflows/arxiv-pac
 Frozen submission files must not be edited in place. A future revision must use a new freeze ID.
 ## Current frozen submission
 
-The current submission candidate is `2026-09-18-r1`. Its PDF, arXiv source ZIP, manifest, and SHA-256 checksums are stored under `paper/arxiv/frozen/2026-09-18-r1/` after the freeze workflow completes.
+`2026-09-18-r1` is superseded and must not be submitted. The current submission candidate is `2026-09-18-r2`, built from the final reader-facing manuscript and the revised-preprint visualization language. It contains three main figures: parameter recovery, trial-horizon diagnostics, and the pyhgf common-scope trajectory comparison. The standalone MATLAB sensitivity figure and standalone GPU figure are intentionally not part of the main paper.
 
