@@ -1,16 +1,17 @@
-# HGFX v1.1.0 Release Plan
+# HGFX v1.1 Release Plan
 
 Recorded: 2026-09-18  
-Status: **IMPLEMENTED ON MAIN / RELEASE GATE OPEN / NOT PUBLISHED**  
-Package metadata: `1.1.0`  
-Public PyPI: `hgfx==1.0.0`  
+Status: **1.1.0b1 BETA CANDIDATE / RELEASE GATE OPEN / NOT PUBLISHED**  
+Candidate metadata: `1.1.0b1`  
+Stable PyPI default: `hgfx==1.0.0`  
+Tracking: GitHub issue #56  
 Frozen compatibility release: `v1.0.0` → `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 
 ## Objective
 
-Release the additive HGFX 1.1.0 API already implemented on `main` without changing the immutable v1.0.0 MATLAB-compatibility contract, historical validation evidence, or paper-1 scientific claims.
+Release the additive HGFX 1.1 API first as the PEP 440 beta `1.1.0b1`, without changing the immutable v1.0.0 MATLAB-compatibility contract, historical validation evidence, or paper-1 scientific claims.
 
-The first 1.1.0 feature integration begins at `b74a3199077d0afc7af730d32b19cb3f158f9516`. The release is not complete until the gate below passes on one exact source SHA and that SHA is tagged and published.
+The first 1.1.0 feature integration begins at `b74a3199077d0afc7af730d32b19cb3f158f9516`. Beta publication is not complete until the gate below passes on one exact source SHA and that SHA is tagged and published. Final `1.1.0` is a later promotion step, not the first public 1.1 release.
 
 ## Implemented scope
 
@@ -41,6 +42,27 @@ The dual-stream AR1 helper composes validated single-stream AR1 models. VKF is a
 - `hgfx.responses.softmax_mab3_card_volatility`
 
 These support social/reward and three-choice card-volatility workflows. Analysis-specific priors and study-specific parameter values stay outside the core package.
+
+## Distribution behavior
+
+The beta is intentionally opt-in.
+
+After `hgfx==1.1.0b1` is published:
+
+```bash
+# Stable/default
+python -m pip install hgfx
+# Expected: 1.0.0
+
+# Allow pre-releases
+python -m pip install --pre hgfx
+# Expected while b1 is the latest prerelease: 1.1.0b1
+
+# Exact beta pin
+python -m pip install hgfx==1.1.0b1
+```
+
+The public verification gate must test these behaviors in clean environments against `https://pypi.org/simple`.
 
 ## Compatibility invariants
 
@@ -78,7 +100,19 @@ A 1.1.0 release must preserve all of the following:
 - [ ] smoke-test v1.0 public imports plus the new 1.1 public imports;
 - [ ] confirm no MATLAB/reference validation payload is unintentionally shipped.
 
-### R4 — Documentation and provenance
+### R4 — Stable/default versus beta resolver verification
+
+Before beta promotion, prepare the post-publication verification commands and expected versions.
+
+After publication:
+
+- [ ] clean environment: `pip install hgfx` resolves to `1.0.0`;
+- [ ] clean environment: `pip install --pre hgfx` resolves to `1.1.0b1` while it is the newest prerelease;
+- [ ] clean environment: `pip install hgfx==1.1.0b1` succeeds;
+- [ ] record pip/Python versions and the public index URL;
+- [ ] record verification workflow run and logs.
+
+### R5 — Documentation and provenance
 
 - [ ] freeze the exact release SHA;
 - [ ] record Python/dependency compatibility;
@@ -86,19 +120,24 @@ A 1.1.0 release must preserve all of the following:
 - [ ] create release notes separating frozen v1.0 compatibility from additive 1.1 features;
 - [ ] record all workflow run IDs and artifact hashes used for promotion.
 
-### R5 — Promotion
+### R6 — Beta promotion
 
-Only after R1–R4 pass:
+Only after R1–R5 pass:
 
-- [ ] tag the exact validated SHA as `v1.1.0`;
-- [ ] create the GitHub Release;
-- [ ] publish `hgfx==1.1.0` through the established trusted-publishing path;
-- [ ] independently verify `pip install hgfx==1.1.0` from public PyPI;
-- [ ] update README and this file with final tag, source SHA, release ID, PyPI verification run and status **DONE / PASS / RELEASED**.
+- [ ] tag the exact validated SHA as `v1.1.0b1`;
+- [ ] create a GitHub **prerelease**;
+- [ ] publish `hgfx==1.1.0b1` through the established trusted-publishing path;
+- [ ] execute and record the R4 public resolver verification;
+- [ ] update README and this file with beta tag, source SHA, release ID, publish run and verification run;
+- [ ] mark beta status **DONE / PASS / BETA PUBLISHED** only when all checks are recorded.
+
+### R7 — Final 1.1.0 promotion
+
+Do not publish final `1.1.0` automatically after beta. First review beta feedback and any fixes under explicit validation. Then prepare a new exact candidate SHA, repeat the required regression/packaging gates, tag `v1.1.0`, create a normal GitHub Release, publish `hgfx==1.1.0`, and verify that ordinary `pip install hgfx` now resolves to final 1.1.0.
 
 ## Current blockers
 
-No code blocker is declared by this document. The blocker to calling 1.1.0 released is simply that the dedicated release gate above has not yet been executed and recorded on one exact candidate SHA.
+No code blocker is declared by this document. The immediate blocker to beta publication is execution of the `1.1.0b1` gate on one exact candidate SHA. Final `1.1.0` additionally requires accepted beta feedback and a separate final promotion.
 
 ## Continuity
 
@@ -110,4 +149,4 @@ Use this file together with:
 - `OPT_IN_MAP.md`
 - frozen v1.0 release/evidence documents
 
-Future agents must not infer that package metadata `1.1.0` means the public 1.1.0 release already exists.
+Future agents must not infer that candidate metadata `1.1.0b1` means the beta is already public. Publication requires the recorded beta tag, GitHub prerelease, Trusted Publishing run, and public-index resolver verification.
