@@ -8,7 +8,7 @@ Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
 PyPI: https://pypi.org/project/hgfx/1.0.0/
 
-The v1.0.0 release gate remains closed. The active publication objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`. Paper protocol P1 is frozen as `hgfx-paper-protocol-1`; P2, P2A and the P3 scientific execution/classification are complete. Remaining publication gates are the P3 presentation asset, P6A evidence freeze, P7 manuscript lock and P8 independent review. Separately, v1.1.x is the active additive product-development line.
+The v1.0.0 release gate remains closed. The active publication objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`. Paper protocol P1 is frozen as `hgfx-paper-protocol-1`; P2, P2A and the P3 scientific execution/classification are complete. Remaining publication gates are P6A evidence freeze, P7 manuscript lock and P8 independent review. Separately, v1.1.x is the active additive product-development line.
 
 ## Accepted evidence
 
@@ -105,10 +105,10 @@ Current state:
 - general speedup/multi-GPU scaling is intentionally not a headline claim under protocol 1;
 - P2 tables generated and CI-gated (`paper/tables/`);
 - P2A common-scope comparison complete (issue #33 closed);
-- P5 figures generated from frozen S7/P2A.10 evidence (`paper/figures/`);
+- P5 figures generated from frozen S7/P2A.10/P3 evidence (`paper/figures/`), including zero-diff-gated P3 Figure 6;
 - P6 reviewer entry point at `paper/reproducibility/README.md`;
 - P3 M18C.2 execution/classification complete from run `35272347167`: `INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; invalid simulations remain preserved;
-- remaining: generate/integrate the P3 diagnostic figure from committed aggregate evidence, complete P6A freeze, lock P7, and perform P8 independent audit (checklist prepared).
+- remaining: complete P6A freeze, lock P7, and perform P8 independent audit (checklist prepared).
 
 Publication scope:
 
@@ -117,7 +117,7 @@ Publication scope:
 - keep exact software/runtime environments and provenance for all paper-used executions;
 - describe MATLAB-equivalence policy and `REFERENCE_LIMITATION_MATCH` semantics accurately;
 - include physical-GPU evidence while clearly distinguishing correctness/applicability from scaling claims;
-- finish the P3 diagnostic figure (if retained), P6A evidence freeze, P7 manuscript lock, and P8 independent review;
+- complete P6A evidence freeze, P7 manuscript lock, and P8 independent review;
 - preserve historical failed experiments and scoped limitations unchanged.
 
 Exit evidence:
