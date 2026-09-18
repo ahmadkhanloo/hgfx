@@ -37,6 +37,8 @@ def test_build_tables_preserves_negative_evidence_and_traceability():
     assert "D02" in joined and "D08" in joined
     assert "36/36" in joined
     assert "Tesla T4" in joined
+    assert "| HGFX release | 1.0.0 |" in joined
+    assert "| HGFX release | 1.1.0 |" not in joined
 
     for name, text in tables.items():
         assert "Evidence" in text, name
@@ -48,6 +50,7 @@ def test_build_tables_preserves_negative_evidence_and_traceability():
     assert set(manifest["outputs"]) == EXPECTED_TABLES
     assert manifest["inputs"]
     assert all(item["sha256"] for item in manifest["inputs"])
+    assert all(item["path"] != "pyproject.toml" for item in manifest["inputs"])
 
 
 def test_missing_required_input_fails_loudly(tmp_path: Path):
