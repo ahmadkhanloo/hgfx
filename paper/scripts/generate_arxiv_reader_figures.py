@@ -91,56 +91,110 @@ fig.tight_layout()
 save(fig, "fig1_reference_sensitivity")
 
 
-# Figure 2 — paired model-selection agreement as one clear reader-facing claim.
+# Figure 2 — paired model-selection agreement with one unambiguous message.
 models = ["hgf_binary", "ehgf_binary", "uhgf_binary"]
 model_labels = ["classic HGF", "enhanced HGF", "unbounded HGF"]
 criteria = s7["criteria_unchanged"]
 mr = s7["model_recovery"]
 
-# Remove the superseded mixed recovery/model-selection rendering.
-for suffix in ("png", "pdf"):
-    (OUT / f"fig2_recovery_and_model_selection.{suffix}").unlink(missing_ok=True)
+# Remove superseded reader-facing Figure 2 variants.
+for stem in ("fig2_recovery_and_model_selection",):
+    for suffix in ("png", "pdf"):
+        (OUT / f"{stem}.{suffix}").unlink(missing_ok=True)
 
-fig, ax = plt.subplots(figsize=(7.4, 4.5))
-values = [mr["matlab_balanced_accuracy"], mr["hgfx_balanced_accuracy"]]
-bars = ax.bar(
-    ["MATLAB 8.2.0", "HGFX 1.0.0"],
-    values,
-    width=0.48,
-    color=[MATLAB, HGFX],
-    alpha=0.9,
+fig, axes = plt.subplots(
+    1,
+    2,
+    figsize=(9.4, 4.25),
+    gridspec_kw={"width_ratios": [1.05, 1.15]},
 )
-threshold = criteria["model_balanced_accuracy_min"]
-ax.axhline(
+
+# Panel A: both implementations have the same balanced accuracy.
+ax = axes[0]
+balanced = float(mr["matlab_balanced_accuracy"])
+threshold = float(criteria["model_balanced_accuracy_min"])
+y = np.array([1.0, 0.0])
+ax.hlines(y, 0.0, 1.0, color="#E7E7E7", linewidth=1.0, zorder=0)
+ax.axvline(
     threshold,
     color=DARK,
     linestyle="--",
     linewidth=1.1,
-    label=f"predeclared balanced-accuracy criterion = {threshold:g}",
+    label=f"predeclared criterion = {threshold:g}",
 )
-ax.set_ylim(0, 1.02)
-ax.set_ylabel("Balanced accuracy")
-ax.set_title("Paired model selection is identical across MATLAB and HGFX", pad=12)
-for bar, value in zip(bars, values):
-    ax.text(
-        bar.get_x() + bar.get_width() / 2,
-        value + 0.025,
-        f"{value:.3f}",
-        ha="center",
-        va="bottom",
-        fontsize=10,
+ax.scatter([balanced], [1.0], s=90, color=MATLAB, marker="o", zorder=3)
+ax.scatter([balanced], [0.0], s=100, color=HGFX, marker="X", zorder=3)
+for yy in y:
+    ax.annotate(
+        f"{balanced:.3f}",
+        (balanced, yy),
+        xytext=(8, 0),
+        textcoords="offset points",
+        va="center",
+        fontsize=9,
+        weight="bold",
     )
-ax.legend(frameon=False, loc="upper right")
-style_axis(ax)
-fig.text(
-    0.5,
-    0.02,
-    f'{mr["winner_matches"]}/{mr["total_cases"]} paired BIC winner decisions agree exactly',
+ax.set_xlim(0.0, 1.0)
+ax.set_ylim(-0.55, 1.55)
+ax.set_yticks(y, ["MATLAB 8.2.0", "HGFX 1.0.0"])
+ax.set_xlabel("Model-recovery balanced accuracy")
+ax.set_title("Same model-recovery accuracy", pad=10)
+ax.legend(frameon=False, loc="lower left", fontsize=8)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+ax.grid(axis="x", color=GRID, linewidth=0.7, alpha=0.65)
+ax.set_axisbelow(True)
+
+# Panel B: show every paired BIC decision as an agreement tile.
+ax = axes[1]
+total = int(mr["total_cases"])
+matches = int(mr["winner_matches"])
+cols = 6
+rows = int(np.ceil(total / cols))
+for i in range(total):
+    row = rows - 1 - (i // cols)
+    col = i % cols
+    rect = plt.Rectangle(
+        (col, row),
+        0.82,
+        0.82,
+        facecolor=ACCENT,
+        edgecolor="white",
+        linewidth=1.6,
+        alpha=0.88,
+    )
+    ax.add_patch(rect)
+ax.set_xlim(-0.08, cols - 0.10)
+ax.set_ylim(-0.10, rows + 0.10)
+ax.set_aspect("equal")
+ax.axis("off")
+ax.set_title("Paired BIC winner decisions", pad=10)
+ax.text(
+    (cols - 0.18) / 2,
+    -0.62,
+    f"{matches}/{total} paired decisions agree exactly",
     ha="center",
+    va="top",
     fontsize=10,
     weight="bold",
 )
-fig.tight_layout(rect=(0, 0.06, 1, 1))
+ax.text(
+    (cols - 0.18) / 2,
+    -1.02,
+    f"{total - matches} disagreements",
+    ha="center",
+    va="top",
+    fontsize=8.5,
+    color=DARK,
+)
+
+fig.suptitle(
+    "MATLAB and HGFX select the same winning model in every paired dataset",
+    y=0.995,
+    fontsize=12,
+)
+fig.tight_layout(rect=(0, 0.08, 1, 0.94))
 save(fig, "fig2_model_selection_agreement")
 
 
