@@ -114,30 +114,45 @@ Software: \\url{{https://github.com/ahmadkhanloo/hgfx}}
 
 """.format(title=TITLE, author=AUTHOR)
 
-    figure_blocks = ["# Figures", ""]
-    for idx, (filename, caption) in enumerate(FIGURES, start=1):
-        figure_blocks.extend(
+    def figure_block(index: int) -> str:
+        filename, caption = FIGURES[index - 1]
+        return "\n".join(
             [
-                r"\begin{figure}[p]",
-                r"\centering",
-                rf"\includegraphics[width=0.94\linewidth]{{figures/{filename}}}",
-                rf"\caption{{{latex_escape_caption(caption)}}}",
-                rf"\label{{fig:reader{idx}}}",
-                r"\end{figure}",
-                r"\clearpage",
-                "",
+                r"\\begin{figure}[H]",
+                r"\\centering",
+                rf"\\includegraphics[width=0.92\\linewidth]{{figures/{filename}}}",
+                rf"\\caption{{{latex_escape_caption(caption)}}}",
+                rf"\\label{{fig:reader{index}}}",
+                r"\\end{figure}",
             ]
+        )
+
+    # Place every figure next to the result it supports instead of collecting
+    # detached full-page figures at the end of the manuscript.
+    placements = [
+        ("### 3.3 Parameter recovery versus model selection", 1),
+        ("The trial-horizon study (section 2.6)", 2),
+        ("### 3.4 Backend and physical-GPU applicability", 3),
+        ("### 3.5 Common-scope comparison with pyhgf", 4),
+        ("### 3.6 Examples of use and current limitations", 5),
+    ]
+    for anchor, index in placements:
+        if anchor not in main_body:
+            raise RuntimeError(f"Figure placement anchor not found: {anchor}")
+        main_body = main_body.replace(
+            anchor,
+            figure_block(index) + "\n\n" + anchor,
+            1,
         )
 
     # Keep the supplementary title/overview, but normalize it as a continuation
     # of the same preprint rather than as a separate Markdown document.
-    supplementary = re.sub(r"^# Supplementary Appendices\s*", "", supplementary, count=1)
+    supplementary = re.sub(r"^# Supplementary Appendices\\s*", "", supplementary, count=1)
     combined = (
         front
         + main_body
-        + "\n\n\\clearpage\n\n"
-        + "\n".join(figure_blocks)
-        + "\n\n# Supplementary Appendices\n\n"
+        + "\n\n\\\\clearpage\n\n"
+        + "# Supplementary Appendices\n\n"
         + supplementary.strip()
         + "\n"
     )
