@@ -74,10 +74,10 @@ HGFX v1.0 is validated against HGF Toolbox 8.2.0 at commit `2437f4dc241541072722
 
 We use four interpretation classes (Figure 1):
 
-- **PASS / direct parity:** MATLAB and HGFX agree under the frozen protocol and tolerance.
-- **REFERENCE_LIMITATION_MATCH:** the MATLAB oracle exhibits the same limitation; HGFX reproduces that reference behavior. This is not a scientific success claim.
-- **FAIL_PRESERVED:** an experiment failed its scientific criterion and remains archived.
-- **NOT_DIRECTLY_COMPARABLE (NDC):** a quantity lacks a defensible common semantic or numerical surface, most relevant to the pyhgf comparison.
+- **Direct parity:** MATLAB and HGFX agree under the frozen protocol and tolerance.
+- **Matched reference limitation:** the MATLAB oracle exhibits the same limitation and HGFX reproduces the corresponding behavior; this is not a scientific success claim.
+- **Preserved failure:** an experiment failed its scientific criterion and remains archived.
+- **Not directly comparable (NDC):** a quantity lacks a defensible common semantic or numerical surface, most relevant to the pyhgf comparison.
 
 Acceptance thresholds, seeds, datasets, starts, model families, optimizers, and grids are not changed after observing results. Failed experiments remain archived.
 
@@ -99,7 +99,7 @@ CPU/backend equivalence and physical NVIDIA GPU applicability were tested after 
 
 ### 2.6 Prospective trial-horizon protocol
 
-A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion. The repository records the reproducibility protocol as `m18c2-trial-horizon-identifiability-1`.
+A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.
 
 ## 3 Results
 
@@ -157,8 +157,8 @@ Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equi
 
 | Surface | Classification | Result |
 |---|---|---|
-| Compatibility vs JAX CPU | PASS_CPU_BACKEND_EQUIVALENCE | objective/backend agreement |
-| Physical NVIDIA GPU (2x Tesla T4) | PASS_PHYSICAL_GPU_APPLICABILITY | max abs objective gap = 1.42e-14; criterion 1e-7 |
+| Compatibility vs JAX CPU | direct backend agreement | objective/backend agreement |
+| Physical NVIDIA GPU (2x Tesla T4) | physical-GPU applicability confirmed | max abs objective gap = 1.42e-14; criterion 1e-7 |
 
 ### 3.5 Common-scope comparison with pyhgf
 
