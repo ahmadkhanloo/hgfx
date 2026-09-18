@@ -41,10 +41,28 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc latexmk poppler-utils texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
-      - name: Regenerate and verify frozen reader figures
+      - name: Regenerate reader figures
         run: |
           python -m py_compile paper/scripts/generate_arxiv_reader_figures.py
           python paper/scripts/generate_arxiv_reader_figures.py
+
+      - name: Refresh canonical reader figures
+        if: contains(github.event.head_commit.message, '[refresh-arxiv-figures]')
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A paper/arxiv/figures
+          if git diff --cached --quiet; then
+            echo "Canonical figures already match regenerated outputs."
+          else
+            git commit -m "paper: refresh canonical arXiv figures [skip ci]"
+            git push
+          fi
+
+      - name: Verify canonical reader figures are frozen
+        if: ${{ !contains(github.event.head_commit.message, '[refresh-arxiv-figures]') }}
+        run: |
           git diff --exit-code -- paper/arxiv/figures
           test -z "$(git status --porcelain --untracked-files=all -- paper/arxiv/figures)"
 
