@@ -8,29 +8,94 @@ on:
       - 'paper/arxiv/manuscript.md'
       - 'paper/arxiv/build_submission.py'
       - 'paper/arxiv/figures/**'
+      - 'paper/scripts/generate_arxiv_reader_figures.py'
       - 'paper/SUPPLEMENTARY_APPENDICES.md'
       - 'paper/references.bib'
       - '.github/workflows/arxiv-package.yml'
   workflow_dispatch:
 
+concurrency:
+  group: arxiv-submission-main
+  cancel-in-progress: true
+
 permissions:
-  contents: read
+  contents: write
+
+env:
+  FREEZE_ID: 2026-09-18-r1
 
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Install document toolchain
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install plotting and document toolchains
         run: |
+          python -m pip install 'numpy==2.3.3' 'matplotlib==3.10.9'
           sudo apt-get update
-          sudo apt-get install -y pandoc latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-      - name: Build and smoke-test arXiv package
+          sudo apt-get install -y pandoc latexmk poppler-utils texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Regenerate and verify frozen reader figures
+        run: |
+          python -m py_compile paper/scripts/generate_arxiv_reader_figures.py
+          python paper/scripts/generate_arxiv_reader_figures.py
+          git diff --exit-code -- paper/arxiv/figures
+          test -z "$(git status --porcelain --untracked-files=all -- paper/arxiv/figures)"
+
+      - name: Check reader-facing manuscript language
+        shell: bash
+        run: |
+          if grep -nE '\\b(PASS|FAIL)\\b' paper/arxiv/manuscript.md; then
+            echo 'Reader-facing manuscript contains internal PASS/FAIL status language.'
+            exit 1
+          fi
+
+      - name: Build and smoke-test exact arXiv source bundle
         run: python paper/arxiv/build_submission.py
+
       - name: Inspect outputs
         run: |
-          pdfinfo paper/arxiv/dist/HGFX_arXiv_preprint.pdf | head -20
+          pdfinfo paper/arxiv/dist/HGFX_arXiv_preprint.pdf
           unzip -l paper/arxiv/dist/HGFX_arXiv_source.zip
+          test "$(unzip -Z1 paper/arxiv/dist/HGFX_arXiv_source.zip | grep -c '^main.tex$')" -eq 1
+
+      - name: Freeze submission candidate in repository
+        if: contains(github.event.head_commit.message, '[freeze-arxiv]')
+        shell: bash
+        run: |
+          FREEZE_DIR="paper/arxiv/frozen/${FREEZE_ID}"
+          mkdir -p "${FREEZE_DIR}"
+          cp paper/arxiv/dist/HGFX_arXiv_preprint.pdf "${FREEZE_DIR}/HGFX_arXiv_preprint.pdf"
+          cp paper/arxiv/dist/HGFX_arXiv_source.zip "${FREEZE_DIR}/HGFX_arXiv_source.zip"
+          (
+            cd "${FREEZE_DIR}"
+            sha256sum HGFX_arXiv_preprint.pdf HGFX_arXiv_source.zip > SHA256SUMS.txt
+          )
+          cat > "${FREEZE_DIR}/MANIFEST.md" <<EOF
+          # HGFX arXiv freeze ${FREEZE_ID}
+
+          This directory is the immutable repository copy of the arXiv submission candidate.
+
+          - Source commit: \`${GITHUB_SHA}\`
+          - Workflow run: \`${GITHUB_RUN_ID}\`
+          - Build workflow: \`.github/workflows/arxiv-package.yml\`
+          - PDF: \`HGFX_arXiv_preprint.pdf\`
+          - arXiv source: \`HGFX_arXiv_source.zip\`
+          - Checksums: \`SHA256SUMS.txt\`
+
+          The ZIP was compiled from scratch during this workflow before freezing.
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${FREEZE_DIR}"
+          git commit -m "paper: freeze arXiv submission ${FREEZE_ID} [skip ci]"
+          git push
+
       - uses: actions/upload-artifact@v4
         with:
           name: hgfx-arxiv-submission
