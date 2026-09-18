@@ -1,6 +1,6 @@
 # P8 independent review packet
 
-Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED AS BASELINE / PAPER-DELTA REVIEW OPEN**  
+Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED / PAPER-DELTA REVIEW PACKET READY / INDEPENDENT DELTA REVIEW OPEN**  
 Prepared: 2026-09-18  
 Tracking: PV1-02 / issue #32
 
@@ -25,6 +25,10 @@ Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
 Delta-scope guide: `docs/research/P8_DELTA_SCOPE.md`
 
 The delta contains 132 changed files across 109 commits: 91 paper-review files, 9 evidence/provenance files, 23 product-only claim-leakage checks, and 9 maintenance-context files. No frozen MATLAB reference file and no frozen v1 release-evidence artifact changed.
+
+Delta-scope implementation: PR #66 merged as `39255756c8ef6bd1f4aaf3e5357ea70e430c55f3`.  
+P8 Delta Scope run `35344626071`: PASS / full-history execution / zero-diff.  
+Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 skipped on each platform. The extra skip is only the history-dependent delta test on shallow generic checkouts; the dedicated P8 workflow executes it non-skipped with `fetch-depth: 0`.
 
 ## Exact submission candidate
 
