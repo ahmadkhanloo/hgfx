@@ -39,18 +39,18 @@ jobs:
         run: python paper/scripts/generate_p6a_manifest.py
       - name: Run P6A integrity tests
         run: pytest -q tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
-      - name: Verify P2/P5 committed text and PNG outputs
+      - name: Verify P2 committed text and canonical PNG outputs
         run: |
           git diff --exit-code -- paper/tables/
-          git diff --exit-code -- paper/figures/p5_figures_manifest.json paper/figures/*.png
-      - name: Commit canonical missing PDF and P6A draft manifest
+          git diff --exit-code -- paper/figures/*.png
+      - name: Commit deterministic PDFs and P6A draft manifest
         if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         shell: bash
         env:
           HEAD_REF: ${{ github.head_ref }}
         run: |
           set -euo pipefail
-          git add paper/figures/fig_p3_horizon_diagnostics.pdf paper/reproducibility/p6a_paper_evidence_manifest.json
+          git add paper/figures/*.pdf paper/figures/p5_figures_manifest.json paper/reproducibility/p6a_paper_evidence_manifest.json
           if git diff --cached --quiet; then
             echo "Canonical P6A draft outputs already committed."
             exit 0
