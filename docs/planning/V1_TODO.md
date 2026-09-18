@@ -1,6 +1,6 @@
-# HGFX v1.0 Live TODO
+# HGFX Live TODO
 
-Last synchronized: 2026-09-17
+Last synchronized: 2026-09-18
 Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P3/P5/P6 DONE; P6A/P7/P8 OPEN; v1.1.0 IMPLEMENTED ON MAIN / NOT RELEASED**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
@@ -87,7 +87,7 @@ Therefore no data-horizon or structural-identifiability conclusion is promoted. 
 
 ### PV1-02 — Methods paper and reproducibility package
 
-**Status:** IN PROGRESS / PUBLICATION / P1 FROZEN  
+**Status:** IN PROGRESS / PUBLICATION / P1–P3/P5/P6 DONE; P6A/P7/P8 OPEN  
 **Tracking:** GitHub issue #32  
 **Plan:** `../research/PAPER_EXECUTION_PLAN.md`
 
@@ -110,16 +110,15 @@ Current state:
 - P3 M18C.2 execution/classification complete from run `35272347167`: `INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; invalid simulations remain preserved;
 - remaining: generate/integrate the P3 diagnostic figure from committed aggregate evidence, complete P6A freeze, lock P7, and perform P8 independent audit (checklist prepared).
 
-Planned scope:
+Publication scope:
 
-- generate core equivalence tables from frozen v1 evidence;
-- complete fair pyhgf semantic mapping and qualitative comparison, allowing `NOT_DIRECTLY_COMPARABLE` where appropriate;
-- execute the frozen PV1-01 recovery/identifiability analysis if retained for the stronger methods paper;
-- define and record exact software/runtime environments for every new paper execution;
+- retain the completed core-equivalence tables and fair `pyhgf==0.3.2` comparison as frozen/traceable evidence;
+- report the completed P3/M18C.2 result as `INSUFFICIENT_REFERENCE_EVIDENCE` without promoting a stronger recovery or identifiability conclusion;
+- keep exact software/runtime environments and provenance for all paper-used executions;
 - describe MATLAB-equivalence policy and `REFERENCE_LIMITATION_MATCH` semantics accurately;
-- include physical-GPU evidence and clearly distinguish correctness/applicability from scaling claims;
-- prepare a reproducibility bundle with commands, configs, seeds, data references, environment information, and exact HGFX commit/tag identifiers;
-- draft and review the manuscript without rewriting historical failed experiments.
+- include physical-GPU evidence while clearly distinguishing correctness/applicability from scaling claims;
+- finish the P3 diagnostic figure (if retained), P6A evidence freeze, P7 manuscript lock, and P8 independent review;
+- preserve historical failed experiments and scoped limitations unchanged.
 
 Exit evidence:
 
@@ -154,7 +153,8 @@ Provenance:
 
 **Status:** IMPLEMENTED ON `main` / NOT YET RELEASED  
 **Policy:** `VERSION_POLICY.md`  
-**Usage:** `../user/V1_1.md`
+**Usage:** `../user/V1_1.md`  
+**Release plan:** `V1_1_RELEASE_PLAN.md`
 
 Current package metadata is `1.1.0`. The additive line preserves the immutable v1.0.0 compatibility default and currently includes:
 
