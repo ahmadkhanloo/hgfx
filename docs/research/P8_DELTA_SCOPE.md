@@ -22,6 +22,16 @@ pytest -q tests/paper/test_p8_delta_manifest.py
 
 Output: `docs/research/P8_DELTA_MANIFEST.json`.
 
+Current deterministic delta summary:
+- commits after post-remediation baseline: **109**;
+- changed files: **132**;
+- paper review required: **91**;
+- evidence/provenance review required: **9**;
+- product-only claim-leakage check: **23**;
+- maintenance context only: **9**;
+- changed frozen MATLAB reference files: **0**;
+- changed frozen v1 release evidence files: **0**.
+
 ## Reviewer priority
 
 Review in this order:
