@@ -115,7 +115,7 @@ The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolu
 
 ### 3.2 Fitting statistics and scoped limitations
 
-Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3; Figure 1). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, the inference-equivalence criterion is not met for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
+Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, the inference-equivalence criterion is not met for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
 
 **Table 3.** Fitting and recovery classifications. Direct mismatches and negative results are retained.
 
@@ -129,9 +129,9 @@ Two fitting-validation cases expose reference limitations rather than direct fit
 
 ### 3.3 Parameter recovery versus model selection
 
-The earlier parameter-recovery result remains part of the record (Table 4; Supplementary Appendix S3) rather than being promoted as a headline figure. Paired model selection is stronger: all 36/36 BIC winner decisions match between MATLAB and HGFX in the same frozen grid (Figure 2). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
+Paired parameter-recovery summaries are shown in Figure 1 and Table 4. MATLAB and HGFX closely reproduce the same recovery summaries, but the predeclared scientific recovery criteria are not fully met. Paired model selection is stronger: all 36/36 BIC winner decisions match between MATLAB and HGFX in the same frozen grid. Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
 
-The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity requirement was not satisfied, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon values are shown in Figure 3; they do not replace the earlier recovery evidence.
+The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity requirement was not satisfied, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon values are shown in Figure 2; they do not replace the earlier recovery evidence.
 
 **Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full-precision values are available in the reproducibility package.
 
@@ -143,7 +143,7 @@ The trial-horizon study (section 2.6) is complete as an executed protocol, not a
 
 ### 3.4 Backend and physical-GPU applicability
 
-Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells remain below the predeclared final-objective difference criterion of 1e-7. The maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). This is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the four CPU-versus-GPU objective pairs, the execution command, and the raw-artifact checksum are reported in Supplementary Appendix S5.
+Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells remain below the predeclared final-objective difference criterion of 1e-7. The maximum gap is 1.4210854715202004e-14 (Table 5). This is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the four CPU-versus-GPU objective pairs, the execution command, and the raw-artifact checksum are reported in Supplementary Appendix S5.
 
 **Table 5.** Backend and GPU applicability.
 
@@ -154,7 +154,7 @@ Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equi
 
 ### 3.5 Common-scope comparison with pyhgf
 
-In the authorized 128-trial cell, all 11 mapped perceptual/inference quantities were within predeclared tolerances (Figure 5). Maximum absolute differences were at binary64 rounding scale (1.11e-16 to 1.55e-15). Observed-input integrity was exact.
+In the authorized 128-trial cell, all 11 mapped perceptual/inference quantities were within predeclared tolerances (Figure 3). Maximum absolute differences were at binary64 rounding scale (1.11e-16 to 1.55e-15). Observed-input integrity was exact.
 
 Participant-response NLL was not directly comparable. With `ze = 48`, the pyhgf-side power-ratio transformation reached an exact probability boundary on 13 trials and unclipped surprise became +Inf; the HGFX log-domain `unitsq_sgm` evaluation remained finite (total NLL 1808.855415351429). No clipping, formula, precision, parameter, input, or tolerance was changed after observing the result. Overall interpretation: mapped perceptual quantities agree in the authorized cell, while participant-response NLL remains not directly comparable. The semantic gate, exact comparator identity, and numerical-boundary details are given in Supplementary Appendix S4.
 
@@ -213,15 +213,11 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 ## Figure captions
 
-**Figure 1.** Sensitivity of the frozen MATLAB reference in the two numerically fragile fitting workflows. Bars show the fraction of one-local-spacing perturbations of the official start that move the MATLAB optimizer endpoint outside the original endpoint tolerance: 6/6 for the enhanced-HGF fitting stress case and 13/14 for the fixed-seed uHGF holdout. This supports an exact-scope reference-limitation interpretation without converting either endpoint mismatch into direct fitting parity.
+**Figure 1.** Close paired agreement coexists with weak recovery. Original-scale summaries from the frozen 72-case parameter-recovery grid are shown for classic, enhanced, and unbounded HGF. Circles denote MATLAB 8.2.0 and crosses denote HGFX 1.0.0; small vertical offsets are used only for visibility. Dotted lines mark the unchanged recovery targets. The convergence panel includes descriptive Wilson 95% intervals for 24 cases per family. Correlation and standardized-RMSE panels show point summaries because replicate-level bootstrap inputs are not available in the archived aggregate. The median-correlation and standardized-RMSE criteria are outside target in all three families.
 
-**Figure 2.** Paired model-selection agreement on the frozen three-model grid. MATLAB 8.2.0 and HGFX 1.0.0 have the same balanced accuracy (0.583) and identical BIC winner decisions in all 36/36 paired datasets. The dashed line marks the predeclared balanced-accuracy criterion of 0.50. Parameter-recovery metrics are reported separately in Table 4 and Supplementary Appendix S3.
+**Figure 2.** Trial-horizon diagnostics with incomplete cells retained. Columns separate classic, enhanced, and unbounded HGF; rows show median parameter correlation and median standardized RMSE at 128, 256, 512, and 1024 trials. Dotted lines mark the original recovery targets. Shaded regions denote incomplete classic-HGF summaries at 512 and 1024 trials and are not zeros or interpolated estimates. Lines connect point summaries only. Because the whole-study paired-integrity requirement was not satisfied, these trends do not establish identifiability.
 
-**Figure 3.** Prospective trial-horizon diagnostic at 128, 256, 512 and 1024 trials. MATLAB and HGFX trajectories are shown together for complete cells; incomplete classic-HGF cells remain as gaps. Because the paired-integrity requirement was not satisfied, the figure is diagnostic and does not establish a stronger identifiability conclusion.
-
-**Figure 4.** Absolute CPU-versus-physical-GPU final-objective differences for all four preregistered fitting cells on two Tesla T4 devices. The dashed line is the predeclared 1e-7 criterion; three cells are exactly equal at the reported precision and the maximum observed difference is 1.42e-14. This is numerical applicability evidence, not a speed claim.
-
-**Figure 5.** HGFX versus pyhgf 0.3.2 on the authorized common-scope 128-trial binary-HGF cell. Predicted probability and level-2 posterior mean overlap at plotting scale, while the residual panel shows the remaining binary64-scale difference directly. Participant-response NLL is reported separately as not directly comparable at the exact probability boundary.
+**Figure 3.** Perceptual trajectories agree at binary64 rounding scale, with residuals shown separately. HGFX 1.0.0 and pyhgf 0.3.2 are compared on the frozen 128-trial, three-level binary-HGF cell. Panels show predicted input probability, level-2 posterior mean, and the signed HGFX-minus-pyhgf probability residual in units of 1e-16. Every stored trial is plotted without smoothing. Participant-response NLL is a separate quantity and remains not directly comparable in this cell.
 
 ## References
 
