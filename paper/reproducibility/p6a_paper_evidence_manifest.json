@@ -7,7 +7,7 @@
     "p3_workflow_run": 35272347167,
     "pypi_stable": "hgfx==1.0.0"
   },
-  "claim_audit_status": "PENDING_P6A_2",
+  "claim_audit_status": "COMPLETE_P6A_2_NOT_FROZEN",
   "claim_groups": [
     {
       "evidence": [
@@ -84,6 +84,24 @@
       "role": "protocol_or_reproducibility",
       "sha256": "8745d6c71c20ff2909e0f3e52dd976951d56d6828c7914f57b717da78ab82cdb",
       "size_bytes": 8825
+    },
+    {
+      "path": "docs/user/MATLAB_DEMOS.md",
+      "role": "raw_evidence",
+      "sha256": "4aad3ee83551022a7ef709d9b0e26a341ea7e72af36c6bc37832e95981fb3f61",
+      "size_bytes": 5598
+    },
+    {
+      "path": "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md",
+      "role": "raw_evidence",
+      "sha256": "697601e5b7e8e7718441074c92cdb64af6c62864a2538f898dfbdb305692f3c8",
+      "size_bytes": 3003
+    },
+    {
+      "path": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+      "role": "raw_evidence",
+      "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
+      "size_bytes": 4631
     },
     {
       "path": "paper/figures/fig_evidence_classes.pdf",
@@ -164,6 +182,12 @@
       "size_bytes": 3499
     },
     {
+      "path": "paper/highlights.txt",
+      "role": "submission_working_source",
+      "sha256": "f8da20ed3aed51b48a3bc65e2b5df4edeeb4ac0f7aae8172d1e9372979c3e1fc",
+      "size_bytes": 352
+    },
+    {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
       "sha256": "54e21f6ec3dd149b0aab7a18ea47cd1626904436dce18815f0112237a35be491",
@@ -222,6 +246,12 @@
       "role": "raw_evidence",
       "sha256": "7a379d4bbeb8c02bb3fec7b3ef167ab1019c00e46ee591ecf65854fb19af7363",
       "size_bytes": 844
+    },
+    {
+      "path": "paper/reproducibility/p6a_claim_audit.json",
+      "role": "protocol_or_reproducibility",
+      "sha256": "7d9847899a8ebf7c89cccce446ba2399ff226db4e8466222a6d821b31960b2cf",
+      "size_bytes": 49193
     },
     {
       "path": "paper/reproducibility/pyhgf_common_scope_case.json",
@@ -284,10 +314,16 @@
       "size_bytes": 12788
     },
     {
+      "path": "paper/scripts/generate_p6a_claim_audit.py",
+      "role": "generator",
+      "sha256": "1c1345b423335f90d8c50778eaa0010ced1071318a5e0fdf8f2d575c2bd04ffc",
+      "size_bytes": 36429
+    },
+    {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "c096a6d7c0f631bb31de502aa2512634a66e76af1d150f4501ca70e959c1daa1",
-      "size_bytes": 11652
+      "sha256": "ba91dffe0b477410c0af5245af5e48f8e5e39a5ba8f64d39b6b8784052c30a4a",
+      "size_bytes": 12432
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
@@ -393,8 +429,9 @@
   "regeneration_commands": [
     "python paper/scripts/generate_p2_tables.py",
     "python paper/scripts/generate_p5_figures.py",
+    "python paper/scripts/generate_p6a_claim_audit.py",
     "python paper/scripts/generate_p6a_manifest.py",
-    "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_manifest.py"
+    "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,
   "status": "DRAFT_NOT_FROZEN",
