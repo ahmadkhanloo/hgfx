@@ -21,6 +21,7 @@ concurrency:
 permissions:
   contents: write
 
+# Frozen submission candidate: 2026-09-18-r1
 env:
   FREEZE_ID: 2026-09-18-r1
 
