@@ -86,13 +86,6 @@ for bar, count, value in zip(bars, counts, fractions):
         va="bottom",
         fontsize=9,
     )
-ax.text(
-    0.01,
-    0.02,
-    "Same model, data, optimizer and tolerance; only a one-local-spacing start perturbation changes.",
-    transform=ax.transAxes,
-    fontsize=8.5,
-)
 style_axis(ax)
 fig.tight_layout()
 save(fig, "fig1_reference_sensitivity")
@@ -103,36 +96,51 @@ models = ["hgf_binary", "ehgf_binary", "uhgf_binary"]
 model_labels = ["classic HGF", "enhanced HGF", "unbounded HGF"]
 criteria = s7["criteria_unchanged"]
 metrics = [
-    ("convergence_rate", criteria["convergence_rate_min"], "Convergence rate", "higher"),
-    ("median_correlation", criteria["median_correlation_min"], "Median parameter correlation", "higher"),
+    ("convergence_rate", criteria["convergence_rate_min"], "Convergence rate", "≥"),
+    ("median_correlation", criteria["median_correlation_min"], "Median parameter correlation", "≥"),
     (
         "median_standardized_rmse",
         criteria["median_standardized_rmse_max"],
         "Median standardized RMSE",
-        "lower",
+        "≤",
     ),
 ]
 
-fig, axes = plt.subplots(2, 2, figsize=(10.2, 7.0))
-x = np.arange(len(models))
-width = 0.34
-for ax, (key, threshold, title, direction) in zip(axes.flat[:3], metrics):
+fig, axes = plt.subplots(2, 2, figsize=(10.4, 7.1))
+x = np.arange(len(models), dtype=float)
+offset = 0.055
+for ax, (key, threshold, title, inequality) in zip(axes.flat[:3], metrics):
     matlab_vals = np.array([s7["parameter_recovery"][m]["matlab"][key] for m in models])
     hgfx_vals = np.array([s7["parameter_recovery"][m]["hgfx"][key] for m in models])
-    ax.bar(x - width / 2, matlab_vals, width, label="MATLAB 8.2.0", color=MATLAB)
-    ax.bar(x + width / 2, hgfx_vals, width, label="HGFX 1.0.0", color=HGFX)
-    ax.axhline(threshold, color=DARK, linestyle="--", linewidth=1.1)
-    ax.text(
-        0.99,
-        0.96,
-        f"predeclared criterion: {'≥' if direction == 'higher' else '≤'} {threshold:g}",
-        transform=ax.transAxes,
-        ha="right",
-        va="top",
-        fontsize=8,
+    for i in range(len(models)):
+        ax.plot(
+            [x[i] - offset, x[i] + offset],
+            [matlab_vals[i], hgfx_vals[i]],
+            color="#B5B5B5",
+            linewidth=1.2,
+            zorder=1,
+        )
+    ax.scatter(
+        x - offset,
+        matlab_vals,
+        s=58,
+        color=MATLAB,
+        marker="o",
+        label="MATLAB 8.2.0",
+        zorder=3,
     )
-    ax.set_xticks(x, model_labels, rotation=12)
-    ax.set_title(title)
+    ax.scatter(
+        x + offset,
+        hgfx_vals,
+        s=66,
+        color=HGFX,
+        marker="X",
+        label="HGFX 1.0.0",
+        zorder=3,
+    )
+    ax.axhline(threshold, color=DARK, linestyle="--", linewidth=1.1)
+    ax.set_xticks(x, model_labels, rotation=10)
+    ax.set_title(f"{title}  (target {inequality} {threshold:g})")
     style_axis(ax)
 
 mr = s7["model_recovery"]
@@ -142,38 +150,56 @@ model_values = [
     mr["hgfx_balanced_accuracy"],
     mr["winner_matches"] / mr["total_cases"],
 ]
-model_names = ["MATLAB balanced\naccuracy", "HGFX balanced\naccuracy", "BIC winner\nagreement"]
-bars = ax.bar(model_names, model_values, color=[MATLAB, HGFX, ACCENT], width=0.62)
+model_names = ["MATLAB\nbalanced accuracy", "HGFX\nbalanced accuracy", "BIC winner\nagreement"]
+bars = ax.bar(model_names, model_values, color=[MATLAB, HGFX, ACCENT], width=0.60)
 ax.axhline(criteria["model_balanced_accuracy_min"], color=DARK, linestyle="--", linewidth=1.1)
-ax.set_ylim(0, 1.06)
-ax.set_title("Model selection")
+ax.set_ylim(0, 1.08)
+ax.set_title(f"Model selection  (accuracy target ≥ {criteria['model_balanced_accuracy_min']:g})")
 for i, (bar, value) in enumerate(zip(bars, model_values)):
     label = f"{value:.3f}"
     if i == 2:
-        label += f"\n({mr['winner_matches']}/{mr['total_cases']})"
-    ax.text(bar.get_x() + bar.get_width() / 2, value + 0.025, label, ha="center", fontsize=8.5)
+        label += f"\n{mr['winner_matches']}/{mr['total_cases']} winners"
+    ax.text(
+        bar.get_x() + bar.get_width() / 2,
+        value + 0.025,
+        label,
+        ha="center",
+        va="bottom",
+        fontsize=8.5,
+    )
 style_axis(ax)
 
 handles, labels_legend = axes.flat[0].get_legend_handles_labels()
-fig.legend(handles, labels_legend, loc="upper center", ncol=2, frameon=False, bbox_to_anchor=(0.5, 0.995))
+fig.legend(
+    handles,
+    labels_legend,
+    loc="upper center",
+    ncol=2,
+    frameon=False,
+    bbox_to_anchor=(0.5, 0.985),
+)
 fig.suptitle(
-    "Paired recovery reproduces the reference metrics; model-selection winners agree in all 36 datasets",
-    y=1.035,
+    "MATLAB and HGFX reproduce the same recovery metrics and all 36 BIC winners",
+    y=1.025,
     fontsize=12,
 )
-fig.tight_layout(rect=(0, 0, 1, 0.95))
+fig.tight_layout(rect=(0, 0, 1, 0.94))
 save(fig, "fig2_recovery_and_model_selection")
 
 
 # Figure 3 — prospective trial-horizon diagnostic.
 horizons = [128, 256, 512, 1024]
 hidx = np.arange(len(horizons), dtype=float)
-fig, axes = plt.subplots(1, 2, figsize=(10.2, 4.2), sharex=True)
+fig, axes = plt.subplots(1, 2, figsize=(10.4, 4.4), sharex=True)
 horizon_metrics = [
-    ("median_correlation", "Median parameter correlation", p3["criteria"]["median_correlation_min"]),
+    (
+        "median_correlation",
+        f"Median parameter correlation  (target ≥ {p3['criteria']['median_correlation_min']:g})",
+        p3["criteria"]["median_correlation_min"],
+    ),
     (
         "median_standardized_rmse",
-        "Median standardized RMSE",
+        f"Median standardized RMSE  (target ≤ {p3['criteria']['median_standardized_rmse_max']:g})",
         p3["criteria"]["median_standardized_rmse_max"],
     ),
 ]
@@ -193,8 +219,8 @@ for ax, (key, ylabel, threshold) in zip(axes, horizon_metrics):
             vals_m,
             color=model_colors[model],
             marker="o",
-            linewidth=1.7,
-            label=f"{model_label} — MATLAB",
+            linewidth=1.8,
+            markersize=5,
         )
         ax.plot(
             hidx,
@@ -202,9 +228,9 @@ for ax, (key, ylabel, threshold) in zip(axes, horizon_metrics):
             color=model_colors[model],
             marker="x",
             linestyle="--",
-            linewidth=1.1,
-            alpha=0.8,
-            label=f"{model_label} — HGFX",
+            linewidth=1.15,
+            markersize=5,
+            alpha=0.9,
         )
     ax.axhline(threshold, color=DARK, linestyle=":", linewidth=1.2)
     ax.set_xticks(hidx, [str(h) for h in horizons])
@@ -212,23 +238,48 @@ for ax, (key, ylabel, threshold) in zip(axes, horizon_metrics):
     ax.set_ylabel(ylabel)
     style_axis(ax)
 
-axes[0].set_title("Correlation")
-axes[1].set_title("Standardized RMSE")
-handles, leg = axes[0].get_legend_handles_labels()
-fig.legend(handles, leg, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.06), fontsize=8)
+axes[0].set_title("Correlation across trial horizons")
+axes[1].set_title("Standardized error across trial horizons")
+
+from matplotlib.lines import Line2D
+model_handles = [
+    Line2D([0], [0], color=model_colors[m], lw=2, label=lab)
+    for m, lab in zip(models, model_labels)
+]
+engine_handles = [
+    Line2D([0], [0], color=DARK, marker="o", lw=1.7, label="MATLAB 8.2.0"),
+    Line2D([0], [0], color=DARK, marker="x", linestyle="--", lw=1.1, label="HGFX 1.0.0"),
+]
+legend_models = fig.legend(
+    handles=model_handles,
+    loc="upper center",
+    ncol=3,
+    frameon=False,
+    bbox_to_anchor=(0.5, 1.07),
+    fontsize=8.5,
+)
+fig.add_artist(legend_models)
+fig.legend(
+    handles=engine_handles,
+    loc="upper center",
+    ncol=2,
+    frameon=False,
+    bbox_to_anchor=(0.5, 1.005),
+    fontsize=8.2,
+)
 fig.suptitle(
-    "Prospective trial-horizon diagnostic; incomplete classic-HGF cells remain visible as gaps",
-    y=1.16,
+    "Prospective trial-horizon diagnostic; incomplete classic-HGF cells remain as gaps",
+    y=1.17,
     fontsize=11.5,
 )
 fig.text(
     0.5,
-    -0.01,
-    "The predeclared paired-integrity requirement was not satisfied, so these trajectories are diagnostic rather than evidence for identifiability.",
+    0.01,
+    "The preregistered paired-integrity requirement was not satisfied; the curves are diagnostic rather than evidence for identifiability.",
     ha="center",
     fontsize=8.5,
 )
-fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+fig.tight_layout(rect=(0, 0.05, 1, 0.91))
 save(fig, "fig3_horizon_diagnostics")
 
 
