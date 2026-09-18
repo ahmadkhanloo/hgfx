@@ -79,6 +79,7 @@ GENERATORS = (
     "paper/scripts/generate_p2_tables.py",
     "paper/scripts/generate_p5_figures.py",
     "paper/scripts/generate_p6a_claim_audit.py",
+    "paper/scripts/check_p7_submission.py",
     "paper/scripts/generate_p6a_manifest.py",
 )
 
@@ -87,6 +88,7 @@ PROTOCOL_AND_REPRO = (
     "paper/reproducibility/README.md",
     "docs/research/P3_M18C2_RESULT.md",
     "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
+    "docs/research/P7_JNM_PREFLIGHT.md",
     "paper/reproducibility/p6a_claim_audit.json",
 )
 
