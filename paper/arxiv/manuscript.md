@@ -34,8 +34,6 @@ For neuroscience methodology, the contribution is a reproducible route for re-ru
 
 HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a regression that violated expected behavior.
 
-OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
-
 Software metadata and frozen validation identities are summarized in Table 1.
 
 **Table 1.** HGFX 1.0.0 software metadata.
@@ -131,7 +129,7 @@ Two fitting-validation cases expose reference limitations rather than direct fit
 
 ### 3.3 Parameter recovery versus model selection
 
-The earlier parameter-recovery result remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match in the same frozen grid (Figure 2). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
+The earlier parameter-recovery result remains part of the record (Table 4; Supplementary Appendix S3) rather than being promoted as a headline figure. Paired model selection is stronger: all 36/36 BIC winner decisions match between MATLAB and HGFX in the same frozen grid (Figure 2). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
 
 The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity requirement was not satisfied, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon values are shown in Figure 3; they do not replace the earlier recovery evidence.
 
@@ -184,6 +182,19 @@ The strongest contribution is methodological: an explicit oracle, evidence class
 
 HGFX 1.0.0 is MIT-licensed [@hgfx100]. Source, tag, and package URLs are in Table 1. All tables and figures are generated from committed machine-readable evidence by scripts included with the source repository. MATLAB is required only to regenerate paired oracle evidence. Exact source revisions, repository-facing case identifiers, checksums, workflow provenance, and claim-to-evidence traceability are intentionally confined to Supplementary Appendix S6 and the reproducibility package.
 
+## Supplementary material guide
+
+The supplementary appendices are intentionally separated from the main narrative so that technical audit detail does not obscure the scientific results. They are organized as follows:
+
+- **S1 — Numerical compatibility policy:** frozen tolerances, numerical rules, and acceptance logic.
+- **S2 — Numerically sensitive fitting cases:** detailed evidence for the two optimizer/basin-sensitive workflows.
+- **S3 — Recovery and model-selection protocol:** full grid design, thresholds, parameter-recovery results, paired model-selection results, and the prospective trial-horizon extension.
+- **S4 — pyhgf common-scope comparison:** semantic mapping, numerical comparison, and the response-NLL non-comparability boundary.
+- **S5 — Physical-GPU applicability:** hardware/runtime provenance, CPU-versus-GPU objective pairs, execution command, and limitations.
+- **S6 — Reproducibility and traceability:** exact source revisions, internal case identifiers, workflow provenance, hashes, and links from reader-facing claims to repository evidence.
+
+Each appendix is cited at the point where its detail becomes relevant; S6 is the audit trail rather than part of the scientific narrative.
+
 ## Declaration of competing interest
 
 The author is the developer and maintainer of HGFX and declares no other competing financial interests or personal relationships that could have appeared to influence the work.
@@ -204,17 +215,13 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 **Figure 1.** Sensitivity of the frozen MATLAB reference in the two numerically fragile fitting workflows. Bars show the fraction of one-local-spacing perturbations of the official start that move the MATLAB optimizer endpoint outside the original endpoint tolerance: 6/6 for the enhanced-HGF fitting stress case and 13/14 for the fixed-seed uHGF holdout. This supports an exact-scope reference-limitation interpretation without converting either endpoint mismatch into direct fitting parity. File: `paper/arxiv/figures/fig1_reference_sensitivity.png`.
 
-**Figure 2.** Paired parameter-recovery and model-selection results for MATLAB 8.2.0 and HGFX 1.0.0. Recovery panels show the original numerical metrics directly against their predeclared criteria rather than encoding them as status labels. The model-selection panel shows equal balanced accuracy and 36/36 agreement of BIC winners. File: `paper/arxiv/figures/fig2_recovery_and_model_selection.png`.
+**Figure 2.** Paired model-selection agreement on the frozen three-model grid. MATLAB 8.2.0 and HGFX 1.0.0 have the same balanced accuracy (0.583) and identical BIC winner decisions in all 36/36 paired datasets. The dashed line marks the predeclared balanced-accuracy criterion of 0.50. Parameter-recovery metrics are reported separately in Table 4 and Supplementary Appendix S3. File: `paper/arxiv/figures/fig2_model_selection_agreement.png`.
 
 **Figure 3.** Prospective trial-horizon diagnostic at 128, 256, 512 and 1024 trials. MATLAB and HGFX trajectories are shown together for complete cells; incomplete classic-HGF cells remain as gaps. Because the paired-integrity requirement was not satisfied, the figure is diagnostic and does not establish a stronger identifiability conclusion. File: `paper/arxiv/figures/fig3_horizon_diagnostics.png`.
 
 **Figure 4.** Absolute CPU-versus-physical-GPU final-objective differences for all four preregistered fitting cells on two Tesla T4 devices. The dashed line is the predeclared 1e-7 criterion; three cells are exactly equal at the reported precision and the maximum observed difference is 1.42e-14. This is numerical applicability evidence, not a speed claim. File: `paper/arxiv/figures/fig4_gpu_numerical_agreement.png`.
 
 **Figure 5.** HGFX versus pyhgf 0.3.2 on the authorized common-scope 128-trial binary-HGF cell. Predicted probability and level-2 posterior mean overlap at plotting scale, while the residual panel shows the remaining binary64-scale difference directly. Participant-response NLL is reported separately as not directly comparable at the exact probability boundary. File: `paper/arxiv/figures/fig5_pyhgf_common_scope.png`.
-
-## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
-
-During the preparation of this work, the author used OpenAI ChatGPT to assist with code drafting and review, repository/document consistency checks, manuscript organization, and language refinement. The author reviewed and edited the resulting material as needed, and all reported scientific results remained subject to the repository's frozen validation, evidence, and reproducibility gates. The author takes full responsibility for the content of the publication.
 
 ## References
 
