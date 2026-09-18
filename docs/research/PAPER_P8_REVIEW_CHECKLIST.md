@@ -3,6 +3,7 @@
 Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED / PAPER-DELTA REVIEW OPEN**
 Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
 Review packet: `docs/research/P8_REVIEW_PACKET.md`
+Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
 Tracking: PV1-02 / GitHub issue #32
 This is **not** M19 and is **not** an implementer self-review.
 

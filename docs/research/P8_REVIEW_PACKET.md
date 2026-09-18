@@ -21,6 +21,11 @@ This prior review is accepted as the independent baseline for implementation, sc
 
 The remaining P8 scope is therefore a **delta review** of the current paper candidate: manuscript wording/overclaiming, paper-only P2A/P3 evidence, paper tables/figures, claim-to-evidence mapping, declarations/journal metadata, and any post-review code/evidence changes that affect manuscript claims.
 
+Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`  
+Delta-scope guide: `docs/research/P8_DELTA_SCOPE.md`
+
+The delta contains 132 changed files across 109 commits: 91 paper-review files, 9 evidence/provenance files, 23 product-only claim-leakage checks, and 9 maintenance-context files. No frozen MATLAB reference file and no frozen v1 release-evidence artifact changed.
+
 ## Exact submission candidate
 
 - Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
