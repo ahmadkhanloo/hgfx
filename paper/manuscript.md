@@ -15,7 +15,7 @@ https://github.com/ahmadkhanloo
 
 **Correspondence:** Mohammad Ahmadkhanloo, Institute for Research in Fundamental Sciences (IPM), Niavaran Square, Tehran, Iran. Software: https://github.com/ahmadkhanloo/hgfx. Institutional email to be inserted before submission if required by the journal.
 
-**Keywords:** Hierarchical Gaussian Filter; computational psychiatry; MATLAB equivalence; Python; JAX; reproducibility; model selection; GPU
+**Keywords:** Hierarchical Gaussian Filter; computational neuroscience; Bayesian learning; Python; reproducibility; model validation
 
 ## Abstract
 
@@ -31,13 +31,17 @@ Python/JAX toolboxes already exist in this space. pyhgf represents predictive-co
 
 This paper asks whether a legacy scientific toolbox can be reproduced in an accelerator-compatible stack without silently changing the scientific contract. We report the released HGFX 1.0.0 evidence: workflow reproduction, paired model-selection agreement, CPU/backend and physical-GPU applicability, a scoped pyhgf comparison, and preserved historical failures. General speedup and multi-GPU scaling are not headline claims.
 
+For neuroscience methodology, the contribution is a reproducible route for re-running established HGF analyses outside the MATLAB runtime while retaining the validated reference behavior that underpins prior computational-neuroscience and computational-psychiatry applications. The study therefore evaluates software behavior, inferential workflows, and reproducibility rather than introducing a new behavioral or neuroimaging dataset.
+
 ## 2 Materials and methods
 
 ### 2.1 Software description
 
 HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
 
-Software metadata required for a Technology and Code article are given in Table 1.
+OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
+
+Software metadata and frozen validation identities are summarized in Table 1.
 
 **Table 1.** HGFX 1.0.0 software metadata.
 
@@ -186,17 +190,17 @@ The strongest contribution is methodological: an explicit oracle, evidence class
 
 HGFX 1.0.0 is MIT-licensed [@hgfx100]. Source, tag, and package URLs are in Table 1. Paper tables regenerate with `python paper/scripts/generate_p2_tables.py`. Figures regenerate with `python paper/scripts/generate_p5_figures.py` (300 dpi PNG and PDF). The reviewer entry point is `paper/reproducibility/README.md`. MATLAB is required only to regenerate paired oracle evidence.
 
-## Conflict of interest
+## Declaration of competing interest
 
-The author is the developer and maintainer of HGFX. No other competing interests are declared.
+The author is the developer and maintainer of HGFX and declares no other competing financial interests or personal relationships that could have appeared to influence the work.
 
-## Author contributions
+## CRediT authorship contribution statement
 
-Mohammad Ahmadkhanloo: conceptualization, software, validation, formal analysis, data curation, visualization, writing -- original draft, writing -- review and editing.
+Mohammad Ahmadkhanloo: Conceptualization, Software, Validation, Formal analysis, Data curation, Visualization, Writing – original draft, Writing – review & editing.
 
 ## Funding
 
-The author received no specific funding for this work.
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
 ## Acknowledgments
 
@@ -215,6 +219,10 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 **Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
 
 **Figure 6.** P3 trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified M18C.2 aggregate. Dotted lines are the frozen thresholds. Incomplete HGF cases at 512/1024 trials are retained as gaps. Diagnostic PASS rows do not establish identifiability; the overall P3 classification remains `INSUFFICIENT_REFERENCE_EVIDENCE`. File: `paper/figures/fig_p3_horizon_diagnostics.png`.
+
+## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
+
+During the preparation of this work, the author used OpenAI ChatGPT to assist with code drafting and review, repository/document consistency checks, manuscript organization, and language refinement. The author reviewed and edited the resulting material as needed, and all reported scientific results remained subject to the repository's frozen validation, evidence, and reproducibility gates. The author takes full responsibility for the content of the publication.
 
 ## References
 
