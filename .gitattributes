@@ -2,3 +2,4 @@
 /src/hgfx/diagnostics/recovery.py text eol=lf
 /reference/validation/m18_scientific_validation.json text eol=lf
 /reference/matlab_manifest.tsv text eol=lf
+/paper/reproducibility/p3_m18c2_aggregate_35272347167.json text eol=lf
