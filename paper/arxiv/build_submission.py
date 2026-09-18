@@ -100,8 +100,8 @@ geometry: margin=1in
 fontsize: 10pt
 documentclass: article
 header-includes:
-  - \\usepackage{graphicx}
-  - \\usepackage{float}
+  - \\usepackage{{graphicx}}
+  - \\usepackage{{float}}
 ---
 
 \\begin{{center}}
