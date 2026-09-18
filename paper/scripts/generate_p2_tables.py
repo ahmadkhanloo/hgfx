@@ -3,11 +3,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import tomllib
 from pathlib import Path
 from typing import Any
 
 PROTOCOL_ID = "hgfx-paper-protocol-1"
+HGFX_RELEASE_VERSION = "1.0.0"
 HGFX_RELEASE_COMMIT = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
 REQUIRED_INPUTS = (
     "reference/validation/v1_release/evidence_manifest.json",
@@ -15,7 +15,6 @@ REQUIRED_INPUTS = (
     "reference/validation/m18_d02_reference_limitation/decision.json",
     "reference/validation/m18_d08_reference_limitation/decision.json",
     "reference/validation/m18_s7_reference_limitation/decision.json",
-    "pyproject.toml",
 )
 TABLE_ORDER = (
     "model_workflow_coverage.md",
@@ -89,7 +88,6 @@ def build_outputs(repo_root: Path) -> tuple[dict[str, str], dict[str, Any]]:
     d02 = _load_json(paths[2])
     d08 = _load_json(paths[3])
     s7 = _load_json(paths[4])
-    project = tomllib.loads(paths[5].read_text(encoding="utf-8"))
     evidence = _evidence_map(manifest)
     index_evidence = {item["id"]: item for item in evidence_index["evidence"]}
     matlab_ref = manifest["frozen_matlab_reference"]
@@ -282,9 +280,9 @@ def build_outputs(repo_root: Path) -> tuple[dict[str, str], dict[str, Any]]:
         ],
         [
             "HGFX release",
-            project["project"]["version"],
+            HGFX_RELEASE_VERSION,
             HGFX_RELEASE_COMMIT,
-            "pyproject.toml + frozen paper protocol",
+            "v1.0.0 tag + frozen paper protocol",
         ],
         [
             "MATLAB oracle",
