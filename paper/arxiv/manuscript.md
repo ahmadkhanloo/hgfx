@@ -103,7 +103,7 @@ The first demo is a regime in which classic binary HGF encounters negative poste
 
 The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolute third-level posterior mean is 16.99162398501939 for uHGF and 4.0927117005012175 for uHGF-AR(1) in both implementations (direct uHGF-AR(1) workflow parity).
 
-**Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
+**Table 2.** Official workflow and analysis-surface coverage. Machine-readable source data are available in the reproducibility package.
 
 | Surface | Classification |
 |---|---|
@@ -133,7 +133,7 @@ The earlier parameter-recovery result remains part of the record (Table 4; Suppl
 
 The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity requirement was not satisfied, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon values are shown in Figure 3; they do not replace the earlier recovery evidence.
 
-**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
+**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full-precision values are available in the reproducibility package.
 
 | Model | MATLAB / HGFX convergence | MATLAB / HGFX median r | MATLAB / HGFX median sRMSE | Criteria outside target |
 |---|---|---|---|---|
@@ -213,15 +213,15 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 ## Figure captions
 
-**Figure 1.** Sensitivity of the frozen MATLAB reference in the two numerically fragile fitting workflows. Bars show the fraction of one-local-spacing perturbations of the official start that move the MATLAB optimizer endpoint outside the original endpoint tolerance: 6/6 for the enhanced-HGF fitting stress case and 13/14 for the fixed-seed uHGF holdout. This supports an exact-scope reference-limitation interpretation without converting either endpoint mismatch into direct fitting parity. File: `paper/arxiv/figures/fig1_reference_sensitivity.png`.
+**Figure 1.** Sensitivity of the frozen MATLAB reference in the two numerically fragile fitting workflows. Bars show the fraction of one-local-spacing perturbations of the official start that move the MATLAB optimizer endpoint outside the original endpoint tolerance: 6/6 for the enhanced-HGF fitting stress case and 13/14 for the fixed-seed uHGF holdout. This supports an exact-scope reference-limitation interpretation without converting either endpoint mismatch into direct fitting parity.
 
-**Figure 2.** Paired model-selection agreement on the frozen three-model grid. MATLAB 8.2.0 and HGFX 1.0.0 have the same balanced accuracy (0.583) and identical BIC winner decisions in all 36/36 paired datasets. The dashed line marks the predeclared balanced-accuracy criterion of 0.50. Parameter-recovery metrics are reported separately in Table 4 and Supplementary Appendix S3. File: `paper/arxiv/figures/fig2_model_selection_agreement.png`.
+**Figure 2.** Paired model-selection agreement on the frozen three-model grid. MATLAB 8.2.0 and HGFX 1.0.0 have the same balanced accuracy (0.583) and identical BIC winner decisions in all 36/36 paired datasets. The dashed line marks the predeclared balanced-accuracy criterion of 0.50. Parameter-recovery metrics are reported separately in Table 4 and Supplementary Appendix S3.
 
-**Figure 3.** Prospective trial-horizon diagnostic at 128, 256, 512 and 1024 trials. MATLAB and HGFX trajectories are shown together for complete cells; incomplete classic-HGF cells remain as gaps. Because the paired-integrity requirement was not satisfied, the figure is diagnostic and does not establish a stronger identifiability conclusion. File: `paper/arxiv/figures/fig3_horizon_diagnostics.png`.
+**Figure 3.** Prospective trial-horizon diagnostic at 128, 256, 512 and 1024 trials. MATLAB and HGFX trajectories are shown together for complete cells; incomplete classic-HGF cells remain as gaps. Because the paired-integrity requirement was not satisfied, the figure is diagnostic and does not establish a stronger identifiability conclusion.
 
-**Figure 4.** Absolute CPU-versus-physical-GPU final-objective differences for all four preregistered fitting cells on two Tesla T4 devices. The dashed line is the predeclared 1e-7 criterion; three cells are exactly equal at the reported precision and the maximum observed difference is 1.42e-14. This is numerical applicability evidence, not a speed claim. File: `paper/arxiv/figures/fig4_gpu_numerical_agreement.png`.
+**Figure 4.** Absolute CPU-versus-physical-GPU final-objective differences for all four preregistered fitting cells on two Tesla T4 devices. The dashed line is the predeclared 1e-7 criterion; three cells are exactly equal at the reported precision and the maximum observed difference is 1.42e-14. This is numerical applicability evidence, not a speed claim.
 
-**Figure 5.** HGFX versus pyhgf 0.3.2 on the authorized common-scope 128-trial binary-HGF cell. Predicted probability and level-2 posterior mean overlap at plotting scale, while the residual panel shows the remaining binary64-scale difference directly. Participant-response NLL is reported separately as not directly comparable at the exact probability boundary. File: `paper/arxiv/figures/fig5_pyhgf_common_scope.png`.
+**Figure 5.** HGFX versus pyhgf 0.3.2 on the authorized common-scope 128-trial binary-HGF cell. Predicted probability and level-2 posterior mean overlap at plotting scale, while the residual panel shows the remaining binary64-scale difference directly. Participant-response NLL is reported separately as not directly comparable at the exact probability boundary.
 
 ## References
 
