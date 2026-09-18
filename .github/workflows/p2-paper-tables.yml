@@ -10,7 +10,6 @@ on:
       - 'reference/validation/m18_d02_reference_limitation/decision.json'
       - 'reference/validation/m18_d08_reference_limitation/decision.json'
       - 'reference/validation/m18_s7_reference_limitation/decision.json'
-      - 'pyproject.toml'
       - '.github/workflows/p2-paper-tables.yml'
   push:
     branches: [main]
