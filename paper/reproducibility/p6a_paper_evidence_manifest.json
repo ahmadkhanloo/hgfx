@@ -82,8 +82,8 @@
     {
       "path": "docs/research/P7_JNM_PREFLIGHT.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "de25aa50c7ee4d651340c91ede81580be21c75472ab94567ca3b084aeb432cf2",
-      "size_bytes": 2417
+      "sha256": "3f35ca8df4f1a0a33c8f9168f11f9da73a7db09778a6f3caf1454d819ed918a7",
+      "size_bytes": 2765
     },
     {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
@@ -256,7 +256,7 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "f96eb435f72ea08340ddbc9e451f0a60f0579397e795db48785c0d54125b626a",
+      "sha256": "751e41ab4b8977ea3cd9ce68c83f54418cd5152f3c041950acdc0365483cde87",
       "size_bytes": 49190
     },
     {
