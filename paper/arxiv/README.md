@@ -29,3 +29,7 @@ Only vector PDF copies are retained in `paper/arxiv/figures/`; redundant PNG cop
 The submission package is built and smoke-tested by `.github/workflows/arxiv-package.yml`. A freeze commit whose message contains `[freeze-arxiv]` stores an immutable PDF, source ZIP, manifest, and SHA-256 checksums under `paper/arxiv/frozen/<freeze-id>/`.
 
 Frozen submission files must not be edited in place. A future revision must use a new freeze ID.
+## Current frozen submission
+
+The current submission candidate is `2026-09-18-r1`. Its PDF, arXiv source ZIP, manifest, and SHA-256 checksums are stored under `paper/arxiv/frozen/2026-09-18-r1/` after the freeze workflow completes.
+
