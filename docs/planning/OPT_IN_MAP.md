@@ -47,6 +47,6 @@ tighter MAP path.
 ## What this is not
 
 - Not a change to `fit_model` defaults.
-- Not v2.
+- An additive v1.1.x analysis API, outside the frozen v1.0.0 compatibility default.
 - Not a claim that recovery or LME improved for paper 1.
 - Not a PyMC/NUTS path.

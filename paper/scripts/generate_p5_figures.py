@@ -174,7 +174,7 @@ def build(repo: Path) -> dict:
         "notes": [
             "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
             "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
-            "P3 trial-horizon figure is omitted until M18C.2 execution artifacts exist.",
+            "P3 M18C.2 aggregate evidence is committed/classified; the diagnostic horizon figure remains a separate pending paper asset.",
             "P4 performance/scaling figure is not activated under protocol 1.",
         ],
     }

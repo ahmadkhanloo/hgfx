@@ -37,6 +37,6 @@ The reference is the MATLAB Toolbox solution strategy, including known limitatio
 
 ## Versioning Rule
 
-Capabilities required to reproduce MATLAB Toolbox behavior remain in HGFX v1.x.
+Capabilities required to reproduce the frozen MATLAB Toolbox behavior remain protected by the v1.0.x compatibility contract.
 
-Capabilities beyond MATLAB Toolbox scope may move to v2.x.
+Additive capabilities beyond the frozen MATLAB scope may be developed in v1.1.x only when they are opt-in or backward-compatible, explicitly tested, and do not rewrite v1.0.0 evidence or defaults.

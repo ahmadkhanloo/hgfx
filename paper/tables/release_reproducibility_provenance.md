@@ -3,7 +3,7 @@
 | Item | Status/value | Detail | Evidence |
 |---|---|---|---|
 | Paper protocol | hgfx-paper-protocol-1 | frozen before P2 execution | paper/reproducibility/PAPER_PROTOCOL.md |
-| HGFX release | 1.0.0 | 4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27 | pyproject.toml + frozen paper protocol |
+| HGFX release | 1.0.0 | 4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27 | v1.0.0 tag + frozen paper protocol |
 | MATLAB oracle | HGF Toolbox 8.2.0 | 2437f4dc241541072722a2695ddeca7b44d83dd3 | reference/validation/v1_release/evidence_manifest.json |
 | M19 release evidence | PASS_FROZEN | status=FROZEN; failures=0 | reference/validation/v1_release/evidence_manifest.json; run 34966661492 |
 | Historical failures rewritten | false | must remain false | reference/validation/v1_release/evidence_manifest.json |
