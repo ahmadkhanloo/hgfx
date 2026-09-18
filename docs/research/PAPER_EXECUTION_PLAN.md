@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6 DONE; P6A/P7/P8 OPEN**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6 DONE; P6A-1/P6A-2 DONE; P7/P8 OPEN; FINAL P6A FREEZE DEFERRED**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -294,7 +294,7 @@ Acceptance:
 
 ### P6A — Final paper-evidence freeze
 
-**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 CLAIM AUDIT OPEN; FINAL FREEZE DEFERRED UNTIL P8 PASS.
+**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 DONE/PASS; FINAL FREEZE DEFERRED UNTIL P8 PASS.
 
 This is a new publication gate and is **not M19**.
 
@@ -309,9 +309,17 @@ P6A-1 completed in PR #61 / merge `56c64678550ef87744b27630d20bf8de0c72a5a8`:
 - freeze guard refuses `FROZEN_FOR_SUBMISSION` unless P8 records PASS for the exact candidate SHA;
 - P6A read-only run `35333572515`: PASS with zero diff for regenerated P2 tables, P5 figures and P6A manifest.
 
-P6A-2 must now map every numerical manuscript claim to an exact manifest evidence item and resolve any missing/ambiguous mapping.
+P6A-2 completed in PR #63 / merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`:
 
-Ordering after P6A-2:
+- `paper/reproducibility/p6a_claim_audit.json` maps 48 current numerical/versioned manuscript claim lines to exact committed evidence;
+- 9 explicit structural/non-claim exemptions and 20 automatic section/front-matter exemptions are recorded;
+- unmapped numerical lines: 0;
+- high-risk MATLAB-demo, S7, physical-GPU, pyhgf and P3 values are machine-checked against direct source artifacts;
+- P6A manifest inventory expanded to 57 committed artifacts, including direct demo/GPU/final-release provenance and `paper/highlights.txt`;
+- read-only P6A run `35335397062`: PASS;
+- full regression run `35335397063`: PASS on Ubuntu and Windows.
+
+Ordering now:
 1. lock the exact P7 manuscript candidate;
 2. run independent P8 on that candidate;
 3. only after P8 PASS, regenerate P6A as `FROZEN_FOR_SUBMISSION` with the exact candidate SHA.
@@ -324,7 +332,7 @@ Acceptance for final P6A:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A-1 PASS; P6A-2/P8 STILL OPEN.
+**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A-1/P6A-2 PASS; P7 LOCK + P8 STILL OPEN.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
