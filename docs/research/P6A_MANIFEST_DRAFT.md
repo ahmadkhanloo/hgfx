@@ -1,8 +1,55 @@
 # P6A paper-evidence manifest — DRAFT_NOT_FROZEN
 
-Status: **DRAFT_NOT_FROZEN** (2026-09-18)
-Do not flip to `FROZEN_FOR_SUBMISSION` until independent P8 is signed.
+Status: **DRAFT_NOT_FROZEN** (2026-09-18)  
+Manifest ID: `hgfx-paper-evidence-manifest-1`  
+Generator: `paper/scripts/generate_p6a_manifest.py`  
+Output: `paper/reproducibility/p6a_paper_evidence_manifest.json`
 
-Anchors: HGFX v1.0.0 `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; MATLAB 8.2.0 `2437f4dc241541072722a2695ddeca7b44d83dd3`; PyPI `hgfx==1.0.0`.
+Do **not** flip this manifest to `FROZEN_FOR_SUBMISSION` until an independent P8 review records `PASS` for the exact submission-candidate SHA.
 
-P3 run `35272347167`, class `INSUFFICIENT_REFERENCE_EVIDENCE`.
+Anchors:
+
+- HGFX v1.0.0: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+- MATLAB HGF Toolbox 8.2.0: `2437f4dc241541072722a2695ddeca7b44d83dd3`
+- public stable package: `hgfx==1.0.0`
+- P2A run: `35268575414`
+- P3 run: `35272347167`
+- P3 aggregate SHA-256: `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`
+
+## P6A staging
+
+P6A is intentionally split into small stages:
+
+1. **P6A-1 — evidence inventory and integrity manifest**: generate a deterministic `DRAFT_NOT_FROZEN` JSON manifest containing hashes for raw paper evidence, generated tables, all canonical PNG/PDF figures, generator scripts, protocol/reproducibility files, and the current manuscript/bibliography. Preserve all negative/inconclusive classifications explicitly.
+2. **P6A-2 — claim audit**: map every numerical manuscript claim to a manifest evidence item and resolve any missing/ambiguous evidence references.
+3. **P7 — exact manuscript candidate lock**: record the exact candidate SHA to be reviewed.
+4. **P8 — independent review**: an independent reviewer audits the exact candidate and records PASS/FAIL.
+5. **P6A final freeze**: only after P8 PASS, regenerate the manifest with `status=FROZEN_FOR_SUBMISSION` and the exact candidate SHA.
+
+This ordering resolves the distinction between having the P6A evidence inventory ready before manuscript lock and performing the irreversible submission freeze only after independent review.
+
+## P6A-1 required classifications
+
+The draft manifest must preserve, without reinterpretation:
+
+- historical M18 scientific validation: `FAIL_PRESERVED`;
+- D02: `REFERENCE_LIMITATION_MATCH`;
+- D08: `REFERENCE_LIMITATION_MATCH`;
+- S7 parameter recovery: `REFERENCE_LIMITATION_MATCH`;
+- S7 paired model selection: `PASS_PAIRED_MODEL_SELECTION_36_OF_36`;
+- pyhgf mapped perceptual quantities: 11/11 pass in the single authorized common-scope cell;
+- pyhgf participant-response NLL: `NOT_DIRECTLY_COMPARABLE_FOR_THAT_QUANTITY`;
+- P3: `INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`;
+- historical M18 unchanged by P3;
+- physical GPU evidence: applicability/correctness only, not a speed claim;
+- general performance/scaling: not activated under paper protocol 1.
+
+## Freeze guard
+
+`generate_p6a_manifest.py --status FROZEN_FOR_SUBMISSION` must fail unless:
+
+- a valid 40-character candidate SHA is supplied;
+- `docs/research/PAPER_P8_REVIEW_CHECKLIST.md` records the exact candidate SHA;
+- the P8 result is `PASS`.
+
+P6A is separate from M19. Nothing in this gate may modify or reinterpret the frozen v1.0.0 release evidence.
