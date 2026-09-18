@@ -335,7 +335,7 @@
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
       "sha256": "0dd3746d819045744d32e195decb6bc5937bfd52865a361e76171f83b4a5e3d6",
-      "size_bytes": 11935
+      "size_bytes": 12103
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
