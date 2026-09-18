@@ -1,14 +1,14 @@
 # HGFX v1.0 Live TODO
 
 Last synchronized: 2026-09-17
-Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P2A/P5/P6 DONE; P3 RUNNING ON GITHUB ACTIONS**
+Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P3/P5/P6 DONE; P6A/P7/P8 OPEN; v1.1.0 IMPLEMENTED ON MAIN / NOT RELEASED**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
 GitHub Release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 (ID `389966452`)
 PyPI: https://pypi.org/project/hgfx/1.0.0/
 
-The v1.0.0 release gate remains closed. The active post-v1 objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`. Paper protocol P1 is frozen as `hgfx-paper-protocol-1`; P2/P2A/P3 are the next active publication work packages.
+The v1.0.0 release gate remains closed. The active publication objective is PV1-02 methods-paper/publication work, tracked by GitHub issue #32 and `../research/PAPER_EXECUTION_PLAN.md`. Paper protocol P1 is frozen as `hgfx-paper-protocol-1`; P2, P2A and the P3 scientific execution/classification are complete. Remaining publication gates are the P3 presentation asset, P6A evidence freeze, P7 manuscript lock and P8 independent review. Separately, v1.1.x is the active additive product-development line.
 
 ## Accepted evidence
 
@@ -61,23 +61,29 @@ These items are the explicit forward backlog after the completed `v1.0.0` releas
 
 ### PV1-01 — M18C.2 trial-horizon / identifiability analysis
 
-**Status:** IN PROGRESS / RESEARCH / GITHUB ACTIONS EXECUTION 
-**Tracking:** GitHub issue #21
+**Status:** DONE / EXECUTED / `INSUFFICIENT_REFERENCE_EVIDENCE` / NOT A SCIENTIFIC PASS  
+**Tracking:** GitHub issue #21  
+**Protocol:** `m18c2-trial-horizon-identifiability-1`  
+**Run:** GitHub Actions `35272347167`  
+**Result:** `docs/research/P3_M18C2_RESULT.md`
 
-Goal: determine whether the preserved M18 parameter-recovery failures are primarily data-horizon limited or reflect structural/weak identifiability.
+Goal was to determine whether the preserved M18 parameter-recovery failures could be classified as primarily data-horizon limited or structural/weak identifiability under the prospectively frozen protocol.
 
-Planned scope:
+Completed scope:
 
-- run the frozen recovery protocol at trial horizons `128`, `256`, `512`, and `1024`;
-- cover `hgf_binary`, `ehgf_binary`, and `uhgf_binary`;
-- report convergence rate, parameter RMSE, standardized RMSE, median correlation, bias, likelihood/profile diagnostics, and model-recovery accuracy;
-- compare results without changing the frozen M18 thresholds, seeds, datasets, grids, model family, or optimizer after seeing outcomes.
+- horizons `128`, `256`, `512`, and `1024`;
+- `hgf_binary`, `ehgf_binary`, and `uhgf_binary`;
+- 24-shard MATLAB/HGFX matrix;
+- failed/invalid simulations retained rather than dropped;
+- aggregate SHA-256 `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`.
 
-Exit evidence:
+Official classification:
 
-- reproducible result artifacts committed to the repository;
-- an explicit conclusion separating data-limited identifiability from structural/weak identifiability, with uncertainty preserved;
-- no retroactive conversion of historical M18 FAIL evidence into PASS.
+- `overall_classification = INSUFFICIENT_REFERENCE_EVIDENCE`;
+- `gate_pass = false`;
+- per-model classification: `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`.
+
+Therefore no data-horizon or structural-identifiability conclusion is promoted. Historical M18 remains unchanged. The paper may report this result transparently, but it must not describe P3 as parameter-recovery success or use it to infer a stronger identifiability conclusion.
 
 ### PV1-02 — Methods paper and reproducibility package
 
@@ -101,8 +107,8 @@ Current state:
 - P2A common-scope comparison complete (issue #33 closed);
 - P5 figures generated from frozen S7/P2A.10 evidence (`paper/figures/`);
 - P6 reviewer entry point at `paper/reproducibility/README.md`;
-- P3 M18C.2 24-shard MATLAB/HGFX matrix running on GitHub Actions (`35272347167`); invalid 512-trial simulations are retained, not dropped;
-- remaining: complete P3 coverage/classification, P3 figure, P6A freeze, P7 lock, P8 independent audit (checklist prepared).
+- P3 M18C.2 execution/classification complete from run `35272347167`: `INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; invalid simulations remain preserved;
+- remaining: generate/integrate the P3 diagnostic figure from committed aggregate evidence, complete P6A freeze, lock P7, and perform P8 independent audit (checklist prepared).
 
 Planned scope:
 
@@ -143,6 +149,24 @@ Provenance:
 - public-index clean-install verification run `35207903084`: PASS on CPython 3.12.14 / Ubuntu 24.04.5;
 - verification installed from `https://pypi.org/simple` and confirmed public API imports plus a minimal fitting smoke test;
 - distribution provenance and future release rules recorded in `PYPI_PUBLISHING.md`.
+
+### v1.1.x — additive development and 1.1.0 release
+
+**Status:** IMPLEMENTED ON `main` / NOT YET RELEASED  
+**Policy:** `VERSION_POLICY.md`  
+**Usage:** `../user/V1_1.md`
+
+Current package metadata is `1.1.0`. The additive line preserves the immutable v1.0.0 compatibility default and currently includes:
+
+- opt-in MAP fitting (`fit_map`, `minimize_map`, `multi_start_map`) with SciPy L-BFGS-B as the production opt-in solver;
+- binary and dual-stream VKF helpers;
+- dual-stream AR1 binary helpers;
+- social-gaze softmax response variants;
+- three-choice card-volatility softmax support.
+
+The first 1.1.0 feature integration begins at `b74a3199077d0afc7af730d32b19cb3f158f9516`. Public PyPI remains `hgfx==1.0.0`; 1.1.0 has no Git tag or GitHub Release yet.
+
+Before 1.1.0 publication, create and pass a dedicated release gate covering full v1.0 compatibility regression, focused 1.1 API tests, clean distribution build/install checks, documentation/API consistency, and exact release provenance.
 
 ### PV1-04 — Post-v1 performance benchmark refresh
 
