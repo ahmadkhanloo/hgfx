@@ -19,6 +19,8 @@ REQUIRED_INPUTS = (
     "reference/validation/m18_s7_reference_limitation/decision.json",
     "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json",
     "paper/reproducibility/p2a10_comparison_35268575414.json",
+    "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+    "paper/reproducibility/p3_m18c2_provenance_35272347167.json",
     "paper/tables/backend_gpu_applicability.md",
     "paper/tables/p2_tables_manifest.json",
 )
@@ -136,6 +138,90 @@ def fig_evidence_classes(repo: Path, out: Path) -> None:
     _save(fig, out)
 
 
+def fig_p3_horizon_diagnostics(repo: Path, out: Path) -> None:
+    aggregate = _load_json(repo / "paper/reproducibility/p3_m18c2_aggregate_35272347167.json")
+    horizons = [128, 256, 512, 1024]
+    models = ["hgf_binary", "ehgf_binary", "uhgf_binary"]
+    model_labels = {
+        "hgf_binary": "HGF",
+        "ehgf_binary": "eHGF",
+        "uhgf_binary": "uHGF",
+    }
+    colors = {
+        "hgf_binary": "#4c78a8",
+        "ehgf_binary": "#54a24b",
+        "uhgf_binary": "#e45756",
+    }
+    engines = [
+        ("matlab", "MATLAB", "-", "o"),
+        ("hgfx", "HGFX", "--", "x"),
+    ]
+    metrics = [
+        ("convergence_rate", "Convergence rate", aggregate["criteria"]["convergence_rate_min"]),
+        ("median_correlation", "Median correlation", aggregate["criteria"]["median_correlation_min"]),
+        ("median_standardized_rmse", "Median standardized RMSE", aggregate["criteria"]["median_standardized_rmse_max"]),
+    ]
+
+    fig, axes = plt.subplots(1, 3, figsize=(11.4, 4.0), sharex=True)
+    x = np.arange(len(horizons), dtype=float)
+
+    for ax, (key, title, threshold) in zip(axes, metrics):
+        for model in models:
+            horizon_data = aggregate["parameter_recovery"][model]["horizons"]
+            for engine, engine_label, linestyle, marker in engines:
+                values = []
+                for horizon in horizons:
+                    record = horizon_data[str(horizon)][engine]
+                    if record.get("complete", False) and key in record:
+                        values.append(record[key])
+                    else:
+                        values.append(np.nan)
+                ax.plot(
+                    x,
+                    values,
+                    color=colors[model],
+                    linestyle=linestyle,
+                    marker=marker,
+                    linewidth=1.4,
+                    markersize=4.5,
+                    label=f"{model_labels[model]} {engine_label}",
+                )
+        ax.axhline(threshold, color="#333333", linestyle=":", linewidth=1.0)
+        ax.set_xticks(x, [str(h) for h in horizons])
+        ax.set_xlabel("trials")
+        ax.set_title(title)
+        ax.grid(axis="y", alpha=0.2)
+
+    axes[0].set_ylim(0, 1.05)
+    axes[1].set_ylim(-0.05, 1.05)
+    observed_srmse = []
+    for model in models:
+        for horizon in horizons:
+            for engine, *_ in engines:
+                record = aggregate["parameter_recovery"][model]["horizons"][str(horizon)][engine]
+                if record.get("complete", False) and "median_standardized_rmse" in record:
+                    observed_srmse.append(record["median_standardized_rmse"])
+    axes[2].set_ylim(0, max(max(observed_srmse), metrics[2][2]) * 1.15)
+
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.02))
+    fig.suptitle(
+        "P3 trial-horizon diagnostics — overall classification: INSUFFICIENT_REFERENCE_EVIDENCE",
+        fontsize=10,
+        y=1.12,
+    )
+    fig.text(
+        0.5,
+        0.01,
+        "Frozen thresholds are dotted lines. Incomplete HGF T=512/1024 cases are retained as gaps; "
+        "diagnostic PASS rows do not establish identifiability.",
+        ha="center",
+        fontsize=8,
+    )
+    fig.tight_layout(rect=(0, 0.07, 1, 0.91))
+    _save(fig, out)
+
+
 def fig_gpu_applicability(repo: Path, out: Path) -> None:
     fig, ax = plt.subplots(figsize=(6.4, 3.4))
     ax.bar(["CPU backend\nobjective agreement", "2× Tesla T4\nmax |Δ objective|"], [1e-14, 1.42108547152e-14], color=["#4c78a8", "#54a24b"])
@@ -157,6 +243,7 @@ def build(repo: Path) -> dict:
         "fig_model_selection.png": fig_model_selection,
         "fig_pyhgf_common_scope.png": fig_pyhgf_common_scope,
         "fig_evidence_classes.png": fig_evidence_classes,
+        "fig_p3_horizon_diagnostics.png": fig_p3_horizon_diagnostics,
         "fig_gpu_applicability.png": fig_gpu_applicability,
     }
     fig_dir = repo / "paper" / "figures"
@@ -174,7 +261,7 @@ def build(repo: Path) -> dict:
         "notes": [
             "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
             "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
-            "P3 M18C.2 aggregate evidence is committed/classified; the diagnostic horizon figure remains a separate pending paper asset.",
+            "P3 horizon diagnostics are generated directly from the hash-verified M18C.2 aggregate and remain diagnostic-only evidence; overall classification is INSUFFICIENT_REFERENCE_EVIDENCE.",
             "P4 performance/scaling figure is not activated under protocol 1.",
         ],
     }
