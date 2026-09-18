@@ -1,7 +1,7 @@
 # Paper Evidence Map
 
 Last synchronized: 2026-09-18
-Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / P2A COMPLETE / P3 CLASSIFIED / P5 CORE FIGURES PASS / P6 ENTRY POINT PASS / P6A-P8 OPEN**
+Status: **ACTIVE / POST-M19 / v1.0.0 FROZEN / PAPER PROTOCOL FROZEN / P2 TABLES PASS / P2A COMPLETE / P3 CLASSIFIED / P5 FIGURES PASS / P6 ENTRY POINT PASS / P6A-P8 OPEN**
 Tracking: PV1-02 / GitHub issue #32
 Comparator tracking: PV1-02A / GitHub issue #33
 Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
@@ -37,7 +37,7 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | Paper-only prospective settings were frozen before final execution | READY | `paper/reproducibility/PAPER_PROTOCOL.md`; protocol `hgfx-paper-protocol-1`; status `FROZEN_FOR_EXECUTION` |
 | P2 core equivalence tables reproduce deterministically from frozen v1 evidence | READY / P2 PASS | `paper/scripts/generate_p2_tables.py`; six committed `paper/tables/*.md` outputs; `paper/tables/p2_tables_manifest.json`; focused CI run `35231582282` on `332d248a7ba51ae4ba5d25a387d78bfbc71855b0` |
 | P2 table provenance is checksum-traceable | READY / P2 PASS | committed P2 manifest records SHA-256 for all required evidence inputs and six generated table outputs; CI regenerates and checks zero Markdown diff |
-| P5 paper figures are generated from committed evidence | READY / P5 PASS | `paper/scripts/generate_p5_figures.py`; `paper/figures/p5_figures_manifest.json`; five PNG figures; CI run on PR #46 |
+| P5 paper figures are generated from committed evidence | READY / P5 PASS | `paper/scripts/generate_p5_figures.py`; `paper/figures/p5_figures_manifest.json`; six canonical PNG figures including P3 Figure 6; PR #60 / P5 run `35322794944` PASS with zero-diff check; merged as `24e7ce11edc0c057a5f2675f63d896b61f0c6758` |
 | P6 paper reproduction entry point exists | READY / P6 PASS | `paper/reproducibility/README.md`; records MATLAB vs no-MATLAB steps, P2/P5 regeneration, P2A.10 replay hash, and P3 execution provenance |
 | P3 trial-horizon study establishes a data-horizon or structural-identifiability explanation | **NOT ESTABLISHED** | completed run `35272347167`; official `overall_classification=INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; per-model `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; committed aggregate `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, SHA-256 `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`; see `docs/research/P3_M18C2_RESULT.md` |
 | P3 execution/classification is complete under the frozen prospective protocol | READY / P3 EXECUTED | all frozen horizons/models executed with invalid cases retained; historical M18 unchanged; no stronger recovery/identifiability claim is permitted |
