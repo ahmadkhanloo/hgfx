@@ -4,7 +4,7 @@
 **Article type:** Research Article (methods)  
 **Highlights:** `paper/highlights.txt`  
 **Word count (main text, approximate):** 2,400  
-**Figures:** 5  **Tables:** 6  
+**Figures:** 6  **Tables:** 6  
 **Abstract:** <=250 words (this draft ~230)
 
 **Authors and affiliations**
@@ -135,7 +135,7 @@ D02 and D08 remain exact-scope reference limitations (Table 3). The MATLAB oracl
 
 Historical parameter-recovery failure remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability.
 
-The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Official classification: `INSUFFICIENT_REFERENCE_EVIDENCE`. This manuscript therefore still does not claim generally strong parameter recovery for HGFX or for the MATLAB reference. Diagnostic per-horizon numbers are archived with the paper materials and must not overwrite Table 4 or historical M18.
+The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Official classification: `INSUFFICIENT_REFERENCE_EVIDENCE`. This manuscript therefore still does not claim generally strong parameter recovery for HGFX or for the MATLAB reference. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they must not overwrite Table 4 or historical M18.
 
 **Table 4.** S7 paired parameter recovery (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
 
@@ -213,6 +213,8 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 **Figure 4.** CPU-backend and physical Tesla T4 final-objective agreement on a log scale, against the frozen 1e-7 GPU criterion. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
 
 **Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
+
+**Figure 6.** P3 trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified M18C.2 aggregate. Dotted lines are the frozen thresholds. Incomplete HGF cases at 512/1024 trials are retained as gaps. Diagnostic PASS rows do not establish identifiability; the overall P3 classification remains `INSUFFICIENT_REFERENCE_EVIDENCE`. File: `paper/figures/fig_p3_horizon_diagnostics.png`.
 
 ## References
 
