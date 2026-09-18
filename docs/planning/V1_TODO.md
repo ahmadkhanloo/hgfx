@@ -1,7 +1,7 @@
 # HGFX Live TODO
 
 Last synchronized: 2026-09-18
-Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P3/P5/P6 DONE; P6A/P7/P8 OPEN; v1.1.0 IMPLEMENTED ON MAIN / NOT RELEASED**
+Status: **V1.0.0 RELEASE COMPLETE — PV1-02 METHODS PAPER ACTIVE / P1–P3/P5/P6 DONE; P6A/P7/P8 OPEN; v1.1.0b1 BETA PREP IN PROGRESS**
 Branch: `main`
 Frozen MATLAB reference: HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`
 Published release: `v1.0.0` -> `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -149,14 +149,14 @@ Provenance:
 - verification installed from `https://pypi.org/simple` and confirmed public API imports plus a minimal fitting smoke test;
 - distribution provenance and future release rules recorded in `PYPI_PUBLISHING.md`.
 
-### v1.1.x — additive development and 1.1.0 release
+### v1.1.x — additive development and beta-first release
 
-**Status:** IMPLEMENTED ON `main` / NOT YET RELEASED  
+**Status:** `1.1.0b1` BETA CANDIDATE PREPARATION / NOT YET PUBLISHED  
 **Policy:** `VERSION_POLICY.md`  
 **Usage:** `../user/V1_1.md`  
 **Release plan:** `V1_1_RELEASE_PLAN.md`
 
-Current package metadata is `1.1.0`. The additive line preserves the immutable v1.0.0 compatibility default and currently includes:
+Candidate package metadata is `1.1.0b1`. The additive line preserves the immutable v1.0.0 compatibility default and currently includes:
 
 - opt-in MAP fitting (`fit_map`, `minimize_map`, `multi_start_map`) with SciPy L-BFGS-B as the production opt-in solver;
 - binary and dual-stream VKF helpers;
@@ -164,9 +164,9 @@ Current package metadata is `1.1.0`. The additive line preserves the immutable v
 - social-gaze softmax response variants;
 - three-choice card-volatility softmax support.
 
-The first 1.1.0 feature integration begins at `b74a3199077d0afc7af730d32b19cb3f158f9516`. Public PyPI remains `hgfx==1.0.0`; 1.1.0 has no Git tag or GitHub Release yet.
+The first 1.1.0 feature integration begins at `b74a3199077d0afc7af730d32b19cb3f158f9516`. Public PyPI stable remains `hgfx==1.0.0`. The first public 1.1 target is `hgfx==1.1.0b1`, tracked by issue #56.
 
-Before 1.1.0 publication, create and pass a dedicated release gate covering full v1.0 compatibility regression, focused 1.1 API tests, clean distribution build/install checks, documentation/API consistency, and exact release provenance.
+Beta policy: ordinary `pip install hgfx` remains on stable 1.0.0; beta users opt in with `pip install --pre hgfx` or `pip install hgfx==1.1.0b1`. Before beta publication, run the dedicated gate covering focused 1.1 tests, full v1.0 regression, clean distribution build/install, API/documentation consistency and release provenance. After publication, independently verify both stable-default and `--pre` resolver behavior from public PyPI.
 
 ### PV1-04 — Post-v1 performance benchmark refresh
 

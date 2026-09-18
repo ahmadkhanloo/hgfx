@@ -2,7 +2,7 @@
 
 This page documents the release-facing public API exported by `hgfx`.
 
-Additive 1.1.0 helpers (MAP, VKF, dual-stream, project softmax) are documented with copy-paste usage in `docs/user/V1_1.md`. They are not part of the frozen MATLAB compatibility contract.
+Additive 1.1 beta helpers (MAP, VKF, dual-stream, project softmax) are documented with copy-paste usage in `docs/user/V1_1.md`. They are not part of the frozen MATLAB compatibility contract.
 
 ## Configuration
 
