@@ -384,11 +384,13 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** READY FOR INDEPENDENT REVIEW / FINAL SCIENTIFIC GATE / NOT STARTED.
+**Status:** PRIOR INDEPENDENT V1 REVIEW ACCEPTED AS BASELINE / PAPER-DELTA REVIEW OPEN.
 
 Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`. The checklist is not a completed review.
 
-Review the exact submission candidate for:
+The v1 implementation/release baseline was already independently reviewed in `docs/validation/INDEPENDENT_REVIEW_REPORT.md`; H1/H2 were remediated and closed in `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`. Do not repeat that unchanged baseline.
+
+Review the exact submission candidate only for the paper/post-review delta:
 - scientific overclaiming;
 - reproducibility gaps;
 - evidence traceability;
