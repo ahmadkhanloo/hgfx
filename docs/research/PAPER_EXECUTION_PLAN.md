@@ -1,6 +1,6 @@
 # PV1-02 Methods Paper Execution Plan
 
-Last synchronized: 2026-09-17
+Last synchronized: 2026-09-18
 Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6 DONE; P6A/P7/P8 OPEN**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
@@ -246,7 +246,7 @@ Acceptance if activated in a future protocol:
 
 ### P5 — Figures and statistical summaries
 
-**Status:** DONE FOR CURRENT CLAIM SET / P3 DIAGNOSTIC FIGURE STILL OPEN.
+**Status:** DONE / PASS FOR CURRENT CLAIM SET, INCLUDING P3 DIAGNOSTIC FIGURE.
 
 Required figure set for the selected claim set:
 - validation overview / evidence-flow schematic;
@@ -265,8 +265,9 @@ Required script behavior:
 - avoid manual data edits.
 
 Acceptance:
-- PASS for the current claim set — figures are script-generated from committed evidence (`paper/scripts/generate_p5_figures.py`, `paper/figures/p5_figures_manifest.json`);
-- OPEN for the P3 diagnostic horizon figure, which must be generated from the now-committed P3 aggregate before P8 review if P3 remains reported in the submission package.
+- PASS — six canonical PNG figures are script-generated from committed evidence (`paper/scripts/generate_p5_figures.py`, `paper/figures/p5_figures_manifest.json`);
+- PASS — Figure 6 (`fig_p3_horizon_diagnostics.png`) is generated directly from the hash-verified P3 aggregate, preserves incomplete HGF 512/1024 cases as gaps, and is zero-diff gated in CI;
+- the figure is diagnostic-only and does not alter the official `INSUFFICIENT_REFERENCE_EVIDENCE` classification.
 
 ### P6 — Reproducibility package
 
@@ -312,12 +313,12 @@ Acceptance:
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION INTEGRATED; P3 FIGURE/P6A/P8 STILL OPEN.
+**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A/P8 STILL OPEN.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
 - integrating generated P2/P5 tables and figures;
-- keep the completed P3 `INSUFFICIENT_REFERENCE_EVIDENCE` result explicit in Results/Limitations and integrate its diagnostic figure from committed aggregate evidence;
+- keep the completed P3 `INSUFFICIENT_REFERENCE_EVIDENCE` result and its diagnostic Figure 6 explicit in Results/Limitations without upgrading the scientific conclusion;
 - strengthening Methods with exact reproducibility/protocol details rather than repository shorthand;
 - keeping D02/D08 and historical recovery limitations explicit in Results and Discussion;
 - finalizing authors, affiliations, corresponding author and acknowledgments;
