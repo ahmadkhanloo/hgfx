@@ -11,6 +11,16 @@ on:
         required: true
         default: "1.0.0"
         type: string
+      verify_prerelease_policy:
+        description: "Also verify stable-default and --pre resolver behavior"
+        required: true
+        default: false
+        type: boolean
+      stable_version:
+        description: "Stable version expected from unqualified pip install"
+        required: true
+        default: "1.0.0"
+        type: string
 
 permissions:
   contents: read
@@ -61,3 +71,68 @@ jobs:
           print(f"Public PyPI verification PASS: hgfx=={installed}")
           print(f"Imported from: {hgfx.__file__}")
           PY
+
+  verify-prerelease-policy:
+    name: Verify stable default and prerelease opt-in
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.verify_prerelease_policy }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Verify default stable resolution
+        shell: bash
+        env:
+          STABLE_VERSION: ${{ inputs.stable_version }}
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/hgfx-stable
+          /tmp/hgfx-stable/bin/python -m pip install --upgrade pip
+          /tmp/hgfx-stable/bin/python -m pip install --index-url https://pypi.org/simple --no-cache-dir hgfx
+          /tmp/hgfx-stable/bin/python - <<'PY'
+          from importlib.metadata import version
+          import os
+          installed = version("hgfx")
+          expected = os.environ["STABLE_VERSION"]
+          assert installed == expected, (installed, expected)
+          print(f"Stable resolver PASS: hgfx=={installed}")
+          PY
+
+      - name: Verify prerelease opt-in resolution
+        shell: bash
+        env:
+          PRERELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/hgfx-pre
+          /tmp/hgfx-pre/bin/python -m pip install --upgrade pip
+          /tmp/hgfx-pre/bin/python -m pip install --pre --index-url https://pypi.org/simple --no-cache-dir hgfx
+          /tmp/hgfx-pre/bin/python - <<'PY'
+          from importlib.metadata import version
+          import os
+          installed = version("hgfx")
+          expected = os.environ["PRERELEASE_VERSION"]
+          assert installed == expected, (installed, expected)
+          print(f"Prerelease resolver PASS: hgfx=={installed}")
+          PY
+
+      - name: Verify exact prerelease pin
+        shell: bash
+        env:
+          PRERELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/hgfx-pre-exact
+          /tmp/hgfx-pre-exact/bin/python -m pip install --upgrade pip
+          /tmp/hgfx-pre-exact/bin/python -m pip install --index-url https://pypi.org/simple --no-cache-dir "hgfx==${PRERELEASE_VERSION}"
+          /tmp/hgfx-pre-exact/bin/python - <<'PY'
+          from importlib.metadata import version
+          import os
+          installed = version("hgfx")
+          expected = os.environ["PRERELEASE_VERSION"]
+          assert installed == expected, (installed, expected)
+          print(f"Exact prerelease pin PASS: hgfx=={installed}")
+          PY
+
