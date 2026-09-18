@@ -7,7 +7,7 @@ Authority: this file is the product-line decision record. It does not reopen the
 Immutable v1.0.0 source: `v1.0.0` → `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`  
 Frozen MATLAB oracle: HGF Toolbox 8.2.0 → `2437f4dc241541072722a2695ddeca7b44d83dd3`  
 Public PyPI release: `hgfx==1.0.0`  
-Current development metadata on `main`: `1.1.0`
+Current beta-candidate metadata: `1.1.0b1`
 
 ## Product-line decision
 
@@ -32,7 +32,7 @@ The following rules are immutable:
 
 ## v1.1.x — active additive line
 
-The package metadata on `main` is currently `1.1.0`. The first 1.1.0 feature integration starts at commit `b74a3199077d0afc7af730d32b19cb3f158f9516`.
+The active 1.1 feature line is being prepared first as the PEP 440 prerelease `1.1.0b1`. The first 1.1.0 feature integration starts at commit `b74a3199077d0afc7af730d32b19cb3f158f9516`.
 
 The current additive surface includes:
 
@@ -51,17 +51,23 @@ These additions are intentionally separate from the frozen compatibility default
 
 User-facing usage is documented in `docs/user/V1_1.md`.
 
-## v1.1.0 release status
+## v1.1 release status and prerelease policy
 
 As of 2026-09-18:
 
-- package metadata on `main` is `1.1.0`;
-- the additive APIs are implemented and unit-tested on `main`;
-- there is **no Git tag or GitHub Release for 1.1.0 yet**;
-- public PyPI remains `hgfx==1.0.0`;
-- therefore v1.1.0 is **IMPLEMENTED ON MAIN / NOT YET RELEASED**.
+- package metadata for the beta candidate is `1.1.0b1`;
+- the additive APIs are implemented on the 1.1 line;
+- public PyPI stable remains `hgfx==1.0.0`;
+- the intended first public 1.1 artifact is the prerelease `hgfx==1.1.0b1`;
+- final `1.1.0` remains unreleased until beta validation and feedback are accepted.
 
-Publishing v1.1.0 requires a dedicated release gate that at minimum verifies:
+PyPI/pip policy:
+
+- ordinary `python -m pip install hgfx` must continue to resolve to stable 1.0.0 while only a 1.1 prerelease exists;
+- beta users opt in with `python -m pip install --pre hgfx` or exact `python -m pip install hgfx==1.1.0b1`;
+- the stable-default and `--pre` opt-in behavior must be independently verified against public PyPI after beta publication.
+
+Publishing any 1.1 prerelease/final requires a dedicated release gate that at minimum verifies:
 
 - full regression against the frozen v1.0.0 compatibility path;
 - focused tests for every additive 1.1 API;
