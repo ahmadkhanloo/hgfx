@@ -30,7 +30,7 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 The v1.0.0 release gate is closed. The immutable release source and frozen evidence are `4dd8fbd8`.
 
-`main` also carries additive **1.1.0** package metadata (`pyproject.toml`) for opt-in MAP, VKF, dual-stream AR1, and project softmax helpers. Those APIs are not on PyPI and have no GitHub release tag. Usage: `docs/user/V1_1.md`.
+`main` also carries the active additive **1.1.0** development line (`pyproject.toml`) for opt-in MAP, VKF, dual-stream AR1, and project softmax helpers. v1.1.0 preserves the frozen `fit_model` compatibility path but is **not yet released**: it is not on PyPI and has no GitHub release tag. Usage: `docs/user/V1_1.md`; release policy: `docs/planning/V1_1_RELEASE_PLAN.md`.
 
 See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `docs/planning/PYPI_PUBLISHING.md` for release and distribution evidence.
 
