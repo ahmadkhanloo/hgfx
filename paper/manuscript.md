@@ -13,7 +13,7 @@ Mohammad Ahmadkhanloo
 Institute for Research in Fundamental Sciences (IPM), Tehran, Iran  
 https://github.com/ahmadkhanloo
 
-**Correspondence:** Mohammad Ahmadkhanloo, Institute for Research in Fundamental Sciences (IPM), Niavaran Square, Tehran, Iran. Software: https://github.com/ahmadkhanloo/hgfx. Institutional email to be inserted before submission if required by the journal.
+**Correspondence:** Mohammad Ahmadkhanloo, Institute for Research in Fundamental Sciences (IPM), Niavaran Square, Tehran, Iran. Email: m.ahmadkhanloo@ipm.ir. Software: https://github.com/ahmadkhanloo/hgfx.
 
 **Keywords:** Hierarchical Gaussian Filter; computational neuroscience; Bayesian learning; Python; reproducibility; model validation
 
