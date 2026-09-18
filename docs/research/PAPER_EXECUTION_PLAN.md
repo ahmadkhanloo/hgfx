@@ -294,26 +294,37 @@ Acceptance:
 
 ### P6A — Final paper-evidence freeze
 
-**Status:** OPEN / REQUIRED BEFORE FINAL MANUSCRIPT LOCK.
+**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 CLAIM AUDIT OPEN; FINAL FREEZE DEFERRED UNTIL P8 PASS.
 
 This is a new publication gate and is **not M19**.
 
-After P2–P6 results intended for submission are complete:
-- create a machine-readable paper evidence manifest;
-- record hashes of all paper-used raw inputs, generated tables/figures and scripts;
-- record exact environments/commands/source SHAs;
-- regenerate all included tables/figures from committed inputs;
-- record all FAIL, `REFERENCE_LIMITATION_MATCH`, and `NOT_DIRECTLY_COMPARABLE` outcomes;
-- map every numerical manuscript claim to an evidence item;
-- set the manifest to `FROZEN_FOR_SUBMISSION` only after the claim audit succeeds.
+P6A-1 completed in PR #61 / merge `56c64678550ef87744b27630d20bf8de0c72a5a8`:
 
-Acceptance:
-- paper results can be reconstructed without relying on narrative notes or chat history;
+- deterministic machine-readable draft manifest: `paper/reproducibility/p6a_paper_evidence_manifest.json`;
+- status remains `DRAFT_NOT_FROZEN`;
+- 51 committed evidence/source artifacts are hashed from canonical Git bytes, independent of Windows/Linux checkout line endings;
+- all six canonical figures now have deterministic PNG/PDF outputs; P5 records both PNG and PDF hashes;
+- raw evidence, generated tables/figures, generator scripts, protocol/reproducibility files and current manuscript/bibliography are inventoried;
+- negative/inconclusive outcomes are explicit: historical M18 `FAIL_PRESERVED`, D02/D08/S7 recovery `REFERENCE_LIMITATION_MATCH`, pyhgf response NLL NDC, and P3 `INSUFFICIENT_REFERENCE_EVIDENCE`;
+- freeze guard refuses `FROZEN_FOR_SUBMISSION` unless P8 records PASS for the exact candidate SHA;
+- P6A read-only run `35333572515`: PASS with zero diff for regenerated P2 tables, P5 figures and P6A manifest.
+
+P6A-2 must now map every numerical manuscript claim to an exact manifest evidence item and resolve any missing/ambiguous mapping.
+
+Ordering after P6A-2:
+1. lock the exact P7 manuscript candidate;
+2. run independent P8 on that candidate;
+3. only after P8 PASS, regenerate P6A as `FROZEN_FOR_SUBMISSION` with the exact candidate SHA.
+
+Acceptance for final P6A:
+- paper results can be reconstructed without narrative notes or chat history;
+- every numerical manuscript claim is evidence-mapped;
+- the exact P8-approved candidate SHA is recorded;
 - the v1 M19 manifest remains unchanged.
 
 ### P7 — Complete manuscript
 
-**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A/P8 STILL OPEN.
+**Status:** IN PROGRESS / JOURNAL OF NEUROSCIENCE METHODS DRAFT; P3 CLASSIFICATION + FIGURE INTEGRATED; P6A-1 PASS; P6A-2/P8 STILL OPEN.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
