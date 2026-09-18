@@ -30,7 +30,7 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 The v1.0.0 release gate is closed. The immutable release source and frozen evidence are `4dd8fbd8`.
 
-`main` also carries the active additive **1.1.0** development line (`pyproject.toml`) for opt-in MAP, VKF, dual-stream AR1, and project softmax helpers. v1.1.0 preserves the frozen `fit_model` compatibility path but is **not yet released**: it is not on PyPI and has no GitHub release tag. Usage: `docs/user/V1_1.md`; release policy: `docs/planning/V1_1_RELEASE_PLAN.md`.
+`main` carries the active additive **1.1.0 beta** development line. Package metadata is now **`1.1.0b1`** for the first opt-in PyPI prerelease candidate. It preserves the frozen `fit_model` compatibility path. Until that beta is actually published, public PyPI still contains stable `hgfx==1.0.0`. After beta publication, ordinary `python -m pip install hgfx` must continue to select stable 1.0.0; beta users opt in with `python -m pip install --pre hgfx` or the exact `python -m pip install hgfx==1.1.0b1`. Usage: `docs/user/V1_1.md`; release policy: `docs/planning/V1_1_RELEASE_PLAN.md`.
 
 See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `docs/planning/PYPI_PUBLISHING.md` for release and distribution evidence.
 
@@ -85,7 +85,7 @@ User documentation:
 - `docs/user/GETTING_STARTED.md` — minimal installation and first fit
 - `docs/user/USER_GUIDE.md` — practical v1 guide for fitting, simulation, sampling, GPU use, migration from MATLAB, and reproducibility
 - `docs/user/API.md` — public API surface
-- `docs/user/V1_1.md` — additive 1.1.0 usage (MAP, VKF, dual-stream, project softmax)
+- `docs/user/V1_1.md` — additive 1.1 beta usage (MAP, VKF, dual-stream, project softmax)
 - `docs/user/MATLAB_DEMOS.md` — exact official MATLAB demo reproductions and cross-language parity evidence
 - `examples/README.md` — runnable examples
 
