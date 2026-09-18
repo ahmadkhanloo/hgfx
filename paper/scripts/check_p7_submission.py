@@ -29,6 +29,7 @@ STALE_PHRASES = (
 )
 
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)
+APPROVED_CORRESPONDING_EMAIL = "m.ahmadkhanloo@ipm.ir"
 BIB_KEY_RE = re.compile(r"@[A-Za-z]+\{([^,]+),")
 CITE_BLOCK_RE = re.compile(r"\[([^\]]*@[A-Za-z0-9_:-]+[^\]]*)\]")
 CITE_KEY_RE = re.compile(r"@([A-Za-z0-9_:-]+)")
@@ -109,6 +110,8 @@ def build(repo: Path) -> dict:
     correspondence_emails = EMAIL_RE.findall(correspondence_text)
     if not correspondence_emails:
         blockers.append("MISSING_CORRESPONDING_AUTHOR_EMAIL")
+    elif APPROVED_CORRESPONDING_EMAIL not in [email.lower() for email in correspondence_emails]:
+        errors.append("CORRESPONDING_AUTHOR_EMAIL_NOT_APPROVED")
 
     bib_keys = set(BIB_KEY_RE.findall(refs))
     cited_keys: set[str] = set()
@@ -138,6 +141,10 @@ def build(repo: Path) -> dict:
         "highlights": [{"text": item, "length": len(item)} for item in highlights],
         "unresolved_bibliography_keys": unresolved,
         "corresponding_author_email_present": bool(correspondence_emails),
+        "approved_corresponding_author_email": APPROVED_CORRESPONDING_EMAIL,
+        "corresponding_author_email_matches_approved": (
+            APPROVED_CORRESPONDING_EMAIL in [email.lower() for email in correspondence_emails]
+        ),
     }
 
 
