@@ -89,7 +89,7 @@ Two official MATLAB demo workflows (320 binary trials) are release-gated. Comple
 
 Fitting validation covers objectives at fixed parameters, MATLAB-compatible optimizer behavior, fitted parameters where direct parity is expected, trajectories, predictions/residuals, Hessian-derived covariance/correlation, and AIC/BIC/LME.
 
-The historical M18 scientific recovery experiment failed and is preserved. Subsequent paired product-level validation distinguishes parameter recovery from model selection on an exact S7 grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; frozen M18 thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
+An earlier frozen parameter-recovery experiment failed its scientific acceptance criteria and remains preserved. Subsequent paired validation distinguishes parameter recovery from model selection on a frozen three-model grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; predeclared thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
 
 CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds.
 
@@ -99,7 +99,7 @@ CPU/backend equivalence and physical NVIDIA GPU applicability were tested after 
 
 ### 2.6 Prospective trial-horizon protocol
 
-Paper protocol 1 includes a prospectively frozen paired MATLAB/HGFX experiment (`m18c2-trial-horizon-identifiability-1`) at 128, 256, 512 and 1024 trials, using the S7 models, truth scales, seeds, Quasi-Newton budget, and M18 thresholds. The preregistered scientific comparison is 256 versus 1024 after a paired-integrity gate; 128 and 512 are trajectory diagnostics. Failed simulations and fits are retained. Historical M18 is not rewritten. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The frozen paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all in `hgf_binary` at 512 or 1024 trials, and `hgf_binary` parameter metrics at those horizons are undefined because invalid simulations were retained rather than resampled. The official class is `INSUFFICIENT_REFERENCE_EVIDENCE`. No data-horizon or structural-identifiability conclusion is promoted.
+A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion. The repository records the reproducibility protocol as `m18c2-trial-horizon-identifiability-1`.
 
 ## 3 Results
 
@@ -107,9 +107,9 @@ Paper protocol 1 includes a prospectively frozen paired MATLAB/HGFX experiment (
 
 HGFX 1.0.0 was released from commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Official demo reproductions execute the MATLAB oracle, execute the Python reproduction, compare complete release-relevant outputs, and archive machine-readable artifacts (Table 2).
 
-The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (`PASS_MODEL_SELECTION_PARITY`).
+The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (direct model-selection parity).
 
-The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolute third-level posterior mean is 16.99162398501939 for uHGF and 4.0927117005012175 for uHGF-AR(1) in both implementations (`PASS_UHGF_AR1_WORKFLOW_PARITY`).
+The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolute third-level posterior mean is 16.99162398501939 for uHGF and 4.0927117005012175 for uHGF-AR(1) in both implementations (direct uHGF-AR(1) workflow parity).
 
 **Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
 
@@ -123,25 +123,25 @@ The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolu
 
 ### 3.2 Fitting statistics and scoped limitations
 
-D02 and D08 remain exact-scope reference limitations (Table 3). The MATLAB oracle exhibits endpoint/basin sensitivity in those scopes; HGFX matches the limitation. The release claims MATLAB-equivalent behavior in accepted product accounting, not universal optimizer endpoint identity.
+Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, inference-equivalence fails for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
 
 **Table 3.** Fitting and recovery classifications. Direct failures are retained.
 
 | Surface | Direct result | Paper disposition |
 |---|---|---|
-| Historical M18 scientific experiment | FAIL_PRESERVED | preserved historical failure |
-| D02 fitting | optimizer mismatch | REFERENCE_LIMITATION_MATCH |
-| D08 fitting holdout | inference-equivalence fail | REFERENCE_LIMITATION_MATCH |
-| S7 parameter recovery | scientific_pass = false | REFERENCE_LIMITATION_MATCH |
-| S7 paired model selection | 36/36 BIC winners match | PASS_PAIRED_MODEL_SELECTION |
+| Earlier frozen parameter-recovery experiment | scientific criterion not met | preserved failure |
+| Official fitting stress case | optimizer endpoint mismatch in sensitive basin | matched reference limitation |
+| Frozen Level-2 holdout fit | inference-equivalence failure for a fixed seed | matched reference limitation |
+| Paired parameter recovery | recovery criteria not fully met | matched reference limitation |
+| Paired model selection | 36/36 BIC winners match | direct agreement |
 
 ### 3.3 Parameter recovery versus model selection
 
-Historical parameter-recovery failure remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability.
+The earlier parameter-recovery failure remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability.
 
-The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Official classification: `INSUFFICIENT_REFERENCE_EVIDENCE`. This manuscript therefore still does not claim generally strong parameter recovery for HGFX or for the MATLAB reference. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they must not overwrite Table 4 or historical M18.
+The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity gate failed, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they do not replace the earlier recovery evidence.
 
-**Table 4.** S7 paired parameter recovery (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
+**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
 
 | Model | MATLAB / HGFX convergence | MATLAB / HGFX median r | MATLAB / HGFX median sRMSE | Failed criteria |
 |---|---|---|---|---|
@@ -151,7 +151,7 @@ The trial-horizon study (section 2.6) is complete as an executed protocol, not a
 
 ### 3.4 Backend and physical-GPU applicability
 
-Compatibility CPU and JAX-backed CPU outputs pass `PASS_CPU_BACKEND_EQUIVALENCE`. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells pass the frozen final-objective criterion <= 1e-7. The maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). This is applicability/correctness evidence, not a speed or scaling result.
+Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells pass the frozen final-objective criterion <= 1e-7. The maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). This is applicability/correctness evidence, not a speed or scaling result.
 
 **Table 5.** Backend and GPU applicability.
 
@@ -170,7 +170,7 @@ Participant-response NLL was not directly comparable. With `ze = 48`, the pyhgf-
 
 Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python, including the official demo reproductions. MATLAB is unnecessary for those user paths.
 
-Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) D02/D08 are matched reference limitations, not scientific recovery success; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment returned `INSUFFICIENT_REFERENCE_EVIDENCE` after a failed paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; (v) the pyhgf result is one mapped cell, not package-wide equivalence.
+Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) two numerically sensitive fitting cases are matched reference limitations rather than scientific recovery successes; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment failed its paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; and (v) the pyhgf result is one mapped cell, not package-wide equivalence.
 
 ## 4 Discussion
 
@@ -210,7 +210,7 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 **Figure 1.** Evidence classes used in this article: direct MATLAB parity, matched reference limitation, not-directly-comparable pyhgf quantities, and preserved historical failure. File: `paper/figures/fig_evidence_classes.png` (PDF: `.pdf`).
 
-**Figure 2.** Historical S7 paired parameter-recovery metrics for MATLAB 8.2.0 and HGFX 1.0.0 against frozen M18 thresholds. This panel is not a scientific PASS. File: `paper/figures/fig_recovery_metrics.png`.
+**Figure 2.** Paired parameter-recovery metrics for MATLAB 8.2.0 and HGFX 1.0.0 against the predeclared recovery thresholds. This panel does not constitute a scientific recovery success. File: `paper/figures/fig_recovery_metrics.png`.
 
 **Figure 3.** Paired model-selection summary: MATLAB and HGFX balanced accuracy and 36/36 BIC winner agreement. File: `paper/figures/fig_model_selection.png`.
 
@@ -218,7 +218,7 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 **Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
 
-**Figure 6.** P3 trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified M18C.2 aggregate. Dotted lines are the frozen thresholds. Incomplete HGF cases at 512/1024 trials are retained as gaps. Diagnostic PASS rows do not establish identifiability; the overall P3 classification remains `INSUFFICIENT_REFERENCE_EVIDENCE`. File: `paper/figures/fig_p3_horizon_diagnostics.png`.
+**Figure 6.** Trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified aggregate. Dotted lines are the predeclared thresholds. Incomplete classic-HGF cases at 512/1024 trials are retained as gaps. Individual diagnostic criteria do not establish identifiability; the paired-integrity gate failed, so the evidence remains insufficient for an identifiability conclusion. File: `paper/figures/fig_p3_horizon_diagnostics.png`.
 
 ## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
 
