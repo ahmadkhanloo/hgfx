@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   p8-delta:
@@ -30,19 +30,5 @@ jobs:
         run: python paper/scripts/generate_p8_delta_manifest.py
       - name: Test P8 delta scope
         run: pytest -q tests/paper/test_p8_delta_manifest.py
-      - name: Commit canonical delta manifest
-        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
-        shell: bash
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          set -euo pipefail
-          git add docs/research/P8_DELTA_MANIFEST.json
-          if git diff --cached --quiet; then
-            echo "P8 delta manifest already current."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "paper: commit deterministic P8 delta manifest"
-          git push origin HEAD:"${HEAD_REF}"
+      - name: Verify committed delta manifest reproduces exactly
+        run: git diff --exit-code -- docs/research/P8_DELTA_MANIFEST.json
