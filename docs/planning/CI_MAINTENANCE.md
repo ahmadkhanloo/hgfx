@@ -113,3 +113,18 @@ Fresh GitHub regression `34971334728` and S10 `34971334355` were queued
 at inspection. M20/release closure remains IN PROGRESS pending fresh CI;
 no merge/tag or new physical-GPU validation is claimed. Classic branch
 protection could not be read (403); do not bypass required checks.
+
+
+## Post-release hygiene — 2026-09-18
+
+The v1.0.0 compatibility anchor, M19 evidence freeze, paper evidence freeze, and routine regression path are complete. Historical milestone/oracle workflows remain intentionally **manual-only** rather than being deleted: they are executable provenance for reproducing MATLAB parity and scientific diagnostics, and they add no routine CI load while limited to `workflow_dispatch`.
+
+Repository hygiene policy after v1.0.0:
+
+- keep historical evidence, MATLAB exporters, diagnostic scripts, and manual replay workflows required for reproducibility;
+- do not restore automatic triggers to closed milestone diagnostics;
+- routine development uses `regression.yml` plus narrowly scoped active product/paper/release workflows;
+- remove only superseded planning/review scaffolding that has no evidentiary role;
+- v1.1 work must not rewrite frozen v1.0.0/M19 evidence.
+
+This audit therefore deliberately retains the manual M1–M18 replay workflows. Their presence is archival/reproducibility infrastructure, not active CI debt.
