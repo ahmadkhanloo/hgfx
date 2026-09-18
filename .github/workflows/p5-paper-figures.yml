@@ -6,6 +6,7 @@ on:
       - 'paper/scripts/generate_p5_figures.py'
       - 'paper/figures/**'
       - 'paper/reproducibility/p2a10_*.json'
+      - 'paper/reproducibility/p3_m18c2_*.json'
       - 'paper/tables/**'
       - 'tests/paper/test_p5_figures.py'
       - 'reference/validation/m18_s7_reference_limitation/decision.json'
