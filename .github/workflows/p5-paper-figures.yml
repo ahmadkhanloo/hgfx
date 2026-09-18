@@ -14,13 +14,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   p5-paper-figures:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -30,6 +32,22 @@ jobs:
         run: python paper/scripts/generate_p5_figures.py
       - name: Run P5 tests
         run: pytest -q tests/paper/test_p5_figures.py
+      - name: Commit canonical generated P3 figure outputs
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+        shell: bash
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          git add paper/figures/fig_p3_horizon_diagnostics.png paper/figures/p5_figures_manifest.json
+          if git diff --cached --quiet; then
+            echo "Canonical P3 figure outputs already committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "paper: commit generated P3 diagnostic figure"
+          git push origin HEAD:"${HEAD_REF}"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
