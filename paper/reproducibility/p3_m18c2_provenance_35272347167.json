@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "protocol_id": "m18c2-trial-horizon-identifiability-1",
+  "workflow_run": 35272347167,
+  "workflow_head_sha": "a051e747a3a60054159c81a8b8405fb4b2398277",
+  "artifact_id": 10521838356,
+  "artifact_name": "m18c2-horizon-aggregate",
+  "artifact_zip_digest": "sha256:49b83162f78ec3e704de691f17dd766ebb9eb1c5337e6ad18581c99cc05d7753",
+  "aggregate_path": "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+  "aggregate_sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4",
+  "overall_classification": "INSUFFICIENT_REFERENCE_EVIDENCE",
+  "gate_pass": false,
+  "historical_m18_unchanged": true,
+  "recovered_from_unexpired_actions_artifact_on": "2026-09-18",
+  "note": "Aggregate committed byte-for-byte from the GitHub Actions aggregate artifact; no values were manually reconstructed."
+}
