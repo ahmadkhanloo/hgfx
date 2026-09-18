@@ -25,7 +25,7 @@ jobs:
           python-version: '3.11'
       - name: Install test dependency
         run: python -m pip install pytest
-      - name: Run non-strict JNM preflight
-        run: python paper/scripts/check_p7_submission.py
-      - name: Verify expected P7-1 state
+      - name: Run strict JNM candidate preflight
+        run: python paper/scripts/check_p7_submission.py --strict
+      - name: Verify P7 candidate readiness
         run: pytest -q tests/paper/test_p7_submission.py
