@@ -61,7 +61,7 @@ python paper/scripts/generate_p5_figures.py
 
 Outputs: `paper/figures/*.png`, matching `.pdf` vector files, and `paper/figures/p5_figures_manifest.json`. PNG export is 300 dpi.
 
-The P3 trial-horizon figure is generated only after M18C.2 aggregate evidence is committed. Protocol 1 does not activate a performance/scaling figure.
+The P3 M18C.2 aggregate evidence is now committed and officially classified as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`. The diagnostic horizon figure is still pending and, if P3 remains in the submission package, must be generated from that committed aggregate. Protocol 1 does not activate a performance/scaling figure.
 
 ## Replay the frozen pyhgf common-scope cell (P2A.10)
 
