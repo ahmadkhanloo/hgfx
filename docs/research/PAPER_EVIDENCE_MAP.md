@@ -39,7 +39,8 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | P2 table provenance is checksum-traceable | READY / P2 PASS | committed P2 manifest records SHA-256 for all required evidence inputs and six generated table outputs; CI regenerates and checks zero Markdown diff |
 | P5 paper figures are generated from committed evidence | READY / P5 PASS | `paper/scripts/generate_p5_figures.py`; `paper/figures/p5_figures_manifest.json`; six canonical PNG figures including P3 Figure 6; PR #60 / P5 run `35322794944` PASS with zero-diff check; merged as `24e7ce11edc0c057a5f2675f63d896b61f0c6758` |
 | P6 paper reproduction entry point exists | READY / P6 PASS | `paper/reproducibility/README.md`; records MATLAB vs no-MATLAB steps, P2/P5 regeneration, P2A.10 replay hash, and P3 execution provenance |
-| P6A draft evidence inventory is deterministic and cross-platform | READY / P6A-1 PASS / NOT FROZEN | `paper/reproducibility/p6a_paper_evidence_manifest.json`; 51 artifacts; canonical Git-byte SHA-256; deterministic PNG/PDF outputs; PR #61 merged as `56c64678550ef87744b27630d20bf8de0c72a5a8`; P6A run `35333572515` PASS |
+| P6A draft evidence inventory is deterministic and cross-platform | READY / P6A-1 PASS / NOT FROZEN | `paper/reproducibility/p6a_paper_evidence_manifest.json`; 57 artifacts after P6A-2 expansion; canonical Git-byte SHA-256; deterministic PNG/PDF outputs; P6A-1 PR #61 / run `35333572515` PASS; P6A-2 PR #63 / run `35335397062` PASS |
+| Every current numerical/versioned manuscript claim is evidence-mapped | READY / P6A-2 PASS / NOT FROZEN | `paper/reproducibility/p6a_claim_audit.json`; 48 mapped claim lines; 9 explicit exemptions; 20 automatic structural/editorial exemptions; 0 unmapped; machine checks PASS for demo/S7/GPU/pyhgf/P3; PR #63 merged as `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821` |
 | P3 trial-horizon study establishes a data-horizon or structural-identifiability explanation | **NOT ESTABLISHED** | completed run `35272347167`; official `overall_classification=INSUFFICIENT_REFERENCE_EVIDENCE`, `gate_pass=false`; per-model `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; committed aggregate `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, SHA-256 `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`; see `docs/research/P3_M18C2_RESULT.md` |
 | P3 execution/classification is complete under the frozen prospective protocol | READY / P3 EXECUTED | all frozen horizons/models executed with invalid cases retained; historical M18 unchanged; no stronger recovery/identifiability claim is permitted |
 | CPU compatibility and JAX CPU backend preserve tested outputs | READY | S9 `PASS_CPU_BACKEND_EQUIVALENCE`; post-review run `35080084517` |
@@ -48,7 +49,7 @@ Paper protocol 1 deliberately does not activate general speedup or multi-GPU sca
 | Multi-GPU scaling is a general HGFX result | **OUT OF PROTOCOL-1 CLAIM SET** | historical H100 scaling remains limited to its original workload/environment; a future protocol revision is required for a headline scaling claim |
 | Tiny binary64/runtime differences can be amplified by finite differences and optimization | READY AS SCOPED NUMERICAL CASE STUDY | D02 shared-state/source/self-sensitivity evidence; avoid generalizing to all fits |
 | v1.0.0 evidence was frozen before final release | READY | historical M19 `PASS_FROZEN`; machine-readable v1 evidence manifest |
-| The final paper evidence set is frozen | **NOT YET** | P6A-1 draft inventory is PASS, but P6A-2 claim audit, exact P7 candidate lock and independent P8 PASS are still required before `FROZEN_FOR_SUBMISSION`; separate from M19 |
+| The final paper evidence set is frozen | **NOT YET** | P6A-1 and P6A-2 are PASS, but exact P7 candidate lock and independent P8 PASS are still required before `FROZEN_FOR_SUBMISSION`; separate from M19 |
 | Independent review portability blockers were resolved without retuning science | READY | independent review + remediation; H1/H2 resolved; post-review regression |
 | Cross-platform regression passed after remediation | READY | run `35080084509`; Ubuntu + Windows; Windows `178 passed, 4 skipped, 0 failed` |
 | Final v1.0.0 source/tag/release provenance is verified | READY | `docs/validation/V1_EVIDENCE_INDEX.md` and final release provenance |
@@ -128,7 +129,6 @@ It does not support a general speedup or scaling claim. Under `hgfx-paper-protoc
 
 P6A-1 now inventories and hashes the committed paper evidence set. Remaining publication evidence work is:
 
-- P6A-2: map every numerical manuscript claim to an exact manifest evidence item and resolve missing/ambiguous mappings;
 - P7: lock the exact Journal of Neuroscience Methods manuscript candidate and candidate SHA;
 - P8: independently review that exact candidate and resolve every CRITICAL/HIGH finding;
 - final P6A: regenerate the manifest as `FROZEN_FOR_SUBMISSION` only after P8 PASS for the exact candidate SHA;
