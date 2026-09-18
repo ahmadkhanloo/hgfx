@@ -1,7 +1,7 @@
 # P7 Journal of Neuroscience Methods preflight
 
 Last checked: 2026-09-18  
-Status: **P7-1 FORMAT/EVIDENCE PREFLIGHT IMPLEMENTED; P7 LOCK BLOCKED BY AUTHOR INPUT**
+Status: **P7-1 DONE/PASS; P7-2 STRICT CANDIDATE PREFLIGHT READY FOR LOCK**
 
 ## Current publisher-facing constraints checked
 
@@ -26,15 +26,11 @@ The direct ScienceDirect journal page/Guide-for-Authors endpoint was not reliabl
 - generative-AI use disclosed both for software-development assistance in Methods and manuscript preparation before References;
 - bibliography-key resolution and manuscript-format checks automated by `paper/scripts/check_p7_submission.py`.
 
-## Remaining blocker
+## Corresponding-author metadata
 
-The exact corresponding-author institutional email is not committed in the paper source. It is intentionally **not inferred or guessed**.
+The author-approved institutional email `m.ahmadkhanloo@ipm.ir` is committed in the manuscript. The strict preflight now verifies that the manuscript contains this exact approved address.
 
-Until the author supplies/approves the address:
-
-- P7 exact candidate SHA must not be locked;
-- P8 must not start;
-- P6A must remain `DRAFT_NOT_FROZEN`.
+P6A remains `DRAFT_NOT_FROZEN`; P8 must start only after the exact validated P7 candidate SHA is recorded.
 
 Run:
 
@@ -43,4 +39,4 @@ python paper/scripts/check_p7_submission.py
 python paper/scripts/check_p7_submission.py --strict
 ```
 
-The non-strict command should report `BLOCKED_AUTHOR_INPUT` with only `MISSING_CORRESPONDING_AUTHOR_EMAIL`. The strict command is the future P7 lock gate and must fail until that blocker is resolved.
+Both the normal and strict commands must report `PASS_P7_PREFLIGHT`. The strict command is the P7-2 candidate-readiness gate.
