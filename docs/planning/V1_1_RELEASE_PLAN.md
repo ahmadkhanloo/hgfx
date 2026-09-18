@@ -75,6 +75,19 @@ A 1.1.0 release must preserve all of the following:
 5. New 1.1 APIs are not presented as evidence that recovery, LME, speed, identifiability, or pyhgf superiority improved.
 6. Any scientific claim based on a new 1.1 API needs a separate prospective protocol and evidence.
 
+## Candidate validation order
+
+Use this order so the tag always points at an already validated source:
+
+1. merge beta-preparation changes to `main`;
+2. run the release workflow with `source_ref=<exact main SHA>` and `publish=false`;
+3. record the successful build/audit/smoke artifact for that exact SHA;
+4. only then create tag `v1.1.0b1` pointing to the same validated SHA;
+5. run the release workflow with `source_ref=v1.1.0b1` and `publish=true`;
+6. run public-PyPI stable/default and `--pre` verification.
+
+When `publish=false`, an exact tag is deliberately not required. When `publish=true`, the workflow must reject any source that is not exactly tagged `v<package-version>`.
+
 ## Release gate
 
 ### R1 — API and unit validation
