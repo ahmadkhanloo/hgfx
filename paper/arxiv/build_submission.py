@@ -201,26 +201,13 @@ def main() -> None:
     pdf_out = DIST / "HGFX_arXiv_preprint.pdf"
     shutil.copy2(BUILD / "main.pdf", pdf_out)
 
-    readme = """HGFX arXiv source bundle
-========================
-
-Entry point: main.tex
-Compile: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
-
-The bibliography has been resolved into main.tex by Pandoc/citeproc for robust
-arXiv compilation. references.bib and combined_source.md are included for
-traceability. Vector PDF figures are under figures/.
-
-Source repository: https://github.com/ahmadkhanloo/hgfx
-HGFX release: v1.0.0
-"""
-    (BUILD / "README.txt").write_text(readme, encoding="utf-8")
-
     zip_base = DIST / "HGFX_arXiv_source"
     archive_root = BUILD / "submission"
     archive_root.mkdir()
-    for name in ("main.tex", "references.bib", "combined_source.md", "README.txt"):
-        shutil.copy2(BUILD / name, archive_root / name)
+
+    # Keep the arXiv upload minimal: only files required to compile the paper.
+    # Citeproc has already rendered the bibliography into main.tex.
+    shutil.copy2(BUILD / "main.tex", archive_root / "main.tex")
     shutil.copytree(figures_dir, archive_root / "figures")
 
     shutil.make_archive(str(zip_base), "zip", root_dir=archive_root)
