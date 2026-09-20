@@ -1,0 +1,1096 @@
+{
+  "coverage": {
+    "all_winners_match": false,
+    "contract_free_indices_match": false,
+    "expected_model_cases": 72,
+    "expected_parameter_cases": 144,
+    "expected_shards": 24,
+    "model_cases": 72,
+    "parameter_cases": 144,
+    "shards": 24,
+    "unique_model_cases": 72,
+    "unique_parameter_cases": 144
+  },
+  "coverage_pass": false,
+  "criteria": {
+    "convergence_rate_min": 0.8,
+    "median_correlation_min": 0.5,
+    "median_standardized_rmse_max": 1.0,
+    "model_balanced_accuracy_min": 0.5
+  },
+  "gate_pass": false,
+  "historical_m18_unchanged": true,
+  "model_recovery": {
+    "all_winners_match": false,
+    "hgfx_by_horizon": {
+      "1024": {
+        "balanced_accuracy": 0.6666666666666666,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "128": {
+        "balanced_accuracy": 0.611111111111111,
+        "confusion_matrix": [
+          [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333
+          ],
+          [
+            0.0,
+            0.8333333333333334,
+            0.16666666666666666
+          ],
+          [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "256": {
+        "balanced_accuracy": 0.5555555555555555,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.3333333333333333,
+            0.0,
+            0.6666666666666666
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "512": {
+        "balanced_accuracy": 0.6666666666666666,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "scientific_pass": true
+      }
+    },
+    "matlab_by_horizon": {
+      "1024": {
+        "balanced_accuracy": 0.6666666666666666,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "128": {
+        "balanced_accuracy": 0.611111111111111,
+        "confusion_matrix": [
+          [
+            0.6666666666666666,
+            0.0,
+            0.3333333333333333
+          ],
+          [
+            0.0,
+            0.8333333333333334,
+            0.16666666666666666
+          ],
+          [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "256": {
+        "balanced_accuracy": 0.5555555555555555,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.3333333333333333,
+            0.0,
+            0.6666666666666666
+          ]
+        ],
+        "scientific_pass": true
+      },
+      "512": {
+        "balanced_accuracy": 0.6666666666666666,
+        "confusion_matrix": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "scientific_pass": true
+      }
+    },
+    "mismatched_cases": [
+      "MR-hgf_binary-T1024-S0.15-R0",
+      "MR-hgf_binary-T1024-S0.15-R1",
+      "MR-hgf_binary-T1024-S0.15-R2",
+      "MR-hgf_binary-T1024-S0.35-R1",
+      "MR-hgf_binary-T1024-S0.35-R2",
+      "MR-hgf_binary-T512-S0.15-R0",
+      "MR-hgf_binary-T512-S0.15-R1",
+      "MR-hgf_binary-T512-S0.15-R2",
+      "MR-hgf_binary-T512-S0.35-R1",
+      "MR-hgf_binary-T512-S0.35-R2"
+    ],
+    "total_cases": 72,
+    "winner_matches": 62
+  },
+  "overall_classification": "INSUFFICIENT_REFERENCE_EVIDENCE",
+  "parameter_recovery": {
+    "ehgf_binary": {
+      "classification": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
+      "horizons": {
+        "1024": {
+          "hgfx": {
+            "bias": [
+              0.011367293676135167,
+              -0.05290255999852439,
+              0.037457182222634944
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 1.0,
+            "correlation": [
+              0.7689401750362322,
+              0.8379407524030489,
+              0.844844460912543
+            ],
+            "median_absolute_error": [
+              0.20545348740642244,
+              0.10843666004484409,
+              0.07605961974148623
+            ],
+            "median_correlation": 0.8379407524030489,
+            "median_standardized_rmse": 0.6903109789324477,
+            "n": 12,
+            "rmse": [
+              0.2608678086692682,
+              0.14994157529648758,
+              0.11512017154551318
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.6903109789324477,
+              0.7907959599186621,
+              0.5984257090471492
+            ]
+          },
+          "matlab": {
+            "bias": [
+              0.01136729367595731,
+              -0.05290255999854789,
+              0.037457182222820795
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 1.0,
+            "correlation": [
+              0.7689401750357027,
+              0.8379407524029556,
+              0.8448444609123827
+            ],
+            "median_absolute_error": [
+              0.20545348740713032,
+              0.10843666004466135,
+              0.07605961974134545
+            ],
+            "median_correlation": 0.8379407524029556,
+            "median_standardized_rmse": 0.6903109789335716,
+            "n": 12,
+            "rmse": [
+              0.2608678086696929,
+              0.1499415752965333,
+              0.11512017154572199
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.6903109789335716,
+              0.7907959599189032,
+              0.5984257090482347
+            ]
+          }
+        },
+        "128": {
+          "hgfx": {
+            "bias": [
+              -0.028668574493959504,
+              -0.0006561867172124036,
+              0.28555223971613297
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.6469325828390398,
+              0.13636253588369834,
+              0.5014371279215789
+            ],
+            "median_absolute_error": [
+              0.17323150771078244,
+              0.39114366359349184,
+              0.26156978294708866
+            ],
+            "median_correlation": 0.5014371279215789,
+            "median_standardized_rmse": 2.6226809084061555,
+            "n": 12,
+            "rmse": [
+              0.3970873778097671,
+              0.5201679563115288,
+              0.50452958741629
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              1.05077655190911,
+              2.743379996621524,
+              2.6226809084061555
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.028668574495920824,
+              -0.0006561867138338099,
+              0.28555223971683585
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.6469325828340535,
+              0.13636253588490502,
+              0.5014371279262675
+            ],
+            "median_absolute_error": [
+              0.173231507706904,
+              0.39114366360381425,
+              0.2615697829465746
+            ],
+            "median_correlation": 0.5014371279262675,
+            "median_standardized_rmse": 2.622680908409673,
+            "n": 12,
+            "rmse": [
+              0.39708737780908554,
+              0.5201679563201749,
+              0.5045295874169666
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              1.0507765519073065,
+              2.743379996667124,
+              2.622680908409673
+            ]
+          }
+        },
+        "256": {
+          "hgfx": {
+            "bias": [
+              0.026753197403657614,
+              -0.10848769703515665,
+              -0.04736566018571927
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.8117923798720065,
+              0.1695089829453805,
+              0.48006522842685256
+            ],
+            "median_absolute_error": [
+              0.14514015272512082,
+              0.2212703574863525,
+              0.15633529958548342
+            ],
+            "median_correlation": 0.48006522842685256,
+            "median_standardized_rmse": 1.9950479303133228,
+            "n": 12,
+            "rmse": [
+              0.3631530814295908,
+              0.3782778929395961,
+              0.3967012426974565
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.9609792807429994,
+              1.9950479303133228,
+              2.062160082407931
+            ]
+          },
+          "matlab": {
+            "bias": [
+              0.026753197411734302,
+              -0.1084876970316858,
+              -0.04736566024400709
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.8117923798773783,
+              0.1695089829453715,
+              0.4800652285078352
+            ],
+            "median_absolute_error": [
+              0.14514015272439562,
+              0.22127035748666846,
+              0.15633529958518855
+            ],
+            "median_correlation": 0.4800652285078352,
+            "median_standardized_rmse": 1.995047930299229,
+            "n": 12,
+            "rmse": [
+              0.36315308142616276,
+              0.3782778929369238,
+              0.39670124254284805
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.9609792807339281,
+              1.995047930299229,
+              2.0621600816042345
+            ]
+          }
+        },
+        "512": {
+          "hgfx": {
+            "bias": [
+              0.014594399205772324,
+              -0.03188455318715953,
+              0.01809440841686394
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 0.8333333333333334,
+            "correlation": [
+              0.8606423291499962,
+              0.4487092275958764,
+              0.8602355382402388
+            ],
+            "median_absolute_error": [
+              0.19954501730506236,
+              0.1782766680010942,
+              0.11935363171485713
+            ],
+            "median_correlation": 0.8602355382402388,
+            "median_standardized_rmse": 0.9200577387913532,
+            "n": 12,
+            "rmse": [
+              0.34768887283073246,
+              0.21341128276195212,
+              0.16532930848264668
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.9200577387913532,
+              1.125536929137254,
+              0.8594263483692558
+            ]
+          },
+          "matlab": {
+            "bias": [
+              0.014594399206232733,
+              -0.031884553186815545,
+              0.018094408417219654
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 0.8333333333333334,
+            "correlation": [
+              0.8606423291500259,
+              0.44870922759351156,
+              0.8602355382406699
+            ],
+            "median_absolute_error": [
+              0.1995450173056752,
+              0.17827666800383657,
+              0.11935363171407798
+            ],
+            "median_correlation": 0.8602355382406699,
+            "median_standardized_rmse": 0.920057738792883,
+            "n": 12,
+            "rmse": [
+              0.34768887283131056,
+              0.21341128276206736,
+              0.16532930848262695
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.920057738792883,
+              1.1255369291378616,
+              0.8594263483691532
+            ]
+          }
+        }
+      }
+    },
+    "hgf_binary": {
+      "classification": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
+      "horizons": {
+        "1024": {
+          "hgfx": {
+            "checks": {},
+            "complete": false,
+            "expected": 12,
+            "failed_cases": [
+              "PR-hgf_binary-T1024-S0.15-R0",
+              "PR-hgf_binary-T1024-S0.15-R1",
+              "PR-hgf_binary-T1024-S0.15-R2",
+              "PR-hgf_binary-T1024-S0.15-R3",
+              "PR-hgf_binary-T1024-S0.15-R4",
+              "PR-hgf_binary-T1024-S0.15-R5",
+              "PR-hgf_binary-T1024-S0.35-R0",
+              "PR-hgf_binary-T1024-S0.35-R1",
+              "PR-hgf_binary-T1024-S0.35-R2",
+              "PR-hgf_binary-T1024-S0.35-R3",
+              "PR-hgf_binary-T1024-S0.35-R4",
+              "PR-hgf_binary-T1024-S0.35-R5"
+            ],
+            "n": 12
+          },
+          "matlab": {
+            "checks": {},
+            "complete": false,
+            "expected": 12,
+            "failed_cases": [
+              "PR-hgf_binary-T1024-S0.15-R0",
+              "PR-hgf_binary-T1024-S0.15-R1",
+              "PR-hgf_binary-T1024-S0.15-R2",
+              "PR-hgf_binary-T1024-S0.15-R3",
+              "PR-hgf_binary-T1024-S0.15-R4",
+              "PR-hgf_binary-T1024-S0.15-R5",
+              "PR-hgf_binary-T1024-S0.35-R1",
+              "PR-hgf_binary-T1024-S0.35-R2",
+              "PR-hgf_binary-T1024-S0.35-R3",
+              "PR-hgf_binary-T1024-S0.35-R5"
+            ],
+            "n": 12
+          }
+        },
+        "128": {
+          "hgfx": {
+            "bias": [
+              0.001138622864668833,
+              -0.022255377876991684,
+              0.28401252772036156
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.9827884129016133,
+              -0.7546449559095718,
+              0.14766007728798874
+            ],
+            "median_absolute_error": [
+              0.1124127171036553,
+              0.2887029822839242,
+              0.4515236959348068
+            ],
+            "median_correlation": 0.14766007728798874,
+            "median_standardized_rmse": 1.1142466409840441,
+            "n": 12,
+            "rmse": [
+              0.14413139722514692,
+              0.42254109804797607,
+              0.6019109688828049
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.19070096540645695,
+              1.1142466409840441,
+              3.128895601015875
+            ]
+          },
+          "matlab": {
+            "bias": [
+              0.0011386228637706812,
+              -0.02225537788168112,
+              0.28401252773017877
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.9827884129019291,
+              -0.7546449558992042,
+              0.14766007724948585
+            ],
+            "median_absolute_error": [
+              0.11241271709396483,
+              0.2887029822867824,
+              0.4515236959368927
+            ],
+            "median_correlation": 0.14766007724948585,
+            "median_standardized_rmse": 1.1142466410008047,
+            "n": 12,
+            "rmse": [
+              0.14413139722288537,
+              0.42254109805433193,
+              0.601910968900353
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.19070096540346468,
+              1.1142466410008047,
+              3.1288956011070947
+            ]
+          }
+        },
+        "256": {
+          "hgfx": {
+            "bias": [
+              -0.05021204495049003,
+              0.4445621048388327,
+              0.10393434197852758
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.75,
+            "correlation": [
+              0.9962053171735891,
+              -0.5485307313810179,
+              0.2978050028114652
+            ],
+            "median_absolute_error": [
+              0.07010318744992139,
+              0.3262389052719401,
+              0.2423394131787564
+            ],
+            "median_correlation": 0.2978050028114652,
+            "median_standardized_rmse": 1.9572155352888707,
+            "n": 12,
+            "rmse": [
+              0.08356482159283958,
+              1.424884789539335,
+              0.37651288166205094
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.11056502926201063,
+              3.757440632090168,
+              1.9572155352888707
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.05021204495516499,
+              0.4445621048932213,
+              0.10393434197318512
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.75,
+            "correlation": [
+              0.9962053171732576,
+              -0.5485307313476354,
+              0.29780500283755185
+            ],
+            "median_absolute_error": [
+              0.07010318744991695,
+              0.3262389052562842,
+              0.24233941318148888
+            ],
+            "median_correlation": 0.29780500283755185,
+            "median_standardized_rmse": 1.9572155352576484,
+            "n": 12,
+            "rmse": [
+              0.0835648215969308,
+              1.4248847896396502,
+              0.37651288165604463
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.11056502926742373,
+              3.7574406323547005,
+              1.9572155352576484
+            ]
+          }
+        },
+        "512": {
+          "hgfx": {
+            "checks": {},
+            "complete": false,
+            "expected": 12,
+            "failed_cases": [
+              "PR-hgf_binary-T512-S0.15-R0",
+              "PR-hgf_binary-T512-S0.15-R1",
+              "PR-hgf_binary-T512-S0.15-R2",
+              "PR-hgf_binary-T512-S0.15-R3",
+              "PR-hgf_binary-T512-S0.15-R4",
+              "PR-hgf_binary-T512-S0.15-R5",
+              "PR-hgf_binary-T512-S0.35-R0",
+              "PR-hgf_binary-T512-S0.35-R1",
+              "PR-hgf_binary-T512-S0.35-R2",
+              "PR-hgf_binary-T512-S0.35-R3",
+              "PR-hgf_binary-T512-S0.35-R4",
+              "PR-hgf_binary-T512-S0.35-R5"
+            ],
+            "n": 12
+          },
+          "matlab": {
+            "checks": {},
+            "complete": false,
+            "expected": 12,
+            "failed_cases": [
+              "PR-hgf_binary-T512-S0.15-R0",
+              "PR-hgf_binary-T512-S0.15-R1",
+              "PR-hgf_binary-T512-S0.15-R2",
+              "PR-hgf_binary-T512-S0.15-R3",
+              "PR-hgf_binary-T512-S0.15-R4",
+              "PR-hgf_binary-T512-S0.15-R5",
+              "PR-hgf_binary-T512-S0.35-R1",
+              "PR-hgf_binary-T512-S0.35-R2",
+              "PR-hgf_binary-T512-S0.35-R3",
+              "PR-hgf_binary-T512-S0.35-R5"
+            ],
+            "n": 12
+          }
+        }
+      }
+    },
+    "uhgf_binary": {
+      "classification": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
+      "horizons": {
+        "1024": {
+          "hgfx": {
+            "bias": [
+              -0.013175614753501264,
+              -0.049889793411027616,
+              -0.05532462031155838
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 0.8333333333333334,
+            "correlation": [
+              0.9956768814633175,
+              0.6286421510381814,
+              0.818894245415454
+            ],
+            "median_absolute_error": [
+              0.049197700919672016,
+              0.20953255862239395,
+              0.0717166286241997
+            ],
+            "median_correlation": 0.818894245415454,
+            "median_standardized_rmse": 0.7546262861255839,
+            "n": 12,
+            "rmse": [
+              0.07286767734238188,
+              0.4466057836882904,
+              0.14516874224848209
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.09641158473203212,
+              1.1777055453721157,
+              0.7546262861255839
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.013175614753359174,
+              -0.04988979346489023,
+              -0.05532462030035575
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": true,
+              "median_standardized_rmse": true
+            },
+            "complete": true,
+            "convergence_rate": 0.8333333333333334,
+            "correlation": [
+              0.9956768814631479,
+              0.6286421510736622,
+              0.8188942453924346
+            ],
+            "median_absolute_error": [
+              0.04919770091951259,
+              0.20953255837225937,
+              0.07171662862410755
+            ],
+            "median_correlation": 0.8188942453924346,
+            "median_standardized_rmse": 0.7546262861463816,
+            "n": 12,
+            "rmse": [
+              0.07286767734360085,
+              0.4466057837020611,
+              0.14516874225248297
+            ],
+            "scientific_pass": true,
+            "standardized_rmse": [
+              0.09641158473364496,
+              1.177705545408429,
+              0.7546262861463816
+            ]
+          }
+        },
+        "128": {
+          "hgfx": {
+            "bias": [
+              -0.05172758366989644,
+              0.3515371775761839,
+              0.34001364900974024
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.9589616842869141,
+              0.06712924222175526,
+              0.24546803575922488
+            ],
+            "median_absolute_error": [
+              0.10094125376468588,
+              1.0054018088015253,
+              0.3799586450298047
+            ],
+            "median_correlation": 0.24546803575922488,
+            "median_standardized_rmse": 3.081565536396245,
+            "n": 12,
+            "rmse": [
+              0.22045398020782678,
+              1.295866131759106,
+              0.5928060038455446
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.29168375289984055,
+              3.417216671107401,
+              3.081565536396245
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.0517275836691918,
+              0.3515371775938618,
+              0.34001364900990394
+            ],
+            "checks": {
+              "convergence_rate": true,
+              "median_correlation": false,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.9166666666666666,
+            "correlation": [
+              0.9589616842884545,
+              0.06712924219810672,
+              0.24546803575251464
+            ],
+            "median_absolute_error": [
+              0.1009412537656198,
+              1.0054018088113152,
+              0.37995864502895427
+            ],
+            "median_correlation": 0.24546803575251464,
+            "median_standardized_rmse": 3.0815655363869885,
+            "n": 12,
+            "rmse": [
+              0.22045398020385806,
+              1.2958661317841664,
+              0.5928060038437639
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.29168375289458953,
+              3.4172166711734855,
+              3.0815655363869885
+            ]
+          }
+        },
+        "256": {
+          "hgfx": {
+            "bias": [
+              -0.031519505074677955,
+              0.47862067978400713,
+              0.2516041164769153
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.6666666666666666,
+            "correlation": [
+              0.9829258073380512,
+              0.35006838906868015,
+              0.5065150630299717
+            ],
+            "median_absolute_error": [
+              0.06669692797666693,
+              0.7518200313568033,
+              0.257532498494764
+            ],
+            "median_correlation": 0.5065150630299717,
+            "median_standardized_rmse": 2.8288054615641802,
+            "n": 12,
+            "rmse": [
+              0.14278558140090153,
+              1.1004454288148213,
+              0.5441821183162023
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.1889203098249255,
+              2.9018896109933894,
+              2.8288054615641802
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.03151950512620718,
+              0.47862067983959405,
+              0.25160411673267613
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.6666666666666666,
+            "correlation": [
+              0.98292580735828,
+              0.35006838911145705,
+              0.5065150629207782
+            ],
+            "median_absolute_error": [
+              0.06669692798391269,
+              0.7518200312935361,
+              0.2575324985024037
+            ],
+            "median_correlation": 0.5065150629207782,
+            "median_standardized_rmse": 2.828805464222901,
+            "n": 12,
+            "rmse": [
+              0.14278558133423147,
+              1.1004454287964092,
+              0.544182118827665
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.18892030973671403,
+              2.901889610944836,
+              2.828805464222901
+            ]
+          }
+        },
+        "512": {
+          "hgfx": {
+            "bias": [
+              -0.005637223315640039,
+              -0.28204200687409187,
+              0.13687250450157037
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.75,
+            "correlation": [
+              0.9931683300690756,
+              0.7504798940016766,
+              0.6865040215438688
+            ],
+            "median_absolute_error": [
+              0.09478127007686643,
+              0.4763922745031519,
+              0.22132653356159548
+            ],
+            "median_correlation": 0.7504798940016766,
+            "median_standardized_rmse": 1.1688558317663598,
+            "n": 12,
+            "rmse": [
+              0.08916609924457547,
+              0.7595452071092684,
+              0.22485478452984564
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.11797610746051768,
+              2.002931074886684,
+              1.1688558317663598
+            ]
+          },
+          "matlab": {
+            "bias": [
+              -0.0056372233072962685,
+              -0.28204200679457686,
+              0.13687250440506663
+            ],
+            "checks": {
+              "convergence_rate": false,
+              "median_correlation": true,
+              "median_standardized_rmse": false
+            },
+            "complete": true,
+            "convergence_rate": 0.75,
+            "correlation": [
+              0.9931683300704144,
+              0.7504798939986248,
+              0.686504021760988
+            ],
+            "median_absolute_error": [
+              0.09478127007317072,
+              0.4763922745062903,
+              0.22132653356129794
+            ],
+            "median_correlation": 0.7504798939986248,
+            "median_standardized_rmse": 1.168855830982405,
+            "n": 12,
+            "rmse": [
+              0.0891660992351267,
+              0.7595452071018958,
+              0.22485478437903494
+            ],
+            "scientific_pass": false,
+            "standardized_rmse": [
+              0.11797610744801597,
+              2.0029310748672424,
+              1.168855830982405
+            ]
+          }
+        }
+      }
+    }
+  },
+  "per_model_classification": {
+    "ehgf_binary": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
+    "hgf_binary": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
+    "uhgf_binary": "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH"
+  },
+  "protocol": "m18c2-trial-horizon-identifiability-1"
+}

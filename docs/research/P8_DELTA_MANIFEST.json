@@ -1,0 +1,1090 @@
+{
+  "ahead_commit_count": 109,
+  "baseline": {
+    "independent_review_report": "docs/validation/INDEPENDENT_REVIEW_REPORT.md",
+    "kind": "post_independent_review_remediation_validated_source",
+    "remediation_record": "docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md",
+    "sha": "09c49031cda95b449f8115030a9d32dcba36098e"
+  },
+  "candidate": {
+    "kind": "locked_p7_submission_candidate",
+    "sha": "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
+  },
+  "changed_file_count": 132,
+  "files": [
+    {
+      "additions": 1,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "M",
+      "path": ".gitattributes",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 29,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "M",
+      "path": ".github/workflows/m19-m20-release-preflight.yml",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 52,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p2-paper-tables.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 55,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p2a10-common-scope.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 121,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p2a10-evidence-ingest.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 44,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p2a10-paper-sync.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 64,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p2a9-preflight.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 40,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p5-paper-figures.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 53,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p6a-paper-evidence.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 31,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p7-paper-preflight.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 216,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/release-pypi.yml",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 138,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/verify-pypi.yml",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 1,
+      "binary": false,
+      "deletions": 1,
+      "git_status": "M",
+      "path": "CITATION.cff",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 31,
+      "binary": false,
+      "deletions": 14,
+      "git_status": "M",
+      "path": "README.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 44,
+      "binary": false,
+      "deletions": 13,
+      "git_status": "M",
+      "path": "docs/planning/AGENT_HANDOFF.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 2,
+      "binary": false,
+      "deletions": 2,
+      "git_status": "M",
+      "path": "docs/planning/M18_VALIDATION_PLAN.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 8,
+      "binary": false,
+      "deletions": 3,
+      "git_status": "M",
+      "path": "docs/planning/MILESTONES.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 52,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/planning/OPT_IN_MAP.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 138,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/planning/PYPI_PUBLISHING.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 13,
+      "binary": false,
+      "deletions": 12,
+      "git_status": "M",
+      "path": "docs/planning/ROADMAP.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 165,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/planning/V1_1_RELEASE_PLAN.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 2,
+      "binary": false,
+      "deletions": 2,
+      "git_status": "M",
+      "path": "docs/planning/V1_PRODUCT_DEFINITION.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 43,
+      "binary": false,
+      "deletions": 29,
+      "git_status": "M",
+      "path": "docs/planning/V1_RELEASE_GATE.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 226,
+      "binary": false,
+      "deletions": 17,
+      "git_status": "M",
+      "path": "docs/planning/V1_TODO.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 88,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/planning/VERSION_POLICY.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 111,
+      "binary": false,
+      "deletions": 42,
+      "git_status": "M",
+      "path": "docs/research/BENCHMARK_PLAN.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 84,
+      "binary": false,
+      "deletions": 109,
+      "git_status": "M",
+      "path": "docs/research/LEVEL2_PAPER_PLAN.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 17,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P3_M18C2_RESULT.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 64,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P6A_MANIFEST_DRAFT.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 51,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P7_JNM_PREFLIGHT.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 119,
+      "binary": false,
+      "deletions": 30,
+      "git_status": "M",
+      "path": "docs/research/PAPER_EVIDENCE_MAP.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 435,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PAPER_EXECUTION_PLAN.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 76,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PAPER_P8_REVIEW_CHECKLIST.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 62,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PAPER_REVIEW_GAP_ASSESSMENT.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 121,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 76,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_FEATURE_DESIGN_MATRIX.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 224,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_FINAL_SEMANTIC_GATE.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 155,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_INITIAL_STATE_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 152,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_INPUT_MASKING_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 122,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_MODEL_STRUCTURE_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 224,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_OUTPUT_QUANTITY_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 135,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_PARAMETER_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 240,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_PRECISION_NUMERICAL_POLICY.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 320,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/PYHGF_UPDATE_EQUATION_MAPPING.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 74,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/superpowers/plans/2026-09-16-v1.0.0-final-promotion.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 66,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/superpowers/plans/2026-09-17-p2a10-execute-common-scope.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 90,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/superpowers/plans/2026-09-17-p2a9-final-semantic-gate.md",
+      "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 4,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "M",
+      "path": "docs/user/API.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 20,
+      "binary": false,
+      "deletions": 8,
+      "git_status": "M",
+      "path": "docs/user/GETTING_STARTED.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 15,
+      "binary": false,
+      "deletions": 19,
+      "git_status": "M",
+      "path": "docs/user/USER_GUIDE.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 260,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/user/V1_1.md",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 66,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 80,
+      "binary": false,
+      "deletions": 27,
+      "git_status": "M",
+      "path": "docs/validation/V1_EVIDENCE_INDEX.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 80,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 12,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/AUTHOR.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 42,
+      "binary": false,
+      "deletions": 23,
+      "git_status": "M",
+      "path": "paper/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 32,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/SUBMISSION_NOTES.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_evidence_classes.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_evidence_classes.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_gpu_applicability.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_gpu_applicability.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_model_selection.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_model_selection.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_p3_horizon_diagnostics.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_p3_horizon_diagnostics.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_pyhgf_common_scope.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_pyhgf_common_scope.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_recovery_metrics.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/figures/fig_recovery_metrics.png",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 57,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/figures/p5_figures_manifest.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 5,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/highlights.txt",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 229,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/manuscript.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 117,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/references.bib",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 394,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/PAPER_PROTOCOL.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 112,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 200,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 48,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p2a10_pip_freeze_35268575414.txt",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 3819,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 17,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p2a10_workflow_provenance_35268575414.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 1096,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 16,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p3_m18c2_provenance_35272347167.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 893,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p6a_claim_audit.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 451,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/p6a_paper_evidence_manifest.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 187,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_common_scope_case.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 149,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_final_semantic_gate.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 78,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_initial_state_mapping.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 74,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_input_masking_mapping.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 137,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_output_quantity_mapping.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 157,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_parameter_mapping.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 108,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_precision_numerical_policy.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 109,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/pyhgf_preflight_environment_35265386637.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 168,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/check_p7_submission.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 409,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_p2_tables.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 293,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_p5_figures.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 257,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_p6a_claim_audit.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 328,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_p6a_manifest.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 8,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/backend_gpu_applicability.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 11,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/fitting_statistics_classification.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 12,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/matlab_demo_parity.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 11,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/model_workflow_coverage.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 36,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/p2_tables_manifest.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 19,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/p3_horizon_summary.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 10,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/recovery_model_selection.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 14,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/tables/release_reproducibility_provenance.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 5,
+      "binary": false,
+      "deletions": 1,
+      "git_status": "M",
+      "path": "pyproject.toml",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 3,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "M",
+      "path": "src/hgfx/models/__init__.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 59,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/models/dual_stream.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 126,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/models/vkf.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 25,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/optim/__init__.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 33,
+      "binary": false,
+      "deletions": 1,
+      "git_status": "M",
+      "path": "src/hgfx/optim/batch.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 59,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/optim/fit_map.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 86,
+      "binary": false,
+      "deletions": 1,
+      "git_status": "M",
+      "path": "src/hgfx/optim/interface.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 375,
+      "binary": false,
+      "deletions": 1,
+      "git_status": "M",
+      "path": "src/hgfx/optim/lbfgs.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 3,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "M",
+      "path": "src/hgfx/responses/__init__.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 61,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/responses/mab3.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 95,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "src/hgfx/responses/socialreward.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 0,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/.gitkeep",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 1,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 0,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/__init__.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 77,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p2_tables.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 36,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p3_evidence.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 51,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p5_figures.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 46,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p6a_claim_audit.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 74,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p6a_manifest.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 33,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p7_submission.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 100,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/test_p2a10_common_scope.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 92,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/test_p2a9_preexecution.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 79,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/unit/test_opt_in_map.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 100,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/unit/test_v11_project_models.py",
+      "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 203,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tools/apply_p2a10_paper_updates.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 334,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tools/check_p2a9_preexecution.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 572,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tools/run_p2a10_common_scope.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    }
+  ],
+  "frozen_matlab_reference_changed": [],
+  "frozen_v1_release_evidence_changed": [],
+  "manifest_id": "hgfx-p8-paper-delta-1",
+  "review_class_counts": {
+    "EVIDENCE_PROVENANCE_REVIEW_REQUIRED": 9,
+    "MAINTENANCE_CONTEXT_ONLY": 9,
+    "PAPER_REVIEW_REQUIRED": 91,
+    "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE": 23
+  },
+  "review_policy": {
+    "EVIDENCE_PROVENANCE_REVIEW_REQUIRED": "Reviewer checks provenance/release context only where it supports a manuscript claim.",
+    "MAINTENANCE_CONTEXT_ONLY": "Context only unless reviewer finds a direct manuscript/evidence dependency.",
+    "PAPER_REVIEW_REQUIRED": "Independent reviewer inspects scientific wording, paper-only evidence, tables/figures, reproducibility, and claim mapping.",
+    "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE": "No repeat implementation review; verify additive post-v1 product work is not silently promoted into paper-1 claims."
+  },
+  "schema_version": 1,
+  "status": "READY_FOR_INDEPENDENT_PAPER_DELTA_REVIEW",
+  "v1_release_anchor": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+}

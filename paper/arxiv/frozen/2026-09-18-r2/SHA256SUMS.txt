@@ -1,0 +1,2 @@
+0b5604e56ed0252e5c0de2a5472f692d337fd891777048aa81ecdd640887ca15  HGFX_arXiv_preprint.pdf
+08b695c84209f0afd083b2e698b172fb8e3172e6eb6f3807fe700ebad3f56d37  HGFX_arXiv_source.zip

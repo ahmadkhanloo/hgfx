@@ -1,0 +1,64 @@
+name: P2A.9 Comparator Preflight
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/p2a9-preflight.yml'
+      - 'paper/reproducibility/pyhgf_common_scope_case.json'
+      - 'tools/check_p2a9_preexecution.py'
+      - 'tests/test_p2a9_preexecution.py'
+      - 'docs/research/PYHGF_FINAL_SEMANTIC_GATE.md'
+      - 'paper/reproducibility/pyhgf_final_semantic_gate.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  preflight:
+    runs-on: ubuntu-24.04
+    env:
+      JAX_ENABLE_X64: '1'
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+          cache: pip
+
+      - name: Install exact frozen comparator environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            'numpy==2.3.3' \
+            'jax==0.6.2' \
+            'jaxlib==0.6.2' \
+            'hgfx==1.0.0' \
+            'pyhgf==0.3.2'
+
+      - name: Validate manifest and runtime without scientific execution
+        run: |
+          python tools/check_p2a9_preexecution.py \
+            --manifest paper/reproducibility/pyhgf_common_scope_case.json \
+            --runtime \
+            --output p2a9-preflight-environment.json
+          cat p2a9-preflight-environment.json
+
+      - name: Record exact pip environment
+        run: python -m pip freeze --all > p2a9-pip-freeze.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p2a9-comparator-preflight-${{ github.run_id }}
+          path: |
+            p2a9-preflight-environment.json
+            p2a9-pip-freeze.txt
+          if-no-files-found: error

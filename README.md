@@ -6,41 +6,55 @@ HGFX is a Python/JAX reimplementation and extension framework for the Hierarchic
 
 ## Current status
 
-The `1.0.0rc1` release-candidate gate is **PASS**.
+**HGFX v1.0.0 is released and published on PyPI.**
 
+- PyPI: https://pypi.org/project/hgfx/1.0.0/
+- Public install: `python -m pip install hgfx==1.0.0`
+- Published release: https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0
+- Release ID: `389966452`
+- Immutable v1.0.0 source target: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
+- Git tag `v1.0.0` is verified to resolve directly to that exact commit.
+- PyPI publication used Trusted Publishing / GitHub OIDC; publish workflow run `35207257208` passed.
+- Independent public-PyPI clean-install verification run `35207903084` passed on Python 3.12.14.
 - M0–M17 are completed in their documented scopes.
 - Historical M18 scientific failures remain preserved rather than retuned away.
 - Exact shared MATLAB/HGFX limitations are tracked explicitly as scoped `REFERENCE_LIMITATION_MATCH` results, not scientific PASS claims.
 - S9 CPU/backend is `PASS_CPU_BACKEND_EQUIVALENCE`.
 - S9 physical NVIDIA GPU applicability passed on 2x Tesla T4; archived H100 results retain their original scope.
 - M19 evidence freeze is complete.
-- Candidate metadata is `1.0.0rc1`.
-- M20 candidate finalization has passed; live evidence is recorded in `docs/planning/M20_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md`.
-- Final `1.0.0` promotion remains subject to the independent final review defined by `docs/planning/CHAT_WORKFLOW.md` and `docs/planning/FINAL_REVIEW_CHECKLIST.md` after the release candidate is frozen.
+- M20 candidate finalization passed as `PASS_M20_CANDIDATE`.
+- The independent frontier review completed; release-blocking H1/H2 findings were resolved without changing frozen scientific criteria.
+- Final package and citation metadata are `1.0.0`.
+- PR #30 head `85ea9c7be4ab5e5041ada0703d0cd3c9a7c1848b` passed all active promotion gates: S10 `35089882319`, M19/M20 preflight `35089882608`, D10/D11 `35089882668`, and HGFX Regression `35089882392`.
+- PR #30 merged to `main` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; main HGFX Regression run `35090329868` passed on Ubuntu and Windows.
 
-See `docs/planning/V1_RELEASE_GATE.md` and `docs/validation/V1_EVIDENCE_INDEX.md` for the live release state.
+The v1.0.0 release gate is closed. The immutable release source and frozen evidence are `4dd8fbd8`.
+
+`main` carries the active additive **1.1.0 beta** development line. Package metadata is now **`1.1.0b1`** for the first opt-in PyPI prerelease candidate. It preserves the frozen `fit_model` compatibility path. Until that beta is actually published, public PyPI still contains stable `hgfx==1.0.0`. After beta publication, ordinary `python -m pip install hgfx` must continue to select stable 1.0.0; beta users opt in with `python -m pip install --pre hgfx` or the exact `python -m pip install hgfx==1.1.0b1`. Usage: `docs/user/V1_1.md`; release policy: `docs/planning/V1_1_RELEASE_PLAN.md`.
+
+See `docs/planning/V1_RELEASE_GATE.md`, `docs/validation/V1_EVIDENCE_INDEX.md`, `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`, and `docs/planning/PYPI_PUBLISHING.md` for release and distribution evidence.
 
 ## Install
 
 Python 3.11+ is required.
 
-HGFX has not yet been formally published to PyPI as part of the v1 release process. Install the current release candidate from a source checkout:
+Install the released package from PyPI:
 
 ```bash
+python -m pip install hgfx==1.0.0
+```
+
+For a source checkout or development install:
+
+```bash
+git clone https://github.com/ahmadkhanloo/hgfx.git
+cd hgfx
 python -m venv .venv
 source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install .
-```
-
-Development install:
-
-```bash
 python -m pip install -e '.[dev]'
 pytest
 ```
-
-After a future PyPI publication, the intended install command is `python -m pip install hgfx`.
 
 MATLAB is a development-time reference oracle only; it is not a user runtime dependency.
 
@@ -71,6 +85,7 @@ User documentation:
 - `docs/user/GETTING_STARTED.md` — minimal installation and first fit
 - `docs/user/USER_GUIDE.md` — practical v1 guide for fitting, simulation, sampling, GPU use, migration from MATLAB, and reproducibility
 - `docs/user/API.md` — public API surface
+- `docs/user/V1_1.md` — additive 1.1 beta usage (MAP, VKF, dual-stream, project softmax)
 - `docs/user/MATLAB_DEMOS.md` — exact official MATLAB demo reproductions and cross-language parity evidence
 - `examples/README.md` — runnable examples
 
@@ -117,6 +132,8 @@ MATLAB dependency = 0
 - `docs/validation/MATLAB_EQUIVALENCE_POLICY.md`
 - `docs/validation/MATLAB_REFERENCE_LIMITATIONS_POLICY.md`
 - `docs/validation/V1_EVIDENCE_INDEX.md`
+- `docs/validation/V1_FINAL_RELEASE_PROVENANCE.md`
+- `docs/planning/PYPI_PUBLISHING.md`
 
 ## License
 

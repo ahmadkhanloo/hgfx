@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.6",
+  "status": "PASS_FOR_FULLY_OBSERVED_UNIT_TIME_CANDIDATE_ONLY",
+  "created_date": "2026-09-17",
+  "hgfx_source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "pyhgf_source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+  "common_input_contract": {
+    "input_dimension": 1,
+    "allowed_values": [0, 1],
+    "finite_only": true,
+    "allow_nan": false,
+    "allow_ignored_trials": false,
+    "hgfx_irregular_intervals": false,
+    "pyhgf_observed_mask": "all_ones",
+    "pyhgf_time_steps": "all_ones"
+  },
+  "checks": [
+    {
+      "surface": "finite binary observation representation",
+      "classification": "MATCH_FOR_FINITE_BINARY_INPUTS"
+    },
+    {
+      "surface": "fully observed sequence",
+      "classification": "MATCH_FOR_FULLY_OBSERVED_SEQUENCE",
+      "hgfx": "finite trial and not explicitly ignored",
+      "pyhgf": "observed=1"
+    },
+    {
+      "surface": "HGFX NaN / ignored trial",
+      "classification": "HGFX_SKIP_AND_FREEZE",
+      "semantics": "copy previous mu, pi, muhat, pihat, v, w, da without prediction/update"
+    },
+    {
+      "surface": "pyhgf observed=0",
+      "classification": "PYHGF_MISSING_OBSERVATION_WITH_TIME_AGING",
+      "semantics": "prediction error ignored but latent precision ages according to random-walk volatility and time step"
+    },
+    {
+      "surface": "HGFX ignored versus pyhgf observed=0",
+      "classification": "DIFFERENT",
+      "restriction": "masked/ignored/missing trials excluded from direct comparison"
+    },
+    {
+      "surface": "raw NaN passed to pyhgf with observed=1",
+      "classification": "NOT_A_VALID_COMMON_MAPPING"
+    },
+    {
+      "surface": "unit time advancement",
+      "classification": "MATCH_FOR_UNIT_TIME",
+      "hgfx": "irregular_intervals=False",
+      "pyhgf": "time_steps=ones(n_trials)"
+    },
+    {
+      "surface": "irregular/non-unit intervals",
+      "classification": "OUTSIDE_COMMON_SCOPE"
+    }
+  ],
+  "excluded_from_direct_comparison": [
+    "NaN input trials",
+    "HGFX explicit ignored_trials",
+    "pyhgf observed=0 trials",
+    "rejected/event-log-missing trials represented through masking",
+    "irregular or non-unit time steps",
+    "non-binary numeric observations"
+  ],
+  "deferred": [
+    "output quantity semantics (P2A.7)",
+    "precision and numerical guards (P2A.8)",
+    "semantic gate decision (P2A.9)"
+  ],
+  "benchmark_authorized": false
+}

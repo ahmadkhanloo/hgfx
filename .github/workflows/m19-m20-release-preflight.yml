@@ -35,19 +35,48 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Detect historical v1.0 promotion scope
+        id: scope
+        shell: bash
+        run: |
+          VERSION="$(python - <<'PY'
+          import tomllib
+          from pathlib import Path
+          data = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+          print(data["project"]["version"])
+          PY
+          )"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          if [[ "$VERSION" == 1.0.0* ]]; then
+            echo "run_v1_promotion=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_v1_promotion=false" >> "$GITHUB_OUTPUT"
+            echo "Historical M19/M20 promotion gate is not applicable to package version ${VERSION}."
+          fi
+
       - name: M19 evidence-freeze preflight
+        if: steps.scope.outputs.run_v1_promotion == 'true'
         run: |
           python scripts/build_v1_evidence_manifest.py \
             --mode preflight \
             --output /tmp/hgfx-m19-preflight.json
 
       - name: M20 candidate preflight
+        if: steps.scope.outputs.run_v1_promotion == 'true'
         run: |
           python scripts/check_m20_candidate.py \
             --mode preflight \
             --manifest /tmp/hgfx-m19-preflight.json
 
+      - name: Preserve closed v1.0 gate on later v1.x lines
+        if: steps.scope.outputs.run_v1_promotion != 'true'
+        run: |
+          echo "PASS: v1.0.0 M19/M20 is a closed historical promotion gate."
+          echo "Current package version: ${{ steps.scope.outputs.version }}"
+          echo "Use the version-specific release plan/gate for later v1.x releases."
+
       - uses: actions/upload-artifact@v4
+        if: steps.scope.outputs.run_v1_promotion == 'true'
         with:
           name: hgfx-m19-m20-preflight
           path: /tmp/hgfx-m19-preflight.json

@@ -39,6 +39,8 @@ from .legacy import (
     kalman_filter,
     hidden_markov_model,
 )
+from .vkf import vkf_binary, vkf_reward_social
+from .dual_stream import dual_ar1_binary
 
 __all__ = [
     "hgf", "hgf_binary", "ehgf", "ehgf_binary", "uhgf", "uhgf_binary",
@@ -53,4 +55,5 @@ __all__ = [
     "hierarchical_hidden_markov_model",
     "rw_binary", "rw_binary_dual", "pearce_hall_binary", "sutton_k1_binary",
     "kalman_filter", "hidden_markov_model",
+    "vkf_binary", "vkf_reward_social", "dual_ar1_binary",
 ]

@@ -4,6 +4,6 @@ title: "HGFX: A GPU-Native Python Toolbox for Hierarchical Gaussian Filters"
 type: software
 authors:
   - name: "HGFX contributors"
-version: "1.0.0rc1"
+version: "1.0.0"
 repository-code: "https://github.com/ahmadkhanloo/hgfx"
 license: MIT

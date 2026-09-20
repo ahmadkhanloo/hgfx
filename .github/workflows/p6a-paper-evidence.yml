@@ -1,0 +1,60 @@
+name: P6A Paper Evidence
+
+on:
+  pull_request:
+    paths:
+      - 'paper/manuscript.md'
+      - 'paper/highlights.txt'
+      - 'paper/references.bib'
+      - 'docs/research/P7_JNM_PREFLIGHT.md'
+      - 'paper/reproducibility/**'
+      - 'paper/tables/**'
+      - 'paper/figures/**'
+      - 'paper/scripts/generate_p2_tables.py'
+      - 'paper/scripts/generate_p5_figures.py'
+      - 'paper/scripts/generate_p6a_claim_audit.py'
+      - 'paper/scripts/check_p7_submission.py'
+      - 'paper/scripts/generate_p6a_manifest.py'
+      - 'reference/validation/**'
+      - 'tests/paper/test_p6a_claim_audit.py'
+      - 'tests/paper/test_p6a_manifest.py'
+      - '.github/workflows/p6a-paper-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p6a-evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deterministic paper dependencies
+        run: python -m pip install 'numpy==2.3.3' 'matplotlib==3.10.9' pytest
+      - name: Regenerate P2 tables
+        run: python paper/scripts/generate_p2_tables.py
+      - name: Regenerate P5 figures and missing vector output
+        run: python paper/scripts/generate_p5_figures.py
+      - name: Generate P6A-2 numerical claim audit
+        run: python paper/scripts/generate_p6a_claim_audit.py
+      - name: Regenerate committed P6A manifest mode
+        run: |
+          STATUS=$(python -c "import json; print(json.load(open('paper/reproducibility/p6a_paper_evidence_manifest.json'))['status'])")
+          CANDIDATE=$(python -c "import json; print(json.load(open('paper/reproducibility/p6a_paper_evidence_manifest.json')).get('submission_candidate_sha') or '')")
+          if [ "$STATUS" = "FROZEN_FOR_SUBMISSION" ]; then
+            python paper/scripts/generate_p6a_manifest.py --status FROZEN_FOR_SUBMISSION --candidate-sha "$CANDIDATE"
+          else
+            python paper/scripts/generate_p6a_manifest.py
+          fi
+      - name: Run P6A integrity tests
+        run: pytest -q tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
+      - name: Verify all committed P6A outputs reproduce exactly
+        run: |
+          git diff --exit-code -- paper/tables/
+          git diff --exit-code -- paper/figures/
+          git diff --exit-code -- paper/reproducibility/p6a_claim_audit.json paper/reproducibility/p6a_paper_evidence_manifest.json

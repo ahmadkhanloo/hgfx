@@ -32,6 +32,8 @@ from .specialized import (
     simulate_softmax_wld,
     simulate_softmax_mu3_wld,
 )
+from .socialreward import softmax_binary_socialreward
+from .mab3 import softmax_mab3_card_volatility
 
 __all__ = [
     "beta_obs", "cdfgaussian_obs", "gaussian_obs", "gaussian_obs_offset",
@@ -46,4 +48,5 @@ __all__ = [
     "simulate_condhalluc_obs", "simulate_condhalluc_obs2",
     "simulate_condhalluc_obs3", "simulate_softmax_wld",
     "simulate_softmax_mu3_wld",
+    "softmax_binary_socialreward", "softmax_mab3_card_volatility",
 ]

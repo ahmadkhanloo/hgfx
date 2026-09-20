@@ -1,43 +1,62 @@
 # Paper
 
-Status: **PRE-M19 / manuscript evidence not frozen**
+Status: **PV1-02 ACTIVE / POST-M19 / WORKING MANUSCRIPT CREATED**
+Tracking: GitHub issue #32
 
-This directory will contain the manuscript assets for the HGFX methods/software-methods paper. The manuscript may be outlined before M19, but final numerical Results/Discussion claims must not be treated as frozen until **M19 — Methods Paper Dataset Frozen**.
+HGFX v1.0.0 is released and the M19 evidence manifest is frozen. Publication work is now a separate post-v1 objective; it does not reopen the closed v1 release gate.
 
-## Current paper objective
+## Paper objective
 
-The primary v1 paper claim is **validated Python reproduction of the frozen MATLAB HGF Toolbox 8.2.0 scientific/workflow behavior**, with scalable JAX/CPU/GPU/batch/multi-GPU execution as secondary contributions where scientific behavior is preserved.
+The primary claim is **validated Python/JAX reproduction of the frozen MATLAB HGF Toolbox 8.2.0 scientific/workflow behavior in documented scopes, with no MATLAB runtime dependency for users**.
 
-The current source of truth for paper planning is:
-- `docs/research/LEVEL2_PAPER_PLAN.md` — manuscript positioning, research questions and experiment plan;
-- `docs/research/PAPER_EVIDENCE_MAP.md` — live mapping from candidate claims to repository evidence;
-- `docs/research/RESEARCH_LOG.md` — paper-relevant decisions and interpretation changes;
-- `docs/research/BENCHMARK_PLAN.md` — benchmark/provenance rules;
-- `docs/planning/V1_PRODUCT_DEFINITION.md`, `V1_RELEASE_GATE.md`, `V1_TODO.md` and `M18_COMPLETION_PLAN.md` — current product/release authority.
+Accelerator support is secondary. Physical GPU correctness/applicability may be reported from the frozen v1 evidence. Speed and scaling require a separate prospectively frozen paper benchmark before they can become headline results.
+
+Historical parameter-recovery failures and exact-scope `REFERENCE_LIMITATION_MATCH` results remain visible and are not scientific PASS claims.
+
+## Current assets
+
+- `manuscript.md` — evidence-backed working manuscript synchronized to v1.0.0.
+- `references.bib` — initial verified bibliography.
+- `../docs/research/PAPER_EXECUTION_PLAN.md` — ordered publication work and submission gate.
+- `../docs/research/LEVEL2_PAPER_PLAN.md` — scientific positioning and research questions.
+- `../docs/research/PAPER_EVIDENCE_MAP.md` — claim-to-evidence authority.
+- `../docs/research/BENCHMARK_PLAN.md` — benchmark/provenance discipline.
+- `../docs/validation/V1_EVIDENCE_INDEX.md` — frozen v1 release evidence authority.
 
 ## Current readiness
 
-- Manuscript outline/methods text: may be developed now.
-- Final equivalence Results: **BLOCKED** by open M18 closure items, currently D02_fit and D08_fit among the official nine-case workflow set plus later S6–S10 requirements.
-- Final recovery Results: **OPEN** pending paired product-level MATLAB/HGFX recovery.
-- Final performance headline results: **PROVISIONAL** until final backend applicability audit and M19 benchmark freeze.
-- Final tables/figures: **DO NOT FREEZE YET**.
+- Released product/evidence baseline: **READY / FROZEN**.
+- Working manuscript: **CREATED / IN PROGRESS**.
+- Core manuscript narrative for v1 equivalence: **DRAFTED from committed evidence**.
+- Paper-specific generated tables/figures: **OPEN**.
+- Paper-specific reproducibility bundle: **OPEN**.
+- Trial-horizon/identifiability study: **OPEN / recommended for stronger methods claim** (PV1-01 / issue #21).
+- Fresh performance/scaling benchmark: **OPEN / required only if speed/scaling is a headline claim**.
+- Authors/affiliations/target-journal formatting/declarations: **OPEN**.
+- Independent pre-submission manuscript audit: **OPEN / final gate**.
 
 ## Planned structure
 
 ```text
 paper/
-  manuscript.md              # create when drafting begins
-  figures/                   # generated from frozen machine-readable results
-  tables/                    # generated, not manually transcribed
-  scripts/                   # figure/table regeneration
-  supplement/                # extended matrices, environments, numerical case studies
+  README.md
+  manuscript.md
+  references.bib
+  figures/                   # generated from committed machine-readable evidence
+  tables/                    # generated from committed machine-readable evidence
+  scripts/                   # regeneration scripts
+  reproducibility/           # frozen paper protocol, environments, commands, hashes
+  supplement/                # extended matrices and numerical case studies
 ```
+
+Directories are created when their first tracked artifact is added; empty directories are not required in Git.
 
 ## Evidence discipline
 
-Do not copy transient debugging values directly into final manuscript results. Paper-used numerical claims must be traceable through `PAPER_EVIDENCE_MAP.md` to a gate/protocol, code SHA, run/job or equivalent provenance, artifact and artifact hash.
+Do not manually promote transient debugging values into final paper results. Every numerical claim must map through `PAPER_EVIDENCE_MAP.md` to a stable protocol, source/reference SHA, machine-readable artifact, and provenance record.
 
-Historical failed experiments remain part of the scientific record. A later protocol or repair does not rewrite prior failures.
+New paper-only experiments must be defined and committed before their final execution. Historical failed experiments remain part of the scientific record and are never overwritten by a later protocol or repair.
 
-At M19, record the exact code/reference SHAs, datasets, configs, seeds/drivers, protocol versions, environments and machine-readable evidence set, then regenerate all final tables and figures from that frozen set.
+## Submission gate
+
+The manuscript is submission-ready only when the acceptance criteria in `../docs/research/PAPER_EXECUTION_PLAN.md` are satisfied: generated evidence tables/figures, reproducibility package, complete metadata/declarations, claim audit, and an independent review with no unresolved CRITICAL/HIGH findings.

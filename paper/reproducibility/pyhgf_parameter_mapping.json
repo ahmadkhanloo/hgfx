@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "protocol_id": "hgfx-paper-protocol-1",
+  "microstep": "P2A.4",
+  "status": "PASS_FOR_FROZEN_DEFAULT_CANDIDATE_ONLY",
+  "created_date": "2026-09-17",
+  "hgfx": {
+    "package": "hgfx==1.0.0",
+    "source_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+    "candidate_model": "hgf_binary",
+    "frozen_native_values": {
+      "mu_0": [null, 0.0, 1.0],
+      "sa_0": [null, 0.1, 1.0],
+      "rho": [null, 0.0, 0.0],
+      "ka": [1.0, 1.0],
+      "om": [null, -3.0, -6.0]
+    }
+  },
+  "pyhgf": {
+    "package": "pyhgf==0.3.2",
+    "source_sha": "ccd43db5ee5abe4a5a35077d098e53cce2c070c2",
+    "network_settings": {
+      "volatility_updates": "standard",
+      "mean_field_updates": true
+    },
+    "numerical_guards_deferred_to": "P2A.8",
+    "nodes": {
+      "0": {
+        "kind": "binary-state"
+      },
+      "1": {
+        "kind": "continuous-state",
+        "mean": 0.0,
+        "precision": 10.0,
+        "tonic_drift": 0.0,
+        "tonic_volatility": -3.0,
+        "autoconnection_strength": 1.0,
+        "value_children": [0],
+        "value_coupling_strengths": [1.0]
+      },
+      "2": {
+        "kind": "continuous-state",
+        "mean": 1.0,
+        "precision": 1.0,
+        "tonic_drift": 0.0,
+        "tonic_volatility": -6.0,
+        "autoconnection_strength": 1.0,
+        "volatility_children": [1],
+        "volatility_coupling_strengths": [1.0]
+      }
+    }
+  },
+  "mapping": [
+    {
+      "hgfx": "mu_0[0]",
+      "pyhgf": null,
+      "classification": "NO_DIRECT_EQUIVALENT",
+      "note": "Undefined first-level HGFX placeholder; initialization timing is deferred to P2A.5."
+    },
+    {
+      "hgfx": "mu_0[1]",
+      "pyhgf": "node[1].mean",
+      "classification": "MATCH",
+      "hgfx_value": 0.0,
+      "pyhgf_value": 0.0
+    },
+    {
+      "hgfx": "mu_0[2]",
+      "pyhgf": "node[2].mean",
+      "classification": "MATCH",
+      "hgfx_value": 1.0,
+      "pyhgf_value": 1.0
+    },
+    {
+      "hgfx": "logsa_0[1] -> sa_0[1]",
+      "pyhgf": "node[1].precision",
+      "classification": "TRANSFORM_REQUIRED",
+      "transform": "precision = 1 / exp(logsa_0) = 1 / sa_0",
+      "hgfx_native_value": 0.1,
+      "pyhgf_value": 10.0
+    },
+    {
+      "hgfx": "logsa_0[2] -> sa_0[2]",
+      "pyhgf": "node[2].precision",
+      "classification": "TRANSFORM_REQUIRED",
+      "transform": "precision = 1 / exp(logsa_0) = 1 / sa_0",
+      "hgfx_native_value": 1.0,
+      "pyhgf_value": 1.0
+    },
+    {
+      "hgfx": "rho[1]",
+      "pyhgf": "node[1].tonic_drift",
+      "classification": "MATCH",
+      "hgfx_value": 0.0,
+      "pyhgf_value": 0.0,
+      "requires": "node[1].autoconnection_strength == 1.0"
+    },
+    {
+      "hgfx": "rho[2]",
+      "pyhgf": "node[2].tonic_drift",
+      "classification": "MATCH",
+      "hgfx_value": 0.0,
+      "pyhgf_value": 0.0,
+      "requires": "node[2].autoconnection_strength == 1.0"
+    },
+    {
+      "hgfx": "logka[0] -> ka[0]",
+      "pyhgf": "value edge node[1] -> node[0] coupling strength",
+      "classification": "FIXED_FOR_COMMON_SCOPE",
+      "hgfx_native_value": 1.0,
+      "pyhgf_value": 1.0,
+      "restriction": "Direct comparison is not authorized for ka[0] != 1 because pyhgf v0.3.2 binary prediction does not apply the value-edge coupling strength inside the sigmoid."
+    },
+    {
+      "hgfx": "logka[1] -> ka[1]",
+      "pyhgf": "volatility edge node[2] -> node[1] coupling strength",
+      "classification": "TRANSFORM_REQUIRED",
+      "transform": "pyhgf edge strength = exp(HGFX logka[1])",
+      "hgfx_native_value": 1.0,
+      "pyhgf_value": 1.0
+    },
+    {
+      "hgfx": "om[1]",
+      "pyhgf": "node[1].tonic_volatility",
+      "classification": "MATCH",
+      "hgfx_value": -3.0,
+      "pyhgf_value": -3.0
+    },
+    {
+      "hgfx": "om[2]",
+      "pyhgf": "node[2].tonic_volatility",
+      "classification": "MATCH",
+      "hgfx_value": -6.0,
+      "pyhgf_value": -6.0,
+      "derived_equivalence": "HGFX theta = exp(om[2]); pyhgf predicted top volatility also exponentiates node[2].tonic_volatility internally."
+    }
+  ],
+  "unmapped_hgfx_placeholders": [
+    "logsa_0[0] / sa_0[0]",
+    "rho[0]",
+    "om[0]"
+  ],
+  "pyhgf_only_fixed_settings": [
+    "volatility_updates=standard",
+    "mean_field_updates=True",
+    "node[1].autoconnection_strength=1.0",
+    "node[2].autoconnection_strength=1.0",
+    "linear value coupling node[1] -> node[0]"
+  ],
+  "deferred": [
+    "initial-state timing/order (P2A.5)",
+    "input and masking semantics (P2A.6)",
+    "output quantity semantics (P2A.7)",
+    "precision and numerical guards (P2A.8)"
+  ],
+  "benchmark_authorized": false
+}

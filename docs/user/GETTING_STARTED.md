@@ -2,6 +2,8 @@
 
 HGFX v1 targets functional/scientific equivalence with the frozen MATLAB HGF Toolbox 8.2.0 reference while running as a Python package without MATLAB at user runtime.
 
+Additive 1.1 beta helpers (opt-in MAP, VKF, dual-stream AR1, social-gaze and 3PLR softmax) are documented in `docs/user/V1_1.md`.
+
 ## Requirements
 
 - Python 3.11 or newer
@@ -9,31 +11,41 @@ HGFX v1 targets functional/scientific equivalence with the frozen MATLAB HGF Too
 - JAX
 - MATLAB is **not** required for ordinary HGFX use
 
-## Install from a source checkout
+## Install from PyPI
+
+HGFX `1.0.0` is published on the public Python Package Index:
 
 ```bash
+python -m pip install hgfx==1.0.0
+```
+
+Stable `1.0.0` does **not** include the additive 1.1 helpers. The first planned public beta is `1.1.0b1`. Once published, ordinary `python -m pip install hgfx` continues to select stable 1.0.0; opt in with `python -m pip install --pre hgfx` or pin `python -m pip install hgfx==1.1.0b1`. Before publication, use `main` or an editable checkout (`python -m pip install -e '.[optim]'`). See `docs/user/V1_1.md`.
+
+The publication provenance and public-index verification are recorded in `docs/planning/PYPI_PUBLISHING.md`.
+
+## Source/development install
+
+For development or repository-level validation:
+
+```bash
+git clone https://github.com/ahmadkhanloo/hgfx.git
+cd hgfx
 python -m venv .venv
 source .venv/bin/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install .
-```
-
-For development/testing:
-
-```bash
 python -m pip install -e '.[dev]'
 pytest
 ```
 
 ## First fit
 
-Run the maintained release smoke example:
+From a source checkout, run the maintained release smoke example:
 
 ```bash
 python examples/quickstart.py
 ```
 
-Equivalent minimal Python code:
+Equivalent minimal Python code, which also works with the PyPI installation:
 
 ```python
 import numpy as np

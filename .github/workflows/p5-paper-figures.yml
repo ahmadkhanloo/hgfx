@@ -1,0 +1,40 @@
+name: P5 Paper Figures
+
+on:
+  pull_request:
+    paths:
+      - 'paper/scripts/generate_p5_figures.py'
+      - 'paper/figures/**'
+      - 'paper/reproducibility/p2a10_*.json'
+      - 'paper/reproducibility/p3_m18c2_*.json'
+      - 'paper/tables/**'
+      - 'tests/paper/test_p5_figures.py'
+      - 'reference/validation/m18_s7_reference_limitation/decision.json'
+      - '.github/workflows/p5-paper-figures.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p5-paper-figures:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install figure dependencies
+        run: python -m pip install 'numpy==2.3.3' 'matplotlib==3.10.9' pytest
+      - name: Generate P5 figures
+        run: python paper/scripts/generate_p5_figures.py
+      - name: Run P5 tests
+        run: pytest -q tests/paper/test_p5_figures.py
+      - name: Verify committed P3 figure outputs reproduce exactly
+        run: git diff --exit-code -- paper/figures/fig_p3_horizon_diagnostics.png paper/figures/p5_figures_manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p5-paper-figures
+          path: paper/figures/
+          if-no-files-found: error
