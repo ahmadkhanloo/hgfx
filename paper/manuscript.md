@@ -227,3 +227,5 @@ During the preparation of this work, the author used OpenAI ChatGPT to assist wi
 ## References
 
 Bibliography entries are in `paper/references.bib`.
+
+<!-- submission-candidate-lock -->

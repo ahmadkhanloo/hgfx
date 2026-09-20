@@ -196,8 +196,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "e9f2146ff57e18331a2d75065d801169b219d242308d2efa1d275fc8b3491b1b",
-      "size_bytes": 25657
+      "sha256": "419f078b0e53ac4d2ca4c00aa5ddbf839317d32620717d1fbaec1e70d5aaef04",
+      "size_bytes": 25693
     },
     {
       "path": "paper/references.bib",
@@ -256,7 +256,7 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "1444bbaca6ab597dfe4b11300a2d85c117d7b057748089f4da0c8658cdf2eea9",
+      "sha256": "da83dc0afb62e7a10a0962612f76a45fdfacb77cf5b967c6a84e5d8233e8c54e",
       "size_bytes": 49080
     },
     {
