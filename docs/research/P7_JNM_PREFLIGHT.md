@@ -1,7 +1,7 @@
 # P7 Journal of Neuroscience Methods preflight
 
 Last checked: 2026-09-18  
-Status: **P7-1 DONE/PASS; P7-2 STRICT CANDIDATE PREFLIGHT PASS / SHA LOCK PENDING FINAL READ-ONLY HEAD**
+Status: **P7 CONTENT/PREFLIGHT COMPLETE; REPLACEMENT SHA LOCK PENDING P8-HARDENING VALIDATION**
 
 ## Current publisher-facing constraints checked
 
@@ -33,7 +33,7 @@ Strict JNM preflight run `35342388457`: **PASS**.
 - exact approved corresponding email present;
 - zero P7 format/evidence errors;
 - zero blockers;
-- candidate SHA will be the final read-only PR head after P6A evidence refresh and regression validation, then recorded in the P8 checklist.
+- replacement candidate SHA will be the final read-only PR head after the P8-hardening wording/document synchronization passes P7/P6A/P2/P5/regression validation, then it will be recorded in the P8 checklist.
 
 ## Corresponding-author metadata
 
