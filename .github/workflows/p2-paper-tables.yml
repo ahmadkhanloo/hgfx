@@ -3,6 +3,7 @@ name: P2 Paper Tables
 on:
   pull_request:
     paths:
+      - 'paper/manuscript.md'
       - 'paper/scripts/generate_p2_tables.py'
       - 'paper/tables/**'
       - 'tests/paper/**'
