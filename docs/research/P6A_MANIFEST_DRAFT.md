@@ -7,7 +7,7 @@ P6A-2 merge: `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`
 P6A-2 read-only CI: run `35335397062` — PASS  
 P7-1 merge: `6257bc5b87551baeaefd6fe345c8b9d9ffdb7d68`  
 P7-1 preflight CI: run `35337207046` — PASS  
-P7-2 exact candidate: `PENDING_NEW_CANDIDATE_SHA`
+P7-2 exact candidate: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
 P7-2 strict CI: run `35342538568` — PASS  
 Exact-candidate P6A read-only CI: run `35342538572` — PASS  
 Manifest inventory: **59 committed paper evidence/source artifacts**  

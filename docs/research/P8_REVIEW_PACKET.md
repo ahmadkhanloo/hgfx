@@ -32,10 +32,10 @@ Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 
 
 ## Exact submission candidate
 
-- Candidate SHA: `PENDING_NEW_CANDIDATE_SHA`
-- Candidate tree: `a6a98456335cf2bc2c32442d0f217aed53604955`
+- Candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
+- Candidate tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
 - Preserving merge commit: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`
-- Merge tree: `a6a98456335cf2bc2c32442d0f217aed53604955`
+- Merge tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
 - Candidate is the second parent of the merge and is preserved in `main` history.
 
 The reviewer must review the **candidate SHA above**, not an unspecified moving `main`.
@@ -68,7 +68,7 @@ All gates completed successfully on the exact candidate SHA:
 
 ## Review scope
 
-Review these files at candidate SHA `PENDING_NEW_CANDIDATE_SHA` after the candidate lock:
+Review these files at candidate SHA `82bbb0c30893651f8ccb15ba27195c3d58bae521`:
 
 - `paper/manuscript.md`
 - `paper/highlights.txt`

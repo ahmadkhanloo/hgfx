@@ -351,8 +351,8 @@ P7-1 evidence:
 P7-2 completed after the author supplied and approved the institutional email `m.ahmadkhanloo@ipm.ir`.
 
 Exact locked candidate:
-- previous SHA `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8` is superseded; the replacement SHA is pending candidate lock;
-- candidate tree: `a6a98456335cf2bc2c32442d0f217aed53604955`;
+- previous SHA `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8` is superseded; replacement candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`;
+  - candidate tree: `9f5e32f388607170b1493376cca82c300ecde6f2`;
 - preserving merge: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`;
 - merge tree matches candidate tree exactly;
 - P7 run `35342538568`: PASS;
@@ -386,7 +386,7 @@ Acceptance:
 
 **Status:** WAIVED BY AUTHOR / OPTIONAL NON-BLOCKING REVIEW.
 
-Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `PENDING_NEW_CANDIDATE_SHA`. The checklist is not a completed review.
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `82bbb0c30893651f8ccb15ba27195c3d58bae521`. The checklist is not a completed review.
  Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`; PR #66 / run `35344626071` PASS.
 
 The v1 implementation/release baseline was already independently reviewed in `docs/validation/INDEPENDENT_REVIEW_REPORT.md`; H1/H2 were remediated and closed in `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`. Do not repeat that unchanged baseline.

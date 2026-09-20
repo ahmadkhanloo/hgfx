@@ -1,7 +1,7 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **NEW CANDIDATE IN PREPARATION / REVIEW NOT STARTED**
-Candidate SHA: `PENDING_NEW_CANDIDATE_SHA`
+Status: **CANDIDATE LOCKED / REVIEW NOT STARTED**
+Candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
 Review packet: `docs/research/P8_REVIEW_PACKET.md`
 Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
 Tracking: PV1-02 / GitHub issue #32
@@ -87,5 +87,5 @@ Submission is blocked by unresolved `CRITICAL` or `HIGH` findings.
 
 Reviewer:
 Date:
-Candidate SHA: `PENDING_NEW_CANDIDATE_SHA`
+Candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
 Result: `PENDING`
