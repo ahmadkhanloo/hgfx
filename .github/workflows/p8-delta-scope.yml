@@ -3,6 +3,8 @@ name: P8 Delta Scope
 on:
   pull_request:
     paths:
+      - 'paper/manuscript.md'
+      - 'paper/references.bib'
       - 'paper/scripts/generate_p8_delta_manifest.py'
       - 'tests/paper/test_p8_delta_manifest.py'
       - 'docs/research/P8_DELTA_SCOPE.md'
