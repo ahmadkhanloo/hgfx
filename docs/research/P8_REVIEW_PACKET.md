@@ -32,7 +32,7 @@ Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 
 
 ## Exact submission candidate
 
-- Candidate SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`
+- Candidate SHA: `PENDING_NEW_CANDIDATE_SHA`
 - Candidate tree: `a6a98456335cf2bc2c32442d0f217aed53604955`
 - Preserving merge commit: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`
 - Merge tree: `a6a98456335cf2bc2c32442d0f217aed53604955`
@@ -68,7 +68,7 @@ All gates completed successfully on the exact candidate SHA:
 
 ## Review scope
 
-Review these files at candidate SHA `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`:
+Review these files at candidate SHA `PENDING_NEW_CANDIDATE_SHA` after the candidate lock:
 
 - `paper/manuscript.md`
 - `paper/highlights.txt`

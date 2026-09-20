@@ -28,5 +28,5 @@ Quartile (honest): **not Q1**. Typical recent JCR: Neurosciences **Q3**; Biochem
 ## Still required from the authors
 
 - Names, affiliations, corresponding author, CRediT, competing interests, acknowledgments
-- Independent P8 review: optional; explicitly waived by the author for the current submission path
+- Independent P8 review of the exact candidate SHA, with no unresolved CRITICAL/HIGH findings
 - `FROZEN_FOR_SUBMISSION` paper-evidence manifest

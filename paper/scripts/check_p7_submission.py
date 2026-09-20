@@ -50,10 +50,12 @@ def build(repo: Path) -> dict:
     manuscript_path = repo / "paper/manuscript.md"
     highlights_path = repo / "paper/highlights.txt"
     refs_path = repo / "paper/references.bib"
+    arxiv_path = repo / "paper/arxiv/manuscript.md"
 
     manuscript = manuscript_path.read_text(encoding="utf-8")
     highlights = [line.strip() for line in highlights_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     refs = refs_path.read_text(encoding="utf-8")
+    arxiv = arxiv_path.read_text(encoding="utf-8")
 
     errors: list[str] = []
     blockers: list[str] = []
@@ -101,6 +103,10 @@ def build(repo: Path) -> dict:
         errors.append("AI_RESEARCH_PROCESS_DISCLOSURE_MISSING")
     if "During the preparation of this work, the author used OpenAI ChatGPT" not in manuscript:
         errors.append("AI_MANUSCRIPT_DECLARATION_MISSING")
+    if "OpenAI ChatGPT was used during software development" not in arxiv:
+        errors.append("ARXIV_AI_RESEARCH_PROCESS_DISCLOSURE_MISSING")
+    if "During the preparation of this work, the author used OpenAI ChatGPT" not in arxiv:
+        errors.append("ARXIV_AI_MANUSCRIPT_DECLARATION_MISSING")
 
     if "neuroscience methodology" not in manuscript.lower():
         errors.append("NEUROSCIENCE_METHOD_RELEVANCE_NOT_EXPLICIT")
@@ -144,6 +150,10 @@ def build(repo: Path) -> dict:
         "approved_corresponding_author_email": APPROVED_CORRESPONDING_EMAIL,
         "corresponding_author_email_matches_approved": (
             APPROVED_CORRESPONDING_EMAIL in [email.lower() for email in correspondence_emails]
+        ),
+        "arxiv_ai_disclosures_present": (
+            "OpenAI ChatGPT was used during software development" in arxiv
+            and "During the preparation of this work, the author used OpenAI ChatGPT" in arxiv
         ),
     }
 

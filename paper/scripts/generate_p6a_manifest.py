@@ -2,7 +2,8 @@
 """Generate the deterministic P6A paper-evidence manifest.
 
 P6A is separate from the frozen v1/M19 release evidence. The default output is
-DRAFT_NOT_FROZEN. FROZEN_FOR_SUBMISSION requires an explicit exact submission-candidate SHA. Independent paper review is optional and is not a publication gate.
+DRAFT_NOT_FROZEN. FROZEN_FOR_SUBMISSION requires an independent P8 PASS recorded
+for the exact submission-candidate SHA.
 """
 
 from __future__ import annotations
@@ -129,6 +130,24 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
         return
     if not candidate_sha or not re.fullmatch(r"[0-9a-f]{40}", candidate_sha):
         raise ValueError("FROZEN_FOR_SUBMISSION requires --candidate-sha <40-hex-sha>")
+
+    checklist = (repo / "docs/research/PAPER_P8_REVIEW_CHECKLIST.md").read_text(encoding="utf-8")
+    required_patterns = {
+        "candidate": rf"^Candidate SHA: `{re.escape(candidate_sha)}`$",
+        "reviewer": r"^Reviewer: \S.+$",
+        "date": r"^Date: \d{4}-\d{2}-\d{2}$",
+        "result": r"^Result: `PASS`$",
+    }
+    missing = [
+        name
+        for name, pattern in required_patterns.items()
+        if re.search(pattern, checklist, flags=re.MULTILINE) is None
+    ]
+    if missing:
+        raise RuntimeError(
+            "P6A freeze refused: independent P8 PASS for the exact candidate is not recorded: "
+            + "; ".join(missing)
+        )
 
 
 def build(
@@ -257,8 +276,7 @@ def build(
             "separate_from_m19": True,
             "m19_must_remain_unchanged": True,
             "requires_exact_submission_candidate_sha": True,
-            "requires_independent_p8_pass": False,
-            "independent_review": "OPTIONAL_NOT_A_FREEZE_GATE",
+            "requires_independent_p8_pass": True,
             "draft_may_change_during_p7": True,
         },
         "regeneration_commands": [

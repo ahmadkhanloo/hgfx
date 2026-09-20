@@ -3,3 +3,17 @@
 /reference/validation/m18_scientific_validation.json text eol=lf
 /reference/matlab_manifest.tsv text eol=lf
 /paper/reproducibility/p3_m18c2_aggregate_35272347167.json text eol=lf
+
+# Submission-critical text must have checkout-independent bytes on every OS.
+/paper/** text eol=lf
+/docs/research/** text eol=lf
+/tests/paper/** text eol=lf
+/.github/workflows/p6a-paper-evidence.yml text eol=lf
+/.github/workflows/p7-paper-preflight.yml text eol=lf
+/.github/workflows/p8-delta-scope.yml text eol=lf
+/.github/workflows/arxiv-package.yml text eol=lf
+
+# Preserve generated submission and figure artifacts byte-for-byte.
+/paper/**/*.pdf binary
+/paper/**/*.png binary
+/paper/**/*.zip binary

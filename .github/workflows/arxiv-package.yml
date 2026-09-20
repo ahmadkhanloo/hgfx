@@ -51,6 +51,8 @@ jobs:
       - name: Check reader-facing manuscript language
         shell: bash
         run: |
+          grep -Fq 'OpenAI ChatGPT was used during software development' paper/arxiv/manuscript.md
+          grep -Fq 'During the preparation of this work, the author used OpenAI ChatGPT' paper/arxiv/manuscript.md
           if grep -nE '\\b(PASS|FAIL)\\b' paper/arxiv/manuscript.md; then
             echo 'Reader-facing manuscript contains internal PASS/FAIL status language.'
             exit 1

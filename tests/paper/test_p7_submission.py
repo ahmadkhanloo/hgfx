@@ -25,6 +25,7 @@ def test_p7_jnm_preflight_passes_strict_candidate_gate() -> None:
     assert report["corresponding_author_email_present"] is True
     assert report["approved_corresponding_author_email"] == "m.ahmadkhanloo@ipm.ir"
     assert report["corresponding_author_email_matches_approved"] is True
+    assert report["arxiv_ai_disclosures_present"] is True
 
     assert report["abstract_word_count"] <= 250
     assert report["keyword_count"] <= 6

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -29,8 +31,7 @@ def test_p6a_draft_manifest_is_deterministic_and_not_frozen() -> None:
     assert first["submission_candidate_sha"] is None
     assert first["claim_audit_status"] == "COMPLETE_P6A_2_NOT_FROZEN"
     assert first["freeze_policy"]["separate_from_m19"] is True
-    assert first["freeze_policy"]["requires_independent_p8_pass"] is False
-    assert first["freeze_policy"]["independent_review"] == "OPTIONAL_NOT_A_FREEZE_GATE"
+    assert first["freeze_policy"]["requires_independent_p8_pass"] is True
     assert first["anchors"]["hgfx_v1_0_0_sha"] == "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
     assert first["anchors"]["matlab_hgf_toolbox_8_2_0_sha"] == "2437f4dc241541072722a2695ddeca7b44d83dd3"
     assert first["anchors"]["p3_aggregate_sha256"] == "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
@@ -65,16 +66,34 @@ def test_committed_p6a_manifest_matches_generator() -> None:
     assert committed == expected
 
 
-def test_p6a_freeze_requires_exact_candidate_sha() -> None:
+def test_p6a_freeze_requires_exact_candidate_sha_and_completed_p8() -> None:
     generator = load_generator()
     with pytest.raises(ValueError, match="requires --candidate-sha"):
         generator.build(ROOT, status="FROZEN_FOR_SUBMISSION", candidate_sha=None)
 
-    frozen = generator.build(
-        ROOT,
-        status="FROZEN_FOR_SUBMISSION",
-        candidate_sha="8750bfe5c78a6ece7e3985cb8c182adf231c1bb8",
-    )
-    assert frozen["status"] == "FROZEN_FOR_SUBMISSION"
-    assert frozen["submission_candidate_sha"] == "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
-    assert frozen["claim_audit_status"] == "COMPLETE"
+    with pytest.raises(RuntimeError, match="independent P8 PASS"):
+        generator.build(
+            ROOT,
+            status="FROZEN_FOR_SUBMISSION",
+            candidate_sha="0" * 40,
+        )
+
+
+def test_canonical_hash_ignores_checkout_crlf_but_detects_committed_change(tmp_path: Path) -> None:
+    generator = load_generator()
+    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.name", "test"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=tmp_path, check=True)
+    tracked = tmp_path / "evidence.txt"
+    tracked.write_bytes(b"alpha\nbeta\n")
+    subprocess.run(["git", "add", "evidence.txt"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-qm", "lf"], cwd=tmp_path, check=True)
+
+    expected = hashlib.sha256(b"alpha\nbeta\n").hexdigest()
+    tracked.write_bytes(b"alpha\r\nbeta\r\n")
+    assert hashlib.sha256(generator._canonical_bytes(tmp_path, "evidence.txt")).hexdigest() == expected
+
+    tracked.write_bytes(b"alpha\ngamma\n")
+    subprocess.run(["git", "add", "evidence.txt"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-qm", "semantic change"], cwd=tmp_path, check=True)
+    assert hashlib.sha256(generator._canonical_bytes(tmp_path, "evidence.txt")).hexdigest() != expected

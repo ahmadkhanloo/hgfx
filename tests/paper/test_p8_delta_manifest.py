@@ -18,6 +18,9 @@ def load_generator():
 
 def test_p8_delta_manifest_is_complete_and_scoped() -> None:
     module = load_generator()
+    candidate_sha = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+    ).strip()
     history = subprocess.run(
         ["git", "cat-file", "-e", f"{module.BASELINE_SHA}^{{commit}}"],
         cwd=ROOT,
@@ -29,13 +32,13 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
         pytest.skip(
             "full git history required; enforced non-skipped by P8 Delta Scope workflow (fetch-depth: 0)"
         )
-    payload = module.build(ROOT)
+    payload = module.build(ROOT, candidate_sha)
 
     assert payload["status"] == "READY_FOR_INDEPENDENT_PAPER_DELTA_REVIEW"
     assert payload["baseline"]["sha"] == "09c49031cda95b449f8115030a9d32dcba36098e"
-    assert payload["candidate"]["sha"] == "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
+    assert payload["candidate"]["sha"] == candidate_sha
     assert payload["v1_release_anchor"] == "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
-    assert payload["ahead_commit_count"] == 109
+    assert payload["ahead_commit_count"] >= 109
     assert payload["changed_file_count"] > 100
     assert payload["frozen_matlab_reference_changed"] == []
     assert payload["frozen_v1_release_evidence_changed"] == []
@@ -48,3 +51,9 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
     assert by_path["src/hgfx/models/vkf.py"]["review_class"] == "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
     assert by_path["src/hgfx/optim/fit_map.py"]["review_class"] == "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
     assert all(item["review_class"] != "UNCLASSIFIED" for item in payload["files"])
+
+
+def test_p8_candidate_sha_is_explicit_and_validated() -> None:
+    module = load_generator()
+    with pytest.raises(ValueError, match="40-character lowercase Git SHA"):
+        module.build(ROOT, "HEAD")

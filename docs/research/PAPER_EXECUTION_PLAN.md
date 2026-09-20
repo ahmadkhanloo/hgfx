@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2/P7 DONE; P8 WAIVED BY AUTHOR; FINAL P6A FREEZE IS NEXT**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2 DONE; NEW P7 CANDIDATE AND P8 REVIEW REQUIRED BEFORE FINAL P6A FREEZE**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -294,7 +294,7 @@ Acceptance:
 
 ### P6A — Final paper-evidence freeze
 
-**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 DONE/PASS; FINAL FREEZE NEXT. Independent P8 was explicitly waived by the author on 2026-09-18.
+**Status:** IN PROGRESS — P6A-1 DONE/PASS; P6A-2 must be refreshed for the new candidate; final freeze remains blocked on independent P8 PASS.
 
 This is a new publication gate and is **not M19**.
 
@@ -321,8 +321,8 @@ P6A-2 completed in PR #63 / merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`:
 
 Ordering now:
 1. exact P7 manuscript candidate is locked;
-2. independent P8 is optional and was explicitly waived by the author;
-3. regenerate P6A as `FROZEN_FOR_SUBMISSION` with the exact candidate SHA.
+2. independent P8 records PASS for that exact candidate with no unresolved CRITICAL/HIGH findings;
+3. regenerate P6A as `FROZEN_FOR_SUBMISSION` with the same candidate SHA.
 
 Acceptance for final P6A:
 - paper results can be reconstructed without narrative notes or chat history;
@@ -351,7 +351,7 @@ P7-1 evidence:
 P7-2 completed after the author supplied and approved the institutional email `m.ahmadkhanloo@ipm.ir`.
 
 Exact locked candidate:
-- SHA: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`;
+- previous SHA `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8` is superseded; the replacement SHA is pending candidate lock;
 - candidate tree: `a6a98456335cf2bc2c32442d0f217aed53604955`;
 - preserving merge: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`;
 - merge tree matches candidate tree exactly;
@@ -386,7 +386,7 @@ Acceptance:
 
 **Status:** WAIVED BY AUTHOR / OPTIONAL NON-BLOCKING REVIEW.
 
-Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8`. The checklist is not a completed review.
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `PENDING_NEW_CANDIDATE_SHA`. The checklist is not a completed review.
  Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`; PR #66 / run `35344626071` PASS.
 
 The v1 implementation/release baseline was already independently reviewed in `docs/validation/INDEPENDENT_REVIEW_REPORT.md`; H1/H2 were remediated and closed in `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`. Do not repeat that unchanged baseline.
@@ -439,7 +439,7 @@ The paper is submission-ready only when all applicable items below are internall
 - final paper evidence manifest marked `FROZEN_FOR_SUBMISSION`;
 - explicit mapping from every main numerical claim to evidence;
 - historical failures/reference limitations clearly disclosed;
-- independent review is optional; if performed, no unresolved CRITICAL/HIGH findings may be ignored.
+- independent P8 review is required and no unresolved CRITICAL/HIGH finding may be ignored.
 
 ## Recommended claim strategy
 

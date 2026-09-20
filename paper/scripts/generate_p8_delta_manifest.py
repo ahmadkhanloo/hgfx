@@ -11,11 +11,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 from pathlib import Path
 
 BASELINE_SHA = "09c49031cda95b449f8115030a9d32dcba36098e"
-CANDIDATE_SHA = "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
 V1_RELEASE_SHA = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
 
 PAPER_PREFIXES = (
@@ -88,13 +88,15 @@ def _classify(path: str) -> str:
         return "PAPER_REVIEW_REQUIRED"
     return "UNCLASSIFIED"
 
-def build(repo: Path) -> dict:
+def build(repo: Path, candidate_sha: str) -> dict:
+    if not re.fullmatch(r"[0-9a-f]{40}", candidate_sha):
+        raise ValueError("candidate_sha must be a 40-character lowercase Git SHA")
     # Fail early if the exact immutable anchors are absent.
-    for sha in (BASELINE_SHA, CANDIDATE_SHA, V1_RELEASE_SHA):
+    for sha in (BASELINE_SHA, candidate_sha, V1_RELEASE_SHA):
         _run(repo, "cat-file", "-e", f"{sha}^{{commit}}")
 
-    status_lines = _run(repo, "diff", "--name-status", BASELINE_SHA, CANDIDATE_SHA).splitlines()
-    numstat_lines = _run(repo, "diff", "--numstat", BASELINE_SHA, CANDIDATE_SHA).splitlines()
+    status_lines = _run(repo, "diff", "--name-status", BASELINE_SHA, candidate_sha).splitlines()
+    numstat_lines = _run(repo, "diff", "--numstat", BASELINE_SHA, candidate_sha).splitlines()
     numstat = {}
     for line in numstat_lines:
         added, deleted, path = line.split("\t", 2)
@@ -143,10 +145,10 @@ def build(repo: Path) -> dict:
         },
         "candidate": {
             "kind": "locked_p7_submission_candidate",
-            "sha": CANDIDATE_SHA,
+            "sha": candidate_sha,
         },
         "v1_release_anchor": V1_RELEASE_SHA,
-        "ahead_commit_count": int(_run(repo, "rev-list", "--count", f"{BASELINE_SHA}..{CANDIDATE_SHA}")),
+        "ahead_commit_count": int(_run(repo, "rev-list", "--count", f"{BASELINE_SHA}..{candidate_sha}")),
         "changed_file_count": len(files),
         "review_class_counts": counts,
         "frozen_matlab_reference_changed": frozen_matlab_changed,
@@ -163,10 +165,11 @@ def build(repo: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", default=".")
+    parser.add_argument("--candidate-sha", required=True)
     parser.add_argument("--output", default="docs/research/P8_DELTA_MANIFEST.json")
     args = parser.parse_args()
     repo = Path(args.repo_root).resolve()
-    payload = build(repo)
+    payload = build(repo, args.candidate_sha)
     output = repo / args.output
     output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({
