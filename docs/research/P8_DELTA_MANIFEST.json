@@ -1,5 +1,5 @@
 {
-  "ahead_commit_count": 109,
+  "ahead_commit_count": 179,
   "baseline": {
     "independent_review_report": "docs/validation/INDEPENDENT_REVIEW_REPORT.md",
     "kind": "post_independent_review_remediation_validated_source",
@@ -8,17 +8,25 @@
   },
   "candidate": {
     "kind": "locked_p7_submission_candidate",
-    "sha": "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
+    "sha": "82bbb0c30893651f8ccb15ba27195c3d58bae521"
   },
-  "changed_file_count": 132,
+  "changed_file_count": 155,
   "files": [
     {
-      "additions": 1,
+      "additions": 15,
       "binary": false,
       "deletions": 0,
       "git_status": "M",
       "path": ".gitattributes",
       "review_class": "MAINTENANCE_CONTEXT_ONLY"
+    },
+    {
+      "additions": 114,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/arxiv-package.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
       "additions": 29,
@@ -77,7 +85,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 53,
+      "additions": 60,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -90,6 +98,14 @@
       "deletions": 0,
       "git_status": "A",
       "path": ".github/workflows/p7-paper-preflight.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 34,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p8-delta-scope.yml",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -237,7 +253,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 64,
+      "additions": 66,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -253,6 +269,30 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
+      "additions": 1090,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P8_DELTA_MANIFEST.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 46,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P8_DELTA_SCOPE.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 104,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P8_REVIEW_PACKET.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
       "additions": 119,
       "binary": false,
       "deletions": 30,
@@ -261,7 +301,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 435,
+      "additions": 450,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -269,7 +309,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 76,
+      "additions": 91,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -469,6 +509,126 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
+      "additions": 121,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 35,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 200,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/build_submission.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/figures/fig1_recovery_metrics.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/figures/fig2_horizon_diagnostics.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/figures/fig3_pyhgf_common_scope.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r1/HGFX_arXiv_preprint.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r1/HGFX_arXiv_source.zip",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 12,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r1/MANIFEST.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 2,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r1/SHA256SUMS.txt",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r2/HGFX_arXiv_preprint.pdf",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": null,
+      "binary": true,
+      "deletions": null,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r2/HGFX_arXiv_source.zip",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 12,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r2/MANIFEST.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 2,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/frozen/2026-09-18-r2/SHA256SUMS.txt",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 230,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/manuscript.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
       "additions": null,
       "binary": true,
       "deletions": null,
@@ -661,7 +821,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 893,
+      "additions": 860,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -669,7 +829,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 451,
+      "additions": 452,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -741,11 +901,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 168,
+      "additions": 178,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "paper/scripts/check_p7_submission.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 304,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_arxiv_reader_figures.py",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -765,7 +933,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 257,
+      "additions": 290,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -773,11 +941,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 328,
+      "additions": 333,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "paper/scripts/generate_p6a_manifest.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 187,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/scripts/generate_p8_delta_manifest.py",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -997,7 +1173,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 74,
+      "additions": 99,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1005,11 +1181,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 33,
+      "additions": 34,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "tests/paper/test_p7_submission.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 59,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "tests/paper/test_p8_delta_manifest.py",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -1075,7 +1259,7 @@
   "review_class_counts": {
     "EVIDENCE_PROVENANCE_REVIEW_REQUIRED": 9,
     "MAINTENANCE_CONTEXT_ONLY": 9,
-    "PAPER_REVIEW_REQUIRED": 91,
+    "PAPER_REVIEW_REQUIRED": 114,
     "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE": 23
   },
   "review_policy": {

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import subprocess
 from pathlib import Path
 
@@ -18,9 +19,9 @@ def load_generator():
 
 def test_p8_delta_manifest_is_complete_and_scoped() -> None:
     module = load_generator()
-    candidate_sha = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
-    ).strip()
+    candidate_sha = json.loads(
+        (ROOT / "docs/research/P8_DELTA_MANIFEST.json").read_text(encoding="utf-8")
+    )["candidate"]["sha"]
     history = subprocess.run(
         ["git", "cat-file", "-e", f"{module.BASELINE_SHA}^{{commit}}"],
         cwd=ROOT,

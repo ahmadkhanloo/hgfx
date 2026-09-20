@@ -7,7 +7,7 @@
     "p3_workflow_run": 35272347167,
     "pypi_stable": "hgfx==1.0.0"
   },
-  "claim_audit_status": "COMPLETE",
+  "claim_audit_status": "COMPLETE_P6A_2_NOT_FROZEN",
   "claim_groups": [
     {
       "evidence": [
@@ -196,8 +196,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "9e5ce4d182ec30d1a5f16c8b6abc3937a54a322784828cb29351bdd38d65e74c",
-      "size_bytes": 24485
+      "sha256": "6e19a49b8cb0e14bcd7b75f1615521c164301a9b430638a524cbf933fa32fbd5",
+      "size_bytes": 25594
     },
     {
       "path": "paper/references.bib",
@@ -256,8 +256,8 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "751e41ab4b8977ea3cd9ce68c83f54418cd5152f3c041950acdc0365483cde87",
-      "size_bytes": 49190
+      "sha256": "8fe5f58b21c5ae9459bf56e57b1500b29c0dc7c987f4949ad896d4722e04e601",
+      "size_bytes": 49004
     },
     {
       "path": "paper/reproducibility/pyhgf_common_scope_case.json",
@@ -310,8 +310,8 @@
     {
       "path": "paper/scripts/check_p7_submission.py",
       "role": "generator",
-      "sha256": "d4ec6d67cbf2d807971d99aa57d1bb34d931a3317ccfe51689fb0c17b384ee62",
-      "size_bytes": 6469
+      "sha256": "b8ca60cbd65bdae477a6ff48526df173f995d84e806c06925329f7bf3b5ee67c",
+      "size_bytes": 7096
     },
     {
       "path": "paper/scripts/generate_p2_tables.py",
@@ -328,14 +328,14 @@
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "93806a182d8d26bc89e11809dbbeb6ab83180b843acb791f37c7a0031ebb4460",
-      "size_bytes": 36424
+      "sha256": "5ab043e303de485436a8fff961302b3bdb53b1aa4238def54e6fef4161ecbad7",
+      "size_bytes": 44434
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "0dd3746d819045744d32e195decb6bc5937bfd52865a361e76171f83b4a5e3d6",
-      "size_bytes": 12103
+      "sha256": "9bc6c1d7d6a9420dca4c7290bea098e9c81d6ba9644eb8ca3ef3d01d6e999ec4",
+      "size_bytes": 12669
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
@@ -432,9 +432,8 @@
     "draft_may_change_during_p7": true,
     "m19_must_remain_unchanged": true,
     "requires_exact_submission_candidate_sha": true,
-    "requires_independent_p8_pass": false,
-    "separate_from_m19": true,
-    "independent_review": "OPTIONAL_NOT_A_FREEZE_GATE"
+    "requires_independent_p8_pass": true,
+    "separate_from_m19": true
   },
   "manifest_id": "hgfx-paper-evidence-manifest-1",
   "protocol_id": "hgfx-paper-protocol-1",
@@ -447,6 +446,6 @@
     "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,
-  "status": "FROZEN_FOR_SUBMISSION",
-  "submission_candidate_sha": "8750bfe5c78a6ece7e3985cb8c182adf231c1bb8"
+  "status": "DRAFT_NOT_FROZEN",
+  "submission_candidate_sha": null
 }

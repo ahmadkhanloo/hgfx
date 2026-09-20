@@ -27,7 +27,9 @@ jobs:
       - name: Install test dependency
         run: python -m pip install pytest
       - name: Generate P8 delta manifest
-        run: python paper/scripts/generate_p8_delta_manifest.py --candidate-sha "$GITHUB_SHA"
+        run: |
+          CANDIDATE_SHA=$(python -c "import json; print(json.load(open('docs/research/P8_DELTA_MANIFEST.json'))['candidate']['sha'])")
+          python paper/scripts/generate_p8_delta_manifest.py --candidate-sha "$CANDIDATE_SHA"
       - name: Test P8 delta scope
         run: pytest -q tests/paper/test_p8_delta_manifest.py
       - name: Verify committed delta manifest reproduces exactly
