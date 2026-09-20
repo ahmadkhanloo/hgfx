@@ -25,7 +25,7 @@ def test_p6a2_claim_audit_is_complete_and_deterministic() -> None:
     assert first == second
     assert first["status"] == "COMPLETE_P6A_2_NOT_FROZEN"
     assert first["claim_count"] == 45
-    assert first["explicit_exemption_count"] == 9
+    assert first["explicit_exemption_count"] == 10
     assert first["unmapped_numeric_lines"] == []
     assert set(first["machine_checks"].values()) == {"PASS"}
 

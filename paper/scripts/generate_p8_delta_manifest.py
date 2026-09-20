@@ -31,6 +31,8 @@ PAPER_WORKFLOWS = (
     ".github/workflows/p5-paper-figures.yml",
     ".github/workflows/p6a-paper-evidence.yml",
     ".github/workflows/p7-paper-preflight.yml",
+    ".github/workflows/p8-delta-scope.yml",
+    ".github/workflows/arxiv-package.yml",
 )
 EVIDENCE_PROVENANCE_PATHS = (
     "docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md",
