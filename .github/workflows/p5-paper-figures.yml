@@ -3,6 +3,7 @@ name: P5 Paper Figures
 on:
   pull_request:
     paths:
+      - 'paper/manuscript.md'
       - 'paper/scripts/generate_p5_figures.py'
       - 'paper/figures/**'
       - 'paper/reproducibility/p2a10_*.json'
