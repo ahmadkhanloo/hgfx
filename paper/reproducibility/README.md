@@ -111,3 +111,5 @@ Historical M18 FAIL and D02/D08 `REFERENCE_LIMITATION_MATCH` records are immutab
 
 Every numerical manuscript sentence must map through `docs/research/PAPER_EVIDENCE_MAP.md`.
 Do not transcribe numbers by hand from chat or screenshots.
+
+The immutable submission candidate is the Git commit that contains the final draft manifest. The P8 review packet records that commit identity after candidate lock; reproduction must use that recorded immutable revision rather than a moving branch.
