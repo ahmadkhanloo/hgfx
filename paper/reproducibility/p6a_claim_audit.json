@@ -852,7 +852,7 @@
     "s7_recovery_model_selection": "PASS"
   },
   "manuscript_path": "paper/manuscript.md",
-  "manuscript_sha256": "8a05b2e679b429fead8ee0ec2a4f8531b1d816a632adf0a97f07a670e3bb2b24",
+  "manuscript_sha256": "e9f2146ff57e18331a2d75065d801169b219d242308d2efa1d275fc8b3491b1b",
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1,
   "status": "COMPLETE_P6A_2_NOT_FROZEN",
