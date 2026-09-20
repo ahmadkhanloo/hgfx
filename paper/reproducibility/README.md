@@ -40,7 +40,8 @@ python -m pip install 'hgfx==1.0.0'
 For regenerating paper artifacts from this repository (post-v1 paper commits):
 
 ```bash
-git checkout main
+# Use the exact locked submission candidate recorded in docs/research/P8_REVIEW_PACKET.md
+git checkout <P8-candidate-SHA>
 python -m pip install -e '.[dev]' matplotlib
 python scripts/verify_reference_freeze.py
 ```
@@ -72,7 +73,7 @@ pytest -q tests/paper/test_p6a_manifest.py
 
 Output: `paper/reproducibility/p6a_paper_evidence_manifest.json`.
 
-Current status is `DRAFT_NOT_FROZEN`. P6A-1/P6A-2 inventory 57 committed paper evidence/source artifacts using canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The numerical claim audit is complete with zero unmapped current manuscript claim lines, and the manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until an exact P7 candidate is locked and independent P8 records PASS for that exact candidate SHA.
+Current status is `DRAFT_NOT_FROZEN`. P6A-1/P6A-2 inventory 59 committed paper evidence/source artifacts using canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The numerical claim audit is complete with zero unmapped current manuscript claim lines, and the manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until an exact P7 candidate is locked and independent P8 records PASS for that exact candidate SHA.
 
 Regenerate the current numerical claim audit before the manifest:
 
@@ -110,3 +111,5 @@ Historical M18 FAIL and D02/D08 `REFERENCE_LIMITATION_MATCH` records are immutab
 
 Every numerical manuscript sentence must map through `docs/research/PAPER_EVIDENCE_MAP.md`.
 Do not transcribe numbers by hand from chat or screenshots.
+
+The immutable submission candidate is the Git commit that contains the final draft manifest. The P8 review packet records that commit identity after candidate lock; reproduction must use that recorded immutable revision rather than a moving branch.

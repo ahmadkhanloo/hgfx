@@ -82,8 +82,8 @@
     {
       "path": "docs/research/P7_JNM_PREFLIGHT.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "3f35ca8df4f1a0a33c8f9168f11f9da73a7db09778a6f3caf1454d819ed918a7",
-      "size_bytes": 2765
+      "sha256": "01249100748908363253005b84943fa96c3d1346358756f35af769d16abf8fa1",
+      "size_bytes": 3313
     },
     {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
@@ -196,8 +196,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "6e19a49b8cb0e14bcd7b75f1615521c164301a9b430638a524cbf933fa32fbd5",
-      "size_bytes": 25594
+      "sha256": "419f078b0e53ac4d2ca4c00aa5ddbf839317d32620717d1fbaec1e70d5aaef04",
+      "size_bytes": 25693
     },
     {
       "path": "paper/references.bib",
@@ -214,8 +214,8 @@
     {
       "path": "paper/reproducibility/README.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "98dedf7e65a20fdd8820ab9cb7ca7aa4dbdd037d32132a903923be95f2e2c87a",
-      "size_bytes": 4684
+      "sha256": "5e3ac6f0ae625067ff1159aaa44457cb75386de77502cb117d813318b4dbbc00",
+      "size_bytes": 5038
     },
     {
       "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
@@ -256,8 +256,8 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "8fe5f58b21c5ae9459bf56e57b1500b29c0dc7c987f4949ad896d4722e04e601",
-      "size_bytes": 49004
+      "sha256": "da83dc0afb62e7a10a0962612f76a45fdfacb77cf5b967c6a84e5d8233e8c54e",
+      "size_bytes": 49080
     },
     {
       "path": "paper/reproducibility/pyhgf_common_scope_case.json",
@@ -328,8 +328,8 @@
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "5ab043e303de485436a8fff961302b3bdb53b1aa4238def54e6fef4161ecbad7",
-      "size_bytes": 44434
+      "sha256": "7dc37b9945d98abec189a5da54c3e87a69e64b6a2ebaeddf28b906e9b75d62c2",
+      "size_bytes": 44510
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",

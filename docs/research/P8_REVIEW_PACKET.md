@@ -24,7 +24,7 @@ The remaining P8 scope is therefore a **delta review** of the current paper cand
 Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`  
 Delta-scope guide: `docs/research/P8_DELTA_SCOPE.md`
 
-The delta contains 132 changed files across 109 commits: 91 paper-review files, 9 evidence/provenance files, 23 product-only claim-leakage checks, and 9 maintenance-context files. No frozen MATLAB reference file and no frozen v1 release-evidence artifact changed.
+The existing delta manifest describes the prior locked candidate. It must be regenerated after the replacement candidate SHA is locked. No scientific threshold, seed, dataset, optimizer setting, frozen MATLAB reference file, or frozen v1 release-evidence artifact is changed by the P8-hardening edits.
 
 Delta-scope implementation: PR #66 merged as `39255756c8ef6bd1f4aaf3e5357ea70e430c55f3`.  
 P8 Delta Scope run `35344626071`: PASS / full-history execution / zero-diff.  
@@ -32,17 +32,13 @@ Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 
 
 ## Exact submission candidate
 
-- Candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
-- Candidate tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
-- Preserving merge commit: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`
-- Merge tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
-- Candidate is the second parent of the merge and is preserved in `main` history.
+The prior candidate `82bbb0c30893651f8ccb15ba27195c3d58bae521` is superseded for submission because its tree retained stale P6A/P8 gate metadata. The replacement candidate SHA is **PENDING LOCK** and will be recorded here after strict P7/P6A/P2/P5/regression checks pass.
 
-The reviewer must review the **candidate SHA above**, not an unspecified moving `main`.
+The reviewer must review the exact replacement candidate SHA recorded after the lock, not an unspecified moving `main`.
 
 ## Candidate gate evidence
 
-All gates completed successfully on the exact candidate SHA:
+Prior candidate gate evidence (must be re-run on the replacement candidate):
 
 - P7 JNM Preflight run `35342538568`: PASS
   - status: `PASS_P7_PREFLIGHT`
@@ -54,7 +50,7 @@ All gates completed successfully on the exact candidate SHA:
   - format/evidence errors: 0
 - P6A Paper Evidence Draft run `35342538572`: PASS
   - claim audit status: `COMPLETE_P6A_2_NOT_FROZEN`
-  - mapped numerical/versioned claim lines: 48
+  - mapped numerical/versioned claim lines: 45
   - unmapped numerical lines: 0
   - manifest status: `DRAFT_NOT_FROZEN`
   - inventory: 59 committed artifacts
@@ -68,7 +64,7 @@ All gates completed successfully on the exact candidate SHA:
 
 ## Review scope
 
-Review these files at candidate SHA `82bbb0c30893651f8ccb15ba27195c3d58bae521`:
+Review these files at the replacement candidate SHA once it is locked:
 
 - `paper/manuscript.md`
 - `paper/highlights.txt`
