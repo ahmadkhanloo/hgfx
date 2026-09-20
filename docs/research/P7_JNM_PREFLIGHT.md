@@ -1,6 +1,6 @@
 # P7 Journal of Neuroscience Methods preflight
 
-Last checked: 2026-09-18  
+Last checked: 2026-09-21  
 Status: **P7 CONTENT/PREFLIGHT COMPLETE; REPLACEMENT SHA LOCK PENDING P8-HARDENING VALIDATION**
 
 ## Current publisher-facing constraints checked
@@ -13,8 +13,9 @@ Publisher guidance used for this preflight:
 - Elsevier highlights guidance: https://www.elsevier.com/researcher/author/tools-and-resources/highlights
 - Elsevier author guidance: https://www.elsevier.com/subject/next/guide-for-authors
 - Elsevier generative-AI policy: https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
+- Elsevier current Your Paper Your Way / Guide for Authors: https://www.elsevier.com/subject/next/guide-for-authors
 
-The direct ScienceDirect journal page/Guide-for-Authors endpoint was not reliably machine-retrievable during this check. Final submission should still be compared manually with the live JNM submission form before upload.
+The current Elsevier Your Paper Your Way guidance states that initial submissions may use a single referee-usable PDF or Word file without strict formatting requirements, provided the essential manuscript elements are present; editable source files are required later in production. JNM's live scope page confirms that software without a scientific/research component is outside scope. The manuscript is therefore preflighted for required content/structure rather than an invented mandatory template. The live JNM submission form should still be checked at upload for any form-specific fields.
 
 ## P7-1 corrections
 
