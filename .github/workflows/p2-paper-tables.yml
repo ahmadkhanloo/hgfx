@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'paper/manuscript.md'
+      - 'paper/reproducibility/p6a_paper_evidence_manifest.json'
       - 'paper/scripts/generate_p2_tables.py'
       - 'paper/tables/**'
       - 'tests/paper/**'
