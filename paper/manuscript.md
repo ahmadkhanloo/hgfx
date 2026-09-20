@@ -52,7 +52,7 @@ Software metadata and frozen validation identities are summarized in Table 1.
 | Source | https://github.com/ahmadkhanloo/hgfx |
 | Release | https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 |
 | PyPI | `hgfx==1.0.0` |
-| Release-validation CI | Ubuntu 24.04; Windows Server 2025 |
+| Validated CI platforms | Linux (Ubuntu) and Windows |
 | Language | Python 3.11+ |
 | License | MIT (no restriction on non-academic use) |
 | Dependencies | NumPy, JAX |
