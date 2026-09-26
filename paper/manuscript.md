@@ -214,7 +214,7 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 **Figure 3.** Paired model-selection summary: MATLAB and HGFX balanced accuracy and 36/36 BIC winner agreement. File: `paper/figures/fig_model_selection.png`.
 
-**Figure 4.** Backend agreement relative to each comparison's frozen criterion. Compatibility-versus-JAX-CPU has a maximum final-objective gap of 0.0067837 against a 0.10 criterion; JAX-CPU-versus-physical-GPU has a maximum gap of 1.421e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
+**Figure 4.** Backend agreement relative to each comparison's frozen criterion. The post-fix compatibility-versus-JAX-CPU remeasurement has a maximum final-objective gap of 0.006783711260709424 against a 0.10 criterion; JAX-CPU-versus-retained-physical-T4 has a maximum gap of 1.4210854715202004e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
 
 **Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
 
