@@ -1,30 +1,34 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **INDEPENDENT PAPER-DELTA REVIEW COMPLETED / RESULT FAIL / ONE UNRESOLVED HIGH**
-Failed reviewed candidate: `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28`  
-Replacement candidate SHA: `b66f294f4799968404273127a9b06b4fc451ffb3`  
-Candidate tree: `507c7568ac0c53ccd69c59e630e0f164cbe40284`
-Review packet: `docs/research/P8_REVIEW_PACKET.md`
-Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
-Findings report: `docs/research/P8_INDEPENDENT_PAPER_DELTA_REVIEW.md`
-Tracking: PV1-02 / GitHub issue #32
+Status: **ROUND-3 CANDIDATE LOCKED / INDEPENDENT REVIEW PENDING**
+
+Historical round-2 reviewed candidate: `b66f294f4799968404273127a9b06b4fc451ffb3` — **FAIL / one HIGH preserved**  
+Round-3 candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`  
+Candidate tree: `2c50052dfd06b3013ee5402f56caa4b640ab4cce`  
+Review packet: `docs/research/P8_REVIEW_PACKET.md`  
+Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`  
+Historical findings report: `docs/research/P8_INDEPENDENT_PAPER_DELTA_REVIEW.md`  
+Tracking: PV1-02 / GitHub issue #32  
 This is **not** M19 and is **not** an implementer self-review.
 
-The Replacement candidate SHA above records the exact commit this reviewer examined. It is **not**
-a lock: the lock is the documentation-only commit chain `b03083c` -> `d24b68e`, which the reviewer
-did not author and which was verified to change nothing outside `docs/research/` and nothing among
-the 60 P6A-hashed evidence paths.
+### Round-3 independent review record
 
-Use this checklist on the exact submission candidate after:
+Reviewer: PENDING
+Date: PENDING
+Candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`
+Result: `PENDING`
+Unresolved CRITICAL/HIGH: PENDING
 
-- [x] P3 aggregate is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, hash-verified as `83ccbb7f...31b4`, and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`; **VERIFIED** (blob hash matches; classification and `gate_pass=false` preserved; Figure 6 regenerates with zero pixel difference).
-- [x] P3 diagnostic Figure 6 is generated from that committed aggregate, committed as `paper/figures/fig_p3_horizon_diagnostics.png`, and zero-diff gated by P5 CI; **VERIFIED on Linux; NOT reproducible byte-exact off-Linux** (see P8B-M8).
-- [x] the P6A draft evidence manifest and P6A-2 numerical claim audit are complete and reproducible; **VERIFIED** (both regenerate zero-diff on this host; all 60 recorded `sha256` match `git cat-file`; 45 claims, 0 unmapped manuscript lines). (both regenerate zero-diff; all 60 recorded `sha256` match `git cat-file`; 45 claims, 0 unmapped lines).
-- [x] replacement P7 submission-candidate SHA is locked; strict P7/P6A/P2/P5/regression gates pass on that exact SHA; **QUALIFIED**: the lock exists (`b03083c`/`d24b68e`, docs-only), and P2/P6A/P7/tests/claim-audit reproduce locally, but no CI run has ever validated a delta manifest describing this candidate (P8B-M5) and the six run IDs could not be verified externally under the local-only handling policy.
+The fields above are the only round-3 gate record. Historical checked items below document the prior review and remediation context; they do not constitute a PASS for the round-3 candidate. The final `FROZEN_FOR_SUBMISSION` P6A manifest remains intentionally blocked until this record is completed by an independent reviewer with `Result: PASS` for the exact candidate.
 
-The final `FROZEN_FOR_SUBMISSION` manifest is intentionally **post-P8**: an independent P8 PASS for this exact candidate is a prerequisite for the final P6A freeze.
+### Round-3 pre-review readiness
 
-Do not treat this file as a completed review. An independent reviewer must fill it.
+- [x] Exact content candidate is immutable at `897aed804901f9f49ad1d73ecfab6fa714d50098`.
+- [x] P2/P5/P6A/P7 and post-fix CPU evidence pass on the exact candidate.
+- [x] The deterministic P8 delta manifest names the exact candidate and passes full-history regeneration.
+- [x] Full Ubuntu/Windows regression passes on a documentation-only lock descendant; candidate implementation/manuscript/evidence content is unchanged.
+- [x] No frozen MATLAB reference file or frozen v1 release-evidence artifact changed.
+- [ ] Independent round-3 reviewer has recorded the result above.
 
 ## Prior independent baseline
 
