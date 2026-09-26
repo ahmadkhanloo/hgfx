@@ -156,21 +156,17 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
     checklist = _canonical_bytes(
         repo, "docs/research/PAPER_P8_REVIEW_CHECKLIST.md"
     ).decode("utf-8")
-    required_patterns = {
-        "candidate": rf"^Candidate SHA: `{re.escape(candidate_sha)}`$",
-        "reviewer": r"^Reviewer: \S.+$",
-        "date": r"^Date: \d{4}-\d{2}-\d{2}$",
-        "result": r"^Result: `PASS`$",
-    }
-    missing = [
-        name
-        for name, pattern in required_patterns.items()
-        if re.search(pattern, checklist, flags=re.MULTILINE) is None
-    ]
-    if missing:
+    review_block = re.compile(
+        rf"^Reviewer: \\S.+$\\n"
+        rf"^Date: \\d{{4}}-\\d{{2}}-\\d{{2}}$\\n"
+        rf"^Candidate SHA: `{re.escape(candidate_sha)}`$\\n"
+        r"^Result: `PASS`$",
+        flags=re.MULTILINE,
+    )
+    if review_block.search(checklist) is None:
         raise RuntimeError(
-            "P6A freeze refused: independent P8 PASS for the exact candidate is not recorded: "
-            + "; ".join(missing)
+            "P6A freeze refused: independent P8 PASS block for the exact candidate "
+            "is not committed in PAPER_P8_REVIEW_CHECKLIST.md"
         )
 
 
