@@ -332,6 +332,7 @@ def build_outputs(repo_root: Path) -> tuple[dict[str, str], dict[str, Any]]:
         "# P3 trial-horizon summary (diagnostic)",
         "",
         f"Official overall class: `{p3['overall_classification']}` (`gate_pass={str(p3['gate_pass']).lower()}`). Run `35272347167`.",
+        "Evidence: `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`.",
         "Do not treat diagnostic PASS rows as a paper-1 identifiability result.",
         "",
         "| Model | T | MATLAB/HGFX conv | median r MATLAB/HGFX | median sRMSE MATLAB/HGFX | scientific_pass |",
