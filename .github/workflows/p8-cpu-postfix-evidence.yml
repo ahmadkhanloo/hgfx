@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   cpu-postfix-evidence:
@@ -33,6 +33,19 @@ jobs:
           python scripts/run_m18_s9_backend_robustness.py --output cpu_postfix_run1.json
           python scripts/run_m18_s9_backend_robustness.py --output cpu_postfix_run2.json
           cmp cpu_postfix_run1.json cpu_postfix_run2.json
+      - name: Persist canonical post-fix CPU evidence once
+        if: github.event_name == 'pull_request' && github.head_ref == 'p8-r3-remediation'
+        run: |
+          target=gpu_validation_results/m18_s9_cpu_postfix_revalidation.json
+          if [ ! -f "$target" ]; then
+            mkdir -p gpu_validation_results
+            cp cpu_postfix_run1.json "$target"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$target"
+            git commit -m "evidence: record post-fix S9 CPU revalidation"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
       - name: Report measured CPU fit gap
         run: |
           python - <<'PY'
