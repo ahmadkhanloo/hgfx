@@ -1,5 +1,5 @@
 {
-  "ahead_commit_count": 214,
+  "ahead_commit_count": 288,
   "baseline": {
     "independent_review_report": "docs/validation/INDEPENDENT_REVIEW_REPORT.md",
     "kind": "post_independent_review_remediation_validated_source",
@@ -8,12 +8,12 @@
   },
   "candidate": {
     "kind": "locked_p7_submission_candidate",
-    "sha": "b66f294f4799968404273127a9b06b4fc451ffb3"
+    "sha": "897aed804901f9f49ad1d73ecfab6fa714d50098"
   },
-  "changed_file_count": 156,
+  "changed_file_count": 159,
   "files": [
     {
-      "additions": 17,
+      "additions": 19,
       "binary": false,
       "deletions": 0,
       "git_status": "M",
@@ -85,7 +85,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 60,
+      "additions": 53,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -93,11 +93,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 45,
+      "additions": 44,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": ".github/workflows/p7-paper-preflight.yml",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 56,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": ".github/workflows/p8-cpu-postfix-evidence.yml",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -130,14 +138,6 @@
       "deletions": 1,
       "git_status": "M",
       "path": "CITATION.cff",
-      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 31,
-      "binary": false,
-      "deletions": 14,
-      "git_status": "M",
-      "path": "README.md",
       "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
     },
     {
@@ -269,7 +269,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 1274,
+      "additions": 1282,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -277,7 +277,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 46,
+      "additions": 36,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -285,7 +285,15 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 114,
+      "additions": 259,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "docs/research/P8_INDEPENDENT_PAPER_DELTA_REVIEW.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 109,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -309,7 +317,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 92,
+      "additions": 135,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -485,43 +493,11 @@
       "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
     },
     {
-      "additions": 12,
+      "additions": 1471,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
-      "path": "paper/AUTHOR.md",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 42,
-      "binary": false,
-      "deletions": 23,
-      "git_status": "M",
-      "path": "paper/README.md",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 32,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "paper/SUBMISSION_NOTES.md",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 121,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "paper/SUPPLEMENTARY_APPENDICES.md",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 35,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "paper/arxiv/README.md",
+      "path": "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -629,6 +605,22 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
+      "additions": 35,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/arxiv/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 12,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/AUTHOR.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
       "additions": null,
       "binary": true,
       "deletions": null,
@@ -725,7 +717,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 59,
+      "additions": 60,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -749,27 +741,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
+      "additions": 42,
+      "binary": false,
+      "deletions": 23,
+      "git_status": "M",
+      "path": "paper/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
       "additions": 117,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "paper/references.bib",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 394,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "paper/reproducibility/PAPER_PROTOCOL.md",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 114,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "paper/reproducibility/README.md",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -821,7 +805,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 860,
+      "additions": 877,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -829,11 +813,19 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 457,
+      "additions": 465,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "paper/reproducibility/p6a_paper_evidence_manifest.json",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 394,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/PAPER_PROTOCOL.md",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -901,7 +893,15 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 98,
+      "additions": 122,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/reproducibility/README.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 186,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -925,7 +925,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 409,
+      "additions": 451,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -933,7 +933,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 313,
+      "additions": 320,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -941,7 +941,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 293,
+      "additions": 335,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -949,7 +949,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 334,
+      "additions": 389,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -957,11 +957,27 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 187,
+      "additions": 189,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
       "path": "paper/scripts/generate_p8_delta_manifest.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 32,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/SUBMISSION_NOTES.md",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 123,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
+      "path": "paper/SUPPLEMENTARY_APPENDICES.md",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
@@ -997,7 +1013,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 36,
+      "additions": 41,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1005,7 +1021,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 19,
+      "additions": 22,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1035,6 +1051,14 @@
       "git_status": "M",
       "path": "pyproject.toml",
       "review_class": "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE"
+    },
+    {
+      "additions": 31,
+      "binary": false,
+      "deletions": 14,
+      "git_status": "M",
+      "path": "README.md",
+      "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
     },
     {
       "additions": 3,
@@ -1129,6 +1153,14 @@
       "binary": false,
       "deletions": 0,
       "git_status": "A",
+      "path": "tests/paper/__init__.py",
+      "review_class": "PAPER_REVIEW_REQUIRED"
+    },
+    {
+      "additions": 0,
+      "binary": false,
+      "deletions": 0,
+      "git_status": "A",
       "path": "tests/paper/.gitkeep",
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
@@ -1141,15 +1173,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 0,
-      "binary": false,
-      "deletions": 0,
-      "git_status": "A",
-      "path": "tests/paper/__init__.py",
-      "review_class": "PAPER_REVIEW_REQUIRED"
-    },
-    {
-      "additions": 77,
+      "additions": 80,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1181,7 +1205,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 99,
+      "additions": 203,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1197,7 +1221,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 60,
+      "additions": 104,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1253,7 +1277,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 572,
+      "additions": 0,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -1267,7 +1291,7 @@
   "review_class_counts": {
     "EVIDENCE_PROVENANCE_REVIEW_REQUIRED": 9,
     "MAINTENANCE_CONTEXT_ONLY": 9,
-    "PAPER_REVIEW_REQUIRED": 115,
+    "PAPER_REVIEW_REQUIRED": 118,
     "PRODUCT_ONLY_CHECK_CLAIM_LEAKAGE": 23
   },
   "review_policy": {
