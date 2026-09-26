@@ -33,6 +33,36 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
         pytest.skip(
             "full git history required; enforced non-skipped by P8 Delta Scope workflow (fetch-depth: 0)"
         )
+    head_sha = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+    ).strip()
+    ancestry = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", candidate_sha, head_sha],
+        cwd=ROOT,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    assert ancestry.returncode == 0, "P8 manifest candidate must be an ancestor of HEAD"
+
+    if candidate_sha != head_sha:
+        changed = set(
+            subprocess.check_output(
+                ["git", "diff", "--name-only", candidate_sha, head_sha],
+                cwd=ROOT,
+                text=True,
+            ).splitlines()
+        )
+        allowed_lock_paths = {
+            "docs/research/P8_DELTA_MANIFEST.json",
+            "docs/research/P8_REVIEW_PACKET.md",
+            "docs/research/PAPER_P8_REVIEW_CHECKLIST.md",
+        }
+        assert changed <= allowed_lock_paths, (
+            "P8 manifest may point behind HEAD only across the documented docs-only "
+            f"lock chain; unexpected paths: {sorted(changed - allowed_lock_paths)}"
+        )
+
     payload = module.build(ROOT, candidate_sha)
 
     assert payload["status"] == "READY_FOR_INDEPENDENT_PAPER_DELTA_REVIEW"
