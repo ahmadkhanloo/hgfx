@@ -134,7 +134,7 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
 
     try:
         subprocess.run(
-            ["git", "cat-file", "-e", f"{candidate_sha}^{commit}"],
+            ["git", "cat-file", "-e", f"{candidate_sha}^{{commit}}"],
             cwd=repo,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
