@@ -58,9 +58,23 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
             "docs/research/P8_REVIEW_PACKET.md",
             "docs/research/PAPER_P8_REVIEW_CHECKLIST.md",
         }
-        assert changed <= allowed_lock_paths, (
-            "P8 manifest may point behind HEAD only across the documented docs-only "
-            f"lock chain; unexpected paths: {sorted(changed - allowed_lock_paths)}"
+        allowed_post_review_paths = set(allowed_lock_paths)
+        frozen_manifest_path = "paper/reproducibility/p6a_paper_evidence_manifest.json"
+        if frozen_manifest_path in changed:
+            p6a = json.loads((ROOT / frozen_manifest_path).read_text(encoding="utf-8"))
+            checklist = (ROOT / "docs/research/PAPER_P8_REVIEW_CHECKLIST.md").read_text(
+                encoding="utf-8"
+            )
+            assert p6a["status"] == "FROZEN_FOR_SUBMISSION"
+            assert p6a["submission_candidate_sha"] == candidate_sha
+            assert f"Candidate SHA: \`{candidate_sha}\`" in checklist
+            assert "Result: \`PASS\`" in checklist
+            allowed_post_review_paths.add(frozen_manifest_path)
+
+        assert changed <= allowed_post_review_paths, (
+            "P8 manifest may point behind HEAD only across the documented lock/review "
+            "chain and, after PASS, the exact-candidate P6A freeze; unexpected paths: "
+            f"{sorted(changed - allowed_post_review_paths)}"
         )
 
     payload = module.build(ROOT, candidate_sha)
