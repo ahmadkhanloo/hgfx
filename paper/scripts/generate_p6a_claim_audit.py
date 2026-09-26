@@ -34,11 +34,30 @@ CURRENT_TEXT_BY_ID = {
     "figure4_gpu_caption": "**Figure 4.** Backend agreement relative to each comparison\'s frozen criterion. Compatibility-versus-JAX-CPU has a maximum final-objective gap of 0.0067837 against a 0.10 criterion; JAX-CPU-versus-physical-GPU has a maximum gap of 1.421e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.",
     "figure6_p3_caption": "**Figure 6.** Trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified aggregate. Dotted lines are the predeclared thresholds. Incomplete classic-HGF cases at 512/1024 trials are retained as gaps. Individual diagnostic criteria do not establish identifiability; the paired-integrity gate failed, so the evidence remains insufficient for an identifiability conclusion. File: `paper/figures/fig_p3_horizon_diagnostics.png`.",
 }
+CURRENT_TEXT_BY_ID.update({
+    "abstract_core_results": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in the documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a documented regime in which classic HGF encounters negative posterior precision while eHGF completes successfully. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained hosted Tesla T4 validation run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims.",
+    "p3_execution_and_integrity_failure": "A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The frozen per-model diagnostic classifier labels the affected model rows `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this cause label concerns paired implementation/optimization disagreement and does not supersede the aggregate scientific classification `INSUFFICIENT_REFERENCE_EVIDENCE`. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.",
+    "uhgf_ar1_demo_extrema": "The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity).",
+    "s7_model_selection_result": "The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 4 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.",
+    "gpu_environment_and_objective_agreement": "Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5.",
+    "gpu_table_result": "| Physical NVIDIA GPU (Tesla T4; 2 visible, tested device `cuda:0`) | retained physical-GPU applicability evidence | max abs objective gap = 1.42e-14; criterion 1e-7 |",
+    "stable_install_version": "Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python. The official cross-language demo reproductions are repository workflows that additionally require a source checkout and the frozen MATLAB-reference submodule; they are not bundled as ordinary wheel examples. MATLAB is unnecessary for normal package use.",
+    "pyhgf_discussion_scope": "pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale."
+})
+EXEMPTIONS = [item for item in EXEMPTIONS if item["text"] != "CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds."]
 REMOVED_NONNUMERIC_CLAIM_IDS = {"historical_m18_fail", "d02_classification", "s7_recovery_classification"}
 CLAIMS = [item for item in CLAIMS if item["id"] not in REMOVED_NONNUMERIC_CLAIM_IDS]
 for _claim in CLAIMS:
     if _claim["id"] in CURRENT_TEXT_BY_ID:
         _claim["text"] = CURRENT_TEXT_BY_ID[_claim["id"]]
+    if _claim["id"] in {
+        "released_scope_summary",
+        "gpu_environment_and_objective_agreement",
+        "figure4_gpu_caption",
+    }:
+        cpu_path = "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"
+        if cpu_path not in _claim["evidence"]:
+            _claim["evidence"].append(cpu_path)
 
 # These are evidence-policy cross-references rather than reported results.
 EXEMPTIONS.append({
@@ -155,8 +174,19 @@ def _verify_machine_sources(repo: Path) -> dict:
     assert len(cases) == 4
     assert max(case["final_objective_gap"] for case in cases) == 1.4210854715202004e-14
     assert gpu["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"] == 0.1
-    assert gpu["acceptance_summary"]["fit_backend_max_objective_gap"] == 0.006783711271481252
     assert gpu["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"] == 1e-7
+
+    cpu = json.loads(_canonical_text(repo, "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"))
+    assert cpu["source_commit"] == "e153a3c0ef95b74b747987ffa3d1c4495d6fb9b8"
+    assert cpu["environment"] == {
+        "backend": "cpu",
+        "devices": ["cpu:0"],
+        "jax": "0.11.1",
+        "python": "3.12.14",
+    }
+    assert cpu["cpu_backend_pass"] is True
+    assert cpu["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"] == 0.1
+    assert max(row["final_objective_gap"] for row in cpu["fit_backend_agreement"]) == 0.006783711260709424
 
     comp = json.loads(_canonical_text(repo, "paper/reproducibility/p2a10_comparison_35268575414.json"))
     passed = [
