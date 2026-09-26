@@ -107,7 +107,7 @@ Historical P3 execution is preserved in `paper/reproducibility/p3_m18c2_aggregat
 
 The physical-GPU applicability record at `gpu_validation_results/m18_s9_physical_gpu_revalidation.json` is a retained pre-release run from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`. Two Tesla T4 devices were visible; the required fitting cells executed on `cuda:0`. JAX device placement establishes residency and `nvidia-smi -L` records device enumeration. The retained GPU result is correctness/applicability evidence, not a speed or scaling benchmark.
 
-The host-libm remediation changed the NumPy compatibility path, so the CPU compatibility-versus-JAX-CPU leg is remeasured separately on post-fix code rather than inheriting the pre-release CPU summary. Its committed machine-readable artifact is the source for the CPU bar in Figure 4.
+The host-libm remediation changed the NumPy compatibility path, so the CPU compatibility-versus-JAX-CPU leg is remeasured separately on post-fix code rather than inheriting the pre-release CPU summary. The canonical Ubuntu execution is Actions run `36255345703` at source `e153a3c0ef95b74b747987ffa3d1c4495d6fb9b8`, Python 3.12.14, JAX/JAXLIB 0.11.1. Two repeated runs were byte-identical (SHA-256 `076d9ddef65dac596fd8439890a9c6928bd90e88e043957903d2037a581036db`); the maximum fit-objective gap is `0.006783711260709424` against the unchanged `0.1` criterion. The committed machine-readable artifact `gpu_validation_results/m18_s9_cpu_postfix_revalidation.json` is the source for the CPU bar in Figure 4.
 
 ## Frozen v1 validation
 
