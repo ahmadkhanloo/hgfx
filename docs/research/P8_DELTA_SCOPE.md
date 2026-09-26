@@ -1,6 +1,6 @@
 # P8 paper-delta review scope
 
-Status: **ROUND-3 CANDIDATE LOCKED / READY FOR INDEPENDENT DELTA REVIEW**
+Status: **ROUND-3 REMEDIATION / NEW CANDIDATE LOCK PENDING**
 
 The full v1 implementation/release review is **not repeated**. The accepted independent baseline is:
 
@@ -9,7 +9,7 @@ The full v1 implementation/release review is **not repeated**. The accepted inde
 - H1/H2: resolved;
 - post-remediation status: no unresolved CRITICAL/HIGH findings.
 
-Two independent P8 paper-delta reviews are preserved as historical evidence. The most recent reviewed content candidate was `b66f294f4799968404273127a9b06b4fc451ffb3`, which returned **FAIL** with one HIGH blocker plus MEDIUM/LOW findings. Round-3 remediation is now locked at content candidate `897aed804901f9f49ad1d73ecfab6fa714d50098` (tree `2c50052dfd06b3013ee5402f56caa4b640ab4cce`). The deterministic delta manifest for that exact candidate is committed and the full-history P8 Delta Scope gate passed in run `36260789049`. No frozen MATLAB reference file or frozen v1 release-evidence artifact changed.
+Two independent P8 paper-delta reviews have already been preserved as historical evidence. The most recent reviewed content candidate was `b66f294f4799968404273127a9b06b4fc451ffb3`, which returned **FAIL** with one HIGH blocker plus MEDIUM/LOW findings. Round-3 remediation changes are being validated before a replacement immutable content candidate is locked.
 
 For an exact candidate SHA, regenerate the deterministic file-level delta with:
 
