@@ -17,7 +17,7 @@ DEFAULT_OUT = ROOT / "paper" / "dist" / "journal"
 REFERENCE_MARKER = "\n## References\n"
 KNOWN_REFERENCE_TEXT = (
     "A Bayesian Foundation for Individual Learning Under Uncertainty",
-    "pyhgf: A neural network library for predictive coding",
+    "Neural Network Library for Predictive Coding",
 )
 
 

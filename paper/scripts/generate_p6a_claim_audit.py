@@ -31,6 +31,7 @@ CURRENT_TEXT_BY_ID = {
     "limitations_scope": "Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) two numerically sensitive fitting cases are matched reference limitations rather than scientific recovery successes; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment failed its paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; and (v) the pyhgf result is one mapped cell, not package-wide equivalence.",
     "release_and_regeneration_metadata": "HGFX 1.0.0 is MIT-licensed [@hgfx100]. Source, tag, and package URLs are in Table 1. Paper tables regenerate with `python paper/scripts/generate_p2_tables.py`. Figures regenerate with `python paper/scripts/generate_p5_figures.py` (300 dpi PNG and PDF). The reviewer entry point is `paper/reproducibility/README.md`. MATLAB is required only to regenerate paired oracle evidence. Repository-facing case identifiers and claim-to-evidence traceability are intentionally confined to Supplementary Appendix S6.",
     "figure2_recovery_caption": "**Figure 2.** Paired parameter-recovery metrics for MATLAB 8.2.0 and HGFX 1.0.0 against the predeclared recovery thresholds. This panel does not constitute a scientific recovery success. File: `paper/figures/fig_recovery_metrics.png`.",
+    "figure4_gpu_caption": "**Figure 4.** Backend agreement relative to each comparison\'s frozen criterion. Compatibility-versus-JAX-CPU has a maximum final-objective gap of 0.0067837 against a 0.10 criterion; JAX-CPU-versus-physical-GPU has a maximum gap of 1.421e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.",
     "figure6_p3_caption": "**Figure 6.** Trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified aggregate. Dotted lines are the predeclared thresholds. Incomplete classic-HGF cases at 512/1024 trials are retained as gaps. Individual diagnostic criteria do not establish identifiability; the paired-integrity gate failed, so the evidence remains insufficient for an identifiability conclusion. File: `paper/figures/fig_p3_horizon_diagnostics.png`.",
 }
 REMOVED_NONNUMERIC_CLAIM_IDS = {"historical_m18_fail", "d02_classification", "s7_recovery_classification"}
@@ -153,6 +154,8 @@ def _verify_machine_sources(repo: Path) -> dict:
     cases = gpu["physical_gpu"]["cases"]
     assert len(cases) == 4
     assert max(case["final_objective_gap"] for case in cases) == 1.4210854715202004e-14
+    assert gpu["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"] == 0.1
+    assert gpu["acceptance_summary"]["fit_backend_max_objective_gap"] == 0.006783711271481252
     assert gpu["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"] == 1e-7
 
     comp = json.loads(_canonical_text(repo, "paper/reproducibility/p2a10_comparison_35268575414.json"))
