@@ -310,6 +310,7 @@ def build(
         "claim_audit_status": (
             "COMPLETE_P6A_2_NOT_FROZEN" if status == "DRAFT_NOT_FROZEN" else "COMPLETE"
         ),
+        "file_count": len(files),
         "anchors": {
             "hgfx_v1_0_0_sha": HGFX_V1_SHA,
             "matlab_hgf_toolbox_8_2_0_sha": MATLAB_ORACLE_SHA,
