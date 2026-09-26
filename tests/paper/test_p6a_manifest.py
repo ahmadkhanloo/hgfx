@@ -146,3 +146,58 @@ def test_build_committed_preserves_draft_and_frozen_modes(
     frozen = generator.build_committed(tmp_path)
     assert frozen["status"] == "FROZEN_FOR_SUBMISSION"
     assert calls[-1] == ("FROZEN_FOR_SUBMISSION", candidate)
+
+
+
+def test_freeze_guard_requires_committed_p8_pass_not_worktree_edit(tmp_path: Path) -> None:
+    generator = load_generator()
+    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.name", "test"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=tmp_path, check=True)
+
+    seed = tmp_path / "seed.txt"
+    seed.write_text("candidate\n", encoding="utf-8")
+    subprocess.run(["git", "add", "seed.txt"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-qm", "candidate"], cwd=tmp_path, check=True)
+    candidate = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=tmp_path, text=True
+    ).strip()
+
+    checklist = tmp_path / "docs/research/PAPER_P8_REVIEW_CHECKLIST.md"
+    checklist.parent.mkdir(parents=True, exist_ok=True)
+    checklist.write_text(
+        f"Reviewer: Independent Reviewer\n"
+        f"Date: 2026-09-26\n"
+        f"Candidate SHA: `{candidate}`\n"
+        "Result: `PASS`\n",
+        encoding="utf-8",
+    )
+    subprocess.run(["git", "add", "."], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-qm", "committed pass"], cwd=tmp_path, check=True)
+
+    generator._check_freeze_guard(
+        tmp_path, "FROZEN_FOR_SUBMISSION", candidate
+    )
+
+    checklist.write_text(
+        f"Reviewer: Independent Reviewer\n"
+        f"Date: 2026-09-26\n"
+        f"Candidate SHA: `{candidate}`\n"
+        "Result: `FAIL`\n",
+        encoding="utf-8",
+    )
+    subprocess.run(["git", "add", "."], cwd=tmp_path, check=True)
+    subprocess.run(["git", "commit", "-qm", "committed fail"], cwd=tmp_path, check=True)
+
+    # An uncommitted PASS must not authorize the freeze.
+    checklist.write_text(
+        f"Reviewer: Independent Reviewer\n"
+        f"Date: 2026-09-26\n"
+        f"Candidate SHA: `{candidate}`\n"
+        "Result: `PASS`\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(RuntimeError, match="independent P8 PASS"):
+        generator._check_freeze_guard(
+            tmp_path, "FROZEN_FOR_SUBMISSION", candidate
+        )
