@@ -4,6 +4,7 @@
 /reference/matlab_manifest.tsv text eol=lf
 /reference/**/*.json text eol=lf
 /reference/**/*.tsv text eol=lf
+/gpu_validation_results/**/*.json text eol=lf
 /paper/reproducibility/p3_m18c2_aggregate_35272347167.json text eol=lf
 
 # Submission-critical text must have checkout-independent bytes on every OS.
