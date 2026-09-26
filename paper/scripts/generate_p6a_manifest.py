@@ -132,7 +132,29 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
     if not candidate_sha or not re.fullmatch(r"[0-9a-f]{40}", candidate_sha):
         raise ValueError("FROZEN_FOR_SUBMISSION requires --candidate-sha <40-hex-sha>")
 
-    checklist = (repo / "docs/research/PAPER_P8_REVIEW_CHECKLIST.md").read_text(encoding="utf-8")
+    try:
+        subprocess.run(
+            ["git", "cat-file", "-e", f"{candidate_sha}^{commit}"],
+            cwd=repo,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "merge-base", "--is-ancestor", candidate_sha, "HEAD"],
+            cwd=repo,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError) as exc:
+        raise RuntimeError(
+            "P6A freeze refused: candidate SHA must name a committed ancestor of HEAD"
+        ) from exc
+
+    checklist = _canonical_bytes(
+        repo, "docs/research/PAPER_P8_REVIEW_CHECKLIST.md"
+    ).decode("utf-8")
     required_patterns = {
         "candidate": rf"^Candidate SHA: `{re.escape(candidate_sha)}`$",
         "reviewer": r"^Reviewer: \S.+$",
@@ -149,6 +171,28 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
             "P6A freeze refused: independent P8 PASS for the exact candidate is not recorded: "
             + "; ".join(missing)
         )
+
+
+def resolve_committed_mode(repo: Path) -> tuple[str, str | None]:
+    """Return the status/candidate recorded in the committed P6A manifest."""
+    committed = json.loads(
+        _canonical_bytes(
+            repo, "paper/reproducibility/p6a_paper_evidence_manifest.json"
+        ).decode("utf-8")
+    )
+    status = committed.get("status")
+    candidate_sha = committed.get("submission_candidate_sha")
+    if status not in {"DRAFT_NOT_FROZEN", "FROZEN_FOR_SUBMISSION"}:
+        raise RuntimeError(f"unsupported committed P6A manifest status: {status!r}")
+    if status == "DRAFT_NOT_FROZEN":
+        candidate_sha = None
+    return status, candidate_sha
+
+
+def build_committed(repo: Path) -> dict:
+    """Rebuild using the mode recorded by the committed manifest."""
+    status, candidate_sha = resolve_committed_mode(repo)
+    return build(repo, status=status, candidate_sha=candidate_sha)
 
 
 def build(
@@ -284,7 +328,8 @@ def build(
             "python paper/scripts/generate_p2_tables.py",
             "python paper/scripts/generate_p5_figures.py",
             "python paper/scripts/generate_p6a_claim_audit.py",
-            "python paper/scripts/generate_p6a_manifest.py",
+            "python paper/scripts/build_journal_submission.py",
+            "python paper/scripts/generate_p6a_manifest.py --from-committed-mode",
             "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py",
         ],
         "classifications": classifications,
@@ -303,17 +348,29 @@ def main() -> None:
     )
     parser.add_argument("--candidate-sha")
     parser.add_argument(
+        "--from-committed-mode",
+        action="store_true",
+        help="rebuild using status and candidate SHA from the committed manifest",
+    )
+    parser.add_argument(
         "--output",
         default="paper/reproducibility/p6a_paper_evidence_manifest.json",
     )
     args = parser.parse_args()
 
     repo = Path(args.repo_root).resolve()
-    manifest = build(
-        repo,
-        status=args.status,
-        candidate_sha=args.candidate_sha,
-    )
+    if args.from_committed_mode:
+        if args.status != "DRAFT_NOT_FROZEN" or args.candidate_sha is not None:
+            raise ValueError(
+                "--from-committed-mode cannot be combined with --status/--candidate-sha"
+            )
+        manifest = build_committed(repo)
+    else:
+        manifest = build(
+            repo,
+            status=args.status,
+            candidate_sha=args.candidate_sha,
+        )
     output = repo / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
