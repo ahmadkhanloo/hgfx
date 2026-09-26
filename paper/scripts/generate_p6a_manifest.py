@@ -47,6 +47,7 @@ RAW_EVIDENCE = (
     "paper/reproducibility/pyhgf_preflight_environment_35265386637.json",
     "docs/user/MATLAB_DEMOS.md",
     "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+    "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
     "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md",
 )
 
