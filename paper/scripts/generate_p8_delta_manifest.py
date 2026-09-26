@@ -21,6 +21,7 @@ V1_RELEASE_SHA = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
 PAPER_PREFIXES = (
     "paper/",
     "docs/research/",
+    "gpu_validation_results/",
 )
 PAPER_WORKFLOWS = (
     ".github/workflows/p2-paper-tables.yml",
@@ -32,6 +33,7 @@ PAPER_WORKFLOWS = (
     ".github/workflows/p6a-paper-evidence.yml",
     ".github/workflows/p7-paper-preflight.yml",
     ".github/workflows/p8-delta-scope.yml",
+    ".github/workflows/p8-cpu-postfix-evidence.yml",
     ".github/workflows/arxiv-package.yml",
 )
 EVIDENCE_PROVENANCE_PATHS = (
