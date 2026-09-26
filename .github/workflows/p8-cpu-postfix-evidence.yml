@@ -1,0 +1,56 @@
+name: P8 CPU Postfix Evidence
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/run_m18_s9_backend_robustness.py'
+      - 'src/hgfx/**'
+      - 'gpu_validation_results/**'
+      - 'paper/scripts/generate_p5_figures.py'
+      - '.github/workflows/p8-cpu-postfix-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu-postfix-evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen CPU revalidation environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==2.3.3' 'jax==0.11.1' 'jaxlib==0.11.1'
+          python -m pip install -e . --no-deps
+      - name: Execute deterministic CPU-only S9 revalidation twice
+        run: |
+          python scripts/run_m18_s9_backend_robustness.py --output cpu_postfix_run1.json
+          python scripts/run_m18_s9_backend_robustness.py --output cpu_postfix_run2.json
+          cmp cpu_postfix_run1.json cpu_postfix_run2.json
+      - name: Report measured CPU fit gap
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('cpu_postfix_run1.json'))
+          gaps=[row['final_objective_gap'] for row in p['fit_backend_agreement']]
+          print('source_commit=', p['source_commit'])
+          print('cpu_backend_pass=', p['cpu_backend_pass'])
+          print('classification=', p['classification'])
+          print('max_fit_backend_gap=', max(gaps))
+          print('criterion=', p['criteria']['compat_vs_jax_cpu_final_objective_gap_max'])
+          assert p['cpu_backend_pass'] is True
+          assert max(gaps) <= p['criteria']['compat_vs_jax_cpu_final_objective_gap_max']
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p8-cpu-postfix-evidence
+          path: |
+            cpu_postfix_run1.json
+            cpu_postfix_run2.json
+          if-no-files-found: error
