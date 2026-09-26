@@ -258,7 +258,7 @@ def fig_gpu_applicability(repo: Path, out: Path) -> None:
     _save(fig, out)
 
 
-def build(repo: Path) -> dict:
+def build(repo: Path, output_dir: Path | None = None) -> dict:
     missing = [rel for rel in REQUIRED_INPUTS if not (repo / rel).exists()]
     if missing:
         raise FileNotFoundError("missing required paper inputs: " + ", ".join(missing))
@@ -270,16 +270,17 @@ def build(repo: Path) -> dict:
         "fig_p3_horizon_diagnostics.png": fig_p3_horizon_diagnostics,
         "fig_gpu_applicability.png": fig_gpu_applicability,
     }
-    fig_dir = repo / "paper" / "figures"
+    fig_dir = output_dir if output_dir is not None else repo / "paper" / "figures"
+    fig_dir.mkdir(parents=True, exist_ok=True)
     outputs = {}
     for name, fn in figures.items():
         path = fig_dir / name
         fn(repo, path)
         pdf = path.with_suffix(".pdf")
         outputs[name] = {
-            "path": str(path.relative_to(repo)),
+            "path": (Path("paper") / "figures" / name).as_posix(),
             "sha256": _sha256(path),
-            "pdf_path": str(pdf.relative_to(repo)),
+            "pdf_path": (Path("paper") / "figures" / pdf.name).as_posix(),
             "pdf_sha256": _sha256(pdf),
         }
     inputs = {rel: _sha256(repo / rel) for rel in REQUIRED_INPUTS}
@@ -304,8 +305,12 @@ def build(repo: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", default=".")
+    parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
-    manifest = build(Path(args.repo_root).resolve())
+    manifest = build(
+        Path(args.repo_root).resolve(),
+        output_dir=args.output_dir.resolve() if args.output_dir else None,
+    )
     print(json.dumps({"figures": list(manifest["figures"]), "protocol_id": PROTOCOL_ID}, indent=2))
 
 
