@@ -75,6 +75,8 @@ This is a quantity-specific comparison, not a package ranking and not evidence o
 
 Physical GPU validation was executed before release at source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec` in a hosted/shared Kaggle environment where two NVIDIA Tesla T4 devices were visible. The recorded runtime was Python 3.12.13, JAX 0.11.1, and JAXLIB 0.11.1. The required fitting cells executed on `cuda:0`; device residency was verified by the JAX device-placement check, while `nvidia-smi -L` provided hardware enumeration only.
 
+The post-fix compatibility-versus-JAX-CPU leg was remeasured separately on Ubuntu with Python 3.12.14 and JAX/JAXLIB 0.11.1. The canonical execution is GitHub Actions run `36255345703`, source commit `e153a3c0ef95b74b747987ffa3d1c4495d6fb9b8`, using the unchanged `0.1` criterion. Two repeated executions were byte-identical (raw-result SHA-256 `076d9ddef65dac596fd8439890a9c6928bd90e88e043957903d2037a581036db`). Across the four fitting cells the maximum post-fix CPU gap is `0.006783711260709424`, so the CPU classification remains a PASS under the frozen criterion. The committed artifact is `gpu_validation_results/m18_s9_cpu_postfix_revalidation.json`.
+
 Four required CPU-versus-GPU fitting cells were evaluated:
 
 | Trials | Regime | CPU objective | GPU objective | Absolute gap |
