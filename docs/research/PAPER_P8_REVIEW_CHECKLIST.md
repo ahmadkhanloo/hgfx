@@ -1,8 +1,9 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **REMEDIATION IN PROGRESS / NEW INDEPENDENT REVIEW REQUIRED**
+Status: **REPLACEMENT CANDIDATE LOCKED / INDEPENDENT REVIEW PENDING**
 Failed reviewed candidate: `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28`  
-Next candidate SHA: `PENDING_LOCK`
+Replacement candidate SHA: `b66f294f4799968404273127a9b06b4fc451ffb3`  
+Candidate tree: `507c7568ac0c53ccd69c59e630e0f164cbe40284`
 Review packet: `docs/research/P8_REVIEW_PACKET.md`
 Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
 Tracking: PV1-02 / GitHub issue #32
@@ -13,7 +14,7 @@ Use this checklist on the exact submission candidate after:
 - [x] P3 aggregate is committed at `paper/reproducibility/p3_m18c2_aggregate_35272347167.json`, hash-verified as `83ccbb7f...31b4`, and classified under `m18c2-trial-horizon-identifiability-1` as `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`;
 - [x] P3 diagnostic Figure 6 is generated from that committed aggregate, committed as `paper/figures/fig_p3_horizon_diagnostics.png`, and zero-diff gated by P5 CI;
 - [x] the P6A draft evidence manifest and P6A-2 numerical claim audit are complete and reproducible;
-- [ ] replacement P7 submission-candidate SHA is locked; strict P7/P6A/P2/P5/regression gates pass on that exact SHA.
+- [x] replacement P7 submission-candidate SHA is locked; strict P7/P6A/P2/P5/regression gates pass on that exact SHA.
 
 The final `FROZEN_FOR_SUBMISSION` manifest is intentionally **post-P8**: an independent P8 PASS for this exact candidate is a prerequisite for the final P6A freeze.
 
@@ -88,5 +89,5 @@ Submission is blocked by unresolved `CRITICAL` or `HIGH` findings.
 
 Reviewer:
 Date:
-Candidate SHA: `PENDING_LOCK`
+Candidate SHA: `b66f294f4799968404273127a9b06b4fc451ffb3`
 Result: `PENDING`
