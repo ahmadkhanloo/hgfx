@@ -24,6 +24,7 @@ REQUIRED_INPUTS = (
     "paper/tables/backend_gpu_applicability.md",
     "paper/tables/p2_tables_manifest.json",
     "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+    "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
 )
 
 
@@ -229,14 +230,15 @@ def fig_p3_horizon_diagnostics(repo: Path, out: Path) -> None:
 
 
 def fig_gpu_applicability(repo: Path, out: Path) -> None:
-    evidence = _load_json(repo / "gpu_validation_results/m18_s9_physical_gpu_revalidation.json")
-    cpu_gap = evidence["acceptance_summary"]["fit_backend_max_objective_gap"]
-    cpu_criterion = evidence["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"]
-    gpu_gap = max(case["final_objective_gap"] for case in evidence["physical_gpu"]["cases"])
-    gpu_criterion = evidence["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"]
+    cpu_evidence = _load_json(repo / "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json")
+    gpu_evidence = _load_json(repo / "gpu_validation_results/m18_s9_physical_gpu_revalidation.json")
+    cpu_gap = max(row["final_objective_gap"] for row in cpu_evidence["fit_backend_agreement"])
+    cpu_criterion = cpu_evidence["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"]
+    gpu_gap = max(case["final_objective_gap"] for case in gpu_evidence["physical_gpu"]["cases"])
+    gpu_criterion = gpu_evidence["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"]
 
     ratios = [cpu_gap / cpu_criterion, gpu_gap / gpu_criterion]
-    labels = ["Compatibility ↔ JAX CPU", "JAX CPU ↔ 2× Tesla T4"]
+    labels = ["Compatibility ↔ JAX CPU", "JAX CPU ↔ Tesla T4"]
 
     fig, ax = plt.subplots(figsize=(6.4, 3.4))
     bars = ax.bar(labels, ratios, color=["#4c78a8", "#54a24b"])
@@ -293,7 +295,7 @@ def build(repo: Path, output_dir: Path | None = None) -> dict:
             "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
             "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
             "P3 horizon diagnostics are generated directly from the hash-verified M18C.2 aggregate and remain diagnostic-only evidence; overall classification is INSUFFICIENT_REFERENCE_EVIDENCE.",
-            "Figure 4 uses committed S9 backend evidence and plots each observed final-objective gap relative to its own frozen criterion.",
+            "Figure 4 uses the committed post-fix S9 CPU remeasurement for the CPU leg and the retained physical-T4 artifact for the GPU leg; each gap is plotted relative to its own frozen criterion.",
             "P4 performance/scaling figure is not activated under protocol 1.",
         ],
     }
