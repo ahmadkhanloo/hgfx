@@ -157,9 +157,9 @@ def _check_freeze_guard(repo: Path, status: str, candidate_sha: str | None) -> N
         repo, "docs/research/PAPER_P8_REVIEW_CHECKLIST.md"
     ).decode("utf-8")
     review_block = re.compile(
-        rf"^Reviewer: \\S.+$\\n"
-        rf"^Date: \\d{{4}}-\\d{{2}}-\\d{{2}}$\\n"
-        rf"^Candidate SHA: `{re.escape(candidate_sha)}`$\\n"
+        rf"^Reviewer: \S.+$\n"
+        rf"^Date: \d{{4}}-\d{{2}}-\d{{2}}$\n"
+        rf"^Candidate SHA: `{re.escape(candidate_sha)}`$\n"
         r"^Result: `PASS`$",
         flags=re.MULTILINE,
     )
