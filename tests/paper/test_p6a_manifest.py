@@ -61,7 +61,7 @@ def test_p6a_draft_manifest_is_deterministic_and_not_frozen() -> None:
 
 def test_committed_p6a_manifest_matches_generator() -> None:
     generator = load_generator()
-    expected = generator.build(ROOT)
+    expected = generator.build_committed(ROOT)
     committed = json.loads(OUTPUT.read_text(encoding="utf-8"))
     assert committed == expected
 
@@ -71,11 +71,14 @@ def test_p6a_freeze_requires_exact_candidate_sha_and_completed_p8() -> None:
     with pytest.raises(ValueError, match="requires --candidate-sha"):
         generator.build(ROOT, status="FROZEN_FOR_SUBMISSION", candidate_sha=None)
 
+    head = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+    ).strip()
     with pytest.raises(RuntimeError, match="independent P8 PASS"):
         generator.build(
             ROOT,
             status="FROZEN_FOR_SUBMISSION",
-            candidate_sha="0" * 40,
+            candidate_sha=head,
         )
 
 
@@ -97,3 +100,49 @@ def test_canonical_hash_ignores_checkout_crlf_but_detects_committed_change(tmp_p
     subprocess.run(["git", "add", "evidence.txt"], cwd=tmp_path, check=True)
     subprocess.run(["git", "commit", "-qm", "semantic change"], cwd=tmp_path, check=True)
     assert hashlib.sha256(generator._canonical_bytes(tmp_path, "evidence.txt")).hexdigest() != expected
+
+
+def _commit_mode_fixture(repo: Path, payload: dict) -> None:
+    target = repo / "paper/reproducibility/p6a_paper_evidence_manifest.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(payload), encoding="utf-8")
+    subprocess.run(["git", "add", "."], cwd=repo, check=True)
+    subprocess.run(["git", "commit", "-qm", "mode fixture"], cwd=repo, check=True)
+
+
+def test_build_committed_preserves_draft_and_frozen_modes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    generator = load_generator()
+    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.name", "test"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "config", "user.email", "test@example.invalid"], cwd=tmp_path, check=True)
+
+    calls: list[tuple[str, str | None]] = []
+
+    def fake_build(repo: Path, *, status: str, candidate_sha: str | None):
+        calls.append((status, candidate_sha))
+        return {"status": status, "submission_candidate_sha": candidate_sha}
+
+    monkeypatch.setattr(generator, "build", fake_build)
+
+    _commit_mode_fixture(
+        tmp_path,
+        {"status": "DRAFT_NOT_FROZEN", "submission_candidate_sha": None},
+    )
+    assert generator.build_committed(tmp_path)["status"] == "DRAFT_NOT_FROZEN"
+    assert calls[-1] == ("DRAFT_NOT_FROZEN", None)
+
+    candidate = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=tmp_path, text=True
+    ).strip()
+    _commit_mode_fixture(
+        tmp_path,
+        {
+            "status": "FROZEN_FOR_SUBMISSION",
+            "submission_candidate_sha": candidate,
+        },
+    )
+    frozen = generator.build_committed(tmp_path)
+    assert frozen["status"] == "FROZEN_FOR_SUBMISSION"
+    assert calls[-1] == ("FROZEN_FOR_SUBMISSION", candidate)
