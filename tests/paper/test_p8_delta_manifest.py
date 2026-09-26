@@ -67,8 +67,8 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
             )
             assert p6a["status"] == "FROZEN_FOR_SUBMISSION"
             assert p6a["submission_candidate_sha"] == candidate_sha
-            assert f"Candidate SHA: \`{candidate_sha}\`" in checklist
-            assert "Result: \`PASS\`" in checklist
+            assert f"Candidate SHA: `{candidate_sha}`" in checklist
+            assert "Result: `PASS`" in checklist
             allowed_post_review_paths.add(frozen_manifest_path)
 
         assert changed <= allowed_post_review_paths, (
