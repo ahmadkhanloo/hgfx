@@ -127,6 +127,8 @@ The previous FAIL against `c6ef9e5` is unchanged historical evidence (branch `p8
 commits `c5b48b2`, `57560a6`) and is not rewritten, renumbered or softened by this review.
 
 No scientific threshold, tolerance, seed, dataset, model grid, optimiser setting or frozen
-classification was altered by the remediation or by this review. No push, merge, tag, freeze,
-`workflow_dispatch` or external publication was performed, and no manuscript or review text left this
-machine.
+classification was altered by the remediation or by this review. No merge, tag, pull-request,
+`workflow_dispatch` or P6A freeze was performed. The owner subsequently authorised publishing this
+record by pushing the review branch alone (`origin/p8-review/b66f294` = `f390e23`), leaving `main`,
+the candidate branch and the lock chain untouched; no manuscript or review text was sent to any
+third-party service.
