@@ -26,22 +26,22 @@ def load_generator():
 
 def test_generate_p5_writes_manifest_and_pngs(tmp_path: Path) -> None:
     generator = load_generator()
-    # generate into the real repo; hashes must be stable across two runs
-    first = generator.build(ROOT)
-    second = generator.build(ROOT)
+    out = tmp_path / "figures"
+    first = generator.build(ROOT, output_dir=out)
+    second = generator.build(ROOT, output_dir=out)
     assert first["protocol_id"] == "hgfx-paper-protocol-1"
     assert set(first["figures"]) == EXPECTED
     assert first["figures"] == second["figures"]
     for name, meta in first["figures"].items():
-        path = ROOT / meta["path"]
+        path = out / Path(meta["path"]).name
         assert path.is_file()
         assert path.stat().st_size > 1000
         pdf = path.with_suffix(".pdf")
         assert pdf.is_file()
         assert pdf.stat().st_size > 1000
-        assert meta["pdf_path"] == str(pdf.relative_to(ROOT))
+        assert meta["pdf_path"] == (Path("paper") / "figures" / pdf.name).as_posix()
         assert len(meta["pdf_sha256"]) == 64
-    manifest = json.loads((ROOT / "paper/figures/p5_figures_manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((out / "p5_figures_manifest.json").read_text(encoding="utf-8"))
     assert manifest["inputs"]
     assert (
         manifest["inputs"]["paper/reproducibility/p3_m18c2_aggregate_35272347167.json"]

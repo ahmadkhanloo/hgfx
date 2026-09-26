@@ -1,7 +1,7 @@
 # P8 independent review packet
 
-Status: **PRIOR INDEPENDENT V1 REVIEW ACCEPTED / PAPER-DELTA REVIEW PACKET READY / INDEPENDENT DELTA REVIEW OPEN**  
-Prepared: 2026-09-18  
+Status: **ROUND-3 CANDIDATE LOCKED / READY FOR INDEPENDENT DELTA REVIEW**  
+Prepared: 2026-09-26  
 Tracking: PV1-02 / issue #32
 
 ## Accepted prior independent-review baseline
@@ -24,51 +24,57 @@ The remaining P8 scope is therefore a **delta review** of the current paper cand
 Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`  
 Delta-scope guide: `docs/research/P8_DELTA_SCOPE.md`
 
-The delta contains 132 changed files across 109 commits: 91 paper-review files, 9 evidence/provenance files, 23 product-only claim-leakage checks, and 9 maintenance-context files. No frozen MATLAB reference file and no frozen v1 release-evidence artifact changed.
+The delta manifest is regenerated for the exact replacement candidate locked below. No scientific threshold, seed, dataset, optimizer setting, frozen MATLAB reference file, or frozen v1 release-evidence artifact is changed by the P8-remediation edits.
 
 Delta-scope implementation: PR #66 merged as `39255756c8ef6bd1f4aaf3e5357ea70e430c55f3`.  
 P8 Delta Scope run `35344626071`: PASS / full-history execution / zero-diff.  
 Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 skipped on each platform. The extra skip is only the history-dependent delta test on shallow generic checkouts; the dedicated P8 workflow executes it non-skipped with `fetch-depth: 0`.
 
+## Independent review attempt on replacement candidate — FAIL
+
+The independent paper-delta review targeted candidate `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28` (tree `e5ffa30435d7d3fa1d95ad00be60ee4f56dba82e`) and returned **FAIL** on 2026-09-26. This result is historical evidence and must not be rewritten as PASS.
+
+Exact candidate gate runs were all successful before review:
+
+- P2 Paper Tables `35540117257`: PASS
+- P5 Paper Figures `35540117270`: PASS
+- P6A Paper Evidence `35540117282`: PASS
+- P7 JNM Preflight `35540117313`: PASS
+- P8 Delta Scope `35540117266`: PASS
+- HGFX Regression `35540117256`: PASS
+
+Blocking review findings included: evidence-inconsistent Figure 4 backend magnitudes/criteria, stale candidate/provenance lock metadata, a reproduction README that referenced a workflow absent from the reviewed revision, and journal-facing outputs without a canonical citeproc bibliography-rendering path.
+
 ## Exact submission candidate
 
-- Candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`
-- Candidate tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
-- Preserving merge commit: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`
-- Merge tree: `9f5e32f388607170b1493376cca82c300ecde6f2`
-- Candidate is the second parent of the merge and is preserved in `main` history.
+Round-3 candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`  
+Candidate tree: `2c50052dfd06b3013ee5402f56caa4b640ab4cce`  
+State: **LOCKED FOR INDEPENDENT P8 REVIEW / NOT PASSED / NOT FROZEN**
 
-The reviewer must review the **candidate SHA above**, not an unspecified moving `main`.
+This content candidate remediates the recorded round-2 HIGH/MEDIUM publication findings while preserving the historical failed reviews and all frozen scientific criteria/classifications. Post-candidate commits are restricted to review-lock metadata and are checked by the P8 delta guard; they do not change the content candidate.
 
 ## Candidate gate evidence
 
-All gates completed successfully on the exact candidate SHA:
+Paper-specific gates on the exact round-3 candidate:
 
-- P7 JNM Preflight run `35342538568`: PASS
-  - status: `PASS_P7_PREFLIGHT`
-  - abstract: 237 words
-  - keywords: 6
-  - highlights: 5
-  - corresponding email present and equals the author-approved `m.ahmadkhanloo@ipm.ir`
-  - blockers: 0
-  - format/evidence errors: 0
-- P6A Paper Evidence Draft run `35342538572`: PASS
-  - claim audit status: `COMPLETE_P6A_2_NOT_FROZEN`
-  - mapped numerical/versioned claim lines: 48
-  - unmapped numerical lines: 0
-  - manifest status: `DRAFT_NOT_FROZEN`
-  - inventory: 59 committed artifacts
-  - zero-diff regeneration: PASS
-- P2 Paper Tables run `35342538617`: PASS
-- HGFX Regression run `35342538746`: PASS
-  - Ubuntu: 214 passed, 4 skipped
-  - Windows: 214 passed, 4 skipped
-  - frozen reference verification: PASS
-  - frozen MATLAB source classification: PASS
+- P2 Paper Tables run `36260396797`: PASS
+- P5 Paper Figures run `36260396680`: PASS
+- P6A Paper Evidence run `36260396774`: PASS
+- P7 JNM Preflight run `36260396760`: PASS
+- P8 CPU Postfix Evidence run `36260396759`: PASS
+  - CPU/backend criterion remains `0.10`;
+  - measured maximum fit-objective gap is `0.006783711260709424`;
+  - this is CPU/backend correctness evidence, not a speed claim.
+- P8 Delta Scope run `36263948652`: PASS on the locked manifest for the exact candidate.
+- Full HGFX Regression run `36260789062`: PASS on a documentation-only lock descendant with the same implementation/manuscript/evidence content as the candidate; Ubuntu and Windows both completed successfully.
+
+No frozen `reference/matlab/` file and no frozen `reference/validation/v1_release/` artifact changed in the candidate delta.
+
+The candidate is therefore **READY FOR INDEPENDENT REVIEW**, not P8 PASS. The independent reviewer must review this exact SHA and record the round-3 result in `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`.
 
 ## Review scope
 
-Review these files at candidate SHA `82bbb0c30893651f8ccb15ba27195c3d58bae521`:
+Review these files at the replacement candidate SHA once it is locked:
 
 - `paper/manuscript.md`
 - `paper/highlights.txt`

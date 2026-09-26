@@ -72,6 +72,7 @@
     "s7_paired_model_selection": "PASS_PAIRED_MODEL_SELECTION_36_OF_36",
     "s7_parameter_recovery": "REFERENCE_LIMITATION_MATCH"
   },
+  "file_count": 61,
   "files": [
     {
       "path": "docs/research/P3_M18C2_RESULT.md",
@@ -82,8 +83,8 @@
     {
       "path": "docs/research/P7_JNM_PREFLIGHT.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "3f35ca8df4f1a0a33c8f9168f11f9da73a7db09778a6f3caf1454d819ed918a7",
-      "size_bytes": 2765
+      "sha256": "01249100748908363253005b84943fa96c3d1346358756f35af769d16abf8fa1",
+      "size_bytes": 3313
     },
     {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
@@ -102,6 +103,12 @@
       "role": "raw_evidence",
       "sha256": "697601e5b7e8e7718441074c92cdb64af6c62864a2538f898dfbdb305692f3c8",
       "size_bytes": 3003
+    },
+    {
+      "path": "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
+      "role": "raw_evidence",
+      "sha256": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
+      "size_bytes": 41325
     },
     {
       "path": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
@@ -124,14 +131,14 @@
     {
       "path": "paper/figures/fig_gpu_applicability.pdf",
       "role": "generated_figure_or_figure_manifest",
-      "sha256": "c2f1325417813d38e5d51ad7a8b4875a691c4a64c43c072bab2475a839afb5d8",
-      "size_bytes": 16897
+      "sha256": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
+      "size_bytes": 17544
     },
     {
       "path": "paper/figures/fig_gpu_applicability.png",
       "role": "generated_figure_or_figure_manifest",
-      "sha256": "10a103ce3ffab2ff5c5c1d352bffab65345cd8d58829ce4dd806f66bfefe028c",
-      "size_bytes": 99472
+      "sha256": "1522a91693c62cbf0fd1a858725ddff8148de0ba1e3162e5563ab3f89132d582",
+      "size_bytes": 111696
     },
     {
       "path": "paper/figures/fig_model_selection.pdf",
@@ -184,8 +191,8 @@
     {
       "path": "paper/figures/p5_figures_manifest.json",
       "role": "generated_figure_or_figure_manifest",
-      "sha256": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039",
-      "size_bytes": 3499
+      "sha256": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87",
+      "size_bytes": 3964
     },
     {
       "path": "paper/highlights.txt",
@@ -196,8 +203,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "6e19a49b8cb0e14bcd7b75f1615521c164301a9b430638a524cbf933fa32fbd5",
-      "size_bytes": 25594
+      "sha256": "993989ac1b9b19fa897c27ee2fa33c892a04c89629c23d7455fbadeeffbcb01c",
+      "size_bytes": 27100
     },
     {
       "path": "paper/references.bib",
@@ -214,8 +221,8 @@
     {
       "path": "paper/reproducibility/README.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "98dedf7e65a20fdd8820ab9cb7ca7aa4dbdd037d32132a903923be95f2e2c87a",
-      "size_bytes": 4684
+      "sha256": "af550e57f6be715f7644f0b30d96921dcee091a811b7db1f6042aa17624415d2",
+      "size_bytes": 7596
     },
     {
       "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
@@ -256,8 +263,8 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "8fe5f58b21c5ae9459bf56e57b1500b29c0dc7c987f4949ad896d4722e04e601",
-      "size_bytes": 49004
+      "sha256": "840c2b03dc4f3f073bde82c6f0bce65df015436c069a228e1c4f9400e0882d93",
+      "size_bytes": 51789
     },
     {
       "path": "paper/reproducibility/pyhgf_common_scope_case.json",
@@ -308,6 +315,12 @@
       "size_bytes": 3460
     },
     {
+      "path": "paper/scripts/build_journal_submission.py",
+      "role": "generator",
+      "sha256": "004d1f310eed1038531dfc5a596a87768de4c416016d34efd1ebc7d4913c7aa1",
+      "size_bytes": 6152
+    },
+    {
       "path": "paper/scripts/check_p7_submission.py",
       "role": "generator",
       "sha256": "b8ca60cbd65bdae477a6ff48526df173f995d84e806c06925329f7bf3b5ee67c",
@@ -316,26 +329,26 @@
     {
       "path": "paper/scripts/generate_p2_tables.py",
       "role": "generator",
-      "sha256": "3090433e54d39affb0a6c184d8c62a011735a3e6ee89179d07cb5c2e910176c5",
-      "size_bytes": 14238
+      "sha256": "392fe8f735c90dc57280c38dbd55c73173cf3ca01154208f23f6e9679b888333",
+      "size_bytes": 16232
     },
     {
       "path": "paper/scripts/generate_p5_figures.py",
       "role": "generator",
-      "sha256": "1dfdecf44647141542455d71ba397329205e2361cdf36d1ecf0791476c366327",
-      "size_bytes": 12788
+      "sha256": "f0cf57608cd7801157258ddf5d94688447830d8a9472b590fa5446111541f68a",
+      "size_bytes": 14414
     },
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "5ab043e303de485436a8fff961302b3bdb53b1aa4238def54e6fef4161ecbad7",
-      "size_bytes": 44434
+      "sha256": "a129f5771e75ec55ee108a53baaf4d879a1c7a2ba08a3158978d14ff39e5f43d",
+      "size_bytes": 53133
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
       "role": "generator",
-      "sha256": "9bc6c1d7d6a9420dca4c7290bea098e9c81d6ba9644eb8ca3ef3d01d6e999ec4",
-      "size_bytes": 12669
+      "sha256": "15af6c419ff6d3bdbc0ef51b89e2a0a9aeb650358885254c8b458a9a7ec31a23",
+      "size_bytes": 14876
     },
     {
       "path": "paper/tables/backend_gpu_applicability.md",
@@ -364,14 +377,14 @@
     {
       "path": "paper/tables/p2_tables_manifest.json",
       "role": "generated_table_or_table_manifest",
-      "sha256": "1076df7fb1864a4c16663bf8e8839004271c640eadd2d37dea9553eb3a701575",
-      "size_bytes": 1741
+      "sha256": "462985e59e25b2a6c0232544633df8f5b1667f2ce9c435e25f4bc05b54b1a915",
+      "size_bytes": 2009
     },
     {
       "path": "paper/tables/p3_horizon_summary.md",
       "role": "generated_table_or_table_manifest",
-      "sha256": "03c23eee595e66a1294131adcc0dc69687033b7be2da1d46a72c9489cc8b9142",
-      "size_bytes": 1107
+      "sha256": "0a8ee5b5736a709def3608a2909f56bb453b125ee254318a9cae173973f677be",
+      "size_bytes": 1445
     },
     {
       "path": "paper/tables/recovery_model_selection.md",
@@ -442,7 +455,8 @@
     "python paper/scripts/generate_p2_tables.py",
     "python paper/scripts/generate_p5_figures.py",
     "python paper/scripts/generate_p6a_claim_audit.py",
-    "python paper/scripts/generate_p6a_manifest.py",
+    "python paper/scripts/build_journal_submission.py",
+    "python paper/scripts/generate_p6a_manifest.py --from-committed-mode",
     "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,

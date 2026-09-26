@@ -4,8 +4,8 @@
 **Article type:** Research Article (methods)  
 **Highlights:** `paper/highlights.txt`  
 **Word count (main text, approximate):** 2,400  
-**Figures:** 6  **Tables:** 6  
-**Abstract:** <=250 words (this draft ~230)
+**Figures:** 6  **Tables:** 5  
+**Abstract:** <=250 words
 
 **Authors and affiliations**
 
@@ -19,7 +19,7 @@ https://github.com/ahmadkhanloo
 
 ## Abstract
 
-The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is functional and scientific equivalence with a frozen HGF Toolbox 8.2.0 reference, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a model-family failure regime in which classic HGF fails and eHGF succeeds. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability was confirmed on two Tesla T4 devices, with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims.
+The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox targeting validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a regime where classic HGF encounters negative posterior precision while eHGF succeeds. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained Tesla T4 run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims.
 
 ## 1 Introduction
 
@@ -52,7 +52,7 @@ Software metadata and frozen validation identities are summarized in Table 1.
 | Source | https://github.com/ahmadkhanloo/hgfx |
 | Release | https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 |
 | PyPI | `hgfx==1.0.0` |
-| Operating systems | Platform-independent (Linux, Windows, macOS) |
+| Validated CI platforms | Linux (Ubuntu) and Windows |
 | Language | Python 3.11+ |
 | License | MIT (no restriction on non-academic use) |
 | Dependencies | NumPy, JAX |
@@ -91,7 +91,7 @@ Fitting validation covers objectives at fixed parameters, MATLAB-compatible opti
 
 An earlier frozen parameter-recovery experiment failed its scientific acceptance criteria and remains preserved. Subsequent paired validation distinguishes parameter recovery from model selection on a frozen three-model grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; predeclared thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
 
-CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds.
+CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement.
 
 ### 2.5 pyhgf common-scope protocol
 
@@ -99,7 +99,7 @@ CPU/backend equivalence and physical NVIDIA GPU applicability were tested after 
 
 ### 2.6 Prospective trial-horizon protocol
 
-A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.
+A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The frozen per-model diagnostic classifier labels the affected model rows `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this cause label concerns paired implementation/optimization disagreement and does not supersede the aggregate scientific classification `INSUFFICIENT_REFERENCE_EVIDENCE`. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.
 
 ## 3 Results
 
@@ -109,7 +109,7 @@ HGFX 1.0.0 was released from commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. 
 
 The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (direct model-selection parity).
 
-The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolute third-level posterior mean is 16.99162398501939 for uHGF and 4.0927117005012175 for uHGF-AR(1) in both implementations (direct uHGF-AR(1) workflow parity).
+The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity).
 
 **Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
 
@@ -137,7 +137,7 @@ Two fitting-validation cases expose reference limitations rather than direct fit
 
 ### 3.3 Parameter recovery versus model selection
 
-The earlier parameter-recovery failure remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
+The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 4 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
 
 The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity gate failed, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they do not replace the earlier recovery evidence.
 
@@ -151,14 +151,14 @@ The trial-horizon study (section 2.6) is complete as an executed protocol, not a
 
 ### 3.4 Backend and physical-GPU applicability
 
-Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells pass the frozen final-objective criterion <= 1e-7. The maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). This is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the four CPU-versus-GPU objective pairs, the execution command, and the raw-artifact checksum are reported in Supplementary Appendix S5.
+Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5.
 
 **Table 5.** Backend and GPU applicability.
 
 | Surface | Classification | Result |
 |---|---|---|
 | Compatibility vs JAX CPU | direct backend agreement | objective/backend agreement |
-| Physical NVIDIA GPU (2x Tesla T4) | physical-GPU applicability confirmed | max abs objective gap = 1.42e-14; criterion 1e-7 |
+| Physical NVIDIA GPU (Tesla T4; 2 visible, tested device `cuda:0`) | retained physical-GPU applicability evidence | max abs objective gap = 1.42e-14; criterion 1e-7 |
 
 ### 3.5 Common-scope comparison with pyhgf
 
@@ -168,7 +168,7 @@ Participant-response NLL was not directly comparable. With `ze = 48`, the pyhgf-
 
 ### 3.6 Examples of use and current limitations
 
-Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python, including the official demo reproductions. MATLAB is unnecessary for those user paths.
+Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python. The official cross-language demo reproductions are repository workflows that additionally require a source checkout and the frozen MATLAB-reference submodule; they are not bundled as ordinary wheel examples. MATLAB is unnecessary for normal package use.
 
 Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) two numerically sensitive fitting cases are matched reference limitations rather than scientific recovery successes; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment failed its paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; and (v) the pyhgf result is one mapped cell, not package-wide equivalence.
 
@@ -180,7 +180,7 @@ This motivates separating scientific correctness from reference faithfulness. Wh
 
 Workflow-level validation matters for the same reason. Reproducing the expected failure of classic HGF in a documented regime, while reproducing successful eHGF behavior, is part of compatibility. Treating every failure as an implementation bug would have encouraged divergence from the reference.
 
-pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference despite sharing the same predicted belief.
+pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale.
 
 JAX enables compiled CPU/GPU execution, batching, and multi-device workloads [@jax2018github; @frostig2018]. Accelerator-native code is scientifically useful only if the accelerated path preserves relevant outputs. The T4 result supports that claim for the tested objective. Throughput depends on workload size, compilation amortization, hardware, device count, and contention; protocol 1 therefore does not activate a headline performance or scaling result. Scalability of the JAX path is an engineering capability of the implementation, not a reported empirical law.
 
@@ -214,7 +214,7 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 **Figure 3.** Paired model-selection summary: MATLAB and HGFX balanced accuracy and 36/36 BIC winner agreement. File: `paper/figures/fig_model_selection.png`.
 
-**Figure 4.** CPU-backend and physical Tesla T4 final-objective agreement on a log scale, against the frozen 1e-7 GPU criterion. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
+**Figure 4.** Backend agreement relative to each comparison's frozen criterion. The post-fix compatibility-versus-JAX-CPU remeasurement has a maximum final-objective gap of 0.006783711260709424 against a 0.10 criterion; JAX-CPU-versus-retained-physical-T4 has a maximum gap of 1.4210854715202004e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
 
 **Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
 
@@ -227,3 +227,5 @@ During the preparation of this work, the author used OpenAI ChatGPT to assist wi
 ## References
 
 Bibliography entries are in `paper/references.bib`.
+
+<!-- submission-candidate-lock -->
