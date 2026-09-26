@@ -45,6 +45,18 @@ CURRENT_TEXT_BY_ID.update({
     "pyhgf_discussion_scope": "pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale."
 })
 EXEMPTIONS = [item for item in EXEMPTIONS if item["text"] != "CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds."]
+CLAIMS.append({
+    "id": "backend_remeasurement_and_retention_design",
+    "line_hint": 90,
+    "text": "CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement.",
+    "category": "NUMERICAL_OR_VERSIONED_CLAIM",
+    "evidence": [
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
+        "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+        "paper/reproducibility/PAPER_PROTOCOL.md",
+    ],
+})
+
 REMOVED_NONNUMERIC_CLAIM_IDS = {"historical_m18_fail", "d02_classification", "s7_recovery_classification"}
 CLAIMS = [item for item in CLAIMS if item["id"] not in REMOVED_NONNUMERIC_CLAIM_IDS]
 for _claim in CLAIMS:
