@@ -80,6 +80,7 @@ GENERATORS = (
     "paper/scripts/generate_p5_figures.py",
     "paper/scripts/generate_p6a_claim_audit.py",
     "paper/scripts/check_p7_submission.py",
+    "paper/scripts/build_journal_submission.py",
     "paper/scripts/generate_p6a_manifest.py",
 )
 

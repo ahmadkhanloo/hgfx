@@ -23,6 +23,7 @@ REQUIRED_INPUTS = (
     "paper/reproducibility/p3_m18c2_provenance_35272347167.json",
     "paper/tables/backend_gpu_applicability.md",
     "paper/tables/p2_tables_manifest.json",
+    "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
 )
 
 
@@ -228,12 +229,30 @@ def fig_p3_horizon_diagnostics(repo: Path, out: Path) -> None:
 
 
 def fig_gpu_applicability(repo: Path, out: Path) -> None:
+    evidence = _load_json(repo / "gpu_validation_results/m18_s9_physical_gpu_revalidation.json")
+    cpu_gap = evidence["acceptance_summary"]["fit_backend_max_objective_gap"]
+    cpu_criterion = evidence["criteria"]["compat_vs_jax_cpu_final_objective_gap_max"]
+    gpu_gap = max(case["final_objective_gap"] for case in evidence["physical_gpu"]["cases"])
+    gpu_criterion = evidence["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"]
+
+    ratios = [cpu_gap / cpu_criterion, gpu_gap / gpu_criterion]
+    labels = ["Compatibility ↔ JAX CPU", "JAX CPU ↔ 2× Tesla T4"]
+
     fig, ax = plt.subplots(figsize=(6.4, 3.4))
-    ax.bar(["CPU backend\nobjective agreement", "2× Tesla T4\nmax |Δ objective|"], [1e-14, 1.42108547152e-14], color=["#4c78a8", "#54a24b"])
-    ax.axhline(1e-7, color="#333333", linestyle="--", linewidth=1, label="frozen GPU criterion 1e-7")
+    bars = ax.bar(labels, ratios, color=["#4c78a8", "#54a24b"])
+    ax.axhline(1.0, color="#333333", linestyle="--", linewidth=1, label="frozen acceptance boundary")
     ax.set_yscale("log")
-    ax.set_ylabel("absolute objective gap")
-    ax.set_title("Physical GPU applicability, not a speed claim")
+    ax.set_ylabel("observed final-objective gap / frozen criterion")
+    ax.set_title("Backend agreement relative to each frozen criterion")
+    for bar, gap, criterion in zip(bars, [cpu_gap, gpu_gap], [cpu_criterion, gpu_criterion]):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() * 1.5,
+            f"{gap:.3g} / {criterion:.0e}",
+            ha="center",
+            va="bottom",
+            fontsize=8,
+        )
     ax.legend(frameon=False, loc="upper right")
     fig.tight_layout()
     _save(fig, out)
@@ -273,6 +292,7 @@ def build(repo: Path) -> dict:
             "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
             "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
             "P3 horizon diagnostics are generated directly from the hash-verified M18C.2 aggregate and remain diagnostic-only evidence; overall classification is INSUFFICIENT_REFERENCE_EVIDENCE.",
+            "Figure 4 uses committed S9 backend evidence and plots each observed final-objective gap relative to its own frozen criterion.",
             "P4 performance/scaling figure is not activated under protocol 1.",
         ],
     }

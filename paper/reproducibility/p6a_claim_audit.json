@@ -124,7 +124,7 @@
       "id": "abstract_core_results",
       "line_hint": 22,
       "line_number": 22,
-      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is functional and scientific equivalence with a frozen HGF Toolbox 8.2.0 reference, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a model-family failure regime in which classic HGF fails and eHGF succeeds. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability was confirmed on two Tesla T4 devices, with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
+      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in the documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a documented regime in which classic HGF encounters negative posterior precision while eHGF completes successfully. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability was confirmed on two Tesla T4 devices, with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -685,7 +685,7 @@
         "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md": "697601e5b7e8e7718441074c92cdb64af6c62864a2538f898dfbdb305692f3c8",
         "paper/reproducibility/PAPER_PROTOCOL.md": "6c1fa19da7fd56b430f77c26d6e553b0c827c421f65b09efd850986514f6e2df",
         "paper/scripts/generate_p2_tables.py": "3090433e54d39affb0a6c184d8c62a011735a3e6ee89179d07cb5c2e910176c5",
-        "paper/scripts/generate_p5_figures.py": "1dfdecf44647141542455d71ba397329205e2361cdf36d1ecf0791476c366327"
+        "paper/scripts/generate_p5_figures.py": "af7d6018b1711634d902ecdc34c6d9c9ccd5d10320e0e739afd6cb78888e25ab"
       },
       "id": "release_and_regeneration_metadata",
       "line_hint": 187,
@@ -712,7 +712,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039",
+        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
         "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
       },
       "id": "figure2_recovery_caption",
@@ -727,7 +727,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039",
+        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
         "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
       },
       "id": "figure3_model_selection_caption",
@@ -743,12 +743,12 @@
       ],
       "evidence_sha256": {
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
-        "paper/figures/p5_figures_manifest.json": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039"
+        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5"
       },
       "id": "figure4_gpu_caption",
       "line_hint": 213,
       "line_number": 217,
-      "text": "**Figure 4.** CPU-backend and physical Tesla T4 final-objective agreement on a log scale, against the frozen 1e-7 GPU criterion. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`."
+      "text": "**Figure 4.** Backend agreement relative to each comparison's frozen criterion. Compatibility-versus-JAX-CPU has a maximum final-objective gap of 0.0067837 against a 0.10 criterion; JAX-CPU-versus-physical-GPU has a maximum gap of 1.421e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -757,7 +757,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039",
+        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
         "paper/reproducibility/p2a10_comparison_35268575414.json": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14"
       },
       "id": "figure5_pyhgf_caption",
@@ -772,7 +772,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "5c512ea5d5eb8cb2fca8b5808d50400dc80d52a04332445495e9baedea538039",
+        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
         "paper/reproducibility/p3_m18c2_aggregate_35272347167.json": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
       },
       "id": "figure6_p3_caption",
@@ -852,7 +852,7 @@
     "s7_recovery_model_selection": "PASS"
   },
   "manuscript_path": "paper/manuscript.md",
-  "manuscript_sha256": "6e19a49b8cb0e14bcd7b75f1615521c164301a9b430638a524cbf933fa32fbd5",
+  "manuscript_sha256": "ecb317d7819f4adf893223d1387eddca4a60bab72b2a90a6a2aaf274034a28cd",
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1,
   "status": "COMPLETE_P6A_2_NOT_FROZEN",
