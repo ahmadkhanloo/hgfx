@@ -32,9 +32,9 @@
     "fitting_statistics_classification.md": "ad68f4db1d795a398855c8812943caacfa1d5e9276e46fea5d80e5cc90c8c1a5",
     "matlab_demo_parity.md": "3ed18d44a33e76c926eec20d52e7e5b18e2c625b9d6880c8330ed8eef2d26b4a",
     "model_workflow_coverage.md": "e0da896bf1262838a300b71d229dd149da3d85f0b2e782a7024e1ecf38446c42",
+    "p3_horizon_summary.md": "0a8ee5b5736a709def3608a2909f56bb453b125ee254318a9cae173973f677be",
     "recovery_model_selection.md": "0748f158e11fa721ad9b801e4911c9efc48637f7e5c6681f12ee15dd0c9f4c37",
-    "release_reproducibility_provenance.md": "ad53bc25faa1485deba1a85a6152bff62d6ace0f714c75dafe31fa143631df03",
-    "p3_horizon_summary.md": "0a8ee5b5736a709def3608a2909f56bb453b125ee254318a9cae173973f677be"
+    "release_reproducibility_provenance.md": "ad53bc25faa1485deba1a85a6152bff62d6ace0f714c75dafe31fa143631df03"
   },
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1
