@@ -129,6 +129,7 @@ commits `c5b48b2`, `57560a6`) and is not rewritten, renumbered or softened by th
 No scientific threshold, tolerance, seed, dataset, model grid, optimiser setting or frozen
 classification was altered by the remediation or by this review. No merge, tag, pull-request,
 `workflow_dispatch` or P6A freeze was performed. The owner subsequently authorised publishing this
-record by pushing the review branch alone (`origin/p8-review/b66f294` = `f390e23`), leaving `main`,
+record by pushing the review branch alone (`p8-review/b66f294`, review-only commits `4370342`,
+`f390e23` and this document's outcome commit), leaving `main`,
 the candidate branch and the lock chain untouched; no manuscript or review text was sent to any
 third-party service.
