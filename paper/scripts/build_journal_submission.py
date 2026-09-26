@@ -15,9 +15,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT = ROOT / "paper" / "dist" / "journal"
 REFERENCE_MARKER = "\n## References\n"
-KNOWN_REFERENCE_TEXT = (
-    "A Bayesian Foundation for Individual Learning Under Uncertainty",
-    "Neural Network Library for Predictive Coding",
+FIGURE_FILES = (
+    "fig_evidence_classes.png",
+    "fig_recovery_metrics.png",
+    "fig_model_selection.png",
+    "fig_gpu_applicability.png",
+    "fig_pyhgf_common_scope.png",
+    "fig_p3_horizon_diagnostics.png",
+)
+PLANNING_PREFIXES = (
+    "**Target journal:**",
+    "**Article type:**",
+    "**Highlights:**",
+    "**Word count",
+    "**Figures:**",
+    "**Abstract:**",
 )
 
 
@@ -32,6 +44,39 @@ def _strip_placeholder_reference_section(text: str) -> str:
     return body.rstrip() + "\n"
 
 
+def _submission_source(text: str) -> str:
+    """Remove internal planning metadata and embed all referee-facing figures."""
+    body = _strip_placeholder_reference_section(text)
+    lines = [
+        line for line in body.splitlines()
+        if not any(line.startswith(prefix) for prefix in PLANNING_PREFIXES)
+    ]
+    body = "\n".join(lines).strip() + "\n"
+
+    for index, filename in enumerate(FIGURE_FILES, start=1):
+        marker = f"**Figure {index}.**"
+        image = f"![Figure {index}](paper/figures/{filename})"
+        if marker not in body:
+            raise RuntimeError(f"missing Figure {index} caption")
+        body = body.replace(marker, image + "\n\n" + marker, 1)
+    return body
+
+
+def _bib_titles(path: Path) -> list[str]:
+    text = path.read_text(encoding="utf-8")
+    titles = re.findall(r"(?mi)^\s*title\s*=\s*\{(.+?)\}\s*,?\s*$", text)
+    if not titles:
+        raise RuntimeError("no bibliography titles found")
+    return titles
+
+
+def _normalize_text(value: str) -> str:
+    value = re.sub(r"[{}]", "", value)
+    value = re.sub(r"\\[A-Za-z]+\s*", "", value)
+    value = re.sub(r"\s+", " ", value)
+    return value.casefold().strip()
+
+
 def _docx_text(path: Path) -> str:
     with zipfile.ZipFile(path) as zf:
         xml = zf.read("word/document.xml").decode("utf-8")
@@ -43,7 +88,7 @@ def build(out_dir: Path) -> tuple[Path, Path]:
         raise RuntimeError("pandoc is required for the journal submission build")
 
     manuscript = (ROOT / "paper" / "manuscript.md").read_text(encoding="utf-8")
-    source = _strip_placeholder_reference_section(manuscript)
+    source = _submission_source(manuscript)
     refs = ROOT / "paper" / "references.bib"
     out_dir.mkdir(parents=True, exist_ok=True)
     docx = out_dir / "HGFX_JNM_submission.docx"
@@ -69,18 +114,53 @@ def build(out_dir: Path) -> tuple[Path, Path]:
     rendered = _docx_text(docx)
     if "Bibliography entries are in" in rendered:
         raise RuntimeError("bibliography placeholder leaked into journal DOCX")
-    missing = [item for item in KNOWN_REFERENCE_TEXT if item not in rendered]
-    if missing:
-        raise RuntimeError("citeproc bibliography verification failed: " + ", ".join(missing))
+    for prefix in PLANNING_PREFIXES:
+        if prefix.strip("*:") in rendered:
+            raise RuntimeError(f"internal planning metadata leaked into journal DOCX: {prefix}")
 
-    if shutil.which("pdftotext"):
-        txt = out_dir / "_pdf_text.txt"
-        run("pdftotext", str(pdf), str(txt))
-        pdf_text = txt.read_text(encoding="utf-8", errors="replace")
-        txt.unlink(missing_ok=True)
-        missing_pdf = [item for item in KNOWN_REFERENCE_TEXT if item not in pdf_text]
-        if missing_pdf:
-            raise RuntimeError("PDF bibliography verification failed: " + ", ".join(missing_pdf))
+    titles = _bib_titles(refs)
+    rendered_norm = _normalize_text(rendered)
+    missing = [title for title in titles if _normalize_text(title) not in rendered_norm]
+    if missing:
+        raise RuntimeError(
+            f"citeproc bibliography verification failed ({len(titles) - len(missing)}/{len(titles)}): "
+            + ", ".join(missing)
+        )
+
+    with zipfile.ZipFile(docx) as zf:
+        media = [name for name in zf.namelist() if name.startswith("word/media/")]
+    if len(media) < len(FIGURE_FILES):
+        raise RuntimeError(
+            f"journal DOCX is figure-incomplete: {len(media)}/{len(FIGURE_FILES)} embedded media"
+        )
+
+    for tool in ("pdftotext", "pdfimages"):
+        if shutil.which(tool) is None:
+            raise RuntimeError(f"{tool} is required for journal submission verification")
+
+    txt = out_dir / "_pdf_text.txt"
+    run("pdftotext", str(pdf), str(txt))
+    pdf_text = txt.read_text(encoding="utf-8", errors="replace")
+    txt.unlink(missing_ok=True)
+    pdf_norm = _normalize_text(pdf_text)
+    missing_pdf = [title for title in titles if _normalize_text(title) not in pdf_norm]
+    if missing_pdf:
+        raise RuntimeError(
+            f"PDF bibliography verification failed ({len(titles) - len(missing_pdf)}/{len(titles)}): "
+            + ", ".join(missing_pdf)
+        )
+
+    image_list = subprocess.check_output(
+        ("pdfimages", "-list", str(pdf)), text=True, errors="replace"
+    )
+    image_rows = [
+        line for line in image_list.splitlines()
+        if re.match(r"^\s*\d+\s+\d+\s+", line)
+    ]
+    if len(image_rows) < len(FIGURE_FILES):
+        raise RuntimeError(
+            f"journal PDF is figure-incomplete: {len(image_rows)}/{len(FIGURE_FILES)} image rows"
+        )
 
     return docx, pdf
 
