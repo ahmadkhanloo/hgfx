@@ -37,7 +37,7 @@
       "review_class": "EVIDENCE_PROVENANCE_REVIEW_REQUIRED"
     },
     {
-      "additions": 52,
+      "additions": 54,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -77,7 +77,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 40,
+      "additions": 42,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -109,7 +109,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 34,
+      "additions": 39,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -269,7 +269,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 51,
+      "additions": 52,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
@@ -317,7 +317,7 @@
       "review_class": "PAPER_REVIEW_REQUIRED"
     },
     {
-      "additions": 450,
+      "additions": 440,
       "binary": false,
       "deletions": 0,
       "git_status": "A",
