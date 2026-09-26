@@ -39,7 +39,7 @@ def test_generate_p5_writes_manifest_and_pngs(tmp_path: Path) -> None:
         pdf = path.with_suffix(".pdf")
         assert pdf.is_file()
         assert pdf.stat().st_size > 1000
-        assert meta["pdf_path"] == str(pdf.relative_to(ROOT))
+        assert meta["pdf_path"] == (Path("paper") / "figures" / pdf.name).as_posix()
         assert len(meta["pdf_sha256"]) == 64
     manifest = json.loads((out / "p5_figures_manifest.json").read_text(encoding="utf-8"))
     assert manifest["inputs"]
