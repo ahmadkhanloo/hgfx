@@ -114,9 +114,17 @@ def build(out_dir: Path) -> tuple[Path, Path]:
     rendered = _docx_text(docx)
     if "Bibliography entries are in" in rendered:
         raise RuntimeError("bibliography placeholder leaked into journal DOCX")
-    for prefix in PLANNING_PREFIXES:
-        if prefix.strip("*:") in rendered:
-            raise RuntimeError(f"internal planning metadata leaked into journal DOCX: {prefix}")
+    leak_markers = (
+        "subscription track, no APC",
+        "Word count (main text, approximate)",
+        "this draft ~",
+        "paper/highlights.txt",
+    )
+    leaked = [marker for marker in leak_markers if marker in rendered]
+    if leaked:
+        raise RuntimeError(
+            "internal planning metadata leaked into journal DOCX: " + ", ".join(leaked)
+        )
 
     titles = _bib_titles(refs)
     rendered_norm = _normalize_text(rendered)
