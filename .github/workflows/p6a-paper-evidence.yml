@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   p6a-evidence:
@@ -51,30 +51,6 @@ jobs:
           else
             python paper/scripts/generate_p6a_manifest.py
           fi
-      - name: One-shot sync generated remediation artifacts
-        if: github.event_name == 'pull_request' && github.head_ref == 'p8-remediation-20260926'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add paper/figures/
-          if ! git diff --cached --quiet; then
-            git commit -m "paper: sync regenerated P5 figures"
-          fi
-
-          python paper/scripts/generate_p6a_claim_audit.py
-          git add paper/reproducibility/p6a_claim_audit.json
-          if ! git diff --cached --quiet; then
-            git commit -m "paper: sync P6A claim audit"
-          fi
-
-          python paper/scripts/generate_p6a_manifest.py
-          git add paper/reproducibility/p6a_paper_evidence_manifest.json
-          if ! git diff --cached --quiet; then
-            git commit -m "paper: sync P6A evidence manifest"
-          fi
-
-          git push origin "HEAD:${{ github.head_ref }}"
       - name: Run P6A integrity tests
         run: pytest -q tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py tests/paper/test_p3_evidence.py
       - name: Verify all committed P6A outputs reproduce exactly
