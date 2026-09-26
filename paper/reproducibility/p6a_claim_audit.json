@@ -10,12 +10,12 @@
     {
       "line_number": 7,
       "reason": "editorial_front_matter",
-      "text": "**Figures:** 6  **Tables:** 6  "
+      "text": "**Figures:** 6  **Tables:** 5  "
     },
     {
       "line_number": 8,
       "reason": "editorial_front_matter",
-      "text": "**Abstract:** <=250 words (this draft ~230)"
+      "text": "**Abstract:** <=250 words (current preflight: 245)"
     },
     {
       "line_number": 24,
@@ -103,7 +103,7 @@
       "text": "## 5 Data and code availability"
     }
   ],
-  "claim_count": 45,
+  "claim_count": 46,
   "claims": [
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -124,7 +124,7 @@
       "id": "abstract_core_results",
       "line_hint": 22,
       "line_number": 22,
-      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in the documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a documented regime in which classic HGF encounters negative posterior precision while eHGF completes successfully. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability was confirmed on two Tesla T4 devices, with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
+      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in the documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a documented regime in which classic HGF encounters negative posterior precision while eHGF completes successfully. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained hosted Tesla T4 validation run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -147,9 +147,11 @@
         "paper/reproducibility/PAPER_PROTOCOL.md",
         "reference/validation/v1_release/evidence_manifest.json",
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
-        "paper/reproducibility/p2a10_comparison_35268575414.json"
+        "paper/reproducibility/p2a10_comparison_35268575414.json",
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"
       ],
       "evidence_sha256": {
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
         "paper/reproducibility/PAPER_PROTOCOL.md": "6c1fa19da7fd56b430f77c26d6e553b0c827c421f65b09efd850986514f6e2df",
         "paper/reproducibility/p2a10_comparison_35268575414.json": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14",
@@ -379,7 +381,7 @@
       "id": "p3_execution_and_integrity_failure",
       "line_hint": 98,
       "line_number": 102,
-      "text": "A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion."
+      "text": "A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The frozen per-model diagnostic classifier labels the affected model rows `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this cause label concerns paired implementation/optimization disagreement and does not supersede the aggregate scientific classification `INSUFFICIENT_REFERENCE_EVIDENCE`. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -407,7 +409,7 @@
       "id": "uhgf_ar1_demo_extrema",
       "line_hint": 108,
       "line_number": 112,
-      "text": "The second demo reproduces the uHGF to uHGF-AR(1) transition. The maximum absolute third-level posterior mean is 16.99162398501939 for uHGF and 4.0927117005012175 for uHGF-AR(1) in both implementations (direct uHGF-AR(1) workflow parity)."
+      "text": "The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity)."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -461,7 +463,7 @@
       "id": "s7_model_selection_result",
       "line_hint": 136,
       "line_number": 140,
-      "text": "The earlier parameter-recovery failure remains part of the record (Figure 2; Table 4). Paired model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3."
+      "text": "The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 4 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -536,16 +538,18 @@
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
       "evidence": [
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
-        "reference/validation/v1_release/evidence_manifest.json"
+        "reference/validation/v1_release/evidence_manifest.json",
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"
       ],
       "evidence_sha256": {
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
         "reference/validation/v1_release/evidence_manifest.json": "045edabca6b87bbbb6eebb06047a3ba2f8e301a235bd0a84c71a04ef0991a94e"
       },
       "id": "gpu_environment_and_objective_agreement",
       "line_hint": 150,
       "line_number": 154,
-      "text": "Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion. On two Tesla T4 GPUs (Python 3.12.13, JAX/JAXLIB 0.11.1, `nvidia-smi` process residency), all four required CPU-versus-GPU fitting cells pass the frozen final-objective criterion <= 1e-7. The maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). This is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the four CPU-versus-GPU objective pairs, the execution command, and the raw-artifact checksum are reported in Supplementary Appendix S5."
+      "text": "Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -558,7 +562,7 @@
       "id": "gpu_table_result",
       "line_hint": 157,
       "line_number": 161,
-      "text": "| Physical NVIDIA GPU (2x Tesla T4) | physical-GPU applicability confirmed | max abs objective gap = 1.42e-14; criterion 1e-7 |"
+      "text": "| Physical NVIDIA GPU (Tesla T4; 2 visible, tested device `cuda:0`) | retained physical-GPU applicability evidence | max abs objective gap = 1.42e-14; criterion 1e-7 |"
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -603,7 +607,7 @@
       "id": "stable_install_version",
       "line_hint": 167,
       "line_number": 171,
-      "text": "Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python, including the official demo reproductions. MATLAB is unnecessary for those user paths."
+      "text": "Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python. The official cross-language demo reproductions are repository workflows that additionally require a source checkout and the frozen MATLAB-reference submodule; they are not bundled as ordinary wheel examples. MATLAB is unnecessary for normal package use."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -656,7 +660,7 @@
       "id": "pyhgf_discussion_scope",
       "line_hint": 179,
       "line_number": 183,
-      "text": "pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference despite sharing the same predicted belief."
+      "text": "pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -684,8 +688,8 @@
       "evidence_sha256": {
         "docs/validation/V1_FINAL_RELEASE_PROVENANCE.md": "697601e5b7e8e7718441074c92cdb64af6c62864a2538f898dfbdb305692f3c8",
         "paper/reproducibility/PAPER_PROTOCOL.md": "6c1fa19da7fd56b430f77c26d6e553b0c827c421f65b09efd850986514f6e2df",
-        "paper/scripts/generate_p2_tables.py": "3090433e54d39affb0a6c184d8c62a011735a3e6ee89179d07cb5c2e910176c5",
-        "paper/scripts/generate_p5_figures.py": "af7d6018b1711634d902ecdc34c6d9c9ccd5d10320e0e739afd6cb78888e25ab"
+        "paper/scripts/generate_p2_tables.py": "392fe8f735c90dc57280c38dbd55c73173cf3ca01154208f23f6e9679b888333",
+        "paper/scripts/generate_p5_figures.py": "f0cf57608cd7801157258ddf5d94688447830d8a9472b590fa5446111541f68a"
       },
       "id": "release_and_regeneration_metadata",
       "line_hint": 187,
@@ -712,7 +716,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
+        "paper/figures/p5_figures_manifest.json": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87",
         "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
       },
       "id": "figure2_recovery_caption",
@@ -727,7 +731,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
+        "paper/figures/p5_figures_manifest.json": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87",
         "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
       },
       "id": "figure3_model_selection_caption",
@@ -739,16 +743,18 @@
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
       "evidence": [
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
-        "paper/figures/p5_figures_manifest.json"
+        "paper/figures/p5_figures_manifest.json",
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"
       ],
       "evidence_sha256": {
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
         "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
-        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5"
+        "paper/figures/p5_figures_manifest.json": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87"
       },
       "id": "figure4_gpu_caption",
       "line_hint": 213,
       "line_number": 217,
-      "text": "**Figure 4.** Backend agreement relative to each comparison's frozen criterion. Compatibility-versus-JAX-CPU has a maximum final-objective gap of 0.0067837 against a 0.10 criterion; JAX-CPU-versus-physical-GPU has a maximum gap of 1.421e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`."
+      "text": "**Figure 4.** Backend agreement relative to each comparison's frozen criterion. The post-fix compatibility-versus-JAX-CPU remeasurement has a maximum final-objective gap of 0.006783711260709424 against a 0.10 criterion; JAX-CPU-versus-retained-physical-T4 has a maximum gap of 1.4210854715202004e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -757,7 +763,7 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
+        "paper/figures/p5_figures_manifest.json": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87",
         "paper/reproducibility/p2a10_comparison_35268575414.json": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14"
       },
       "id": "figure5_pyhgf_caption",
@@ -772,16 +778,33 @@
         "paper/figures/p5_figures_manifest.json"
       ],
       "evidence_sha256": {
-        "paper/figures/p5_figures_manifest.json": "3831aa3623d1da040cb28d62c9021d7c373e3b0afe79f50ffbb171d6d15b7df5",
+        "paper/figures/p5_figures_manifest.json": "a29fa512b958eb8144e9a8ae24297cb845723667fd155e8cef22f72250c30d87",
         "paper/reproducibility/p3_m18c2_aggregate_35272347167.json": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
       },
       "id": "figure6_p3_caption",
       "line_hint": 217,
       "line_number": 221,
       "text": "**Figure 6.** Trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified aggregate. Dotted lines are the predeclared thresholds. Incomplete classic-HGF cases at 512/1024 trials are retained as gaps. Individual diagnostic criteria do not establish identifiability; the paired-integrity gate failed, so the evidence remains insufficient for an identifiability conclusion. File: `paper/figures/fig_p3_horizon_diagnostics.png`."
+    },
+    {
+      "category": "NUMERICAL_OR_VERSIONED_CLAIM",
+      "evidence": [
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json",
+        "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+        "paper/reproducibility/PAPER_PROTOCOL.md"
+      ],
+      "evidence_sha256": {
+        "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
+        "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
+        "paper/reproducibility/PAPER_PROTOCOL.md": "6c1fa19da7fd56b430f77c26d6e553b0c827c421f65b09efd850986514f6e2df"
+      },
+      "id": "backend_remeasurement_and_retention_design",
+      "line_hint": 90,
+      "line_number": 94,
+      "text": "CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement."
     }
   ],
-  "explicit_exemption_count": 10,
+  "explicit_exemption_count": 9,
   "explicit_exemptions": [
     {
       "line_hint": 40,
@@ -800,12 +823,6 @@
       "line_number": 75,
       "reason": "figure-number cross-reference; no quantitative result in the sentence",
       "text": "We use four interpretation classes (Figure 1):"
-    },
-    {
-      "line_hint": 90,
-      "line_number": 94,
-      "reason": "digit occurs only in the function identifier expm1; no numerical claim",
-      "text": "CPU/backend equivalence and physical NVIDIA GPU applicability were tested after an independent review of portability blockers (host C runtime `expm1`/`log` paths and Windows CRLF hash failures). Both blockers were remediated without changing scientific thresholds."
     },
     {
       "line_hint": 115,
@@ -852,7 +869,7 @@
     "s7_recovery_model_selection": "PASS"
   },
   "manuscript_path": "paper/manuscript.md",
-  "manuscript_sha256": "ecb317d7819f4adf893223d1387eddca4a60bab72b2a90a6a2aaf274034a28cd",
+  "manuscript_sha256": "e53da5dfc080564bf8a26d9fe722d3cf52e2fda133d74832923b425028d768ea",
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1,
   "status": "COMPLETE_P6A_2_NOT_FROZEN",
