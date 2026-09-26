@@ -263,8 +263,8 @@
     {
       "path": "paper/reproducibility/p6a_claim_audit.json",
       "role": "protocol_or_reproducibility",
-      "sha256": "a57a767da37646a1b57c0c825fd123deadf9975103c813c28893b2a200ee4469",
-      "size_bytes": 51893
+      "sha256": "840c2b03dc4f3f073bde82c6f0bce65df015436c069a228e1c4f9400e0882d93",
+      "size_bytes": 51789
     },
     {
       "path": "paper/reproducibility/pyhgf_common_scope_case.json",
