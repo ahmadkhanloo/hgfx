@@ -15,7 +15,7 @@
     {
       "line_number": 8,
       "reason": "editorial_front_matter",
-      "text": "**Abstract:** <=250 words (current preflight: 245)"
+      "text": "**Abstract:** <=250 words"
     },
     {
       "line_number": 24,
@@ -124,7 +124,7 @@
       "id": "abstract_core_results",
       "line_hint": 22,
       "line_number": 22,
-      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a widely used MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox whose primary objective is validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in the documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a documented regime in which classic HGF encounters negative posterior precision while eHGF completes successfully. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained hosted Tesla T4 validation run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
+      "text": "The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox targeting validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a regime where classic HGF encounters negative posterior precision while eHGF succeeds. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained Tesla T4 run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims."
     },
     {
       "category": "NUMERICAL_OR_VERSIONED_CLAIM",
@@ -869,7 +869,7 @@
     "s7_recovery_model_selection": "PASS"
   },
   "manuscript_path": "paper/manuscript.md",
-  "manuscript_sha256": "e53da5dfc080564bf8a26d9fe722d3cf52e2fda133d74832923b425028d768ea",
+  "manuscript_sha256": "993989ac1b9b19fa897c27ee2fa33c892a04c89629c23d7455fbadeeffbcb01c",
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1,
   "status": "COMPLETE_P6A_2_NOT_FROZEN",
