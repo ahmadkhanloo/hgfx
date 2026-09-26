@@ -189,7 +189,7 @@ def _verify_machine_sources(repo: Path) -> dict:
     assert gpu["criteria"]["jax_cpu_vs_physical_gpu_final_objective_gap_max"] == 1e-7
 
     cpu = json.loads(_canonical_text(repo, "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json"))
-    assert cpu["source_commit"] == "e153a3c0ef95b74b747987ffa3d1c4495d6fb9b8"
+    assert cpu["source_commit"] == "0a40e7081421c0ad66ea45f852f11bd823cc9d51"
     assert cpu["environment"] == {
         "backend": "cpu",
         "devices": ["cpu:0"],
