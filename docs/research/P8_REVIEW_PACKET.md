@@ -30,17 +30,31 @@ Delta-scope implementation: PR #66 merged as `39255756c8ef6bd1f4aaf3e5357ea70e43
 P8 Delta Scope run `35344626071`: PASS / full-history execution / zero-diff.  
 Generic regression run `35344625984`: PASS on Ubuntu and Windows; 214 passed, 5 skipped on each platform. The extra skip is only the history-dependent delta test on shallow generic checkouts; the dedicated P8 workflow executes it non-skipped with `fetch-depth: 0`.
 
+## Independent review attempt on replacement candidate — FAIL
+
+The independent paper-delta review targeted candidate `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28` (tree `e5ffa30435d7d3fa1d95ad00be60ee4f56dba82e`) and returned **FAIL** on 2026-09-26. This result is historical evidence and must not be rewritten as PASS.
+
+Exact candidate gate runs were all successful before review:
+
+- P2 Paper Tables `35540117257`: PASS
+- P5 Paper Figures `35540117270`: PASS
+- P6A Paper Evidence `35540117282`: PASS
+- P7 JNM Preflight `35540117313`: PASS
+- P8 Delta Scope `35540117266`: PASS
+- HGFX Regression `35540117256`: PASS
+
+Blocking review findings included: evidence-inconsistent Figure 4 backend magnitudes/criteria, stale candidate/provenance lock metadata, a reproduction README that referenced a workflow absent from the reviewed revision, and journal-facing outputs without a canonical citeproc bibliography-rendering path.
+
 ## Exact submission candidate
 
-The prior candidate `82bbb0c30893651f8ccb15ba27195c3d58bae521` is superseded for submission because its tree retained stale P6A/P8 gate metadata. The replacement candidate SHA is **PENDING LOCK** and will be recorded here after strict P7/P6A/P2/P5/regression checks pass.
+The reviewed candidate `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28` is **rejected for submission** by P8. The next replacement candidate SHA is **PENDING LOCK** and must be created only after remediation and fresh strict P7/P6A/P2/P5/regression checks pass.
 
-The reviewer must review the exact replacement candidate SHA recorded after the lock, not an unspecified moving `main`.
+The reviewer must review the exact next replacement candidate SHA recorded after the lock, not an unspecified moving `main`.
 
 ## Candidate gate evidence
 
-Prior candidate gate evidence (must be re-run on the replacement candidate):
+Historical gate evidence for the failed `c6ef9e5` candidate is recorded above. All required gates must be re-run on the next replacement candidate.
 
-- P7 JNM Preflight run `35342538568`: PASS
   - status: `PASS_P7_PREFLIGHT`
   - abstract: 237 words
   - keywords: 6

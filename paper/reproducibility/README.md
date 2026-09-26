@@ -99,8 +99,7 @@ Compare canonical `raw_result_sha256` to `202007865c78ba0b138eeda5f105a73399d740
 
 ## Paired MATLAB oracle / trial-horizon study (P3)
 
-GitHub Actions workflow `PV1-01 M18C.2 Horizon Analysis`, `workflow_dispatch` with `execute_full=true`.
-MATLAB is provisioned by `matlab-actions/setup-matlab@v2`. Local MATLAB is not required.
+Historical P3 execution is preserved in `paper/reproducibility/p3_m18c2_aggregate_35272347167.json` and `paper/reproducibility/p3_m18c2_provenance_35272347167.json` (workflow run `35272347167`). The original execution workflow is not present at this revision, so do **not** attempt to dispatch it from current HEAD. Regenerate paper-facing tables/figures from the committed aggregate using the commands above; reproducing the original MATLAB execution requires the historical workflow/source recorded by the provenance file.
 
 ## Frozen v1 validation
 

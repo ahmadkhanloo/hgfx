@@ -1,7 +1,8 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **REPLACEMENT CANDIDATE IN PREPARATION / REVIEW NOT STARTED**
-Candidate SHA: `PENDING_LOCK`
+Status: **REMEDIATION IN PROGRESS / NEW INDEPENDENT REVIEW REQUIRED**
+Failed reviewed candidate: `c6ef9e5f4113e373a5d492cb73c9dbe0fe89fd28`  
+Next candidate SHA: `PENDING_LOCK`
 Review packet: `docs/research/P8_REVIEW_PACKET.md`
 Delta manifest: `docs/research/P8_DELTA_MANIFEST.json`
 Tracking: PV1-02 / GitHub issue #32
