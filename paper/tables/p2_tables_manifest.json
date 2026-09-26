@@ -20,6 +20,10 @@
     {
       "path": "reference/validation/m18_s7_reference_limitation/decision.json",
       "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "path": "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+      "sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
     }
   ],
   "matlab_reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
@@ -29,7 +33,8 @@
     "matlab_demo_parity.md": "3ed18d44a33e76c926eec20d52e7e5b18e2c625b9d6880c8330ed8eef2d26b4a",
     "model_workflow_coverage.md": "e0da896bf1262838a300b71d229dd149da3d85f0b2e782a7024e1ecf38446c42",
     "recovery_model_selection.md": "0748f158e11fa721ad9b801e4911c9efc48637f7e5c6681f12ee15dd0c9f4c37",
-    "release_reproducibility_provenance.md": "ad53bc25faa1485deba1a85a6152bff62d6ace0f714c75dafe31fa143631df03"
+    "release_reproducibility_provenance.md": "ad53bc25faa1485deba1a85a6152bff62d6ace0f714c75dafe31fa143631df03",
+    "p3_horizon_summary.md": "dfa4553d446df8d2c900c7733d27a42d542201a55d8ec844a697497175fc233d"
   },
   "protocol_id": "hgfx-paper-protocol-1",
   "schema_version": 1
