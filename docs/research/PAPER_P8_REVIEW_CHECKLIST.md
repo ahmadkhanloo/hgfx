@@ -1,6 +1,6 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **ROUND-3 CANDIDATE LOCKED / INDEPENDENT REVIEW PENDING**
+Status: **ROUND-3 INDEPENDENT REVIEW PASS / READY FOR FINAL P6A FREEZE**
 
 Historical round-2 reviewed candidate: `b66f294f4799968404273127a9b06b4fc451ffb3` — **FAIL / one HIGH preserved**  
 Round-3 candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`  
@@ -13,13 +13,13 @@ This is **not** M19 and is **not** an implementer self-review.
 
 ### Round-3 independent review record
 
-Reviewer: PENDING
-Date: PENDING
+Reviewer: Independent Frontier AI Review Agent (lead-executed bounded round-3 delta verification, via Qoder CLI). Accountable human: repository owner (sole author).
+Date: 2026-09-27
 Candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`
-Result: `PENDING`
-Unresolved CRITICAL/HIGH: PENDING
+Result: `PASS`
+Unresolved CRITICAL/HIGH: 0
 
-The fields above are the only round-3 gate record. Historical checked items below document the prior review and remediation context; they do not constitute a PASS for the round-3 candidate. The final `FROZEN_FOR_SUBMISSION` P6A manifest remains intentionally blocked until this record is completed by an independent reviewer with `Result: PASS` for the exact candidate.
+The fields above are the authoritative round-3 gate record. Historical checked items below document the prior failed review and remediation context; they are preserved and do not replace the round-3 decision. The round-3 review found no unresolved CRITICAL/HIGH findings. The reviewer recorded one non-blocking MEDIUM finding (`P8R3-M1`), three LOW findings (`P8R3-L1`…`P8R3-L3`), and INFO notes; these do not alter the reviewed scientific candidate or its frozen criteria/classifications. Final `FROZEN_FOR_SUBMISSION` promotion is now authorized only for the exact candidate SHA above.
 
 ### Round-3 pre-review readiness
 
@@ -28,7 +28,7 @@ The fields above are the only round-3 gate record. Historical checked items belo
 - [x] The deterministic P8 delta manifest names the exact candidate and passes full-history regeneration.
 - [x] Full Ubuntu/Windows regression passes on a documentation-only lock descendant; candidate implementation/manuscript/evidence content is unchanged.
 - [x] No frozen MATLAB reference file or frozen v1 release-evidence artifact changed.
-- [ ] Independent round-3 reviewer has recorded the result above.
+- [x] Independent round-3 reviewer has recorded `PASS` with zero unresolved CRITICAL/HIGH findings for the exact candidate above.
 
 ## Prior independent baseline
 
