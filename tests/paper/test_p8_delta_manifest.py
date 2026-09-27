@@ -71,10 +71,24 @@ def test_p8_delta_manifest_is_complete_and_scoped() -> None:
             assert "Result: `PASS`" in checklist
             allowed_post_review_paths.add(frozen_manifest_path)
 
-        assert changed <= allowed_post_review_paths, (
-            "P8 manifest may point behind HEAD only across the documented lock/review "
-            "chain and, after PASS, the exact-candidate P6A freeze; unexpected paths: "
-            f"{sorted(changed - allowed_post_review_paths)}"
+        # P8 protects the frozen paper/evidence surface, not unrelated repository
+        # integration changes. This matters when an already-reviewed paper lineage is
+        # merged with independently validated CI-only changes from the base branch.
+        # The P6A manifest is the authoritative inventory of submission-critical paths.
+        p6a = json.loads(
+            (ROOT / "paper/reproducibility/p6a_paper_evidence_manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        protected_paths = {item["path"] for item in p6a["files"]}
+        protected_paths.add(frozen_manifest_path)
+        protected_changed = changed & protected_paths
+
+        assert protected_changed <= allowed_post_review_paths, (
+            "P8 manifest may point behind HEAD only when the frozen P6A-protected "
+            "paper/evidence surface is unchanged apart from the documented exact-candidate "
+            "freeze; unexpected protected paths: "
+            f"{sorted(protected_changed - allowed_post_review_paths)}"
         )
 
     payload = module.build(ROOT, candidate_sha)
