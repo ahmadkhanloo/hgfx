@@ -1,6 +1,6 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **ROUND-3 INDEPENDENT REVIEW PASS / P6A FROZEN / FINAL VALIDATION IN PROGRESS**
+Status: **ROUND-3 INDEPENDENT REVIEW PASS / P6A FROZEN / FINAL VALIDATION PASS**
 
 Historical round-2 reviewed candidate: `b66f294f4799968404273127a9b06b4fc451ffb3` — **FAIL / one HIGH preserved**  
 Round-3 candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`  
@@ -35,7 +35,7 @@ The fields above are the authoritative round-3 gate record. Historical checked i
 - [x] P6A manifest promoted to `FROZEN_FOR_SUBMISSION` for exact reviewed candidate `897aed804901f9f49ad1d73ecfab6fa714d50098` at freeze commit `2f69c18fb2bf612e87a260575d4f860cd4f70870`.
 - [x] P6A Paper Evidence run `36310122423` (#104): **PASS** with full-history checkout and zero-diff regeneration.
 - [x] P8 Delta Scope run `36310122437` (#76): **PASS** on the frozen lock descendant.
-- [ ] Final cross-platform HGFX Regression on the frozen lock descendant: **IN PROGRESS**.
+- [x] Final exact-head validation at `a58abb0649a19b7ce0a6c0e705013629fd94f15d`: P2 `36310693781` (#150), P5 `36310693766` (#100), P6A `36310693777` (#109), P7 `36310693786` (#88), P8 Delta Scope `36310693776` (#81), P8 CPU Postfix Evidence `36310693801` (#61), and HGFX Regression `36310693796` (#401) all **PASS**. Regression: Ubuntu `219 passed, 4 skipped`; Windows `219 passed, 4 skipped`; frozen-reference and source-classification guards PASS on both.
 
 ## Prior independent baseline
 
