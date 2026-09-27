@@ -317,8 +317,8 @@
     {
       "path": "paper/scripts/build_journal_submission.py",
       "role": "generator",
-      "sha256": "004d1f310eed1038531dfc5a596a87768de4c416016d34efd1ebc7d4913c7aa1",
-      "size_bytes": 6152
+      "sha256": "fbb4f00d793ad1e516df576ea50af7787d32f46cb6f65acbb758e0ed5c834855",
+      "size_bytes": 6375
     },
     {
       "path": "paper/scripts/check_p7_submission.py",
