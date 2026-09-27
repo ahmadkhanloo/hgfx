@@ -15,6 +15,7 @@ EXPECTED_TABLES = {
     "recovery_model_selection.md",
     "backend_gpu_applicability.md",
     "release_reproducibility_provenance.md",
+    "p3_horizon_summary.md",
 }
 
 
@@ -37,6 +38,8 @@ def test_build_tables_preserves_negative_evidence_and_traceability():
     assert "D02" in joined and "D08" in joined
     assert "36/36" in joined
     assert "Tesla T4" in joined
+    assert "INSUFFICIENT_REFERENCE_EVIDENCE" in joined
+    assert "invalid trajectories retained" in joined
     assert "| HGFX release | 1.0.0 |" in joined
     assert "| HGFX release | 1.1.0 |" not in joined
 

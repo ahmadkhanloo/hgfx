@@ -9,8 +9,8 @@
     "fig_gpu_applicability.png": {
       "path": "paper/figures/fig_gpu_applicability.png",
       "pdf_path": "paper/figures/fig_gpu_applicability.pdf",
-      "pdf_sha256": "c2f1325417813d38e5d51ad7a8b4875a691c4a64c43c072bab2475a839afb5d8",
-      "sha256": "10a103ce3ffab2ff5c5c1d352bffab65345cd8d58829ce4dd806f66bfefe028c"
+      "pdf_sha256": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
+      "sha256": "1522a91693c62cbf0fd1a858725ddff8148de0ba1e3162e5563ab3f89132d582"
     },
     "fig_model_selection.png": {
       "path": "paper/figures/fig_model_selection.png",
@@ -39,18 +39,21 @@
   },
   "generator": "paper/scripts/generate_p5_figures.py",
   "inputs": {
+    "gpu_validation_results/m18_s9_cpu_postfix_revalidation.json": "f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab",
+    "gpu_validation_results/m18_s9_physical_gpu_revalidation.json": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82",
     "paper/reproducibility/p2a10_comparison_35268575414.json": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14",
     "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2",
     "paper/reproducibility/p3_m18c2_aggregate_35272347167.json": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4",
     "paper/reproducibility/p3_m18c2_provenance_35272347167.json": "7a379d4bbeb8c02bb3fec7b3ef167ab1019c00e46ee591ecf65854fb19af7363",
     "paper/tables/backend_gpu_applicability.md": "66e90359574683a415d309a7e1c1ec43f444d00f5d625d865d0aa2c6ea09f676",
-    "paper/tables/p2_tables_manifest.json": "1076df7fb1864a4c16663bf8e8839004271c640eadd2d37dea9553eb3a701575",
+    "paper/tables/p2_tables_manifest.json": "462985e59e25b2a6c0232544633df8f5b1667f2ce9c435e25f4bc05b54b1a915",
     "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
   },
   "notes": [
     "Figures are generated from committed evidence; no numerical values were transcribed by hand.",
     "PNG figures are exported at 300 dpi; vector PDFs are written alongside each PNG.",
     "P3 horizon diagnostics are generated directly from the hash-verified M18C.2 aggregate and remain diagnostic-only evidence; overall classification is INSUFFICIENT_REFERENCE_EVIDENCE.",
+    "Figure 4 uses the committed post-fix S9 CPU remeasurement for the CPU leg and the retained physical-T4 artifact for the GPU leg; each gap is plotted relative to its own frozen criterion.",
     "P4 performance/scaling figure is not activated under protocol 1."
   ],
   "protocol_id": "hgfx-paper-protocol-1"

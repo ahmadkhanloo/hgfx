@@ -1,7 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
 Last synchronized: 2026-09-18
-Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2 DONE; NEW P7 CANDIDATE AND P8 REVIEW REQUIRED BEFORE FINAL P6A FREEZE**
+Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2 DONE; REPLACEMENT P7 CANDIDATE IN PREPARATION; P8 REVIEW REQUIRED BEFORE FINAL P6A FREEZE**
 Tracking: GitHub issue #32
 External-gap reconciliation: `PAPER_REVIEW_GAP_ASSESSMENT.md`
 Frozen product release: `v1.0.0` @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`
@@ -311,8 +311,8 @@ P6A-1 completed in PR #61 / merge `56c64678550ef87744b27630d20bf8de0c72a5a8`:
 
 P6A-2 completed in PR #63 / merge `c1bcd6a80556138ee1af6a8bf4e23d1bc616b821`:
 
-- `paper/reproducibility/p6a_claim_audit.json` maps 48 current numerical/versioned manuscript claim lines to exact committed evidence;
-- 9 explicit structural/non-claim exemptions and 20 automatic section/front-matter exemptions are recorded;
+- `paper/reproducibility/p6a_claim_audit.json` maps 45 current numerical/versioned manuscript claim lines to exact committed evidence;
+- 10 explicit structural/non-claim exemptions and 20 automatic section/front-matter exemptions are recorded;
 - unmapped numerical lines: 0;
 - high-risk MATLAB-demo, S7, physical-GPU, pyhgf and P3 values are machine-checked against direct source artifacts;
 - P6A manifest inventory expanded to 57 committed artifacts, including direct demo/GPU/final-release provenance and `paper/highlights.txt`;
@@ -332,7 +332,7 @@ Acceptance for final P6A:
 
 ### P7 — Complete manuscript
 
-**Status:** DONE / PASS — P7-1 + P7-2 COMPLETE; EXACT CANDIDATE LOCKED FOR P8.
+**Status:** IN PROGRESS — P7 CONTENT/PREFLIGHT COMPLETE; REPLACEMENT CANDIDATE LOCK REQUIRED AFTER P8-HARDENING EDITS.
 
 P7-1 completed in PR #64 / merge `6257bc5b87551baeaefd6fe345c8b9d9ffdb7d68`.
 
@@ -350,17 +350,7 @@ P7-1 evidence:
 
 P7-2 completed after the author supplied and approved the institutional email `m.ahmadkhanloo@ipm.ir`.
 
-Exact locked candidate:
-- previous SHA `8750bfe5c78a6ece7e3985cb8c182adf231c1bb8` is superseded; replacement candidate SHA: `82bbb0c30893651f8ccb15ba27195c3d58bae521`;
-  - candidate tree: `9f5e32f388607170b1493376cca82c300ecde6f2`;
-- preserving merge: `3f979cfa23d60d35e7b28cbc5661f81c5f900d4a`;
-- merge tree matches candidate tree exactly;
-- P7 run `35342538568`: PASS;
-- P6A zero-diff run `35342538572`: PASS;
-- P2 run `35342538617`: PASS;
-- regression run `35342538746`: PASS on Ubuntu and Windows (214 passed, 4 skipped each).
-
-P7 is now closed. P8 must review this exact candidate SHA.
+Prior candidate `82bbb0c30893651f8ccb15ba27195c3d58bae521` is superseded for submission because its tree still contained stale pre-restoration P6A/P8 gate metadata. A replacement candidate is being prepared from current `main` with the same frozen scientific evidence plus narrower abstract wording and synchronized publication-gate documents. The replacement SHA is locked only after strict P7/P6A/P2/P5/regression checks pass.
 
 The working manuscript already contains evidence-backed sections for the released v1 validation record. Complete it by:
 - integrating the pyhgf related-work/positioning section and final comparison evidence;
@@ -384,9 +374,9 @@ Acceptance:
 
 ### P8 — Independent pre-submission review
 
-**Status:** WAIVED BY AUTHOR / OPTIONAL NON-BLOCKING REVIEW.
+**Status:** REQUIRED / OPEN — independent paper-delta review must PASS before final P6A freeze.
 
-Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Candidate: `82bbb0c30893651f8ccb15ba27195c3d58bae521`. The checklist is not a completed review.
+Checklist: `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. Review packet: `docs/research/P8_REVIEW_PACKET.md`. Replacement candidate SHA: `PENDING_LOCK`. The checklist is not a completed review.
  Deterministic delta manifest: `docs/research/P8_DELTA_MANIFEST.json`; PR #66 / run `35344626071` PASS.
 
 The v1 implementation/release baseline was already independently reviewed in `docs/validation/INDEPENDENT_REVIEW_REPORT.md`; H1/H2 were remediated and closed in `docs/validation/INDEPENDENT_REVIEW_REMEDIATION.md`. Do not repeat that unchanged baseline.
@@ -401,7 +391,7 @@ Review the exact submission candidate only for the paper/post-review delta:
 - citation accuracy;
 - consistency between abstract, results, tables, figures and supplement.
 
-Classify findings as CRITICAL/HIGH/MEDIUM/LOW/INFO. If an independent review is later commissioned, CRITICAL/HIGH findings must be resolved before using that reviewed version for submission. The review itself is no longer a repository publication gate.
+Classify findings as CRITICAL/HIGH/MEDIUM/LOW/INFO. Any CRITICAL/HIGH finding must be resolved before submission. P8 is a repository publication gate and final P6A freeze is forbidden until an independent PASS is recorded for the exact replacement candidate.
 
 ### P9 — Distribution / PyPI
 

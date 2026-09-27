@@ -1,0 +1,1471 @@
+{
+  "boundary_semantics": {
+    "cases": [
+      {
+        "expected_first_muhat1": 0.9996646498695336,
+        "model": "hgf_binary",
+        "observed_first_muhat1": 0.9996646498695336,
+        "pass": true,
+        "semantic_precondition": true
+      },
+      {
+        "expected_first_muhat1": 0.999,
+        "model": "ehgf_binary",
+        "observed_first_muhat1": 0.999,
+        "pass": true,
+        "semantic_precondition": true
+      }
+    ],
+    "pass": true
+  },
+  "classification": "CPU_PASS_PHYSICAL_GPU_REVALIDATION_REQUIRED",
+  "cpu_backend_pass": true,
+  "criteria": {
+    "compat_vs_jax_cpu_final_objective_gap_max": 0.1,
+    "forward_atol": 3e-11,
+    "forward_rtol": 3e-10,
+    "gradient_atol": 2e-05,
+    "gradient_rtol": 0.0002,
+    "jax_cpu_vs_physical_gpu_final_objective_gap_max": 1e-07
+  },
+  "environment": {
+    "backend": "cpu",
+    "devices": [
+      "cpu:0"
+    ],
+    "jax": "0.11.1",
+    "python": "3.12.14"
+  },
+  "fit_backend_agreement": [
+    {
+      "compat_final_objective": 100.84316551135652,
+      "compat_termination": "tol_grad",
+      "final_objective_gap": 2.5807872120253705e-05,
+      "jax_cpu_final_objective": 100.8431397034844,
+      "jax_status": 0,
+      "jax_success": true,
+      "pass": true,
+      "regime": "regular",
+      "threshold": 0.1,
+      "trials": 128
+    },
+    {
+      "compat_final_objective": 99.10674471831952,
+      "compat_termination": "tol_grad",
+      "final_objective_gap": 0.0008874802433069817,
+      "jax_cpu_final_objective": 99.10585723807621,
+      "jax_status": 0,
+      "jax_success": true,
+      "pass": true,
+      "regime": "ignored_missing",
+      "threshold": 0.1,
+      "trials": 128
+    },
+    {
+      "compat_final_objective": 192.27869608027885,
+      "compat_termination": "tol_grad",
+      "final_objective_gap": 0.0006238892444798694,
+      "jax_cpu_final_objective": 192.27807219103437,
+      "jax_status": 0,
+      "jax_success": true,
+      "pass": true,
+      "regime": "regular",
+      "threshold": 0.1,
+      "trials": 256
+    },
+    {
+      "compat_final_objective": 190.1769004397534,
+      "compat_termination": "tol_grad",
+      "final_objective_gap": 0.006783711260709424,
+      "jax_cpu_final_objective": 190.1701167284927,
+      "jax_status": 0,
+      "jax_success": true,
+      "pass": true,
+      "regime": "ignored_missing",
+      "threshold": 0.1,
+      "trials": 256
+    }
+  ],
+  "forward_robustness": [
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 4.440892098500626e-16,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 8.326672684688674e-17,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 5.273559366969494e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 6.661338147750939e-16,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 4.996003610813204e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 7.771561172376096e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.734723475976807e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 9.992007221626409e-16,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 3.885780586188048e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 4.163336342344337e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 9.992007221626409e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 9.992007221626409e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 5.551115123125783e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 7.105427357601002e-14,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 9.71445146547012e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 1.4210854715202004e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 4.218847493575595e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 4.218847493575595e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 2.2737367544323206e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 6.750155989720952e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 7.105427357601002e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 4.579669976578771e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.608224830031759e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 2.220446049250313e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 9.237055564881302e-14,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 9.992007221626409e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 3.019806626980426e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 4.773959005888173e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 4.773959005888173e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 2.4158453015843406e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 9.237055564881302e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 9.237055564881302e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 4.996003610813204e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.608224830031759e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.9984014443252818e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 4.973799150320701e-14,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 2.842170943040401e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 2.7755575615628914e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 2.7755575615628914e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.2789769243681803e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 4.973799150320701e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 4.973799150320701e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.0547118733938987e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 4.163336342344337e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.0531133177191805e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 1.7763568394002505e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 7.771561172376096e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 8.326672684688674e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 9.43689570931383e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 9.992007221626409e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 8.881784197001252e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 2.7755575615628914e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.942890293094024e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.0269562977782698e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 1.1102230246251565e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 5.551115123125783e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 9.992007221626409e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 8.881784197001252e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 8.881784197001252e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 1.6653345369377348e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.3877787807814457e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 3.3306690738754696e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 9.159339953157541e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 3.3306690738754696e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 3.3306690738754696e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.4432899320127035e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.4432899320127035e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.9984014443252818e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 6.106226635438361e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.0531133177191805e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.6653345369377348e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 128
+    },
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 4.440892098500626e-16,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 3.608224830031759e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 2.7755575615628914e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 2.7755575615628914e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 5.551115123125783e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 8.326672684688674e-17,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 7.216449660063518e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 6.106226635438361e-16,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 3.885780586188048e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 5.828670879282072e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 5.828670879282072e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 7.771561172376096e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 6.106226635438361e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 6.106226635438361e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 8.326672684688674e-17,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.1102230246251565e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 5.828670879282072e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "hgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 1.3877787807814457e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 8.326672684688674e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 5.551115123125783e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.3322676295501878e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.3877787807814457e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 3.3306690738754696e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 1.3877787807814457e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.942890293094024e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 5.273559366969494e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 1.4210854715202004e-13,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 5.950795411990839e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 6.106226635438361e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 6.106226635438361e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 6.394884621840902e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.4210854715202004e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.4210854715202004e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.2212453270876722e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 2.636779683484747e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.469446951953614e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 2.6645352591003757e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 8.526512829121202e-14,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 1.3322676295501878e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 3.8191672047105385e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 3.6637359812630166e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 3.6637359812630166e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 2.4158453015843406e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 8.526512829121202e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 8.526512829121202e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.1657341758564144e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 3.885780586188048e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.0531133177191805e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 2.6645352591003757e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "ehgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 1.6342482922482304e-13,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 9.43689570931383e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 5.595524044110789e-14,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 5.717648576819556e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 5.717648576819556e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 7.105427357601002e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.5631940186722204e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.6342482922482304e-13,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 5.828670879282072e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.608224830031759e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 2.220446049250313e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "regular",
+      "states": {
+        "max_abs_finite": 1.4988010832439613e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 5.828670879282072e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 1.3322676295501878e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 1.3322676295501878e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.7486012637846216e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.4710455076283324e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.4988010832439613e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 6.661338147750939e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 2.220446049250313e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 1.3877787807814457e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 9.159339953157541e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "ignored_missing",
+      "states": {
+        "max_abs_finite": 2.6645352591003757e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 8.881784197001252e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 2.6645352591003757e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 2.6645352591003757e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.8041124150158794e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.3877787807814457e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 1.4432899320127035e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 4.440892098500626e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 2.498001805406602e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.1102230246251565e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    },
+    {
+      "model": "uhgf_binary",
+      "pass": true,
+      "regime": "irregular",
+      "states": {
+        "max_abs_finite": 3.1086244689504383e-15,
+        "nonfinite_nan_mask_match": true,
+        "pass": true
+      },
+      "trajectory": {
+        "da": {
+          "max_abs_finite": 1.3322676295501878e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "epsi": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "mu": {
+          "max_abs_finite": 3.1086244689504383e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "muhat": {
+          "max_abs_finite": 3.1086244689504383e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "psi": {
+          "max_abs_finite": 1.887379141862766e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sa": {
+          "max_abs_finite": 1.887379141862766e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "sahat": {
+          "max_abs_finite": 2.4424906541753444e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "ud": {
+          "max_abs_finite": 1.7763568394002505e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "v": {
+          "max_abs_finite": 6.106226635438361e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "w": {
+          "max_abs_finite": 3.0531133177191805e-16,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        },
+        "wt": {
+          "max_abs_finite": 1.887379141862766e-15,
+          "nonfinite_nan_mask_match": true,
+          "pass": true
+        }
+      },
+      "trials": 256
+    }
+  ],
+  "gate_pass": false,
+  "historical_h100_note": "The S9 standard-HGF fast-engine semantic repair changes the numerically relevant GPU path relative to historical H100 source e6f1740ec6cacc55323c6a4d4ca521430c9f3dbf; physical current-head revalidation is therefore required.",
+  "physical_gpu": {
+    "available": false,
+    "cases": [],
+    "classification": "PHYSICAL_GPU_REVALIDATION_REQUIRED",
+    "reason": "No physical JAX GPU visible in this execution environment; CPU evidence cannot close GPU applicability."
+  },
+  "protocol": "m18-s9-robustness-backend-1",
+  "shared_state_objective_gradient": [
+    {
+      "compat_value": 1440.2538910646194,
+      "gradient_max_abs_gap": 2.0272409528843127e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1440.2538910646192,
+      "pass": true,
+      "probe": "start",
+      "regime": "regular",
+      "trials": 128,
+      "value_abs_gap": 2.2737367544323206e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 1440.7340214408148,
+      "gradient_max_abs_gap": 5.0930566430906765e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1440.7340214408152,
+      "pass": true,
+      "probe": "start_plus_delta",
+      "regime": "regular",
+      "trials": 128,
+      "value_abs_gap": 4.547473508864641e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 1439.7739227589639,
+      "gradient_max_abs_gap": 4.337312020652462e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1439.7739227589639,
+      "pass": true,
+      "probe": "start_minus_delta",
+      "regime": "regular",
+      "trials": 128,
+      "value_abs_gap": 0.0,
+      "value_pass": true
+    },
+    {
+      "compat_value": 1445.4787785895571,
+      "gradient_max_abs_gap": 4.1665543903945945e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1445.4787785895567,
+      "pass": true,
+      "probe": "start",
+      "regime": "ignored_missing",
+      "trials": 128,
+      "value_abs_gap": 4.547473508864641e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 1445.959467087396,
+      "gradient_max_abs_gap": 1.677403815847356e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1445.9594670873958,
+      "pass": true,
+      "probe": "start_plus_delta",
+      "regime": "ignored_missing",
+      "trials": 128,
+      "value_abs_gap": 2.2737367544323206e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 1444.9982519375983,
+      "gradient_max_abs_gap": 5.838160177518148e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 1444.998251937598,
+      "pass": true,
+      "probe": "start_minus_delta",
+      "regime": "ignored_missing",
+      "trials": 128,
+      "value_abs_gap": 2.2737367544323206e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3138.848890385587,
+      "gradient_max_abs_gap": 3.640377599367639e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 3138.848890385586,
+      "pass": true,
+      "probe": "start",
+      "regime": "regular",
+      "trials": 256,
+      "value_abs_gap": 9.094947017729282e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3139.8456315992653,
+      "gradient_max_abs_gap": 1.1738165994756855e-07,
+      "gradient_pass": true,
+      "jax_cpu_value": 3139.8456315992644,
+      "pass": true,
+      "probe": "start_plus_delta",
+      "regime": "regular",
+      "trials": 256,
+      "value_abs_gap": 9.094947017729282e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3137.8524704223173,
+      "gradient_max_abs_gap": 1.0485155144124292e-07,
+      "gradient_pass": true,
+      "jax_cpu_value": 3137.8524704223164,
+      "pass": true,
+      "probe": "start_minus_delta",
+      "regime": "regular",
+      "trials": 256,
+      "value_abs_gap": 9.094947017729282e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3180.5639870554587,
+      "gradient_max_abs_gap": 4.93992047267966e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 3180.5639870554587,
+      "pass": true,
+      "probe": "start",
+      "regime": "ignored_missing",
+      "trials": 256,
+      "value_abs_gap": 0.0,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3181.5756165080843,
+      "gradient_max_abs_gap": 7.387507139355876e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 3181.575616508085,
+      "pass": true,
+      "probe": "start_plus_delta",
+      "regime": "ignored_missing",
+      "trials": 256,
+      "value_abs_gap": 9.094947017729282e-13,
+      "value_pass": true
+    },
+    {
+      "compat_value": 3179.5526834264683,
+      "gradient_max_abs_gap": 8.710321708349511e-08,
+      "gradient_pass": true,
+      "jax_cpu_value": 3179.552683426468,
+      "pass": true,
+      "probe": "start_minus_delta",
+      "regime": "ignored_missing",
+      "trials": 256,
+      "value_abs_gap": 4.547473508864641e-13,
+      "value_pass": true
+    }
+  ],
+  "source_commit": "0a40e7081421c0ad66ea45f852f11bd823cc9d51"
+}

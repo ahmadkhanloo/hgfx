@@ -57,7 +57,7 @@ A separately frozen prospective extension examined 128, 256, 512, and 1024 trial
 
 The paired-integrity gate required complete paired shards, identical free-parameter indices, identical pass/fail outcomes for each frozen parameter criterion at each model x horizon, and agreement of every paired BIC winner before any identifiability interpretation.
 
-That gate did not pass. Ten of 72 BIC winners disagreed, all in classic binary-HGF datasets at 512 or 1024 trials. Parameter-recovery summaries for classic HGF at those horizons are incomplete because invalid simulations were retained rather than resampled. Consequently, the study supports no data-horizon or structural-identifiability conclusion. This negative outcome is retained rather than repaired post hoc.
+That gate did not pass. Ten of 72 BIC winners disagreed, all in classic binary-HGF datasets at 512 or 1024 trials. Parameter-recovery summaries for classic HGF at those horizons are incomplete because invalid simulations were retained rather than resampled. The frozen per-model diagnostic classifier records `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this identifies paired implementation/optimization disagreement and is not itself an identifiability verdict. The aggregate scientific classification remains `INSUFFICIENT_REFERENCE_EVIDENCE` with `gate_pass=false`. Consequently, the study supports no data-horizon or structural-identifiability conclusion. This negative outcome is retained rather than repaired post hoc.
 
 ## Appendix S4. pyhgf common-scope semantic and numerical comparison
 
@@ -73,7 +73,9 @@ This is a quantity-specific comparison, not a package ranking and not evidence o
 
 ## Appendix S5. Physical-GPU applicability and environment provenance
 
-Physical GPU validation was executed in a hosted/shared Kaggle environment with two NVIDIA Tesla T4 devices. The recorded runtime was Python 3.12.13, JAX 0.11.1, and JAXLIB 0.11.1. Physical CUDA residency was verified through the runtime device list and `nvidia-smi` process evidence.
+Physical GPU validation was executed before release at source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec` in a hosted/shared Kaggle environment where two NVIDIA Tesla T4 devices were visible. The recorded runtime was Python 3.12.13, JAX 0.11.1, and JAXLIB 0.11.1. The required fitting cells executed on `cuda:0`; device residency was verified by the JAX device-placement check, while `nvidia-smi -L` provided hardware enumeration only.
+
+The post-fix compatibility-versus-JAX-CPU leg was remeasured separately on Ubuntu with Python 3.12.14 and JAX/JAXLIB 0.11.1. The canonical execution is GitHub Actions run `36255732941`, source commit `0a40e7081421c0ad66ea45f852f11bd823cc9d51`, using the unchanged `0.1` criterion. Two repeated executions were byte-identical (raw-result SHA-256 `f5ad2c412a8ad9f6325e45e2398ec46f54bcb13bba64ebe12827033d8aeedfab`). Across the four fitting cells the maximum post-fix CPU gap is `0.006783711260709424`, so the CPU classification remains a PASS under the frozen criterion. The committed artifact is `gpu_validation_results/m18_s9_cpu_postfix_revalidation.json`.
 
 Four required CPU-versus-GPU fitting cells were evaluated:
 
@@ -86,7 +88,7 @@ Four required CPU-versus-GPU fitting cells were evaluated:
 
 All four are below the frozen `1e-7` final-objective criterion. The maximum observed gap is `1.4210854715202004e-14`.
 
-This evidence establishes physical-GPU applicability/correctness only. The environment was shared, and no claim of uncontended peak performance, general speedup, H100 performance, or multi-GPU scaling is made.
+This physical-GPU evidence is retained after release rather than represented as a new post-remediation GPU execution. Retention is based on source-path inspection: the S9 runner and JAX GPU fitting path used by these cells are unchanged across the release, whereas the later host-libm repair affected the NumPy compatibility path and therefore requires a separate post-fix CPU remeasurement. This evidence establishes physical-GPU applicability/correctness only. The environment was shared, and no claim of uncontended peak performance, general speedup, H100 performance, or multi-GPU scaling is made.
 
 The exact recorded command was:
 
