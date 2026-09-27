@@ -33,6 +33,8 @@ jobs:
         run: |
           CANDIDATE_SHA=$(python -c "import json; print(json.load(open('docs/research/P8_DELTA_MANIFEST.json'))['candidate']['sha'])")
           python paper/scripts/generate_p8_delta_manifest.py --candidate-sha "$CANDIDATE_SHA"
+      - name: Emit generated delta manifest for final lock
+        run: cat docs/research/P8_DELTA_MANIFEST.json
       - name: Test P8 delta scope
         run: pytest -q tests/paper/test_p8_delta_manifest.py
       - name: Verify committed delta manifest reproduces exactly
