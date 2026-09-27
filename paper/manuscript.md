@@ -19,7 +19,7 @@ https://github.com/ahmadkhanloo
 
 ## Abstract
 
-The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility, with a MATLAB implementation. We present HGFX 1.0.0, a Python/JAX toolbox targeting validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference in documented scopes, while removing MATLAB as a user-runtime dependency. Reimplementation is treated as a validation problem rather than source translation: configuration semantics, parameter transforms, forward trajectories, observation likelihoods, objectives, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement are compared against the pinned oracle under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a regime where classic HGF encounters negative posterior precision while eHGF succeeds. In paired model-selection validation, all 36 BIC winners agree between MATLAB and HGFX. Physical NVIDIA GPU applicability is supported by a retained Tesla T4 run (two T4 devices visible; tested fitting cells on `cuda:0`), with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and exact MATLAB/HGFX limitation matches are preserved and are not reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood is retained as not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an explicit evidence model that separates direct parity, matched reference limitations, backend applicability, and future performance claims.
+The Hierarchical Gaussian Filter (HGF) is a hierarchical Bayesian model of learning under uncertainty and volatility. We present HGFX 1.0.0, a Python/JAX toolbox targeting validated behavioral and numerical compatibility with a frozen HGF Toolbox 8.2.0 reference without requiring MATLAB at user runtime. Validation covers configuration semantics, parameter transforms, forward trajectories, observation likelihoods, fitting and statistical surfaces, simulation workflows, official demo behavior, model selection, and backend agreement under predeclared tolerances. Two official MATLAB demo workflows reproduce the reference at frozen trajectory tolerances, including a regime in which classic HGF encounters negative posterior precision while eHGF succeeds. In the frozen paired model-selection grid, MATLAB and HGFX select the same BIC winner in all 36 cases. In a separate prospectively frozen trial-horizon experiment, 62 of 72 BIC winners agree, but the paired-integrity gate fails; this evidence is insufficient for a stronger identifiability conclusion. Physical NVIDIA GPU applicability is supported by a retained Tesla T4 run, with a maximum CPU-versus-GPU final-objective difference of 1.42e-14 against a frozen 1e-7 criterion. Historical parameter-recovery failures and matched MATLAB/HGFX reference limitations remain preserved rather than reclassified as scientific success. A prospectively gated comparison with pyhgf 0.3.2 shows binary64-scale agreement on mapped perceptual trajectories in one authorized three-level binary-HGF cell, while participant-response negative log-likelihood remains not directly comparable. HGFX therefore provides a MATLAB-independent Python implementation with an evidence model that separates direct parity, matched reference limitations, backend applicability, and untested performance claims.
 
 ## 1 Introduction
 
@@ -66,6 +66,8 @@ Users do not require MATLAB. MATLAB is used only when regenerating cross-languag
 
 The HGF represents a hidden hierarchy of Gaussian states in which higher levels encode volatility of lower levels [@mathys2011; @mathys2014]. For binary observations, a unit-square sigmoid observation model maps the first hidden state to the probability of the observed outcome. HGFX v1.0 covers the classic HGF, the enhanced HGF (eHGF), and the unbounded HGF (uHGF) in the documented MATLAB-compatible configurations, plus specialized surfaces in the v1 migration matrix (sampling, analysis, Bayesian parameter averaging, and the official uHGF-AR(1) demo). Equations are those of the frozen MATLAB toolbox; this article does not introduce a new generative model.
 
+Recent work generalizes the HGF generative-model family by adding nonlinear hierarchical coupling and modular architectures [@weber2026generalized]. That generalized model family is outside the compatibility claims evaluated here.
+
 The public fitting interface accepts perceptual and observation configurations, a default transformed start, and a Quasi-Newton optimizer with a frozen iteration budget in the paper protocols. Simulation exports inputs `u` and responses `y` that become immutable paired inputs when MATLAB is used as an oracle.
 
 ### 2.3 Frozen reference and evidence classes
@@ -111,15 +113,15 @@ The first demo is a regime in which classic binary HGF encounters negative poste
 
 The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity).
 
-**Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
+**Table 2.** Reader-facing summary of validated workflows. Exact machine-readable classifications remain in `paper/tables/`.
 
-| Surface | Classification |
+| Workflow or output | Result in the validated scope |
 |---|---|
-| Core model/API compatibility (documented scopes) | PASS |
-| uHGF to AR(1) official workflow | PASS |
-| sampleModel / prior-predictive workflow | PASS |
-| Correlation/residual analysis surfaces | PASS |
-| Bayesian parameter averaging | PASS |
+| Core model and public API behavior | matches the frozen reference |
+| uHGF to AR(1) official workflow | matches the frozen reference |
+| Sampling and prior-predictive workflow | matches the frozen reference |
+| Correlation and residual outputs | matches the frozen reference |
+| Bayesian parameter averaging | matches the frozen reference |
 
 ### 3.2 Fitting statistics and scoped limitations
 
@@ -141,13 +143,13 @@ The earlier historical M18 parameter-recovery failure remains preserved separate
 
 The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity gate failed, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they do not replace the earlier recovery evidence.
 
-**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
+**Table 4.** Paired parameter recovery on the frozen three-model grid. Acceptance thresholds are convergence >= 0.80, median parameter correlation >= 0.50, and median standardized RMSE <= 1.00. Values below are rounded for readability; full precision is in `paper/tables/recovery_model_selection.md`.
 
-| Model | MATLAB / HGFX convergence | MATLAB / HGFX median r | MATLAB / HGFX median sRMSE | Failed criteria |
+| Model | Convergence rate (MATLAB / HGFX) | Median parameter correlation (MATLAB / HGFX) | Median standardized RMSE (MATLAB / HGFX) | Criteria not met |
 |---|---|---|---|---|
-| hgf_binary | 0.833 / 0.833 | 0.203 / 0.203 | 2.610 / 2.610 | correlation, sRMSE |
-| ehgf_binary | 0.917 / 0.917 | 0.462 / 0.462 | 2.359 / 2.359 | correlation, sRMSE |
-| uhgf_binary | 0.792 / 0.792 | 0.381 / 0.381 | 2.958 / 2.958 | convergence, correlation, sRMSE |
+| Classic HGF | 0.833 / 0.833 | 0.203 / 0.203 | 2.610 / 2.610 | correlation, standardized RMSE |
+| eHGF | 0.917 / 0.917 | 0.462 / 0.462 | 2.359 / 2.359 | correlation, standardized RMSE |
+| uHGF | 0.792 / 0.792 | 0.381 / 0.381 | 2.958 / 2.958 | convergence, correlation, standardized RMSE |
 
 ### 3.4 Backend and physical-GPU applicability
 
@@ -208,9 +210,9 @@ The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference or
 
 ## Figure captions
 
-**Figure 1.** Evidence classes used in this article: direct MATLAB parity, matched reference limitation, not-directly-comparable pyhgf quantities, and preserved historical failure. File: `paper/figures/fig_evidence_classes.png` (PDF: `.pdf`).
+**Figure 1.** How results are interpreted in this article: direct agreement with the MATLAB reference, a limitation shared with the reference, a quantity that cannot be compared directly, or a preserved historical failure. File: `paper/figures/fig_evidence_classes.png` (PDF: `.pdf`).
 
-**Figure 2.** Paired parameter-recovery metrics for MATLAB 8.2.0 and HGFX 1.0.0 against the predeclared recovery thresholds. This panel does not constitute a scientific recovery success. File: `paper/figures/fig_recovery_metrics.png`.
+**Figure 2.** Parameter-recovery results for MATLAB and HGFX against the predeclared thresholds. Several recovery criteria are not met; the figure is diagnostic and is not evidence of successful parameter recovery. File: `paper/figures/fig_recovery_metrics.png`.
 
 **Figure 3.** Paired model-selection summary: MATLAB and HGFX balanced accuracy and 36/36 BIC winner agreement. File: `paper/figures/fig_model_selection.png`.
 
