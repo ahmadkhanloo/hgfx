@@ -7,7 +7,7 @@
     "p3_workflow_run": 35272347167,
     "pypi_stable": "hgfx==1.0.0"
   },
-  "claim_audit_status": "COMPLETE",
+  "claim_audit_status": "COMPLETE_P6A_2_NOT_FROZEN",
   "claim_groups": [
     {
       "evidence": [
@@ -83,8 +83,8 @@
     {
       "path": "docs/research/P7_JNM_PREFLIGHT.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "01249100748908363253005b84943fa96c3d1346358756f35af769d16abf8fa1",
-      "size_bytes": 3313
+      "sha256": "2414b66d9286094c8c86c7aa0446d1bec7bc8be317b9eb72c0efc2a6b88bea07",
+      "size_bytes": 3446
     },
     {
       "path": "docs/research/PYHGF_COMMON_SCOPE_NUMERICAL_RESULT.md",
@@ -197,20 +197,20 @@
     {
       "path": "paper/highlights.txt",
       "role": "submission_working_source",
-      "sha256": "25c22fe73a20c54bf1aec695f1df00eae8795c0beb93cea15483ad90f5cf892b",
-      "size_bytes": 363
+      "sha256": "5bedf482d5ad41ff296e1168f4c5615c1c1fcd580afb0f55b4781d12745572e1",
+      "size_bytes": 365
     },
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "993989ac1b9b19fa897c27ee2fa33c892a04c89629c23d7455fbadeeffbcb01c",
-      "size_bytes": 27100
+      "sha256": "2461d9fc0b523ab79b08c844d8af0df3aca570994296e25ee06d99763d8c9b88",
+      "size_bytes": 27853
     },
     {
       "path": "paper/references.bib",
       "role": "submission_working_source",
-      "sha256": "5e401b142bfd030a4449c789413892560c8bf293017c11f7810e05268dbe334c",
-      "size_bytes": 4595
+      "sha256": "a608c366e4bd1d789fdd473ffacd8fb8e352ed58bd1a5f554cc637549ac1270c",
+      "size_bytes": 4966
     },
     {
       "path": "paper/reproducibility/PAPER_PROTOCOL.md",
@@ -221,8 +221,8 @@
     {
       "path": "paper/reproducibility/README.md",
       "role": "protocol_or_reproducibility",
-      "sha256": "af550e57f6be715f7644f0b30d96921dcee091a811b7db1f6042aa17624415d2",
-      "size_bytes": 7596
+      "sha256": "a414c9065e51f2b4904d2f2e7f1759da0f26fc546ec2b9e1ec64e8124090bc08",
+      "size_bytes": 7827
     },
     {
       "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
@@ -341,8 +341,8 @@
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "a129f5771e75ec55ee108a53baaf4d879a1c7a2ba08a3158978d14ff39e5f43d",
-      "size_bytes": 53133
+      "sha256": "8305a46a176a3766bdf2b98e05daa4059cbb53650b95071000a5b8dcff4ca938",
+      "size_bytes": 53921
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
@@ -460,6 +460,6 @@
     "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,
-  "status": "FROZEN_FOR_SUBMISSION",
-  "submission_candidate_sha": "897aed804901f9f49ad1d73ecfab6fa714d50098"
+  "status": "DRAFT_NOT_FROZEN",
+  "submission_candidate_sha": null
 }
