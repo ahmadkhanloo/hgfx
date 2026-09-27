@@ -7,7 +7,7 @@
     "p3_workflow_run": 35272347167,
     "pypi_stable": "hgfx==1.0.0"
   },
-  "claim_audit_status": "COMPLETE_P6A_2_NOT_FROZEN",
+  "claim_audit_status": "COMPLETE",
   "claim_groups": [
     {
       "evidence": [
@@ -460,6 +460,6 @@
     "pytest -q tests/paper/test_p2_tables.py tests/paper/test_p5_figures.py tests/paper/test_p3_evidence.py tests/paper/test_p6a_claim_audit.py tests/paper/test_p6a_manifest.py"
   ],
   "schema_version": 1,
-  "status": "DRAFT_NOT_FROZEN",
-  "submission_candidate_sha": null
+  "status": "FROZEN_FOR_SUBMISSION",
+  "submission_candidate_sha": "897aed804901f9f49ad1d73ecfab6fa714d50098"
 }
