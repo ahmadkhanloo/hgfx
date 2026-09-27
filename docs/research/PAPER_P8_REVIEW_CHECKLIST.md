@@ -1,6 +1,6 @@
 # P8 Independent Pre-Submission Review Checklist
 
-Status: **ROUND-3 INDEPENDENT REVIEW PASS / READY FOR FINAL P6A FREEZE**
+Status: **ROUND-3 INDEPENDENT REVIEW PASS / P6A FROZEN / FINAL VALIDATION IN PROGRESS**
 
 Historical round-2 reviewed candidate: `b66f294f4799968404273127a9b06b4fc451ffb3` — **FAIL / one HIGH preserved**  
 Round-3 candidate SHA: `897aed804901f9f49ad1d73ecfab6fa714d50098`  
@@ -29,6 +29,13 @@ The fields above are the authoritative round-3 gate record. Historical checked i
 - [x] Full Ubuntu/Windows regression passes on a documentation-only lock descendant; candidate implementation/manuscript/evidence content is unchanged.
 - [x] No frozen MATLAB reference file or frozen v1 release-evidence artifact changed.
 - [x] Independent round-3 reviewer has recorded `PASS` with zero unresolved CRITICAL/HIGH findings for the exact candidate above.
+
+### Final freeze validation
+
+- [x] P6A manifest promoted to `FROZEN_FOR_SUBMISSION` for exact reviewed candidate `897aed804901f9f49ad1d73ecfab6fa714d50098` at freeze commit `2f69c18fb2bf612e87a260575d4f860cd4f70870`.
+- [x] P6A Paper Evidence run `36310122423` (#104): **PASS** with full-history checkout and zero-diff regeneration.
+- [x] P8 Delta Scope run `36310122437` (#76): **PASS** on the frozen lock descendant.
+- [ ] Final cross-platform HGFX Regression on the frozen lock descendant: **IN PROGRESS**.
 
 ## Prior independent baseline
 
