@@ -40,8 +40,9 @@ python -m pip install 'hgfx==1.0.0'
 For regenerating paper artifacts from this repository (post-v1 paper commits):
 
 ```bash
-# Use the exact locked submission candidate recorded in docs/research/P8_REVIEW_PACKET.md
-git checkout <P8-candidate-SHA>
+# Resolve the authoritative submission candidate from the frozen P6A manifest
+python -c "import json; print(json.load(open('paper/reproducibility/p6a_paper_evidence_manifest.json'))['submission_candidate_sha'])"
+# Then checkout that exact SHA before reproducing the reviewed paper state.
 python -m pip install -e '.[dev]' 'numpy==2.3.3' 'matplotlib==3.10.9' 'pytest>=8'
 python scripts/verify_reference_freeze.py
 ```
@@ -73,7 +74,7 @@ pytest -q tests/paper/test_p6a_manifest.py
 
 Output: `paper/reproducibility/p6a_paper_evidence_manifest.json`.
 
-Current status is `DRAFT_NOT_FROZEN`. The authoritative inventory count is the `file_count` recorded in `p6a_paper_evidence_manifest.json`; P6A-1/P6A-2 use canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The numerical claim audit is complete with zero unmapped current manuscript claim lines, and the manifest explicitly preserves failed, reference-limitation and NDC outcomes. It must not be promoted to `FROZEN_FOR_SUBMISSION` until an exact P7 candidate is locked and independent P8 records PASS for that exact candidate SHA.
+The authoritative submission-freeze state is the `status` and `submission_candidate_sha` recorded in `p6a_paper_evidence_manifest.json`; the exact review/freeze chain is recorded in `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`. This README deliberately does not duplicate that mutable state. The authoritative inventory count is the manifest's `file_count`; P6A-1/P6A-2 use canonical Git-byte SHA-256 values, so hashes are independent of checkout line-ending policy. The numerical claim audit must remain complete with zero unmapped current manuscript claim lines, and the manifest preserves failed, reference-limitation and NDC outcomes.
 
 Regenerate the current numerical claim audit before the manifest:
 
