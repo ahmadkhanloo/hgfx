@@ -77,6 +77,11 @@ def _normalize_text(value: str) -> str:
     return value.casefold().strip()
 
 
+def _bibliography_match_key(value: str) -> str:
+    """Normalize layout-only PDF/DOCX differences for title-presence checks."""
+    return re.sub(r"[^0-9a-z]+", "", _normalize_text(value))
+
+
 def _docx_text(path: Path) -> str:
     with zipfile.ZipFile(path) as zf:
         xml = zf.read("word/document.xml").decode("utf-8")
@@ -127,8 +132,8 @@ def build(out_dir: Path) -> tuple[Path, Path]:
         )
 
     titles = _bib_titles(refs)
-    rendered_norm = _normalize_text(rendered)
-    missing = [title for title in titles if _normalize_text(title) not in rendered_norm]
+    rendered_norm = _bibliography_match_key(rendered)
+    missing = [title for title in titles if _bibliography_match_key(title) not in rendered_norm]
     if missing:
         raise RuntimeError(
             f"citeproc bibliography verification failed ({len(titles) - len(missing)}/{len(titles)}): "
@@ -150,8 +155,8 @@ def build(out_dir: Path) -> tuple[Path, Path]:
     run("pdftotext", str(pdf), str(txt))
     pdf_text = txt.read_text(encoding="utf-8", errors="replace")
     txt.unlink(missing_ok=True)
-    pdf_norm = _normalize_text(pdf_text)
-    missing_pdf = [title for title in titles if _normalize_text(title) not in pdf_norm]
+    pdf_norm = _bibliography_match_key(pdf_text)
+    missing_pdf = [title for title in titles if _bibliography_match_key(title) not in pdf_norm]
     if missing_pdf:
         raise RuntimeError(
             f"PDF bibliography verification failed ({len(titles) - len(missing_pdf)}/{len(titles)}): "
