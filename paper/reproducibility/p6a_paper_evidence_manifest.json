@@ -203,8 +203,8 @@
     {
       "path": "paper/manuscript.md",
       "role": "submission_working_source",
-      "sha256": "2461d9fc0b523ab79b08c844d8af0df3aca570994296e25ee06d99763d8c9b88",
-      "size_bytes": 27853
+      "sha256": "974eb1ceff0d861cb4929b5443af748c49b1fcc230b28ca1ee96fa3f598337cd",
+      "size_bytes": 27633
     },
     {
       "path": "paper/references.bib",
@@ -341,8 +341,8 @@
     {
       "path": "paper/scripts/generate_p6a_claim_audit.py",
       "role": "generator",
-      "sha256": "8305a46a176a3766bdf2b98e05daa4059cbb53650b95071000a5b8dcff4ca938",
-      "size_bytes": 53921
+      "sha256": "ad5bf5a6aeeb3ffdbbd97a03507938d5923bbacde9a22575c79b0e250183bc43",
+      "size_bytes": 53701
     },
     {
       "path": "paper/scripts/generate_p6a_manifest.py",
