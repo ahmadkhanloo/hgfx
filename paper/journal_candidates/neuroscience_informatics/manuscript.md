@@ -12,15 +12,11 @@
 
 ## 1 Introduction
 
-Computational models of learning under uncertainty must represent uncertainty about latent states and about the volatility of those states. The Hierarchical Gaussian Filter (HGF) was introduced as a generic hierarchical Bayesian framework for individual learning under uncertainty (Mathys et al., 2011) and later developed into a practical filtering framework for perception and learning (Mathys et al., 2014). It has been used to recover hierarchical prediction errors in neuroimaging (Iglesias et al., 2013) and to model inference about others' intentions (Diaconescu et al., 2014). The associated MATLAB toolbox is distributed as part of TAPAS, an open-source collection of translational neuromodeling tools (Frässle et al., 2021), and remains a reference implementation for fitting, simulation, model comparison, and analysis.
+The Hierarchical Gaussian Filter (HGF) is a Bayesian framework for learning under uncertainty and volatility (Mathys et al., 2011; Mathys et al., 2014). Its established MATLAB implementation is part of TAPAS and supports computational-neuroscience and computational-psychiatry studies, including investigations of prediction errors and social inference (Frässle et al., 2021; Iglesias et al., 2013; Diaconescu et al., 2014). Reproducing an HGF analysis across programming environments requires more than translating equations: parameter conventions, optimization, observation likelihoods, numerical precision, and failure behavior affect fitted quantities and model decisions.
 
-Reproducing such a toolbox in another language is not equivalent to translating published equations. Scientific behavior also depends on parameter ordering, transforms, prior conventions, fixed and free parameter semantics, placeholder values, numerical primitives, finite-difference behavior, optimizer trajectories, failure modes, and model-family selection. Small floating-point differences that are negligible at a shared state can be amplified by derivative estimation and non-convex optimization (Wilson & Collins, 2019; Peng, 2011). A replacement implementation can therefore appear mathematically correct while producing materially different fitted inferences or model-selection outcomes.
+Modern Python approaches already exist. In particular, pyhgf emphasizes configurable predictive-coding networks and differentiable inference (Legrand et al., 2026). HGFX addresses a different objective: documented compatibility with the frozen MATLAB HGF Toolbox 8.2.0 and removal of MATLAB as a user-runtime dependency, without claiming superiority or priority as a Python HGF implementation.
 
-Python/JAX toolboxes already exist in this space. pyhgf represents predictive-coding systems as configurable node/edge networks and supports differentiable modern inference (Legrand et al., 2026). HGFX does not claim to be the first Python or JAX HGF. Its v1.0 objective is narrower and complementary: behavioral compatibility with one frozen MATLAB HGF Toolbox 8.2.0 oracle, explicit cross-language evidence, and removal of MATLAB from the user runtime.
-
-This paper asks whether a legacy scientific toolbox can be reproduced in an accelerator-compatible stack without silently changing the scientific contract. We report the released HGFX 1.0.0 evidence: workflow reproduction, paired model-selection agreement, CPU/backend and physical-GPU applicability, a scoped pyhgf comparison, and preserved historical failures. General speedup and multi-GPU scaling are not headline claims.
-
-For neuroscience methodology, the contribution is a reproducible route for re-running established HGF analyses outside the MATLAB runtime while retaining the validated reference behavior that underpins prior computational-neuroscience and computational-psychiatry applications. The study therefore evaluates software behavior, inferential workflows, and reproducibility rather than introducing a new behavioral or neuroimaging dataset.
+We investigate the reproducibility of established HGF workflows across MATLAB and Python/JAX, using frozen protocols and traceable evidence. The work reports numerical and workflow agreement alongside limitations in fitting and parameter recovery; it does not introduce a new neuroimaging, behavioral, or clinical dataset.
 
 ## 2 Materials and methods
 
@@ -63,16 +59,7 @@ The public fitting interface accepts perceptual and observation configurations, 
 
 ### 2.3 Frozen reference and evidence classes
 
-HGFX v1.0 is validated against HGF Toolbox 8.2.0 at commit `2437f4dc241541072722a2695ddeca7b44d83dd3`. The compatibility target includes the documented model/configuration inventory, parameter transforms and priors, HGF/eHGF/uHGF and specialized implementations, observation models, fitting and simulation surfaces, Hessian/covariance/correlation/statistical outputs, model selection, official workflow behavior, and public APIs.
-
-We use four interpretation classes (Figure 1):
-
-- **Direct parity:** MATLAB and HGFX agree under the frozen protocol and tolerance.
-- **Matched reference limitation:** the MATLAB oracle exhibits the same limitation and HGFX reproduces the corresponding behavior; this is not a scientific success claim.
-- **Preserved failure:** an experiment failed its scientific criterion and remains archived.
-- **Not directly comparable (NDC):** a quantity lacks a defensible common semantic or numerical surface, most relevant to the pyhgf comparison.
-
-Acceptance thresholds, seeds, datasets, starts, model families, optimizers, and grids are not changed after observing results. Failed experiments remain archived. The numerical policy and the two most sensitive optimizer/basin cases are documented in Supplementary Appendices S1-S2.
+HGFX was evaluated against the fixed MATLAB HGF Toolbox 8.2.0 reference at commit `2437f4dc241541072722a2695ddeca7b44d83dd3`. The validation scope includes documented HGF/eHGF/uHGF configurations, parameter transforms, observation models, trajectories, fitting and simulation, summary statistics, and official demonstrations. Four evidence classes prevent overinterpretation (Figure 1): **direct parity** at predeclared tolerances; **matched reference limitation**, reproducing an oracle limitation without calling it scientific success; **preserved failure**, retaining unsuccessful experiments; and **not directly comparable**, applied where quantities lack matching semantics.
 
 ### 2.4 Validation hierarchy
 
@@ -167,17 +154,11 @@ Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not futur
 
 ## 4 Discussion
 
-Reproducing a scientific toolbox requires a broader notion of compatibility than implementing published equations. In numerically sensitive fitting problems, binary64-scale elementary differences can be amplified through finite-difference derivatives and quasi-Newton optimization, producing different endpoints even when shared-state objectives are extremely close.
+Cross-language reproduction of computational models requires preserving the practical scientific workflow, not simply implementing the equations. Numerically small differences may be amplified by finite-difference derivatives and non-convex quasi-Newton optimization, producing divergent endpoints. HGFX distinguishes reference faithfulness from scientific parameter identifiability: two sensitive fitting cases reproduce reference limitations, while parameter-recovery criteria remain unmet. Agreement among 36 paired model-selection winners does not negate these constraints.
 
-This motivates separating scientific correctness from reference faithfulness. When the MATLAB oracle is itself unstable in a tested scope, forcing Python toward a preferred endpoint can be less faithful than preserving the oracle's limitation. A matched limitation is not evidence that the recovered parameter is identifiable. HGFX therefore preserves original failures and reports the narrow product-compatibility interpretation separately.
+The MATLAB-independent workflow may support the reanalysis of HGF studies within the documented validation scope. The comparison with pyhgf is complementary rather than competitive: 11 mapped perceptual quantities agree in one fixed case, while participant-response NLL remains non-comparable at the tested numerical boundary. The physical T4 result establishes objective agreement in four tested fitting cells; no general GPU speed or scaling conclusion follows.
 
-Workflow-level validation matters for the same reason. Reproducing the expected failure of classic HGF in a documented regime, while reproducing successful eHGF behavior, is part of compatibility. Treating every failure as an implementation bug would have encouraged divergence from the reference.
-
-pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability (Legrand et al., 2026). HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale.
-
-JAX enables compiled CPU/GPU execution, batching, and multi-device workloads (Bradbury et al., 2018; Frostig et al., 2018). Accelerator-native code is scientifically useful only if the accelerated path preserves relevant outputs. The T4 result supports that claim for the tested objective. Throughput depends on workload size, compilation amortization, hardware, device count, and contention; protocol 1 therefore does not activate a headline performance or scaling result. Scalability of the JAX path is an engineering capability of the implementation, not a reported empirical law.
-
-The strongest contribution is methodological: an explicit oracle, evidence classes, numerical compatibility policy, preserved failures, and release provenance. That discipline reduces the risk that a modern implementation gains convenience by silently changing an established scientific contract.
+The longer trial-horizon experiment did not pass paired integrity and cannot isolate an identifiability mechanism. The paper therefore supports a scoped computational reproducibility claim, not a new clinical or neuroscience effect. Future work should distinguish implementation and optimizer sources of mismatch prospectively before revisiting parameter-recovery conclusions.
 
 ## 5 Conclusions
 
