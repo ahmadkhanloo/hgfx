@@ -32,8 +32,6 @@ For neuroscience methodology, the contribution is a reproducible route for re-ru
 
 The software is distributed as the MIT-licensed `hgfx==1.0.0` release on PyPI and can be installed with `python -m pip install hgfx==1.0.0`. The public documentation includes a getting-started guide, API descriptions, and runnable fitting and simulation examples. HGFX is designed for established HGF analysis workflows in computational neuroscience rather than to introduce a new model of neural or behavioral data.
 
-### 2.1.1 Software implementation
-
 HGFX is a Python package (Python >= 3.11) built on NumPy and JAX (Bradbury et al., 2018; Frostig et al., 2018). The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
 
 OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
