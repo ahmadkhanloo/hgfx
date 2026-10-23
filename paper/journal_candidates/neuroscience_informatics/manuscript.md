@@ -24,8 +24,6 @@ We investigate the reproducibility of established HGF workflows across MATLAB an
 
 HGFX is designed to reproduce established Bayesian-learning analyses relevant to computational neuroscience and computational psychiatry, including model fitting, simulation, and selection. This study evaluates numerical reproducibility rather than a new clinical cohort, neuroimaging dataset, or brain mechanism.
 
-### 2.1.1 Implementation
-
 HGFX is a Python package (Python >= 3.11) built on NumPy and JAX (Bradbury et al., 2018; Frostig et al., 2018). The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
 
 OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
