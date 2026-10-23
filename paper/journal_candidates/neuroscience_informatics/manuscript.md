@@ -63,15 +63,9 @@ HGFX was evaluated against the fixed MATLAB HGF Toolbox 8.2.0 reference at commi
 
 ### 2.4 Validation hierarchy
 
-The evidence hierarchy is: frozen reference identity; machine-readable validation artifacts; paired MATLAB/HGFX raw outputs; continuous-integration provenance; and manuscript tables/figures generated from those artifacts. Numerical checks use IEEE-754 binary64. The project does not target arbitrary-precision solutions that differ from frozen MATLAB execution.
+Evidence proceeds from frozen reference identity to machine-readable MATLAB/HGFX outputs, CI provenance, and regenerated tables/figures. Numerical checks use binary64. Two official 320-trial demonstrations compare relevant trajectories at `rtol = 5e-11` and `atol = 5e-13`. Fitting checks include objectives, optimization, parameter estimates, predictions, and AIC/BIC/LME.
 
-Two official MATLAB demo workflows (320 binary trials) are release-gated. Complete release-relevant trajectories and inference states are compared at `rtol = 5e-11` and `atol = 5e-13`.
-
-Fitting validation covers objectives at fixed parameters, MATLAB-compatible optimizer behavior, fitted parameters where direct parity is expected, trajectories, predictions/residuals, Hessian-derived covariance/correlation, and AIC/BIC/LME.
-
-An earlier frozen parameter-recovery experiment failed its scientific acceptance criteria and remains preserved. Subsequent paired validation distinguishes parameter recovery from model selection on a frozen three-model grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; predeclared thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
-
-CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement.
+The earlier unsuccessful recovery study was preserved. A later three-model paired grid used truth scales 0.15 and 0.35 with predefined criteria (convergence >= 0.80; median correlation >= 0.50; median standardized RMSE <= 1.00; balanced model-recovery accuracy >= 0.50). Post-remediation CPU equivalence was remeasured; earlier physical Tesla T4 results were retained only as evidence of the unchanged GPU fitting path's applicability, not performance.
 
 ### 2.5 pyhgf common-scope protocol
 
@@ -79,7 +73,7 @@ CPU/backend equivalence was remeasured after remediation of the host-runtime num
 
 ### 2.6 Prospective trial-horizon protocol
 
-A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The frozen per-model diagnostic classifier labels the affected model rows `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this cause label concerns paired implementation/optimization disagreement and does not supersede the aggregate scientific classification `INSUFFICIENT_REFERENCE_EVIDENCE`. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.
+A frozen paired MATLAB/HGFX study examined 128, 256, 512, and 1024 trials using unchanged models, seeds, truth scales, and recovery criteria. All failed simulations/fits were retained. Execution completed in 24/24 shards (GitHub Actions `35272347167`), but the paired-integrity gate failed: 10/72 BIC winners disagreed, all in classic HGF at 512/1024 trials, where parameter metrics were undefined for invalid simulations. Per-model diagnostics identify possible implementation/optimizer mismatch; aggregate classification is `INSUFFICIENT_REFERENCE_EVIDENCE`, not proof of an identifiability mechanism.
 
 ## 3 Results
 
@@ -148,9 +142,7 @@ Participant-response NLL was not directly comparable. With `ze = 48`, the pyhgf-
 
 ### 3.6 Examples of use and current limitations
 
-Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python. The official cross-language demo reproductions are repository workflows that additionally require a source checkout and the frozen MATLAB-reference submodule; they are not bundled as ordinary wheel examples. MATLAB is unnecessary for normal package use.
-
-Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) two numerically sensitive fitting cases are matched reference limitations rather than scientific recovery successes; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment failed its paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; and (v) the pyhgf result is one mapped cell, not package-wide equivalence.
+After `pip install hgfx==1.0.0`, fitting and simulation require no MATLAB runtime; reference-regeneration demos need the frozen MATLAB submodule and checkout. Validation is limited to HGF Toolbox 8.2.0 and tested configurations. Sensitive fitting cases and incomplete parameter recovery cannot support strong identifiability claims; longer-horizon paired integrity failed. The retained GPU test establishes objective agreement, not speed, and the pyhgf comparison covers only one mapped configuration.
 
 ## 4 Discussion
 
