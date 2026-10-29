@@ -50,7 +50,7 @@ SCIENTIFIC_QUALIFICATIONS = [
     "INSUFFICIENT_REFERENCE_EVIDENCE",
     "IMPLEMENTATION_OR_OPTIMIZER_MISMATCH",
     "not directly comparable",
-    "not a post-remediation performance measurement",
+    "not as a post-remediation performance measurement",
 ]
 
 def check() -> dict:
