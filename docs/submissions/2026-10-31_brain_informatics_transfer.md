@@ -83,3 +83,16 @@ m.ahmadkhanloo@ipm.ir
 - A publicly indexed bioRxiv preprint exists: DOI `10.64898/2026.09.22.753415`, posted 2026-09-28. This is distinct from declining Research Square's optional preprint posting; the destination portal and cover letter must accurately disclose the bioRxiv preprint.
 - The journal currently offers APC EUR 940 (acceptance-date pricing), and financial-need waivers need an official form submitted within 14 days of manuscript submission. Drafting a letter or selecting the waiver checkbox alone is NOT a waiver application. No waiver outcome is known.
 - No live Springer transfer/submission, no Brain Informatics submission ID, and no official waiver application have been confirmed.
+
+
+## SNAPP declarations review — author-provided draft state (2026-10-31)
+- Brain Informatics **DRAFT** ID `a41d238b-de46-4406-8110-3b2acbbbb4c6` (SNAPP /new/submission/); this is **not** a confirmed submitted manuscript ID.
+- Manuscript and supplementary appendices appear uploaded according to user's Files screen. Figure binaries still require confirmation; the SNAPP form recommends a manuscript with all figures/tables in editable body.
+- Author-entered competing interests: YES — sole author is developer/maintainer of HGFX; no other declared interests, consistent with frozen manuscript.
+- Dual publication: YES because a 2026-09-28 bioRxiv preprint was posted (DOI `10.64898/2026.09.22.753415`); Springer Nature policy says preprints are *not* prior journal publication. The explanation should also mention the earlier Neuroinformatics rejection, if submission history is requested.
+- Data used/generated: YES, simulated data and reproducibility artifacts; reference GitHub repository and v1.0.0 release.
+- Funding: NO; authorship and third-party materials self-declarations to be confirmed by corresponding author. Acknowledgements optional and portal field overrides manuscript's acknowledgements when populated.
+- **OPEN**: The supplied plain-text rendering of SNAPP Declarations contains the fee commitment clause but does **not** establish that the APC waiver-interest checkbox has been selected. Check or expand "Discounts or waivers in cases of financial hardship..." before final submission. Selecting waiver interest is not the actual fee-support application.
+- Official 2026-10-16 Springer policy: https://support.springernature.com/en/support/solutions/articles/6000227580-apc-waivers-and-discounts — interest at submission, separate application link after submission / email, form within 14 days, discretionary outcome unknown.
+- **Financial risk**: acceptance without full waiver or institutional coverage can trigger full APC under the SNAPP acceptance language. Do not misclassify this as an approved waiver or unconditional no-cost route.
+- Before submitting, check that the cover letter names the already posted bioRxiv DOI as per Springer Nature's preprint/similarity-check guidance.
