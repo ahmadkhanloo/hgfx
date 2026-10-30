@@ -8,7 +8,7 @@ Publishing options: https://link.springer.com/journal/12021/how-to-publish-with-
 ## Journal compliance
 
 - [x] Scope checked: neuroscience software validation and modeling.
-- [x] Article type targeted: **Software Original Article**.
+- [x] Scholarly article type targeted in journal guidelines: **Software Original Article**. The actual submission portal dropdown offers only Comment, Matters Arising, Research, Review, News; choose **Research** for this software-validation manuscript and describe it as intended for the Software Original Article category in the cover letter. The editorial team may determine the final designation.
 - [x] Abstract from approved source: 150–250 words; six keywords (journal asks 4–6).
 - [x] Includes brief installation instructions and example entry point.
 - [x] Keeps existing numerical, negative and inconclusive claims unchanged.
@@ -25,7 +25,7 @@ Publishing options: https://link.springer.com/journal/12021/how-to-publish-with-
 ## Upload order
 
 1. Open the official journal portal and sign in or create an author account.
-2. Start **New Submission**, select **Software Original Article** (the portal may display equivalent editorial article labels).
+2. Start **New Submission**, select **Research** (verified against the actual portal selector on 2026-10-30). The journal's published guidelines still recognize **Software Original Article**; the online form does not show it separately. Clarify the intended classification in the cover letter rather than selecting a non-research category.
 3. Enter title, abstract, keywords, author affiliation/email, funding/competing interests, and all required metadata.
 4. Upload `HGFX_Neuroinformatics_Manuscript.docx` as the **main manuscript**; if the portal requests a separate title page, upload `HGFX_Neuroinformatics_Title_Page.docx` too.
 5. Upload `HGFX_Neuroinformatics_Supplementary_Appendices.pdf` as **Supplementary Material** and the original figure files separately only if the portal requires them. Do not mix supplementary files into the article's primary text.
