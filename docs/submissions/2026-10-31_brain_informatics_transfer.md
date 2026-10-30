@@ -143,3 +143,9 @@ m.ahmadkhanloo@ipm.ir
 - A **draft-only** one-page Word template for IPM to review/issue was created as `HGFX_IPM_Official_APC_No_Funding_Confirmation_TEMPLATE.docx` (delivered to user in the conversation). This is **not** official evidence until IPM verifies its claims and signs it on its letterhead or stamps it. Do not fabricate signatures, stamps, affiliation or funding status.
 - **BLOCKED / awaiting third party**: Signed IPM confirmation. The formal waiver request remains unconfirmed as submitted; no waiver decision is known.
 - If institution cannot issue letter, ask Springer Waiver Support whether alternative written evidence is acceptable. Their portal says applications should occur within 14 days of 2026-10-30 submission, so target submission by 2026-11-13 at the latest.
+
+## Updated draft of IPM waiver evidence letter (2026-10-31)
+- A revised, one-page English DOCX letter template adds restrained context about Iranian research-budget pressures, the burden of foreign-currency publication fees, and practical international payment difficulties.
+- The revised draft **retains the required core institutional claim**: IPM has not allocated funds for this manuscript's APC and cannot cover it.
+- **Important verification rule**: Economic/payment statements must be reviewed, confirmed, and authorized by IPM. They are *draft wording*, not externally verified claims. Do not submit the unsigned template as official evidence.
+- Template file delivered to the author as `HGFX_IPM_APC_Waiver_Letter_With_Economic_Context_REVISED.docx`; it must be issued on official letterhead or with institution stamp and signed by a non-author authorized institutional representative.
