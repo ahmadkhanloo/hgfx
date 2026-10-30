@@ -74,3 +74,12 @@ m.ahmadkhanloo@ipm.ir
 - Waiver form submitted: NOT CONFIRMED
 - Waiver decision: UNKNOWN
 - Editorial status: NOT SUBMITTED/UNKNOWN
+
+
+## Submission preparation update (2026-10-31)
+- A locally downloadable Brain Informatics submission kit has been prepared: main manuscript DOCX, optional title-page DOCX, complete S1-S6 supplementary DOCX, full bibliography, cover letter, waiver request, text-preview PDFs, instructions, and immutable source Markdown.
+- The scientific source documents were checked with exact Git blob identities: manuscript `6ffa1ddd710fddb760ac1abef205868037c978a5`; appendices `8d52cfc5c2e844462046d074426d26fb110ed9bc`; bibliography `1924b681c2e636d3dad16e745b3081cd7e49d026`.
+- IMPORTANT: The user-download kit does not yet embed the 6 original PNG + 6 original PDF figure binaries because the creation runtime could not download them. A cross-platform downloader verifies Git blobs against pinned main `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`. **Do not mark submission materials complete until 12/12 original figure assets are retrieved and verified.**
+- A publicly indexed bioRxiv preprint exists: DOI `10.64898/2026.09.22.753415`, posted 2026-09-28. This is distinct from declining Research Square's optional preprint posting; the destination portal and cover letter must accurately disclose the bioRxiv preprint.
+- The journal currently offers APC EUR 940 (acceptance-date pricing), and financial-need waivers need an official form submitted within 14 days of manuscript submission. Drafting a letter or selecting the waiver checkbox alone is NOT a waiver application. No waiver outcome is known.
+- No live Springer transfer/submission, no Brain Informatics submission ID, and no official waiver application have been confirmed.
