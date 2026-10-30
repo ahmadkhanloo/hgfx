@@ -117,3 +117,11 @@ m.ahmadkhanloo@ipm.ir
 - Upload `Figure_1_Evidence_Classes.png` through `Figure_6_Horizon_Diagnostics.png` to SNAPP Files > Figures and tables (optional) in numbered order. Do not upload ZIP itself to SNAPP. The existing manuscript, supplementary DOCX and cover letter need no duplicate upload.
 - This figure-only snapshot ZIP is hosted by GitHub, **not by the local sandbox**, since direct binary retrieval into local container was unavailable. It is available as an external GitHub archive download and individual raw file links.
 - The earlier delivery's figure-blocker is RESOLVED as **assets available for user download**, but actual SNAPP upload remains UNCONFIRMED.
+
+
+## Correction: Springer SNAPP Figure-file types (2026-10-31)
+- **Author's live SNAPP Files > Figures and tables > Figures instructions explicitly permit .jpeg, .tiff, .eps**, not .png. The previous instruction to upload the six PNGs directly to this field is **superseded/incorrect**.
+- Original six source PNGs remain available unchanged from snapshot commit `8cdfbff1b1fd60ffaf10db051514dbf3c872f0db`; do not change source or regenerate scientific data.
+- A Windows PowerShell 5.1 converter package was created locally as `HGFX_BrainInformatics_Create_6_TIFF_Figures.zip`: it downloads each source PNG from pinned HGFX commit `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`, verifies Git blob SHA1, converts to uncompressed TIFF at original pixel dimensions using System.Drawing, packages six TIFF files. No image binaries were claimed to have been pre-generated or uploaded: the converter must actually be run on user's internet-connected Windows machine before TIFF assets exist.
+- Upload the resulting SIX `.tif` files separately in the corresponding SNAPP figures field. Tables 1-5 are already in Word, so no separate table upload is needed.
+- Before final Submit, review six files in Review and confirm caption-to-number mapping. APC waiver interest selected, official waiver form pending.
