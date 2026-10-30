@@ -134,3 +134,12 @@ m.ahmadkhanloo@ipm.ir
 - On the Review screen, APC waiver interest was selected. The publisher now provides the official link https://article-discounts-and-waivers.springernature.com/request?snapp_id=a41d238b-de46-4406-8110-3b2acbbbb4c6 and says **apply within 14 days of submission**. **OPEN: formal 100% APC waiver/discount form has not yet been confirmed submitted**, nor has any decision been reported.
 - Previously warned: submission kit Word file lacked embedded six figures; source figures were made available on separate GitHub branch `submissions/brain-informatics-figures-2026-10-31`, TIFF converter supplied because SNAPP's separated Figures accepts JPEG/TIFF/EPS. The confirmation does **not** establish whether TIFF images were actually uploaded. **OPEN: verify actual figure completeness and follow Technical Check emails**.
 - No assumption of full waiver approval, peer-review initiation, acceptance, or payment obligation discharge. Preserve financial risk and original paper evidence.
+
+
+## APC waiver evidence form — institutional signed letter mandatory (user-provided Springer portal screen, 2026-10-31)
+- Reason selected/recommended: **I have no research funding related to this manuscript** (matches the manuscript no-grant declaration).
+- Springer waiver portal then explicitly requires, for an institution-affiliated author with no research funding: a **signed letter from the current institution confirming that it cannot cover APC costs**.
+- Requirements printed in the portal: official letterhead **or** institutional stamp; signature of an authorized institutional officer **who is not an author** (e.g., head of department); English or translation of key details. Supported evidence formats: txt, doc, docx, odt, pdf, jpg, jpeg, png; total upload size ≤ 20 MB.
+- A **draft-only** one-page Word template for IPM to review/issue was created as `HGFX_IPM_Official_APC_No_Funding_Confirmation_TEMPLATE.docx` (delivered to user in the conversation). This is **not** official evidence until IPM verifies its claims and signs it on its letterhead or stamps it. Do not fabricate signatures, stamps, affiliation or funding status.
+- **BLOCKED / awaiting third party**: Signed IPM confirmation. The formal waiver request remains unconfirmed as submitted; no waiver decision is known.
+- If institution cannot issue letter, ask Springer Waiver Support whether alternative written evidence is acceptable. Their portal says applications should occur within 14 days of 2026-10-30 submission, so target submission by 2026-11-13 at the latest.
