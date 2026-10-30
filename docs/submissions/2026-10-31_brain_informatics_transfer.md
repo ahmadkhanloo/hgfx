@@ -96,3 +96,15 @@ m.ahmadkhanloo@ipm.ir
 - Official 2026-10-16 Springer policy: https://support.springernature.com/en/support/solutions/articles/6000227580-apc-waivers-and-discounts — interest at submission, separate application link after submission / email, form within 14 days, discretionary outcome unknown.
 - **Financial risk**: acceptance without full waiver or institutional coverage can trigger full APC under the SNAPP acceptance language. Do not misclassify this as an approved waiver or unconditional no-cost route.
 - Before submitting, check that the cover letter names the already posted bioRxiv DOI as per Springer Nature's preprint/similarity-check guidance.
+
+
+## SNAPP Review page — author-provided state (2026-10-31)
+- Review page says transfer in progress, compatible with Brain Informatics. **No final submission confirmation yet**.
+- Draft remains `a41d238b-de46-4406-8110-3b2acbbbb4c6`.
+- The declaration **"I want to apply for an APC discount or waiver" is explicitly selected**. This records waiver interest only, NOT submitted hardship form/approved 100% waiver. Official follow-up form still needed within 14 days of actual submission.
+- Reviewer Files summary shows only two scientific files: `HGFX_BrainInformatics_Manuscript.docx` and `HGFX_Supplementary_Appendices.docx`. Cover letter is separately present in Details.
+- **BLOCKER: required scientific figures missing from submitted main file and from separate Figures list.** The generated `HGFX_BrainInformatics_Manuscript.docx` currently stored in the local submission kit has **0 embedded `word/media` entries, 0 inline drawings**, while the manuscript calls out six figures. The Review summary does not show any separate figure uploads. The author's actual SNAPP uploaded DOCX is named identically; absent other edits, it has the same defect. Before final Submit, recover and Git-verify all six original figures, then upload separately in correct order in SNAPP Files > Figures and tables (optional), or replace manuscript with an editable document that embeds all six. Do not alter/recreate scientific figure data.
+- Cover letter in kit already contains bioRxiv preprint DOI `10.64898/2026.09.22.753415`.
+- Research Square In Review preprint option is not necessary because bioRxiv preprint already exists; suggest selecting **No** to avoid duplicate preprint posting unless explicitly desired.
+- Competing interests, author details, dual-publication disclosure, simulated-data statement and no-funding declaration align with manuscript. Retain all.
+- Next user-facing checkpoint: Review shows six figure files and waiver-interest selection; then submit and follow official APC hardship-form link. Record final submission ID and dated receipt only on evidence.
