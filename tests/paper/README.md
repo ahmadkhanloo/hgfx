@@ -1,1 +1,0 @@
-P2 paper-generation acceptance tests live in this package.
