@@ -125,3 +125,12 @@ m.ahmadkhanloo@ipm.ir
 - A Windows PowerShell 5.1 converter package was created locally as `HGFX_BrainInformatics_Create_6_TIFF_Figures.zip`: it downloads each source PNG from pinned HGFX commit `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`, verifies Git blob SHA1, converts to uncompressed TIFF at original pixel dimensions using System.Drawing, packages six TIFF files. No image binaries were claimed to have been pre-generated or uploaded: the converter must actually be run on user's internet-connected Windows machine before TIFF assets exist.
 - Upload the resulting SIX `.tif` files separately in the corresponding SNAPP figures field. Tables 1-5 are already in Word, so no separate table upload is needed.
 - Before final Submit, review six files in Review and confirm caption-to-number mapping. APC waiver interest selected, official waiver form pending.
+
+
+## Confirmed SNAPP submission and waiver application link (user-provided confirmation, 2026-10-31)
+- The user supplied Springer Nature's post-submit confirmation **"Thank you for submitting to Brain Informatics"**. **DONE: submitted**; now explicitly **Technical Check**. The message says technical deficiencies trigger an email; otherwise submission progresses toward peer review. **Not yet verified as peer reviewed or accepted.**
+- Tracking: https://submission.springernature.com/submission-details/a41d238b-de46-4406-8110-3b2acbbbb4c6
+- SNAPP submission UUID: `a41d238b-de46-4406-8110-3b2acbbbb4c6` (a portal identifier; official journal manuscript reference not independently provided).
+- On the Review screen, APC waiver interest was selected. The publisher now provides the official link https://article-discounts-and-waivers.springernature.com/request?snapp_id=a41d238b-de46-4406-8110-3b2acbbbb4c6 and says **apply within 14 days of submission**. **OPEN: formal 100% APC waiver/discount form has not yet been confirmed submitted**, nor has any decision been reported.
+- Previously warned: submission kit Word file lacked embedded six figures; source figures were made available on separate GitHub branch `submissions/brain-informatics-figures-2026-10-31`, TIFF converter supplied because SNAPP's separated Figures accepts JPEG/TIFF/EPS. The confirmation does **not** establish whether TIFF images were actually uploaded. **OPEN: verify actual figure completeness and follow Technical Check emails**.
+- No assumption of full waiver approval, peer-review initiation, acceptance, or payment obligation discharge. Preserve financial risk and original paper evidence.
