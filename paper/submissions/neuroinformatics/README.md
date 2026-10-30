@@ -1,7 +1,7 @@
 # Neuroinformatics submission package for HGFX
 
 **Target journal:** *Neuroinformatics* (Springer Nature)  
-**Article type:** **Software Original Article**  
+**Journal-defined scholarly category:** **Software Original Article**; **portal Article type: Research** (the present submission UI does not expose a separate Software Original Article option).  
 **Original locked scientific manuscript:** `paper/manuscript.md`, final P8 reviewed candidate `897aed804901f9f49ad1d73ecfab6fa714d50098`; P6A manifest `FROZEN_FOR_SUBMISSION`.  
 **Journal conversion base:** `main` at `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`.  
 **Frozen product:** HGFX `v1.0.0` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`.  
