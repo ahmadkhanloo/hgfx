@@ -108,3 +108,12 @@ m.ahmadkhanloo@ipm.ir
 - Research Square In Review preprint option is not necessary because bioRxiv preprint already exists; suggest selecting **No** to avoid duplicate preprint posting unless explicitly desired.
 - Competing interests, author details, dual-publication disclosure, simulated-data statement and no-funding declaration align with manuscript. Retain all.
 - Next user-facing checkpoint: Review shows six figure files and waiver-interest selection; then submit and follow official APC hardship-form link. Record final submission ID and dated receipt only on evidence.
+
+
+## Downloadable, Git-verified figure-only package — available (2026-10-31)
+- A **dedicated snapshot branch** `submissions/brain-informatics-figures-2026-10-31` at commit `8cdfbff1b1fd60ffaf10db051514dbf3c872f0db` contains **only the six original frozen PNG manuscript figures** and a short README. No source files from main are altered; this snapshot branch is intentionally not mergeable into main.
+- Stable snapshot download: https://github.com/ahmadkhanloo/hgfx/archive/8cdfbff1b1fd60ffaf10db051514dbf3c872f0db.zip
+- Verification: GitHub's repository-contents API listed all six renumbered figures and their original exact blob SHAs, sizes 119527, 144103, 88837, 111696, 469465, 273240 bytes respectively; mapping is in README. The assets were NOT regenerated or altered.
+- Upload `Figure_1_Evidence_Classes.png` through `Figure_6_Horizon_Diagnostics.png` to SNAPP Files > Figures and tables (optional) in numbered order. Do not upload ZIP itself to SNAPP. The existing manuscript, supplementary DOCX and cover letter need no duplicate upload.
+- This figure-only snapshot ZIP is hosted by GitHub, **not by the local sandbox**, since direct binary retrieval into local container was unavailable. It is available as an external GitHub archive download and individual raw file links.
+- The earlier delivery's figure-blocker is RESOLVED as **assets available for user download**, but actual SNAPP upload remains UNCONFIRMED.
