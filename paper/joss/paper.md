@@ -59,5 +59,3 @@ OpenAI ChatGPT has assisted the author with software code drafting and review, d
 The published HGF methodology and TAPAS software provide the scientific and numerical reference for this work. No specific grant funding was reported for this research. The author is the developer and maintainer of the evaluated HGFX software.
 
 # References
-
-References cited above are listed in `paper.bib`.
