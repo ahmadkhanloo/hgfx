@@ -40,7 +40,7 @@ def main():
     if not np.isfinite([output['LME'], output['BIC']]).all():
         raise RuntimeError('Nonfinite fit statistics; do not report workflow PASS')
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(output, indent=2, allow_nan=True)+'\n', encoding='utf-8')
+    args.output.write_text(json.dumps(output, indent=2, allow_nan=True)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({k:v for k,v in output.items() if k != 'mu'}, indent=2))
 
 

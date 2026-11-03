@@ -54,7 +54,7 @@
     "status": "OPENED",
     "sha256": "91a8ba890af99e151019d8428451b312a5a73ac1a5b2335785b016373007db0e",
     "raw_response_sha256": "91a8ba890af99e151019d8428451b312a5a73ac1a5b2335785b016373007db0e",
-    "stored_json_sha256": "35fad713ba0b095e1b0fe5d868b6f7be4cbb6be7935657c357ff6f8bebce9f54",
+    "stored_json_sha256": "d51d42afac09c129fb241e6755a68679b44821bc95d4f9ed33947820814960a1",
     "storage": "JSON normalized without changing fields"
   }
 ]

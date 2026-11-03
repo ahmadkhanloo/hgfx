@@ -48,3 +48,19 @@ def test_candidate_builder_binds_caption_to_image():
     assert source.count('\\captionof{figure}') == 4
     assert 'Figure 1](figures/' not in source
     assert 'Bibliography entries are in' not in source
+
+
+def test_text_hashes_are_portable_but_binary_hashes_remain_exact(tmp_path):
+    verifier = load_script('verify_revision')
+    path = tmp_path / 'record.json'
+    path.write_bytes(b'{"value": 1}\r\n')
+    before = verifier.sha(path)
+    path.write_bytes(b'{"value": 1}\n')
+    assert verifier.sha(path) == before
+    path.write_bytes(b'{"value": 2}\n')
+    assert verifier.sha(path) != before
+    image = tmp_path / 'record.pdf'
+    image.write_bytes(b'binary\r\n')
+    before = verifier.sha(image)
+    image.write_bytes(b'binary\n')
+    assert verifier.sha(image) != before

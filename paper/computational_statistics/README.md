@@ -26,3 +26,5 @@ python -m pytest tests/paper/test_compstat_revision.py tests/paper/test_p5_figur
 The builder reads this candidate explicitly, uses author-year citeproc, and produces a flat source archive under package/. The layout is a generic author-review article, not the official Springer class: the linked official template download returned 403. Source/PDF hashes and tool versions are in the build manifest. See [third-party notices](THIRD_PARTY_NOTICES.md) for the CSL style. PDFs were rendered and inspected; a failed-build log and the fixes are recorded.
 
 Remaining gates: human claim/declaration approval, no executed external application, comprehensive zero-fee/institutional clearance, final venue/account preflight and current preprint-revision policy. No submission, upload, email or financial commitment occurred.
+
+Text source hashes use LF consistently with the existing repository attributes; binary hashes remain byte-exact. Original raw baseline hashes are retained alongside canonical text identities.

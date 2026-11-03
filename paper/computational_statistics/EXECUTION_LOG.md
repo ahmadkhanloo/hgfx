@@ -52,3 +52,8 @@ Source inventory is read-only. A failed feasibility gate stops fitting, not inde
 ## Delivery
 
 The complete locally executable package is prepared. External real-data replication is blocked under the plan's terminal gates; this is not scientific case-study completion. No journal submission, preprint upload, email, recovery rerun, threshold change, core model change or financial commitment occurred. Only mission files are staged; pre-existing .gitignore/.freebuff/.repowise changes remain untouched. Git delivery is on paper/computational-statistics-revision; final SHA and remote verification are reported in the handoff.
+
+
+## Checkout portability correction
+
+Post-push inspection found the repository's existing /paper/** eol=lf rule converted local CRLF text, invalidating raw-byte verification in a fresh checkout. Mission-owned text writers now emit LF. The original raw baseline hashes remain recorded; an additional files_lf inventory verifies canonical text content and exact binary bytes. All historical local files were checked against Git after newline normalization; no scientific content difference exists and none was rewritten. Ledger and figure input hashes explicitly use LF text and exact binary hashes. A regression check distinguishes line-ending portability from actual value changes and binary-byte changes. Final local suite: 6 passed. A canonical Git-archive checkout verification is performed before the corrective push.

@@ -10,6 +10,10 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / 'figures'
 
 
+def source_sha(path):
+    return hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
+
+
 def model_selection(decision):
     mr = decision['model_recovery']
     fig, axes = plt.subplots(1, 2, figsize=(6.8, 3.3), layout='constrained')
@@ -106,7 +110,7 @@ def main():
             target = OUT / source.name
             shutil.copyfile(source, target)
             outputs.append({'path': target.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(target.read_bytes()).hexdigest(), 'source': source.relative_to(ROOT).as_posix()})
-    (OUT / 'manifest.json').write_text(json.dumps({'inputs': {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in [evidence, raw_path]}, 'operation': 'separate agreement/accuracy; grayscale recovery; raw pyhgf residual; other figures byte-identical', 'outputs': outputs}, indent=2) + '\n')
+    (OUT / 'manifest.json').write_text(json.dumps({'hash_convention': 'text LF; binary exact', 'inputs': {p.relative_to(ROOT).as_posix(): source_sha(p) for p in [evidence, raw_path]}, 'operation': 'separate agreement/accuracy; grayscale recovery; raw pyhgf residual; other figures byte-identical', 'outputs': outputs}, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
 if __name__ == '__main__':

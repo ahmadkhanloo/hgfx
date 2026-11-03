@@ -1,6 +1,7 @@
 {
   "layout": "generic Pandoc article; official template download HTTP 403",
   "status": "AUTHOR_REVIEW_NOT_SUBMISSION_READY",
+  "hash_convention": "source text written LF; binaries exact",
   "tool_versions": {
     "pandoc": [
       "pandoc 3.11",
@@ -20,10 +21,10 @@
     ]
   },
   "inputs": {
-    "manuscript.md": "954d4b5b5c2008afc86c8af09f515b1fec03d4c9c757f781847a7f9efdf2c529",
-    "supplement.md": "4dbe369361a9410df30c2820bdf6b4aab03489bb30e2dba49d1ee8bf52e49699",
-    "references.bib": "10d3bfb1504ee3e95675538a0b620e44080788bb9a0ec23d4b2b2de45106a0fb",
-    "build_submission.py": "11fa9b9e530759bc8b99af0655ba298664758c9979dce70012b7aaab22a5fac4",
+    "manuscript.md": "34cfe71abe26118b1f15e077d9ff633c70321b430eb0dc08d6bf667453e893d3",
+    "supplement.md": "ebd057973ae7731eb4e1acd6b7925f435abf7dd1d725edf0be829eadb833683d",
+    "references.bib": "e5be40b1de72bff40c2db13e8f26fa2ee5f1ec7b36fcc3de4ce79c4137e35fe3",
+    "build_submission.py": "cb1edbc3564d07d0a7c591d0d140a828ca99ccd2d0a5a3535ba8d4e8cc93261c",
     "THIRD_PARTY_NOTICES.md": "fa1f358c097e5d943216941aad7381921127b624f107d4cc20eca64772846ed2",
     "figures/fig_gpu_applicability.pdf": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
     "figures/fig_model_selection.pdf": "fb9691d1273f4854562db0105ed3bfc0bcc6f8f49afba04e1839072e90bd72b3",
@@ -34,10 +35,10 @@
     "springer-basic-author-date.csl": "4d531a58f1c8a3ab3d6c7543ff5efe552d0e385e1d4fff50b476c4d4051eab38"
   },
   "outputs": {
-    "HGFX_CompStat.pdf": "51dbe908d320d222c8472c1a0b6dac1c59c5f6747d794fcd90f8afd407c33e34",
-    "HGFX_CompStat.tex": "6727c6287f1e1d1247ee8f9faa09a3938737a55d04b057b6e32c005a6160be80",
-    "HGFX_CompStat_source.zip": "92767a4279b4093548350af5da47f19ad9305a31db58d024a61f1947a7a552e1",
-    "HGFX_Supplement.pdf": "974679054ab7d5f6374d3e0aca54c867504507d1a85694183beae50a0e32f657",
-    "HGFX_Supplement.tex": "db7ad51c960bbc9b69902440802363076983100e7fddd1f9a2c3d417b74b27be"
+    "HGFX_CompStat.pdf": "1fa326d64c52343174c62fc6c1cdf803edeb3ef87efd4c3530277966a081c43e",
+    "HGFX_CompStat.tex": "d5d0b9ddf4207105587e63808507f3f5e6ea95c28fbe42aa1f109a63ade8f2da",
+    "HGFX_CompStat_source.zip": "2e369241b44417ea0771a66d04c6c335aeb1ed6879a3ca12c588d4b6f7b10e1e",
+    "HGFX_Supplement.pdf": "ea9994a19573efd94d644077019a14401c94efa345e20541b386e33cb5a28fd1",
+    "HGFX_Supplement.tex": "51aa8234689a800729719ad183e3c6bfb1346a14e4da949976a5846529eaccf7"
   }
 }

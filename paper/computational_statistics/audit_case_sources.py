@@ -28,7 +28,7 @@ def input_record(root, relative):
 
 def write_csv(path, rows):
     with path.open('w', encoding='utf-8', newline='') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
         writer.writeheader()
         writer.writerows(rows)
 
@@ -55,7 +55,7 @@ def audit():
         trials.append(row)
     files = [{'path': p, 'sha256': digest(root / p), 'bytes': (root / p).stat().st_size, 'redistribute': False} for p in paths]
     manifest = {'schema_version': 1, 'checked_date': '2026-11-04', 'source_url': 'https://github.com/meganel-t/painuncertainty', 'commit': actual, 'decision': 'BLOCKED_UNLICENSED_CUSTOM_RESPONSE_AND_UNRESOLVED_ENVIRONMENT', 'original_environment': 'ORIGINAL_ENVIRONMENT_UNRESOLVED', 'input_checks': inputs, 'trial_inventory': trials, 'files': files}
-    (out / 'source_manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+    (out / 'source_manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
     # Map every external namespace symbol found in all MATLAB sources, including
     # quoted function handles and simulation names. Builtins are MATLAB runtime.
     oracle = {p.stem: p for p in (ROOT / 'external/hgf-toolbox').rglob('*.m') if '_original_models' not in p.parts}

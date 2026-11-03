@@ -19,7 +19,7 @@ def run(args, cwd):
     result = subprocess.run(args, cwd=cwd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120)
     if result.returncode:
         failure = HERE / 'package/last_build_failure.log'
-        failure.write_text(result.stdout + result.stderr, encoding='utf-8')
+        failure.write_text(result.stdout + result.stderr, encoding='utf-8', newline='\n')
         print((result.stdout + result.stderr)[-2500:])
         result.check_returncode()
     return result
@@ -56,11 +56,11 @@ def main():
         work = Path(temporary)
         shutil.copyfile(HERE / 'references.bib', work / 'references.bib')
         shutil.copyfile(HERE / 'THIRD_PARTY_NOTICES.md', work / 'THIRD_PARTY_NOTICES.md')
-        (work / 'README.txt').write_text('Author-review source, not cleared for submission.\nCompile each .tex with pdfLaTeX twice in this flat directory.\nThe bibliography is rendered inline by citeproc; references.bib is supplied for editing.\nGeneric Pandoc article layout; no official Springer class is claimed.\nSource and evidence documentation: paper/computational_statistics/ in the HGFX repository.\n', encoding='utf-8')
+        (work / 'README.txt').write_text('Author-review source, not cleared for submission.\nCompile each .tex with pdfLaTeX twice in this flat directory.\nThe bibliography is rendered inline by citeproc; references.bib is supplied for editing.\nGeneric Pandoc article layout; no official Springer class is claimed.\nSource and evidence documentation: paper/computational_statistics/ in the HGFX repository.\n', encoding='utf-8', newline='\n')
         for image in (HERE / 'figures').glob('*.pdf'):
             shutil.copyfile(image, work / image.name)
         for stem, name, title in [('HGFX_CompStat', 'manuscript.md', 'HGFX: reference-compatible hierarchical Gaussian filtering in Python'), ('HGFX_Supplement', 'supplement.md', 'HGFX supplementary evidence and provenance')]:
-            (work / f'{stem}.md').write_text(source_text(name), encoding='utf-8')
+            (work / f'{stem}.md').write_text(source_text(name), encoding='utf-8', newline='\n')
             command = ['pandoc', f'{stem}.md', '--standalone', '--no-highlight', '--citeproc', '--bibliography=references.bib', '--metadata=reference-section-title:References', f'--metadata=title:{title}', '--metadata=author:Mohammad Ahmadkhanloo', '--metadata=date:Author-review draft, 4 November 2026', '-V', 'geometry:margin=25mm', '-V', 'fontsize:11pt', '-V', 'colorlinks:true', '-o', f'{stem}.tex']
             if (HERE / 'springer-basic-author-date.csl').exists():
                 command.insert(2, f'--csl={HERE / "springer-basic-author-date.csl"}')
@@ -80,14 +80,14 @@ def main():
                 tex = re.sub(r'(\\textbf\{Table \d+\.\}.*?\\end\{tabular\}\s*\})', lambda m: '\\begin{minipage}{\\linewidth}\n' + m.group(1) + '\n\\end{minipage}\n', tex, flags=re.S)
             tex = re.sub(r'(\\begin\{CSLReferences\}\{\d+\}\{\d+\})', lambda m: m.group(1)+'\n\\interlinepenalty=10000', tex)
             tex = tex.replace('\\begin{document}', '\\usepackage{graphicx,caption}\n\\renewcommand{\\figurename}{Fig.}\n' + ('\\renewcommand{\\thefigure}{S\\arabic{figure}}\n' if stem == 'HGFX_Supplement' else '') + '\\begin{document}')
-            tex_path.write_text(tex, encoding='utf-8')
+            tex_path.write_text(tex, encoding='utf-8', newline='\n')
             logs = []
             for _ in range(2):
                 command = ['pdflatex', '-interaction=nonstopmode', '-halt-on-error', f'{stem}.tex']
                 if 'MiKTeX' in '\n'.join(versions['pdflatex']):
                     command.insert(1, '--disable-installer')
                 logs.append(run(command, work).stdout)
-            (out / f'{stem}_build.log').write_text('\n'.join(logs), encoding='utf-8')
+            (out / f'{stem}_build.log').write_text('\n'.join(logs), encoding='utf-8', newline='\n')
             run(['pdftotext', f'{stem}.pdf', f'{stem}.txt'], work)
             rendered = (work / f'{stem}.txt').read_text(encoding='utf-8')
             if re.search(r'\[@|\?\?|References are rendered|\*\*Table|\|---', rendered):
@@ -100,7 +100,7 @@ def main():
             for path in work.iterdir():
                 if path.suffix in ['.tex', '.bib', '.pdf', '.md', '.txt']:
                     archive.write(path, path.name)
-    manifest = {'layout': 'generic Pandoc article; official template download HTTP 403', 'status': 'AUTHOR_REVIEW_NOT_SUBMISSION_READY', 'tool_versions': versions, 'inputs': {}, 'outputs': {}}
+    manifest = {'layout': 'generic Pandoc article; official template download HTTP 403', 'status': 'AUTHOR_REVIEW_NOT_SUBMISSION_READY', 'hash_convention': 'source text written LF; binaries exact', 'tool_versions': versions, 'inputs': {}, 'outputs': {}}
     input_names = ['manuscript.md', 'supplement.md', 'references.bib', 'build_submission.py', 'THIRD_PARTY_NOTICES.md']
     input_names += [path.relative_to(HERE).as_posix() for path in (HERE / 'figures').glob('*.pdf')]
     if (HERE / 'springer-basic-author-date.csl').exists():
@@ -110,7 +110,7 @@ def main():
     for path in out.iterdir():
         if path.suffix in ['.pdf', '.tex', '.zip']:
             manifest['outputs'][path.name] = hashlib.sha256(path.read_bytes()).hexdigest()
-    (out / 'build_manifest.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8')
+    (out / 'build_manifest.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(out)
 
 

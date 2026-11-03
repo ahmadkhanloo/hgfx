@@ -11,12 +11,15 @@ ROOT = HERE.parents[1]
 
 
 def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    data = path.read_bytes()
+    if path.suffix.lower() in {'.json', '.md', '.txt', '.log', '.bib', '.py', '.csv', '.csl', '.tex', '.tsv', '.m', '.xml'}:
+        data = data.replace(b'\r\n', b'\n')
+    return hashlib.sha256(data).hexdigest()
 
 
 def main():
     baseline = json.loads((HERE / 'baseline_hashes.json').read_text())
-    changed = [p for p, expected in baseline['files'].items() if sha(ROOT / p) != expected]
+    changed = [p for p, expected in baseline['files_lf'].items() if sha(ROOT / p) != expected]
     if changed:
         raise RuntimeError(f'Protected artifacts changed: {changed}')
     text = (HERE / 'manuscript.md').read_text(encoding='utf-8')
@@ -65,7 +68,7 @@ def main():
     if smoke['hgfx'] != '1.0.0' or not smoke['x64'] or smoke['trials'] != 24 or smoke['status'] != 'PASS_WORKFLOW_ONLY':
         raise RuntimeError('Wrong smoke identity/scope')
     result = {'status': 'PASS_LOCAL_ARTIFACT_CHECKS_ONLY', 'protected_files_unchanged': len(baseline['files']), 'claim_paragraphs': len(ledger), 'abstract_words': len(abstract.split()), 'manuscript_words_including_tables': len(text.split()), 'citation_keys_resolved': len(cited), 'human_verification': 'PENDING', 'real_data_replication': 'BLOCKED', 'zero_fee_clearance': 'OPEN'}
-    (HERE / 'verification.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')
+    (HERE / 'verification.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps(result, indent=2))
 
 

@@ -1,7 +1,7 @@
 {
   "inputs": {
-    "reference/validation/m18_s7_reference_limitation/decision.json": "cec7e1916889739efdc2cd27296dbe5ae76a812cc3873bb4b0c75547fc16afa3",
-    "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "aaaabdcff86283ff6aae591e38aa848202d7579edf523bc956fb6b8097e68012"
+    "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c",
+    "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2"
   },
   "operation": "separate agreement/accuracy; grayscale recovery; raw pyhgf residual; other figures byte-identical",
   "outputs": [
@@ -63,5 +63,6 @@
       "sha256": "38228320930c1ee013d708b672200647c0d2780e3f6179fba2889c43976b8cb4",
       "source": "paper/figures/fig_p3_horizon_diagnostics.pdf"
     }
-  ]
+  ],
+  "hash_convention": "text LF; binary exact"
 }
