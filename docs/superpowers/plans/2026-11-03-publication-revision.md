@@ -1,5 +1,7 @@
 # HGFX Publication Revision Implementation Plan
 
+> Current execution extension (2026-11-04): [case-study and full journal rewrite handoff](2026-11-04-pain-case-study-handoff.md). Sections J1-J6 define the venue decision, section-level rewrite, figures, financial checks and final submission package. New scientific work is limited to its predeclared gates; frozen results remain unchanged. Submission itself is excluded.
+
 > **For agentic workers:** Execute this plan task by task using `superpowers:executing-plans` if available. Otherwise follow the same checklist directly. No previous conversation is required. Do not stop after producing another plan. Complete all locally executable preparation, verification, and Git delivery; report genuine external blockers separately.
 
 **Goal:** آماده‌کردن یک مقالهٔ نرم‌افزار آماری دربارهٔ HGFX 1.0.0 برای Computational Statistics، با حفظ همهٔ نتایج مثبت و منفی و شرط قطعی صفر هزینهٔ اجباری.

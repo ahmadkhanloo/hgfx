@@ -1,5 +1,7 @@
 # Computational Statistics working revision
 
+> Current execution extension (2026-11-04): [case-study and full journal rewrite handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md). Sections J1-J6 define the venue decision, section-level rewrite, figures, financial checks and final submission package. New scientific work is limited to its predeclared gates; frozen results remain unchanged. Submission itself is excluded.
+
 Status: **DRAFT — initial editorial revision, not submission-ready** (2026-11-03).
 
 Start with [the complete execution plan](../../docs/superpowers/plans/2026-11-03-publication-revision.md). It is written for an agent without access to prior conversations. The [audit](../../docs/submissions/2026-11-03_publication_audit_fa.md) explains the journal choice and financial uncertainty.
