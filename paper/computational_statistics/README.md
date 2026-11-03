@@ -21,3 +21,7 @@ The recorded DOI is `10.64898/2026.09.22.753415`. Verify the actual posted versi
 ## Delivery boundary
 
 Local preparation can proceed through all eight tasks. Actual journal submission, bioRxiv upload, author declarations, and any unresolved financial eligibility require the author's final action. A free subscription APC policy alone does not settle every possible mandatory charge; record the final terms before submission.
+
+## Published-study extension
+
+The author requested real published applications with public code and data. See [the source dossier](../case_studies/README_FA.md) and [the execution addendum](../../docs/superpowers/plans/2026-11-03-published-case-studies.md). This is source acquisition and a prospective plan, not completed replication evidence. No new case-study results have been inserted into the manuscript.

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "local_only/arthur_2023/supplement/model_details.docx",
+    "url": "https://osf.io/download/naq9g/",
+    "license": "UNVERIFIED",
+    "kind": "supplement",
+    "bytes": 390753,
+    "sha256": "a800c67aa6afab4783f26093ac5de21d37ff3d1f86951de7d00b6fa2c80abfb0",
+    "status": "downloaded",
+    "redistribute": false
+  },
+  {
+    "path": "local_only/arthur_2023/supplement/model_checks_priors_study2.docx",
+    "url": "https://osf.io/download/x5k9y/",
+    "license": "UNVERIFIED",
+    "kind": "supplement",
+    "bytes": 1456700,
+    "sha256": "2f73e08a98b1e4af3711b32c7c0e4caa723e7692afa1f46473e432dcd5c79185",
+    "status": "downloaded",
+    "redistribute": false
+  }
+]

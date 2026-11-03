@@ -1,0 +1,761 @@
+[
+  {
+    "id": "spirl_2025",
+    "doi": "10.5334/cpsy.116",
+    "metadata": {
+      "issue": "1",
+      "DOI": "10.5334/cpsy.116",
+      "type": "journal-article",
+      "page": "76-99",
+      "title": "Bayesian Workflow for Generative Modeling in Computational Psychiatry",
+      "volume": "9",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-2991-7387",
+          "authenticated-orcid": false,
+          "given": "Alexander J.",
+          "family": "Hess",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-1778-7239",
+          "authenticated-orcid": false,
+          "given": "Sandra",
+          "family": "Iglesias",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0001-0038-9592",
+          "authenticated-orcid": false,
+          "given": "Laura",
+          "family": "Köchli",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-6559-9072",
+          "authenticated-orcid": false,
+          "given": "Stephanie",
+          "family": "Marino",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-6672-9230",
+          "authenticated-orcid": false,
+          "given": "Matthias",
+          "family": "Müller-Schrader",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3761-8931",
+          "authenticated-orcid": false,
+          "given": "Lionel",
+          "family": "Rigoux",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-4079-5453",
+          "authenticated-orcid": false,
+          "given": "Christoph",
+          "family": "Mathys",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-0897-7142",
+          "authenticated-orcid": false,
+          "given": "Olivia K.",
+          "family": "Harrison",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5228-041X",
+          "authenticated-orcid": false,
+          "given": "Jakob",
+          "family": "Heinzle",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-8011-2226",
+          "authenticated-orcid": false,
+          "given": "Stefan",
+          "family": "Frässle",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-8594-9092",
+          "authenticated-orcid": false,
+          "given": "Klaas Enno",
+          "family": "Stephan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": "Computational Psychiatry",
+      "issued": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      },
+      "URL": "http://dx.doi.org/10.5334/cpsy.116",
+      "published": {
+        "date-parts": [
+          [
+            2025
+          ]
+        ]
+      }
+    },
+    "source": "DOI content negotiation"
+  },
+  {
+    "id": "arthur_2023",
+    "doi": "10.1371/journal.pcbi.1011473",
+    "metadata": {
+      "issue": "9",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2023,
+                9,
+                11
+              ]
+            ],
+            "date-time": "2023-09-11T00:00:00Z",
+            "timestamp": 1694390400000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by/4.0/"
+        }
+      ],
+      "DOI": "10.1371/journal.pcbi.1011473",
+      "type": "journal-article",
+      "page": "e1011473",
+      "title": "Testing predictive coding theories of autism spectrum disorder using models of active inference",
+      "volume": "19",
+      "author": [
+        {
+          "given": "Tom",
+          "family": "Arthur",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Sam",
+          "family": "Vine",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Gavin",
+          "family": "Buckingham",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mark",
+          "family": "Brosnan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mark",
+          "family": "Wilson",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3880-3856",
+          "authenticated-orcid": true,
+          "given": "David",
+          "family": "Harris",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": "PLOS Computational Biology",
+      "issued": {
+        "date-parts": [
+          [
+            2023,
+            9,
+            11
+          ]
+        ]
+      },
+      "URL": "http://dx.doi.org/10.1371/journal.pcbi.1011473",
+      "published": {
+        "date-parts": [
+          [
+            2023,
+            9,
+            11
+          ]
+        ]
+      }
+    },
+    "source": "DOI content negotiation"
+  },
+  {
+    "id": "henco_2020",
+    "doi": "10.1371/journal.pcbi.1008162",
+    "metadata": {
+      "issue": "9",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2020,
+                9,
+                30
+              ]
+            ],
+            "date-time": "2020-09-30T00:00:00Z",
+            "timestamp": 1601424000000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by/4.0/"
+        }
+      ],
+      "DOI": "10.1371/journal.pcbi.1008162",
+      "type": "journal-article",
+      "page": "e1008162",
+      "title": "Aberrant computational mechanisms of social learning and decision-making in schizophrenia and borderline personality disorder",
+      "volume": "16",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-9732-6669",
+          "authenticated-orcid": true,
+          "given": "Lara",
+          "family": "Henco",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3633-9757",
+          "authenticated-orcid": true,
+          "given": "Andreea O.",
+          "family": "Diaconescu",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Juha M.",
+          "family": "Lahnakoski",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5283-2317",
+          "authenticated-orcid": true,
+          "given": "Marie-Luise",
+          "family": "Brandi",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3205-7426",
+          "authenticated-orcid": true,
+          "given": "Sophia",
+          "family": "Hörmann",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-3259-7991",
+          "authenticated-orcid": true,
+          "given": "Johannes",
+          "family": "Hennings",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Alkomiet",
+          "family": "Hasan",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8265-788X",
+          "authenticated-orcid": true,
+          "given": "Irina",
+          "family": "Papazova",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Wolfgang",
+          "family": "Strube",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-9656-8685",
+          "authenticated-orcid": true,
+          "given": "Dimitris",
+          "family": "Bolis",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-5547-8309",
+          "authenticated-orcid": true,
+          "given": "Leonhard",
+          "family": "Schilbach",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-4079-5453",
+          "authenticated-orcid": true,
+          "given": "Christoph",
+          "family": "Mathys",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": "PLOS Computational Biology",
+      "issued": {
+        "date-parts": [
+          [
+            2020,
+            9,
+            30
+          ]
+        ]
+      },
+      "URL": "http://dx.doi.org/10.1371/journal.pcbi.1008162",
+      "published": {
+        "date-parts": [
+          [
+            2020,
+            9,
+            30
+          ]
+        ]
+      }
+    },
+    "source": "DOI content negotiation"
+  },
+  {
+    "id": "pain_2025",
+    "doi": "10.1016/j.jpain.2025.105569",
+    "metadata": {
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2025,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2025-12-01T00:00:00Z",
+            "timestamp": 1764547200000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2025,
+                12,
+                1
+              ]
+            ],
+            "date-time": "2025-12-01T00:00:00Z",
+            "timestamp": 1764547200000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://www.elsevier.com/legal/tdmrep-license"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2025,
+                10,
+                2
+              ]
+            ],
+            "date-time": "2025-10-02T00:00:00Z",
+            "timestamp": 1759363200000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by/4.0/"
+        }
+      ],
+      "DOI": "10.1016/j.jpain.2025.105569",
+      "type": "journal-article",
+      "page": "105569",
+      "title": "Expectations and uncertainty shape pain perception during learning",
+      "volume": "37",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-5492-0345",
+          "authenticated-orcid": false,
+          "given": "Mégane",
+          "family": "Lacombe-Thibault",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Michel-Pierre",
+          "family": "Coll",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": "The Journal of Pain",
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            12
+          ]
+        ]
+      },
+      "URL": "http://dx.doi.org/10.1016/j.jpain.2025.105569",
+      "published": {
+        "date-parts": [
+          [
+            2025,
+            12
+          ]
+        ]
+      }
+    },
+    "source": "DOI content negotiation"
+  },
+  {
+    "id": "gao_2024",
+    "doi": "10.1186/s40359-024-01952-x",
+    "metadata": {
+      "issue": "1",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                8,
+                30
+              ]
+            ],
+            "date-time": "2024-08-30T00:00:00Z",
+            "timestamp": 1724976000000
+          },
+          "content-version": "tdm",
+          "delay-in-days": 0,
+          "URL": "https://creativecommons.org/licenses/by-nc-nd/4.0"
+        },
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                8,
+                30
+              ]
+            ],
+            "date-time": "2024-08-30T00:00:00Z",
+            "timestamp": 1724976000000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "https://creativecommons.org/licenses/by-nc-nd/4.0"
+        }
+      ],
+      "DOI": "10.1186/s40359-024-01952-x",
+      "type": "journal-article",
+      "title": "Enhanced “learning to learn” through a hierarchical dual-learning system: the case of action video game players",
+      "volume": "12",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-9410-8922",
+          "authenticated-orcid": false,
+          "given": "Yu-Yan",
+          "family": "Gao",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-8091-4413",
+          "authenticated-orcid": false,
+          "given": "Zeming",
+          "family": "Fang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3045-0198",
+          "authenticated-orcid": false,
+          "given": "Qiang",
+          "family": "Zhou",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-0654-715X",
+          "authenticated-orcid": false,
+          "given": "Ru-Yuan",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "container-title": "BMC Psychology",
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            8,
+            30
+          ]
+        ]
+      },
+      "URL": "http://dx.doi.org/10.1186/s40359-024-01952-x",
+      "published": {
+        "date-parts": [
+          [
+            2024,
+            8,
+            30
+          ]
+        ]
+      }
+    },
+    "source": "DOI content negotiation"
+  }
+]

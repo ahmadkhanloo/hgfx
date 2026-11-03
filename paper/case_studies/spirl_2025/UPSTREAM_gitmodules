@@ -1,0 +1,9 @@
+[submodule "VBA-toolbox"]
+	path = VBA-toolbox
+	url = git@github.com:MBB-team/VBA-toolbox.git
+[submodule "RainCloudPlots"]
+	path = RainCloudPlots
+	url = git@github.com:RainCloudPlots/RainCloudPlots.git
+[submodule "tapas"]
+	path = tapas
+	url = git@github.com:translationalneuromodeling/tapas.git

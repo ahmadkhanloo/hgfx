@@ -91,7 +91,9 @@
 
 **Acceptance:** هیچ ادعای بی‌منبع، هیچ عدد متناقض، هیچ gate جدید ساختگی؛ مقاله برای خوانندهٔ بیرون مخزن قابل فهم است. هنوز draft تا author review. Commit متن و ledger.
 
-## مرحله ۳ — worked example و نصب مستقل (۱ روز)
+## مرحله ۳ — worked example و نصب مستقل
+
+**به‌روزرسانی ۳ نوامبر:** درخواست جدید نویسنده شامل مطالعه‌های منتشرشده با کد و داده است. ابتدا `docs/superpowers/plans/2026-11-03-published-case-studies.md` و `paper/case_studies/README_FA.md` خوانده و مراحل C1–C4 آن اجرا شوند. دو کاندید اول Arthur2023 و Hess2025 هستند؛ eligibility آنها هنوز PASS نیست. ضمیمه، اولویت قبلیِ صرفاً quickstart را به امکان‌سنجی case واقعی ارتقا می‌دهد. نتایج جدید از frozenها جدا بمانند. محدودیت «آزمایش علمی جدید ممنوع» همچنان دربارهٔ recovery/association/مدل جدید برقرار است؛ بازتولید محدودِ تعریف‌شده در ضمیمه پس از قفل protocol مسیر جدید آماده‌سازی است. در نوبت گردآوری منابع هیچ fit جدید اجرا نشده است. برآورد یک روز برای demo بود؛ caseهای واقعی زمان جداگانهٔ ضمیمه را دارند.
 
 **Read:** `examples/README.md`، `examples/quickstart.py`، `examples/hgf_demo_full.py`، `examples/matlab_demo_model_selection.py`، `examples/matlab_demo_uhgf_ar1.py`.
 

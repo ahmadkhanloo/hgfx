@@ -1,0 +1,5 @@
+# Publicly readable assets with no verified redistribution license.
+# Local inspection only; do not force-add these to the public repository.
+/local_only/
+# These two licensed source MAT files are intentional research inputs.
+!/spirl_2025/data/*.mat

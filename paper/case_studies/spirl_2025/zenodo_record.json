@@ -1,0 +1,174 @@
+{
+  "created": "2024-02-16T17:36:07.301087+00:00",
+  "modified": "2024-07-07T05:43:32.394510+00:00",
+  "id": 10663643,
+  "conceptrecid": "10663642",
+  "doi": "10.5281/zenodo.10663643",
+  "conceptdoi": "10.5281/zenodo.10663642",
+  "doi_url": "https://doi.org/10.5281/zenodo.10663643",
+  "metadata": {
+    "title": "Dataset from a speed incentivized probabilistic reward learning task",
+    "doi": "10.5281/zenodo.10663643",
+    "publication_date": "2024-02-15",
+    "description": "<p>For details see the readme.pdf file that accompanies the dataset.</p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Hess, Alexander",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich",
+        "orcid": "0000-0002-2991-7387"
+      },
+      {
+        "name": "Iglesias, Sandra",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich"
+      },
+      {
+        "name": "Frässle, Stefan",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich",
+        "orcid": "0000-0002-8011-2226"
+      },
+      {
+        "name": "Köchli, Laura",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich"
+      },
+      {
+        "name": "Marino, Stephanie",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich"
+      },
+      {
+        "name": "Stephan, Klaas Enno",
+        "affiliation": "Translational Neuromodeling Unit, University of Zurich and ETH Zurich",
+        "orcid": "0000-0002-8594-9092"
+      }
+    ],
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "10663642"
+          }
+        }
+      ]
+    }
+  },
+  "title": "Dataset from a speed incentivized probabilistic reward learning task",
+  "links": {
+    "self": "https://zenodo.org/api/records/10663643",
+    "self_html": "https://zenodo.org/records/10663643",
+    "preview_html": "https://zenodo.org/records/10663643?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.10663643",
+    "self_doi": "https://doi.org/10.5281/zenodo.10663643",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10663643",
+    "reserve_doi": "https://zenodo.org/api/records/10663643/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/10663642",
+    "parent_html": "https://zenodo.org/records/10663642",
+    "parent_doi": "https://doi.org/10.5281/zenodo.10663642",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10663642",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:10663643/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:10663643/sequence/default",
+    "files": "https://zenodo.org/api/records/10663643/files",
+    "media_files": "https://zenodo.org/api/records/10663643/media-files",
+    "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:10663643:readme.pdf/full/%5E1200,/0/default.jpg"
+    },
+    "latest": "https://zenodo.org/api/records/10663643/versions/latest",
+    "latest_html": "https://zenodo.org/records/10663643/latest",
+    "versions": "https://zenodo.org/api/records/10663643/versions",
+    "draft": "https://zenodo.org/api/records/10663643/draft",
+    "access_links": "https://zenodo.org/api/records/10663643/access/links",
+    "access_grants": "https://zenodo.org/api/records/10663643/access/grants",
+    "access_users": "https://zenodo.org/api/records/10663643/access/users",
+    "access_request": "https://zenodo.org/api/records/10663643/access/request",
+    "access": "https://zenodo.org/api/records/10663643/access",
+    "communities": "https://zenodo.org/api/records/10663643/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/10663643/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/10663643/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/10663643/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/10663643/quota-increase",
+    "requests": "https://zenodo.org/api/records/10663643/requests"
+  },
+  "updated": "2024-07-07T05:43:32.394510+00:00",
+  "recid": "10663643",
+  "revision": 6,
+  "files": [
+    {
+      "id": "f1dc52ec-67dd-47ad-abbd-ed0558fb4ff8",
+      "key": "SPIRL_pilot_20sub_preprocessed_IncludedInAnalysis.mat",
+      "size": 47459,
+      "checksum": "md5:7fe1cc45a06ad06136bf27285b3e0195",
+      "links": {
+        "self": "https://zenodo.org/api/records/10663643/files/SPIRL_pilot_20sub_preprocessed_IncludedInAnalysis.mat/content"
+      }
+    },
+    {
+      "id": "1e6e4a89-157c-4bd3-b82d-c86aeafd57b7",
+      "key": "SPIRL_pilot_20sub_preprocessed_IncludedInAnalysis.json",
+      "size": 79641,
+      "checksum": "md5:c7c8e5caba1b167a1203de71b3c47ce1",
+      "links": {
+        "self": "https://zenodo.org/api/records/10663643/files/SPIRL_pilot_20sub_preprocessed_IncludedInAnalysis.json/content"
+      }
+    },
+    {
+      "id": "b0fb0f22-05bc-426a-b8f7-1654d46dbfac",
+      "key": "SPIRL_main_59sub_preprocessed_IncludedInAnalysis.json",
+      "size": 235468,
+      "checksum": "md5:4b6b84d43c04f0aedcf85832194781fb",
+      "links": {
+        "self": "https://zenodo.org/api/records/10663643/files/SPIRL_main_59sub_preprocessed_IncludedInAnalysis.json/content"
+      }
+    },
+    {
+      "id": "b43cb845-790e-4cb0-8b73-c3a26fc72584",
+      "key": "SPIRL_main_59sub_preprocessed_IncludedInAnalysis.mat",
+      "size": 137884,
+      "checksum": "md5:675b6a8709d452107c7dbe7e0b3e1aae",
+      "links": {
+        "self": "https://zenodo.org/api/records/10663643/files/SPIRL_main_59sub_preprocessed_IncludedInAnalysis.mat/content"
+      }
+    },
+    {
+      "id": "883721e1-9074-47b5-97e4-830b5d31d42b",
+      "key": "readme.pdf",
+      "size": 725444,
+      "checksum": "md5:d847aad76d59ecd8e0b7078b476ea0d4",
+      "links": {
+        "self": "https://zenodo.org/api/records/10663643/files/readme.pdf/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "532720"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 535,
+    "unique_downloads": 488,
+    "views": 251,
+    "unique_views": 232,
+    "version_downloads": 535,
+    "version_unique_downloads": 488,
+    "version_unique_views": 232,
+    "version_views": 251
+  },
+  "state": "done",
+  "submitted": true
+}

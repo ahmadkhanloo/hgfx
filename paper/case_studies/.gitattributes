@@ -1,0 +1,7 @@
+# Preserve downloaded source bytes and their recorded hashes across platforms.
+/spirl_2025/data/** -text
+/spirl_2025/UPSTREAM_* -text -whitespace
+/spirl_2025/paper.html -text
+*.pdf binary
+*.zip binary
+*.mat binary
