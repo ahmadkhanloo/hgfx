@@ -1,5 +1,7 @@
 # HGFX Publication Revision Implementation Plan
 
+> Execution update, 2026-11-04: the [author-review package](../../../paper/computational_statistics/README.md) is built, with a rewritten manuscript, editable source/PDF, supplement, figures, evidence ledger and independent agent review. The [execution log](../../../paper/computational_statistics/EXECUTION_LOG.md) records commands and gates. Pain and SPIRL remain blocked before fitting; the synthetic released-wheel quickstart passed CPU float64. Human approval and comprehensive zero-fee clearance remain open. This is not submission readiness or scientific completion of a real-data case.
+
 > Current execution extension (2026-11-04): [case-study and full journal rewrite handoff](2026-11-04-pain-case-study-handoff.md). Sections J1-J6 define the venue decision, section-level rewrite, figures, financial checks and final submission package. New scientific work is limited to its predeclared gates; frozen results remain unchanged. Submission itself is excluded.
 
 > **For agentic workers:** Execute this plan task by task using `superpowers:executing-plans` if available. Otherwise follow the same checklist directly. No previous conversation is required. Do not stop after producing another plan. Complete all locally executable preparation, verification, and Git delivery; report genuine external blockers separately.

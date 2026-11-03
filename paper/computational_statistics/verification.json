@@ -1,0 +1,11 @@
+{
+  "status": "PASS_LOCAL_ARTIFACT_CHECKS_ONLY",
+  "protected_files_unchanged": 75,
+  "claim_paragraphs": 74,
+  "abstract_words": 203,
+  "manuscript_words_including_tables": 5551,
+  "citation_keys_resolved": 13,
+  "human_verification": "PENDING",
+  "real_data_replication": "BLOCKED",
+  "zero_fee_clearance": "OPEN"
+}

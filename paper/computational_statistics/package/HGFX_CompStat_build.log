@@ -1,0 +1,358 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(HGFX_CompStat.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\svgnam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\x11nam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+For additional information on amsmath, use the `?' option.
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdfte
+x.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg))
+ (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty))
+) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/footnotehyper\footnotehyp
+er.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefineke
+ys.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.s
+ty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+))) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitle
+string.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.s
+ty)))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilec
+heck.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecou
+nter.sty)))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdfte
+x.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def))
+ (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xurl\xurl.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+))) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd)
+No file HGFX_CompStat.aux.
+
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-bas
+e.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg)
+[1{C:/Users/Mak/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Mak/
+AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2]
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd) [3{C:/Users
+/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/M
+ak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/App
+Data/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak/A
+ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 440.
+See the caption package documentation for explanation.
+
+[5] [6 <./fig_workflow.pdf>] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 609--638
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 609--638
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 661--695
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 661--695
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--745
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--745
+
+[9]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 752.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 769.
+See the caption package documentation for explanation.
+
+[10 <./fig_recovery_metrics.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 803.
+See the caption package documentation for explanation.
+
+[11 <./fig_model_selection.pdf>] [12 <./fig_pyhgf_common_scope.pdf>] [13]
+[14] [15]
+
+Package caption Warning: Unused \captionsetup[table] on input line 44.
+See the caption package documentation for explanation.
+
+[16] (HGFX_CompStat.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)<C:/Users/Mak/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/Mak/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Mak/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Mak/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Mak/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Mak/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/lm/lmr17.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/lm/lmr8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/lm/lmsy10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/lm/lmsy8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/lm/lmtt10.pfb>
+Output written on HGFX_CompStat.pdf (16 pages, 373502 bytes).
+Transcript written on HGFX_CompStat.log.
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+(HGFX_CompStat.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\svgnam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\x11nam.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+For additional information on amsmath, use the `?' option.
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdfte
+x.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg))
+ (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty))
+) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/footnotehyper\footnotehyp
+er.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefineke
+ys.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.s
+ty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+))) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitle
+string.sty))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.s
+ty)))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilec
+heck.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecou
+nter.sty)))
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdfte
+x.def)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def))
+ (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/xurl\xurl.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+))) (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd)
+(HGFX_CompStat.aux)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-bas
+e.sty
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg)
+[1{C:/Users/Mak/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Mak/
+AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2]
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd) [3{C:/Users
+/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/M
+ak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/App
+Data/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak/A
+ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 440.
+See the caption package documentation for explanation.
+
+[5] [6 <./fig_workflow.pdf>] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 609--638
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 609--638
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 661--695
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 661--695
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--745
+[][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--745
+
+[9]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 752.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 769.
+See the caption package documentation for explanation.
+
+[10 <./fig_recovery_metrics.pdf>]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 803.
+See the caption package documentation for explanation.
+
+[11 <./fig_model_selection.pdf>] [12 <./fig_pyhgf_common_scope.pdf>] [13]
+[14] [15]
+
+Package caption Warning: Unused \captionsetup[table] on input line 44.
+See the caption package documentation for explanation.
+
+[16] (HGFX_CompStat.aux) )
+(see the transcript file for additional information)<C:/Users/Mak/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/Mak/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Mak/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Mak/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Mak/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Mak/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/lm/lmr17.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/lm/lmr8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/lm/lmsy10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/lm/lmsy8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/lm/lmtt10.pfb>
+Output written on HGFX_CompStat.pdf (16 pages, 373502 bytes).
+Transcript written on HGFX_CompStat.log.

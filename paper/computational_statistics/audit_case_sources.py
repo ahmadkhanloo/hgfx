@@ -60,6 +60,12 @@ def audit():
     # quoted function handles and simulation names. Builtins are MATLAB runtime.
     oracle = {p.stem: p for p in (ROOT / 'external/hgf-toolbox').rglob('*.m') if '_original_models' not in p.parts}
     upstream = {p.stem: p for p in root.rglob('*.m')}
+    declarations = {}
+    for path in root.rglob('*.m'):
+        first = path.read_text(encoding='utf-8').splitlines()[0]
+        match = re.search(r'(?:=\s*|function\s+)([A-Za-z]\w*)\s*\(', first)
+        if match:
+            declarations[match.group(1)] = path
     symbols = {}
     for path in root.rglob('*.m'):
         content = '\n'.join(line.split('%', 1)[0] for line in path.read_text(encoding='utf-8').splitlines())
@@ -67,9 +73,10 @@ def audit():
             symbols.setdefault(symbol, set()).add(path.relative_to(root).as_posix())
     rows = []
     for symbol, callers in sorted(symbols.items()):
-        local = upstream.get(symbol)
-        candidate = oracle.get(symbol.removeprefix('tapas_'))
-        rows.append({'symbol': symbol, 'callers': ';'.join(sorted(callers)), 'upstream_path': local.relative_to(root).as_posix() if local else '', 'oracle_8_2_candidate': candidate.relative_to(ROOT).as_posix() if candidate else '', 'status': 'LOCAL_SOURCE_LICENSE_UNRESOLVED' if local else 'UNPINNED_VBA' if symbol.startswith('VBA_') else 'ORACLE_CANDIDATE_NOT_HISTORICAL_EQUIVALENCE' if candidate else 'MISSING', 'historical_version': 'UNRESOLVED'})
+        local = upstream.get(symbol) or declarations.get(symbol)
+        candidate = oracle.get(symbol) or oracle.get(symbol.removeprefix('tapas_'))
+        status = 'DECLARED_NAME_FILENAME_MISMATCH' if local and symbol != local.stem else 'LOCAL_SOURCE_LICENSE_REVIEW_REQUIRED' if local else 'UNPINNED_VBA' if symbol.startswith('VBA_') else 'ORACLE_CANDIDATE_NOT_HISTORICAL_EQUIVALENCE' if candidate else 'MISSING'
+        rows.append({'symbol': symbol, 'callers': ';'.join(sorted(callers)), 'upstream_path': local.relative_to(root).as_posix() if local else '', 'oracle_8_2_candidate': candidate.relative_to(ROOT).as_posix() if candidate else '', 'status': status, 'historical_version': 'UNRESOLVED'})
     write_csv(out / 'dependency_inventory.csv', rows)
     print(json.dumps({'files': len(files), 'source_folders': len(trials), 'input_checks': inputs, 'external_symbols': len(rows)}, indent=2))
 

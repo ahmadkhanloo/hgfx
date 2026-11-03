@@ -1,231 +1,279 @@
-# HGFX: a Python package for reference-compatible Hierarchical Gaussian Filter workflows
+# HGFX: reference-compatible hierarchical Gaussian filtering in Python
 
-**Status:** Working revision for author review; not submission-ready. Historical results are unchanged. The worked example, mathematical summary, figures, and submission package remain to be completed under the execution plan.
-**Target journal:** *Computational Statistics*; subscription route, subject to confirmation of zero mandatory author charges.
-**Contribution:** Research software / package paper; exact submission-system article type to be verified.
-**Plan:** `docs/superpowers/plans/2026-11-03-publication-revision.md`
-
-**Authors and affiliations**
+**Status:** Author-review draft, 4 November 2026. No successful external real-data replication is claimed. Financial clearance and author verification remain open.
 
 Mohammad Ahmadkhanloo
 
 Institute for Research in Fundamental Sciences (IPM), Tehran, Iran
 
-https://github.com/ahmadkhanloo
+Correspondence: m.ahmadkhanloo@ipm.ir
 
-**Correspondence:** Mohammad Ahmadkhanloo, Institute for Research in Fundamental Sciences (IPM), Niavaran Square, Tehran, Iran. Email: m.ahmadkhanloo@ipm.ir. Software: https://github.com/ahmadkhanloo/hgfx.
-
-**Keywords:** Hierarchical Gaussian Filter; statistical software; Bayesian learning; Python; reproducibility; numerical compatibility
+**Keywords:** statistical computing; Bayesian learning; numerical reproducibility; model selection; research software; uncertainty
 
 ## Abstract
 
-Using established statistical models in a new software environment requires preserving more than their equations. Parameter conventions, numerical evaluation, and optimization can affect fitted results. HGFX 1.0.0 is a Python/JAX package for fitting, simulation, and sampling with Hierarchical Gaussian Filter models, targeting compatibility with a frozen MATLAB HGF Toolbox 8.2.0 reference. It removes MATLAB as a user-runtime dependency while retaining explicit limits on the scope of compatibility. Validation compares configuration semantics, trajectories, likelihoods, fitting outputs, and complete workflows under predeclared tolerances. In a frozen paired model-selection experiment, MATLAB and HGFX selected the same BIC winner in all 36 cases; both had model-recovery balanced accuracy of 0.583. Parameter-recovery criteria were not fully met, and a separate trial-horizon experiment failed its paired-integrity gate, precluding a stronger identifiability conclusion. A common-scope comparison with pyhgf 0.3.2 found binary64-scale agreement for 11 mapped perceptual quantities in one three-level binary-HGF case; response negative log-likelihood remained not directly comparable. Retained Tesla T4 evidence supports agreement of tested fitting objectives with CPU execution, not a speedup or scaling claim. HGFX provides a reference-compatible workflow option for Python users, with evidence that distinguishes numerical reproduction from successful scientific inference. Its contribution is a released research package and a reproducible account of where compatibility is supported, limited, or unresolved.
+Moving an established statistical analysis to another programming language requires preserving parameter conventions, observation models, and numerical behavior as well as equations. HGFX provides hierarchical Gaussian filtering in Python, targeting a frozen MATLAB HGF Toolbox 8.2.0 reference while removing MATLAB from the user runtime. We describe the statistical contract, fitting workflow, and evaluation of the released HGFX 1.0.0 package. Configuration and numerical checks are complemented by paired workflow, recovery, and backend experiments. MATLAB and HGFX select the same Bayesian information criterion winner in all 36 frozen model-selection cases, while both achieve generating-model recovery balanced accuracy of 0.583. Parameter-recovery criteria are not fully met. A separate trial-horizon experiment fails its paired-integrity gate and cannot support a stronger identifiability conclusion. A comparison with pyhgf 0.3.2 establishes agreement for 11 mapped perceptual quantities in one three-level binary case; participant-response negative log-likelihood remains not directly comparable. Retained Tesla T4 evidence supports objective agreement in tested fitting cells, without establishing a speed advantage. Source audits of two published applications identify unresolved custom-model requirements and do not yield an executed real-data replication. The contribution is a reference-compatible software workflow with explicit boundaries: reproducibility across implementations does not establish parameter identifiability, model discrimination, or validity for a new experimental design.
 
 ## 1 Introduction
 
-Computational models of learning under uncertainty must represent uncertainty about latent states and about the volatility of those states. The Hierarchical Gaussian Filter (HGF) was introduced as a generic hierarchical Bayesian framework for individual learning under uncertainty [@mathys2011] and later developed into a practical filtering framework for perception and learning [@mathys2014]. It has been used to recover hierarchical prediction errors in neuroimaging [@iglesias2013] and to model inference about others' intentions [@diaconescu2014]. The associated MATLAB toolbox is distributed as part of TAPAS, an open-source collection of translational neuromodeling tools [@fraessle2021tapas], and remains a reference implementation for fitting, simulation, model comparison, and analysis.
+A researcher moving a learning analysis from MATLAB to Python needs more than a function with a familiar model name. Existing inputs, parameter priors, trial exclusions and output fields must retain their meaning. The practical objective is to integrate an established analysis into another computing environment without silently changing the analysis itself. When the analysis includes a recursive Bayesian filter and nonlinear parameter estimation, verifying that objective requires comparisons at several stages. A matching final plot can conceal differences in responses, priors or optimization; a matching equation can coexist with different fitted solutions.
 
-Reproducing such a toolbox in another language is not equivalent to translating published equations. Scientific behavior also depends on parameter ordering, transforms, prior conventions, fixed and free parameter semantics, placeholder values, numerical primitives, finite-difference behavior, optimizer trajectories, failure modes, and model-family selection. Small floating-point differences that are negligible at a shared state can be amplified by derivative estimation and non-convex optimization [@wilson2019ten; @peng2011reproducible]. A replacement implementation can therefore appear mathematically correct while producing materially different fitted inferences or model-selection outcomes.
+The Hierarchical Gaussian Filter (HGF) describes learning about states whose uncertainty and volatility change over time [@mathys2011; @mathys2014]. It combines a hierarchical generative model with approximate inference that updates beliefs after each observation. Applications include studies of prediction errors and social learning [@iglesias2013; @diaconescu2014]. The MATLAB implementation associated with TAPAS supplies model configurations, fitting, simulation and diagnostic workflows [@fraessle2021tapas]. These supporting conventions matter to an applied analysis because they determine which quantities are estimated and how the resulting evidence is calculated.
 
-Python/JAX toolboxes already exist in this space. pyhgf represents predictive-coding systems as configurable node/edge networks and supports differentiable modern inference [@legrand2026pyhgf]. HGFX does not claim to be the first Python or JAX HGF. Its v1.0 objective is narrower and complementary: behavioral compatibility with one frozen MATLAB HGF Toolbox 8.2.0 oracle, explicit cross-language evidence, and removal of MATLAB from the user runtime.
+For example, an unconstrained optimization parameter may represent the logarithm of a positive native parameter. A prior on the former is not a Gaussian prior on the latter. A zero prior variance can mean that a parameter is fixed, while a NaN entry can be a structural placeholder rather than missing participant information. Missing responses need not imply missing environmental inputs: a participant can fail to respond on a trial that still changes the learner's beliefs. Replacing any of these conventions with a convenient default can produce an executable analysis with a different statistical interpretation.
 
-For researchers with established HGF workflows, the practical question is whether fitting and simulation can move into a Python environment while retaining the reference configuration and numerical behavior. We evaluate this question for the released HGFX 1.0.0 package using workflow reproduction, paired model-selection agreement, backend checks, and a scoped pyhgf comparison. These checks establish the scope of compatibility; they do not establish that a fitted parameter is identifiable or that a selected model is the data-generating model.
+Numerical evaluation adds another layer. The HGF is recursive, so a local discrepancy can propagate through later beliefs. Fitting adds derivatives, optimizer stopping decisions and curvature calculations. Agreement of a fixed-parameter trajectory is therefore necessary evidence for a fitting comparison, but it does not imply identical fitted parameters. Conversely, a fitted endpoint discrepancy does not locate the underlying cause. It may reflect a changed observation model, a different transform, a numerical derivative, or sensitivity within the reference implementation. These possibilities require distinct checks rather than a single correlation between output vectors. General guidance on computational modeling likewise distinguishes implementation checks from recovery and substantive inference [@wilson2019ten], within the broader requirement for computational reproducibility [@peng2011reproducible].
 
-The contribution is a statistical software package for reproducing documented HGF analyses outside the MATLAB runtime, together with an explicit account of its numerical and inferential limits. The paper evaluates software behavior and reproducibility rather than introducing a new statistical model or an original behavioral or neuroimaging dataset. The frozen reference, paired outputs, and preserved failures allow users to distinguish supported workflow reproduction from questions that require a separate study of their own experimental design.
+Python implementations already address HGF-related modeling. In particular, pyhgf supports predictive-coding models through configurable networks and differentiable computation [@legrand2026pyhgf]. Its availability makes a first-implementation claim inappropriate. HGFX addresses a narrower need: preserving the tested behavior of one fixed MATLAB reference, including conventions that existing workflows rely on. It is complementary to a framework whose design emphasizes flexible model construction. A useful comparison must identify a common statistical and numerical scope before assigning meaning to differences. Unsupported comparisons should remain unresolved rather than become rankings of entire packages.
 
-## 2 Materials and methods
+This article asks how an established reference HGF workflow can be transferred to Python while preserving model semantics and the known limits of inference. The evaluated release is HGFX 1.0.0. Features added on the active development line are outside this evidence scope. The reference is HGF Toolbox 8.2.0 at a recorded immutable commit, rather than a moving upstream branch. This choice makes the target inspectable and allows later users to understand which behavior was reproduced. It also limits generalization to other toolbox releases and customized analysis pipelines.
 
-### 2.1 Software description
+The contribution has three parts. First, HGFX supplies a MATLAB-independent user workflow for fitting, simulation and sampling with a documented compatibility contract. Second, the evaluation connects configuration and fixed-parameter checks to paired fitting, official workflows and backend evidence. Third, the paper reports inferential failures alongside implementation agreement, so that successful reproduction is not presented as successful scientific recovery. We also audit two published applications to assess practical portability. Neither audit is represented as a successful real-data replication. This boundary is consequential for evaluating the package's current applied contribution, not merely an administrative qualification.
 
-HGFX is a Python package (Python >= 3.11) built on NumPy and JAX [@jax2018github; @frostig2018]. The public surface exposes Python-first and MATLAB-style aliases (`fit_model`/`fitModel`, `sim_model`/`simModel`, `sample_model`/`sampleModel`). Compatibility-sensitive numerical paths are distinguished from JAX-backed execution. Compatibility repairs were introduced only when supported by an exact MATLAB oracle case and a failing regression.
+## 2 Statistical formulation
 
-OpenAI ChatGPT was used during software development for code drafting and review, repository maintenance, and consistency checks. AI-assisted changes were reviewed by the author and accepted only after the same regression, parity, and evidence gates as other changes; AI output was not treated as scientific evidence.
+### 2.1 Perceptual states and responses
 
-Software metadata and frozen validation identities are summarized in Table 1.
+Let $u_t$ be an environmental input and $y_t$ a participant response on trial $t$. The perceptual model updates beliefs about hidden states given the input history; the response model assigns probability to responses conditional on those beliefs. These roles must remain separate even when both input and response are binary. An environmental outcome is not interchangeable with a participant choice.
 
-**Table 1.** HGFX 1.0.0 software metadata.
+For the binary hierarchy, a schematic generative representation is
 
-| Item | Value |
-|---|---|
-| Name | HGFX |
-| Version | 1.0.0 |
-| Source | https://github.com/ahmadkhanloo/hgfx |
-| Release | https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 |
-| PyPI | `hgfx==1.0.0` |
-| Validated CI platforms | Linux (Ubuntu) and Windows |
-| Language | Python 3.11+ |
-| License | MIT (no restriction on non-academic use) |
-| Dependencies | NumPy, JAX |
-| Frozen MATLAB oracle | HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3` |
-| Frozen HGFX source | `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` |
-| Paper protocol | `hgfx-paper-protocol-1` |
+$$
+p(u_t=1\mid x_{2,t})=s(\kappa_1x_{2,t}),\qquad s(a)=(1+e^{-a})^{-1},
+$$
 
-Users do not require MATLAB. MATLAB is used only when regenerating cross-language oracle evidence. The HGF Toolbox is cited via Mathys et al. [@mathys2011; @mathys2014] and TAPAS [@fraessle2021tapas]. Related probabilistic-modelling software includes the VBA toolbox [@daunizeau2014vba].
+$$
+x_{i,t}\mid x_{i,t-1},x_{i+1,t}\sim
+\mathcal N\!\left(x_{i,t-1}+\rho_i\Delta_t,
+\Delta_t\exp(\kappa_ix_{i+1,t}+\omega_i)\right),\quad 2\le i<L.
+$$
 
-### 2.2 Covered HGF families
+At the top level, the innovation variance is $\Delta_t\exp(\omega_L)$ and the drift convention is retained. This summarizes the hierarchical model; it is not a claim that the implemented approximate filter samples these latent transitions. In the MATLAB binary representation, level 1 stores quantities associated with the binary outcome and the continuous hidden hierarchy begins at level 2. Treating these indices as an extra independent Gaussian outcome state would change the model [@mathys2011; @mathys2014].
 
-The HGF represents a hidden hierarchy of Gaussian states in which higher levels encode volatility of lower levels [@mathys2011; @mathys2014]. For binary observations, a unit-square sigmoid observation model maps the first hidden state to the probability of the observed outcome. HGFX v1.0 covers the classic HGF, the enhanced HGF (eHGF), and the unbounded HGF (uHGF) in the documented MATLAB-compatible configurations, plus specialized surfaces in the v1 migration matrix (sampling, analysis, Bayesian parameter averaging, and the official uHGF-AR(1) demo). Equations are those of the frozen MATLAB toolbox; this article does not introduce a new generative model.
+The recursion stores predicted and posterior means and variances. In the frozen interface, `infStates` has trial, level and quantity axes; the quantity axis contains predicted mean, predicted variance, posterior mean and posterior variance in that order. Classic, enhanced and unbounded HGF variants differ in their update rules. Sharing a generative description does not make their approximate updates interchangeable. The source audit and component fixtures, rather than this abbreviated formulation, define their executable semantics.
 
-The public fitting interface accepts perceptual and observation configurations, a default transformed start, and a Quasi-Newton optimizer with a frozen iteration budget in the paper protocols. Simulation exports inputs `u` and responses `y` that become immutable paired inputs when MATLAB is used as an oracle.
+For illustration, a unit-square sigmoid response model converts a predicted binary belief $q_t$ into a choice probability,
 
-### 2.3 Frozen reference and evidence classes
+$$
+\pi_t=\frac{q_t^{\zeta}}{q_t^{\zeta}+(1-q_t)^{\zeta}},\qquad \zeta>0,
+$$
 
-HGFX v1.0 is validated against HGF Toolbox 8.2.0 at commit `2437f4dc241541072722a2695ddeca7b44d83dd3`. The compatibility target includes the documented model/configuration inventory, parameter transforms and priors, HGF/eHGF/uHGF and specialized implementations, observation models, fitting and simulation surfaces, Hessian/covariance/correlation/statistical outputs, model selection, official workflow behavior, and public APIs.
+with Bernoulli log likelihood $y_t\log\pi_t+(1-y_t)\log(1-\pi_t)$. The reference evaluates this with specific logarithmic expressions and boundary handling. Algebraic equivalence does not authorize arbitrary clipping or replacement with a numerically different formula. The reference response's returned prediction and standardized residual are based on the selected belief quantity; they should not automatically be interpreted as $\pi_t$ and an ordinary unstandardized response error. Prediction-versus-posterior configuration is also part of the model contract.
 
-We use four interpretation classes (Figure 1):
+### 2.2 Parameter spaces and estimation
 
-- **Direct parity:** MATLAB and HGFX agree under the frozen protocol and tolerance.
-- **Matched reference limitation:** the MATLAB oracle exhibits the same limitation and HGFX reproduces the corresponding behavior; this is not a scientific success claim.
-- **Preserved failure:** an experiment failed its scientific criterion and remains archived.
-- **Not directly comparable (NDC):** a quantity lacks a defensible common semantic or numerical surface, most relevant to the pyhgf comparison.
+Write $z$ for transformed parameters and $\theta=T(z)$ for native parameters. Positive variances and couplings use the configured transformations, including exponentiation of log parameters. The standard binary perceptual order groups initial means, log initial variances, drifts, log couplings and tonic log volatilities. Specialized families append their documented parameters. Parameter order is preserved through configuration, fitting, simulation and result export. Users should inspect named parameter fields alongside flattened vectors.
 
-Acceptance thresholds, seeds, datasets, starts, model families, optimizers, and grids are not changed after observing results. Failed experiments remain archived. The numerical policy and the two most sensitive optimizer/basin cases are documented in Supplementary Appendices S1-S2.
+Gaussian priors are defined in the configured transformed space. Let $F$ index free parameters with nonzero, non-NaN prior variances $v_j$, and let $m_j$ denote prior means. The fitted objective is
 
-### 2.4 Validation hierarchy
+$$
+\mathcal J(z)=-\sum_{t\in R}\log p(y_t\mid u_{1:t},T(z))
++\frac12\sum_{j\in F}\left[\log(2\pi v_j)+\frac{(z_j-m_j)^2}{v_j}\right].
+$$
 
-The evidence hierarchy is: frozen reference identity; machine-readable validation artifacts; paired MATLAB/HGFX raw outputs; continuous-integration provenance; and manuscript tables/figures generated from those artifacts. Numerical checks use IEEE-754 binary64. The project does not target arbitrary-precision solutions that differ from frozen MATLAB execution.
+Here $R$ is the set of response trials retained by the reference likelihood contract. Fixed entries are excluded from the prior sum and optimization; structural NaN placeholders are not estimated as missing parameters. The finite prior normalizing constants are retained because likelihood and posterior density have different meanings. A change in transformed-space prior is a change in statistical specification even if native starting values look similar.
 
-Two official MATLAB demo workflows (320 binary trials) are release-gated. Complete release-relevant trajectories and inference states are compared at `rtol = 5e-11` and `atol = 5e-13`.
+Belief inference and parameter optimization solve different problems. The filter produces a trajectory conditional on parameters; maximum a posteriori optimization searches for parameters using the likelihood and priors. Curvature at the fitted solution then supports the documented approximate covariance and Laplace evidence calculations. Bayesian information criterion (BIC) uses the negative log likelihood, free-parameter count and reference observation count; it is not the negative log joint. The evaluation consequently checks objective components and statistical outputs separately. No new inferential method is proposed here.
 
-Fitting validation covers objectives at fixed parameters, MATLAB-compatible optimizer behavior, fitted parameters where direct parity is expected, trajectories, predictions/residuals, Hessian-derived covariance/correlation, and AIC/BIC/LME.
+### 2.3 Missing observations and time
 
-An earlier frozen parameter-recovery experiment failed its scientific acceptance criteria and remains preserved. Subsequent paired validation distinguishes parameter recovery from model selection on a frozen three-model grid (three binary perceptual models; truth scales 0.15 and 0.35; Quasi-Newton; predeclared thresholds: convergence rate >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00, model-recovery balanced accuracy >= 0.50).
+HGFX preserves the reference distinction between irregular responses and ignored inputs. An absent response can be excluded from the observation likelihood while its input remains available to the perceptual recursion. An ignored environmental input has different implications for state updating. The public result exposes the relevant metadata, including MATLAB-style indexing where that interface is requested. Users should not remove input rows merely to make response vectors complete.
 
-CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement.
+Non-unit trial intervals require the corresponding configuration, with intervals in the documented input column. Appending a time column alone is insufficient evidence that the filter uses it. The same applies to additional input columns used by specialized models. Input shape, coding, masks and configuration must be established together. These details are especially important for transporting custom studies: a default binary model cannot infer an unpublished experiment's coding conventions.
 
-### 2.5 pyhgf common-scope protocol
+## 3 Software and workflow
 
-`pyhgf==0.3.2` was pinned before execution. Direct comparison was allowed only after model structure, update equations, parameters, initialization, input/masking semantics, reported quantities, precision mode, and numerical guards had been mapped. The authorized cell is a fixed-parameter, fully observed, three-level binary HGF (128 trials; standard/mean-field updates; unit coupling; zero drift; inverse temperature `ze = 48`). Trajectory quantities used `atol = 1e-10` and `rtol = 1e-8`; total response NLL used `atol = 1e-7` and `rtol = 1e-8`. Raw arrays were hashed before interpretation. A derived response-NLL boundary nonfinite was prospectively classified as NDC rather than triggering post-result clipping.
+### 3.1 Installation and analysis contract
 
-### 2.6 Prospective trial-horizon protocol
+The evaluated Python package is installed with `pip install hgfx==1.0.0`; its source release is pinned in the supplement. HGFX uses NumPy and JAX [@jax2018github; @frostig2018]. User analyses do not require MATLAB. MATLAB is needed to regenerate oracle outputs, which is a different activity from executing a fitted analysis in Python. Repository demo exporters also need reference-source inputs that are not ordinary wheel resources.
 
-A prospectively frozen paired MATLAB/HGFX trial-horizon experiment examined 128, 256, 512 and 1024 trials using the same three perceptual models, truth scales, seeds, Quasi-Newton budget, and predeclared recovery thresholds. The preregistered scientific comparison was 256 versus 1024 after a paired-integrity gate; 128 and 512 were trajectory diagnostics. Failed simulations and fits were retained rather than resampled. The experiment completed on GitHub Actions (run `35272347167`; 24/24 shards). The paired-integrity gate did not pass: 10 of 72 model-recovery BIC winners disagreed, all for the classic binary HGF at 512 or 1024 trials, and parameter metrics for those horizons were undefined because invalid simulations were retained. The frozen per-model diagnostic classifier labels the affected model rows `IMPLEMENTATION_OR_OPTIMIZER_MISMATCH`; this cause label concerns paired implementation/optimization disagreement and does not supersede the aggregate scientific classification `INSUFFICIENT_REFERENCE_EVIDENCE`. The evidence was therefore judged insufficient to support a data-horizon or structural-identifiability conclusion.
+The public surface provides Python-first functions `fit_model`, `sim_model` and `sample_model`, alongside MATLAB-style aliases. A fit takes aligned responses and inputs plus perceptual, response and optimizer configurations. The result retains perceptual and observation parameters, trajectories, likelihood-derived statistics and diagnostics. This organization allows users to examine a trajectory or objective component before accepting a model-selection summary. It also supports existing consumers that rely on MATLAB-style result names.
 
-## 3 Results
+The accompanying worked-example runner uses the existing fixed 24-trial quickstart inputs and responses, records their hashes, verifies package identity and CPU binary64 execution, and exports fit fields. Its data are synthetic demonstration vectors, not participant measurements. It is separate from the blocked published-study replications. The clean-install execution and its status are recorded with the runner; an installation failure cannot be replaced by running the current checkout and describing it as the released wheel.
 
-### 3.1 Workflow equivalence
+A short usage fragment is:
 
-HGFX 1.0.0 was released from commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Official demo reproductions execute the MATLAB oracle, execute the Python reproduction, compare complete release-relevant outputs, and archive machine-readable artifacts (Table 2).
+```python
+import hgfx
+result = hgfx.fit_model(responses, inputs)
+trajectory = result.traj.mu
+bic = float(result.optim.BIC)
+```
 
-The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (direct model-selection parity).
+The complete runner supplies explicit arrays, environment checks and provenance. It was executed outside the checkout using the released wheel in an isolated environment with CPU float64 enabled. The wheel bytes matched the official PyPI hash; acquisition used a mirror after the primary file host failed DNS resolution. The fit completed with finite likelihood-derived statistics. This is a workflow smoke check, not a new reference-parity or recovery experiment. Simulation and sampling APIs are documented separately, rather than treating a successful fit as evidence that all public surfaces were exercised in this example.
 
-The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity).
+### 3.2 Compatibility and execution backends
 
-**Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
+Compatibility mode targets the frozen reference's statistical and numerical behavior. JAX-backed execution provides another path for supported workloads, but backend availability is not a numerical acceptance test. Validation enables JAX float64 and establishes CPU agreement before accelerator checks. A faster implementation would be useful only if its relevant outputs retained their meaning. This article therefore reports backend evidence as scoped objective agreement, without inferring throughput from the use of JAX or the visibility of a GPU.
 
-| Surface | Classification |
-|---|---|
-| Core model/API compatibility (documented scopes) | PASS |
-| uHGF to AR(1) official workflow | PASS |
-| sampleModel / prior-predictive workflow | PASS |
-| Correlation/residual analysis surfaces | PASS |
-| Bayesian parameter averaging | PASS |
+The frozen oracle and recorded component fixtures support comparisons after MATLAB is no longer available during routine use. This does not eliminate the need for new reference evidence when a custom response or update equation is introduced. A custom model must specify its inputs, equations, transforms, branches, masks and expected outputs. Passing an unsupported analysis through a similarly named standard function does not establish compatibility.
 
-### 3.2 Fitting statistics and scoped limitations
+Figure 1 places the oracle alongside the user workflow. The user fits a perceptual/response pair and inspects results. The oracle supplies evidence about that computation; it is not a required runtime service or an independent source of scientific validity. This distinction avoids conflating reproducible software behavior with an experimentally adequate model.
 
-Two fitting-validation cases expose reference limitations rather than direct fitting parity (Table 3). In an official fitting stress case, MATLAB and HGFX can terminate at different optimizer endpoints in a numerically sensitive basin. In a separate frozen Level-2 holdout case, inference-equivalence fails for a specific seed. In both cases the frozen MATLAB oracle shows the corresponding instability or sensitivity, so these results are reported as matched reference limitations rather than as successful parameter recovery.
+![Figure 1](figures/fig_workflow.pdf){width=95%}
 
-**Table 3.** Fitting and recovery classifications. Direct failures are retained.
+**Fig. 1** User workflow and reference checks. Inputs and responses enter a configured perceptual/response pair, followed by fitting and inspection of trajectories, parameters and diagnostics. The separate frozen MATLAB oracle supplies paired evidence. This conceptual schematic contains no measured quantities
 
-| Surface | Direct result | Paper disposition |
+## 4 Evaluation methods
+
+### 4.1 Frozen scope and evidence interpretation
+
+All reported scientific results concern HGFX 1.0.0 and HGF Toolbox 8.2.0 at the identities in Supplement S1. The revision does not rerun recovery experiments or modify frozen data, seeds, thresholds or failure classifications. Existing machine-readable outputs are the basis of tables and figures. New source inventories and presentation transformations have their own manifests; they do not replace historical artifacts.
+
+The validation hierarchy starts with configuration and transformed/native parameter semantics, then proceeds to numerical primitives, fixed-parameter trajectories, trial likelihoods, objective components, fitting and statistics, and complete workflows. This ordering helps localize disagreement. A trajectory comparison can reveal a first divergent trial, level and state before optimizer differences obscure the cause. A fixed-vector objective check can distinguish a response or prior mismatch from a fitting-path difference. Fitted-parameter checks are meaningful only after these simpler comparisons have a defensible common surface.
+
+Four outcome classes are used. Direct parity means agreement under the frozen criterion for a stated scope. A matched reference limitation means that the oracle exhibits the corresponding instability or limitation; it is not a scientific recovery success. A preserved failure remains a failed criterion in the evidence record. A not-directly-comparable quantity lacks a defensible common semantic or numerical surface. These classifications are not interchangeable labels for successful execution. In particular, product acceptance of a matched limitation does not turn a failed inference experiment into a pass.
+
+Numerical criteria are field-specific. The two official binary demo workflows use 320 trials and compare release-relevant trajectories and inference states at relative tolerance $5\times10^{-11}$ and absolute tolerance $5\times10^{-13}$. Fitting, curvature and backend criteria have their own scopes; a single tolerance is not applied across all quantities. No criterion in this revision was relaxed to accommodate a discrepancy. Correlation alone is insufficient because it can remain high despite offsets, scaling changes or a small number of divergent states.
+
+### 4.2 Paired recovery and model selection
+
+The paired recovery grid uses three binary perceptual models: classic, enhanced and unbounded HGF. It includes truth scales of 0.15 and 0.35 prior standard deviations, trial counts of 128 and 256, and frozen quasi-Newton settings. There are 72 parameter cases and 36 model-recovery datasets, with three candidate fits per model-recovery dataset. These denominators and the actual recorded starts belong to the frozen protocol, rather than being selected after inspecting outputs.
+
+Predeclared scientific criteria are convergence rate at least 0.80, median parameter-recovery correlation at least 0.50, median standardized root mean square error (sRMSE) at most 1.00, and model-recovery balanced accuracy at least 0.50. Parameter recovery asks how well fitted parameters recover simulated truths. Model recovery asks whether model selection recovers the generating model. Cross-implementation winner agreement asks a third question: whether MATLAB and HGFX choose the same candidate on the same data. Figure 3 separates the latter two quantities visually.
+
+An earlier historical recovery failure remains archived independently of this paired grid. Subsequent reference-limitations accounting does not erase it. Failed and nonconverged cases are retained under the frozen rules. Shared MATLAB/Python seeds do not establish identical random streams; paired inputs and starts are recorded as actual values when cross-language identity is required.
+
+### 4.3 Trial-horizon diagnostic extension
+
+A separate prospective experiment considered 128, 256, 512 and 1024 trials with the same three model families and frozen recovery criteria. Its scientific comparison of 256 versus 1024 trials was conditional on a paired-integrity gate. The shorter and intermediate horizons supplied diagnostics. Invalid simulations and failed fits were retained rather than redrawn. This design matters because selectively replacing invalid cases could change the apparent relation between trial length and recovery.
+
+The integrity gate is logically prior to interpretation of horizon trends. A promising recovery metric for one model or horizon does not override disagreement between implementations elsewhere in the required paired scope. The complete aggregate, diagnostic classifications and provenance are provided in Supplement S3. The revision reports the failed gate rather than treating executed shards as proof of a successful scientific experiment.
+
+### 4.4 pyhgf comparison
+
+The common-scope comparison pins pyhgf 0.3.2 and uses one fully observed, fixed-parameter three-level binary HGF with 128 trials. Model structure, update rules, initialization, parameters, input coding, masks, precision and numerical guards were mapped before numerical interpretation. The authorized settings include standard volatility updates, mean-field updates, unit coupling, zero drift and native inverse temperature 48. The comparison does not cover all pyhgf networks, all HGFX families, parameter fitting or arbitrary response models.
+
+Mapped trajectory quantities use absolute tolerance $10^{-10}$ and relative tolerance $10^{-8}$. The candidate response total negative log-likelihood (NLL) surface uses absolute tolerance $10^{-7}$ and relative tolerance $10^{-8}$. A response-probability boundary nonfinite was prospectively assigned to the not-directly-comparable class. It was not repaired after inspection by clipping probabilities. The complete mapping and raw outputs make this limitation distinguishable from a perceptual-trajectory mismatch.
+
+### 4.5 Backend evidence and published-study feasibility
+
+The backend comparison distinguishes compatibility CPU versus JAX CPU from JAX CPU versus physical GPU. The first has a final-objective gap criterion of 0.10; the second uses $10^{-7}$. Retained physical-GPU evidence comes from a recorded pre-release runtime with two visible Tesla T4 devices, while the required fitting cells execute on one tested device. Device enumeration and actual array residency are separate checks. These measurements concern applicability and agreement, without a speed or scaling hypothesis.
+
+To assess external workflow portability, Pain 2025 [@pain_2025] was prioritized before new HGFX fitting, with SPIRL [@spirl_2025] as the predetermined fallback. This choice was based on availability of model definitions rather than favorable numerical results. The audit checked pinned sources, inputs, exclusions, response models, historical environments, dependencies and licenses. An eligible protocol would have been committed before fitting. No study passed that gate in this execution. The source audits can establish an implementation gap; they cannot supply a fitted participant result or evidence about the original paper's substantive findings.
+
+## 5 Results
+
+### 5.1 Reference workflows and sensitive fits
+
+The official workflow evidence supports scoped reproduction of the binary enhanced-HGF and unbounded-HGF autoregressive workflows. In the documented binary challenge regime, classic HGF encounters negative posterior precision in both implementations while enhanced HGF completes. Reproducing the expected failure is part of reference behavior. It is not an improvement in the classic model, nor a reason to conceal that case.
+
+Two fitting cases retain endpoint or inference-equivalence failures and are classified as matched reference limitations. The official stress fit is sensitive to optimizer behavior within a numerical basin. The separate fixed-seed holdout fit fails inference equivalence. Their detailed paired records are in Supplement S2. Neither is summarized as direct parameter parity. The core/API, sampling, analysis and Bayesian parameter-averaging evidence concerns the documented release scope; it is not a blanket assertion that all possible scientific workflows are validated.
+
+**Table 1.** Evaluated software scope. Candidate names do not establish equivalence of custom study pairs. NDC means not directly comparable
+
+| Surface | HGFX 1.0.0 evidence | Boundary |
 |---|---|---|
-| Earlier frozen parameter-recovery experiment | scientific criterion not met | preserved failure |
-| Official fitting stress case | optimizer endpoint mismatch in sensitive basin | matched reference limitation |
-| Frozen Level-2 holdout fit | inference-equivalence failure for a fixed seed | matched reference limitation |
-| Paired parameter recovery | recovery criteria not fully met | matched reference limitation |
-| Paired model selection | 36/36 BIC winners match | direct agreement |
+| HGF/eHGF/uHGF and documented specialized families | Frozen-reference component and workflow checks | Oracle 8.2.0 scope |
+| Observation models, transforms and priors | Trial-likelihood/configuration checks | Exact configured response required |
+| Fitting and statistical outputs | Direct checks plus two matched limitations | No universal endpoint equivalence |
+| pyhgf 0.3.2 comparison | One fixed binary perceptual case | Response NLL NDC; no fitting comparison |
+| Published custom RT studies | Source feasibility only | No executed real-data replication |
 
-### 3.3 Parameter recovery versus model selection
+The software comparison is deliberately asymmetric (Table 2). The MATLAB package
+is the specification used for this evaluation, HGFX is evaluated as its scoped
+reimplementation, and pyhgf is compared only after establishing a common surface.
+Thus a row marked untested describes the limits of this study rather than an
+absent software capability. Runtime requirements and model semantics should be
+considered separately: sharing a language or accelerator framework does not make
+likelihoods or fitted statistics interchangeable. Likewise, retaining MATLAB-style
+aliases is useful for migration, but interface similarity is weaker evidence than
+agreement of transformed parameters and objective components. The same rule
+applies to customized published studies, where familiar perceptual model names
+can accompany materially different response definitions.
 
-The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 4 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
+**Table 2.** Version-bound software comparison. Sources are the frozen oracle,
+release configuration/API evidence, and the prospective pyhgf semantic mapping.
+Untested does not mean unsupported
 
-The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity gate failed, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they do not replace the earlier recovery evidence.
+| Property | MATLAB HGF 8.2.0 | HGFX 1.0.0 | pyhgf 0.3.2 |
+|---|---|---|---|
+| Role here | Frozen reference | Reference-compatible Python implementation | Common-scope comparator |
+| User runtime | MATLAB | Python/NumPy/JAX; no MATLAB | Python/JAX |
+| Configuration semantics | Specification | Tested configured surfaces | Mapped in one binary case |
+| Inference | Reference approximate updates | Documented HGF/eHGF/uHGF families | Network-based construction; one mapped cell tested |
+| Fitting comparison here | Paired oracle fits | Direct/limited results retained | Untested |
+| Accelerator evidence here | Untested | Retained T4 objective cells | Untested |
+| Response NLL comparison | Reference in paired HGFX scope | Case-specific | NDC in common-scope cell |
 
-**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
+### 5.2 Recovery and implementation agreement
 
-| Model | MATLAB / HGFX convergence | MATLAB / HGFX median r | MATLAB / HGFX median sRMSE | Failed criteria |
+Parameter-recovery criteria are not fully met in the paired grid (Table 3 and Figure 2). Classic and enhanced HGF fail the correlation and sRMSE criteria. Unbounded HGF also fails the convergence criterion. The corresponding MATLAB and HGFX metrics are close, which supports the narrow matched-limitation interpretation; it does not establish that those parameters can be estimated adequately in the tested designs.
+
+**Table 3.** Paired parameter recovery across both truth scales. Entries are MATLAB/HGFX; displayed values are rounded from full-precision artifacts. Each model contributes 24 parameter cases. Thresholds: convergence >=0.80, median correlation >=0.50, median sRMSE <=1.00
+
+| Model | Convergence | Median correlation | Median sRMSE | Failed criteria |
 |---|---|---|---|---|
-| hgf_binary | 0.833 / 0.833 | 0.203 / 0.203 | 2.610 / 2.610 | correlation, sRMSE |
-| ehgf_binary | 0.917 / 0.917 | 0.462 / 0.462 | 2.359 / 2.359 | correlation, sRMSE |
-| uhgf_binary | 0.792 / 0.792 | 0.381 / 0.381 | 2.958 / 2.958 | convergence, correlation, sRMSE |
+| Classic HGF | 0.833/0.833 | 0.203/0.203 | 2.610/2.610 | Correlation, sRMSE |
+| Enhanced HGF | 0.917/0.917 | 0.462/0.462 | 2.359/2.359 | Correlation, sRMSE |
+| Unbounded HGF | 0.792/0.792 | 0.381/0.381 | 2.958/2.958 | All three |
 
-### 3.4 Backend and physical-GPU applicability
+![Figure 2](figures/fig_recovery_metrics.pdf){width=100%}
 
-Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5.
+**Fig. 2** Paired parameter-recovery summaries for the frozen grid, with the predeclared thresholds shown as dashed lines. These are descriptive aggregate metrics without error bars, not a scientific recovery pass. All three model families retain failed criteria
 
-**Table 5.** Backend and GPU applicability.
+All 36 model-recovery datasets have the same minimum-BIC winner in MATLAB and HGFX (Figure 3a). Generating-model recovery balanced accuracy is 0.5833333333333334 for both (Figure 3b). The perfect implementation agreement and imperfect generating-model recovery coexist because they measure different properties. The recovery threshold applies to balanced accuracy, not to cross-implementation agreement. This result supports reproducibility of the tested selection behavior, not universal discrimination among HGF families.
 
-| Surface | Classification | Result |
-|---|---|---|
-| Compatibility vs JAX CPU | direct backend agreement | objective/backend agreement |
-| Physical NVIDIA GPU (Tesla T4; 2 visible, tested device `cuda:0`) | retained physical-GPU applicability evidence | max abs objective gap = 1.42e-14; criterion 1e-7 |
+![Figure 3](figures/fig_model_selection.pdf){width=100%}
 
-### 3.5 Common-scope comparison with pyhgf
+**Fig. 3** Implementation agreement and generating-model recovery in the same 36 paired datasets, with three candidate models each. Panel (a) shows 36/36 matching BIC winners. Panel (b) shows balanced accuracy of 0.583 for each implementation; only this panel includes the frozen recovery threshold of 0.50. Bars are deterministic summaries of the frozen grid, without error bars
 
-In the authorized 128-trial cell, all 11 mapped perceptual/inference quantities passed predeclared tolerances (Figure 5). Maximum absolute differences were at binary64 rounding scale (1.11e-16 to 1.55e-15). Observed-input integrity was exact.
+### 5.3 Trial horizon, software comparison and backends
 
-Participant-response NLL was not directly comparable. With `ze = 48`, the pyhgf-side power-ratio transformation reached an exact probability boundary on 13 trials and unclipped surprise became +Inf; the HGFX log-domain `unitsq_sgm` evaluation remained finite (total NLL 1808.855415351429). No clipping, formula, precision, parameter, input, or tolerance was changed after observing the result. Overall interpretation: mapped perceptual quantities agree in the authorized cell, while participant-response NLL remains not directly comparable. The semantic gate, exact comparator identity, and numerical-boundary details are given in Supplementary Appendix S4.
+The trial-horizon experiment fails its paired-integrity gate: the free-parameter-index contract also fails, and 10 of 72 BIC winners disagree, all in classic-HGF cases at 512 or 1024 trials. The aggregate diagnostic classifier marks all three families as implementation-or-optimizer mismatches; only the winner disagreements are confined to classic HGF. Parameter metrics for those classic-HGF horizons are undefined because invalid trajectories are retained. Some other diagnostic rows meet recovery criteria, but the aggregate classification remains insufficient reference evidence. Figure S1 preserves both the diagnostic values and gaps. No stronger claim about trial length or structural identifiability follows.
 
-### 3.6 Examples of use and current limitations
+All 11 mapped perceptual quantities pass the common-scope pyhgf criteria. Maximum absolute differences range from approximately $1.11\times10^{-16}$ to $1.55\times10^{-15}$ in the frozen cell. Participant-response NLL is NDC: the power-ratio transformation on the pyhgf side reaches an exact probability boundary for the recorded inverse temperature, yielding a nonfinite comparison surface. This outcome limits a response comparison while leaving the mapped perceptual agreement intact. Figure 4 shows overlapping trajectories; the field-wise error record in the supplement is necessary to interpret that overlap.
 
-Typical use after `pip install hgfx==1.0.0` is MATLAB-style fitting and simulation from Python. The official cross-language demo reproductions are repository workflows that additionally require a source checkout and the frozen MATLAB-reference submodule; they are not bundled as ordinary wheel examples. MATLAB is unnecessary for normal package use.
+![Figure 4](figures/fig_pyhgf_common_scope.pdf){width=95%}
 
-Current limitations: (i) compatibility is scoped to HGF Toolbox 8.2.0, not future upstream versions; (ii) two numerically sensitive fitting cases are matched reference limitations rather than scientific recovery successes; (iii) parameter identifiability is weaker than paired model selection, and the trial-horizon experiment failed its paired-integrity gate, so it does not support a stronger recovery claim; (iv) GPU evidence is T4 applicability, not throughput; and (v) the pyhgf result is one mapped cell, not package-wide equivalence.
+**Fig. 4** HGFX and pyhgf 0.3.2 trajectories in the single authorized 128-trial binary-HGF case. Solid and dashed lines distinguish implementations. The first two panels show predicted input probability and level-2 posterior mean; the third shows the signed HGFX-minus-pyhgf level-2 mean difference over all trials. Eleven mapped perceptual quantities pass their criteria. Participant-response NLL remains NDC. No uncertainty bands are shown because these are deterministic fixed-parameter trajectories
 
-## 4 Discussion
+The compatibility-versus-JAX CPU maximum final-objective gap is 0.006783711260709424 against its 0.10 criterion. The four retained CPU-versus-T4 fitting cells pass their $10^{-7}$ criterion, with maximum gap $1.4210854715202004\times10^{-14}$. Figure S2 expresses each gap relative to its own threshold. The retained GPU runtime and source identity are provided in Supplement S4. These are different comparisons with different criteria; their gap magnitudes should not be read as a ranking of hardware accuracy.
 
-Reproducing a scientific toolbox requires a broader notion of compatibility than implementing published equations. In numerically sensitive fitting problems, binary64-scale elementary differences can be amplified through finite-difference derivatives and quasi-Newton optimization, producing different endpoints even when shared-state objectives are extremely close.
+### 5.4 Published application audit
 
-This motivates separating scientific correctness from reference faithfulness. When the MATLAB oracle is itself unstable in a tested scope, forcing Python toward a preferred endpoint can be less faithful than preserving the oracle's limitation. A matched limitation is not evidence that the recovered parameter is identifiable. HGFX therefore preserves original failures and reports the narrow product-compatibility interpretation separately.
+Pain's pinned snapshot contains the participant source table, questionnaire CSVs and custom log-RT files. The apparent participants.csv/participants.tsv discrepancy is resolved by their distinct source and derived paths. The original historical MATLAB/TAPAS/VBA versions remain unresolved, however, and a clear code license for copying or translating the custom responses was not found. An additional plotting helper is absent. The fitted HGF-labelled pairs use enhanced-HGF configurations with study-specific priors and covariates; they are not certified by a standard response name.
 
-Workflow-level validation matters for the same reason. Reproducing the expected failure of classic HGF in a documented regime, while reproducing successful eHGF behavior, is part of compatibility. Treating every failure as an implementation bug would have encouraged divergence from the reference.
+SPIRL's source defines a custom enhanced-HGF and seven joint choice/response-time models, with 399 random initializations. Reducing that model space or discarding response time would change the analysis. An exact HGFX 1.0.0 port requires additional licensed migration and golden-reference work outside the bounded case-study scope. Both feasibility reports therefore stop before fitting. There is no new participant trajectory, reproduced paper figure or recovered scientific association in this revision. The practical external-validity gap remains visible rather than being filled with synthetic results.
 
-pyhgf and HGFX overlap but have different design centers. pyhgf emphasizes generalized network construction and differentiability [@legrand2026pyhgf]. HGFX v1.0 emphasizes frozen-MATLAB compatibility and provenance. Quantity-specific claims are more informative than ranking the packages. Mapped belief trajectories agree to rounding scale in the authorized cell; the response-NLL surface exposes a numerical-boundary difference even though the mapped belief values agree to binary64 rounding scale.
+## 6 Discussion
 
-JAX enables compiled CPU/GPU execution, batching, and multi-device workloads [@jax2018github; @frostig2018]. Accelerator-native code is scientifically useful only if the accelerated path preserves relevant outputs. The T4 result supports that claim for the tested objective. Throughput depends on workload size, compilation amortization, hardware, device count, and contention; protocol 1 therefore does not activate a headline performance or scaling result. Scalability of the JAX path is an engineering capability of the implementation, not a reported empirical law.
+HGFX supports a particular form of reproducibility: transferring tested behavior from a fixed MATLAB HGF reference into a Python workflow. The strongest conclusion is that the released implementation reproduces documented numerical and workflow behavior within recorded scopes, including known limitations. This conclusion is narrower than general scientific validation and more useful than an assertion that a port runs. It tells a researcher which parts of an established workflow have paired evidence and which require further verification.
 
-For statistical practice, HGFX offers a way to reuse documented HGF workflows within Python while inspecting the evidence supporting each compatibility claim. The paired model-selection result illustrates why that evidence must be interpreted carefully: identical BIC winners across implementations can coexist with imperfect recovery of the generating model. Users should assess parameter recovery and model discrimination for their intended design before interpreting fitted quantities substantively. The package and its evidence record support that assessment but do not replace it.
+The distinction between implementation agreement and recovery is central. In the paired model-selection grid, the implementations agree completely on winners, yet generating-model balanced accuracy is only 0.583. Both can make the same selection without reliably recovering the truth. Parameter recovery is weaker still under the predeclared criteria. A user interested in individual differences should therefore not use cross-language agreement as evidence that individual parameters are measurable in a new task. The experimental design, parameter ranges, response model and available trials require a separate recovery assessment.
 
-## 5 Data and code availability
+The horizon extension reinforces this caution. More trials can be an appealing response to poor recovery, but the recorded experiment does not establish that solution because its integrity gate fails. Diagnostic successes for enhanced or unbounded HGF do not repair the missing paired support in the full scope. Reporting a favorable subset would answer a different question after observing results. Preserving the failed gate makes the limitation actionable: further work must first explain the affected classic-HGF simulations and implementation/optimizer disagreement before making a horizon claim.
 
-HGFX 1.0.0 is MIT-licensed [@hgfx100]. Source, tag, and package URLs are in Table 1. Paper tables regenerate with `python paper/scripts/generate_p2_tables.py`. Figures regenerate with `python paper/scripts/generate_p5_figures.py` (300 dpi PNG and PDF). The reviewer entry point is `paper/reproducibility/README.md`. MATLAB is required only to regenerate paired oracle evidence. Repository-facing case identifiers and claim-to-evidence traceability are intentionally confined to Supplementary Appendix S6.
+Numerical compatibility also has limits that an equation-level argument cannot resolve. Elementary differences can influence derivative estimates and optimizer paths. A sensitive endpoint mismatch should be investigated at shared parameter states, using objective decomposition and intermediate trajectories, before attributing it to scientific differences between models. When the reference itself exhibits a corresponding limitation, preserving that fact is preferable to forcing a preferred endpoint through clipping, retries or looser tolerances. Such a classification remains a limitation; it does not establish the scientific adequacy of the unstable fit.
 
-## Declaration of competing interest
+The pyhgf comparison illustrates a complementary boundary. Agreement of mapped beliefs in one common model cell is evidence about those quantities, not evidence that all package outputs or fitting procedures are interchangeable. The response-NLL boundary problem prevents a stronger response-level conclusion even though perceptual discrepancies are at rounding scale. An applied comparison should therefore start by deciding which statistical quantities are shared. HGFX's reference emphasis and pyhgf's network flexibility serve different uses; the current evidence does not justify a general ranking of the two tools.
 
-The author is the developer and maintainer of HGFX and declares no other competing financial interests or personal relationships that could have appeared to influence the work.
+External applications expose gaps that internal demonstrations cannot remove. The Pain audit resolves input availability but leaves licensing, historical environment and custom-response equivalence open. The SPIRL audit identifies a joint-response model space that cannot be replaced by standard choices without changing the analysis. These are not adverse findings about those studies, nor empirical failures of a fit. They show why a general-purpose reference implementation does not automatically reproduce a customized published pipeline. The present package paper consequently lacks an executed external real-data replication, which remains a material editorial and practical limitation.
 
-## CRediT authorship contribution statement
+For a researcher transporting a study, the most defensible workflow is to identify the original configuration and masks, freeze the input representation, and compare a fixed parameter vector before fitting. A fitted result can then be examined for convergence, objective components, trajectories and curvature-based statistics. Group summaries should retain failed participants in the accounting, rather than present successful fits as if they were the complete analysis. These recommendations follow directly from the failure modes exposed by the evaluation and the source audits; they do not prescribe a universally adequate HGF model.
 
-Mohammad Ahmadkhanloo: Conceptualization, Software, Validation, Formal analysis, Data curation, Visualization, Writing – original draft, Writing – review & editing.
+Accelerator execution supplies another possible workflow benefit, but the evidence here is deliberately restricted. The retained Tesla T4 cells show that the tested objectives meet their numerical criterion. They do not establish speedup, multi-GPU scaling or performance on other architectures. Compilation cost, batch size, workload heterogeneity and hardware contention would need a separate benchmark protocol. The existence of JAX transformations is a software capability; it is not a measured law of computational performance.
 
-## Funding
+Several limitations remain. Compatibility is tied to one immutable reference, not future upstream releases. Matched reference limitations prevent universal fit-equivalence claims. The recovery grid covers particular designs and parameter ranges, and the longer-horizon extension fails its aggregate integrity gate. The pyhgf result is one mapped cell. Custom published response models need their own evidence and permission boundaries. Finally, source verification by an automated assistant does not replace accountable author review of numerical claims, declarations or submission conditions. These constraints define the current contribution and the work needed before broader applied claims are defensible.
 
-This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+## 7 Data and code availability
 
-## Acknowledgments
+HGFX 1.0.0 source and release are available at the [versioned release](https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0) [@hgfx100]. The package is MIT-licensed. Historical evidence, manifests, tables and reproducibility instructions remain in the repository. The present revision has its own editable manuscript, figure script, claim ledger and build instructions. Third-party sources retain their own licenses; locally inspected unlicensed study files are not redistributed. MATLAB is required only to regenerate oracle evidence. New source-feasibility inventories are distinct from frozen numerical outputs.
 
-The frozen MATLAB HGF Toolbox 8.2.0 of Mathys and colleagues is the reference oracle for this work. GitHub Actions and MATLAB were used only to regenerate paired oracle evidence. No additional acknowledgments are recorded at draft time.
+## Statements and Declarations
 
-## Figure captions
+### Funding and competing interests
 
-**Figure 1.** Evidence classes used in this article: direct MATLAB parity, matched reference limitation, not-directly-comparable pyhgf quantities, and preserved historical failure. File: `paper/figures/fig_evidence_classes.png` (PDF: `.pdf`).
+The inherited draft identifies the author as the HGFX developer and maintainer and states no specific grant funding and no other competing interests. These statements require author reconfirmation before submission; this revision does not certify them. Affiliation, correspondence, author order and any institutional requirements likewise remain subject to author approval.
 
-**Figure 2.** Paired parameter-recovery metrics for MATLAB 8.2.0 and HGFX 1.0.0 against the predeclared recovery thresholds. This panel does not constitute a scientific recovery success. File: `paper/figures/fig_recovery_metrics.png`.
+### Author contributions and ethics
 
-**Figure 3.** Two distinct model-selection summaries: MATLAB and HGFX agree on the BIC winner in 36/36 paired cases, whereas model-recovery balanced accuracy is 0.583333333333 for each implementation. Agreement measures reproducibility across implementations; balanced accuracy measures recovery of the generating model. The model-recovery threshold applies only to balanced accuracy. File: `paper/figures/fig_model_selection.png`.
+The inherited contribution statement assigns conceptualization, software, validation, formal analysis, data curation, visualization and writing to Mohammad Ahmadkhanloo. Final CRediT roles are pending author confirmation. This revision performs source audits and uses frozen computational evidence; it does not perform a new participant-data analysis. Permission and ethics requirements for any later secondary-data replication must be resolved before execution. No new ethics approval or participant consent is asserted here.
 
-**Figure 4.** Backend agreement relative to each comparison's frozen criterion. The post-fix compatibility-versus-JAX-CPU remeasurement has a maximum final-objective gap of 0.006783711260709424 against a 0.10 criterion; JAX-CPU-versus-retained-physical-T4 has a maximum gap of 1.4210854715202004e-14 against a 1e-7 criterion. Bars show gap/criterion ratios, so the dashed line at 1.0 is the acceptance boundary for both comparisons. Not a speed claim. File: `paper/figures/fig_gpu_applicability.png`.
+### Generative AI use and accountability
 
-**Figure 5.** Frozen HGFX versus pyhgf 0.3.2 common-scope trajectories (predicted probability and level-2 posterior mean) for the authorized 128-trial binary HGF. Eleven mapped perceptual quantities pass; response NLL remains NDC. File: `paper/figures/fig_pyhgf_common_scope.png`.
-
-**Figure 6.** Trial-horizon diagnostic parameter-recovery metrics at 128, 256, 512 and 1024 trials, generated directly from the hash-verified aggregate. Dotted lines are the predeclared thresholds. Incomplete classic-HGF cases at 512/1024 trials are retained as gaps. Individual diagnostic criteria do not establish identifiability; the paired-integrity gate failed, so the evidence remains insufficient for an identifiability conclusion. File: `paper/figures/fig_p3_horizon_diagnostics.png`.
-
-## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process
-
-During the preparation of this work, the author used OpenAI ChatGPT to assist with code drafting and review, repository/document consistency checks, manuscript organization, and language refinement. The author reviewed and edited the resulting material as needed, and all reported scientific results remained subject to the repository's frozen validation, evidence, and reproducibility gates. The author takes full responsibility for the content of the publication.
+OpenAI ChatGPT assisted with source inventory, code and test drafting, manuscript restructuring and substantial prose generation, figure preparation, and package checks. This work extends beyond copyediting. Automated source checks and editorial review are recorded as such, not as completed human verification. The accountable author must review and approve the scientific claims, declarations and final version before submission. No journal submission or preprint upload was performed in preparing this candidate.
 
 ## References
 
-Bibliography entries are in `paper/references.bib`.
-
-<!-- Working revision: no submission-candidate lock has been created for this version. -->
+References are rendered from the candidate bibliography during the build.

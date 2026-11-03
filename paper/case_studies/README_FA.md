@@ -64,3 +64,6 @@ Arthur کاربرد sensorimotor را نشان می‌دهد و Hess یک workfl
 این جست‌وجوی هدفمند منابع بازتولید است، نه systematic review یا PRISMA. پرسش‌های جست‌وجو در ۳ نوامبر ۲۰۲۶ شامل `hierarchical Gaussian filter MATLAB data code github`، `hierarchical Gaussian filter code availability`، `HGF data github Diaconescu` و `hierarchical Gaussian filter data and code` بود. پس از discovery، صفحهٔ ناشر/PMC، DOI/Crossref و file API خود GitHub/OSF/Zenodo یا Git بررسی شد. search snippet به‌تنهایی برای دانلود/مجوز یا eligibility کافی شمرده نشد.
 
 محدودیت‌ها: OSF sk82r و 3bk7e با 401 قابل دریافت نبودند؛ بعضی endpointهای وب ETH GitLab پاسخ HTML ضدربات می‌دادند اما Git clone عادی موفق شد. وجود مدل پاسخ custom، نبود license و اختلاف نسخه به‌عنوان مانع واقعی ثبت شده‌اند. هیچ نتیجهٔ موفق برای انتخاب مطالعه پیش‌فرض گرفته نشده است.
+# وضعیت اجرای ۴ نوامبر ۲۰۲۶
+
+[Pain](pain_2025/FEASIBILITY.md) و [SPIRL](spirl_2025/FEASIBILITY.md) طبق ترتیب ازپیش‌تعیین‌شده بررسی شدند و پیش از fit متوقف ماندند. در Pain فایل‌های ورودی موجودند، ولی مجوز likelihood/config و محیط تاریخی روشن نیست؛ SPIRL به مهاجرت جداگانهٔ مدل‌های مشترک نیاز دارد. manifestهای جدید کنار گزارش‌ها هستند و گزارش acquisition تاریخی بازنویسی نشده است. [بستهٔ مقاله](../computational_statistics/README.md) برای بررسی نویسنده ساخته شده و نتیجهٔ موفقی از این دو مطالعه ادعا نمی‌کند.

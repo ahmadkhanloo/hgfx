@@ -1,0 +1,67 @@
+{
+  "inputs": {
+    "reference/validation/m18_s7_reference_limitation/decision.json": "cec7e1916889739efdc2cd27296dbe5ae76a812cc3873bb4b0c75547fc16afa3",
+    "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "aaaabdcff86283ff6aae591e38aa848202d7579edf523bc956fb6b8097e68012"
+  },
+  "operation": "separate agreement/accuracy; grayscale recovery; raw pyhgf residual; other figures byte-identical",
+  "outputs": [
+    {
+      "path": "paper/computational_statistics/figures/fig_model_selection.png",
+      "sha256": "ec430493e37e7a7b3daefbe5bf9bcdcce567c579368bd6d65cf03ade1e827f93"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_model_selection.pdf",
+      "sha256": "fb9691d1273f4854562db0105ed3bfc0bcc6f8f49afba04e1839072e90bd72b3"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_recovery_metrics.png",
+      "sha256": "7c8e9c89745470a3217df5d25adccc3d514f9364577983e097dd0191364eec78",
+      "source": "reference/validation/m18_s7_reference_limitation/decision.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_recovery_metrics.pdf",
+      "sha256": "d7f12076d79da9c03b9930b9f940c74b68ffc704e9d5b17bb84a6e02ca753ccf",
+      "source": "reference/validation/m18_s7_reference_limitation/decision.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_pyhgf_common_scope.png",
+      "sha256": "25a83e7a1f9e6115d3586d0248283dfdd83543d411782c752f42e6f286c87cef",
+      "source": "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_pyhgf_common_scope.pdf",
+      "sha256": "beb6d50bd19e8101e57db1de7572190517224a77390cd680708c4076dd0029ec",
+      "source": "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_workflow.png",
+      "sha256": "af23d4bef1ec2b91709f8427a389ae243b8a882888f9fb0140bd020cecde2ef1",
+      "source": "conceptual workflow; no numerical data"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_workflow.pdf",
+      "sha256": "48e18e48f72b4c450e3b8f4965003b1830f5982be998a8451c5923d4da5b954d",
+      "source": "conceptual workflow; no numerical data"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_gpu_applicability.png",
+      "sha256": "1522a91693c62cbf0fd1a858725ddff8148de0ba1e3162e5563ab3f89132d582",
+      "source": "paper/figures/fig_gpu_applicability.png"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_gpu_applicability.pdf",
+      "sha256": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
+      "source": "paper/figures/fig_gpu_applicability.pdf"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_p3_horizon_diagnostics.png",
+      "sha256": "88dee99eb7eb99737700d54238f67c20208e0af005098349aeed7b74cfcc8b21",
+      "source": "paper/figures/fig_p3_horizon_diagnostics.png"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_p3_horizon_diagnostics.pdf",
+      "sha256": "38228320930c1ee013d708b672200647c0d2780e3f6179fba2889c43976b8cb4",
+      "source": "paper/figures/fig_p3_horizon_diagnostics.pdf"
+    }
+  ]
+}
