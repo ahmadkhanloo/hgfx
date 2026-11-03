@@ -62,3 +62,10 @@ The previous ~2,400-word methods paper presents numerical validation and detaile
 3. Recruit at least one independent user to install/test the release and file genuine issues with evidence; document feedback and fixes.
 4. Update `paper/joss/paper.md` when these facts exist, verify explicit AI model versions with author, run JOSS PDF build/preview, and re-audit age/development gate not before March 2027.
 5. If near-term publication is necessary, separately research no-APC **subscription/hybrid** software-method journals and compare scope/publication fees before submitting; do not represent JOSS as an immediate route.
+
+
+## Work performed in the 2026-11-03 assessment
+- A JOSS-format manuscript draft was added at `paper/joss/paper.md`, with complete `paper/joss/paper.bib` based on the frozen manuscript bibliography. This is not submitted to JOSS.
+- Static manuscript checks: approximately **1,009 words**, all eight expected headings found, **6/6 unique bibliography citation keys resolve**. This checks syntax structure and citations only, **not PDF rendering or scientific acceptance**.
+- Dedicated follow-up: https://github.com/ahmadkhanloo/hgfx/issues/81 (JOSS public-history and research-use gate).
+- Branch: `docs/joss-readiness-2026-11` created from main `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`. Main, frozen releases, scientific datasets, thresholds, and historical publication evidence were not changed.
