@@ -1,0 +1,3427 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-04",
+  "source_url": "https://github.com/meganel-t/painuncertainty",
+  "commit": "3f1d32aff73826a1385c359ca638ad0e11a7fda7",
+  "decision": "BLOCKED_UNLICENSED_CUSTOM_RESPONSE_AND_UNRESOLVED_ENVIRONMENT",
+  "original_environment": "ORIGINAL_ENVIRONMENT_UNRESOLVED",
+  "input_checks": [
+    {
+      "path": "sourcedata/participants.csv",
+      "status": "PRESENT",
+      "sha256": "b22270f762bc1a2e08a48df44e5ebca16f8e43bd63d199b663e4e2a7d78a673b"
+    },
+    {
+      "path": "sourcedata/iasta.csv",
+      "status": "PRESENT",
+      "sha256": "1e76ed891f4f24afa9e0b2f5235f68fb8f3074c22bc1a5fae77c67be8068ad35"
+    },
+    {
+      "path": "sourcedata/pcs.csv",
+      "status": "PRESENT",
+      "sha256": "4a2c092740caf79375de2361f0f515f42abf1bf202fdb89690022c09c27444ce"
+    },
+    {
+      "path": "sourcedata/bdi.csv",
+      "status": "PRESENT",
+      "sha256": "20d9a9f6702da98163298d5a6f2bcf6a12c6e0b55da8e747c56a7b7e108b52e3"
+    },
+    {
+      "path": "participants.tsv",
+      "status": "PRESENT",
+      "sha256": "b4692523c91524bb924dbc0ea4147557debfb2612b72eb29356cd9c903b462d9"
+    }
+  ],
+  "trial_inventory": [
+    {
+      "subject": "sub-015",
+      "folder": "sub-015_2023-06-05",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-017",
+      "folder": "sub-017_2023-05-31",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-018",
+      "folder": "sub-018_2023-05-31",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-019",
+      "folder": "sub-019_2023-06-05",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-020",
+      "folder": "sub-020_2023-06-07",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-021",
+      "folder": "sub-021_2023-06-07",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-022",
+      "folder": "sub-022_2023-06-12",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-023",
+      "folder": "sub-023_2023-06-12",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-024",
+      "folder": "sub-024_2023-06-14",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-025",
+      "folder": "sub-025_2023-06-14",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-026",
+      "folder": "sub-026_2023-06-19",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-027",
+      "folder": "sub-027_2023-06-19",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-028",
+      "folder": "sub-028_2023-06-21",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-029",
+      "folder": "sub-029_2023-06-26",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-030",
+      "folder": "sub-030_2023-06-28",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-031",
+      "folder": "sub-031_2023-06-28",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-032",
+      "folder": "sub-032_2023-06-28",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-033",
+      "folder": "sub-033_2023-06-29",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-034",
+      "folder": "sub-034_2023-06-29",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-035",
+      "folder": "sub-035_2023-07-03",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-036",
+      "folder": "sub-036_2023-07-05",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-037",
+      "folder": "sub-037_2023-07-05",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-038",
+      "folder": "sub-038_2023-07-19",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-039",
+      "folder": "sub-039_2023-08-14",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-040",
+      "folder": "sub-040_2023-08-16",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-041",
+      "folder": "sub-041_2023-08-16",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-042",
+      "folder": "sub-042_2023-08-21",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-043",
+      "folder": "sub-043_2023-08-23",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-044",
+      "folder": "sub-044_2023-08-24",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-045",
+      "folder": "sub-045_2023-09-12",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-046",
+      "folder": "sub-046_2023-09-12",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-047",
+      "folder": "sub-047_2023-09-12",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-048",
+      "folder": "sub-048_2023-09-14",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-049",
+      "folder": "sub-049_2023-09-18",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-050",
+      "folder": "sub-050_2023-09-20",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-051",
+      "folder": "sub-051_2023-09-20",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-052",
+      "folder": "sub-052_2023-09-24",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-053",
+      "folder": "sub-053_2023-09-24",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-054",
+      "folder": "sub-054_2023-09-27",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-055",
+      "folder": "sub-055_2023-10-02",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": true
+    },
+    {
+      "subject": "sub-056",
+      "folder": "sub-056_2023-10-04",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-057",
+      "folder": "sub-057_2023-10-05",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-058",
+      "folder": "sub-058_2023-10-11",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-059",
+      "folder": "sub-059_2023-10-18",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": true
+    },
+    {
+      "subject": "sub-060",
+      "folder": "sub-060_2023-10-19",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-061",
+      "folder": "sub-061_2023-10-25",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-062",
+      "folder": "sub-062_2023-10-25",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-063",
+      "folder": "sub-063_2023-10-26",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-064",
+      "folder": "sub-064_2023-11-02",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-065",
+      "folder": "sub-065_2023-11-02",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-066",
+      "folder": "sub-066_2023-11-06",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    },
+    {
+      "subject": "sub-067",
+      "folder": "sub-067_2023-11-09",
+      "task_files": 1,
+      "retained_trials": 192,
+      "source_excluded": false
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "e9adf238c62578f6cc4f7b013910b68450235fc9daf133625a926a714be3ed05",
+      "bytes": 480,
+      "redistribute": false
+    },
+    {
+      "path": "code/arialnarrow.ttf",
+      "sha256": "9e1d881c4e43b51868f5e235ea5a12c838e23cc8df6277df1a3c94e158999826",
+      "bytes": 179492,
+      "redistribute": false
+    },
+    {
+      "path": "code/c01_import_and_plot_participant.py",
+      "sha256": "072e152e1e9af19300a7b57475cae9038f03303ee00653f67bfce8cf2a51b723",
+      "bytes": 12893,
+      "redistribute": false
+    },
+    {
+      "path": "code/c02_fit_models_painuncertainty.m",
+      "sha256": "69da20515d997b300517169808ac4bd3e0a695ab30847728b25ed8dfe712557b",
+      "bytes": 21537,
+      "redistribute": false
+    },
+    {
+      "path": "code/c03_compare_models_painuncertainty.m",
+      "sha256": "301418ffb6957799c8d11dfa9d1b22dbe6d8ef988b9474430b8a389ae619f736",
+      "bytes": 1666,
+      "redistribute": false
+    },
+    {
+      "path": "code/c04_group_plots_stats.py",
+      "sha256": "225b398a08e0715a2b5efa27c833d55741b39fcb082ff7590a2d58bdb1c0994e",
+      "bytes": 17165,
+      "redistribute": false
+    },
+    {
+      "path": "code/c05_fit_models_recovery.m",
+      "sha256": "52bf36b70d1a847615c77f13b3508eade11067dd551470198529c973f1ea4170",
+      "bytes": 12811,
+      "redistribute": false
+    },
+    {
+      "path": "code/c06_parameters_recovery.py",
+      "sha256": "00cf3e2df05c6a8ddd027d1d0d43834661e75b22446104b1db1c0d5034f396b0",
+      "bytes": 6172,
+      "redistribute": false
+    },
+    {
+      "path": "code/c07_figures_publication.py",
+      "sha256": "3fbe80ed8a6fad9687544706506febd34532a58b301d478fdb3e035f5c332b3b",
+      "bytes": 35397,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf2.m",
+      "sha256": "ee6cc7fc7eaecded90e1f549bd25cbbe643cbfb218dfc10ea295ea0bdec82319",
+      "bytes": 1097,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf2_config.m",
+      "sha256": "6067598017a2d2a3e15642934be6458feaee2279b9048c668a3b372525befc73",
+      "bytes": 504,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf2_namep.m",
+      "sha256": "e783427cbd33451662c934f31678d723aafe133518ece7637a748b1a3170aff1",
+      "bytes": 195,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf2_sim.m",
+      "sha256": "16ed5ae4cfa7fff4454cc81cd707e60f35af73aa47f606015726e25fc64d2d03",
+      "bytes": 1932,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf2_transp.m",
+      "sha256": "76ac1b2a3bfd84a368df2bdfe1b85499683342cbfa35459991e2eaf5ec47f2d3",
+      "bytes": 334,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf3.m",
+      "sha256": "fb4d99339a9625800c4838c7badcf543fd6a76bd4d543266d6d139a12bf4a3b2",
+      "bytes": 1366,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf3_config.m",
+      "sha256": "02c112e333536e33e038b1bf6848f3dc5854b2af613097e84e34f54b022283b1",
+      "bytes": 555,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf3_namep.m",
+      "sha256": "266865b259d2a7330c4c9f15f9aefa2ce1ce461f1c2265aa16fb5460426426a1",
+      "bytes": 219,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf3_sim.m",
+      "sha256": "7a9e809e8add95e73668e43543465f641fb38b5a0c5636c7b0f79a7d94f1311d",
+      "bytes": 2174,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_hgf3_transp.m",
+      "sha256": "e79901d5cd7a80a4ab8f1845c24c650b766dd53189822cc590f8c87a5e2a3ac6",
+      "bytes": 382,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_ph.m",
+      "sha256": "d40f320e0f970b969e2f5784899b5a1b7544778f636de3edc843ba49f3e22621",
+      "bytes": 546,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_ph_config.m",
+      "sha256": "5ef1ba1c5542228b5e64206d9aa46e1411a7586fcad1ca1c03c679d901c4cf47",
+      "bytes": 446,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_ph_namep.m",
+      "sha256": "13d680bd4cb18705bce40fad5127deae8bc81b731d6d90f3687db803e51e9eb1",
+      "bytes": 169,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_ph_sim.m",
+      "sha256": "be983511a63a1255d3241a4c8a2bd2d510f4e2eb3b2c27a68d7fd619c5a69fb3",
+      "bytes": 1288,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_ph_transp.m",
+      "sha256": "e3ccacc65ea1e14d6773e119d64dcfb5a690292fa6056938b8550cba2741a1a2",
+      "bytes": 284,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_rw.m",
+      "sha256": "a1771377a24f389afc26d1d9e22d69a15905f78e9b3da916da31d67ce9a80a10",
+      "bytes": 533,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_rw_config.m",
+      "sha256": "61c67fa2f69fe6f680be7de5683d9f98bd3535c08f755508ce3a98d754d818c0",
+      "bytes": 447,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_rw_namep.m",
+      "sha256": "9ded5d4254e8124f9c28ed7bafd974d9c48055ffc09c30414bc9fbbd9c3f3919",
+      "bytes": 169,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_rw_sim.m",
+      "sha256": "03bb5114603800f8e21e77e0c9d351bb0257bf2e53cbb3db439e7a25ab02a497",
+      "bytes": 1336,
+      "redistribute": false
+    },
+    {
+      "path": "code/models/tapas_logrt_linear_binary_rw_transp.m",
+      "sha256": "5268e4bae7d2835bf07cb527dc13650d6ba10c38d83103fd9715061208acdeaf",
+      "bytes": 284,
+      "redistribute": false
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "c34051a3f2ae74b5e3a2da7a8d505eaa8eefe7c43e8ba19dbc6494939db16852",
+      "bytes": 590,
+      "redistribute": false
+    },
+    {
+      "path": "code/runall.sh",
+      "sha256": "950eb539c4672fda0122716e08a6c93727510a348a30b5d485a43d80633c3db3",
+      "bytes": 766,
+      "redistribute": false
+    },
+    {
+      "path": "participants.tsv",
+      "sha256": "b4692523c91524bb924dbc0ea4147557debfb2612b72eb29356cd9c903b462d9",
+      "bytes": 9728,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/bdi.csv",
+      "sha256": "20d9a9f6702da98163298d5a6f2bcf6a12c6e0b55da8e747c56a7b7e108b52e3",
+      "bytes": 4217,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/iasta.csv",
+      "sha256": "1e76ed891f4f24afa9e0b2f5235f68fb8f3074c22bc1a5fae77c67be8068ad35",
+      "bytes": 7520,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/participants.csv",
+      "sha256": "b22270f762bc1a2e08a48df44e5ebca16f8e43bd63d199b663e4e2a7d78a673b",
+      "bytes": 2769,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/pcs.csv",
+      "sha256": "4a2c092740caf79375de2361f0f515f42abf1bf202fdb89690022c09c27444ce",
+      "bytes": 3760,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_PainUncertainty_2023-06-05_17h02.44.436.csv",
+      "sha256": "d909c3f83463a21693f9aab49b09f38b1bb867308b5424492638eec6641f667f",
+      "bytes": 79033,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_PainUncertainty_2023-06-05_17h02.44.436.log",
+      "sha256": "65de114dc5ee4724a7876a1160f32b1f143754a01ce88e93d4865724b2dc84a5",
+      "bytes": 2588817,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_PainUncertainty_2023-06-05_17h02.44.436.psydat",
+      "sha256": "a6e7ada68df3c9c0916861da2112c34d59b376cca13bbe12c72de59335ec6a65",
+      "bytes": 111486,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584.csv",
+      "sha256": "cecc24eee3fce7c50509f7f33259651c53864d0d983c2c953294edefd530b21a",
+      "bytes": 19765,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584.log",
+      "sha256": "f7d7623025fbc02290a533b64b7a39f701191621d124ece2e95fc731ecaf4e7d",
+      "bytes": 1651505,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584.psydat",
+      "sha256": "c7093c200559cad9ddec6be97611604da67e2615a2e753053a13e790927a93f6",
+      "bytes": 40616,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584_fitted_values.csv",
+      "sha256": "6cb774413b0e06734f53ccea26e43ffc405bf1d36fd5067fa95cbc5818bab48d",
+      "bytes": 2316,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584_fitted_values.png",
+      "sha256": "6dadcee5b22ed1b05ab2a146047dcae5409ffe3b5dc38bf1d69d0d57d983ce0d",
+      "bytes": 54543,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-015_2023-06-05/sub-015_painuncertainty_calibration_2023-06-05_16h43.41.584_ramp_ratings.csv",
+      "sha256": "fb74a6b9b4bda54e75aa441979da5315fff7bb64b5a7e808a297cf2f3d1cb979",
+      "bytes": 913,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_PainUncertainty_2023-05-31_10h57.03.779.csv",
+      "sha256": "b8cac670ab6fe536c99484f9e576693e44817fe3a68c2755e8b865767d32850c",
+      "bytes": 79444,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_PainUncertainty_2023-05-31_10h57.03.779.log",
+      "sha256": "dd32b0a2d8b177f874ff1ddc9db10fcdbcd85b975ff4f0cc85755c06531847b3",
+      "bytes": 1990757,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_PainUncertainty_2023-05-31_10h57.03.779.psydat",
+      "sha256": "4106067ae76781e78f78ad03b7f9467dbe5a5fb304aef3991c3f85bad0082bc6",
+      "bytes": 86426,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195.csv",
+      "sha256": "7918ec1fa5c72425189949ccc03e82d47c3a67819bfe96fe498c053c34b96213",
+      "bytes": 15134,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195.log",
+      "sha256": "ec3151f924deb3e541b664c07faa7038671a60ac3c1b76261b362c2ec5f35417",
+      "bytes": 925647,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195.psydat",
+      "sha256": "00db21533d7239dffa4a208021fac91e25e8d7c21aa61b0eecc5f487d0977f12",
+      "bytes": 34300,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195_fitted_values.csv",
+      "sha256": "8073eaea6c34d209fcc40365b7234611c0c10df1fa58244a8f7c8f06fb8e7c41",
+      "bytes": 1838,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195_fitted_values.png",
+      "sha256": "4fcf3021d19e351c64ac56888d6422e723dbd0dd08783bc5a966c815de14d4b7",
+      "bytes": 59625,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-017_2023-05-31/sub-017_painuncertainty_calibration_2023-05-31_10h22.34.195_ramp_ratings.csv",
+      "sha256": "a8bdd302c608a33cfe084bce9bc08dc0034462d2d9288bfa7f19dfe7e1846663",
+      "bytes": 571,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_PainUncertainty_2023-05-31_12h26.06.823.csv",
+      "sha256": "6170b80bc51c2d745f6c0134533235321901a7910380b42d81c5be2299d40960",
+      "bytes": 74663,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_PainUncertainty_2023-05-31_12h26.06.823.log",
+      "sha256": "cad51f0d84e1ec68c12ebb2af6ff3f871895f93c7c7d51a6e5e43ed50df5ca3e",
+      "bytes": 75389,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_PainUncertainty_2023-05-31_12h26.06.823.psydat",
+      "sha256": "cdb5df4bbd5a4bca70bc69719401fcef285b22be256cd28fc8d2224bf60ffb03",
+      "bytes": 3623,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198.csv",
+      "sha256": "31c3e9fe35d4efa9f561bb7a6453a705655594316fc2c14b03b7f4d5866d4f0b",
+      "bytes": 18611,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198.log",
+      "sha256": "76c42da4c455627eca9d89955fc6b0ba0006b1e8fa18b936add831c1a2e6f5a8",
+      "bytes": 1057644,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198.psydat",
+      "sha256": "6d48e1def84502d5859c6b3bda2da09cae3724078e707eb5b010ac726dc9a076",
+      "bytes": 39696,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198_fitted_values.csv",
+      "sha256": "87170311162efc2fb5c3129a927d560ded484f4a836b24de768e79a23b45b220",
+      "bytes": 2096,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198_fitted_values.png",
+      "sha256": "0954e4ec2c842341a1d01733b6fe59b04dfd21e23cdfd14b971267d5cc565064",
+      "bytes": 58125,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-018_2023-05-31/sub-018_painuncertainty_calibration_2023-05-31_12h14.49.198_ramp_ratings.csv",
+      "sha256": "462b7032007df013534d9664cc83e6c514426fa1dd6a2671ed0a2cd4e22dfab9",
+      "bytes": 858,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_PainUncertainty_2023-06-05_17h50.36.211.csv",
+      "sha256": "af36af997d8b37a940ff82f74257b6abd39ce64d98d340596674dd5b9df2d574",
+      "bytes": 79392,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_PainUncertainty_2023-06-05_17h50.36.211.log",
+      "sha256": "b129e03b46e25155d4754ee48a266a55f47c1e9dd994ddeb1a7480d25b645642",
+      "bytes": 3829289,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_PainUncertainty_2023-06-05_17h50.36.211.psydat",
+      "sha256": "744fc20cafe7301e688459278ddf2777652539de6f15677a70ba841d677bb2db",
+      "bytes": 111542,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257.csv",
+      "sha256": "6f070111ccf397be1bf8e4dc01431cd0810454c4e8e8aac5697b3b5cbf19408b",
+      "bytes": 23295,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257.log",
+      "sha256": "458606e97df4b347e6ac72e22d47f78795870192cce9d1fe41d247dbd5c1845d",
+      "bytes": 1827640,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257.psydat",
+      "sha256": "f2f82736e6f486bc26a7473a3b4cf0abe129b5b259d57b3db9f827b7e83a567f",
+      "bytes": 44305,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257_fitted_values.csv",
+      "sha256": "19e30235ce4adc9f602bec7a5b49cf170fe5ee6e1f369c8ceee748a2229fc25b",
+      "bytes": 2583,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257_fitted_values.png",
+      "sha256": "ae017946dc507a6f10079b93f78d2e48086e12a741aa24bf600adbb6bb857f6a",
+      "bytes": 59010,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-019_2023-06-05/sub-019_painuncertainty_calibration_2023-06-05_17h37.02.257_ramp_ratings.csv",
+      "sha256": "f32e62302ce60d47fe886eccf1afd20da074d0a9178e020bd463b49a09022cdc",
+      "bytes": 1109,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_PainUncertainty_2023-06-07_09h24.59.059.csv",
+      "sha256": "181b7acaecf33d78af98229263923dff92086d6e2785455d92ff109ac1351253",
+      "bytes": 80077,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_PainUncertainty_2023-06-07_09h24.59.059.log",
+      "sha256": "b101a454573af89bdd56fc996d564cb765795251ffb7c4b33ae796d28110aa52",
+      "bytes": 3026036,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_PainUncertainty_2023-06-07_09h24.59.059.psydat",
+      "sha256": "73b86e2ac6de4975067f20808cb1be3931b3cab4ded0ffc438d73f3966044409",
+      "bytes": 111463,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701.csv",
+      "sha256": "20ee81ca4d4ff890d7bef1f6f21d2c1583b359f75f7a740ac4963847ed260920",
+      "bytes": 11020,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701.log",
+      "sha256": "65df12e2cd1d21226ac3182d15588db70bc82c9bef94a0e96843d5f0ed7a0e73",
+      "bytes": 1685058,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701.psydat",
+      "sha256": "5d60c5b3a582fa846a386be85871379628a44e93f453080ae19b84b2b890cb83",
+      "bytes": 29739,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701_fitted_values.csv",
+      "sha256": "e7b871917cbe5f785a6ad415c969fde6ff41d51d9419293dc1e83df622f5e8b8",
+      "bytes": 1305,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701_fitted_values.png",
+      "sha256": "01b00d8c1286a6f5665614c76fcd0349a2c728b451a811861888348b8964e1db",
+      "bytes": 40148,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-020_2023-06-07/sub-020_painuncertainty_calibration_2023-06-07_09h06.22.701_ramp_ratings.csv",
+      "sha256": "7c4fd823182f20de6d4a2f1ed7201d25d2206c21a5668c9cd980e6c9bd89386f",
+      "bytes": 353,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_PainUncertainty_2023-06-07_11h14.01.740.csv",
+      "sha256": "1919bba3311190251018fff0611460c5b61ec4fb1ba05ad4eb5afbe9a251bcd0",
+      "bytes": 66316,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_PainUncertainty_2023-06-07_11h14.01.740.log",
+      "sha256": "0e937d285cf37148a964bda6ee53b6f20cf1f1f861d2cd8e2f25579ebc2c8a71",
+      "bytes": 2439344,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_PainUncertainty_2023-06-07_11h14.01.740.psydat",
+      "sha256": "4adb548ac17461796b6ad3ac15dd7ab7f2f393803af12859e9d1804f39191196",
+      "bytes": 98707,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118.csv",
+      "sha256": "eb35bbea75c766bd2999b842d3c7442bdda825d546ffeffd407b57a5cdcfed47",
+      "bytes": 19956,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118.log",
+      "sha256": "ccb38d63ea616f15b4db910f112f4196e71d0fe435e405524aa65d75800ec840",
+      "bytes": 1683762,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118.psydat",
+      "sha256": "12fa71772bf7ebe04daf8adc9a80d0aae1af18aa6c7f1f14e5e6684ab42c3590",
+      "bytes": 40453,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118_fitted_values.csv",
+      "sha256": "d2512bfec6955dc96c410767171f268651d3f194e9cee3de24dc72c688fdef53",
+      "bytes": 1997,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118_fitted_values.png",
+      "sha256": "ccfa4254d71c67f0c4221125449a545b7e9d11193e26bbf99af482f3fa2f6f77",
+      "bytes": 58717,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-021_2023-06-07/sub-021_painuncertainty_calibration_2023-06-07_10h49.11.118_ramp_ratings.csv",
+      "sha256": "9af4a74dc07951e83be8de49671f33312ec8d22ea6f437f057e5966d0366bdeb",
+      "bytes": 901,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_PainUncertainty_2023-06-12_17h12.38.776.csv",
+      "sha256": "8dffbafa248cb919e57fe53377e6625fc2afb122cb3fe494bb4ac6650064a1ca",
+      "bytes": 66405,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_PainUncertainty_2023-06-12_17h12.38.776.gsheet",
+      "sha256": "a9de313f39352c72a18699787f5ae85de6fb534ebedcd78b8078b1db8c50d7ec",
+      "bytes": 177,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_PainUncertainty_2023-06-12_17h12.38.776.log",
+      "sha256": "461218e312dc2cd5d0a0df21bfbe4fdbbb33d2782f34037f94d324f99b101a87",
+      "bytes": 2551493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890.csv",
+      "sha256": "8249fcbe3fd87e6c5a482d0ff1e175737440f9ddd0bd84886ac6bef4e7d96df2",
+      "bytes": 12934,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890.log",
+      "sha256": "52cf0f28642fce216c58318473c18102d1455d3c815fe1f572350c4f9c1380b4",
+      "bytes": 1785499,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890.psydat",
+      "sha256": "8ee12aecf8780a4cc1006c48522b2b5926a58208f8cc5173f7e2e3fb19aa975d",
+      "bytes": 32056,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890_fitted_values.csv",
+      "sha256": "f2637677413242ee80834b528bea1607389eca93a28f3e37ef7bb68307c6494e",
+      "bytes": 1573,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890_fitted_values.png",
+      "sha256": "824328dabcf09363030f331addb27dc402858275818296dbe61c6afebe29e97d",
+      "bytes": 46386,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-022_2023-06-12/sub-022_painuncertainty_calibration_2023-06-12_16h53.35.890_ramp_ratings.csv",
+      "sha256": "9f406f8ce3027299b83db689616449c253a3212bc5ceb07d5a4d962dc86e6898",
+      "bytes": 458,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_PainUncertainty_2023-06-12_18h05.40.105.csv",
+      "sha256": "38ef4c3eb816f0c52466b7d0e0f59b1fc70278bd421ebfe1c8abf1aff9a10da4",
+      "bytes": 78044,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_PainUncertainty_2023-06-12_18h05.40.105.log",
+      "sha256": "576d08f1ba672941e60494d9b7f2f5cb1ac22c54f9733e85fc2e6fac8503127e",
+      "bytes": 2690454,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_PainUncertainty_2023-06-12_18h05.40.105.psydat",
+      "sha256": "adf62ed83ac743680e9cf7c60598a3be97962f0841e2d4352daa6d0258c2d7d6",
+      "bytes": 111451,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458.csv",
+      "sha256": "540243cf3904cced9234a2b365ae43e23a0da932a0473bc43701e24722dd89d7",
+      "bytes": 14523,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458.log",
+      "sha256": "af237409d253cff8fee7d701af825021633fa6dd9857cf612934e27cbd3890a4",
+      "bytes": 894535,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458.psydat",
+      "sha256": "59e0f2ada2932a405414655fb00076c7353d3e9e23139b273a3c9c2990af9a88",
+      "bytes": 34272,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458_fitted_values.csv",
+      "sha256": "4c83d99540a3df8552baaf6251a937d98aee680101e818f014f7b626ffe66c1d",
+      "bytes": 1663,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458_fitted_values.png",
+      "sha256": "081df4a28cef69d6ebd72318d9145f984e64553f0fa76bc4da9d0a1d368935af",
+      "bytes": 55189,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-023_2023-06-12/sub-023_painuncertainty_calibration_2023-06-12_17h52.20.458_ramp_ratings.csv",
+      "sha256": "c7efbbe97aef0771a02f2438d14d9a0978e27ee6001e89970264ec09db70694d",
+      "bytes": 570,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_PainUncertainty_2023-06-14_10h24.38.537.csv",
+      "sha256": "aa24a8dd267bd38fc175a71faad4fc171394acdd3b56d42a224769bbde73c462",
+      "bytes": 79759,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_PainUncertainty_2023-06-14_10h24.38.537.log",
+      "sha256": "acdc05960cb379434dd374b98c3cf39f1c143c06ae9d4c060d3d9f572f4c36e8",
+      "bytes": 4688194,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_PainUncertainty_2023-06-14_10h24.38.537.psydat",
+      "sha256": "708696ec8e671c26ae5895b006fe6f3e64839fc1e38be865ae6919330ea38b9d",
+      "bytes": 111457,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772.csv",
+      "sha256": "1d7a4fe05b427993c81234e6ffcc3aa42578140641794d3d70bcd5fa67d049cc",
+      "bytes": 16472,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772.log",
+      "sha256": "ddca0d49f82e326a805e45efb014a02c1ef343ad82f986a9edf515f0d57efb6b",
+      "bytes": 2096953,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772.psydat",
+      "sha256": "f2dc7f7d05d24336e03880df9c4ac00e86dd9817c39813448d5f35880a3c7a01",
+      "bytes": 36356,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772_fitted_values.csv",
+      "sha256": "14a488ffd95bf4db6c0b0b07aee59051924c6060b41a109835c91222894527b7",
+      "bytes": 1868,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772_fitted_values.png",
+      "sha256": "f92f64f4eda1ae1c8ebb056ca4a0fd3cedf89d166666f1a20e7e0bce596acf75",
+      "bytes": 56084,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-024_2023-06-14/sub-024_painuncertainty_calibration_2023-06-14_09h59.59.772_ramp_ratings.csv",
+      "sha256": "2c15bc65a56f3870209c4af33b95e8c8d176ffdf25f4e8181aa43cf050d4a528",
+      "bytes": 663,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_PainUncertainty_2023-06-14_12h17.40.202.csv",
+      "sha256": "bc75a12dcbc154f6edaab54a2e4c7c786fe0c4a6d5871e76211756cf0dd20347",
+      "bytes": 79424,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_PainUncertainty_2023-06-14_12h17.40.202.log",
+      "sha256": "fcea4b8b9d8d5599efe937419de46d44c4ca0a79c778435f000190c62f1b0f85",
+      "bytes": 5361521,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_PainUncertainty_2023-06-14_12h17.40.202.psydat",
+      "sha256": "5f6f2b9d2fc0eece37bd5b3d2c031d3883faea375f63d0b8de4502a1ee6c0c35",
+      "bytes": 111436,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551.csv",
+      "sha256": "8d357477e9124cb04c72d17fd52c2a0e278d95696c82d2942863df8ba1cf4b93",
+      "bytes": 13086,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551.log",
+      "sha256": "bb1ea706b5b25cab955b140b83f2ff588e8d0c348094a82c158032aec9c39395",
+      "bytes": 1505184,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551.psydat",
+      "sha256": "9564db6d5e52425c61e44356e976cc2a1cac613ca9daa9edb85287603764ea3b",
+      "bytes": 32039,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551_fitted_values.csv",
+      "sha256": "509582e4a41b80a94e3f4422550aeb4804936a733ffeaf2bc16a7532a784ee0a",
+      "bytes": 1513,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551_fitted_values.png",
+      "sha256": "60423c7dbae089672a89f9713d714e9364a3b69a69b1000aad5307e70af79fc5",
+      "bytes": 51945,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-025_2023-06-14/sub-025_painuncertainty_calibration_2023-06-14_11h54.21.551_ramp_ratings.csv",
+      "sha256": "ab240fadc4508be5d4dfb1c152d05da1aba8053c557430481059c762a576f6d5",
+      "bytes": 461,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_PainUncertainty_2023-06-19_16h34.09.091.csv",
+      "sha256": "1f64df9413dd93d0a44288a8b6e74e83f0ac496a377e12e3b5d8b470471712ed",
+      "bytes": 79486,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_PainUncertainty_2023-06-19_16h34.09.091.log",
+      "sha256": "72c232768e7fe98530cde71b5316b11c17f3d254aa11a2f764404cd34bcce118",
+      "bytes": 3494769,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_PainUncertainty_2023-06-19_16h34.09.091.psydat",
+      "sha256": "8054f3ec292fc545f2057d20dbda7106455d71b56583d21faf5b2e1036a59298",
+      "bytes": 111469,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716.csv",
+      "sha256": "10c39393d48e5b5eb121afb5bbfa770ddd52a8efdea71ab9b36870f35dab4b9c",
+      "bytes": 12036,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716.log",
+      "sha256": "7b062fd4b3ae34bfb78044902392663dda6e31b84c8ba52ae1de059a06e687cd",
+      "bytes": 916893,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716.psydat",
+      "sha256": "a37ccf0209e1ed8e5fadeed97e403e884e9b0c7115ba9f3397dda198807a47cc",
+      "bytes": 31134,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716_fitted_values.csv",
+      "sha256": "13f99527c5fc37f866e92296fb8de944ab9aced678859c72570131c99853957d",
+      "bytes": 1593,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716_fitted_values.png",
+      "sha256": "049535b3aa80131d121c16b4596b28876ffdbf7fa6a5abf7a44b55a5ffd7d89e",
+      "bytes": 51403,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-026_2023-06-19/sub-026_painuncertainty_calibration_2023-06-19_16h18.02.716_ramp_ratings.csv",
+      "sha256": "21fff039b6caca13ddf3d1c87634f4d19e81371c4268d8b91c9e2ad96422be1a",
+      "bytes": 419,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_PainUncertainty_2023-06-19_17h39.48.868.csv",
+      "sha256": "e7b64d966073d81e1af5c618512bdac824590963a29a374dc21f9c619afa3e20",
+      "bytes": 74485,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_PainUncertainty_2023-06-19_17h39.48.868.log",
+      "sha256": "21f8b8252d85de2ceb8289bc8ed49f30337b003674f13668a10a42956997200f",
+      "bytes": 3031489,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_PainUncertainty_2023-06-19_17h39.48.868.psydat",
+      "sha256": "a0fd873abe369fafaf175f85f34129a1c61d4e18274e19f1b438c16f01f478fa",
+      "bytes": 111501,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617.csv",
+      "sha256": "3057c5e104206a9224b5236157adb2fa3789058aa36fd6c2fa1775df32614f55",
+      "bytes": 10584,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617.log",
+      "sha256": "fd1c876b114ef8171ada2cb5b1162577be3789ef6d5caac18b21fff6ebeb356e",
+      "bytes": 1274868,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617.psydat",
+      "sha256": "0884a93fe98d9355df51e4d2b89fc9f5b73488ab34533b83ef53e75bd6892fe4",
+      "bytes": 29313,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617_fitted_values.csv",
+      "sha256": "04f5adb4aa8ef621b34af8bb5939517949550ebb63a11301cf120067995ba53e",
+      "bytes": 1219,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617_fitted_values.png",
+      "sha256": "dcdf7619459b4ae3190e47486dadc4b60f458c10c16051a46ab8662de3464e62",
+      "bytes": 58047,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-027_2023-06-19/sub-027_painuncertainty_calibration_2023-06-19_17h16.48.617_ramp_ratings.csv",
+      "sha256": "bcf6cd804dcc0b5fc1c5ca44dd05fd43ce240aeed0461ba8bd72080a8a9e53f2",
+      "bytes": 330,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_PainUncertainty_2023-06-21_08h34.44.889.csv",
+      "sha256": "5bff0de2d1488358e3d8a8303d1c9b3171ffb309721649c05b437d0816cc6efa",
+      "bytes": 78668,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_PainUncertainty_2023-06-21_08h34.44.889.log",
+      "sha256": "15f9cfd169e2b6e6161054461dff6131bb4c1ce286c1a34bea0d66f151b93b4f",
+      "bytes": 3834728,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_PainUncertainty_2023-06-21_08h34.44.889.psydat",
+      "sha256": "9cb2be67de19c5e5fa7f0bc80ecff7405bf67146ee0b90ce2c1c56f69f64b1e8",
+      "bytes": 111493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817.csv",
+      "sha256": "61cb7c8f3980c7d699681a7a41b84ad068937f00836c2968659ab77351b3fc88",
+      "bytes": 19006,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817.log",
+      "sha256": "199cd0cd415574afb4c5599073cb03fdc5fbeed298ca6cb73d1953f1218f17d7",
+      "bytes": 2213138,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817.psydat",
+      "sha256": "ae7d59b5241e2f4ce54891960cfe11434d4ac1d7eaf45d5f3044576e6be3e038",
+      "bytes": 40142,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817_fitted_values.csv",
+      "sha256": "90b6ebd67e4d06165837c1991612e6aca0d3dafec5909c4a553d683b17e248aa",
+      "bytes": 1810,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817_fitted_values.png",
+      "sha256": "ae7b8c2dedeef76046c1a0171df2c83d7f391b1515dd65747c7a2dffc48c56ef",
+      "bytes": 56678,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-028_2023-06-21/sub-028_painuncertainty_calibration_2023-06-21_08h06.51.817_ramp_ratings.csv",
+      "sha256": "14f26cd315cfe3c5ab915499fa32054e8223fc086ef62050483f095461c202f2",
+      "bytes": 875,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_PainUncertainty_2023-06-26_16h57.35.017.csv",
+      "sha256": "e6a19ecb30f17b8d27a08bb3ac23467ef6563d3bca7a302c61b2afcd10c10c87",
+      "bytes": 78180,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_PainUncertainty_2023-06-26_16h57.35.017.log",
+      "sha256": "0fb4603542632d33b3d0b61aae6a090d4ccf12823cacf1f2edaf2803fd14473b",
+      "bytes": 4645659,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_PainUncertainty_2023-06-26_16h57.35.017.psydat",
+      "sha256": "2685596c7c067700de761863bcd10d1fc14f70ebbb038613f7f0a949e1551785",
+      "bytes": 111484,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381.csv",
+      "sha256": "dbccc35de75a82fcb10c4852316e52a23bf5013b6bbfe073294333a63563f0a4",
+      "bytes": 12838,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381.log",
+      "sha256": "194b3a4f69bf8c5029c2c20a2aab51656056816f56d0154fa5887ab8a148ee67",
+      "bytes": 1782471,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381.psydat",
+      "sha256": "0667f0b44ba099cbb6b433d469ba61852d33f6228c33effe72fd5669c6e1b0aa",
+      "bytes": 32930,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381_fitted_values.csv",
+      "sha256": "62c1f5d5e77d0e2300a30af18f5ef1008df01d5b668a32dbffdfd022f6ba1e05",
+      "bytes": 1661,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381_fitted_values.png",
+      "sha256": "9ef89df83b68d561458aaf01e70a7e2f0e31b49841b87acc10a4a54d6f1ef69d",
+      "bytes": 56477,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-029_2023-06-26/sub-029_painuncertainty_calibration_2023-06-26_16h37.05.381_ramp_ratings.csv",
+      "sha256": "b97ac57c93501f2e8176aa598148ed6684b87765e6ec1c9b025d7c7987ace597",
+      "bytes": 501,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_PainUncertainty_2023-06-28_08h09.20.572.csv",
+      "sha256": "8e45ae12bcb70b7cfe7fac1d2fc05bf736ece6f9bd57a8a4a226ea17ac337760",
+      "bytes": 78766,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_PainUncertainty_2023-06-28_08h09.20.572.log",
+      "sha256": "a755811290ce4fb369d8a35601ee969834600a259625d174de1e8b945ed00052",
+      "bytes": 3829094,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_PainUncertainty_2023-06-28_08h09.20.572.psydat",
+      "sha256": "c2bad444760c84ad842ece725165df906a739794cbc8e17bb19bf7dea758fcfe",
+      "bytes": 111533,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926.csv",
+      "sha256": "9a071a6fb418b04c80d6a3c959fa08f8961698dd2e70944dac2a96f03e06326b",
+      "bytes": 13314,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926.log",
+      "sha256": "c41f943e91d51cb1827fb836ff2ed12c791d14d6dd2ecfeb6e88ee689aae99ee",
+      "bytes": 1754067,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926.psydat",
+      "sha256": "06b6698e9f83c8cab990bc9c02b3444824829125f7f6cd066c63c230078fa349",
+      "bytes": 32930,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926_fitted_values.csv",
+      "sha256": "f00838a7828eb5129bbc334c581eb71ab80f8a05b2b1e120fe59db397ff25a66",
+      "bytes": 1637,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926_fitted_values.png",
+      "sha256": "da78560f17a5d1a5e736986c79baadbec2ebf4159b05e6ff124493698515adc2",
+      "bytes": 58156,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-030_2023-06-28/sub-030_painuncertainty_calibration_2023-06-28_07h47.27.926_ramp_ratings.csv",
+      "sha256": "e3fa5f3dd8505dc57eb13df90f308faa55555803c0da325f5f89dbc0d5378376",
+      "bytes": 504,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_PainUncertainty_2023-06-28_10h40.01.516.csv",
+      "sha256": "868a4be54dc49b662f2171fec689e74f036decc4fdc7f142329b932015390f04",
+      "bytes": 79041,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_PainUncertainty_2023-06-28_10h40.01.516.log",
+      "sha256": "2a86928fa8ed60256b758d8e1841e9f90147f50581dd279e044dced5cae3a1d1",
+      "bytes": 4811563,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_PainUncertainty_2023-06-28_10h40.01.516.psydat",
+      "sha256": "59cd5868926423486dc4d3c221c29581ab9386463028b67b980a25beffb23b3a",
+      "bytes": 111457,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580.csv",
+      "sha256": "867304e854723cb79a1e410647fbad1b8b5adf237f81072f97157985d23a398a",
+      "bytes": 17556,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580.log",
+      "sha256": "688ddf6aa78aec4b4e7e8bac3c68e4877215c08ec601835ab8ff3a7d9dfa288e",
+      "bytes": 2163525,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580.psydat",
+      "sha256": "8b179ffd66944f4cd529b8fcb5d12d3a80ad961cc4d654b0e8adfd924b21631a",
+      "bytes": 37691,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580_fitted_values.csv",
+      "sha256": "b3685fc42984cb353ab8b68b9dd61bba3c461095b3454f79fd5955f285d4dfaf",
+      "bytes": 1803,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580_fitted_values.png",
+      "sha256": "e8e3f6794d65cc7e2426dafbaee9c911f2408fe1272ef3264302109410ee5575",
+      "bytes": 58384,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-031_2023-06-28/sub-031_painuncertainty_calibration_2023-06-28_10h09.44.580_ramp_ratings.csv",
+      "sha256": "561ee3885b4b0c7f1cfdf2e15fc0e9fc5ccf05332af586c98a61b3c590c9a95f",
+      "bytes": 729,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_PainUncertainty_2023-06-28_17h57.20.465.csv",
+      "sha256": "7c7e2d693120641d0b9c0b8e9aa6725e7ff8f31173dc3fa2c966d600581202c2",
+      "bytes": 79570,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_PainUncertainty_2023-06-28_17h57.20.465.log",
+      "sha256": "2f39a2881a06cfc13f72f75af582c119f6086803e2c1f8c7dd7dae81e68f2cdf",
+      "bytes": 3009333,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_PainUncertainty_2023-06-28_17h57.20.465.psydat",
+      "sha256": "257596a61a58d2adb4dc9723ebaa0875e05bb8affe5ba8ba19f86b99fb866698",
+      "bytes": 111485,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596.csv",
+      "sha256": "02847723eff5daec651c4e7cb6dd4b035b275168c47692910809dac89a51287f",
+      "bytes": 15638,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596.log",
+      "sha256": "043f91268d7efcc9f9774500ae15344b2df5ceb509785dcf5d09c9ef10f2f60d",
+      "bytes": 1054292,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596.psydat",
+      "sha256": "525e82720915b08496a9719da58c9260fd6f6e5402e4322e0461f2b42b5d41fa",
+      "bytes": 35191,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596_fitted_values.csv",
+      "sha256": "f759a5b73b51d9ed906228c4a2c91d019bbce9a8ea41dce34f1448ea8e076d53",
+      "bytes": 1873,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596_fitted_values.png",
+      "sha256": "4b688687dfae7faa444ccca33386d01a8200c600b284b6578fbc121ad467260e",
+      "bytes": 58999,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-032_2023-06-28/sub-032_painuncertainty_calibration_2023-06-28_17h41.59.596_ramp_ratings.csv",
+      "sha256": "7c18b1aa4b9b34c72a6f45bc5b6bd61d2a7a3613c4efc72201bae83f5208476d",
+      "bytes": 617,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_PainUncertainty_2023-06-29_18h00.28.676.csv",
+      "sha256": "6137d7d7be5c377fc20bcd2b261bb42de05ca3e56e58b35d98034d5955fc25c2",
+      "bytes": 78152,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_PainUncertainty_2023-06-29_18h00.28.676.log",
+      "sha256": "5b713855dd92a575ae76a411d60abc1190a7ee662c72764dd535879e3b07d168",
+      "bytes": 2514224,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_PainUncertainty_2023-06-29_18h00.28.676.psydat",
+      "sha256": "7c5f8287b292af2e2f308ef9b11a1f6d2af389e5c351fb55076918a03310a8a5",
+      "bytes": 111479,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714.csv",
+      "sha256": "498c5e53406fb8938f78ace67659f545ee188f456d8baba20c0e0761c1f4f8bc",
+      "bytes": 19446,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714.log",
+      "sha256": "3e4fce94fe276047c5e0a1181fd22f1d343ec406b281b81a3427c7389049f5d0",
+      "bytes": 1525822,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714.psydat",
+      "sha256": "fbc33d759dee5db146369d6a8fc14259376a60e2d2cc2e128a58cd4027802a08",
+      "bytes": 41946,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714_fitted_values.csv",
+      "sha256": "fd26cf06684f6ba25f1861fb28a3ef5645bc095025197636a0230d78fe4d891f",
+      "bytes": 2347,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714_fitted_values.png",
+      "sha256": "a04472ec5c79a53399a252833b9deedc8caa9f02634c5894eb90b7025f2e0821",
+      "bytes": 57258,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-033_2023-06-29/sub-033_painuncertainty_calibration_2023-06-29_17h30.11.714_ramp_ratings.csv",
+      "sha256": "d01728b8c404ab118e1e05b861e303142e95efa059d8b8316ed7a1b03c35d3b5",
+      "bytes": 988,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_PainUncertainty_2023-06-29_18h52.40.751.csv",
+      "sha256": "03aa429d09ea74fb315b73d58a45475262c9354ae7f96de54445eada8b08109a",
+      "bytes": 76501,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_PainUncertainty_2023-06-29_18h52.40.751.log",
+      "sha256": "bb7be508a9023bb72bea4abe96e585a6b42ada33c31207358f6c52f1b6855ec5",
+      "bytes": 3700875,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_PainUncertainty_2023-06-29_18h52.40.751.psydat",
+      "sha256": "39d3602634836ce4c0602db8a01b0893ecc44bb281336e1ab1ecaef65720489f",
+      "bytes": 111416,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196.csv",
+      "sha256": "3a39e7425f885c9ddc2eed4a21cf739d8c15c3b1feb8767e1609a88964f7007f",
+      "bytes": 15066,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196.log",
+      "sha256": "21a85d0b4d8f58cc00963eb19bcde0483ebed969ee23a59f3543d8b266949f16",
+      "bytes": 2441636,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196.psydat",
+      "sha256": "f034a9d0f5c99fb2ccd3880e4823ffabce05eba085599bcb35c565fc9f8139c8",
+      "bytes": 36345,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196_fitted_values.csv",
+      "sha256": "af29ed887e1628429c42098d048837481fe8ae8a9b73c839ea903d3d1af6e2cc",
+      "bytes": 1875,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196_fitted_values.png",
+      "sha256": "7220ec592bd8338514e06460ebe9f25d056861157e3ef270994743560d683346",
+      "bytes": 55852,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-034_2023-06-29/sub-034_painuncertainty_calibration_2023-06-29_18h32.05.196_ramp_ratings.csv",
+      "sha256": "639b0fa86ed18d37d9bfd63cbe62a0c1d1b614deefeeb9693f1b90f9d4da9bfb",
+      "bytes": 659,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_PainUncertainty_2023-07-03_16h51.55.962.csv",
+      "sha256": "944a48f65f45c90109e30b461a15e6392106060cd37b42fbca05f79d2304a41f",
+      "bytes": 80313,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_PainUncertainty_2023-07-03_16h51.55.962.log",
+      "sha256": "d0f78d70722259687b64cfb5269184f25219a87444964e183f54f5ba5344027d",
+      "bytes": 3718872,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_PainUncertainty_2023-07-03_16h51.55.962.psydat",
+      "sha256": "9e0b6f96481c5d65ad7920e24b27b7b2cd902bd6e350b47f7f09d7d5bcdb8310",
+      "bytes": 111511,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873.csv",
+      "sha256": "03c06222760c7ad6382998c5eec9b20f5606eadf9f7ace8699c4d3203469865c",
+      "bytes": 11512,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873.log",
+      "sha256": "a4985122ce353c031251bcb58d4fb3e9feeaf7ee4e8c0fb62237ed036e0238e7",
+      "bytes": 1299686,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873.psydat",
+      "sha256": "cbdb25c1abfda58d45663f1c12b8e70fc1410f00625fca3f597621268a0f6bad",
+      "bytes": 30232,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873_fitted_values.csv",
+      "sha256": "d278f8fdd9d237c70df5abe24938fb70d2c63d25bae2caa7011bdbf511f7e588",
+      "bytes": 1451,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873_fitted_values.png",
+      "sha256": "b486913835c38b17836528195741ba02afc39586bd5339ded175d700f26438d8",
+      "bytes": 59528,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-035_2023-07-03/sub-035_painuncertainty_calibration_2023-07-03_16h42.19.873_ramp_ratings.csv",
+      "sha256": "e611652e9da575e71bd2b705dfacd509b9c7c5dfee16be7c6c0bd96589728912",
+      "bytes": 378,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_PainUncertainty_2023-07-05_10h26.51.729.csv",
+      "sha256": "c18fcc2eaaf6313f6470880221281e3ba8374ef6470d9c330ea46ee8923f9c05",
+      "bytes": 66808,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_PainUncertainty_2023-07-05_10h26.51.729.log",
+      "sha256": "c070fa1a988fd840924e7b0704ace8549a9630d92c0bdba1b154ca0ed039f47c",
+      "bytes": 1262226,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_PainUncertainty_2023-07-05_10h26.51.729.psydat",
+      "sha256": "54cc16f8fe94f04b91e729f27861d395dd910901366c133ef222199bf51cdf42",
+      "bytes": 34920,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715.csv",
+      "sha256": "8841254135800db3a7b48200997253ce13a1fb822f043c9a8d6b7f50aa6c13f1",
+      "bytes": 34143,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715.log",
+      "sha256": "fccbd9271073392ff96528dade99c0e5808f9a4a2e70069a21a750041adad2f8",
+      "bytes": 2399547,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715.psydat",
+      "sha256": "a5a54d787a81bed803af628f30019bdf7de292f899c6a29b8159f511c24ac4ba",
+      "bytes": 57443,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715_fitted_values.csv",
+      "sha256": "68aaffc1794cd83fd94e1323d8b304ec83d1b5ec7f6fd44151b1cc2ce251e238",
+      "bytes": 3027,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715_fitted_values.png",
+      "sha256": "ea2150968e259d71902f7fcddb19ef31a4aecd65d04621b302d8499f969dce3d",
+      "bytes": 52857,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-036_2023-07-05/sub-036_painuncertainty_calibration_2023-07-05_10h04.57.715_ramp_ratings.csv",
+      "sha256": "14b648a3b43274c180b096c15d5c401c8abe069f0b53d34e41175d3a51c297a1",
+      "bytes": 1786,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_PainUncertainty_2023-07-05_13h01.17.923.csv",
+      "sha256": "2a04615eb4de226dea6aabe0168e921d59a41a5d7c11ac5e8ded4cfed7e3b0c6",
+      "bytes": 78641,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_PainUncertainty_2023-07-05_13h01.17.923.log",
+      "sha256": "cd62de54bb88f4d90bc6b89c99edd5f9ef7221cff09c1fdef03ef987aee34374",
+      "bytes": 6352139,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_PainUncertainty_2023-07-05_13h01.17.923.psydat",
+      "sha256": "efc6db5ca221e9d5c1d314363d316b92f3c4b4fe003c224fc1520f8e5190c450",
+      "bytes": 111416,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334.csv",
+      "sha256": "d36abe947aef0166a196e6406a58a7a21e63858a69938dfec468b00e30563aef",
+      "bytes": 18854,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334.log",
+      "sha256": "08e0b8396a32758666746643882421ef50af81fe5a8d1d1cf5ce0ac34775fcf7",
+      "bytes": 4447541,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334.psydat",
+      "sha256": "41184be6df35f91586f61993694b7727ceae1a728c64b0b864f10496e658781b",
+      "bytes": 39550,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334_fitted_values.csv",
+      "sha256": "bf62874dcd39d84b4030b60c07ba8c230071b6bcfa1a3057ea6e39526b9f40d8",
+      "bytes": 2206,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334_fitted_values.png",
+      "sha256": "05394f422f9ff49f7c6b6746739fe7b7e8c7b283dc546f2ab01b13640cae7f82",
+      "bytes": 57371,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-037_2023-07-05/sub-037_painuncertainty_calibration_2023-07-05_12h20.44.334_ramp_ratings.csv",
+      "sha256": "d4c997c57a35fd583c916983335bf6c49477e63f889c441ee7ece2055ba8c426",
+      "bytes": 858,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_PainUncertainty_2023-07-19_10h56.33.769.csv",
+      "sha256": "7aef61e1423580b2c9b89b1eaa515519fcbed74133c37830110d3ff1b9edf699",
+      "bytes": 79604,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_PainUncertainty_2023-07-19_10h56.33.769.log",
+      "sha256": "52749018b2ddc6b4aca1bc56667f0eff03b7d45a39529cf58e710f81084ee8c3",
+      "bytes": 2860799,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_PainUncertainty_2023-07-19_10h56.33.769.psydat",
+      "sha256": "61956f2983a49564e778de86dd5d5d3fd46ec1729a7e834e0d22e51dc0c6a172",
+      "bytes": 111493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262.csv",
+      "sha256": "fa5b722e115e4c24cc7abbadafbe1d2d7d7b8b63cb88400b802a1de037aaac8e",
+      "bytes": 17145,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262.log",
+      "sha256": "9aac44eeef2e3b07161fac7d1c62207c08180fd133b42e7a63ffa05659ad954b",
+      "bytes": 2037684,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262.psydat",
+      "sha256": "1e6616a1a6365fb753eeb27d107673f9fd8dcf26ae5858e8896bfa7cc147a102",
+      "bytes": 37200,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262_fitted_values.csv",
+      "sha256": "ba0f053676fc57d4e6c96280f232aef83f265aa1cccf5517861d7b7bdd825199",
+      "bytes": 2105,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262_fitted_values.png",
+      "sha256": "25cbee247d98efcd49f0dd319913b374d944b2fdaa6dec6566dbe2412320e453",
+      "bytes": 58799,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-038_2023-07-19/sub-038_painuncertainty_calibration_2023-07-19_10h35.45.262_ramp_ratings.csv",
+      "sha256": "1c9cc138fdef2364937ca2ccf9ed84ef3a7900ac6e7b8ba99f00d091aaffe021",
+      "bytes": 734,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_PainUncertainty_2023-08-14_16h58.18.871.csv",
+      "sha256": "20fa702b6adccb28e3e6f361c6aed13e8428f7cff9f1d8fdc873ca8de113a6a0",
+      "bytes": 78405,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_PainUncertainty_2023-08-14_16h58.18.871.log",
+      "sha256": "b20922cdd33d170145e310fca5258e40d218d7ed74fca1b56b3b77ed8a671e20",
+      "bytes": 3489050,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_PainUncertainty_2023-08-14_16h58.18.871.psydat",
+      "sha256": "63a313fe1152c8c47324e42b38ee0d4416a7b437f4b3c550801b7ec8ab6101ba",
+      "bytes": 111553,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713.csv",
+      "sha256": "3508b2529a83612050093eb8e663d2e9e7843fc6cddda1b93bc23294543eb93a",
+      "bytes": 15943,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713.log",
+      "sha256": "7bc4d28b6002d78db558504f715929fafdf96555023f6c8b76995e35306fb618",
+      "bytes": 1167682,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713.psydat",
+      "sha256": "115ddeba55166b3c82aac710587feff82ae1ce5d59a25b68fd536cfd491368e5",
+      "bytes": 36924,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713_fitted_values.csv",
+      "sha256": "9e786405ee1905863d992d2a1d05a42d20b8909dcaa9b68ba8e5ef476857658f",
+      "bytes": 1880,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713_fitted_values.png",
+      "sha256": "3b10f89f12f79cf8102019bea3fe3348bd0562014753920bd8144064bf565c1d",
+      "bytes": 58015,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-039_2023-08-14/sub-039_painuncertainty_calibration_2023-08-14_16h33.17.713_ramp_ratings.csv",
+      "sha256": "6eaf40abd50b4a53b0f318a7ee9ab367cabad39511e4b8f65485eb53cc8a700a",
+      "bytes": 686,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_PainUncertainty_2023-08-16_12h32.31.700.csv",
+      "sha256": "14e0fae021a40683af11e527da92b291eb5d91751618c155503966f391b7593a",
+      "bytes": 78763,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_PainUncertainty_2023-08-16_12h32.31.700.log",
+      "sha256": "809d6bb0cbad0360abcfe19324cbd4a7f6a661400941fd6e55996eaa1788d3a7",
+      "bytes": 3351596,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_PainUncertainty_2023-08-16_12h32.31.700.psydat",
+      "sha256": "f8fcb6b24870f5fc0ce7cf0e3146a3bf9d51e7589f88e1c1d0f014cec0538c8c",
+      "bytes": 111493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593.csv",
+      "sha256": "6793034a4cb216b6ab95853207d266002e19a385183152a1fbb55b3d0b3c8a59",
+      "bytes": 16684,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593.log",
+      "sha256": "939ef97d38bc2d6343ba1735047b6727df82640006f5872abc9f36337fe8cb6e",
+      "bytes": 1333543,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593.psydat",
+      "sha256": "59d88d86b288aa0ed9a8d11a4fa23b18cd9e814234ea81fcc2e22bfc834a9f0a",
+      "bytes": 38282,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593_fitted_values.csv",
+      "sha256": "f037b8e0750b838afe78e3492d3d6e14a115d95e69e1b790c1bdb7e9c53bf51f",
+      "bytes": 1900,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593_fitted_values.png",
+      "sha256": "2e580d4755d49265a002f0639a74dbb72d3160980fdb0ef716a371f5f3d16bff",
+      "bytes": 52867,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-040_2023-08-16/sub-040_painuncertainty_calibration_2023-08-16_12h05.54.593_ramp_ratings.csv",
+      "sha256": "f9ddff67fd2f88bb9b5f0fadfed05e59aa7e4f6ca65f5862a9c458f3dbec4946",
+      "bytes": 791,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_PainUncertainty_2023-08-16_14h46.54.382.csv",
+      "sha256": "f06084e95812c9a037bc8ed03ec088e4c5c145855af50f896218199ecc58b61c",
+      "bytes": 75312,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_PainUncertainty_2023-08-16_14h46.54.382.log",
+      "sha256": "69deaf4ba08fef31c762452aa242ddeaf79ed4a40ab44ba912812d49696d24d6",
+      "bytes": 3087857,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_PainUncertainty_2023-08-16_14h46.54.382.psydat",
+      "sha256": "06d1f0b33ba23e5193be9e6583473c4d6be193101e05b8d503ca051bf6a4ce41",
+      "bytes": 111567,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558.csv",
+      "sha256": "038a01378befc62a1ca21c0a890e84a52ce03af2619780d53e8b43d061531454",
+      "bytes": 11711,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558.log",
+      "sha256": "b71b85f4bffa0795298594803ba8074dded3c3c117a0c189c8d2629dccfa77ce",
+      "bytes": 1200237,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558.psydat",
+      "sha256": "c084fab1c4c6a8fe5601f99088707f0ccee062f36576c5045b76df50b437cfb8",
+      "bytes": 30669,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558_fitted_values.csv",
+      "sha256": "9b5023559a8b337447fbf4d28d3024c08d1c73467aa1b98d5b45cdb93f6b70b7",
+      "bytes": 1625,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558_fitted_values.png",
+      "sha256": "bc0e735255c057aa374c7669014c9f6530eb64b27e5275315aa2e575c6529357",
+      "bytes": 52910,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-041_2023-08-16/sub-041_painuncertainty_calibration_2023-08-16_14h12.50.558_ramp_ratings.csv",
+      "sha256": "6d47cdcd2d9e5da37a8027b3d9269d6c1d41df97dd1ab0fc4cd54dcdec12a730",
+      "bytes": 400,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_PainUncertainty_2023-08-21_16h48.05.711.csv",
+      "sha256": "7dfea5023c859f2dd20ae7466d6ce59c77e98e99abe4a4ffdd137180e0e41f25",
+      "bytes": 77468,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_PainUncertainty_2023-08-21_16h48.05.711.log",
+      "sha256": "b175e4a2899fd3e19d8be4ad09a9051d2959db01646a564ee64162afcfbbe1cf",
+      "bytes": 3537941,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_PainUncertainty_2023-08-21_16h48.05.711.psydat",
+      "sha256": "a1b131ec5e7fb31fc086bf24fd316c4b140c834c8c382608ac61ad5007bd31d6",
+      "bytes": 111492,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731.csv",
+      "sha256": "e33678e2c120ad21736ef0c6f8cccb5d58eb2f1244f9290ceaeb5f67e9d56bc7",
+      "bytes": 11917,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731.log",
+      "sha256": "57a10787bfe0da8a332736fdd9b5759266991a994c7a9559d0a0a267fde9b7d4",
+      "bytes": 717869,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731.psydat",
+      "sha256": "f6a2a7bdf02817bc1528f6433993791b0a572c2ab153c30cac1b82daec52542b",
+      "bytes": 31588,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731_fitted_values.csv",
+      "sha256": "855b092897ede71dc5cb00262cf2fe52aececfb25233f44316c33b6a14b9da90",
+      "bytes": 1430,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731_fitted_values.png",
+      "sha256": "1e18c2a4034fc1557b490509d1c7d81ad9e2158e3fdcfdae64573a02a8ae85c7",
+      "bytes": 56819,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-042_2023-08-21/sub-042_painuncertainty_calibration_2023-08-21_16h31.30.731_ramp_ratings.csv",
+      "sha256": "30d91ebaac15a64ca60ab92a7e04b315a902c59558146b9657e0db2b8cdb9f70",
+      "bytes": 439,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_PainUncertainty_2023-08-23_08h31.49.615.csv",
+      "sha256": "5f6be44c1d5de9c6d4c95c63e33dddb23fe8a1da444ce7c678d2222bbe7be5da",
+      "bytes": 80104,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_PainUncertainty_2023-08-23_08h31.49.615.log",
+      "sha256": "b3888180295edf596712fe98dddc702d117a5285069aab547b4bb665d210da12",
+      "bytes": 3194439,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_PainUncertainty_2023-08-23_08h31.49.615.psydat",
+      "sha256": "5602351b72640313a72c304d896dcf56a2161e295e6469e4750a7cbee05a7219",
+      "bytes": 111473,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936.csv",
+      "sha256": "502df77153815ff7290dbe7c92d5d230fa6db544b8ca0ea8c49ac627e32227f6",
+      "bytes": 31256,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936.log",
+      "sha256": "5e839b6fb4a3e6569cee8c0c06b70f7c4576b4e8381e1600c5322185119beb9e",
+      "bytes": 1970844,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936.psydat",
+      "sha256": "b25a8db56d14fd38c6e7249e03636691d302c3c4a42418dfd624c5d1882bc892",
+      "bytes": 54150,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936_fitted_values.csv",
+      "sha256": "627602fb32cb67931be7398c5ca5020fed793f3d5d1b860e14f1975fd1733050",
+      "bytes": 3426,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936_fitted_values.png",
+      "sha256": "698b3c481e6707f04a83707d7338a5453b39b1a529b1a08279b65510a7871bb8",
+      "bytes": 60222,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-043_2023-08-23/sub-043_painuncertainty_calibration_2023-08-23_08h08.13.936_ramp_ratings.csv",
+      "sha256": "7c135688b1b3c681768985d962e62de0a39671709e43ad409412775a8c7f1f73",
+      "bytes": 1624,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_PainUncertainty_2023-08-24_15h23.12.081.csv",
+      "sha256": "df17492f96dd837bb937f87d671049053fd523a3803341fd62b85f7c5b3abc4d",
+      "bytes": 80067,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_PainUncertainty_2023-08-24_15h23.12.081.log",
+      "sha256": "f7314d73981d4a55b8ad0ceb94c61290514a273effacc6bbf6503dc43e93415f",
+      "bytes": 3325683,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_PainUncertainty_2023-08-24_15h23.12.081.psydat",
+      "sha256": "8224ab0b0c6cf7c81db00d2eac9b4c54f4c11f6c079d56b4079cfddcd43e541a",
+      "bytes": 111540,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507.csv",
+      "sha256": "cd1f7d1c9c8867396a90207959c34e09b0dd81907afa6f50574928d592a87e39",
+      "bytes": 19889,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507.log",
+      "sha256": "af5ce6ff7c7dcca9fa50316a465fd63ad675f68b6fe0a97af512af323ad3b45e",
+      "bytes": 1688585,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507.psydat",
+      "sha256": "8b2a837ed2f3f3e56c6352258c89f68587e789d845516bbceea1e2ff86481221",
+      "bytes": 40616,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507_fitted_values.csv",
+      "sha256": "e08e88a0f277f6423e5db474b0982c6a8790717282ec683078986263e135dcf2",
+      "bytes": 1639,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507_fitted_values.png",
+      "sha256": "21d5700b2ec3d0f98410ccf1541d1067770b23d6f0fd7566977dba91a54cb775",
+      "bytes": 53345,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-044_2023-08-24/sub-044_painuncertainty_calibration_2023-08-24_14h55.33.507_ramp_ratings.csv",
+      "sha256": "086ff00c9a97e100228d88b3d28d8a5dbeb0bcbb40f85679abaa1a4f32bfca17",
+      "bytes": 892,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_PainUncertainty_2023-09-12_08h51.34.072.csv",
+      "sha256": "13a690290f674fccfa1f8067f74025523278fe536cf7c98f4d186a866eaecace",
+      "bytes": 78415,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_PainUncertainty_2023-09-12_08h51.34.072.log",
+      "sha256": "ed409a0a5ff1d1ea64f4a7915c6f8bd83a588d09992b3809a55afb4468319512",
+      "bytes": 3869228,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_PainUncertainty_2023-09-12_08h51.34.072.psydat",
+      "sha256": "de1e4838f189269e2ab5324c0b15fd55a067b0d3b4185ae80c13d58d211e767c",
+      "bytes": 111550,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991.csv",
+      "sha256": "d5d73515152eee147c9f2630fd3e740c948a4b893bcfcc5f44314e758f3abdd5",
+      "bytes": 15554,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991.log",
+      "sha256": "92d8f0edb4cb8372f61fcbbf0529c700271c2392c1f3f70f89418a18472a7219",
+      "bytes": 1351001,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991.psydat",
+      "sha256": "0cc8186e992c1181c853b6fc3c4c45a08efcbccd29a130184a341a396247e707",
+      "bytes": 35885,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991_fitted_values.csv",
+      "sha256": "60aa1343a3e9600c1bbee0596c316bc2cd9f30cdba13d5e66de3926a8714f3d2",
+      "bytes": 1774,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991_fitted_values.png",
+      "sha256": "1bbc0fc9997257500e4ea604a52e0c6b1c1aa473d7ac33be566378ec1425c907",
+      "bytes": 57921,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-045_2023-09-12/sub-045_painuncertainty_calibration_2023-09-12_08h34.26.991_ramp_ratings.csv",
+      "sha256": "3b8c460065570e575fd876a1e108d2f79bf9cda09c2c80874e9172b45681be99",
+      "bytes": 636,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_PainUncertainty_2023-09-12_10h18.23.595.csv",
+      "sha256": "eec4ae32f3762354e85b52831a6edcc191b1a833ea4072c15014b0b5f605e65f",
+      "bytes": 79738,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_PainUncertainty_2023-09-12_10h18.23.595.log",
+      "sha256": "a62ebe6effc086880ffc7a62d7b1701c101e1ad12514a3acf1936bc46626c3fc",
+      "bytes": 4480526,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_PainUncertainty_2023-09-12_10h18.23.595.psydat",
+      "sha256": "0b39cd3a5628f8009ff4a2b8845087ff4489baeca22510164ee7f8f515baa352",
+      "bytes": 111519,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811.csv",
+      "sha256": "488db58ee24c1e2491102c795e4cb71a54a88ddd311c8c21cc0dc2822463e28b",
+      "bytes": 21089,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811.log",
+      "sha256": "50f1660f6fea90722449f3be69dde13f8318c19d06a7126f9956d25f2e7dca84",
+      "bytes": 1820301,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811.psydat",
+      "sha256": "81d348ddad7eeee05e6b3a25bf4c5d3592c493490efc611d89ce84aeea8260de",
+      "bytes": 42259,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811_fitted_values.csv",
+      "sha256": "9de1ff598972e1c1cad9ed64bd4257e446d11f51f84e8f5650e6de43244bacaa",
+      "bytes": 2485,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811_fitted_values.png",
+      "sha256": "730d3aaa361d8ff2b3ea597dd45787d382b61f9f37b5ec7c5eed294adeef695e",
+      "bytes": 53010,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-046_2023-09-12/sub-046_painuncertainty_calibration_2023-09-12_09h45.12.811_ramp_ratings.csv",
+      "sha256": "3b11e2739e808eaaca7f39811db65223aafd10dc23e0ed745abc31d755110276",
+      "bytes": 1007,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_PainUncertainty_2023-09-12_16h24.27.654.csv",
+      "sha256": "89c72efc8fb9f03389abbcd6af18c49a95474378152124870440e4975c2fe78a",
+      "bytes": 79465,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_PainUncertainty_2023-09-12_16h24.27.654.log",
+      "sha256": "3dd0b87676ceb7d34566cc2ace030aad3bf4f9cb2ec144f2c39b68e38af24abd",
+      "bytes": 5416009,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_PainUncertainty_2023-09-12_16h24.27.654.psydat",
+      "sha256": "4ddf88c3100de97d193b92c769d75953700e1e100e26231a27906b5fab73e0a3",
+      "bytes": 111464,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151.csv",
+      "sha256": "e6e18e357cc38d7a998f7b9efbd348f0327b729bf79ac391a55d57da673ccc37",
+      "bytes": 14081,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151.log",
+      "sha256": "72894f5acad7856f7edd5e77137833714aa8051502111dd42c2ab56237acd9b3",
+      "bytes": 1847671,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151.psydat",
+      "sha256": "6d13096d2aefc19b91f9204f592719653d308fbcafc442bdd66cc7ba1044b77f",
+      "bytes": 33384,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151_fitted_values.csv",
+      "sha256": "ec24fadfdf97ddaa59a20d727171077610318caf4d5996dc8e0e7121cfdb3858",
+      "bytes": 1565,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151_fitted_values.png",
+      "sha256": "86cc4eaac1b80cae31972db6be6f26e20109926c2373b1c8d5a65e73131d2e36",
+      "bytes": 56483,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-047_2023-09-12/sub-047_painuncertainty_calibration_2023-09-12_15h59.40.151_ramp_ratings.csv",
+      "sha256": "41c862ba60a90603ff84ce2162584bc2886f8ad590f01a17750405575d1a81e8",
+      "bytes": 526,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_PainUncertainty_2023-09-14_09h28.21.562.csv",
+      "sha256": "a9b1980da0a0e8f772570d0a2c15d6fd7e76d21eb59fd0c79cae359f8eb0ba5f",
+      "bytes": 76947,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_PainUncertainty_2023-09-14_09h28.21.562.log",
+      "sha256": "82d08776cd560a558418dae49b565387d5acde3c054421695aa7e0050893de80",
+      "bytes": 4802778,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_PainUncertainty_2023-09-14_09h28.21.562.psydat",
+      "sha256": "c6fc90206ab6c069979382bd7dce1a67cbeaa9309ffa51547d6137546b01245f",
+      "bytes": 111485,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930.csv",
+      "sha256": "83be28fee732c394f59c90471ff399e397a8b5b17d781a9943ae50ef0b0ba613",
+      "bytes": 14841,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930.log",
+      "sha256": "a941d62788c474f0cbcc350f7a3acfee9f1af85f93b30c784fc9e53ef621f2b5",
+      "bytes": 1523151,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930.psydat",
+      "sha256": "f3df919c0f45cbcf9c2a96322af8fe6fd3b575e439b2fcf7cbdaca5dbec5a1f8",
+      "bytes": 35439,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930_fitted_values.csv",
+      "sha256": "faef06ab3221db9cc3688b44e2ecfa85033f1c94ab6d3d53c21a358a1a927f47",
+      "bytes": 1780,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930_fitted_values.png",
+      "sha256": "0292328a1559dfc2d8425c5247733a114494657a5b427c796713025676e0fd62",
+      "bytes": 56992,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-048_2023-09-14/sub-048_painuncertainty_calibration_2023-09-14_09h07.33.930_ramp_ratings.csv",
+      "sha256": "d901651577a2aa25a977ea3e81d5a99662e4516910fb9582c64b4e50ac938997",
+      "bytes": 617,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_PainUncertainty_2023-09-18_10h23.59.719.csv",
+      "sha256": "149e06b725197b18fc696ef88ef55db03e246b8bc9e5e03637dd10f8125f078b",
+      "bytes": 80182,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_PainUncertainty_2023-09-18_10h23.59.719.log",
+      "sha256": "07da1a7513d387e19c39fc842ddc6653e7e3d30caa19b401eb379c1bd5a3db1b",
+      "bytes": 3711548,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_PainUncertainty_2023-09-18_10h23.59.719.psydat",
+      "sha256": "46ae3199cf2018ffb52841c59ca392135a328060625e693ac6459d5789ee6c16",
+      "bytes": 111582,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000.csv",
+      "sha256": "12b8c556bceb4af1128ebba304c76e91685841436a6b4d467e24657a43769253",
+      "bytes": 14899,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000.log",
+      "sha256": "bae03b8a07d4097319655edc4a38bda8a8296086efeae8c823256e84930f3452",
+      "bytes": 1770650,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000.psydat",
+      "sha256": "6e2d3f0a7c9c7cbfb21b023b9680c6b2ef28122a69ee176715d3e9fb6d81d057",
+      "bytes": 34258,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000_fitted_values.csv",
+      "sha256": "aa363464fd0f8910978b6d68b1a5291cd04b8311aaf7f47cfcc3fdab6c5fa0ac",
+      "bytes": 1558,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000_fitted_values.png",
+      "sha256": "f3919936fd5f3d5a55f054387baa7ae473faf41a35b328c1128e56d68ea498e4",
+      "bytes": 52000,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-049_2023-09-18/sub-049_painuncertainty_calibration_2023-09-18_10h05.04.000_ramp_ratings.csv",
+      "sha256": "e6f239d247cb25aeb9263cde4e6221c62551ba359eab3e6d1d73330a1f9e4c31",
+      "bytes": 568,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_PainUncertainty_2023-09-20_13h50.47.440.csv",
+      "sha256": "3b47963147aa593b9623afc8df09ad361cba317a53aa87e43593fcf31afc8987",
+      "bytes": 80185,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_PainUncertainty_2023-09-20_13h50.47.440.log",
+      "sha256": "942f84503efa88190f81bd6e9ca566d62d429e15477afff06331207705a20259",
+      "bytes": 2761418,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_PainUncertainty_2023-09-20_13h50.47.440.psydat",
+      "sha256": "545477355ef0631769cdc29bce717f0166392fc3a406a78b3747c7c0071a21e0",
+      "bytes": 111577,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388.csv",
+      "sha256": "e83852eb37671deeeea7831be7a2be12140922e6c46a2d632c3c963bc3d39815",
+      "bytes": 12652,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388.log",
+      "sha256": "733f3ed35cf7cd442130f10bd5d5fc4b57c1f7351e15b931634bc025f657ffca",
+      "bytes": 823377,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388.psydat",
+      "sha256": "bf4426088473f9e0b7d6370fb0a029b74080c6b65f0c87d7a794016ce447bae2",
+      "bytes": 31602,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388_fitted_values.csv",
+      "sha256": "61048b27d36aff21a4631e803b37bbbb3a9b7f49b49b45b94640e2b0bc48a853",
+      "bytes": 1463,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388_fitted_values.png",
+      "sha256": "8203f5e996074bd2dd551406afcddefb12f3cbd06646e045f22d0c8c7e9fca70",
+      "bytes": 58961,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-050_2023-09-20/sub-050_painuncertainty_calibration_2023-09-20_13h38.44.388_ramp_ratings.csv",
+      "sha256": "3f86b1149a850a3f962b5b04595ba03e13ad28aca5917876b6a9efd17f64e3dd",
+      "bytes": 437,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_PainUncertainty_2023-09-20_16h28.56.961.csv",
+      "sha256": "ecac053ba26aad571448b8f3f4b1ab18327cb3604906d31f3276caec8f5de30b",
+      "bytes": 80003,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_PainUncertainty_2023-09-20_16h28.56.961.log",
+      "sha256": "dcfeedb97da968866e036c09f5571666ec3c849ff30dbe8da87426978ec7006c",
+      "bytes": 2988227,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_PainUncertainty_2023-09-20_16h28.56.961.psydat",
+      "sha256": "4958b4a34cc6816630559cbec270f5c7f02cb173f81456957e1b970be301a18f",
+      "bytes": 111567,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970.csv",
+      "sha256": "13dd3d51805e74a10f2be25c0fea0ee17ed056e634962bf7084f9887212ecccd",
+      "bytes": 15299,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970.log",
+      "sha256": "3a3e9fe6e81094be599a548a54c7d42d24d5e9a61a744370aaff4bd7274e0ad1",
+      "bytes": 1513869,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970.psydat",
+      "sha256": "1130e8bb22f4c5901ade2f8d77cdf920c759c78001cd3fd1fa58e095a452d6ff",
+      "bytes": 34737,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970_fitted_values.csv",
+      "sha256": "f00e86e7a3b4d8bdb54714fa72af6ecf12ecf88eddffda47ccefb85fd4d21d6c",
+      "bytes": 1860,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970_fitted_values.png",
+      "sha256": "c9829033bf0520713259830651a7fa1a136f273776179e289fcab29640887a59",
+      "bytes": 55808,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-051_2023-09-20/sub-051_painuncertainty_calibration_2023-09-20_16h10.34.970_ramp_ratings.csv",
+      "sha256": "e4ed4332513f0c99e9da987d79e25ad58a17b34d242462e5adb93bcd98ef047a",
+      "bytes": 594,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_PainUncertainty_2023-09-24_10h21.12.460.csv",
+      "sha256": "2d3b652ec020507177e3730273ea334e69fbe5dc17eee99e199446732d292013",
+      "bytes": 66114,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_PainUncertainty_2023-09-24_10h21.12.460.log",
+      "sha256": "d4d8c32290d3d0c96696785ef67b0881554c35c2e1787c912cb56a79cb00ccbe",
+      "bytes": 1751,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_PainUncertainty_2023-09-24_10h21.12.460.psydat",
+      "sha256": "79eb5973492bd3206fc1524c2fef3b7413bc83cbb669d07f4a3a7c54fce11220",
+      "bytes": 818,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917.csv",
+      "sha256": "fc401b095ca4722625ce53f2aca8cf33c89e7ced74a4160fbb46903d110e04b6",
+      "bytes": 11756,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917.log",
+      "sha256": "5ab6428256bc1d1a0b0eb0cccc056094dbaedcd13b36313cb4b991a13419bad6",
+      "bytes": 1159428,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917.psydat",
+      "sha256": "419fddc1dc1f123bd50645adef394e836a89931b4a0c570432937f1f2ad57159",
+      "bytes": 30672,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917_fitted_values.csv",
+      "sha256": "e35e55f86c439d719efff49330d9505aa747d0778516581eb21b4c1f1dc9e24c",
+      "bytes": 1556,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917_fitted_values.png",
+      "sha256": "cd2923557d574d75123211a615658af73bcd7efc5c79414a4737ca27dd398c0d",
+      "bytes": 52963,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-052_2023-09-24/sub-052_painuncertainty_calibration_2023-09-24_10h05.32.917_ramp_ratings.csv",
+      "sha256": "1685a044e37c696cc6880ccfc930e99a06b1b71bdb08dd00533da3e3886f9eca",
+      "bytes": 395,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_PainUncertainty_2023-09-24_11h21.15.574.csv",
+      "sha256": "cfd29fa49936c82b8c922f3b3ad44e48fcdc3b635122ba6db701d01b06f5330e",
+      "bytes": 79544,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_PainUncertainty_2023-09-24_11h21.15.574.log",
+      "sha256": "74e72b7788a6b2755c477adf4e6a414f8659bf11bc880908f315db7c3f910d38",
+      "bytes": 3388100,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_PainUncertainty_2023-09-24_11h21.15.574.psydat",
+      "sha256": "b041bbc213c54ae149390e8e6fe93a66beb4b562eac749b0a64b60f72b6750c8",
+      "bytes": 111465,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770.csv",
+      "sha256": "5815e2a25962abc2641fd74993be683de5d12042b6cbb14b862e722b835c914e",
+      "bytes": 9580,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770.log",
+      "sha256": "e3b4b7ced1307bb025b3cfc84936761b49a59603341bf71ba47cf700b5968f02",
+      "bytes": 674721,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770.psydat",
+      "sha256": "947c0794965ec7dd419ed554fec005b648a6e4387e6a2407260212fbde16a1ff",
+      "bytes": 27971,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770_fitted_values.csv",
+      "sha256": "89ee263d277bd9b6cb4d1a03cc1e5369010ed361dfd7376f87124cb39593119e",
+      "bytes": 1315,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770_fitted_values.png",
+      "sha256": "eeac1c02b6c59c5f49ab75442af887494f4f8e9e77fd2fb55ceda84592960cc8",
+      "bytes": 52429,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-053_2023-09-24/sub-053_painuncertainty_calibration_2023-09-24_11h00.15.770_ramp_ratings.csv",
+      "sha256": "04afb47bdda3886f3734eaeebc55c7b78e87e9eb39b4b4dbd5f2cd617b751e6d",
+      "bytes": 268,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_PainUncertainty_2023-09-27_14h38.29.617.csv",
+      "sha256": "34521e68200be4b6b5e1f00c95a0fc6d4ab48fb578b0b7b3ce39a1831029503f",
+      "bytes": 78113,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_PainUncertainty_2023-09-27_14h38.29.617.log",
+      "sha256": "017a7bdc236c0af21de0363e909d675467b05da19c3cc8f476fc769463457285",
+      "bytes": 3093385,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_PainUncertainty_2023-09-27_14h38.29.617.psydat",
+      "sha256": "13ef0b69a52d757eb7c2f4851838b60ea80bb2f6e14cb8d4f21ac877d6ccd542",
+      "bytes": 111560,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403.csv",
+      "sha256": "868426d44b65e268a97c2e231a812962a607dfe277f2f2cc7758899b4d8a32b4",
+      "bytes": 12237,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403.log",
+      "sha256": "9f8fd5a134357ad4003be89a96eb8a72aeb578746e5774d04f7f3e0d5545effc",
+      "bytes": 1457278,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403.psydat",
+      "sha256": "6f56cd70a2c9ad1984495ada4c1868cb46a136dfc663559b51a38d439b1d9c7a",
+      "bytes": 31588,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403_fitted_values.csv",
+      "sha256": "b54e010821d208f1298323c97a58b49b065b3d1f3efacbce004a4b18991f044f",
+      "bytes": 1433,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403_fitted_values.png",
+      "sha256": "60d7a810ec33cc51c7ff8408fd3e512daf09626d7a83ec39b8ce2eb5fe0d4189",
+      "bytes": 54877,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-054_2023-09-27/sub-054_painuncertainty_calibration_2023-09-27_14h18.07.403_ramp_ratings.csv",
+      "sha256": "bbb22fb309fb031849844fd0a4d18fe61a875e6f707ea0ab5640b0c03d7801a8",
+      "bytes": 438,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_PainUncertainty_2023-10-02_17h06.21.632.csv",
+      "sha256": "aa2e526e376ec431fcc4a7b33980d2fe5c0bb8f33fadf17cefc113db0ef5d92a",
+      "bytes": 80133,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_PainUncertainty_2023-10-02_17h06.21.632.log",
+      "sha256": "d4599ee52e2db910f260ae35bf78e739db6efd94541bae1f4d77c8a9fdd09ab7",
+      "bytes": 3665092,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_PainUncertainty_2023-10-02_17h06.21.632.psydat",
+      "sha256": "7f03bf5ca215a0d58702670a956ebc9d36eca50c77a4fce7471be8f23e945949",
+      "bytes": 111905,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327.csv",
+      "sha256": "34980f9a9ee44e47236f00aafd45c9416dcb5752ea6bab9027eed26d1c8e0293",
+      "bytes": 16325,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327.log",
+      "sha256": "ee1e240b58cf4dcc6d4a0676a076c434b97d0517e8153f94c1b0aaed2dcc27e9",
+      "bytes": 1100287,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327.psydat",
+      "sha256": "234305c17baaaec494c1628389a09df9fba527f8535bcd2f90a82e32ff35f728",
+      "bytes": 36071,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327_fitted_values.csv",
+      "sha256": "3bc98ef13cf22857d07f35f89d62d96d6abdd8ebbbc468587b0369e4458d9e48",
+      "bytes": 1966,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327_fitted_values.png",
+      "sha256": "1003aee42ead7a23e121b8b1b8f8425d423e47b1e6ea3c296345a6891ee210b3",
+      "bytes": 52170,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-055_2023-10-02/sub-055_painuncertainty_calibration_2023-10-02_16h46.43.327_ramp_ratings.csv",
+      "sha256": "007c963c49b7664b43a5b37cf3ae91b26a6a48faedcfefc8aa321e936499f2c9",
+      "bytes": 694,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_PainUncertainty_2023-10-04_18h25.33.813.csv",
+      "sha256": "9dad6003e32e3beb1c806c92471eccc5e2b7c752610a16152bca133e96624f89",
+      "bytes": 79750,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_PainUncertainty_2023-10-04_18h25.33.813.log",
+      "sha256": "7aab879fe2cee6d7d5300f92af786750c96b5f7be2aec9dbc73dcee67813ced2",
+      "bytes": 2745284,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_PainUncertainty_2023-10-04_18h25.33.813.psydat",
+      "sha256": "e6ba074d18d009e11bad2b0c22b3b669184b3d06aea79edca4a4c11955d283b7",
+      "bytes": 111429,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733.csv",
+      "sha256": "90562768c56ac5fb1d9b687211eb9adcf5aeccee19d504a2220e93575545cbef",
+      "bytes": 12340,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733.log",
+      "sha256": "08fa3720c841e95893b46286aff0b28b0b46072b8c536d86bee111a0ed14a4f2",
+      "bytes": 1110648,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733.psydat",
+      "sha256": "a1c2100cda4de5349d451e2d8da37cc8740fdfe09711956523660b45e11c765d",
+      "bytes": 31151,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733_fitted_values.csv",
+      "sha256": "7300ad6c7fb18847183507afafeb6ccc3949bbded6ffbecc179a18cd91f1ca20",
+      "bytes": 1431,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733_fitted_values.png",
+      "sha256": "6480d8061ef12744686d9d4ce0dd2f573b1697d7890e78132e6bfcad6e9b36b8",
+      "bytes": 56123,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-056_2023-10-04/sub-056_painuncertainty_calibration_2023-10-04_17h54.46.733_ramp_ratings.csv",
+      "sha256": "c5d2b0d40a01013bbcec19ac096ce07d4eec9c5862c97520846e42e173f7e234",
+      "bytes": 419,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_PainUncertainty_2023-10-05_08h57.51.897.csv",
+      "sha256": "4c7e85bcbf2738f088581b9abb23c840faefb9dca0e39bbac54975b82f9b07b0",
+      "bytes": 79811,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_PainUncertainty_2023-10-05_08h57.51.897.log",
+      "sha256": "5ae8b5e7158306b8cdae65dd146b6f1b7159f42c1851b13ef99e52c0ecfe8809",
+      "bytes": 3944794,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_PainUncertainty_2023-10-05_08h57.51.897.psydat",
+      "sha256": "676bcd931355d17fa7750b84f683b667203ad2286f6e016c19f6380ad017b1df",
+      "bytes": 111605,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792.csv",
+      "sha256": "32dd653ae4c33e9e57452d908e98513d2d62ec86d0339519e4197ee056c2535e",
+      "bytes": 16203,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792.log",
+      "sha256": "7f7310a24e84a8beaa02f406c906483427543afc5e248b713ee6f607a4f64831",
+      "bytes": 1944020,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792.psydat",
+      "sha256": "45a60fc367c6b759b5597c091a26ce376739bc70c37ed9600325b768cc1b1772",
+      "bytes": 36536,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792_fitted_values.csv",
+      "sha256": "c52a954f41cd256a6ec600172a8ff166d2f11bd78d4eec93585f6104d5f0bd83",
+      "bytes": 2019,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792_fitted_values.png",
+      "sha256": "fce2b34501555fb339866d52a66eaeea8ef70352608909e2239887ef03260e76",
+      "bytes": 46739,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-057_2023-10-05/sub-057_painuncertainty_calibration_2023-10-05_08h21.41.792_ramp_ratings.csv",
+      "sha256": "cfe1918d8a71d5e6ec77db375fe725d1aa8f77e77a987ae79e3a967246806b54",
+      "bytes": 716,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_PainUncertainty_2023-10-11_13h47.02.985.csv",
+      "sha256": "6876ca536fcf8a17c0905ca714b2d5fa7697c595230343b11e03834168b96c3c",
+      "bytes": 80037,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_PainUncertainty_2023-10-11_13h47.02.985.log",
+      "sha256": "77bfed23a8ad0165b0f58c6e30cf5cd1e479cfdbb47b34c044b8cfe691d72096",
+      "bytes": 3458930,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_PainUncertainty_2023-10-11_13h47.02.985.psydat",
+      "sha256": "694fe301eb96225599bbdf8c5244d5f11bac35a8a1cadc2ed67f6c789cf16f5c",
+      "bytes": 111588,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549.csv",
+      "sha256": "c7336305c133cebf0573bab322fa139dce069f31db833379efd8e7c231e0aec7",
+      "bytes": 13448,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549.log",
+      "sha256": "14c0d9da868b78489e7a8183f1c35d8820fe2a1a6c722d54afe23e66893945e4",
+      "bytes": 843835,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549.psydat",
+      "sha256": "61496d178981d535b47bb82dac9adade60e4314ad9278b6079cd37f8c736b8c8",
+      "bytes": 32493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549_fitted_values.csv",
+      "sha256": "cd73a57ce4a4409f1d1d178a211578404c2f3c5b26a703ac1cbac348cafa1df0",
+      "bytes": 1654,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549_fitted_values.png",
+      "sha256": "a4db1bbbdd50ebf5bf6f6c2f0c9c205f109e0230c972c80d258e14e46e06ffc5",
+      "bytes": 57583,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-058_2023-10-11/sub-058_painuncertainty_calibration_2023-10-11_13h34.19.549_ramp_ratings.csv",
+      "sha256": "66e51849733a99155a2871332b5fb5b95bf1da2a0d31414ed790169d70a09174",
+      "bytes": 487,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_PainUncertainty_2023-10-18_15h19.55.446.csv",
+      "sha256": "07882c372cd677317a2aed86f3ab3a4330005ddb0aa16e05ecddb6a1221fc734",
+      "bytes": 80248,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_PainUncertainty_2023-10-18_15h19.55.446.log",
+      "sha256": "1b8fed738e55471976b657a25d749f902198fbfbaa5f75736c06586b8d715cbc",
+      "bytes": 3221766,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_PainUncertainty_2023-10-18_15h19.55.446.psydat",
+      "sha256": "43bec6b232fc8ff90730b90b8791ecdffb85c9ff6a34ae272a4a5e68f231a60b",
+      "bytes": 111558,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711.csv",
+      "sha256": "a93485484654c789c2197bb22c9ffaa841d654f89503df66683766be0a7badf6",
+      "bytes": 10598,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711.log",
+      "sha256": "b8824e03bc2737a51487f8f810dee2181216241f80cf748bd3c55128dc4be205",
+      "bytes": 728235,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711.psydat",
+      "sha256": "9b1c3eb334fc8d3540a764d6552c1edc5e072a9f991d0984363435ff2fcb581e",
+      "bytes": 29299,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711_fitted_values.csv",
+      "sha256": "ca6a156c51aaab052d26156bc8c8ff47c6f1da0e87c6a79a124f4966d56e97b8",
+      "bytes": 1457,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711_fitted_values.png",
+      "sha256": "a241bad9f5bb613f04451efa8407eb6e1338fc69581279f3c9d43a607a8bdfe0",
+      "bytes": 54617,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-059_2023-10-18/sub-059_painuncertainty_calibration_2023-10-18_15h05.09.711_ramp_ratings.csv",
+      "sha256": "f8d4e69f8748ce698aca8aabf8907d3fb85fc438d2dc37c31c5caf0b481986a0",
+      "bytes": 335,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_PainUncertainty_2023-10-19_09h26.37.210.csv",
+      "sha256": "2ffa7a1973fd4d3bda8380ab0d283f74d27805ffd4d91ee642d87015e46b9d4a",
+      "bytes": 79973,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_PainUncertainty_2023-10-19_09h26.37.210.log",
+      "sha256": "75d04c174bc32097dc4cb762da17fc8a048259988de8d2bd0d243d9fe552b640",
+      "bytes": 4131555,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_PainUncertainty_2023-10-19_09h26.37.210.psydat",
+      "sha256": "57c4727858ef799ee6c0baccfd00d34cbaf2d3d5fe0ae2202e530c52c34811f8",
+      "bytes": 111532,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460.csv",
+      "sha256": "208d7310acc04028ef4bb202d05dc7fa6d967bc07f81f23efe86a6779c89a6f2",
+      "bytes": 17705,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460.log",
+      "sha256": "ce89ccd4207b22489ef108c3e46088e388d46e96938d9ce62d7b75117b71ff85",
+      "bytes": 2294962,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460.psydat",
+      "sha256": "6dbfd3bd17f15fbb9ee46e895f390e73594e59c99b808babfb9e881e4e549957",
+      "bytes": 37719,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460_fitted_values.csv",
+      "sha256": "68e3df8b9e418fe8b5a7a30bbf7361e5e9809389118f7e34a59ec559ac63de90",
+      "bytes": 1884,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460_fitted_values.png",
+      "sha256": "37190692a789a695e2a35510101b80683f2476e074b6145f8fc2f2e1cc259240",
+      "bytes": 57107,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-060_2023-10-19/sub-060_painuncertainty_calibration_2023-10-19_09h03.33.460_ramp_ratings.csv",
+      "sha256": "f7db07d8b9e960d2c604beb976368bfbcbd7e3162f82d0fb704ca386ad524b9d",
+      "bytes": 759,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_PainUncertainty_2023-10-25_13h51.26.525.csv",
+      "sha256": "1ec3452b0f020d83e5efac4c4101870e7d9b858d7d29751cc1d52bd5f5ebd10a",
+      "bytes": 77420,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_PainUncertainty_2023-10-25_13h51.26.525.log",
+      "sha256": "2fe3537fbada7d6fbb859d65514dadb19a123ed894bc0cd3d95ccc74d5596879",
+      "bytes": 2845321,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_PainUncertainty_2023-10-25_13h51.26.525.psydat",
+      "sha256": "ab679e0e28fff850ae2329570fc707614dee8d95a85f113707da5c7c8b2b5180",
+      "bytes": 111477,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734.csv",
+      "sha256": "41e344c24f5adb0a5cf038b689a3046d987ff5ff99866fe6d3e7cee2de70805c",
+      "bytes": 11246,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734.log",
+      "sha256": "d70566f143e4ed0a584aa9c5711abc87a12f38f75a793f219f322785cda48667",
+      "bytes": 729577,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734.psydat",
+      "sha256": "c121ab7c134c7420744d0928d096afe8c488b758823424b07ba255dddefed422",
+      "bytes": 31137,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734_fitted_values.csv",
+      "sha256": "9292b322aaa4da775f3dd91bafcac64e15ac8fc21b6dbdc460a4cb270f4081a1",
+      "bytes": 1514,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734_fitted_values.png",
+      "sha256": "2ba6f885f3ed87968e2deec90b35a530fe8db2018c29f16afff42897d0838db6",
+      "bytes": 52634,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-061_2023-10-25/sub-061_painuncertainty_calibration_2023-10-25_13h34.51.734_ramp_ratings.csv",
+      "sha256": "541a907213c575ecb6c22f8398097c57715e90534a0c9c895781fa07539ef771",
+      "bytes": 421,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_PainUncertainty_2023-10-25_15h52.34.797.csv",
+      "sha256": "15513b410ec7fd2d0ed735fc7c6cf1fb79b3bc39e71b4b682a87b0c8779aed7c",
+      "bytes": 79248,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_PainUncertainty_2023-10-25_15h52.34.797.log",
+      "sha256": "ab4969c21a201e84b55e3e590446b7eec127a27816e656261be984678372b74e",
+      "bytes": 4317493,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_PainUncertainty_2023-10-25_15h52.34.797.psydat",
+      "sha256": "51ab34a25dfbfaa6bc09a69d940bc818aa3972c8cde01b35b92c9e1df1591aed",
+      "bytes": 111462,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844.csv",
+      "sha256": "7dc039794a0eee6993425a8bc5d938100d754dde0b71cc0b6c85f53771cdba97",
+      "bytes": 16119,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844.log",
+      "sha256": "38ef341f0a570ef16896cd0277c7f8aacc2dde555cc02648c8c8c4de857a18fe",
+      "bytes": 1273686,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844.psydat",
+      "sha256": "d8e4c1680d112ccd71ccbeaa93342bfe35d1daf8663e3c8ce0394a2e19327716",
+      "bytes": 35628,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844_fitted_values.csv",
+      "sha256": "698265dc7e05fd0bf87327d818906f14b5a77e3404eb256b923b45be44911ede",
+      "bytes": 1852,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844_fitted_values.png",
+      "sha256": "98e0c7f6fadc27e64920d1aab228ece135411be65c6d795251b590dc7a2b9b47",
+      "bytes": 59114,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-062_2023-10-25/sub-062_painuncertainty_calibration_2023-10-25_15h39.20.844_ramp_ratings.csv",
+      "sha256": "ae35c3d1b945c37a750ab4fb29b9fd55ee687a9463a9a83363ac5c8c8280d598",
+      "bytes": 664,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_PainUncertainty_2023-10-26_10h45.43.220.csv",
+      "sha256": "f1a0dca1a0bbd6dd62a37444b2dacef1cbefdb86dae001a53b39580214e1f62f",
+      "bytes": 80362,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_PainUncertainty_2023-10-26_10h45.43.220.log",
+      "sha256": "0b359b551463011375efb35f1d746246db1acbe34c53090018a1749529637e82",
+      "bytes": 3096684,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_PainUncertainty_2023-10-26_10h45.43.220.psydat",
+      "sha256": "0a81c9ff5a97431df72df416b8f03df5d24996400dcee97754ee112ba73e8472",
+      "bytes": 112089,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392.csv",
+      "sha256": "7fce6cb244b3a8d9c8e90652fdd3dac9863afdb2a198d1775633ec0603714be3",
+      "bytes": 20639,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392.log",
+      "sha256": "ca5270e129365ee27f9535adac1bf9a5e96e5b8fa87736c74addc3127f9fe361",
+      "bytes": 2326787,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392.psydat",
+      "sha256": "0786e50a34d01fa57e7eadd29e988398bcaeba260c012a588f5e37ce0a389a79",
+      "bytes": 41073,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392_fitted_values.csv",
+      "sha256": "83e76400fdc7ff5a0a1678e1735abe79cdb50982dc39444fe429e6f16e582906",
+      "bytes": 2173,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392_fitted_values.png",
+      "sha256": "78be5aef551e5742e092406fde7e34201647f651fb649222c8ffd96ff91dda77",
+      "bytes": 59061,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-063_2023-10-26/sub-063_painuncertainty_calibration_2023-10-26_10h04.53.392_ramp_ratings.csv",
+      "sha256": "d3c3ed91edc91459b14f7b7ef5ef88444387d5bec1bac6eb38d51d16d7e0f366",
+      "bytes": 930,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_PainUncertainty_2023-11-02_11h34.03.244.csv",
+      "sha256": "befb531353f78a099473219a472fc632cc306678ac1e76094bfb4a2f604dfd76",
+      "bytes": 78557,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_PainUncertainty_2023-11-02_11h34.03.244.log",
+      "sha256": "3af7bc907ab335237f58f6d926e7720893242a5c27e650d920223b8fa1f27ae4",
+      "bytes": 4096795,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_PainUncertainty_2023-11-02_11h34.03.244.psydat",
+      "sha256": "022455cd96e520562ec0cdbf90d2008ce0db22fcbb4aac53c97a0fc7b0df48c9",
+      "bytes": 112039,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279.csv",
+      "sha256": "bb8b083232a49a23371a6193aee756f809b05fc609bc638d6d4bf29c56539d7a",
+      "bytes": 31046,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279.log",
+      "sha256": "f15dc5438e614aa07a8e499999357d409b8cd9e526a52012e13f124e378ccef8",
+      "bytes": 3582746,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279.psydat",
+      "sha256": "8f47bbdbe41a68906857b630e72bfe637d1bbd15ca4b9c86cd353a330693b02d",
+      "bytes": 56091,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279_fitted_values.csv",
+      "sha256": "18955d67388355b8c80402b52d5ef4842f47941259bf4c77c3a7524065312e88",
+      "bytes": 3368,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279_fitted_values.png",
+      "sha256": "5747c5c053db2e2d973d4f9463901121b73cf054f09edc27e5c20c42a85d629a",
+      "bytes": 57008,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-064_2023-11-02/sub-064_painuncertainty_calibration_2023-11-02_11h08.44.279_ramp_ratings.csv",
+      "sha256": "2137bfcec27f56dafdf7aff4ab6c8618071f83d9d134911ff3622db436799518",
+      "bytes": 1711,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_PainUncertainty_2023-11-02_13h15.21.667.csv",
+      "sha256": "3317232943d8f9d1cc0e30ba17887d0f6d4a0eecc97d0f314614cdb01a434c5b",
+      "bytes": 79206,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_PainUncertainty_2023-11-02_13h15.21.667.log",
+      "sha256": "b42138cd5479d419521a59db11e6be05c5b30698fbd356146ad71d6686d6f9c4",
+      "bytes": 3780378,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_PainUncertainty_2023-11-02_13h15.21.667.psydat",
+      "sha256": "35e194a4ff50f542cd72d4b9487a59bfc8849719178130a7ce3342a8379af3fe",
+      "bytes": 111450,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578.csv",
+      "sha256": "ad9a7ccaaafbe7484b8539a7be0e57603673386420894dc29a9b7da44b1ee2d9",
+      "bytes": 14380,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578.log",
+      "sha256": "7e2c53e056bdd6cc9812777ec86bd32e5d6b86f098e0a3009c491077afde3343",
+      "bytes": 2144520,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578.psydat",
+      "sha256": "98360cd5703bb9898555b123b67dbfbef2246a7628351be9c71ba0224c00aca8",
+      "bytes": 34026,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578_fitted_values.csv",
+      "sha256": "65eb0c49ea24d751df23a40bedcb3048c6a0d9d8485881f6301122a07233e0dd",
+      "bytes": 1566,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578_fitted_values.png",
+      "sha256": "74bcb9851170f8ad7339f662ec36b268b73e61a978a7272e9899d0b47eddee19",
+      "bytes": 57973,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-065_2023-11-02/sub-065_painuncertainty_calibration_2023-11-02_12h41.04.578_ramp_ratings.csv",
+      "sha256": "fc944159f22c2c9c35183fb355516aa4a74e8bf6e39e2e58fe956850b456c988",
+      "bytes": 550,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_PainUncertainty_2023-11-06_16h19.11.289.csv",
+      "sha256": "8b5c81227e1bf2b9a97d41ded3716d1d5013e3ff09b19c0f8fb3ebb7563cd80d",
+      "bytes": 80258,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_PainUncertainty_2023-11-06_16h19.11.289.log",
+      "sha256": "37931bf3ad21d2d4217f33ca0a8ec3a192f94b7aaece358fe2ce5512eea56aa0",
+      "bytes": 3935952,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_PainUncertainty_2023-11-06_16h19.11.289.psydat",
+      "sha256": "319de3cfa6feb2af7c3000d6a034d31af701b00beb37431170a1baaf3a944674",
+      "bytes": 111566,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651.csv",
+      "sha256": "40acf48ea937c37e287491d78841a76f7f735813e04a526461db2d304e6bc6b7",
+      "bytes": 16887,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651.log",
+      "sha256": "3816f19a97e80a621cd019302ea8b9313f481775917495f058bb3de7fb29f98a",
+      "bytes": 1100984,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651.psydat",
+      "sha256": "51bf631169f15cf8e6f8ea5404d956497d20a79482c1b7facf9d117384ab3f99",
+      "bytes": 36785,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651_fitted_values.csv",
+      "sha256": "d97fa68241afecbab01d44517e29c799b80456b34863f35cffb36c0326e4fd8d",
+      "bytes": 1832,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651_fitted_values.png",
+      "sha256": "472165483197c428fc1e222fe1f73f204ed227475cc8f216be81da620da93119",
+      "bytes": 49985,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-066_2023-11-06/sub-066_painuncertainty_calibration_2023-11-06_16h02.58.651_ramp_ratings.csv",
+      "sha256": "1c35b13fe98d9546066620eccbb5ade8ccd6ad5ef3e220d53da5e98ef0eaba2e",
+      "bytes": 708,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_PainUncertainty_2023-11-09_07h44.56.834.csv",
+      "sha256": "15e62db6b13e04fcf6d1859a297a00bd7c3f2cc01b64e0b9a36ff9422a74f17e",
+      "bytes": 78167,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_PainUncertainty_2023-11-09_07h44.56.834.log",
+      "sha256": "16aa66a7f699a32208fa399c377c2d8fa47625c11993130f9ba2e8d511a7d84e",
+      "bytes": 2580146,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_PainUncertainty_2023-11-09_07h44.56.834.psydat",
+      "sha256": "f47deede0bc11ce47b3824e1beeac63a4c8c991c4060d5ffa359233fdf41aff5",
+      "bytes": 111555,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607.csv",
+      "sha256": "c12962c6e1957f413aa142ef597e08bac838370fb6eeff8b0ff3472829eedd31",
+      "bytes": 22334,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607.log",
+      "sha256": "9329999b620710026553c2a1869a0987e49700332233deb486f8547da2e68145",
+      "bytes": 2012607,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607.psydat",
+      "sha256": "ac4c7d37f75406db9a4549f22ebe18c1ec12110b499aa0d1c49ee014fdea71a4",
+      "bytes": 46134,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607_fitted_values.csv",
+      "sha256": "0c9e964b7b24412b0fd382bee8914a4bd7f53e3d05629764fb69906420310884",
+      "bytes": 2618,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607_fitted_values.png",
+      "sha256": "a045851efe2f820326f1eb7d43b426d184021638dddc09fcb9328c2ddfcbc279",
+      "bytes": 55822,
+      "redistribute": false
+    },
+    {
+      "path": "sourcedata/sub-067_2023-11-09/sub-067_painuncertainty_calibration_2023-11-09_07h15.58.607_ramp_ratings.csv",
+      "sha256": "ab443195252e338cf1c1a2fe9363490938a11d70c8be319837200bc8630e057b",
+      "bytes": 1203,
+      "redistribute": false
+    }
+  ]
+}
