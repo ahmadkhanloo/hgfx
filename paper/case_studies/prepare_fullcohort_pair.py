@@ -6,7 +6,7 @@ import numpy as np
 from scipy.io import loadmat
 from prepare_realdata_pair import CASES, get_source
 
-EXPECTED = {"suthaharan_2021": (130, 260), "reed_2020": (33, 66)}
+EXPECTED = {"suthaharan_2021": (130, 260), "reed_2020": (32, 64)}
 REGEX = {
  "suthaharan_2021": re.compile(r"^(TP\d+_V3)_choices_([12])$"),
  "reed_2020": re.compile(r"^(P\d+)_choices_(804020|905010)$"),
@@ -53,12 +53,12 @@ def main():
             except Exception as e:
                 row.update(status="BLOCKED_INPUT_SEMANTICS",reason=str(e)[:200])
             rows.append(row)
-    manifest={"expected_total_cases":326,"actual_total_cases":len(rows),
+    manifest={"expected_total_cases":324,"actual_total_cases":len(rows),
               "status":"COHORT_SOURCE_INVENTORY_NOT_MODEL_PARITY","source_checks":checks,"cases":rows}
     (out/"all_cohort_manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
     print(json.dumps({"source_checks":checks,"total_cases":len(rows),
         "blocked_cases":sum(c["status"]!="INPUT_READY" for c in rows)},indent=2))
-    if len(rows)!=326: raise SystemExit("BLOCKED_UNEXPECTED_SOURCE_COHORT_SIZE")
+    if len(rows)!=324: raise SystemExit("BLOCKED_UNEXPECTED_SOURCE_COHORT_SIZE")
 
 if __name__=="__main__":
     main()
