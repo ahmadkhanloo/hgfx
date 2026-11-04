@@ -54,3 +54,14 @@ The associated GitHub Actions upload `two-published-study-fullcohort-aggregate-p
 ## Next required work for actual published-result replication
 
 Obtain original reproducible MATLAB/HGF versions, precise perceptual+observation models, fit priors, starts/optimizer and original grouping/exclusions. Lock each full analysis protocol **before fitting**. Compare original historical fit (A), frozen MATLAB8.2 (B) and HGFX1.0 (C), without tuning model family or suppressing failed subjects. If A cannot be reproduced, B/C must be labeled a new ported analysis and cannot validate original paper results.
+
+## Verified HGFX v1.0.0 gap for complete paper-model fitting
+
+Source inspection at immutable `v1.0.0` distinguishes **implemented forward filtering** from **end-to-end compatible fitting support**:
+
+- `src/hgfx/models/mab.py` and `src/hgfx/models/__init__.py` implement/export `hgf_ar1_binary_mab`; this exact function passed the 324-case paired experiment above.
+- `src/hgfx/compat/workflows.py` at the **v1.0.0 tag** defines the `FORWARDS` fitting dispatch for `hgf`, `ehgf`, `uhgf`, their binary variants and `rw_binary`—**not** `hgf_ar1_binary_mab`. The same file's `observation_for` dispatch does not support `softmax` or `softmax_mu3`, even though the standalone observation functions exist in `src/hgfx/responses/softmax.py`.
+- Thus the two studies' HGF MAB + multi-choice softmax fitting workflows **cannot currently be claimed supported end-to-end through the published v1.0.0 `fit_model` API**. This is an **implementation scope gap**, separate from numerical forward parity, not a measured fitting mismatch with MATLAB.
+- The Reed repository does not include a complete versioned original study-fitting script/config; Suthaharan provides model config files but does not establish the exact execution/initialization chain, nor original reference release file hashes. These are **insufficient original-reference-evidence** blocks for a published-result reproduction.
+
+**Resolution requires separately scoped implementation/testing**, with a prospective protocol, exact model/response mapping, fixed and transformed priors, matched optimizer starts and original-version evidence. Never represent the existing numerical PASS as end-to-end `fit_model` parity or apply post-hoc tolerances. The paper's compiled package remains an author-review draft and is not silently rewritten by this result report.
