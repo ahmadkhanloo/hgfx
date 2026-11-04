@@ -1,0 +1,69 @@
+name: PERF-01 HGFX-only scientific input preflight
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/scientific_preflight.py'
+      - '.github/workflows/perf01-scientific-preflight.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  hgfx-preflight:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: true
+
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify immutable source and install HGFX 1.0.0
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+
+      - name: Evaluate complete registry without timing
+        id: preflight
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/scientific_preflight.py \
+            --input work/benchmarks/runtime_v1 \
+            --output work/benchmarks/runtime_v1/preflight_runs/github-${{ github.run_id }}.json
+
+      - name: Preserve full successes and failures in repository
+        if: always()
+        run: |
+          set -euo pipefail
+          record="work/benchmarks/runtime_v1/preflight_runs/github-${{ github.run_id }}.json"
+          if test -f "$record"; then
+            git -C work config user.name 'github-actions[bot]'
+            git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C work add -- "benchmarks/runtime_v1/preflight_runs/github-${{ github.run_id }}.json"
+            git -C work commit -m 'evidence(benchmark): preserve HGFX-only preflight run ${{ github.run_id }}'
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          else
+            echo 'Preflight did not produce a record; see job logs' >&2
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01-scientific-preflight-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/preflight_runs/github-${{ github.run_id }}.json
+          if-no-files-found: warn
