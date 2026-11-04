@@ -38,6 +38,9 @@ def refine(original, full_fit):
         raise ValueError("Incompatible or incomplete original/fitting evidence")
     if [s["subject_count"] for s in full_fit["by_prefix"]] != [1,16,64]:
         raise ValueError("The original nested cohort has been changed")
+    reported_counts=dict(sorted(Counter(x["classification"] for x in full_fit["cases"]).items()))
+    if full_fit.get("classification_counts")!=reported_counts:
+        raise ValueError("Full-fit evidence summary conflicts with per-subject statuses")
     fits={int(x["subject_index_zero_based"]):x for x in full_fit["cases"]}
     if len(fits)!=64 or set(fits)!=set(range(64)):
         raise ValueError("Missing or duplicate fit subjects in original evidence")
