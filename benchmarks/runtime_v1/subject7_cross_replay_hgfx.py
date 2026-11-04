@@ -88,7 +88,20 @@ def run(root, fitted):
             record["status"]="HGFX_REPLAY_ERROR"
             record["error"]=f"{type(exc).__name__}: {exc}"
         cases.append(record)
-    endpoint_abs_delta=np.abs(sources["hgfx"]-sources["matlab"])
+    # Frozen MATLAB-style full fit vectors may contain nonfinite fixed
+    # placeholders. Restrict descriptive deltas to finite paired entries;
+    # preserve a separate, fail-closed check of all nonfinite masks.
+    ha, ma = sources["hgfx"], sources["matlab"]
+    finite = np.isfinite(ha) & np.isfinite(ma)
+    nonfinite_patterns_equal = bool(
+        np.array_equal(np.isnan(ha), np.isnan(ma))
+        and np.array_equal(np.isposinf(ha), np.isposinf(ma))
+        and np.array_equal(np.isneginf(ha), np.isneginf(ma))
+    )
+    endpoint_max_abs_delta = (
+        float(np.max(np.abs(ha[finite] - ma[finite])))
+        if np.any(finite) else None
+    )
     return {
         "schema":"perf01-subject7-hgfx-cross-replay-v1",
         "protocol":"hgfx-matlab-runtime-1",
@@ -100,7 +113,9 @@ def run(root, fitted):
         "source_run_id":"41863441006",
         "source_report_sha256":digest((fitted/"summary-41863441006.json").read_bytes()),
         "input_sha256":digest((root/"inputs"/"binary_128_s64.json").read_bytes()),
-        "endpoint_max_abs_delta":float(np.max(endpoint_abs_delta)),
+        "endpoint_max_abs_delta":endpoint_max_abs_delta,
+        "endpoint_finite_parameter_count":int(np.sum(finite)),
+        "endpoint_nonfinite_masks_equal":nonfinite_patterns_equal,
         "cases":cases,
     }
 
