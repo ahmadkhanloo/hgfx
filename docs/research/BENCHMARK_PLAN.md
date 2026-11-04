@@ -1,6 +1,6 @@
 # Benchmark Plan
 
-Last synchronized: 2026-09-17
+Last synchronized: 2026-11-04
 Status: **POST-v1 / PAPER PROTOCOL FROZEN / PERFORMANCE NOT ACTIVATED IN PROTOCOL 1**
 Tracking: PV1-02 / issue #32
 Paper protocol: `paper/reproducibility/PAPER_PROTOCOL.md` / `hgfx-paper-protocol-1` / `FROZEN_FOR_EXECUTION`
@@ -254,6 +254,20 @@ This publication freeze is separate from historical M19 and does not alter the r
 
 ## Prospective MATLAB-vs-HGFX runtime comparison (2026-11-04)
 
-A new **separate, not-yet-frozen and not-yet-executed** post-v1 protocol was authored at [RUNTIME_PERFORMANCE_PROTOCOL_V1.md](RUNTIME_PERFORMANCE_PROTOCOL_V1.md) (ID `hgfx-matlab-runtime-1`; PERF-01). It preregisters a matched CPU MATLAB/HGFX comparison, conditional JAX/GPU and batch benchmarks, correctness preflight, timing/uncertainty policy, and a paper-claim decision gate.
+A new **separate, not-yet-frozen and not-yet-timed** post-v1 protocol was authored at [RUNTIME_PERFORMANCE_PROTOCOL_V1.md](RUNTIME_PERFORMANCE_PROTOCOL_V1.md) (ID `hgfx-matlab-runtime-1`; PERF-01). It preregisters a matched CPU MATLAB/HGFX comparison, conditional JAX/GPU and batch benchmarks, correctness preflight, timing/uncertainty policy, and a paper-claim decision gate.
 
 It does **not** amend historical `hgfx-paper-protocol-1`, open M19, or demonstrate an HGFX-over-MATLAB speedup. The protocol, inputs and runner must be formally frozen with hashes before final comparative runs; paper headlines additionally require a new paper protocol revision.
+
+## PERF-01 status synchronization — 2026-11-04
+
+The preceding protocol `hgfx-matlab-runtime-1` remains a **prospective specification**, not a passed performance gate. The distinction between **untimed scientific preflight (executed)** and **final comparative runtime measurement (NOT EXECUTED)** is essential.
+
+- **A — PARTIAL:** verified immutable HGFX 1.0.0 and MATLAB 8.2.0/R2026a on CI; matched controlled CPU thread/affinity and real physical-GPU run environment still required.
+- **B — IMPLEMENTED / REVIEW PENDING:** canonical 64-subject inputs, nine complete HGFX config/start snapshots and SHA-256 manifests committed; all 576 exact model × horizon × subject prior-objective checks completed. [Run 41860187774](https://github.com/ahmadkhanloo/hgfx/actions/runs/41860187774): **448 concordant successful, 128 invalid in both**, no configuration or examined scalar discrepancy outside existing diagnostic thresholds.
+- **C — OPEN / NOT FROZEN:** independent review [issue #88](https://github.com/ahmadkhanloo/hgfx/issues/88), runtime boundary audit [PERF01C_TIMED_BOUNDARY_AUDIT_2026-11-04.md](PERF01C_TIMED_BOUNDARY_AUDIT_2026-11-04.md). The original nine-primary-cell aggregate **cannot PASS** because six standard-HGF 512/1024 tasks are scientifically ineligible. A new, explicitly separate [RUNTIME_PERFORMANCE_PROTOCOL_V2_CANDIDATE.md](RUNTIME_PERFORMANCE_PROTOCOL_V2_CANDIDATE.md) proposes only narrow future claims; status **REVIEW DRAFT / NO TIMING**. It neither changes nor replaces the original failed cells.
+- **D — DIAGNOSTIC EVIDENCE / NOT CERTIFIED PASS:** 7 valid model × horizon complete trialwise paths and three matching invalid first-prefix events, plus one complete 128-trial full fit with matched outputs. Follow-up all-64 **full fitting** validation (128-trial, 1/16/64 original subject cohorts) is a separate ongoing non-timed experiment. No blocked status is removed before actual evidence and independent review.
+- **E/F/G/H — NOT EXECUTED:** zero published or paper-use MATLAB-vs-HGFX timing, GPU acceleration, batch speedup or hardware-scaled claims.
+
+The current original 28-case eligibility inventory is `benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json` ([workflow 41860891268](https://github.com/ahmadkhanloo/hgfx/actions/runs/41860891268)): **16 diagnostic-concordant, review pending; 12 blocked**. This is not an independent reviewer verdict; any newly proven 64-subject fitting correspondence must be preserved in a **new evidence candidate**, not rewritten into the historical JSON.
+
+Historical frozen M17/M18/M19 evidence and `hgfx-paper-protocol-1` remain separate, unchanged and authoritative in their original scopes.
