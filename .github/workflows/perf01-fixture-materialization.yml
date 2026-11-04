@@ -1,0 +1,80 @@
+name: PERF-01 candidate fixture materialization
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/generate_inputs.py'
+      - 'benchmarks/runtime_v1/export_release_configs.py'
+      - '.github/workflows/perf01-fixture-materialization.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout prospective benchmark branch
+        uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: true
+
+      - name: Checkout immutable HGFX release
+        uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify release identity and install pinned package
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(git -C release_source rev-parse HEAD)"
+          test "$actual" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install "numpy==2.3.5" "./release_source"
+          python - <<'PY'
+          from importlib import metadata
+          import hgfx
+          assert metadata.version("hgfx") == "1.0.0", metadata.version("hgfx")
+          print("Verified hgfx distribution", metadata.version("hgfx"), hgfx.__file__)
+          PY
+
+      - name: Generate and check exact deterministic input files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python -m unittest discover -s work/tests -p 'test_perf01_inputs.py' -v
+          python -m pip freeze > work/benchmarks/runtime_v1/fixture_builder_pip_freeze.txt
+
+      - name: Commit candidate inputs and exact-release metadata only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add -- \
+            benchmarks/runtime_v1/inputs/binary_128_s64.json \
+            benchmarks/runtime_v1/inputs/binary_512_s64.json \
+            benchmarks/runtime_v1/inputs/binary_1024_s64.json \
+            benchmarks/runtime_v1/inputs_manifest.json \
+            benchmarks/runtime_v1/configs/ \
+            benchmarks/runtime_v1/resolved_configs_manifest.json \
+            benchmarks/runtime_v1/fixture_builder_pip_freeze.txt
+          if git -C work diff --cached --quiet; then
+            echo 'Candidate files unchanged'
+          else
+            git -C work commit -m 'data(benchmark): add exact v1 candidate inputs and config snapshots'
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi
