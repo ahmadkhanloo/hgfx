@@ -7,6 +7,7 @@ on:
       - 'paper/case_studies/run_fullcohort_mu3_matlab.m'
       - 'paper/case_studies/compare_fullcohort_mu3.py'
       - '.github/workflows/published_hgf_mu3_parity.yml'
+      - 'paper/case_studies/PUBLISHED_MU3_RUN_HANDOFF_2026-11-04.md'
   workflow_dispatch:
 
 permissions:
