@@ -1,0 +1,1548 @@
+{
+  "aTolerance": 3e-10,
+  "counts": {
+    "BOTH_FAILED_FIRST_INVALID_PREFIX_AGREES_UNVERIFIED_MECHANISM": 3,
+    "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE": 7
+  },
+  "github_run_id": "41854644533",
+  "matlab_release": "2026a",
+  "rTolerance": 3e-08,
+  "raw_evidence_location": "GitHub Actions artifact perf01-trialwise-run-41854644533",
+  "raw_evidence_sha256": {
+    "hgfx_raw.json": "482029ec9b1410560c5f9ee8fc25c6282546f0521e7f3ec4667226768b80cf7e",
+    "matlab_raw.json": "0fd002c79a776c8f5a6a8f713440abd5898bf9629db6e09540fe329e3e5a86f4"
+  },
+  "rows": [
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.4868995751603507e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1102230246251565e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "ehgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 7.827072323607354e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.3306690738754696e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.3306690738754696e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.842170943040401e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.551115123125783e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.551115123125783e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 8.326672684688674e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1102230246251565e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 128
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 6144,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "ehgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 512
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 12288,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "ehgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 1024
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 7.105427357601002e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "hgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.8214596497756474e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 128
+    },
+    {
+      "diagnostic_classification": "BOTH_FAILED_FIRST_INVALID_PREFIX_AGREES_UNVERIFIED_MECHANISM",
+      "hgfx_error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+      "hgfx_prefix": {
+        "error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+        "first_invalid_prefix_length": 348,
+        "last_valid_prefix_length": 347,
+        "scan_policy": "sequential_all_prefixes_from_2"
+      },
+      "hgfx_status": "HGFX_ERROR",
+      "masked": false,
+      "matlab_error_identifier": "tapas:hgf:VarApproxInvalid",
+      "matlab_prefix": {
+        "error_identifier": "tapas:hgf:VarApproxInvalid",
+        "first_invalid_prefix_length": 348,
+        "last_valid_prefix_length": 347,
+        "policy": "ALL_PREFIXES_IN_ASCENDING_ORDER_FROM_2"
+      },
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "start_matched": true,
+      "trial_mask_ids_equal": true,
+      "trials": 512
+    },
+    {
+      "diagnostic_classification": "BOTH_FAILED_FIRST_INVALID_PREFIX_AGREES_UNVERIFIED_MECHANISM",
+      "hgfx_error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+      "hgfx_prefix": {
+        "error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+        "first_invalid_prefix_length": 349,
+        "last_valid_prefix_length": 348,
+        "scan_policy": "sequential_all_prefixes_from_2"
+      },
+      "hgfx_status": "HGFX_ERROR",
+      "masked": true,
+      "matlab_error_identifier": "tapas:hgf:VarApproxInvalid",
+      "matlab_prefix": {
+        "error_identifier": "tapas:hgf:VarApproxInvalid",
+        "first_invalid_prefix_length": 349,
+        "last_valid_prefix_length": 348,
+        "policy": "ALL_PREFIXES_IN_ASCENDING_ORDER_FROM_2"
+      },
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "start_matched": true,
+      "trial_mask_ids_equal": true,
+      "trials": 512
+    },
+    {
+      "diagnostic_classification": "BOTH_FAILED_FIRST_INVALID_PREFIX_AGREES_UNVERIFIED_MECHANISM",
+      "hgfx_error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+      "hgfx_prefix": {
+        "error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+        "first_invalid_prefix_length": 346,
+        "last_valid_prefix_length": 345,
+        "scan_policy": "sequential_all_prefixes_from_2"
+      },
+      "hgfx_status": "HGFX_ERROR",
+      "masked": false,
+      "matlab_error_identifier": "tapas:hgf:VarApproxInvalid",
+      "matlab_prefix": {
+        "error_identifier": "tapas:hgf:VarApproxInvalid",
+        "first_invalid_prefix_length": 346,
+        "last_valid_prefix_length": 345,
+        "policy": "ALL_PREFIXES_IN_ASCENDING_ORDER_FROM_2"
+      },
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "start_matched": true,
+      "trial_mask_ids_equal": true,
+      "trials": 1024
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 6.661338147750939e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.4868995751603507e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1102230246251565e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "uhgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.3306690738754696e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.6653345369377348e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 6.661338147750939e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.440892098500626e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.828670879282072e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.551115123125783e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.828670879282072e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 8.326672684688674e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 8.326672684688674e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.885780586188048e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 128
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 6144,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.4424906541753444e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.5543122344752192e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 9.237055564881302e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.3306690738754696e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "uhgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1102230246251565e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.2212453270876722e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.4424906541753444e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.4424906541753444e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.887379141862766e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.4155343563970746e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.7763568394002505e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.3322676295501878e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.163336342344337e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 512,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.498001805406602e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.8041124150158794e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            512,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 512
+    },
+    {
+      "diagnostic_classification": "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE",
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 12288,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.329070518200751e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.552713678800501e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.5631940186722204e-13,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 7.216449660063518e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "first_mismatched_trial_one_based": null,
+      "hgfx_status": "HGFX_COMPLETED_REFERENCE_UNVERIFIED",
+      "masked": false,
+      "matlab_status": "MATLAB_COMPLETED_HGFX_UNVERIFIED",
+      "model": "uhgf_binary",
+      "start_matched": true,
+      "trajectory_fields": {
+        "da": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.7755575615628914e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.329070518200751e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 5.329070518200751e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.886579864025407e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.886579864025407e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 3.774758283725532e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.7755575615628914e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "finite_pair_count": 2048,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.0269562977782698e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "finite_pair_count": 1024,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.996003610813204e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "finite_pair_count": 3072,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.886579864025407e-15,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            1024,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "trial_mask_ids_equal": true,
+      "trials": 1024
+    }
+  ],
+  "schema": "hgfx-perf01-trialwise-comparison-v1",
+  "status": "EXPLORATORY_NOT_FROZEN_NOT_FINAL_SCIENTIFIC_GATE",
+  "tolerance_origin": "existing v1 numerical family diagnostic (not new eligibility gate)"
+}
