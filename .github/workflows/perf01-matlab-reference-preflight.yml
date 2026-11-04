@@ -1,0 +1,68 @@
+name: PERF-01 frozen MATLAB 8.2 reference preflight
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/matlab/matlab_reference_preflight.m'
+      - '.github/workflows/perf01-matlab-reference-preflight.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  matlab-reference:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: true
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+
+      - name: Verify MATLAB HGF oracle commit
+        shell: bash
+        run: |
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          test -f reference_toolbox/core/fitModel.m
+          test -f work/benchmarks/runtime_v1/inputs_manifest.json
+
+      - name: Setup MATLAB R2026a
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Reference-only MATLAB execution (not timing)
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); matlab_reference_preflight(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','matlab_preflight_runs','github-${{ github.run_id }}.json'))"
+
+      - name: Preserve reference outcomes
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          record="work/benchmarks/runtime_v1/matlab_preflight_runs/github-${{ github.run_id }}.json"
+          if test -f "$record"; then
+            git -C work config user.name 'github-actions[bot]'
+            git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C work add -- "benchmarks/runtime_v1/matlab_preflight_runs/github-${{ github.run_id }}.json"
+            git -C work commit -m 'evidence(benchmark): preserve MATLAB oracle preflight ${{ github.run_id }}'
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          else
+            echo 'MATLAB record absent; job logs remain authoritative.' >&2
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01-matlab-reference-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/matlab_preflight_runs/github-${{ github.run_id }}.json
+          if-no-files-found: warn
