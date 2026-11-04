@@ -67,3 +67,22 @@ The first fitting diagnostic workflow [41855569387](https://github.com/ahmadkhan
 5. Only then execute real paired CPU timings, JAX compilation/transfer diagnostics and any genuine physical-GPU batch tests. Raw failures and failed runs must remain visible.
 
 **Conclusion: MATLAB-vs-HGFX performance remains `NOT TESTED`. No scientifically validated speedup exists.**
+
+## 2026-11-04 addendum: whole-cohort fixed-vector source review
+
+This additional test **extends the scientific diagnostic denominator only**, without modifying or replacing the preceding 10 trialwise, 3 fitting, or frozen-horizon evidence. Same-job reference/HGFX cohort probe [41860187774](https://github.com/ahmadkhanloo/hgfx/actions/runs/41860187774) returned:
+
+| Model | Trials | Subject pairs with concordant finite fixed-vector objective | Both reject at frozen start | Total |
+|---|---:|---:|---:|---:|
+| HGF | 128 | 64 | 0 | 64 |
+| HGF | 512 | 0 | 64 | 64 |
+| HGF | 1024 | 0 | 64 | 64 |
+| eHGF | 128 / 512 / 1024 | 64 per horizon | 0 | 192 |
+| uHGF | 128 / 512 / 1024 | 64 per horizon | 0 | 192 |
+| **Total** | | **448** | **128** | **576** |
+
+All 576 comparisons used the *existing* SHA-256-verified `inputs/` arrays and resolved `configs/` start vectors. The largest recorded absolute fixed-vector negative-log-joint difference was `1.6370904631912708e-11` (uHGF, 1024 trials, zero-based subject index 21). Both reject cases were matching `tapas:hgf:VarApproxInvalid`-family reference/implementation behaviors; this **does not** grant a new scientific `REFERENCE_LIMITATION_MATCH` verdict. The source and prior/variance checks passed for all declared pairs.
+
+The first attempt [41859496548](https://github.com/ahmadkhanloo/hgfx/actions/runs/41859496548) completed the numerical audit and retained its artifacts but could not push the report because the PR branch advanced. The same unmodified input data and comparison rules were rerun under a rebase-aware archiver [41860187774](https://github.com/ahmadkhanloo/hgfx/actions/runs/41860187774), which passed. Both workflow histories are preserved.
+
+**Not demonstrated:** parity of *all trialwise* trajectories across 64 subjects, fitted parameters for 16 or 64 subjects, scientific identifiability, CPU speed, GPU speed or a nine-cell benchmark headline. All 28 original preregistered cases are accounted for by [the generated eligibility candidate](../../benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json) with 16 review-pending and 12 blocked. See [PERF01C timed-boundary audit](PERF01C_TIMED_BOUNDARY_AUDIT_2026-11-04.md) and independent review issue [#88](https://github.com/ahmadkhanloo/hgfx/issues/88). PERF-01C remains **NOT FROZEN** and speed is **NOT MEASURED**.
