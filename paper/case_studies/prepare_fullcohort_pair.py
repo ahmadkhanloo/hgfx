@@ -35,7 +35,7 @@ def main():
             continue
         for i,(person,block,okey,ckey) in enumerate(pairs):
             key=f"{study}_{i+1:04d}"
-            row={"id":key,"study":study,"original_variables":[okey,ckey],"trials":80}
+            row={"id":key,"study":study,"original_variables":[okey,ckey],"trials":80,"status":"NOT_CHECKED","reason":"","ignored_trials":0,"input_sha256":""}
             try:
                 o=np.asarray(data[okey],dtype=np.float64)
                 c=np.asarray(data[ckey],dtype=np.float64)
