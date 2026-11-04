@@ -35,6 +35,7 @@ def fixtures():
         "hgfx_sha":original["frozen_source_sha"],
         "matlab_sha":original["frozen_matlab_sha"],
         "subject_count":64,
+        "classification_counts":{FIT_SUCCESS:63,FIT_MISMATCH:1},
         "by_prefix":[{"subject_count":n} for n in (1,16,64)],
         "cases":rows,
     }
@@ -66,6 +67,12 @@ class TestPerf01RefineEligibility(unittest.TestCase):
         old,fit=fixtures()
         fit["cases"].pop()
         with self.assertRaisesRegex(ValueError,"Missing or duplicate"):
+            refine(old,fit)
+
+    def test_mismatched_reported_source_counts_are_rejected(self):
+        old,fit=fixtures()
+        fit["classification_counts"]={FIT_SUCCESS:64}
+        with self.assertRaisesRegex(ValueError,"conflicts"):
             refine(old,fit)
 
     def test_wrong_reference_fails(self):
