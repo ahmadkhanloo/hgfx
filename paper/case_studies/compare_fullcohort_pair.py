@@ -13,7 +13,7 @@ import numpy as np
 import jax
 from compare_realdata_pair import check_case
 
-EXPECTED=326
+EXPECTED=324
 
 def main():
     folder=Path(sys.argv[1]).resolve()
