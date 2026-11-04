@@ -10,9 +10,9 @@ addpath(fullfile(oracle,'utilities'));
 assert(contains(which('hgf_ar1_binary_mab'),'external'), 'Pinned HGF Toolbox not selected');
 folder=fullfile(root,'published_pair_tmp');
 source=jsondecode(fileread(fullfile(folder,'all_cohort_manifest.json')));
-assert(source.expected_total_cases==326 && source.actual_total_cases==326, 'Mismatch in frozen cohort denominator');
+assert(source.expected_total_cases==324 && source.actual_total_cases==324, 'Mismatch in versioned v2 source denominator');
 p=[NaN 0 1 NaN 0.1 1 NaN 0 0.2 NaN 0 1 1 1 NaN -2 -6];
-records=repmat(struct('id','','status','','reason','','num_ignored',0),326,1);
+records=repmat(struct('id','','status','','reason','','num_ignored',0),324,1);
 fprintf('MATLAB_RELEASE=%s\n',version);
 fprintf('MATLAB_ORACLE=%s\n',which('hgf_ar1_binary_mab'));
 for idx=1:numel(source.cases)
@@ -47,9 +47,9 @@ for idx=1:numel(source.cases)
     end
 end
 status=struct;
-status.total_cases=326;
+status.total_cases=324;
 status.successes=sum(strcmp({records.status},'MATLAB_FORWARD_DONE'));
-status.failures=326-status.successes;
+status.failures=324-status.successes;
 status.records=records;
 fid=fopen(fullfile(folder,'matlab_all_cohort_status.json'),'w');
 assert(fid~=-1,'Cannot write status');
