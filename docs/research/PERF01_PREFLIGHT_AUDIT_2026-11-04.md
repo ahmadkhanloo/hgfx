@@ -1,5 +1,7 @@
 # PERF-01A — source/runtime audit (2026-11-04)
 
+> **Subsequent evidence update, 2026-11-04:** The audit below is the original pre-CI snapshot, kept for provenance. MATLAB **R2026a** is now confirmed runnable on a public GitHub Actions host and exact HGF Toolbox 8.2.0 checkout succeeded. Candidate arrays and full nine HGFX config/start snapshots were committed. The fixed-vector paired diagnostic now finds **14 corresponding completed stage records, 5 matching unsuccessful stage records, and 9 fit/batch cells not run**. See [the current paired preflight and gate status](PERF01_PAIRED_PREFLIGHT_2026-11-04.md). This is NOT a scientific-parity or timing PASS; the earlier local-sandbox blocker remains a true historical observation but not a universal MATLAB-access blocker.
+
 **Status: IN PROGRESS / BLOCKED_ENVIRONMENT.** This report covers repo inspection and the available authoring sandbox; it is **not** evidence that MATLAB, HGFX 1.0.0 or NVIDIA GPU has been run on the eventual benchmark host.
 
 ## Source and status checked
