@@ -2,7 +2,7 @@
 
 Protocol: [runtime comparison protocol](../../docs/research/RUNTIME_PERFORMANCE_PROTOCOL_V1.md), issue [#86](https://github.com/ahmadkhanloo/hgfx/issues/86).
 
-**Status 2026-11-04:** input **generator implemented and unit-tested**, but source arrays, per-model full configurations/priors, starts and acceptance-tolerance mapping are **not yet committed and locked together**. This is **not** completion of PERF-01B or PERF-01C. No HGFX/MATLAB fitting, timing or scientific parity was tested.
+**Current status, 2026-11-04:** canonical candidate JSON arrays and nine HGFX 1.0.0 configuration/start snapshots are **committed, hashed and reproducible**. Public GitHub Actions executed the frozen HGF 8.2.0 MATLAB reference on R2026a and checked its default start/prior identity for the first subject of each model/horizon. Five predeclared stage records fail in **both** implementations; this is preserved, not repaired by changing data. **PERF-01B/C are NOT FROZEN; scientific parity, fitting equivalence and all speed claims remain OPEN.** See [paired preflight report](../../docs/research/PERF01_PAIRED_PREFLIGHT_2026-11-04.md).
 
 ## How to generate / verify
 
@@ -16,7 +16,7 @@ python -m unittest discover -s tests -p 'test_perf01_inputs.py' -v
 
 Produces `inputs/binary_128_s64.json`, `inputs/binary_512_s64.json`, `inputs/binary_1024_s64.json`, and `inputs_manifest.json`. The generator **refuses to overwrite** a changed input or manifest. `--check` validates byte-for-byte determinism without overwriting.
 
-Tested local input-file SHA-256s, not a frozen paper manifest:
+Candidate SHA-256s verified both locally and in the fixture-materialization CI (NOT a frozen paper manifest):
 
 | File | SHA-256 from local producer test |
 |---|---|
@@ -34,11 +34,12 @@ Tested local input-file SHA-256s, not a frozen paper manifest:
 - Robustness: one separate 512-trial masked cell, predeclared 0-based positions `ignored_input_and_response=[31,127]`, `irregular_response_only=[63,255]`. Runner must map these to MATLAB `NaN` and HGFX mask semantics and independently validate the mapping before timing.
 - Data are encoded as JSON integers 0/1 for portable exact interchange; all scientific computations load them as **binary64**. MATLAB and HGFX must consume the *same committed exported bytes* rather than independently sample random streams.
 
-## Remaining PERF-01B requirements (blocking)
+## Completed preparation and remaining gates
 
-1. In an isolated, verified `hgfx==1.0.0` environment, serialize default `hgf_binary`, `ehgf_binary`, `uhgf_binary` and `unitsq_sgm` configs, *resolved* priors, fixed/free masks and transformed start vectors; verify against frozen MATLAB 8.2.0 for the same inputs. Do not copy configs from current `main` (currently beta).
-2. Define the runner's exact forward/objective fitting boundaries, MATLAB `fitModel` postprocessing scope, optimizer configuration and fixed tolerance policy; mark non-comparable fast-fit results instead of forcing numerical parity.
-3. Review and commit the **actual** canonical input JSON files and complete manifest with hashes, scripts and environment lock; the current locally tested SHA-256 values are diagnostic until that happens. Do not time any case whose input file is missing or has an unexpected hash.
-4. Independently review and freeze protocol+manifest as PERF-01C before final comparative measurements.
+- The nine resolved config files, their checksums, source IDs, fixed/free indices, prior vectors, and transformed starts were exported from an isolated `hgfx==1.0.0` installation (not beta). CI [41850645631](https://github.com/ahmadkhanloo/hgfx/actions/runs/41850645631) passed.
+- MATLAB R2026a with HGF Toolbox 8.2.0 was executed on exact canonical inputs; 9/9 first-subject start/prior identities passed. CI [41852401008](https://github.com/ahmadkhanloo/hgfx/actions/runs/41852401008) passed.
+- HGFX-only preflight CI [41851191076](https://github.com/ahmadkhanloo/hgfx/actions/runs/41851191076) captured retained failures; see the [full paired evidence](../../docs/research/PERF01_PAIRED_PREFLIGHT_2026-11-04.md) and the generated `paired_preflight_runs/` record.
+- Exact matched CPU thread/hardware/runtime identity, optimizer/postprocessing boundaries, 64-subject MATLAB config coverage, trialwise numerical tolerance policy, independent review and prospective evidence freeze **remain open**. This first-subject preflight must not be misrepresented as full scientific equivalence.
+- Full fitting, throughput and speedup have **not** been measured. Existing invalid-approximation cases remain recorded; no replacement data or start vectors are permitted to erase them.
 
-Do not label this gate PASS based on the successful generator unit tests. Historical M17 speed and T4 GPU applicability remain separate.
+Do not label PERF-01B or PERF-01C PASS based on generator success. Historical M17 speed, T4 GPU applicability, M18 failures, M19 and the paper protocol 1 freeze remain separate.
