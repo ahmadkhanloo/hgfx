@@ -44,8 +44,8 @@ def test_pyhgf_residual_uses_all_frozen_trials():
 def test_candidate_builder_binds_caption_to_image():
     builder = load_script('build_submission')
     source = builder.source_text('manuscript.md')
-    assert source.count('\\begin{minipage}') == 4
-    assert source.count('\\captionof{figure}') == 4
+    assert source.count('\\begin{minipage}') == 5
+    assert source.count('\\captionof{figure}') == 5
     assert 'Figure 1](figures/' not in source
     assert 'Bibliography entries are in' not in source
 

@@ -67,7 +67,16 @@ def main():
     smoke = json.loads((HERE / 'worked_example/result.json').read_text())
     if smoke['hgfx'] != '1.0.0' or not smoke['x64'] or smoke['trials'] != 24 or smoke['status'] != 'PASS_WORKFLOW_ONLY':
         raise RuntimeError('Wrong smoke identity/scope')
-    result = {'status': 'PASS_LOCAL_ARTIFACT_CHECKS_ONLY', 'protected_files_unchanged': len(baseline['files']), 'claim_paragraphs': len(ledger), 'abstract_words': len(abstract.split()), 'manuscript_words_including_tables': len(text.split()), 'citation_keys_resolved': len(cited), 'human_verification': 'PENDING', 'real_data_replication': 'BLOCKED', 'zero_fee_clearance': 'OPEN'}
+    empirical = json.loads((HERE / 'empirical_example/result.json').read_text())
+    provenance = json.loads((HERE / 'empirical_example/provenance.json').read_text())
+    if empirical['hgfx'] != '1.0.0' or not empirical['x64'] or empirical['observations'] != 614 or empirical['status'] != 'COMPLETED_DESCRIPTIVE_WORKFLOW':
+        raise RuntimeError('Wrong empirical example identity/scope')
+    if sha(HERE / 'empirical_example/example_usdchf.txt') != provenance['text_lf_sha256']:
+        raise RuntimeError('Empirical input changed')
+    for record in json.loads((HERE / 'evidence/acquisition.json').read_text()):
+        if sha(HERE / 'evidence' / record['file']) != record['sha256']:
+            raise RuntimeError('Historical raw archive changed')
+    result = {'status': 'PASS_LOCAL_ARTIFACT_CHECKS_ONLY', 'protected_files_unchanged': len(baseline['files']), 'claim_paragraphs': len(ledger), 'abstract_words': len(abstract.split()), 'manuscript_words_including_tables': len(text.split()), 'citation_keys_resolved': len(cited), 'human_scientific_verification': 'PENDING', 'author_declarations': 'CONFIRMED_IN_CHAT_2026_11_04', 'empirical_input_workflow': 'COMPLETED_DESCRIPTIVE_ONLY', 'external_participant_replication': 'BLOCKED', 'zero_fee_clearance': 'OPEN'}
     (HERE / 'verification.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps(result, indent=2))
 

@@ -15,3 +15,8 @@
   simulation files are preserved locally; likelihood/config permission is unresolved.
 - SPIRL remains separately licensed GPLv3 in its original archive/dossier. No GPL
   model source has been inserted into the HGFX core.
+
+- empirical_example/example_usdchf.txt is copied from the frozen HGF Toolbox
+  demo under its MIT license. Copyright (c) 2012-2024 Christoph Mathys and
+  contributors. The original full notice is empirical_example/HGF_LICENSE.txt.
+  No independent claim about the original market-data provider is made.

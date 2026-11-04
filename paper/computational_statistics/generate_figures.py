@@ -68,6 +68,25 @@ def pyhgf_trajectories(raw):
     return fig
 
 
+def empirical_workflow(result, inputs):
+    import numpy as np
+    mu, predicted = np.asarray(result['mu']), np.asarray(result['muhat'])
+    assert result['status'] == 'COMPLETED_DESCRIPTIVE_WORKFLOW'
+    assert mu.shape == predicted.shape == (len(inputs), 2)
+    fig, axes = plt.subplots(2, 1, figsize=(6.8, 4.2), sharex=True, layout='constrained')
+    x = np.arange(1, len(inputs)+1)
+    axes[0].plot(x, inputs, color='.65', lw=1.1, label='Observed exchange rate')
+    axes[0].plot(x, predicted[:, 0], color='black', lw=.8, ls='--', label='One-step predicted mean')
+    axes[0].set_ylabel('CHF per USD')
+    axes[0].legend(fontsize=8)
+    axes[1].plot(x, mu[:, 1], color='black', lw=1)
+    axes[1].set_ylabel('Level-2 posterior mean')
+    axes[1].set_xlabel('Observation number')
+    for ax in axes:
+        ax.spines[['top', 'right']].set_visible(False)
+    return fig
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     evidence = ROOT / 'reference/validation/m18_s7_reference_limitation/decision.json'
@@ -78,6 +97,14 @@ def main():
         fig.savefig(path, dpi=300, bbox_inches='tight', metadata={'CreationDate': None, 'ModDate': None} if suffix == 'pdf' else None)
         outputs.append({'path': path.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
     plt.close(fig)
+    example = OUT.parent / 'empirical_example'
+    import numpy as np
+    generated = empirical_workflow(json.loads((example / 'result.json').read_text()), np.loadtxt(example / 'example_usdchf.txt'))
+    for suffix in ['png', 'pdf']:
+        path = OUT / f'fig_usdchf_workflow.{suffix}'
+        generated.savefig(path, dpi=300, bbox_inches='tight', metadata={'CreationDate': None, 'ModDate': None} if suffix == 'pdf' else None)
+        outputs.append({'path': path.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'source': 'released-wheel empirical example; no new MATLAB parity'})
+    plt.close(generated)
     raw_path = ROOT / 'paper/reproducibility/p2a10_raw_numeric_result_35268575414.json'
     for name, generated in [('fig_recovery_metrics', recovery(json.loads(evidence.read_text()))),
                             ('fig_pyhgf_common_scope', pyhgf_trajectories(json.loads(raw_path.read_text())))]:
@@ -110,7 +137,7 @@ def main():
             target = OUT / source.name
             shutil.copyfile(source, target)
             outputs.append({'path': target.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(target.read_bytes()).hexdigest(), 'source': source.relative_to(ROOT).as_posix()})
-    (OUT / 'manifest.json').write_text(json.dumps({'hash_convention': 'text LF; binary exact', 'inputs': {p.relative_to(ROOT).as_posix(): source_sha(p) for p in [evidence, raw_path]}, 'operation': 'separate agreement/accuracy; grayscale recovery; raw pyhgf residual; other figures byte-identical', 'outputs': outputs}, indent=2) + '\n', encoding='utf-8', newline='\n')
+    (OUT / 'manifest.json').write_text(json.dumps({'hash_convention': 'text LF; binary exact', 'inputs': {p.relative_to(ROOT).as_posix(): source_sha(p) for p in [evidence, raw_path, example / 'result.json', example / 'example_usdchf.txt']}, 'operation': 'separate agreement/accuracy; grayscale recovery; raw pyhgf residual; empirical USD/CHF workflow; historical diagnostic figures byte-identical', 'outputs': outputs}, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 
 if __name__ == '__main__':

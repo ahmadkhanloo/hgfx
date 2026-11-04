@@ -125,30 +125,30 @@ reproducibility; model selection; research software; uncertainty
 
 \subsection{Abstract}\label{abstract}
 
-Moving an established statistical analysis to another programming
-language requires preserving parameter conventions, observation models,
-and numerical behavior as well as equations. HGFX provides hierarchical
-Gaussian filtering in Python, targeting a frozen MATLAB HGF Toolbox
-8.2.0 reference while removing MATLAB from the user runtime. We describe
-the statistical contract, fitting workflow, and evaluation of the
-released HGFX 1.0.0 package. Configuration and numerical checks are
-complemented by paired workflow, recovery, and backend experiments.
-MATLAB and HGFX select the same Bayesian information criterion winner in
-all 36 frozen model-selection cases, while both achieve generating-model
-recovery balanced accuracy of 0.583. Parameter-recovery criteria are not
-fully met. A separate trial-horizon experiment fails its
-paired-integrity gate and cannot support a stronger identifiability
-conclusion. A comparison with pyhgf 0.3.2 establishes agreement for 11
-mapped perceptual quantities in one three-level binary case;
-participant-response negative log-likelihood remains not directly
-comparable. Retained Tesla T4 evidence supports objective agreement in
-tested fitting cells, without establishing a speed advantage. Source
-audits of two published applications identify unresolved custom-model
-requirements and do not yield an executed real-data replication. The
-contribution is a reference-compatible software workflow with explicit
-boundaries: reproducibility across implementations does not establish
-parameter identifiability, model discrimination, or validity for a new
-experimental design.
+Moving an established statistical analysis between programming languages
+requires preserving parameter conventions, observation models and
+numerical behavior. HGFX provides hierarchical Gaussian filtering in
+Python against a frozen MATLAB HGF Toolbox 8.2.0 reference, without
+MATLAB in the user runtime. We present the statistical contract, user
+workflow and scoped evaluation of HGFX 1.0.0. In 36 paired
+model-selection datasets, the implementations select identical Bayesian
+information criterion winners, while generating-model recovery balanced
+accuracy is 0.583 in each. Parameter recovery does not meet all
+predeclared criteria. A separate trial-horizon experiment fails its
+integrity gate. Inspection of its retained raw outputs distinguishes ten
+datasets with no selectable model in either implementation from
+disagreement between two selected models, and identifies four asymmetric
+initial-fit outcomes. A mapped comparison with pyhgf 0.3.2 shows
+agreement for 11 perceptual quantities in one binary case; response
+likelihood remains not directly comparable. Retained Tesla T4
+measurements establish objective agreement in tested cells, without a
+speed claim. A reproducible continuous-input example uses the reference
+toolbox's empirical USD/CHF series; customized published participant
+analyses remain outside the demonstrated application scope. HGFX's
+contribution is a versioned compatibility workflow with inspectable
+numerical boundaries. Cross-implementation agreement does not establish
+parameter identifiability, reliable model discrimination or validity for
+a new experimental design.
 
 \subsection{1 Introduction}\label{introduction}
 
@@ -229,11 +229,9 @@ connects configuration and fixed-parameter checks to paired fitting,
 official workflows and backend evidence. Third, the paper reports
 inferential failures alongside implementation agreement, so that
 successful reproduction is not presented as successful scientific
-recovery. We also audit two published applications to assess practical
-portability. Neither audit is represented as a successful real-data
-replication. This boundary is consequential for evaluating the package's
-current applied contribution, not merely an administrative
-qualification.
+recovery. A continuous-input worked example illustrates the user
+workflow, while source audits of two customized participant studies
+delimit applications requiring further migration.
 
 \subsection{2 Statistical formulation}\label{statistical-formulation}
 
@@ -395,15 +393,11 @@ bic = float(result.optim.BIC)
 \end{verbatim}
 
 The complete runner supplies explicit arrays, environment checks and
-provenance. It was executed outside the checkout using the released
-wheel in an isolated environment with CPU float64 enabled. The wheel
-bytes matched the official PyPI hash; acquisition used a mirror after
-the primary file host failed DNS resolution. The fit completed with
-finite likelihood-derived statistics. This is a workflow smoke check,
-not a new reference-parity or recovery experiment. Simulation and
-sampling APIs are documented separately, rather than treating a
-successful fit as evidence that all public surfaces were exercised in
-this example.
+provenance. It was executed outside the checkout with the released wheel
+and CPU float64. This synthetic smoke check establishes installation and
+basic use, not reference parity or recovery. Section 5.4 presents the
+separate empirical-input example; acquisition and environment details
+are in Supplement S6.
 
 \subsubsection{3.2 Compatibility and execution
 backends}\label{compatibility-and-execution-backends}
@@ -493,8 +487,11 @@ enhanced and unbounded HGF. It includes truth scales of 0.15 and 0.35
 prior standard deviations, trial counts of 128 and 256, and frozen
 quasi-Newton settings. There are 72 parameter cases and 36
 model-recovery datasets, with three candidate fits per model-recovery
-dataset. These denominators and the actual recorded starts belong to the
-frozen protocol, rather than being selected after inspecting outputs.
+dataset. Each model contributes 24 parameter cases, pooling two trial
+counts, two truth scales and six replicates. Fits start once at resolved
+transformed prior means, with at most 100 quasi-Newton iterations and no
+random restarts. The three free parameters are omega2, omega3 and log
+zeta (zero-based combined-vector positions 12, 13 and 14).
 
 Predeclared scientific criteria are convergence rate at least 0.80,
 median parameter-recovery correlation at least 0.50, median standardized
@@ -506,12 +503,20 @@ agreement asks a third question: whether MATLAB and HGFX choose the same
 candidate on the same data. Figure 3 separates the latter two quantities
 visually.
 
-An earlier historical recovery failure remains archived independently of
-this paired grid. Subsequent reference-limitations accounting does not
-erase it. Failed and nonconverged cases are retained under the frozen
-rules. Shared MATLAB/Python seeds do not establish identical random
-streams; paired inputs and starts are recorded as actual values when
-cross-language identity is required.
+For each transformed parameter, sRMSE is its root mean squared
+estimation error divided by the population standard deviation of its
+simulated truths across the 24 cases. The recorded implementation
+substitutes a divisor of one only when that standard deviation is at
+most \(10^{-12}\). Correlation is Pearson correlation across cases; the
+reported median includes finite parameter correlations. Nonconverged but
+returned fits remain in these metrics; an execution failure makes the
+model summary incomplete. Convergence means termination at the argument
+or gradient tolerance in HGFX. MATLAB convergence is inferred from the
+retained iteration trace and absence of its
+maximum-reset/maximum-iteration warnings, rather than from successful
+function return. Supplement S2 gives parameter-wise results and the
+selection confusion matrix. Historical failures remain archived
+independently.
 
 \subsubsection{4.3 Trial-horizon diagnostic
 extension}\label{trial-horizon-diagnostic-extension}
@@ -566,16 +571,17 @@ device. Device enumeration and actual array residency are separate
 checks. These measurements concern applicability and agreement, without
 a speed or scaling hypothesis.
 
-To assess external workflow portability, Pain 2025 (Lacombe-Thibault and
-Coll 2025) was prioritized before new HGFX fitting, with SPIRL (Hess et
-al. 2025) as the predetermined fallback. This choice was based on
-availability of model definitions rather than favorable numerical
-results. The audit checked pinned sources, inputs, exclusions, response
-models, historical environments, dependencies and licenses. An eligible
-protocol would have been committed before fitting. No study passed that
-gate in this execution. The source audits can establish an
-implementation gap; they cannot supply a fitted participant result or
-evidence about the original paper's substantive findings.
+The empirical example follows the frozen toolbox's continuous-input
+demonstration: a two-level classic HGF with the bayes\_optimal
+likelihood evaluates the USD/CHF observations directly, with an empty
+response vector. Default priors, placeholder resolution and optimizer
+settings are retained. The complete sequence is used in its recorded
+order, without generated responses or removed rows. It is a descriptive
+fit to an empirical series, not an out-of-sample forecasting test.
+Separate source audits of Pain 2025 (Lacombe-Thibault and Coll 2025) and
+SPIRL (Hess et al. 2025) assess whether their customized participant
+pipelines can be transferred without changing the models; neither
+proceeds to fitting.
 
 \subsection{5 Results}\label{results}
 
@@ -601,9 +607,10 @@ is not a blanket assertion that all possible scientific workflows are
 validated.
 
 \begin{minipage}{\linewidth}
-\textbf{Table 1.} Evaluated software scope. Candidate names do not
-establish equivalence of custom study pairs. NDC means not directly
-comparable
+\textbf{Table 1.} Quantitative evidence and its boundaries. Each
+criterion applies only to its stated surface. NR means a maximum
+discrepancy was not retained in the classification artifact; it is not
+zero
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{tabular}{@{}
@@ -612,31 +619,43 @@ comparable
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-Surface
+Comparison and scope
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-HGFX 1.0.0 evidence
+Recorded measurement
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Boundary
+Frozen criterion / interpretation
 \end{minipage} \\
 \midrule\noalign{}
 
 
-HGF/eHGF/uHGF and documented specialized families & Frozen-reference
-component and workflow checks & Oracle 8.2.0 scope \\
-Observation models, transforms and priors &
-Trial-likelihood/configuration checks & Exact configured response
-required \\
-Fitting and statistical outputs & Direct checks plus two matched
-limitations & No universal endpoint equivalence \\
-pyhgf 0.3.2 comparison & One fixed binary perceptual case & Response NLL
-NDC; no fitting comparison \\
-Published custom RT studies & Source feasibility only & No executed
-real-data replication \\
+Official binary eHGF challenge; 320 trials & No trajectory/state
+mismatches; maximum NR & atol \(5\times10^{-13}\), rtol
+\(5\times10^{-11}\); classic HGF fails in both \\
+Official uHGF / AR1 workflow; 320 trials & No trajectory/state
+mismatches; maximum NR & Same trajectory tolerances; two model paths \\
+Sensitive eHGF fit; shared-state probe & Objective gap
+\(2.84\times10^{-14}\); state gap zero & Endpoint mismatch preserved;
+not fit parity \\
+Paired binary model selection & 36/36 BIC winners agree & Exact winner
+identity; recovery accuracy 0.583 \\
+Mapped pyhgf perceptual comparison & 11 fields; maximum error
+\(1.55\times10^{-15}\) & atol \(10^{-10}\), rtol \(10^{-8}\); one
+128-trial case \\
+Compatibility / JAX CPU fitting & Maximum objective gap 0.006784 &
+Absolute gap \(\leq0.10\); four cells \\
+JAX CPU / T4 fitting & Maximum objective gap \(1.42\times10^{-14}\) &
+Absolute gap \(\leq10^{-7}\); four cells \\
 \bottomrule
 \end{tabular}
 }
 \end{minipage}
 
+
+The trajectory checks, shared-state probe and fitted-objective checks
+address different quantities. They do not certify arbitrary parameter
+endpoints or custom study responses. The two sensitive fitting cases
+remain matched reference limitations; their numerical localization is
+summarized in Supplement S2.
 
 The software comparison is deliberately asymmetric (Table 2). The MATLAB
 package is the specification used for this evaluation, HGFX is evaluated
@@ -773,17 +792,23 @@ discrimination among HGF families.
 \subsubsection{5.3 Trial horizon, software comparison and
 backends}\label{trial-horizon-software-comparison-and-backends}
 
-The trial-horizon experiment fails its paired-integrity gate: the
-free-parameter-index contract also fails, and 10 of 72 BIC winners
-disagree, all in classic-HGF cases at 512 or 1024 trials. The aggregate
-diagnostic classifier marks all three families as
-implementation-or-optimizer mismatches; only the winner disagreements
-are confined to classic HGF. Parameter metrics for those classic-HGF
-horizons are undefined because invalid trajectories are retained. Some
-other diagnostic rows meet recovery criteria, but the aggregate
-classification remains insufficient reference evidence. Figure S1
-preserves both the diagnostic values and gaps. No stronger claim about
-trial length or structural identifiability follows.
+The trial-horizon experiment fails its paired-integrity gate. A
+retrospective audit of the original 24 shard archives clarifies why: all
+62 datasets with nonempty selected-model labels agree, while ten
+datasets have no selected model in either implementation because
+simulation was invalid. The frozen checker counts these empty pairs as
+failed winner matches; they are not ten pairs choosing different models.
+Of 144 parameter cases, 20 share an invalid simulation and four have an
+HGFX initial-objective rejection with a MATLAB success flag. Two of
+those MATLAB outputs have nonfinite negative log joint values; the other
+two return finite values. All 120 successful pairs have the expected
+free indices. Thus the 24 failed index checks reflect empty failure
+outputs, not observed parameter-order differences between successful
+fits. The classifier propagates its global gate failure to all three
+families, so its labels do not localize a defect to every family. These
+distinctions correct interpretation without changing the frozen gate,
+replacing failed data or claiming identifiability. Supplement S3 retains
+the four asymmetric cases and the limits of their localization.
 
 All 11 mapped perceptual quantities pass the common-scope pyhgf
 criteria. Maximum absolute differences range from approximately
@@ -813,124 +838,98 @@ source identity are provided in Supplement S4. These are different
 comparisons with different criteria; their gap magnitudes should not be
 read as a ranking of hardware accuracy.
 
-\subsubsection{5.4 Published application
-audit}\label{published-application-audit}
+\subsubsection{5.4 Empirical-input workflow and application
+boundary}\label{empirical-input-workflow-and-application-boundary}
 
-Pain's pinned snapshot contains the participant source table,
-questionnaire CSVs and custom log-RT files. The apparent
-participants.csv/participants.tsv discrepancy is resolved by their
-distinct source and derived paths. The original historical
-MATLAB/TAPAS/VBA versions remain unresolved, however, and a clear code
-license for copying or translating the custom responses was not found.
-An additional plotting helper is absent. The fitted HGF-labelled pairs
-use enhanced-HGF configurations with study-specific priors and
-covariates; they are not certified by a standard response name.
+The continuous-input example applies the released wheel to the entire
+USD/CHF series distributed with the frozen toolbox. The upstream demo
+describes exchange rates during 2010 and 2011; the file supplies values
+without calendar labels. Consequently, the example uses observation
+number rather than invented dates and treats the series' upstream
+description as its provenance. It estimates perceptual parameters from
+the input likelihood, without participant choices or synthetic response
+measurements. The run completed in 182 seconds on CPU float64, returning
+negative log likelihood -2387.622 and BIC -4736.724 for 614
+observations. A continuous density can exceed one, so a negative
+negative-log-likelihood is not itself an error. Figure 5 shows the
+observations and fitted-filter predictions. Parameters were estimated
+from the full series: the one-step predictions are therefore in-sample
+diagnostics, not held-out forecasts. Numerical-derivative warnings
+occurred; finite statistics are not treated as a convergence or
+curvature-validation certificate. Supplement S6 records the execution
+and remaining diagnostics.
 
-SPIRL's source defines a custom enhanced-HGF and seven joint
-choice/response-time models, with 399 random initializations. Reducing
-that model space or discarding response time would change the analysis.
-An exact HGFX 1.0.0 port requires additional licensed migration and
-golden-reference work outside the bounded case-study scope. Both
-feasibility reports therefore stop before fitting. There is no new
-participant trajectory, reproduced paper figure or recovered scientific
-association in this revision. The practical external-validity gap
-remains visible rather than being filled with synthetic results.
+The example shows how an analyst can inspect one-step predictions and
+changing latent volatility using a standard configuration. It does not
+establish financial forecasting performance or reproduce a participant
+study. Pain's custom response permissions and historical environment
+remain unresolved. SPIRL requires a separately validated custom
+perceptual model and seven joint choice/response-time models. The source
+audits identify those boundaries; their file-acquisition details belong
+to the reproducibility dossier, not to an empirical result.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{fig_usdchf_workflow.pdf}
+\captionof{figure}{Empirical-input worked example with all 614 USD/CHF observations from the frozen toolbox demo. The upper panel shows observed rates and one-step predicted means from the continuous two-level HGF; the lower panel shows the fitted level-2 posterior mean, which modulates innovation variance. Parameters are estimated using the full series. No held-out accuracy, parameter uncertainty, new MATLAB agreement or participant-study replication is implied}
+\end{minipage}
+\end{center}
 
 \subsection{6 Discussion}\label{discussion}
 
-HGFX supports a particular form of reproducibility: transferring tested
-behavior from a fixed MATLAB HGF reference into a Python workflow. The
-strongest conclusion is that the released implementation reproduces
-documented numerical and workflow behavior within recorded scopes,
-including known limitations. This conclusion is narrower than general
-scientific validation and more useful than an assertion that a port
-runs. It tells a researcher which parts of an established workflow have
-paired evidence and which require further verification.
+HGFX serves analysts who need the tested conventions of a particular
+MATLAB HGF release in a Python environment. The contribution is the
+combination of a usable interface and scoped numerical evidence:
+parameter spaces, priors, masks, likelihoods and returned statistics are
+part of the analysis specification. Table 1 separates this evidence into
+surfaces that a user can evaluate before transporting an existing
+workflow. A shared model name alone is insufficient.
 
-The distinction between implementation agreement and recovery is
-central. In the paired model-selection grid, the implementations agree
-completely on winners, yet generating-model balanced accuracy is only
-0.583. Both can make the same selection without reliably recovering the
-truth. Parameter recovery is weaker still under the predeclared
-criteria. A user interested in individual differences should therefore
-not use cross-language agreement as evidence that individual parameters
-are measurable in a new task. The experimental design, parameter ranges,
-response model and available trials require a separate recovery
-assessment.
+Implementation agreement and scientific recovery answer different
+questions. In the paired grid, 36 matching BIC winners coexist with
+generating-model balanced accuracy of 0.583. Parameter-wise results
+further show that the median recovery summary conceals substantial
+heterogeneity: classic HGF recovers omega2 well in this grid, while its
+omega3 correlation is negative. This does not establish universal
+failure or success of either parameter. The narrow truth ranges, pooled
+horizons, observation model and single-start fitting constrain the
+result. Individual-difference studies need recovery assessment for their
+own design.
 
-The horizon extension reinforces this caution. More trials can be an
-appealing response to poor recovery, but the recorded experiment does
-not establish that solution because its integrity gate fails. Diagnostic
-successes for enhanced or unbounded HGF do not repair the missing paired
-support in the full scope. Reporting a favorable subset would answer a
-different question after observing results. Preserving the failed gate
-makes the limitation actionable: further work must first explain the
-affected classic-HGF simulations and implementation/optimizer
-disagreement before making a horizon claim.
+The horizon audit also illustrates why failure labels require inspection
+of raw outputs. Missing winners after invalid generation are different
+from competing finite model selections. Empty index arrays after
+execution failure are different from reordered parameters. Nonetheless,
+four asymmetric initial-fit outcomes remain, and the historical outputs
+do not identify their first divergent trial, level and intermediate
+state. The extended horizon grid therefore remains outside the supported
+paired-fitting claim. No general structural-identifiability conclusion
+follows, and the successful subset does not rescue the original gate.
 
-Numerical compatibility also has limits that an equation-level argument
-cannot resolve. Elementary differences can influence derivative
-estimates and optimizer paths. A sensitive endpoint mismatch should be
-investigated at shared parameter states, using objective decomposition
-and intermediate trajectories, before attributing it to scientific
-differences between models. When the reference itself exhibits a
-corresponding limitation, preserving that fact is preferable to forcing
-a preferred endpoint through clipping, retries or looser tolerances.
-Such a classification remains a limitation; it does not establish the
-scientific adequacy of the unstable fit.
+The empirical-input example supplies a reproducible analysis using a
+standard model, whereas the Pain and SPIRL audits expose the additional
+work required by customized published pipelines. Users should first
+identify exact configurations, transforms and missing-trial rules,
+compare fixed-parameter quantities, and only then compare fitted
+outputs. Failed cases must remain in the accounting. The current article
+does not establish end-to-end replication of an external participant
+study.
 
-The pyhgf comparison illustrates a complementary boundary. Agreement of
-mapped beliefs in one common model cell is evidence about those
-quantities, not evidence that all package outputs or fitting procedures
-are interchangeable. The response-NLL boundary problem prevents a
-stronger response-level conclusion even though perceptual discrepancies
-are at rounding scale. An applied comparison should therefore start by
-deciding which statistical quantities are shared. HGFX's reference
-emphasis and pyhgf's network flexibility serve different uses; the
-current evidence does not justify a general ranking of the two tools.
+HGFX and pyhgf have complementary evaluation scopes here. Eleven mapped
+perceptual quantities agree at rounding scale in one case, but the
+response-probability boundary prevents a likelihood-equivalence claim.
+Likewise, T4 objective agreement does not establish throughput or
+scaling. Broader response comparisons and performance benchmarks require
+their own prospective protocols.
 
-External applications expose gaps that internal demonstrations cannot
-remove. The Pain audit resolves input availability but leaves licensing,
-historical environment and custom-response equivalence open. The SPIRL
-audit identifies a joint-response model space that cannot be replaced by
-standard choices without changing the analysis. These are not adverse
-findings about those studies, nor empirical failures of a fit. They show
-why a general-purpose reference implementation does not automatically
-reproduce a customized published pipeline. The present package paper
-consequently lacks an executed external real-data replication, which
-remains a material editorial and practical limitation.
-
-For a researcher transporting a study, the most defensible workflow is
-to identify the original configuration and masks, freeze the input
-representation, and compare a fixed parameter vector before fitting. A
-fitted result can then be examined for convergence, objective
-components, trajectories and curvature-based statistics. Group summaries
-should retain failed participants in the accounting, rather than present
-successful fits as if they were the complete analysis. These
-recommendations follow directly from the failure modes exposed by the
-evaluation and the source audits; they do not prescribe a universally
-adequate HGF model.
-
-Accelerator execution supplies another possible workflow benefit, but
-the evidence here is deliberately restricted. The retained Tesla T4
-cells show that the tested objectives meet their numerical criterion.
-They do not establish speedup, multi-GPU scaling or performance on other
-architectures. Compilation cost, batch size, workload heterogeneity and
-hardware contention would need a separate benchmark protocol. The
-existence of JAX transformations is a software capability; it is not a
-measured law of computational performance.
-
-Several limitations remain. Compatibility is tied to one immutable
-reference, not future upstream releases. Matched reference limitations
-prevent universal fit-equivalence claims. The recovery grid covers
-particular designs and parameter ranges, and the longer-horizon
-extension fails its aggregate integrity gate. The pyhgf result is one
-mapped cell. Custom published response models need their own evidence
-and permission boundaries. Finally, source verification by an automated
-assistant does not replace accountable author review of numerical
-claims, declarations or submission conditions. These constraints define
-the current contribution and the work needed before broader applied
-claims are defensible.
+Compatibility is tied to the immutable 8.2.0 reference and the tested
+scopes, not future releases or arbitrary custom models. Two sensitive
+fitting cases remain exact-scope reference limitations; the horizon
+failures remain unresolved beyond the recorded diagnostic stages. Within
+those boundaries, the package makes established HGF workflows accessible
+without MATLAB at user runtime and gives analysts explicit evidence for
+deciding what can be transferred and what still requires validation.
 
 \subsection{7 Data and code
 availability}\label{data-and-code-availability}
@@ -952,24 +951,19 @@ Declarations}\label{statements-and-declarations}
 \subsubsection{Funding and competing
 interests}\label{funding-and-competing-interests}
 
-The inherited draft identifies the author as the HGFX developer and
-maintainer and states no specific grant funding and no other competing
-interests. These statements require author reconfirmation before
-submission; this revision does not certify them. Affiliation,
-correspondence, author order and any institutional requirements likewise
-remain subject to author approval.
+No specific grant funding was received for this work. Mohammad
+Ahmadkhanloo is the developer and maintainer of HGFX and declares no
+other competing interests.
 
 \subsubsection{Author contributions and
 ethics}\label{author-contributions-and-ethics}
 
-The inherited contribution statement assigns conceptualization,
-software, validation, formal analysis, data curation, visualization and
-writing to Mohammad Ahmadkhanloo. Final CRediT roles are pending author
-confirmation. This revision performs source audits and uses frozen
-computational evidence; it does not perform a new participant-data
-analysis. Permission and ethics requirements for any later
-secondary-data replication must be resolved before execution. No new
-ethics approval or participant consent is asserted here.
+Mohammad Ahmadkhanloo: conceptualization, software, validation, formal
+analysis, data curation, visualization, and writing (original draft and
+review/editing). The present work uses computational validation, source
+audits and an exchange-rate example; it does not undertake new
+participant-data analysis. No new participant recruitment, consent or
+ethics approval is claimed.
 
 \subsubsection{Generative AI use and
 accountability}\label{generative-ai-use-and-accountability}
@@ -978,10 +972,9 @@ OpenAI ChatGPT assisted with source inventory, code and test drafting,
 manuscript restructuring and substantial prose generation, figure
 preparation, and package checks. This work extends beyond copyediting.
 Automated source checks and editorial review are recorded as such, not
-as completed human verification. The accountable author must review and
-approve the scientific claims, declarations and final version before
-submission. No journal submission or preprint upload was performed in
-preparing this candidate.
+as completed human verification. The author confirmed authorship and
+declarations and remains responsible for verification and approval of
+the final scientific content before submission.
 
 \section*{References}\label{bibliography}
 \addcontentsline{toc}{section}{References}

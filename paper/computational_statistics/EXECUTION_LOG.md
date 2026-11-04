@@ -59,3 +59,17 @@ The complete locally executable package is prepared. External real-data replicat
 Post-push inspection found the repository's existing /paper/** eol=lf rule converted local CRLF text, invalidating raw-byte verification in a fresh checkout. Mission-owned text writers now emit LF. The original raw baseline hashes remain recorded; an additional files_lf inventory verifies canonical text content and exact binary bytes. All historical local files were checked against Git after newline normalization; no scientific content difference exists and none was rewritten. Ledger and figure input hashes explicitly use LF text and exact binary hashes. A regression check distinguishes line-ending portability from actual value changes and binary-byte changes. Final local suite: 6 passed. A canonical Git-archive checkout verification is performed before the corrective push.
 
 Canonical checkout result: PASS_CANONICAL_CHECKOUT. `git archive` of 0433501 plus the pinned oracle was extracted outside the working tree and verify_revision.py passed all 75 protected identities, 74 claim rows and package/figure checks. Main and supplement layout-text extraction is identical before/after the LF correction. Details: checkout_verification.json.
+
+## Critique-resolution execution, 4 November 2026
+
+Protocol committed as a25690a before the new empirical fit. Original P3 shard
+archives and the S7 aggregate were reacquired using public artifact downloads;
+archive digests were verified. No recovery fit was rerun. The diagnostic audit
+corrects the interpretation of empty selections and failed-output index vectors
+without changing historical gates. A regression test distinguishes absent,
+conflicting and matching winners. The empirical released-wheel run used all 614
+USD/CHF observations outside the checkout and completed in 182.001 seconds.
+Ridders invalid-subtraction warnings were visible; finite outputs are not a
+convergence certificate. No optimizer/priors/thresholds/core implementation changed.
+Author declarations were confirmed in the conversation. See the critique response
+for remaining scope limitations; no external communication or submission occurred.

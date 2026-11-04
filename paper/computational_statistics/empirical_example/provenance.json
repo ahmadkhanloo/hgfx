@@ -1,0 +1,14 @@
+{
+  "protocol_commit": "a25690ae1ef5f9ff80929750b4e0bea21eb10799",
+  "source_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "source_path": "external/hgf-toolbox/demo/example_usdchf.txt",
+  "upstream_url": "https://github.com/ComputationalPsychiatry/hgf-toolbox/blob/2437f4dc241541072722a2695ddeca7b44d83dd3/demo/example_usdchf.txt",
+  "upstream_demo_locator": "demo/hgf_demo.m lines 343-359",
+  "original_bytes_sha256": "33de602aaff5a7efc716658dbf33ff5f199c11ee90117126f1eb39c912e6cade",
+  "text_lf_sha256": "88de72ee00d7ac7b2395eee79d9bc6caef94c591c47925a6a1b0be595d20b8ec",
+  "observations": 614,
+  "input_order_preserved": true,
+  "license": "MIT; HGF_LICENSE.txt retained",
+  "author_declarations_confirmed": "2026-11-04 user chat; scientific approval not inferred",
+  "new_reference_comparison": false
+}

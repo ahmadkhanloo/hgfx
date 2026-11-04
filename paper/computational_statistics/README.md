@@ -28,3 +28,18 @@ The builder reads this candidate explicitly, uses author-year citeproc, and prod
 Remaining gates: human claim/declaration approval, no executed external application, comprehensive zero-fee/institutional clearance, final venue/account preflight and current preprint-revision policy. No submission, upload, email or financial commitment occurred.
 
 Text source hashes use LF consistently with the existing repository attributes; binary hashes remain byte-exact. Original raw baseline hashes are retained alongside canonical text identities.
+
+## Critique-resolution revision (4 November 2026)
+
+See [response to critique](RESPONSE_TO_CRITIQUE_FA.md), [frozen protocol](REVISION_PROTOCOL.md),
+[empirical example](empirical_example/README.md) and [raw-result audit](evidence/p3_diagnostic_audit.json).
+The historical 10 unmatched-winner flags are 10 jointly absent winners, not
+10 conflicting nonempty choices. The original failed gate remains unchanged.
+S7 parameter-wise results and its confusion matrix are now reported. Author
+metadata/declarations were confirmed in chat; scientific approval remains pending.
+A 614-observation empirical-input workflow completed with finite statistics;
+it is not an external participant-study replication or a new MATLAB parity test.
+Rebuild the audit first with `python paper/computational_statistics/audit_frozen_results.py`.
+Then use the figure/build/verification commands above. The latest revision
+manifest supersedes prior package hashes; historical checkout verification is
+retained as an earlier record, not proof for this revision.

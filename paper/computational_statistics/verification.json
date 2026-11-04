@@ -1,11 +1,13 @@
 {
   "status": "PASS_LOCAL_ARTIFACT_CHECKS_ONLY",
   "protected_files_unchanged": 75,
-  "claim_paragraphs": 74,
-  "abstract_words": 203,
-  "manuscript_words_including_tables": 5551,
+  "claim_paragraphs": 73,
+  "abstract_words": 202,
+  "manuscript_words_including_tables": 5514,
   "citation_keys_resolved": 13,
-  "human_verification": "PENDING",
-  "real_data_replication": "BLOCKED",
+  "human_scientific_verification": "PENDING",
+  "author_declarations": "CONFIRMED_IN_CHAT_2026_11_04",
+  "empirical_input_workflow": "COMPLETED_DESCRIPTIVE_ONLY",
+  "external_participant_replication": "BLOCKED",
   "zero_fee_clearance": "OPEN"
 }

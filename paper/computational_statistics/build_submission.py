@@ -78,6 +78,13 @@ def main():
                 tex = re.sub(r'\\bottomrule\\noalign\{\}\s*\\endlastfoot', '', tex)
                 tex = tex.replace('\\endhead', '').replace('\\end{longtable}', '\\bottomrule\n\\end{tabular}')
                 tex = re.sub(r'(\\textbf\{Table \d+\.\}.*?\\end\{tabular\}\s*\})', lambda m: '\\begin{minipage}{\\linewidth}\n' + m.group(1) + '\n\\end{minipage}\n', tex, flags=re.S)
+            else:
+                # All six supplementary tables are short; keep complete rows
+                # together rather than leaving one continuation row on a page.
+                tex = tex.replace('\\begin{longtable}[]', '\\begin{tabular}')
+                tex = re.sub(r'\\bottomrule\\noalign\{\}\s*\\endlastfoot', '', tex)
+                tex = tex.replace('\\endhead', '').replace('\\end{longtable}', '\\bottomrule\n\\end{tabular}')
+                tex = re.sub(r'(\\begin\{tabular\}.*?\\end\{tabular\})', lambda m: '\\begin{minipage}{\\linewidth}\n' + m.group(1) + '\n\\end{minipage}\n', tex, flags=re.S)
             tex = re.sub(r'(\\begin\{CSLReferences\}\{\d+\}\{\d+\})', lambda m: m.group(1)+'\n\\interlinepenalty=10000', tex)
             tex = tex.replace('\\begin{document}', '\\usepackage{graphicx,caption}\n\\renewcommand{\\figurename}{Fig.}\n' + ('\\renewcommand{\\thefigure}{S\\arabic{figure}}\n' if stem == 'HGFX_Supplement' else '') + '\\begin{document}')
             tex_path.write_text(tex, encoding='utf-8', newline='\n')

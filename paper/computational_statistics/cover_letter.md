@@ -19,8 +19,8 @@ explicit. A comparison with pyhgf is restricted to one prospectively mapped
 perceptual case; response negative log-likelihood remains not directly comparable.
 
 The software and accompanying source, evidence manifests and reproducibility
-instructions are publicly available through the HGFX repository. A synthetic
-released-wheel example demonstrates package use. Source audits of two published
+instructions are publicly available through the HGFX repository. A released-wheel example applies the continuous HGF to all 614 observations
+of the reference toolbox's empirical USD/CHF series. Source audits of two published
 applications reveal unresolved custom-model requirements; the manuscript does
 not claim that an external real-data replication has been completed. This
 limitation is part of the proposed evaluation, not omitted from the presentation.
@@ -30,8 +30,8 @@ clear account of inferential limitations fits the journal's stated package-repor
 and software-article scope. A related preprint is posted under DOI
 10.64898/2026.09.22.753415; this draft is a proposed revision and has not been
 uploaded. We intend the subscription route, subject to confirmation that it
-incurs no mandatory author charges. Final author approval and administrative
-declarations must be completed before this letter is sent.
+incurs no mandatory author charges. Authorship and declarations have been confirmed; final scientific approval
+and administrative clearance must be completed before this letter is sent.
 
 Sincerely,
 
