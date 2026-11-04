@@ -91,3 +91,12 @@ Only after PERF-01C independent review, SHA-locked runners and a versioned proto
 5. If no independent reviewer is available, mark PERF-01C `BLOCKED_PENDING_EXTERNAL_REVIEW`, not `PASS`. If matched hardware/threading cannot be established, retain environment blocker rather than relying on incomparable host timings.
 
 **Current verdict: DRAFT ONLY — no scientific-performance gate passed, no timings executed, and no CPU/GPU speedup established.**
+
+
+## Post-draft scientific update: full 64-fit denominator (2026-11-04)
+
+The exact previously proposed conditional cohort full-fitting gate **was executed** against both frozen products on the original 64-subject 128-trial input. [Run 41863441006](https://github.com/ahmadkhanloo/hgfx/actions/runs/41863441006): **1/1**, **15/16**, and **63/64** complete fitted outputs fall within the preexisting diagnostic field tolerances. The zero-based subject 7 has four out-of-tolerance `traj.mu` and four `traj.muhat` positions. The full 16- and 64-subject fitting strata therefore remain **SCIENTIFICALLY BLOCKED**, **not merely untested**, with all original subjects retained.
+
+Direct matched-vector reference/HGFX replay [41868723514](https://github.com/ahmadkhanloo/hgfx/actions/runs/41868723514) agrees for both exactly archived fitted vectors. Frozen MATLAB reference-only start sensitivity [41870479069](https://github.com/ahmadkhanloo/hgfx/actions/runs/41870479069) reproduces the official baseline endpoint exactly, then shows that one one-ULP start perturbation yields a `7.640946009246363e-7` shift in MATLAB's own fitted endpoint outside its existing numerical gate. **This supports a source optimizer-endpoint sensitivity explanation**, not eligibility for a silent broader Fitting speedup or a scientific `REFERENCE_LIMITATION_MATCH` without independent disposition.
+
+This prospective document remains **DRAFT / NOT FROZEN**. Its C2/C3 scope is excluded from validated speed reporting unless a new independently reviewed evidence-based protocol and compatible scientific output policy is locked *before future measurements*; never edit the existing threshold or replace the original failed subject. See [the original fit and replay report](PERF01D_COHORT_FIT_MISMATCH_AND_REPLAY_2026-11-04.md) and [refined 28-case draft ledger](../../benchmarks/runtime_v1/eligibility_candidates/candidate_v2_fullfit41863441006.json).

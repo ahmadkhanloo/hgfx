@@ -47,3 +47,15 @@ The exact 64-subject, three-horizon, three-model MATLAB/HGFX fixed-vector cohort
 - Independent review request: [issue #88](https://github.com/ahmadkhanloo/hgfx/issues/88).
 
 **Do not close PERF-01C:** this section is an implementer evidence handoff, not an independent approval. In particular, the original nine-cell primary CPU speedup headline is ineligible under the observed failed frozen cells; no threshold may be weakened or originally defined case silently replaced. A new prospective protocol for a genuinely different headline, if wanted, requires separately justified scope and prior independent approval.
+
+
+## Mandatory follow-up independent review: full-cohort fitting and source-only MATLAB sensitivity
+
+Evidence from this stage is no longer pending:
+
+- Original 64 public full fits: [41863441006](https://github.com/ahmadkhanloo/hgfx/actions/runs/41863441006), `benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json`; 63 concordant, 1 out-of-tolerance original subject 7; nested denominators **1/1, 15/16, 63/64**. Full workflow remains a scientific **non-PASS**.
+- Exact two-endpoint replays: [41868723514](https://github.com/ahmadkhanloo/hgfx/actions/runs/41868723514), `benchmarks/runtime_v1/subject7_results/summary-41868723514.json`; both exact frozen fitted endpoints have MATLAB/HGFX concordant trajectories, states and trial likelihood; differences occur between distinct optimizer endpoints.
+- Frozen MATLAB **self-sensitivity**, not modified reference software: [41870479069](https://github.com/ahmadkhanloo/hgfx/actions/runs/41870479069), `benchmarks/runtime_v1/matlab_sensitivity_results/summary-41870479069.json`. The independently scripted exact-form objective *first reproduces original MATLAB optimizer endpoint with zero discrepancy*, then holds data/model/priors fixed and perturbs each of three free start parameters by ±eps. One of six probes has a final shift `7.640946009246363e-7` outside original M10 fitting tolerance.
+- Exact derived author-side ledger, **original evidence untouched**: `benchmarks/runtime_v1/eligibility_candidates/candidate_v2_fullfit41863441006.json`, [run 41869747776](https://github.com/ahmadkhanloo/hgfx/actions/runs/41869747776). All 28 original cases preserved, 16 review-pending and 12 blocked, with two blocked fitting reasons now supported by actual failed complete-fitting evidence.
+
+The independent reviewer must **check the source-only MATLAB objective against `fitModel.m`**, the exact original baseline reconstruction, all six perturbation endpoints and original source-vector raw artifact hashes, and decide whether these meet the **narrow** `MATLAB_REFERENCE_LIMITATIONS_POLICY.md` requirements for an explicitly delimited numerical-basin classification. The implementer must **not self-certify**, change the frozen 63/64 outcome, silently exclude subject 7, or promote grouped fitting to benchmark eligibility. Check optimizer termination and iteration histories as a separate scientific limitation question. No performance timing has occurred.
