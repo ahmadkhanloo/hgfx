@@ -1,0 +1,291 @@
+{
+  "classification_counts": {
+    "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED": 14,
+    "BOTH_FAILED_UNCLASSIFIED": 5,
+    "NOT_RUN_FITTING_UNASSESSED": 9
+  },
+  "hgfx_version": "1.0.0",
+  "matlab_oracle_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "matlab_release": "2026a",
+  "protocol_id": "hgfx-matlab-runtime-1",
+  "rows": [
+    {
+      "case_id": "primary_forward_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "stage": "forward"
+    },
+    {
+      "case_id": "primary_objective_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "neg_log_joint_abs_delta": 0.0,
+      "neg_log_joint_rel_delta": 0.0,
+      "stage": "objective"
+    },
+    {
+      "case_id": "primary_fit_compat_full_128",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "stage": "fit_compat_full"
+    },
+    {
+      "case_id": "primary_forward_512",
+      "classification": "BOTH_FAILED_UNCLASSIFIED",
+      "hgfx_error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+      "hgfx_status": "HGFX_ONLY_ERROR",
+      "matlab_error": "tapas:hgf:VarApproxInvalid",
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "forward"
+    },
+    {
+      "case_id": "primary_objective_512",
+      "classification": "BOTH_FAILED_UNCLASSIFIED",
+      "hgfx_error": "ValueError: Invalid objective status=-1, value=1.7976931348623157e+308",
+      "hgfx_status": "HGFX_ONLY_ERROR",
+      "matlab_error": "tapas:hgf:VarApproxInvalid",
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "objective"
+    },
+    {
+      "case_id": "primary_fit_compat_full_512",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "fit_compat_full"
+    },
+    {
+      "case_id": "primary_forward_1024",
+      "classification": "BOTH_FAILED_UNCLASSIFIED",
+      "hgfx_error": "ValueError: Variational approximation invalid. Parameters are in a region where model assumptions are violated.",
+      "hgfx_status": "HGFX_ONLY_ERROR",
+      "matlab_error": "tapas:hgf:VarApproxInvalid",
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "n_trials": 1024,
+      "stage": "forward"
+    },
+    {
+      "case_id": "primary_objective_1024",
+      "classification": "BOTH_FAILED_UNCLASSIFIED",
+      "hgfx_error": "ValueError: Invalid objective status=-1, value=1.7976931348623157e+308",
+      "hgfx_status": "HGFX_ONLY_ERROR",
+      "matlab_error": "tapas:hgf:VarApproxInvalid",
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "n_trials": 1024,
+      "stage": "objective"
+    },
+    {
+      "case_id": "primary_fit_compat_full_1024",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 1024,
+      "stage": "fit_compat_full"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_forward_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 128,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_objective_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 128,
+      "neg_log_joint_abs_delta": 0.0,
+      "neg_log_joint_rel_delta": 0.0,
+      "stage": "objective"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_forward_512",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 512,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_objective_512",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 512,
+      "neg_log_joint_abs_delta": 0.0,
+      "neg_log_joint_rel_delta": 0.0,
+      "stage": "objective"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_forward_1024",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 1024,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_ehgf_binary_objective_1024",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "ehgf_binary",
+      "n_trials": 1024,
+      "neg_log_joint_abs_delta": 0.0,
+      "neg_log_joint_rel_delta": 0.0,
+      "stage": "objective"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_forward_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 128,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_objective_128",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 128,
+      "neg_log_joint_abs_delta": 0.0,
+      "neg_log_joint_rel_delta": 0.0,
+      "stage": "objective"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_forward_512",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 512,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_objective_512",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 512,
+      "neg_log_joint_abs_delta": 2.7284841053187847e-12,
+      "neg_log_joint_rel_delta": 4.553149197800552e-16,
+      "stage": "objective"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_forward_1024",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_FORWARD_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 1024,
+      "stage": "forward"
+    },
+    {
+      "case_id": "secondary_uhgf_binary_objective_1024",
+      "classification": "BOTH_COMPLETED_NUMERICAL_PARITY_NOT_ASSESSED",
+      "hgfx_status": "HGFX_ONLY_OBJECTIVE_COMPLETED_MATLAB_UNVERIFIED",
+      "matlab_status": "MATLAB_ONLY_OBJECTIVE_COMPLETED_HGFX_PARITY_NOT_ASSESSED",
+      "model": "uhgf_binary",
+      "n_trials": 1024,
+      "neg_log_joint_abs_delta": 1.0913936421275139e-11,
+      "neg_log_joint_rel_delta": 8.193272341477509e-16,
+      "stage": "objective"
+    },
+    {
+      "case_id": "throughput_fit_1x128",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "throughput_fit_16x128",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "throughput_fit_64x128",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 128,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "throughput_fit_1x512",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "throughput_fit_16x512",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "throughput_fit_64x512",
+      "classification": "NOT_RUN_FITTING_UNASSESSED",
+      "hgfx_status": "NOT_RUN_AWAITING_FULL_WORKFLOW_AND_MATLAB_GATE",
+      "matlab_status": "NOT_RUN",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "fit_compat_full_or_clearly_labeled_fast"
+    },
+    {
+      "case_id": "robustness_masked_512",
+      "classification": "BOTH_FAILED_UNCLASSIFIED",
+      "hgfx_error": "ValueError: Invalid objective status=-1, value=1.7976931348623157e+308",
+      "hgfx_status": "HGFX_ONLY_ERROR",
+      "matlab_error": "tapas:hgf:VarApproxInvalid",
+      "matlab_status": "MATLAB_ERROR",
+      "model": "hgf_binary",
+      "n_trials": 512,
+      "stage": "forward_objective"
+    }
+  ],
+  "schema": "hgfx-runtime-paired-preflight-v1",
+  "status": "PRELIMINARY_ONLY_NUMERICAL_PARITY_UNASSESSED_PERFORMANCE_NOT_RUN"
+}
