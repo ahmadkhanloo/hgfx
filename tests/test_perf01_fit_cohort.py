@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import sys
+from copy import deepcopy
 from pathlib import Path
 import unittest
 
@@ -58,6 +59,7 @@ class TestPerf01FullCohortFits(unittest.TestCase):
 
     def test_one_different_fit_parameter_preserved(self):
         a,b=fixtures()
+        b["cases"][17]["optim"]=deepcopy(b["cases"][17]["optim"])
         b["cases"][17]["optim"]["final"]=[1.0]
         out=compare(a,b)
         self.assertEqual(out["classification_counts"]["FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH"],1)
