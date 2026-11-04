@@ -55,7 +55,10 @@ def main():
                           "negLl","negLj","LME","decompLME","AIC","BIC",
                           "yhat","res","resAC")
                 record["status"]="HGFX_FULL_FIT_COMPLETED_PARITY_NOT_ASSESSED"
-                record["optim"]={k:clean(result[k]) for k in selected}
+                record["optim"]={
+                    k:clean(result[k].to_dict() if hasattr(result[k],"to_dict") else result[k])
+                    for k in selected
+                }
                 record["traj"]={k:clean(v) for k,v in fit.traj.items()}
                 record["n_rand_init"]=int(fit.c_opt.nRandInit)
             except Exception as exc:
