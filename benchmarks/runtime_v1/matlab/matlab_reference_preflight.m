@@ -64,11 +64,11 @@ for hi = 1:numel(horizons)
             if numel(p) ~= n_prc + n_obs
                 error('hgfx:perf01:config', 'Snapshot vector size mismatch.');
             end
-            p_prc = p(1:n_prc)';
-            p_obs = p(n_prc+1:end)';
+            p_prc = p(1:n_prc);
+            p_obs = p(n_prc+1:end);
             item.start_matches_matlab_priors = ...
-                isequaln(p_prc, c_prc.priormus(:)') && ...
-                isequaln(p_obs, c_obs.priormus(:)');
+                isequaln(p_prc(:), c_prc.priormus(:)) && ...
+                isequaln(p_obs(:), c_obs.priormus(:));
             if ~item.start_matches_matlab_priors
                 item.status = 'MATLAB_PRIOR_START_MISMATCH';
             else
@@ -123,8 +123,8 @@ try
     r = struct('u',u,'y',y,'ign',find(isnan(u))', ...
         'irr',union(find(isnan(u)),find(isnan(y)))', ...
         'c_prc',c_prc,'c_obs',c_obs);
-    [~,infStates] = hgf_binary_unified(r,p(1:q)','trans');
-    logps = unitsq_sgm(r,infStates,p(q+1:end)');
+    [~,infStates] = hgf_binary_unified(r,p(1:q),'trans');
+    logps = unitsq_sgm(r,infStates,p(q+1:end));
     if numel(logps) ~= 512
         error('hgfx:perf01:maskShape','Incorrect masked trial likelihood shape.');
     end
