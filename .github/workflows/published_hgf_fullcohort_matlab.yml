@@ -6,7 +6,7 @@ on:
       - 'paper/case_studies/prepare_fullcohort_pair.py'
       - 'paper/case_studies/run_fullcohort_matlab.m'
       - 'paper/case_studies/compare_fullcohort_pair.py'
-      - 'paper/case_studies/PUBLISHED_REALDATA_FULLCOHORT_PROTOCOL_2026-11-04.md'
+      - 'paper/case_studies/PUBLISHED_REALDATA_FULLCOHORT_PROTOCOL_V2_2026-11-04.md'
       - '.github/workflows/published_hgf_fullcohort_matlab.yml'
   workflow_dispatch:
 
