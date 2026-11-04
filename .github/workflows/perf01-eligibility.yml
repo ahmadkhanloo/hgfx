@@ -1,0 +1,73 @@
+name: PERF-01C prospective 28-case eligibility inventory (not frozen)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/build_eligibility_candidate.py'
+      - '.github/workflows/perf01-eligibility.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: perf01-eligibility-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  eligibility:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reconstruct candidate decisions from immutable scientific evidence
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/build_eligibility_candidate.py \
+            --manifest work/benchmarks/runtime_v1/inputs_manifest.json \
+            --trialwise work/benchmarks/runtime_v1/trialwise_results/summary-41854644533.json \
+            --fitting work/benchmarks/runtime_v1/fitting_results/summary-41855647245.json \
+            --cohort work/benchmarks/runtime_v1/cohort_results/summary-41860187774.json \
+            --output work/benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("work/benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json")
+          x=json.loads(p.read_text())
+          assert len(x["cases"])==x["total_predeclared_cases"]==28
+          assert len(set(c["case_id"] for c in x["cases"]))==28
+          assert x["primary_cases"]==9
+          assert x["status"]=="AUTHOR_SIDE_INVENTORY_ONLY_NOT_REVIEWED_NOT_FROZEN_NOT_TIMED"
+          assert all(c["review_status"]=="INDEPENDENT_REVIEW_REQUIRED_NOT_FROZEN" for c in x["cases"])
+          assert not any("FASTER" in c["classification"] for c in x["cases"])
+          print("28-case author-side inventory prepared; NOT a protocol freeze.")
+          PY
+
+      - name: Preserve candidate eligibility and source hashes
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01-eligibility-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/eligibility_candidates/
+          if-no-files-found: warn
+
+      - name: Commit immutable, run-specific eligibility candidate
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json
+          if git -C work diff --cached --quiet; then
+            echo 'Derived evidence already archived, no rewrite needed'
+          else
+            git -C work commit -m 'evidence(perf01): retain 28-case prefreeze eligibility candidate'
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi
