@@ -251,3 +251,9 @@ After all results intended for the submission are generated:
 - mark the paper evidence set `FROZEN_FOR_SUBMISSION` only after the claim audit passes.
 
 This publication freeze is separate from historical M19 and does not alter the released v1.0.0 evidence set.
+
+## Prospective MATLAB-vs-HGFX runtime comparison (2026-11-04)
+
+A new **separate, not-yet-frozen and not-yet-executed** post-v1 protocol was authored at [RUNTIME_PERFORMANCE_PROTOCOL_V1.md](RUNTIME_PERFORMANCE_PROTOCOL_V1.md) (ID `hgfx-matlab-runtime-1`; PERF-01). It preregisters a matched CPU MATLAB/HGFX comparison, conditional JAX/GPU and batch benchmarks, correctness preflight, timing/uncertainty policy, and a paper-claim decision gate.
+
+It does **not** amend historical `hgfx-paper-protocol-1`, open M19, or demonstrate an HGFX-over-MATLAB speedup. The protocol, inputs and runner must be formally frozen with hashes before final comparative runs; paper headlines additionally require a new paper protocol revision.
