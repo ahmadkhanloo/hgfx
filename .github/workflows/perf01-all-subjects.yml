@@ -1,6 +1,11 @@
 name: PERF-01B all 64 subjects MATLAB-HGFX cohort audit (no timing)
 
+concurrency:
+  group: perf01-all-subjects-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
+  workflow_dispatch:
   push:
     branches:
       - research/perf-01-preflight-fixtures
@@ -108,6 +113,8 @@ jobs:
             git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git -C work add benchmarks/runtime_v1/cohort_results/summary-${{ github.run_id }}.json
             git -C work commit -m 'evidence(perf01): record all-subject model/source audit ${{ github.run_id }}'
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
             git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
           else
             echo "No cohort comparator result; inspect raw artifact and logs."
