@@ -1,0 +1,58 @@
+name: Published HGF Original-Family softmax_mu3 Parity
+
+on:
+  pull_request:
+    paths:
+      - 'paper/case_studies/PUBLISHED_REALDATA_MU3_PROTOCOL_2026-11-04.md'
+      - 'paper/case_studies/run_fullcohort_mu3_matlab.m'
+      - 'paper/case_studies/compare_fullcohort_mu3.py'
+      - '.github/workflows/published_hgf_mu3_parity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-study-family-matlab-response:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact released model library
+        run: |
+          python -m pip install 'hgfx==1.0.0' 'scipy==1.14.1' 'pytest'
+          python -c "from importlib.metadata import version; assert version('hgfx')=='1.0.0'"
+      - name: Verify pinned reference and observation contract
+        run: |
+          python scripts/verify_reference_freeze.py
+          python -m pytest -q tests/paper/test_published_softmax.py
+      - name: Prepare 324 source-defined blocks without recoding or pruning
+        run: python paper/case_studies/prepare_fullcohort_pair.py published_pair_tmp
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2025b
+      - name: Execute original MATLAB8.2 perceptual MAB forward
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('paper/case_studies'); run_fullcohort_matlab
+      - name: Execute original MATLAB8.2 softmax_mu3 response
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('paper/case_studies'); run_fullcohort_mu3_matlab
+      - name: Compare matched HGFX1.0 response on every published block
+        run: python paper/case_studies/compare_fullcohort_mu3.py published_pair_tmp published_mu3_aggregate.json
+      - name: Upload aggregate evidence only
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: published-source-original-mu3-family-aggregate
+          path: published_mu3_aggregate.json
+          if-no-files-found: warn
