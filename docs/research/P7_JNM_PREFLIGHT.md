@@ -1,7 +1,7 @@
 # P7 Journal of Neuroscience Methods preflight
 
 Last checked: 2026-09-21  
-Status: **P7 CONTENT/PREFLIGHT COMPLETE; REPLACEMENT SHA LOCK PENDING P8-HARDENING VALIDATION**
+Status: **P7 CONTENT/PREFLIGHT COMPLETE; AUTHORITATIVE FREEZE STATE RECORDED EXTERNALLY**
 
 ## Current publisher-facing constraints checked
 
@@ -40,7 +40,7 @@ Strict JNM preflight run `35342388457`: **PASS**.
 
 The author-approved institutional email `m.ahmadkhanloo@ipm.ir` is committed in the manuscript. The strict preflight now verifies that the manuscript contains this exact approved address.
 
-P6A remains `DRAFT_NOT_FROZEN`; P8 must start only after the exact validated P7 candidate SHA is recorded.
+The authoritative P6A freeze state and exact reviewed candidate are recorded in `paper/reproducibility/p6a_paper_evidence_manifest.json` and `docs/research/PAPER_P8_REVIEW_CHECKLIST.md`; this preflight file does not duplicate that mutable state.
 
 Run:
 
