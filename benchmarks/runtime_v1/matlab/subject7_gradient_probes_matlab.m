@@ -12,8 +12,16 @@ if ~strcmp(summary.github_run_id,'42115887599') || ...
 end
 expected_hgfx='6fe10be1dd1860612859e6efbe7bee13717e4787aed4a62f0e6b67a2072aac7a';
 expected_matlab='ce4a96e6eb2aad48ee08c39f0361c0cebd5d2306b048b9674c96a45a4570a40f';
-if ~strcmp(summary.raw_evidence_sha256.('hgfx_raw.json'),expected_hgfx) || ...
-        ~strcmp(summary.raw_evidence_sha256.('matlab_raw.json'),expected_matlab)
+% MATLAB jsondecode may normalize JSON dotted keys to valid identifiers.
+entry=summary.raw_evidence_sha256;
+if isfield(entry,'hgfx_raw_json')
+    sha_hgfx=entry.hgfx_raw_json;
+    sha_matlab=entry.matlab_raw_json;
+else
+    sha_hgfx=entry.('hgfx_raw.json');
+    sha_matlab=entry.('matlab_raw.json');
+end
+if ~strcmp(sha_hgfx,expected_hgfx) || ~strcmp(sha_matlab,expected_matlab)
     error('hgfx:perf01:hash','Original recorded raw trace hashes mismatch');
 end
 data=jsondecode(fileread(fullfile(root,'inputs','binary_128_s64.json')));
@@ -101,7 +109,9 @@ report.frozen_hgfx_sha=hgfx;
 report.frozen_matlab_sha=ref;
 report.original_trace_run='42115887599';
 report.original_trace_sha='b378fef6ff93f6efa041f4e8304dafba742ae4ab';
-report.original_trace_raw_sha256=summary.raw_evidence_sha256;
+report.original_trace_raw_sha256=struct();
+report.original_trace_raw_sha256.('hgfx_raw.json')=expected_hgfx;
+report.original_trace_raw_sha256.('matlab_raw.json')=expected_matlab;
 report.source_run_id='41863441006';
 report.subject_index_zero_based=7;
 report.trials=128;
