@@ -15,7 +15,7 @@ import os
 from pathlib import Path
 
 from compare_trialwise import compare as compare_trialwise
-from compare_fits import compare as compare_fits
+from compare_fits import compare as compare_fits, TOLS as FIT_TOLS
 from compare_all_subjects import analyze as compare_all_subjects
 from compare_fit_cohort import compare as compare_fit_cohort
 from compare_subject7_replay import classify as compare_subject7_replay
@@ -217,6 +217,8 @@ def verify_reference_sensitivity(source: dict, original_matlab_fit: dict):
         require(coordinate in (0, 1, 2) and step > 0
                 and signed in (-step, step)
                 and probe["status"] == "COMPLETED", "Invalid MATLAB-only perturbation probe")
+        require(step == math.ulp(float(probe["original_start"])),
+                "Reference sensitivity step is not one MATLAB eps(start) ULP")
         require(math.isclose(float(probe["original_start"]),
                              float(original_matlab_fit["cases"][7]["optim"]["init"][12+coordinate]),
                              rel_tol=0, abs_tol=0),
@@ -235,7 +237,11 @@ def verify_reference_sensitivity(source: dict, original_matlab_fit: dict):
         require(math.isclose(calculated, float(probe["max_endpoint_shift"]),
                              abs_tol=1e-14, rel_tol=1e-12),
                 "Recorded reference endpoint shift differs from actual saved endpoint")
-        if probe["outside_old_v1_final_parameter_tolerance"]:
+        rtol, atol = FIT_TOLS["final"]
+        outside = any(abs(x-y) > atol + rtol*abs(y) for x, y in paired)
+        require(outside == probe["outside_old_v1_final_parameter_tolerance"],
+                "Recorded reference-limit boolean conflicts with original numerical threshold")
+        if outside:
             sensitive.append((coordinate, -1 if signed < 0 else 1))
     require(len(actual) == 6 and actual ==
             {(i, sign) for i in range(3) for sign in (-1, 1)},
