@@ -10,6 +10,7 @@ import argparse
 from collections import Counter
 from hashlib import sha256
 import json
+import math
 import os
 from pathlib import Path
 
@@ -17,6 +18,7 @@ from compare_trialwise import compare as compare_trialwise
 from compare_fits import compare as compare_fits
 from compare_all_subjects import analyze as compare_all_subjects
 from compare_fit_cohort import compare as compare_fit_cohort
+from compare_subject7_replay import classify as compare_subject7_replay
 from build_eligibility_candidate import classify
 from refine_eligibility_fit_cohort import refine
 
@@ -162,8 +164,10 @@ def verify(root: Path, archives: Path):
             and refined["independent_review"] == "NOT_RECEIVED"
             and refined["no_timing"] is True,
             "Unapproved eligibility has been promoted or evidence excluded")
+    followups = verify_subject7_followups(root, archives, raw_hashes)
     return {
         "status": "AUTHOR_SIDE_REAL_EVIDENCE_REGRESSION_NOT_INDEPENDENT_REVIEW_NOT_FROZEN_NOT_TIMED",
+        "subject7_followup_evidence": followups,
         "candidate_sha": os.environ.get("GITHUB_SHA", "LOCAL_UNVERIFIED"),
         "frozen_source_shas": IDENTITY,
         "input_manifest_sha256": manifest_hash,
@@ -177,6 +181,124 @@ def verify(root: Path, archives: Path):
         "perf01c_gate": "OPEN_NOT_FROZEN",
         "timings_executed": False,
     }
+
+
+def verify_reference_sensitivity(source: dict, original_matlab_fit: dict):
+    """Check recorded MATLAB-only perturbations, not scientific acceptability."""
+    require(source["schema"] == "perf01-subject7-matlab-self-sensitivity-v1"
+            and source["matlab_reference_sha"] == IDENTITY["matlab"]
+            and source["matlab_release"] == "2026a"
+            and source["source_run_id"] == "41863441006"
+            and source["subject_index_zero_based"] == 7
+            and source["model"] == "hgf_binary"
+            and source["trials"] == 128
+            and source["opt_idx_one_based"] == [13, 14, 15],
+            "Reference-only source/subject/model/optimizer identity changed")
+    original = original_matlab_fit["cases"][7]["optim"]
+    require(source["original_full_final"] == original["final"],
+            "Reference sensitivity is not using original MATLAB fitted endpoint")
+    require(source["original_optimal_negative_log_joint"] == original["negLj"],
+            "Reference sensitivity is not using original MATLAB joint objective")
+    baseline = source["reproduction"]
+    require(baseline["status"] == "COMPLETED"
+            and baseline["optimized_full_final"] == original["final"]
+            and baseline["negative_log_joint"] == original["negLj"]
+            and baseline["max_endpoint_shift"] == 0
+            and baseline["outside_old_v1_final_parameter_tolerance"] is False,
+            "Unperturbed independent MATLAB objective did not exactly reproduce frozen fit")
+    probes = source["perturbations"]
+    require(len(probes) == 6, "Must preserve all six MATLAB-only perturbation probes")
+    actual = set()
+    sensitive = []
+    for probe in probes:
+        coordinate = probe["free_coord_zero_based"]
+        signed = float(probe["signed_step"])
+        step = float(probe["step_size"])
+        require(coordinate in (0, 1, 2) and step > 0
+                and signed in (-step, step)
+                and probe["status"] == "COMPLETED", "Invalid MATLAB-only perturbation probe")
+        require(math.isclose(float(probe["original_start"]),
+                             float(original_matlab_fit["cases"][7]["optim"]["init"][12+coordinate]),
+                             rel_tol=0, abs_tol=0),
+                "Original optimization start for reference probe changed")
+        actual.add((coordinate, -1 if signed < 0 else 1))
+        final = probe["optimized_full_final"]
+        ref_final = source["original_full_final"]
+        require(len(final) == len(ref_final), "Reference endpoint shape changed")
+        require(all((x is None) == (y is None) for x, y in zip(final, ref_final)),
+                "Reference nonfinite fixed-parameter mask changed")
+        paired = [(float(x), float(y)) for x, y in zip(final, ref_final)
+                  if x is not None and y is not None]
+        require(paired and all(math.isfinite(x) and math.isfinite(y) for x, y in paired),
+                "Reference sensitivity has invalid or empty finite endpoint pairs")
+        calculated = max(abs(x-y) for x, y in paired)
+        require(math.isclose(calculated, float(probe["max_endpoint_shift"]),
+                             abs_tol=1e-14, rel_tol=1e-12),
+                "Recorded reference endpoint shift differs from actual saved endpoint")
+        if probe["outside_old_v1_final_parameter_tolerance"]:
+            sensitive.append((coordinate, -1 if signed < 0 else 1))
+    require(len(actual) == 6 and actual ==
+            {(i, sign) for i in range(3) for sign in (-1, 1)},
+            "Missing or duplicate original +/-eps reference sensitivity probes")
+    require(sensitive == [(2, -1)]
+            and source["classification"] ==
+                "REFERENCE_SELF_SENSITIVITY_CANDIDATE_NOT_INDEPENDENTLY_REVIEWED"
+            and source["status"] == "DIAGNOSTIC_ONLY_NOT_SCIENTIFIC_PASS_NOT_TIMED",
+            "Reference sensitivity must not be hidden or misclassified as scientific PASS")
+    return {"original_probes": 6, "out_of_tolerance_probe": "free_coord_2_minus_eps",
+            "max_shift": max(p["max_endpoint_shift"] for p in probes),
+            "scientific_disposition": "INDEPENDENT_REVIEW_REQUIRED_NOT_PASS"}
+
+
+def verify_subject7_followups(root: Path, archives: Path, raw_hashes: dict):
+    """Recompute archived same-vector replay and verify MATLAB-only raw probe."""
+    run = "41868723514"
+    historical = read(root / f"subject7_results/summary-{run}.json")
+    require(str(historical["github_run_id"]) == run,
+            "Subject-7 cross-replay run identifier changed")
+    expected = historical["raw_evidence_sha256"]
+    require(set(expected) == {"hgfx_raw.json", "matlab_raw.json"},
+            "Subject-7 replay raw evidence incomplete")
+    for name, checksum in expected.items():
+        require(digest(archives / run / name) == checksum,
+                f"Subject-7 replay raw SHA-256 mismatch: {name}")
+    recomputed = compare_subject7_replay(
+        read(archives / run / "hgfx_raw.json"),
+        read(archives / run / "matlab_raw.json"),
+    )
+    trimmed = {k: v for k, v in historical.items()
+               if k not in {"github_run_id", "raw_evidence_sha256", "raw_evidence_location"}}
+    require(recomputed == trimmed, "Same-vector subject-7 comparator regression")
+    require(recomputed["classification"] ==
+            "OPTIMIZER_ENDPOINT_SENSITIVITY_CANDIDATE_NOT_SCIENTIFIC_PASS"
+            and len(recomputed["same_vector_cross_implementation"]) == 2
+            and all(x["status"] == "SAME_VECTOR_OUTPUT_CONCORDANT_DIAGNOSTIC"
+                    and len(x["fields"]) == 15 and not x["failed_fields"]
+                    for x in recomputed["same_vector_cross_implementation"]),
+            "Same-vector diagnostics incomplete or improperly promoted")
+    raw_hashes[run] = expected
+    print(f"REPLAY_MATCH {run} SHA256 and full 15-field two-endpoint comparator result")
+
+    run = "41870479069"
+    summary = read(root / f"matlab_sensitivity_results/summary-{run}.json")
+    raw_path = archives / run / f"run-{run}.json"
+    require(digest(raw_path) == summary["raw_evidence_sha256"],
+            "Original MATLAB-only self-sensitivity raw JSON SHA-256 mismatch")
+    require(str(summary["workflow_id"]) == run
+            and summary["original_artifact"] == "perf01-64-full-fits-41863441006",
+            "Reference-only sensitivity source artifact identity differs")
+    original = read(raw_path)
+    trimmed = {k: v for k, v in summary.items()
+               if k not in {"workflow_id", "raw_evidence_sha256", "original_artifact"}}
+    require(original == trimmed,
+            "MATLAB sensitivity raw probe differs from archived summary")
+    base_matlab_fit = read(archives / "41863441006" / "matlab_raw.json")
+    sensitivity = verify_reference_sensitivity(original, base_matlab_fit)
+    raw_hashes[run] = {"run-41870479069.json": summary["raw_evidence_sha256"]}
+    print(f"REPLAY_MATCH {run} raw SHA256, exact baseline, all six +/-eps probes")
+    return {"two_exact_endpoints_and_15_fields": "REPLAY_MATCH",
+            "reference_sensitivity": sensitivity}
+
 
 
 def main():
