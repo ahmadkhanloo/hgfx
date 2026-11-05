@@ -109,9 +109,9 @@ report.frozen_hgfx_sha=hgfx;
 report.frozen_matlab_sha=ref;
 report.original_trace_run='42115887599';
 report.original_trace_sha='b378fef6ff93f6efa041f4e8304dafba742ae4ab';
-report.original_trace_raw_sha256=struct();
-report.original_trace_raw_sha256.('hgfx_raw.json')=expected_hgfx;
-report.original_trace_raw_sha256.('matlab_raw.json')=expected_matlab;
+% MATLAB struct field names cannot contain dots; comparator canonicalizes.
+report.original_trace_raw_sha256=struct( ...
+    'hgfx_raw_json',expected_hgfx,'matlab_raw_json',expected_matlab);
 report.source_run_id='41863441006';
 report.subject_index_zero_based=7;
 report.trials=128;
