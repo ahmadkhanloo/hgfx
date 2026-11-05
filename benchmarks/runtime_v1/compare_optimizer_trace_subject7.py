@@ -57,7 +57,17 @@ def compare(hgfx: dict, matlab: dict) -> dict:
     shared = int(np.sum(hm & mm))
     atol, rtol = TOLS["final"][1], TOLS["final"][0]
     discrepancies = []
+    first_any_numerical_difference = None
     for i in range(shared):
+        exact_dx = float(np.max(np.abs(hx[i] - mx[i])))
+        exact_dv = float(abs(hv[i] - mv[i]))
+        if first_any_numerical_difference is None and (exact_dx != 0 or exact_dv != 0):
+            first_any_numerical_difference = {
+                "record_index_zero_based": i,
+                "parameter_max_abs_delta": exact_dx,
+                "objective_abs_delta": exact_dv,
+                "note": "Exact/nonzero double differences, not a separate scientific gate.",
+            }
         mismatch_x = np.any(np.abs(hx[i] - mx[i]) > atol + rtol * np.abs(mx[i]))
         mismatch_v = abs(hv[i] - mv[i]) > atol + rtol * abs(mv[i])
         if mismatch_x or mismatch_v:
@@ -90,6 +100,15 @@ def compare(hgfx: dict, matlab: dict) -> dict:
         "allocated_slots_per_implementation": SLOTS,
         "recorded_finite_slots": {"hgfx": filled_h, "matlab": filled_m},
         "shared_finite_slot_count": shared,
+        "first_any_nonzero_double_difference": first_any_numerical_difference,
+        "terminal_duplicate_finite_slots": {
+            "hgfx": (filled_h >= 2
+                     and bool(np.array_equal(hx[filled_h-1], hx[filled_h-2]))
+                     and hv[filled_h-1] == hv[filled_h-2]),
+            "matlab": (filled_m >= 2
+                       and bool(np.array_equal(mx[filled_m-1], mx[filled_m-2]))
+                       and mv[filled_m-1] == mv[filled_m-2]),
+        },
         "first_different_record": discrepancies[0] if discrepancies else None,
         "all_different_record_count": len(discrepancies),
         "slot_mismatch_count": abs(filled_h-filled_m),
