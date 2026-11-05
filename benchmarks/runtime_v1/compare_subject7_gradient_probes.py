@@ -27,13 +27,17 @@ TRACE_HASHES = {
 
 def keyed(payload: dict, engine: str) -> dict:
     expected_schema=f"perf01d-subject7-{engine}-same-vector-gradient-v1"
+    source_hashes=payload.get("original_trace_raw_sha256")
+    if isinstance(source_hashes,dict):
+        source_hashes={key.replace("_raw_json","_raw.json"):value
+                       for key,value in source_hashes.items()}
     if (payload.get("schema") != expected_schema
             or payload.get("status") != "AUTHOR_SIDE_DIAGNOSTIC_UNTIMED_NO_FIT_NO_GATE_PASS"
             or payload.get("frozen_hgfx_sha") != PRODUCT
             or payload.get("frozen_matlab_sha") != REFERENCE
             or payload.get("original_trace_run") != TRACE
             or payload.get("original_trace_sha") != TRACE_SHA
-            or payload.get("original_trace_raw_sha256") != TRACE_HASHES
+            or source_hashes != TRACE_HASHES
             or payload.get("source_run_id") != "41863441006"
             or payload.get("subject_index_zero_based") != 7
             or payload.get("trials") != 128
