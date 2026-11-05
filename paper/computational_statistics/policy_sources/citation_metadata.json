@@ -1,0 +1,1064 @@
+[
+  {
+    "doi": "10.3389/fnhum.2011.00039",
+    "status": "METADATA_OPENED",
+    "title": "A Bayesian foundation for individual learning under uncertainty",
+    "author": [
+      {
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2011
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.3389/fnhum.2014.00825",
+    "status": "METADATA_OPENED",
+    "title": "Uncertainty in perception and the Hierarchical Gaussian Filter",
+    "author": [
+      {
+        "given": "Christoph D.",
+        "family": "Mathys",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Ekaterina I.",
+        "family": "Lomakina",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Jean",
+        "family": "Daunizeau",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Sandra",
+        "family": "Iglesias",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Kay H.",
+        "family": "Brodersen",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Karl J.",
+        "family": "Friston",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Klaas E.",
+        "family": "Stephan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014,
+          11,
+          19
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1016/j.neuron.2013.09.009",
+    "status": "METADATA_OPENED",
+    "title": "Hierarchical Prediction Errors in Midbrain and Basal Forebrain during Sensory Learning",
+    "author": [
+      {
+        "given": "Sandra",
+        "family": "Iglesias",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Kay\u00a0H.",
+        "family": "Brodersen",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lars",
+        "family": "Kasper",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Marco",
+        "family": "Piccirelli",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Hanneke\u00a0E.M.",
+        "family": "den\u00a0Ouden",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Klaas\u00a0E.",
+        "family": "Stephan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2013,
+          10
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1371/journal.pcbi.1003810",
+    "status": "METADATA_OPENED",
+    "title": "Inferring on the Intentions of Others by Hierarchical Bayesian Learning",
+    "author": [
+      {
+        "given": "Andreea O.",
+        "family": "Diaconescu",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lilian A. E.",
+        "family": "Weber",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Jean",
+        "family": "Daunizeau",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lars",
+        "family": "Kasper",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Ekaterina I.",
+        "family": "Lomakina",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Ernst",
+        "family": "Fehr",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Klaas E.",
+        "family": "Stephan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014,
+          9,
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.3389/fpsyt.2021.680811",
+    "status": "METADATA_OPENED",
+    "title": "TAPAS: An Open-Source Software Package for Translational Neuromodeling and Computational Psychiatry",
+    "author": [
+      {
+        "given": "Stefan",
+        "family": "Fr\u00e4ssle",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Eduardo A.",
+        "family": "Aponte",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Saskia",
+        "family": "Bollmann",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Kay H.",
+        "family": "Brodersen",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Cao T.",
+        "family": "Do",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Olivia K.",
+        "family": "Harrison",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Samuel J.",
+        "family": "Harrison",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Jakob",
+        "family": "Heinzle",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Sandra",
+        "family": "Iglesias",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lars",
+        "family": "Kasper",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Ekaterina I.",
+        "family": "Lomakina",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Matthias",
+        "family": "M\u00fcller-Schrader",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "In\u00eas",
+        "family": "Pereira",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Frederike H.",
+        "family": "Petzschner",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Sudhir",
+        "family": "Raman",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Dario",
+        "family": "Sch\u00f6bi",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Birte",
+        "family": "Toussaint",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lilian A.",
+        "family": "Weber",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Yu",
+        "family": "Yao",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Klaas E.",
+        "family": "Stephan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021,
+          6,
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1371/journal.pcbi.1014340",
+    "status": "METADATA_OPENED",
+    "title": "pyhgf: A neural network library for predictive coding",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-2651-4929",
+        "authenticated-orcid": true,
+        "given": "Nicolas",
+        "family": "Legrand",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-9727-9623",
+        "authenticated-orcid": true,
+        "given": "Lilian",
+        "family": "Weber",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Peter Thestrup",
+        "family": "Waade",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Anna Hedvig",
+        "family": "M\u00f8ller Daugaard",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Mojtaba",
+        "family": "Khodadadi",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Nace",
+        "family": "Miku\u0161",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4079-5453",
+        "authenticated-orcid": true,
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026,
+          6,
+          22
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1371/journal.pcbi.1003441",
+    "status": "METADATA_OPENED",
+    "title": "VBA: A Probabilistic Treatment of Nonlinear Models for Neurobiological and Behavioural Data",
+    "author": [
+      {
+        "given": "Jean",
+        "family": "Daunizeau",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Vincent",
+        "family": "Adam",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Lionel",
+        "family": "Rigoux",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2014,
+          1,
+          23
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.7554/eLife.49547",
+    "status": "METADATA_OPENED",
+    "title": "Ten simple rules for the computational modeling of behavioral data",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-2963-2971",
+        "authenticated-orcid": true,
+        "given": "Robert C",
+        "family": "Wilson",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Department of Psychology, University of Arizona, Tucson, United States"
+          },
+          {
+            "name": "Cognitive Science Program, University of Arizona, Tucson, United States"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-3751-3662",
+        "authenticated-orcid": true,
+        "given": "Anne GE",
+        "family": "Collins",
+        "sequence": "additional",
+        "affiliation": [
+          {
+            "name": "Department of Psychology, University of California, Berkeley, Berkeley, United States"
+          },
+          {
+            "name": "Helen Wills Neuroscience Institute, University of California, Berkeley, Berkeley, United States"
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019,
+          11,
+          26
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1126/science.1213847",
+    "status": "METADATA_OPENED",
+    "title": "Reproducible Research in Computational Science",
+    "author": [
+      {
+        "given": "Roger D.",
+        "family": "Peng",
+        "sequence": "first",
+        "affiliation": [
+          {
+            "name": "Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health, Baltimore MD 21205, USA."
+          }
+        ],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2011,
+          12,
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.1016/j.jpain.2025.105569",
+    "status": "METADATA_OPENED",
+    "title": "Expectations and uncertainty shape pain perception during learning",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0001-5492-0345",
+        "authenticated-orcid": false,
+        "given": "M\u00e9gane",
+        "family": "Lacombe-Thibault",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "given": "Michel-Pierre",
+        "family": "Coll",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025,
+          12
+        ]
+      ]
+    }
+  },
+  {
+    "doi": "10.5334/cpsy.116",
+    "status": "METADATA_OPENED",
+    "title": "Bayesian Workflow for Generative Modeling in Computational Psychiatry",
+    "author": [
+      {
+        "ORCID": "https://orcid.org/0000-0002-2991-7387",
+        "authenticated-orcid": false,
+        "given": "Alexander J.",
+        "family": "Hess",
+        "sequence": "first",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-1778-7239",
+        "authenticated-orcid": false,
+        "given": "Sandra",
+        "family": "Iglesias",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0009-0001-0038-9592",
+        "authenticated-orcid": false,
+        "given": "Laura",
+        "family": "K\u00f6chli",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-6559-9072",
+        "authenticated-orcid": false,
+        "given": "Stephanie",
+        "family": "Marino",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-6672-9230",
+        "authenticated-orcid": false,
+        "given": "Matthias",
+        "family": "M\u00fcller-Schrader",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-3761-8931",
+        "authenticated-orcid": false,
+        "given": "Lionel",
+        "family": "Rigoux",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-4079-5453",
+        "authenticated-orcid": false,
+        "given": "Christoph",
+        "family": "Mathys",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0003-0897-7142",
+        "authenticated-orcid": false,
+        "given": "Olivia K.",
+        "family": "Harrison",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0001-5228-041X",
+        "authenticated-orcid": false,
+        "given": "Jakob",
+        "family": "Heinzle",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-8011-2226",
+        "authenticated-orcid": false,
+        "given": "Stefan",
+        "family": "Fr\u00e4ssle",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      },
+      {
+        "ORCID": "https://orcid.org/0000-0002-8594-9092",
+        "authenticated-orcid": false,
+        "given": "Klaas Enno",
+        "family": "Stephan",
+        "sequence": "additional",
+        "affiliation": [],
+        "role": [
+          {
+            "vocabulary": "crossref",
+            "role": "author"
+          }
+        ]
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    }
+  }
+]

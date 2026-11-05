@@ -1,0 +1,45 @@
+{
+  "layout": "generic Pandoc article; official template download HTTP 403",
+  "status": "AUTHOR_REVIEW_NOT_SUBMISSION_READY",
+  "hash_convention": "source text written LF; binaries exact",
+  "tool_versions": {
+    "pandoc": [
+      "pandoc 3.11",
+      "Features: +server +lua"
+    ],
+    "pdflatex": [
+      "MiKTeX-pdfTeX 4.23 (MiKTeX 25.12)",
+      "\u00a9 1982 D. E. Knuth, \u00a9 1996-2025 H\u00e0n Th\u1ebf Th\u00e0nh"
+    ],
+    "pdftotext": [
+      "pdftotext version 24.04.0",
+      "Copyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org"
+    ],
+    "pdfinfo": [
+      "pdfinfo version 24.04.0",
+      "Copyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org"
+    ]
+  },
+  "inputs": {
+    "manuscript.md": "b2a4110acd1fc6f5ac845b85adcf9647c1833a376ed97d54899586022e258749",
+    "supplement.md": "cd6861287a3fe609478b5a5e1654e3258cf2c064b4d476732b4643987c56e31c",
+    "references.bib": "e5be40b1de72bff40c2db13e8f26fa2ee5f1ec7b36fcc3de4ce79c4137e35fe3",
+    "build_submission.py": "b63722ac57b6d9a99d9f49c2298e0b22bb325922bc1009892a6f4507f3a886fc",
+    "THIRD_PARTY_NOTICES.md": "88fc2aad19e879174bb71a4740ebfe8d978001e186585584ac3aac70a0081b07",
+    "figures/fig_gpu_applicability.pdf": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
+    "figures/fig_model_selection.pdf": "33cd5f1f1e5aff07d0b82194a55e6462235529a57c52e70b0bfb7cd98a10d87b",
+    "figures/fig_p3_horizon_diagnostics.pdf": "38228320930c1ee013d708b672200647c0d2780e3f6179fba2889c43976b8cb4",
+    "figures/fig_pyhgf_common_scope.pdf": "d1d03f9b8ece4b2a19c5bce56893e6e53366a51c8cf21cede4152ae1afb8d556",
+    "figures/fig_recovery_metrics.pdf": "0fe4222c844313fa632683938b3270affc7f3928ad1c3db84cae34eca0eaf946",
+    "figures/fig_usdchf_workflow.pdf": "2c7b788fe2d83f38efc0ee9fdcce0347d3e6fcf15d3c49d4c1a16a6b872ba591",
+    "figures/fig_workflow.pdf": "444c246abda1f31b0e14de6acf708d71f707c3afe987c7aaaa51d34521d3095c",
+    "springer-basic-author-date.csl": "4d531a58f1c8a3ab3d6c7543ff5efe552d0e385e1d4fff50b476c4d4051eab38"
+  },
+  "outputs": {
+    "HGFX_CompStat.pdf": "a8900a17131e32b7b2fc59180bbfd51c194fa3a544d4d48cb686071df6fa424f",
+    "HGFX_CompStat.tex": "cfb77141924c2719d0b1314a07a1173523e59f02393782fc8acbf0fd13a2f04f",
+    "HGFX_CompStat_source.zip": "383098cae362d35bef0bbe8e6b5f29d5f61bd18b55e5834ad21730a8a8916e79",
+    "HGFX_Supplement.pdf": "43c8959fe228865557d7579afa0cc0de72df2e223ca15344fd513f60ae2da75c",
+    "HGFX_Supplement.tex": "c0f156b176742c642500a39dd3cf29aa3b6b6a4b1a41e0684dabac0eef5b9e93"
+  }
+}

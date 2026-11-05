@@ -1,0 +1,18 @@
+{
+  "verified_source_commit": "04335016ce77b3a6ac90d0481a349cb4872a9407",
+  "method": "git archive of committed blobs plus frozen oracle archive; verification executed outside original checkout",
+  "reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "result": {
+    "status": "PASS_LOCAL_ARTIFACT_CHECKS_ONLY",
+    "protected_files_unchanged": 75,
+    "claim_paragraphs": 74,
+    "abstract_words": 203,
+    "manuscript_words_including_tables": 5551,
+    "citation_keys_resolved": 13,
+    "human_verification": "PENDING",
+    "real_data_replication": "BLOCKED",
+    "zero_fee_clearance": "OPEN"
+  },
+  "status": "PASS_CANONICAL_CHECKOUT",
+  "main_and_supplement_layout_text_unchanged_after_LF_correction": true
+}

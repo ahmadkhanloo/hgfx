@@ -1,0 +1,54 @@
+name: Published HGF Full-Cohort MATLAB Parity
+
+on:
+  pull_request:
+    paths:
+      - 'paper/case_studies/prepare_fullcohort_pair.py'
+      - 'paper/case_studies/run_fullcohort_matlab.m'
+      - 'paper/case_studies/compare_fullcohort_pair.py'
+      - 'paper/case_studies/PUBLISHED_REALDATA_FULLCOHORT_PROTOCOL_V2_2026-11-04.md'
+      - '.github/workflows/published_hgf_fullcohort_matlab.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-full-source-matlab-vs-hgfx:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact released software package
+        run: |
+          python -m pip install 'hgfx==1.0.0' 'scipy==1.14.1'
+          python -c "from importlib.metadata import version; assert version('hgfx')=='1.0.0'"
+      - name: Verify protected reference
+        run: python scripts/verify_reference_freeze.py
+      - name: Build all source pairs using hashes and original coding
+        run: python paper/case_studies/prepare_fullcohort_pair.py published_pair_tmp
+      - name: Install real MATLAB
+        uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2025b
+      - name: Run same 17-element M12B model on all source blocks in MATLAB
+        uses: matlab-actions/run-command@v3
+        with:
+          command: addpath('paper/case_studies'); run_fullcohort_matlab
+      - name: Match all fields against released HGFX 1.0.0 CPU x64
+        run: python paper/case_studies/compare_fullcohort_pair.py published_pair_tmp fullcohort_summary.json
+      - name: Upload aggregate outcomes only; never raw participant values
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: two-published-study-fullcohort-aggregate-parity
+          path: fullcohort_summary.json
+          if-no-files-found: warn

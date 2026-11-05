@@ -1,0 +1,60 @@
+[
+  {
+    "id": "scope",
+    "url": "https://link.springer.com/journal/180/aims-and-scope",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "53242f73955353dadfa7701c8d3916eeb1d6c8aa639005c26f13a2db98514329"
+  },
+  {
+    "id": "publishing",
+    "url": "https://link.springer.com/journal/180/how-to-publish-with-us",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "d2707093d6d454d53fff02ac2bcd3d91ad0f9883049574487a17c0faecb636ba"
+  },
+  {
+    "id": "guidelines",
+    "url": "https://link.springer.com/journal/180/submission-guidelines",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "f915fa99a606c9031439cec75c4ee37fa8091f39ad85e0f239b924ca4183b0d6"
+  },
+  {
+    "id": "journal",
+    "url": "https://link.springer.com/journal/180",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "88964f2c1ab3a6bb5a013571da04f05809535bff0d529c4da629d1efc4205532"
+  },
+  {
+    "id": "joss",
+    "url": "https://joss.readthedocs.io/en/latest/submitting.html",
+    "date": "2026-11-04",
+    "status": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "barmpy",
+    "url": "https://arxiv.org/html/2404.04738v1",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "63ab6aef340735a0fedca6fbe64718b8b2a935bef9b78a1b6e81622ea99b8912"
+  },
+  {
+    "id": "eks",
+    "url": "https://arxiv.org/html/2203.01686v4",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "df5f2fc90f824442dbc136635a90ca80c611fcb1809f1675fc839b95711a1796"
+  },
+  {
+    "id": "biorxiv_api",
+    "url": "https://api.biorxiv.org/details/biorxiv/10.64898/2026.09.22.753415",
+    "date": "2026-11-04",
+    "status": "OPENED",
+    "sha256": "91a8ba890af99e151019d8428451b312a5a73ac1a5b2335785b016373007db0e",
+    "raw_response_sha256": "91a8ba890af99e151019d8428451b312a5a73ac1a5b2335785b016373007db0e",
+    "stored_json_sha256": "d51d42afac09c129fb241e6755a68679b44821bc95d4f9ed33947820814960a1",
+    "storage": "JSON normalized without changing fields"
+  }
+]

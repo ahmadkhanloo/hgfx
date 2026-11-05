@@ -1,0 +1,308 @@
+{
+  "coverage": {
+    "expected_model_cases": 36,
+    "expected_parameter_cases": 72,
+    "expected_shards": 12,
+    "model_cases": 36,
+    "parameter_cases": 72,
+    "shards": 12,
+    "unique_model_cases": 36,
+    "unique_parameter_cases": 72
+  },
+  "coverage_pass": true,
+  "criteria": {
+    "convergence_rate_min": 0.8,
+    "median_correlation_min": 0.5,
+    "median_standardized_rmse_max": 1.0,
+    "model_balanced_accuracy_min": 0.5
+  },
+  "gate_pass": false,
+  "integrity_note": "REFERENCE_LIMITATION_REVIEW_REQUIRED is not an automatic accepted limitation; exact paired raw evidence must be reviewed under the frozen reference-limitations policy before release accounting.",
+  "model_recovery": {
+    "all_winners_match": true,
+    "classification": "PASS_PAIRED_MODEL_SELECTION",
+    "hgfx_balanced_accuracy": 0.5833333333333334,
+    "hgfx_confusion_matrix": [
+      [
+        0.3333333333333333,
+        0.16666666666666666,
+        0.5
+      ],
+      [
+        0.0,
+        0.9166666666666666,
+        0.08333333333333333
+      ],
+      [
+        0.3333333333333333,
+        0.16666666666666666,
+        0.5
+      ]
+    ],
+    "hgfx_scientific_pass": true,
+    "matlab_balanced_accuracy": 0.5833333333333334,
+    "matlab_confusion_matrix": [
+      [
+        0.3333333333333333,
+        0.16666666666666666,
+        0.5
+      ],
+      [
+        0.0,
+        0.9166666666666666,
+        0.08333333333333333
+      ],
+      [
+        0.3333333333333333,
+        0.16666666666666666,
+        0.5
+      ]
+    ],
+    "matlab_scientific_pass": true,
+    "mismatched_cases": [],
+    "total_cases": 36,
+    "winner_matches": 36
+  },
+  "parameter_classification": "PAIRED_REFERENCE_LIMITATION_REVIEW_REQUIRED",
+  "parameter_recovery": {
+    "ehgf_binary": {
+      "classification": "PAIRED_REFERENCE_LIMITATION_CANDIDATE",
+      "hgfx": {
+        "bias": [
+          -0.0009576885396904525,
+          -0.05457194186603814,
+          0.11909328977344381
+        ],
+        "checks": {
+          "convergence_rate": true,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.9166666666666666,
+        "correlation": [
+          0.7324323574311565,
+          0.14572614606472245,
+          0.4619183690777424
+        ],
+        "median_absolute_error": [
+          0.1451401527283387,
+          0.2620144158701463,
+          0.20498976206070418
+        ],
+        "median_correlation": 0.4619183690777424,
+        "median_standardized_rmse": 2.3591268886719896,
+        "n": 24,
+        "rmse": [
+          0.3804987162873139,
+          0.45479053808780984,
+          0.45382925234609955
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          1.006879471494478,
+          2.3985777088037525,
+          2.3591268886719896
+        ]
+      },
+      "matlab": {
+        "bias": [
+          -0.000957688542093262,
+          -0.0545719418727598,
+          0.1190932897364144
+        ],
+        "checks": {
+          "convergence_rate": true,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.9166666666666666,
+        "correlation": [
+          0.7324323574508244,
+          0.14572614608285808,
+          0.4619183691009534
+        ],
+        "median_absolute_error": [
+          0.14514015272439562,
+          0.2620144158797282,
+          0.20498976206319686
+        ],
+        "median_correlation": 0.4619183691009534,
+        "median_standardized_rmse": 2.35912688822566,
+        "n": 24,
+        "rmse": [
+          0.3804987162689335,
+          0.45479053808709907,
+          0.45382925226023835
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          1.0068794714458396,
+          2.3985777088000035,
+          2.35912688822566
+        ]
+      }
+    },
+    "hgf_binary": {
+      "classification": "PAIRED_REFERENCE_LIMITATION_CANDIDATE",
+      "hgfx": {
+        "bias": [
+          -0.02453671104295474,
+          0.21115336347824368,
+          0.1939734348576021
+        ],
+        "checks": {
+          "convergence_rate": true,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.8333333333333334,
+        "correlation": [
+          0.9884035788082459,
+          -0.39648995544239546,
+          0.2026845701405167
+        ],
+        "median_absolute_error": [
+          0.07861910908993974,
+          0.2999508265440092,
+          0.31892956073393
+        ],
+        "median_correlation": 0.2026845701405167,
+        "median_standardized_rmse": 2.6096628455058144,
+        "n": 24,
+        "rmse": [
+          0.117806916336351,
+          1.050913327312666,
+          0.5020252805129923
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          0.15587091438381037,
+          2.7712727834832975,
+          2.6096628455058144
+        ]
+      },
+      "matlab": {
+        "bias": [
+          -0.024536711045697157,
+          0.21115336350577008,
+          0.19397343485168195
+        ],
+        "checks": {
+          "convergence_rate": true,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.8333333333333334,
+        "correlation": [
+          0.9884035788081557,
+          -0.39648995541655807,
+          0.20268457015781036
+        ],
+        "median_absolute_error": [
+          0.0786191091133579,
+          0.2999508264670947,
+          0.31892956073377277
+        ],
+        "median_correlation": 0.20268457015781036,
+        "median_standardized_rmse": 2.609662845472688,
+        "n": 24,
+        "rmse": [
+          0.11780691633759889,
+          1.0509133273708615,
+          0.5020252805066198
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          0.15587091438546147,
+          2.7712727836367597,
+          2.609662845472688
+        ]
+      }
+    },
+    "uhgf_binary": {
+      "classification": "PAIRED_REFERENCE_LIMITATION_CANDIDATE",
+      "hgfx": {
+        "bias": [
+          -0.041623544366430204,
+          0.41507892866528157,
+          0.295808882710287
+        ],
+        "checks": {
+          "convergence_rate": false,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.7916666666666666,
+        "correlation": [
+          0.9709163544614398,
+          0.19809821340695216,
+          0.38096831359106725
+        ],
+        "median_absolute_error": [
+          0.08250187826839572,
+          0.8238981347848489,
+          0.31934348171178106
+        ],
+        "median_correlation": 0.38096831359106725,
+        "median_standardized_rmse": 2.9578866180685117,
+        "n": 24,
+        "rmse": [
+          0.1857251728359538,
+          1.2021333481165348,
+          0.5690136799543757
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          0.24573389588925745,
+          3.1700420416895527,
+          2.9578866180685117
+        ]
+      },
+      "matlab": {
+        "bias": [
+          -0.04162354439769949,
+          0.41507892871672797,
+          0.2958088828712901
+        ],
+        "checks": {
+          "convergence_rate": false,
+          "median_correlation": false,
+          "median_standardized_rmse": false
+        },
+        "complete": true,
+        "convergence_rate": 0.7916666666666666,
+        "correlation": [
+          0.9709163544753036,
+          0.19809821341686712,
+          0.3809683135827406
+        ],
+        "median_absolute_error": [
+          0.08250187825146704,
+          0.8238981346288572,
+          0.31934348171791815
+        ],
+        "median_correlation": 0.3809683135827406,
+        "median_standardized_rmse": 2.9578866196547637,
+        "n": 24,
+        "rmse": [
+          0.18572517280201606,
+          1.202133348107474,
+          0.5690136802595257
+        ],
+        "scientific_pass": false,
+        "standardized_rmse": [
+          0.24573389584435426,
+          3.1700420416656594,
+          2.9578866196547637
+        ]
+      }
+    }
+  },
+  "protocol": "m18-s7-paired-recovery-1",
+  "s7_classification": "REFERENCE_LIMITATION_REVIEW_REQUIRED"
+}

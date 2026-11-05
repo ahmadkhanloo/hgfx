@@ -1,29 +1,45 @@
-# Computational Statistics working revision
+# Computational Statistics author-review package
 
-> Current execution extension (2026-11-04): [case-study and full journal rewrite handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md). Sections J1-J6 define the venue decision, section-level rewrite, figures, financial checks and final submission package. New scientific work is limited to its predeclared gates; frozen results remain unchanged. Submission itself is excluded.
+Executed 2026-11-04 under the [Pain and journal handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md) and [parent plan](../../docs/superpowers/plans/2026-11-03-publication-revision.md).
+**Ready for author review; not ready for submission.**
 
-Status: **DRAFT — initial editorial revision, not submission-ready** (2026-11-03).
+- [Main PDF](package/HGFX_CompStat.pdf), [supplement PDF](package/HGFX_Supplement.pdf), and [flat editable LaTeX/BibTeX/figure source](package/HGFX_CompStat_source.zip).
+- [English manuscript](manuscript.md), [supplement source](supplement.md), [claim ledger](CLAIM_EVIDENCE.csv) and [independent review in Persian](EDITORIAL_REVIEW_FA.md).
+- [Submission status](SUBMISSION_CHECKLIST.md), [policy and fee checks](JOURNAL_POLICY_CHECK.md), [venue fit](VENUE_FIT.md), [cover letter](cover_letter.md), [preprint revision note](BIORXIV_REVISION.md), [execution log](EXECUTION_LOG.md).
+- [Pain feasibility](../case_studies/pain_2025/FEASIBILITY.md) and [SPIRL fallback feasibility](../case_studies/spirl_2025/FEASIBILITY.md).
 
-Start with [the complete execution plan](../../docs/superpowers/plans/2026-11-03-publication-revision.md). It is written for an agent without access to prior conversations. The [audit](../../docs/submissions/2026-11-03_publication_audit_fa.md) explains the journal choice and financial uncertainty.
+Pain inputs are present, but exact custom-response permission and historical environment remain unresolved. SPIRL needs a separate migration of custom joint models. Neither case was fitted. No real-data replication figure is claimed. The [24-trial synthetic quickstart](worked_example/README.md) did run from a verified 1.0.0 wheel outside the checkout on CPU float64; it is workflow evidence.
 
-`manuscript.md` is the active working copy for this revision. It derives from `paper/manuscript.md` at `bbf17e9cf0d14d91bf44f50e307a0be55cbede02`. Initial edits change the title, abstract, audience framing in the Introduction and Discussion, and Figure 3 caption. Existing methods, numerical results, references, declarations, and remaining captions are inherited, not newly validated or approved by the author. Inherited declarations require author reconfirmation before submission.
+The manuscript is rewritten around the statistical workflow, adds a source-checked formulation and software comparison, separates implementation agreement from recovery, and preserves failed recovery/P3 gates and NDC. Historical manuscript, tables, reference evidence and figures remain unchanged. Scientific claims concern frozen 1.0.0, not current development additions.
 
-The historical manuscript and frozen artifacts remain unchanged. Results concern HGFX 1.0.0, not all features on current main. All `paper/...` paths inside the draft are repository-root paths. Figures and bibliography currently refer to historical assets; Figure 3 still needs the visual revision specified in the plan. No final PDF or new figure bundle has been built for this candidate.
+## Rebuild and check
 
-Remaining work includes the mathematical summary, runnable worked example in a clean 1.0.0 environment, source-bound software comparison, full editorial review, updated figures, claim ledger, rendering, and zero-cost submission preflight. Existing paper tests validate their historical inputs, not this new manuscript automatically.
+From the repository root, with Python, matplotlib, Pandoc, pdfLaTeX and Poppler:
 
-Do not run the old `paper/scripts/build_journal_submission.py` and assume its output uses this draft: it hard-codes the historical manuscript. The plan requires a separate build path or explicit candidate inputs.
+```sh
+python paper/computational_statistics/generate_figures.py
+python paper/computational_statistics/build_submission.py
+python paper/computational_statistics/verify_revision.py
+python -m pytest tests/paper/test_compstat_revision.py tests/paper/test_p5_figures.py -q
+```
 
-## bioRxiv revision
+The builder reads this candidate explicitly, uses author-year citeproc, and produces a flat source archive under package/. The layout is a generic author-review article, not the official Springer class: the linked official template download returned 403. Source/PDF hashes and tool versions are in the build manifest. See [third-party notices](THIRD_PARTY_NOTICES.md) for the CSL style. PDFs were rendered and inspected; a failed-build log and the fixes are recorded.
 
-Official guidance permits a revision before formal journal acceptance through **Author Area → Submit a Revision**. Revisions retain the DOI and prior versions remain accessible. Source checked on 2026-11-03: [bioRxiv overview](https://www.biorxiv.org/about-biorxiv) (official indexed text retrieved; direct page access returned HTTP 403 during this session).
+Remaining gates: human claim/declaration approval, no executed external application, comprehensive zero-fee/institutional clearance, final venue/account preflight and current preprint-revision policy. No submission, upload, email or financial commitment occurred.
 
-The recorded DOI is `10.64898/2026.09.22.753415`. Verify the actual posted version in the author's account before preparing its revision; no identity between that PDF and the current repository draft has been established here. Use the existing submission, not a new preprint record. Prepare the completed revised PDF and an accurate change summary, then obtain author approval. This work has not uploaded or submitted anything.
+Text source hashes use LF consistently with the existing repository attributes; binary hashes remain byte-exact. Original raw baseline hashes are retained alongside canonical text identities.
 
-## Delivery boundary
+## Critique-resolution revision (4 November 2026)
 
-Local preparation can proceed through all eight tasks. Actual journal submission, bioRxiv upload, author declarations, and any unresolved financial eligibility require the author's final action. A free subscription APC policy alone does not settle every possible mandatory charge; record the final terms before submission.
-
-## Published-study extension
-
-The author requested real published applications with public code and data. See [the source dossier](../case_studies/README_FA.md) and [the execution addendum](../../docs/superpowers/plans/2026-11-03-published-case-studies.md). This is source acquisition and a prospective plan, not completed replication evidence. No new case-study results have been inserted into the manuscript.
+See [response to critique](RESPONSE_TO_CRITIQUE_FA.md), [frozen protocol](REVISION_PROTOCOL.md),
+[empirical example](empirical_example/README.md) and [raw-result audit](evidence/p3_diagnostic_audit.json).
+The historical 10 unmatched-winner flags are 10 jointly absent winners, not
+10 conflicting nonempty choices. The original failed gate remains unchanged.
+S7 parameter-wise results and its confusion matrix are now reported. Author
+metadata/declarations were confirmed in chat; scientific approval remains pending.
+A 614-observation empirical-input workflow completed with finite statistics;
+it is not an external participant-study replication or a new MATLAB parity test.
+Rebuild the audit first with `python paper/computational_statistics/audit_frozen_results.py`.
+Then use the figure/build/verification commands above. The latest revision
+manifest supersedes prior package hashes; historical checkout verification is
+retained as an earlier record, not proof for this revision.

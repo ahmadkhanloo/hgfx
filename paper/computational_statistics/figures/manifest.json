@@ -1,0 +1,80 @@
+{
+  "hash_convention": "text LF; binary exact",
+  "inputs": {
+    "reference/validation/m18_s7_reference_limitation/decision.json": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c",
+    "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json": "5bf1fc203da4a6692193dc2e5bd6a0c31d51444dec93e021d3d836585f4cc0b2",
+    "paper/computational_statistics/empirical_example/result.json": "0dd10cc9dc7ba33da4ca8ffb3adb9470903b7519cb93a50c547efb1bd0ac5fd5",
+    "paper/computational_statistics/empirical_example/example_usdchf.txt": "88de72ee00d7ac7b2395eee79d9bc6caef94c591c47925a6a1b0be595d20b8ec"
+  },
+  "operation": "separate agreement/accuracy; grayscale recovery; raw pyhgf residual; empirical USD/CHF workflow; historical diagnostic figures byte-identical",
+  "outputs": [
+    {
+      "path": "paper/computational_statistics/figures/fig_model_selection.png",
+      "sha256": "bc8120ef5bbca9269004e631f87446ff300a1e4f515a170ced7e7fc1c50830d9"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_model_selection.pdf",
+      "sha256": "33cd5f1f1e5aff07d0b82194a55e6462235529a57c52e70b0bfb7cd98a10d87b"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_usdchf_workflow.png",
+      "sha256": "c9ffd80afb45925c91cc260d1aa43559e92043843f3e5e86105c4821f4c76847",
+      "source": "released-wheel empirical example; no new MATLAB parity"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_usdchf_workflow.pdf",
+      "sha256": "2c7b788fe2d83f38efc0ee9fdcce0347d3e6fcf15d3c49d4c1a16a6b872ba591",
+      "source": "released-wheel empirical example; no new MATLAB parity"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_recovery_metrics.png",
+      "sha256": "6155c85eb0532b8131ff30f8684a4b7c8e3cfb1db9baf3fe75e64182898ff529",
+      "source": "reference/validation/m18_s7_reference_limitation/decision.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_recovery_metrics.pdf",
+      "sha256": "0fe4222c844313fa632683938b3270affc7f3928ad1c3db84cae34eca0eaf946",
+      "source": "reference/validation/m18_s7_reference_limitation/decision.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_pyhgf_common_scope.png",
+      "sha256": "c7a31980eab4ea54b065528a70fe82954c42dc5ed20b743919cc2b067ae44c4f",
+      "source": "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_pyhgf_common_scope.pdf",
+      "sha256": "d1d03f9b8ece4b2a19c5bce56893e6e53366a51c8cf21cede4152ae1afb8d556",
+      "source": "paper/reproducibility/p2a10_raw_numeric_result_35268575414.json"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_workflow.png",
+      "sha256": "072f819121cc35d7585a2895ad0c30909f11ff2cebd5cfe977294f706fa2a49c",
+      "source": "conceptual workflow; no numerical data"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_workflow.pdf",
+      "sha256": "444c246abda1f31b0e14de6acf708d71f707c3afe987c7aaaa51d34521d3095c",
+      "source": "conceptual workflow; no numerical data"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_gpu_applicability.png",
+      "sha256": "1522a91693c62cbf0fd1a858725ddff8148de0ba1e3162e5563ab3f89132d582",
+      "source": "paper/figures/fig_gpu_applicability.png"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_gpu_applicability.pdf",
+      "sha256": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
+      "source": "paper/figures/fig_gpu_applicability.pdf"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_p3_horizon_diagnostics.png",
+      "sha256": "88dee99eb7eb99737700d54238f67c20208e0af005098349aeed7b74cfcc8b21",
+      "source": "paper/figures/fig_p3_horizon_diagnostics.png"
+    },
+    {
+      "path": "paper/computational_statistics/figures/fig_p3_horizon_diagnostics.pdf",
+      "sha256": "38228320930c1ee013d708b672200647c0d2780e3f6179fba2889c43976b8cb4",
+      "source": "paper/figures/fig_p3_horizon_diagnostics.pdf"
+    }
+  ]
+}

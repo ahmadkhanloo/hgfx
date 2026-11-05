@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "module_path": "C:\\Users\\Mak\\AppData\\Local\\Temp\\hgfx-compstat-100\\Lib\\site-packages\\hgfx\\__init__.py",
+  "module_sha256": "4a9f5f19b6f6206b8b8c1892b7f0ce82bea7b07ec513ab460cbefb536ffd5b0a",
+  "checked_exports": {
+    "fit_model": true,
+    "fitModel": true,
+    "sim_model": true,
+    "simModel": true,
+    "sample_model": true,
+    "sampleModel": true
+  }
+}

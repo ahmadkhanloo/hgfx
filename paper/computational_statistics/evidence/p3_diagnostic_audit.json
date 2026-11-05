@@ -1,0 +1,45 @@
+{
+  "parameter_cases": 144,
+  "model_cases": 72,
+  "shared_invalid_simulations": 20,
+  "contract_flag_false": 24,
+  "successful_pair_index_mismatches": 0,
+  "both_winners_absent": 10,
+  "different_nonempty_winners": 0,
+  "matching_nonempty_winners": 62,
+  "asymmetric_parameter_cases": [
+    {
+      "case_id": "PR-hgf_binary-T1024-S0.35-R0",
+      "matlab_success_flag": true,
+      "matlab_negLj": "-inf",
+      "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+      "first_stage": "initial objective admissibility, before optimizer",
+      "first_divergent_trial_level_state": "not recorded by historical runner"
+    },
+    {
+      "case_id": "PR-hgf_binary-T1024-S0.35-R4",
+      "matlab_success_flag": true,
+      "matlab_negLj": "620.4345219314272",
+      "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+      "first_stage": "initial objective admissibility, before optimizer",
+      "first_divergent_trial_level_state": "not recorded by historical runner"
+    },
+    {
+      "case_id": "PR-hgf_binary-T512-S0.35-R0",
+      "matlab_success_flag": true,
+      "matlab_negLj": "-inf",
+      "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+      "first_stage": "initial objective admissibility, before optimizer",
+      "first_divergent_trial_level_state": "not recorded by historical runner"
+    },
+    {
+      "case_id": "PR-hgf_binary-T512-S0.35-R4",
+      "matlab_success_flag": true,
+      "matlab_negLj": "247.25740970068986",
+      "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+      "first_stage": "initial objective admissibility, before optimizer",
+      "first_divergent_trial_level_state": "not recorded by historical runner"
+    }
+  ],
+  "historical_gate_changed": false
+}
