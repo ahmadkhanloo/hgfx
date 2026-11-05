@@ -58,3 +58,18 @@ Commit to an **independent** review branch or post a signed, specific GitHub PR 
 - separate scientific/measurement interpretation from engineering execution success.
 
 **Current default: `BLOCK_FREEZE / REVIEW NOT YET DONE`.** Neither this prompt, a green CI, nor author-side static audit constitutes the independent approval. A new immutable, reviewed protocol lock must exist before any paper-use timing.
+
+
+## New author-side six-source raw evidence replay (2026-11-06)
+
+A reproducible CI check was added to reduce the *mechanical* work needed by an independent reviewer; it does **not** constitute independent scientific review.
+
+- [Executed run 42108194894](https://github.com/ahmadkhanloo/hgfx/actions/runs/42108194894): 47/47 author-side regression tests, six original archived input runs, eleven raw JSON files SHA-256-verified, all original comparators reconstructed, and both 28-case ledgers unchanged.
+- Exact **tested commit**: 1dd22bc5eef4502136e6b61a586d2129be951a8d. For any later PR head, explicitly check the intervening diff before claiming coverage.
+- Machine-readable replay artifact: perf01-evidence-regression-42108194894, under the run's artifacts.
+- [Complete bounded provenance and unchanged failing outcome](PERF01C_SIX_SOURCE_EVIDENCE_REPLAY_2026-11-06.md).
+- Entry point: benchmarks/runtime_v1/verify_evidence_regression.py. Original artifacts include run IDs 41854644533, 41855647245, 41860187774, 41863441006, 41868723514 and 41870479069.
+- The MATLAB-only reference probe is independently checked against the exact original fitted MATLAB raw endpoint, the baseline zero shift, **all six** +/-eps probes, math.ulp(start), and the preexisting 3e-8 relative / 3e-10 absolute final-parameter tolerance. The original free-coordinate-2 negative-step numerical mismatch and 63/64 fitting outcome remain **failures**.
+- Independently assess model/source paths, MATLAB optimizer convergence/termination, numerical basin/classification and the *prospective* clock/hardware contract. Do not treat a comparator replay or this document as an external reviewer signature.
+
+**Review verdict remains unset: BLOCK_FREEZE / REVIEW NOT YET DONE, with PERF-01C OPEN and no performance timing.**
