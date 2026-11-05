@@ -20,3 +20,4 @@ benchmarks/results/
 *.npy
 *.npz
 !reference/golden/**/*.npz
+.freebuff/

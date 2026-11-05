@@ -89,6 +89,17 @@ User documentation:
 - `docs/user/MATLAB_DEMOS.md` — exact official MATLAB demo reproductions and cross-language parity evidence
 - `examples/README.md` — runnable examples
 
+## Paper and reproducibility
+
+The methods manuscript and its reproducibility package are maintained in the repository:
+
+- `paper/manuscript.md` — current manuscript source;
+- `paper/reproducibility/README.md` — reviewer/reproduction entry point;
+- `paper/reproducibility/p6a_paper_evidence_manifest.json` — authoritative paper-evidence inventory and submission-freeze state;
+- `docs/research/PAPER_P8_REVIEW_CHECKLIST.md` — independent paper-review and freeze record.
+
+Submission status is intentionally not duplicated here; use the manifest and review record above as the source of truth.
+
 ## Official MATLAB demo reproductions
 
 With the frozen reference submodule initialized:
