@@ -1,0 +1,137 @@
+name: PERF-01D original subject-7 optimizer trace (untimed, not approved)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-optimizer-trace.yml'
+      - 'benchmarks/runtime_v1/optimizer_trace_subject7_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/optimizer_trace_subject7_matlab.m'
+      - 'benchmarks/runtime_v1/compare_optimizer_trace_subject7.py'
+      - 'tests/test_perf01_optimizer_trace.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  optimizer-trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      JAX_PLATFORMS: cpu
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Exact source and canonical fixture verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python -m unittest discover -s work/tests -p test_perf01_optimizer_trace.py -v
+
+      - name: Download exact archived original 64 public fits and verify SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=work/benchmarks/runtime_v1/fit_cohort_results
+          mkdir -p "$root"
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir "$root"
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/fit_cohort_results")
+          summary=json.loads((root/"summary-41863441006.json").read_bytes())
+          assert summary["classification_counts"]=={
+            "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+            "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          for name,expected in summary["raw_evidence_sha256"].items():
+            assert hashlib.sha256((root/name).read_bytes()).hexdigest()==expected,name
+          assert len(summary["cases"])==64
+          assert summary["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          print("Archived original complete-fit raw SHA256 verified; 63/64 scientific failure retained")
+          PY
+
+      - name: Fresh public HGFX v1.0.0 subject-7 optimizer trace (NO TIMING)
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/optimizer_trace_subject7_hgfx.py \
+            --input work/benchmarks/runtime_v1 \
+            --original work/benchmarks/runtime_v1/fit_cohort_results \
+            --output work/benchmarks/runtime_v1/subject7_optimizer_trace/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Fresh public frozen MATLAB fitModel subject-7 trace (NO TIMING)
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); optimizer_trace_subject7_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','fit_cohort_results'),fullfile(pwd,'work','benchmarks','runtime_v1','subject7_optimizer_trace','matlab_raw.json'))"
+
+      - name: Compare finite iteration records without claiming convergence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_optimizer_trace_subject7.py \
+            --hgfx work/benchmarks/runtime_v1/subject7_optimizer_trace/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/subject7_optimizer_trace/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/subject7_optimizer_trace/comparison.json
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          folder=Path("work/benchmarks/runtime_v1/subject7_optimizer_trace")
+          report=json.loads((folder/"comparison.json").read_bytes())
+          report["github_run_id"]=os.environ["GITHUB_RUN_ID"]
+          report["candidate_sha"]=os.environ["GITHUB_SHA"]
+          report["raw_evidence_sha256"]={
+             key:hashlib.sha256((folder/key).read_bytes()).hexdigest()
+             for key in ("hgfx_raw.json","matlab_raw.json")
+          }
+          report["raw_evidence_location"]="GitHub Actions artifact perf01-subject7-optimizer-trace-"+os.environ["GITHUB_RUN_ID"]
+          (folder/"summary.json").write_text(
+              json.dumps(report,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print(json.dumps({"run_id":report["github_run_id"],
+              "sha":report["candidate_sha"],
+              "finite_slots":report["recorded_finite_slots"],
+              "first_different":report["first_different_record"],
+              "raw_evidence_sha256":report["raw_evidence_sha256"],
+              "classification":report["classification"],
+              "status":report["status"]},sort_keys=True))
+          assert report["classification"]=="OPTIMIZER_PATH_DIAGNOSTIC_ONLY_FULL_FIT_PARITY_NOT_PROMOTED"
+          assert report["termination_reason"]["matlab"]=="NOT_EXPOSED_BY_UNMODIFIED_PUBLIC_FITMODEL"
+          PY
+
+      - name: Preserve original-subject untimed trace and all failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-optimizer-trace-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_optimizer_trace/
+          if-no-files-found: warn
