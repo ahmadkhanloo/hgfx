@@ -102,12 +102,12 @@ def compare(hgfx: dict, matlab: dict) -> dict:
         "shared_finite_slot_count": shared,
         "first_any_nonzero_double_difference": first_any_numerical_difference,
         "terminal_duplicate_finite_slots": {
-            "hgfx": (filled_h >= 2
+            "hgfx": bool(filled_h >= 2
                      and bool(np.array_equal(hx[filled_h-1], hx[filled_h-2]))
-                     and hv[filled_h-1] == hv[filled_h-2]),
-            "matlab": (filled_m >= 2
+                     and bool(hv[filled_h-1] == hv[filled_h-2])),
+            "matlab": bool(filled_m >= 2
                        and bool(np.array_equal(mx[filled_m-1], mx[filled_m-2]))
-                       and mv[filled_m-1] == mv[filled_m-2]),
+                       and bool(mv[filled_m-1] == mv[filled_m-2])),
         },
         "first_different_record": discrepancies[0] if discrepancies else None,
         "all_different_record_count": len(discrepancies),
