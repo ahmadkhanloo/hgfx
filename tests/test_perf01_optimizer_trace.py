@@ -52,6 +52,25 @@ class TestOptimizerPathPreallocation(unittest.TestCase):
         o = compare(payload("hgfx", shift=1e-2), payload("matlab"))
         self.assertEqual(o["first_different_record"]["record_index_zero_based"], 2)
         self.assertEqual(o["all_different_record_count"], 1)
+        self.assertEqual(o["first_any_nonzero_double_difference"]["record_index_zero_based"],2)
+
+    def test_machine_precision_difference_can_precede_tolerance_disagreement(self):
+        h,m=payload("hgfx"),payload("matlab")
+        h["iter_x"][1][0]+=1e-12
+        h["iter_x"][2][0]+=1e-2
+        o=compare(h,m)
+        self.assertEqual(o["first_any_nonzero_double_difference"]["record_index_zero_based"],1)
+        self.assertEqual(o["first_different_record"]["record_index_zero_based"],2)
+
+    def test_terminal_duplicated_slots_do_not_claim_termination_cause(self):
+        h,m=payload("hgfx"),payload("matlab")
+        for obj in (h,m):
+            obj["iter_x"][2]=list(obj["iter_x"][1])
+            obj["iter_val"][2]=obj["iter_val"][1]
+        o=compare(h,m)
+        self.assertEqual(o["terminal_duplicate_finite_slots"],{"hgfx":True,"matlab":True})
+        self.assertEqual(o["termination_reason"]["matlab"],
+                         "NOT_EXPOSED_BY_UNMODIFIED_PUBLIC_FITMODEL")
 
     def test_different_recorded_finite_counts_reported_not_assumed_iterations(self):
         o = compare(payload("hgfx", count=2), payload("matlab", count=3))
