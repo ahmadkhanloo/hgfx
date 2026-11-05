@@ -32,7 +32,7 @@ jobs:
       - name: Run author-side PERF-01 regression tests
         run: python -m unittest discover -s tests -p 'test_perf01_*.py' -v
 
-      - name: Download 4 original archived MATLAB and HGFX raw evidence artifacts
+      - name: Download all 6 original scientific raw evidence artifacts
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -42,14 +42,20 @@ jobs:
             "41854644533 perf01-trialwise-run-41854644533" \
             "41855647245 perf01-fit-preflight-41855647245" \
             "41860187774 perf01-all-subjects-41860187774" \
-            "41863441006 perf01-64-full-fits-41863441006"
+            "41863441006 perf01-64-full-fits-41863441006" \
+            "41868723514 perf01-subject7-same-vector-41868723514" \
+            "41870479069 perf01-matlab-reference-self-sensitivity-41870479069"
           do
             read -r run_id artifact <<< "$spec"
             mkdir -p ".tmp/perf01/$run_id"
             gh run download "$run_id" --repo "$GITHUB_REPOSITORY" \
               --name "$artifact" --dir ".tmp/perf01/$run_id"
-            test -f ".tmp/perf01/$run_id/hgfx_raw.json"
-            test -f ".tmp/perf01/$run_id/matlab_raw.json"
+            if [[ "$run_id" == "41870479069" ]]; then
+              test -f ".tmp/perf01/$run_id/run-$run_id.json"
+            else
+              test -f ".tmp/perf01/$run_id/hgfx_raw.json"
+              test -f ".tmp/perf01/$run_id/matlab_raw.json"
+            fi
           done
 
       - name: Replay comparators on hash-verified original raw artifacts
