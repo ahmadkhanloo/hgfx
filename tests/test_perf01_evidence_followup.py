@@ -65,6 +65,20 @@ class TestPerf01ReferenceFollowup(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, "improperly|misclassified|hidden"):
             verify_reference_sensitivity(evidence, reference)
 
+    def test_recorded_step_must_equal_ieee_ulp_of_original_start(self):
+        evidence, reference = fixtures()
+        probe = evidence["perturbations"][0]
+        probe["step_size"] *= 2
+        probe["signed_step"] *= 2
+        with self.assertRaisesRegex(AssertionError, "one MATLAB eps"):
+            verify_reference_sensitivity(evidence, reference)
+
+    def test_tolerance_status_is_recomputed_not_trusted(self):
+        evidence, reference = fixtures()
+        evidence["perturbations"][4]["outside_old_v1_final_parameter_tolerance"] = False
+        with self.assertRaisesRegex(AssertionError, "original numerical threshold"):
+            verify_reference_sensitivity(evidence, reference)
+
     def test_duplicate_sign_and_missing_original_sign_fails(self):
         evidence, reference = fixtures()
         evidence["perturbations"][1] = deepcopy(evidence["perturbations"][0])
