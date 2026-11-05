@@ -28,7 +28,7 @@ def record(engine):
         "frozen_hgfx_sha":PRODUCT,"frozen_matlab_sha":REFERENCE,
         "original_trace_run":"42115887599",
         "original_trace_sha":"b378fef6ff93f6efa041f4e8304dafba742ae4ab",
-        "original_trace_raw_sha256":TRACE_HASHES,
+        "original_trace_raw_sha256":dict(TRACE_HASHES),
         "source_run_id":"41863441006",
         "subject_index_zero_based":7,"trials":128,"model":"hgf_binary",
         "observation":"unitsq_sgm","free_indices_zero_based":[12,13,14],
