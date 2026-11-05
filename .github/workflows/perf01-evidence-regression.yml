@@ -1,0 +1,70 @@
+name: PERF-01C archived real-evidence regression (not a freeze)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-evidence-regression.yml'
+      - 'benchmarks/runtime_v1/verify_evidence_regression.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  evidence-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install only the diagnostic dependency
+        run: python -m pip install "numpy==2.3.5"
+
+      - name: Run author-side PERF-01 regression tests
+        run: python -m unittest discover -s tests -p 'test_perf01_*.py' -v
+
+      - name: Download 4 original archived MATLAB and HGFX raw evidence artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for spec in \
+            "41854644533 perf01-trialwise-run-41854644533" \
+            "41855647245 perf01-fit-preflight-41855647245" \
+            "41860187774 perf01-all-subjects-41860187774" \
+            "41863441006 perf01-64-full-fits-41863441006"
+          do
+            read -r run_id artifact <<< "$spec"
+            mkdir -p ".tmp/perf01/$run_id"
+            gh run download "$run_id" --repo "$GITHUB_REPOSITORY" \
+              --name "$artifact" --dir ".tmp/perf01/$run_id"
+            test -f ".tmp/perf01/$run_id/hgfx_raw.json"
+            test -f ".tmp/perf01/$run_id/matlab_raw.json"
+          done
+
+      - name: Replay comparators on hash-verified original raw artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "HEAD: $(git rev-parse HEAD)"
+          python benchmarks/runtime_v1/verify_evidence_regression.py \
+            --archives .tmp/perf01 \
+            --output .tmp/perf01/regression_result.json
+
+      - name: Preserve author-side regression report for independent review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-evidence-regression-${{ github.run_id }}
+          path: .tmp/perf01/regression_result.json
+          if-no-files-found: warn
