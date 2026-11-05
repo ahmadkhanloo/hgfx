@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/perf01-evidence-regression.yml'
       - 'benchmarks/runtime_v1/verify_evidence_regression.py'
+      - 'tests/test_perf01_evidence_followup.py'
 
 permissions:
   contents: read
