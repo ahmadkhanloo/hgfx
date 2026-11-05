@@ -70,6 +70,24 @@ class TestGradientProbeParity(unittest.TestCase):
         self.assertEqual(out["fully_evaluated_pairs"],9)
         self.assertEqual(out["cases"][3]["status"],"SAME_VECTOR_IDENTITY_VIOLATION")
 
+    def test_matlab_json_normalized_field_names_are_verified(self):
+        a,b=record("hgfx"),record("matlab")
+        b["original_trace_raw_sha256"]={
+            "hgfx_raw_json":TRACE_HASHES["hgfx_raw.json"],
+            "matlab_raw_json":TRACE_HASHES["matlab_raw.json"],
+        }
+        out=compare(a,b)
+        self.assertEqual(out["fully_evaluated_pairs"],10)
+
+    def test_bad_normalized_matlab_sha_fails(self):
+        a,b=record("hgfx"),record("matlab")
+        b["original_trace_raw_sha256"]={
+            "hgfx_raw_json":"tampered",
+            "matlab_raw_json":TRACE_HASHES["matlab_raw.json"],
+        }
+        with self.assertRaisesRegex(ValueError,"frozen gradient source"):
+            compare(a,b)
+
     def test_gradient_difference_is_retained_as_diagnostic(self):
         a,b=record("hgfx"),record("matlab")
         a["cases"][0]["ridders_gradient"][1]+=0.1
