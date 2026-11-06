@@ -1,0 +1,134 @@
+{
+  "schema": "perf01d-subject7-same-runner-8-pairs-summary-v1",
+  "status": "AUTHOR_SIDE_SAME_RUNNER_ARCHIVED_REPLAY_PASS_ORIGINAL_SCIENCE_NONPASS",
+  "source_trial": "real six-fit Actions run 42268256755; full raw artifact 13528955307; source SHA 331bb639dd65f3a3e2620b34f736a9b5156b8725",
+  "source_artifact_sha256": "ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c",
+  "reanalysis_run": 42268990557,
+  "reanalysis_source_sha": "750aaf906ced0b779d4d97c1b737c7432246fd50",
+  "reanalysis_artifact_id": 13527858098,
+  "reanalysis_artifact_sha256": "c87604802b8506717cfeac01b5f0de827afd1a8616d69b82b41f6b0b7cf286c2",
+  "reanalysis_full_report_sha256": "3c90a24b94921b90e80f1967dfaaaaff821b809d893b5939b5a314ed8635b327",
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "historical_scientific": "63/64 NONPASS; zero-based subject 7; four mu and four muhat",
+  "same_runner_reference_source_output_consistent": {
+    "matlab_two_fits_all_28_binary64_identical": true,
+    "matlab_two_fits_optimizer_101x3_history_binary64_identical": true,
+    "matlab_new_vs_archival_old_under_original_tolerances": true
+  },
+  "same_runner_hgfx_same_dispatch_28_field_binary64_identical": {
+    "Haswell": true,
+    "SkylakeX": true
+  },
+  "hgfx_vs_fresh_matlab": [
+    {
+      "hgfx": "SkylakeX_1",
+      "matlab": "MATLAB_1",
+      "mismatched_fields": [
+        "traj.mu",
+        "traj.muhat"
+      ],
+      "mu_bad_cells": 4,
+      "muhat_bad_cells": 4
+    },
+    {
+      "hgfx": "SkylakeX_1",
+      "matlab": "MATLAB_2",
+      "mismatched_fields": [
+        "traj.mu",
+        "traj.muhat"
+      ],
+      "mu_bad_cells": 4,
+      "muhat_bad_cells": 4
+    },
+    {
+      "hgfx": "SkylakeX_2",
+      "matlab": "MATLAB_1",
+      "mismatched_fields": [
+        "traj.mu",
+        "traj.muhat"
+      ],
+      "mu_bad_cells": 4,
+      "muhat_bad_cells": 4
+    },
+    {
+      "hgfx": "SkylakeX_2",
+      "matlab": "MATLAB_2",
+      "mismatched_fields": [
+        "traj.mu",
+        "traj.muhat"
+      ],
+      "mu_bad_cells": 4,
+      "muhat_bad_cells": 4
+    },
+    {
+      "hgfx": "Haswell_1",
+      "matlab": "MATLAB_1",
+      "mismatched_fields": [
+        "traj.epsi",
+        "traj.mu",
+        "traj.muhat",
+        "traj.psi"
+      ],
+      "epsi_bad_cells": 5,
+      "mu_bad_cells": 14,
+      "muhat_bad_cells": 14,
+      "psi_bad_cells": 40
+    },
+    {
+      "hgfx": "Haswell_1",
+      "matlab": "MATLAB_2",
+      "mismatched_fields": [
+        "traj.epsi",
+        "traj.mu",
+        "traj.muhat",
+        "traj.psi"
+      ],
+      "epsi_bad_cells": 5,
+      "mu_bad_cells": 14,
+      "muhat_bad_cells": 14,
+      "psi_bad_cells": 40
+    },
+    {
+      "hgfx": "Haswell_2",
+      "matlab": "MATLAB_1",
+      "mismatched_fields": [
+        "traj.epsi",
+        "traj.mu",
+        "traj.muhat",
+        "traj.psi"
+      ],
+      "epsi_bad_cells": 5,
+      "mu_bad_cells": 14,
+      "muhat_bad_cells": 14,
+      "psi_bad_cells": 40
+    },
+    {
+      "hgfx": "Haswell_2",
+      "matlab": "MATLAB_2",
+      "mismatched_fields": [
+        "traj.epsi",
+        "traj.mu",
+        "traj.muhat",
+        "traj.psi"
+      ],
+      "epsi_bad_cells": 5,
+      "mu_bad_cells": 14,
+      "muhat_bad_cells": 14,
+      "psi_bad_cells": 40
+    }
+  ],
+  "original_trajectory_tolerance": {
+    "rtol": 3e-8,
+    "atol": 3e-10
+  },
+  "matlab_max_computational_threads": 1,
+  "hgfx_openblas_threads": 4,
+  "same_host_not_same_blas_affinity_or_thread_policy": true,
+  "initial_realtime_source_job": "FAILED_POST_FIT_HASH_KEY_COMPARATOR; ALL_SIX_RAW_FITS_ARCHIVED",
+  "secondary_attempt": "FAILED_SIGILL_BEFORE_MATLAB; NO_HARDWARE_SELECTION",
+  "independent_reviewer_verdict": "NOT_RECEIVED",
+  "perf01c": "NOT_FROZEN",
+  "timing": "NOT_RUN",
+  "no_reclassification": true
+}
