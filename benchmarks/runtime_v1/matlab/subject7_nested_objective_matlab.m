@@ -50,6 +50,8 @@ hook_count=0; delegated=false;
 cases=cell(1,50);
 cfg.opt_algo=@instrumented_original_optimizer;
 % The only non-native change in this diagnostic is the callback function handle.
+% MATLAB nested-function workspaces are static: explicitly declare evalc's output target.
+fit=[];
 console=evalc('fit=fitModel(y,u,''hgf_binary_config'',''unitsq_sgm_config'',cfg);');
 if hook_count~=1 || ~delegated
     error('hgfx:perf01:hook','FitModel did not supply the original optimizer handle');
