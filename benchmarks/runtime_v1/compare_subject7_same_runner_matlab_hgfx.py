@@ -33,12 +33,18 @@ def digest(path):
     return sha256(path.read_bytes()).hexdigest()
 
 def validate_matlab(data, summary, original, expected_run, expected_sha):
+    hashes=data.get("original_64_raw_sha256")
+    # MATLAB jsondecode/jsonencode turns the dots in exactly these two
+    # known archival struct keys into underscores. Preserve and compare all
+    # original SHA256 VALUES; reject any missing/extra keys.
+    if isinstance(hashes,dict) and set(hashes)=={"hgfx_raw_json","matlab_raw_json"}:
+        hashes={k.replace("_raw_json","_raw.json"):v for k,v in hashes.items()}
     require(data.get("schema")==MATLAB_SCHEMA
             and data.get("status")==EXPECTED_MATLAB_STATUS
             and data.get("frozen_hgfx_sha")==HGFX_SHA
             and data.get("frozen_matlab_sha")==MATLAB_SHA
             and str(data.get("original_64_fit_run"))==BASE_RUN
-            and data.get("original_64_raw_sha256")==summary["raw_evidence_sha256"]
+            and hashes==summary["raw_evidence_sha256"]
             and data.get("original_63_64_nonpass") is True
             and data.get("original_subject_index_zero_based")==7
             and data.get("source_input_sha256")==summary["hgfx_input_sha256"]
