@@ -310,9 +310,9 @@ def check_matched_runner(d, fit, abba):
     require(d.get("reanalysis_run") == 42268990557
             and d.get("reanalysis_source_sha") == MATCHED_REPLAY_SOURCE
             and d.get("reanalysis_artifact_id") == 13527858098
-            and d.get("reanalysis_artifact_sha256") == MATCHED_REPLAY_ARTIFACT
+            and d.get("reanalysis_artifact_sha256") == MATCHED_REPLAY_ARTIFACT.removeprefix("sha256:")
             and d.get("reanalysis_full_report_sha256") == MATCHED_REPORT_SHA256
-            and d.get("source_artifact_sha256") == MATCHED_SOURCE_ARTIFACT
+            and d.get("source_artifact_sha256") == MATCHED_SOURCE_ARTIFACT.removeprefix("sha256:")
             and MATCHED_FIT_RUN in d.get("source_trial","")
             and MATCHED_FIT_SOURCE in d.get("source_trial",""),
             "matched-runner historical raw/replay source artifact provenance changed")
