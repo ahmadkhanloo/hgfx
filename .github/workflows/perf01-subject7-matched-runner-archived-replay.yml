@@ -1,0 +1,132 @@
+name: "PERF-01D same-runner archived SIX REAL fits: derived-only eight-pair replay"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-matched-runner-archived-replay.yml'
+      - 'benchmarks/runtime_v1/compare_subject7_same_runner_matlab_hgfx.py'
+      - 'tests/test_perf01_subject7_same_runner_matlab_hgfx.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archived-matched-runner-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen-product imports and rerun strict untouched scientific comparator tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' threadpoolctl ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_same_runner_matlab_hgfx.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_same_host_repeatability_v2.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_full_trajectory.py' -v
+      - name: Confirm original six-fits source archive immutable GitHub artifact digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          digest="$(gh api \
+            "repos/$GITHUB_REPOSITORY/actions/artifacts/13528955307" --jq '.digest')"
+          test "$digest" = 'sha256:ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c'
+          echo "Archived original 6-fit GitHub artifact digest: $digest"
+      - name: Download all SIX SAME-RUNNER source fits from original FAILED post-comparison run
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 source-6 derived
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          gh run download 42268256755 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-same-runner-matlab-hgfx-42268256755 --dir source-6
+          for name in SkylakeX_1 Haswell_1 Haswell_2 SkylakeX_2; do
+            test -f "source-6/$name"_raw.json
+            test -f "source-6/$name"_environment.json
+          done
+          test -f source-6/matlab_raw.json
+          test -f source-6/environments.json
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          sys.path.insert(0,str(Path("work/benchmarks/runtime_v1")))
+          from compare_subject7_full_fit_trajectories import load_original,compare_pair
+          s,h,m=load_original(Path("original-64"))
+          x=compare_pair(h,m)
+          assert s["classification_counts"]=={
+            "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+            "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          assert x["mismatched_fields"]==["traj.mu","traj.muhat"]
+          assert all(len(x["critical_field_mismatch_details"][k])==4
+              for k in ("traj.mu","traj.muhat"))
+          print("Original 63/64 scientific NONPASS source bytes verified against actual SHA256.")
+          PY
+      - name: Recompute ALL EIGHT SAME-RUNNER original 28-field comparisons (NO FITS, NO TIMING)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_same_runner_matlab_hgfx.py \
+            --original original-64 --matlab source-6/matlab_raw.json \
+            --hgfx source-6 --environment source-6/environments.json \
+            --run-id 42268256755 \
+            --sha 331bb639dd65f3a3e2620b34f736a9b5156b8725 \
+            --output derived/matched-runner-8-pairs.json
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          p=Path("derived/matched-runner-8-pairs.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_SAME_RUNNER_FRESH_MATLAB_HGFX_FITS_NOT_SCIENTIFIC_PASS"
+          assert r["original_scientific"].startswith("63/64 NONPASS")
+          assert r["independent_scientific_review"]=="NOT_RECEIVED"
+          assert r["perf01c"]=="NOT_FROZEN"
+          assert r["performance_timing"]=="NOT_RUN"
+          assert len(r["all_eight_fresh_matlab_hgfx_28_field_comparisons"])==8
+          assert r["no_original_scientific_result_overwrite"]
+          r["archived_original_six_fit_artifact_id"]=13528955307
+          r["archived_original_six_fit_artifact_digest"]="sha256:ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c"
+          r["original_new_source_run_status"]="FAILURE_AT_LEGACY_POST_FIT_HASH_KEY_ANALYSIS; SIX REAL FITS SUCCEEDED"
+          r["subsequent_attempt_42268506282"]="FAILED_EXIT_132_UNSUPPORTED_CPU_INSTRUCTION_PRE_MATLAB"
+          r["derived_only_run_id"]=os.environ["GITHUB_RUN_ID"]
+          r["derived_only_source_sha"]=os.environ["GITHUB_SHA"]
+          p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          summary={
+            "original_science":r["original_scientific"],
+            "eight_same_runner_28_field_pairs":{
+               name:row["mismatched_fields"] for name,row in
+               r["all_eight_fresh_matlab_hgfx_28_field_comparisons"].items()},
+            "new_matlab_same_session_bitwise_28_fields":
+               r["same_source_repeated_fit"]["matlab_full_28_field"]["all_serialized_binary64_equal"],
+            "new_hgfx_modes_same_session_bitwise_28_fields":{
+               "SkylakeX":r["same_source_repeated_fit"]["hgfx_skylakex_full_28_field"]["all_serialized_binary64_equal"],
+               "Haswell":r["same_source_repeated_fit"]["hgfx_haswell_full_28_field"]["all_serialized_binary64_equal"]},
+            "no_performance_timer":True,"not_independently_reviewed":True,
+          }
+          Path("derived/summary.json").write_text(json.dumps(summary,sort_keys=True,indent=2)+"\n")
+          print(json.dumps(summary,sort_keys=True))
+          PY
+      - name: Archive new independently regenerated derived reports from original six real source fits
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-same-runner-8-original-tolerance-pairs-${{ github.run_id }}
+          path: derived/
+          if-no-files-found: warn
