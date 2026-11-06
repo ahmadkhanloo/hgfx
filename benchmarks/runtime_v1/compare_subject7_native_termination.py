@@ -37,10 +37,16 @@ def valid(matlab:dict,hgfx:dict,original:Path)->dict:
             or hgfx.get("status")!="AUTHOR_SIDE_DIRECT_FROZEN_OPTIMIZER_TERMINATION_NOT_SCIENTIFIC_PASS"):
         raise ValueError("Source native termination schema/status altered")
     for engine,item in (("MATLAB",matlab),("HGFX",hgfx)):
+        hashes=item.get("original_raw_sha256")
+        # MATLAB jsondecode/jsonencode normalizes invalid struct-field dots:
+        # hgfx_raw.json -> hgfx_raw_json. Normalize ONLY these two known
+        # source keys, and still enforce exact SHA256 equality.
+        if engine=="MATLAB" and isinstance(hashes,dict):
+            hashes={k.replace("_raw_json","_raw.json"):v for k,v in hashes.items()}
         if (item.get("frozen_hgfx_sha")!=HGFX
             or item.get("frozen_matlab_sha")!=MATLAB
             or str(item.get("original_64_fit_run_id"))!=RUN
-            or item.get("original_raw_sha256")!=summary["raw_evidence_sha256"]
+            or hashes!=summary["raw_evidence_sha256"]
             or item.get("source_input_sha256")!=summary["hgfx_input_sha256"]
             or item.get("source_config_sha256")!=summary["hgfx_config_sha256"]
             or item.get("subject_index_zero_based")!=7
