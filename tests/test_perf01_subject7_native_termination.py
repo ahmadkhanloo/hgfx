@@ -165,5 +165,24 @@ class TestOriginalNativeStop(TestCase):
             self.evaluate(a,b,s,o)
 
 
+    def test_matlab_json_normalized_source_sha_fields_accepted(self):
+        a,b,s,o=raw()
+        a["original_raw_sha256"]={
+            k.replace("_raw.json","_raw_json"):v
+            for k,v in a["original_raw_sha256"].items()}
+        result=self.evaluate(a,b,s,o)
+        self.assertEqual(result["matlab_source_termination_reason"],"tol_arg")
+
+    def test_matlab_json_normalized_sha_tamper_rejected(self):
+        a,b,s,o=raw()
+        a["original_raw_sha256"]={
+            k.replace("_raw.json","_raw_json"):v
+            for k,v in a["original_raw_sha256"].items()}
+        a["original_raw_sha256"]["hgfx_raw_json"]="altered"
+        with self.assertRaisesRegex(ValueError,"identity"):
+            self.evaluate(a,b,s,o)
+
+
+
 if __name__=="__main__":
     main()
