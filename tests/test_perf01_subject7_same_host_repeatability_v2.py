@@ -5,8 +5,8 @@ from pathlib import Path
 import sys
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"benchmarks"/"runtime_v1"))
-from compare_subject7_same_host_repeatability_v2 import ORDER, STATUS, strict_pair, validate_environment
-from test_perf01_subject7_full_trajectory import full_row
+from compare_subject7_same_host_repeatability_v2 import ORDER, STATUS, strict_pair, validate_environment, validate_explicit_coretype
+from test_perf01_subject7_full_trajectory import full_row, new_case, summary
 
 def environment():
     result={}
@@ -64,6 +64,32 @@ class ABBAReplay(unittest.TestCase):
     def test_mode_swap_fails(self):
         e=environment();e["Haswell_1"]["mode"]="SkylakeX"
         with self.assertRaisesRegex(ValueError,"mode"): validate_environment(e)
+
+
+    def test_explicit_skylakex_and_haswell_cases_accepted(self):
+        frozen=full_row()
+        a=new_case("auto");a["blas_mode_requested"]="SkylakeX"
+        b=new_case("Haswell")
+        self.assertIs(validate_explicit_coretype(a,"SkylakeX",summary(),frozen),a)
+        self.assertIs(validate_explicit_coretype(b,"Haswell",summary(),frozen),b)
+    def test_wrong_actual_requested_dispatch_rejected(self):
+        a=new_case("auto")
+        with self.assertRaisesRegex(ValueError,"explicit-coretype"):
+            validate_explicit_coretype(a,"SkylakeX",summary(),full_row())
+    def test_unknown_dispatch_rejected(self):
+        a=new_case("Haswell")
+        with self.assertRaisesRegex(ValueError,"Unknown predeclared"):
+            validate_explicit_coretype(a,"SandyBridge",summary(),full_row())
+    def test_explicit_mode_source_checks_still_strict(self):
+        a=new_case("auto");a["blas_mode_requested"]="SkylakeX"
+        a["source_config_sha256"]="tampered"
+        with self.assertRaisesRegex(ValueError,"explicit-coretype"):
+            validate_explicit_coretype(a,"SkylakeX",summary(),full_row())
+    def test_explicit_mode_original_start_not_mutated(self):
+        a=new_case("auto");a["blas_mode_requested"]="SkylakeX"
+        a["optim"]["init"][12]=-2.
+        with self.assertRaisesRegex(ValueError,"start"):
+            validate_explicit_coretype(a,"SkylakeX",summary(),full_row())
 
 if __name__=="__main__":
     unittest.main()

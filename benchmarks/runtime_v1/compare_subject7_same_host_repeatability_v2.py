@@ -10,9 +10,10 @@ import json
 from pathlib import Path
 import numpy as np
 from compare_fits import TOLS
+from fit_cohort_hgfx import FIT_FIELDS
 from compare_trialwise import decode_tree
 from compare_subject7_full_fit_trajectories import (
-    HGFX_SHA, MATLAB_SHA, BASE_RUN, load_original, validate_new, compare_pair
+    HGFX_SHA, MATLAB_SHA, BASE_RUN, load_original, compare_pair
 )
 
 ORDER = ("SkylakeX_1", "Haswell_1", "Haswell_2", "SkylakeX_2")
@@ -84,6 +85,38 @@ def validate_environment(env):
     return {"run_id":first["run_id"],"code_sha":first["github_sha"],
             "same_runner_affinity_verified":True,"order":list(ORDER)}
 
+
+def validate_explicit_coretype(raw,mode,summary,original_hgfx):
+    """V2 exact source/public-fit guard; permit explicit A or B without rewriting raw bytes."""
+    if mode not in ("SkylakeX","Haswell"):
+        raise ValueError("Unknown predeclared explicit OpenBLAS core type")
+    expected=("perf01d-subject7-full-fit-traj-hgfx-v1",
+              "AUTHOR_SIDE_UNTIMED_COMPLETE_PUBLIC_FIT_NO_PARITY_DECISION")
+    if (raw.get("schema")!=expected[0] or raw.get("status")!=expected[1]
+            or raw.get("subject_index_zero_based")!=7 or raw.get("trials")!=128
+            or raw.get("model")!="hgf_binary" or raw.get("observation")!="unitsq_sgm"
+            or raw.get("frozen_hgfx_sha")!=HGFX_SHA or raw.get("frozen_matlab_sha")!=MATLAB_SHA
+            or str(raw.get("original_64_fit_run_id"))!=BASE_RUN
+            or raw.get("original_64_raw_sha256")!=summary["raw_evidence_sha256"]
+            or raw.get("source_input_sha256")!=summary["hgfx_input_sha256"]
+            or raw.get("source_config_sha256")!=summary["hgfx_config_sha256"]
+            or raw.get("frozen_start_matches") is not True
+            or raw.get("n_rand_init")!=0
+            or raw.get("history_buffer_slots")!=101
+            or raw.get("finite_history_slots")!=25
+            or raw.get("blas_mode_requested")!=mode):
+        raise ValueError(f"{mode}: explicit-coretype unchanged original public fit not verified")
+    if (set(raw["optim"])!=set(FIT_FIELDS)
+            or set(raw["traj"])!=set(original_hgfx["traj"])):
+        raise ValueError(f"{mode}: missing original full fitting output fields")
+    if (not np.array_equal(np.asarray(raw["optim"]["init"],float),
+                           np.asarray(original_hgfx["optim"]["init"],float),
+                           equal_nan=True)
+            or np.asarray(raw["traj"]["mu"],float).shape!=(128,3)
+            or np.asarray(raw["traj"]["muhat"],float).shape!=(128,3)):
+        raise ValueError(f"{mode}: original fit start or trajectory shape changed")
+    return raw
+
 def derive(original,outputs,environment):
     summary,old_h,old_m=load_original(original)
     env=json.loads(environment.read_bytes())
@@ -93,7 +126,7 @@ def derive(original,outputs,environment):
         raw=(outputs/(name+"_raw.json")).read_bytes()
         if hashlib.sha256(raw).hexdigest()!=env[name]["raw_sha256"]:
             raise ValueError("Fresh evidence SHA256 mismatch: "+name)
-        fresh[name]=validate_new(json.loads(raw),_mode(name),summary,old_h)
+        fresh[name]=validate_explicit_coretype(json.loads(raw),_mode(name),summary,old_h)
     historic=compare_pair(old_h,old_m)
     if (historic["mismatched_fields"]!=["traj.mu","traj.muhat"]
             or len(historic["critical_field_mismatch_details"]["traj.mu"])!=4
