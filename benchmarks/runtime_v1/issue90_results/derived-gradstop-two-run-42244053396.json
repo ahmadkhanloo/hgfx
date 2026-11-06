@@ -1,0 +1,363 @@
+{
+  "derived_run_id": "42244053396",
+  "derived_tested_sha": "c1eb52e375668227ed75f23fc109f9ddd4e563de",
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "gradient_source": "original BFGS raw own-engine Ridders min_steps=10 recalculated POST FIT, heuristic errors; not in-loop internal instrumentation",
+  "gradient_terminal_own_engine_states": {
+    "hgfx": {
+      "21": {
+        "Ridders_scaled_error_linf_HEURISTIC": 1.6941633513644054e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": -0.0103099437026184,
+        "original_Ridders_error_HEURISTIC": [
+          1.9809154316874356e-13,
+          8.491471414906471e-16,
+          4.5208281562736374e-13
+        ],
+        "original_Ridders_grad": [
+          -0.1322425136512939,
+          0.004174184953585189,
+          0.06952779104839082
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 11.3099437026184,
+        "source_scaled_gradient_components": [
+          0.0113099437026184,
+          0.0002457940696150464,
+          0.0007272983994140909
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.0113099437026184
+      },
+      "22": {
+        "Ridders_scaled_error_linf_HEURISTIC": 3.674457811404655e-15,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": -0.009915740286267554,
+        "original_Ridders_error_HEURISTIC": [
+          2.1344037648418634e-14,
+          4.259261129554992e-15,
+          3.676781101802362e-13
+        ],
+        "original_Ridders_grad": [
+          0.13814567330049216,
+          0.00017662705455419875,
+          0.22175115192191514
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 10.915740286267555,
+        "source_scaled_gradient_components": [
+          0.010915740286267555,
+          1.0514002063278091e-05,
+          0.0022161103144487933
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.010915740286267555
+      },
+      "23": {
+        "Ridders_scaled_error_linf_HEURISTIC": 8.914668594767825e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": 0.0007732623361862556,
+        "original_Ridders_error_HEURISTIC": [
+          1.0919811062326534e-12,
+          8.334804200982315e-14,
+          5.986030898394445e-13
+        ],
+        "original_Ridders_grad": [
+          -0.0027773690331153408,
+          0.0016937679470559817,
+          -0.0007701801578423127
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 0.22673766381374438,
+        "source_scaled_gradient_components": [
+          0.0002267376638137444,
+          0.00010043284831260215,
+          7.696347753244443e-06
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.0002267376638137444
+      },
+      "24": {
+        "Ridders_scaled_error_linf_HEURISTIC": 8.914668594767825e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": 0.0007732623361862556,
+        "original_Ridders_error_HEURISTIC": [
+          1.0919811062326534e-12,
+          8.334804200982315e-14,
+          5.986030898394445e-13
+        ],
+        "original_Ridders_grad": [
+          -0.0027773690331153408,
+          0.0016937679470559817,
+          -0.0007701801578423127
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 0.22673766381374438,
+        "source_scaled_gradient_components": [
+          0.0002267376638137444,
+          0.00010043284831260215,
+          7.696347753244443e-06
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.0002267376638137444
+      }
+    },
+    "matlab": {
+      "21": {
+        "Ridders_scaled_error_linf_HEURISTIC": 1.9525724486958908e-13,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": -0.010309933292253756,
+        "original_Ridders_error_HEURISTIC": [
+          2.283062627839172e-12,
+          1.1480226491666912e-13,
+          1.3024997747024258e-12
+        ],
+        "original_Ridders_grad": [
+          -0.13224239664010648,
+          0.004174180385901375,
+          0.06952809433858693
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 11.309933292253755,
+        "source_scaled_gradient_components": [
+          0.011309933292253755,
+          0.0002457938037747666,
+          0.0007273015882779449
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.011309933292253755
+      },
+      "22": {
+        "Ridders_scaled_error_linf_HEURISTIC": 1.0932798111923161e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": -0.009915722414652661,
+        "original_Ridders_error_HEURISTIC": [
+          1.3836154444391013e-13,
+          8.007142041424609e-14,
+          1.1668443988810395e-13
+        ],
+        "original_Ridders_grad": [
+          0.13814544058626854,
+          0.00017662739357572933,
+          0.22175074749822027
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 10.91572241465266,
+        "source_scaled_gradient_components": [
+          0.01091572241465266,
+          1.0514022240014907e-05,
+          0.0022161062609758453
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.01091572241465266
+      },
+      "23": {
+        "Ridders_scaled_error_linf_HEURISTIC": 8.63374327417855e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": 0.000773263098194084,
+        "original_Ridders_error_HEURISTIC": [
+          1.0575698303205705e-12,
+          1.3234096978009813e-13,
+          1.5621293321388396e-12
+        ],
+        "original_Ridders_grad": [
+          -0.002777359705464593,
+          0.0016937658889056768,
+          -0.000770162208292112
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 0.22673690180591602,
+        "source_scaled_gradient_components": [
+          0.00022673690180591603,
+          0.00010043272682710268,
+          7.696168390045553e-06
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.00022673690180591603
+      },
+      "24": {
+        "Ridders_scaled_error_linf_HEURISTIC": 8.63374327417855e-14,
+        "estimate_only_not_rigorous_error_bound": true,
+        "estimated_margin_below_or_above_stop_threshold_SIGNED": 0.000773263098194084,
+        "original_Ridders_error_HEURISTIC": [
+          1.0575698303205705e-12,
+          1.3234096978009813e-13,
+          1.5621293321388396e-12
+        ],
+        "original_Ridders_grad": [
+          -0.002777359705464593,
+          0.0016937658889056768,
+          -0.000770162208292112
+        ],
+        "source_gradient_component_winning_index_zero_based": 0,
+        "source_metric_fraction_of_threshold": 0.22673690180591602,
+        "source_scaled_gradient_components": [
+          0.00022673690180591603,
+          0.00010043272682710268,
+          7.696168390045553e-06
+        ],
+        "source_threshold": 0.001,
+        "source_tolGrad_metric": 0.00022673690180591603
+      }
+    }
+  },
+  "hgfx_two_run_direct_history": {
+    "differing_finite_entries": 69,
+    "first_differing_index_zero_based": [
+      2,
+      0
+    ],
+    "maximum_absolute_difference": 9.060663330728858e-10,
+    "same_binary64": false,
+    "shape": [
+      101,
+      3
+    ]
+  },
+  "hgfx_two_run_full_trialwise_11_fields": {
+    "da": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 9.762191055529001e-13
+    },
+    "epsi": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 2.335423521238056e-12
+    },
+    "mu": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 4,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 4,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 3.918185220719295e-12
+    },
+    "muhat": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 4,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 4,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 3.918185220719295e-12
+    },
+    "psi": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 3.225260059025459e-10
+    },
+    "sa": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 4.6214143623046766e-11
+    },
+    "sahat": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 4.6232129236045694e-11
+    },
+    "ud": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 9.762191055529001e-13
+    },
+    "v": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 3.7114755713218983e-13
+    },
+    "w": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 3.945004045657896e-13
+    },
+    "wt": {
+      "HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "HGFX_run_second_vs_MATLAB_mismatched_cells_OLD_TOL": 0,
+      "between_two_HGFX_run_mismatched_cells_OLD_TOL": 0,
+      "max_between_HGFX_run_abs": 1.163374951929086e-12
+    }
+  },
+  "hgfx_two_run_objective_history": {
+    "differing_finite_entries": 23,
+    "first_differing_index_zero_based": [
+      2
+    ],
+    "maximum_absolute_difference": 5.069153985459707e-10,
+    "same_binary64": false,
+    "shape": [
+      101
+    ]
+  },
+  "hgfx_two_run_public_final": {
+    "differing_finite_entries": 3,
+    "first_differing_index_zero_based": [
+      12
+    ],
+    "maximum_absolute_difference": 1.4572520967703895e-10,
+    "same_binary64": false,
+    "shape": [
+      15
+    ]
+  },
+  "hgfx_two_run_raw_sha_exact_same": false,
+  "limitations": [
+    "Ridders error entries are numerical heuristic estimates, not mathematically certified bounds on true derivatives.",
+    "Original BFGS gradient history was POST-FIT re-evaluated at archived states, NOT instrumented inside source optimizer.",
+    "Original terminal history is overwritten; no unsupported claims about accepted last two transitions.",
+    "Two GitHub Actions runners are not matched hardware/CPU dispatch; exact BLAS/CPU culprit NOT identified.",
+    "MATLAB raw SHA identical in these TWO recorded runs only; not universal cross-host deterministic equivalence.",
+    "No changed original source, data, priors, starts, seed, model family, acceptance tolerance or exclusion.",
+    "Both HGFX runs remain mismatched vs MATLAB in original scientific full fitted 4+4 mu/muhat cells.",
+    "Original 63/64 scientific NON-PASS, PERF-01C NOT FROZEN; no performance timing, physical GPU, speedup, or independent scientific verdict."
+  ],
+  "matlab_two_run_raw_sha_exact_same": true,
+  "native_raw_sha256_each": {
+    "42232378487": {
+      "hgfx_raw.json": "71867c75c84de0e919e195a0f5124726c8352bfcfac233f9ac8cd6fe7e75d3c3",
+      "matlab_raw.json": "c16736a221758d39b4ccef45a217798a3661dd6c78b75fec0d6f7f19869cbf48"
+    },
+    "42232421468": {
+      "hgfx_raw.json": "2dced38aa33bff545c1b1d36c3a0e866911e52271fcd22fcf1b357fc16cab0bf",
+      "matlab_raw.json": "c16736a221758d39b4ccef45a217798a3661dd6c78b75fec0d6f7f19869cbf48"
+    }
+  },
+  "native_run_ids": [
+    "42232378487",
+    "42232421468"
+  ],
+  "native_tested_shas": [
+    "6351160b2b528a9db894e873ce65677ee847bbe5",
+    "5d26ca719a2a3e996ca07edd2d29282fc3ca1173"
+  ],
+  "original_64_scientific_full_fit": "63/64 NONPASS; original 4 mu and 4 muhat cells",
+  "original_bfgs_run_id": "42187240378",
+  "original_bfgs_sha256": {
+    "hgfx_raw.json": "060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce",
+    "matlab_raw.json": "4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a"
+  },
+  "original_bfgs_source_sha": "5fdb627244c12d1ebd7582f83cc2c0783fb3cd5d",
+  "original_full_fit_run_id": "41863441006",
+  "original_source_native_termination_each": {
+    "42232378487": {
+      "hgfx": "tol_grad",
+      "matlab": "tol_grad"
+    },
+    "42232421468": {
+      "hgfx": "tol_grad",
+      "matlab": "tol_grad"
+    }
+  },
+  "schema": "perf01d-subject7-final-gradient-margin-two-run-replay-v1",
+  "status": "AUTHOR_SIDE_SOURCE_NATIVE_GRADIENT_MARGIN_AND_TWO_RUN_REPLAY_NOT_SCIENTIFIC_PASS",
+  "threshold_source_tolGrad": 0.001,
+  "unchanged_original_trialwise_tolerances": {
+    "atol": 3e-10,
+    "rtol": 3e-08
+  }
+}
