@@ -30,6 +30,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -37,7 +42,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install 'numpy==2.3.5'
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
           python -m unittest discover -s work/tests -p test_perf01_subject7_same_host_repeatability_v2.py -v
           python -m unittest discover -s work/tests -p test_perf01_subject7_full_trajectory.py -v
           python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
