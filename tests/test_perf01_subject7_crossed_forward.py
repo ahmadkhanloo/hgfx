@@ -29,7 +29,7 @@ def report(engine):
             "origin":name,
             "status":"EVALUATED_IDENTICAL_FROZEN_VECTOR_"+engine.upper(),
             "full_transformed_vector":[x if np.isfinite(x) else None for x in v],
-            "traj":{k:[[0.,0.,0.] for _ in range(128)] for k in FIELDS},
+            "traj":{k:[[0.]* (2 if k=="w" else 3) for _ in range(128)] for k in FIELDS},
             "inf_states":[[[0.]*4 for _ in range(3)] for _ in range(128)],
         })
     return {
