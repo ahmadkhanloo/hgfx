@@ -64,7 +64,7 @@ class TestImmutableBFGSCurvature(unittest.TestCase):
 
     def test_negative_curvature_has_no_update(self):
         d=dummy()
-        d["ridders_recomputed_history"][1]["grad"]=[1.,0.,0.]
+        d["ridders_recomputed_history"][1]["grad"]=[-3.,0.,0.]
         row=curvature_decisions(d)[0]
         self.assertLess(row["curvature_scalar_dgrad_dot_dx"],0)
         self.assertFalse(row["source_condition_would_apply_update"])
