@@ -1,0 +1,66 @@
+name: "PERF-01C author-side cross-ledger reviewer preflight (NOT a scientific review)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-prefreeze-ledger-guard.yml'
+      - 'benchmarks/runtime_v1/verify_perf01_prefreeze_ledger.py'
+      - 'tests/test_perf01_prefreeze_ledger_guard.py'
+      - 'benchmarks/runtime_v1/cohort_results/summary-41860187774.json'
+      - 'benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json'
+      - 'benchmarks/runtime_v1/issue90_results/derived-archived-v2-42250539438.json'
+      - 'benchmarks/runtime_v1/eligibility_candidates/**'
+permissions:
+  contents: read
+jobs:
+  tracked-evidence-cross-ledger:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate 15 exact negative/positive controls; stdlib-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s work/tests -p test_perf01_prefreeze_ledger_guard.py -v
+      - name: Cross-check unchanged 576/64/28/ABBA derived evidence with no timer or MATLAB
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/verify_perf01_prefreeze_ledger.py \
+            --root work --output reviewer-preflight/ledger.json
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path("reviewer-preflight/ledger.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_TRACKED_LEDGER_CONSISTENT_NOT_INDEPENDENT_REVIEW"
+          assert r["reviewer_independent_verdict"]=="NOT_RECEIVED"
+          assert r["perf01c_prospective_freeze"]=="NOT_FROZEN"
+          assert r["performance_timing"]=="NOT_RUN"
+          assert r["cohort"]=={"rows":576,"completed":448,"both_invalid":128}
+          assert r["fit"]["fitting"]=="63/64 NONPASS"
+          assert r["eligibility"]["blocked"]==12
+          assert r["abba"]["within_dispatch_bitwise_equal"]==2
+          assert r["abba"]["cross_dispatch_numeric_mismatch"]==4
+          r["run_id"]=os.environ["GITHUB_RUN_ID"]
+          r["tested_source_sha"]=os.environ["GITHUB_SHA"]
+          r["scope_limitation"]="LOCAL TRACKED REPORTS ONLY; THIS RUN DOES NOT REDOWNLOAD OR REHASH REMOTE ORIGINAL ACTIONS RAW ARTIFACTS"
+          p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print("Tracked candidate evidence internally consistent. NO INDEPENDENT SIGNOFF OR SCIENTIFIC PASS.")
+          PY
+      - name: Archive tracked derived-only reviewer preflight including source SHA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-tracked-ledger-\${{ github.run_id }}
+          path: reviewer-preflight/ledger.json
+          if-no-files-found: warn

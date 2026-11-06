@@ -1,0 +1,36 @@
+# PERF-01C — independent-review quickstart and evidence boundary (2026-11-06)
+
+**Review status: OPEN / NO EXTERNAL VERDICT / NO PROSPECTIVE FREEZE.** This page is an author-side handoff, not a signed reviewer report. Read `PERF01C_INDEPENDENT_REVIEW_HANDOFF.md` for the complete independent-review scope.
+
+## Immutable sources and existing machine results
+
+| Source | Exact original execution | What it does and does not establish |
+|---|---|---|
+| Original trialwise MATLAB/HGFX | [41854644533](https://github.com/ahmadkhanloo/hgfx/actions/runs/41854644533) | Seven valid matched cells, three matched invalid paths; does **not** establish general fitting parity |
+| Full cohort fixed-vector objectives | [41860187774](https://github.com/ahmadkhanloo/hgfx/actions/runs/41860187774) | 448 valid-compatible, 128 matching invalid; not 576 completed public fits |
+| Original 64 public full fits | [41863441006](https://github.com/ahmadkhanloo/hgfx/actions/runs/41863441006) | **63/64 NON-PASS**, original subject index 7: four `traj.mu`, four `traj.muhat` out-of-tolerance cells |
+| Original endpoint cross replay | [41868723514](https://github.com/ahmadkhanloo/hgfx/actions/runs/41868723514) | Same-vector MATLAB/HGFX forward agrees; two different fitted vectors do not equal full-fit parity |
+| MATLAB exact reference self sensitivity | [41870479069](https://github.com/ahmadkhanloo/hgfx/actions/runs/41870479069) | One of six ±eps original-start probes crosses original final-vector fitting tolerance; not a certified scientific reference limitation |
+| Four frozen HGFX full fits on same runner | [42249566219](https://github.com/ahmadkhanloo/hgfx/actions/runs/42249566219) | Explicit SkylakeX/Haswell/Haswell/SkylakeX, same CPU affinity; original scientific 63/64 unchanged |
+| Archived four-fit derived replay | [42250539438](https://github.com/ahmadkhanloo/hgfx/actions/runs/42250539438) | 36/36 focused engineering tests; 28 fields; two exact same-mode comparisons, four mismatched cross-mode `mu/muhat`; **not an independent scientific review** |
+
+Frozen versions: HGFX v1.0.0 @ `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` and MATLAB HGF Toolbox 8.2.0 @ `2437f4dc241541072722a2695ddeca7b44d83dd3`. Original fitting thresholds **rtol=3e-8 and atol=3e-10 for trial trajectories**; other fitting-field tolerances retain their specific original policy.
+
+## Reproduction steps (reviewer executable)
+
+1. Pin the **exact candidate commit SHA under review**, not only a movable PR branch name. Read the full handoff and the original source compatibility policy.
+2. On the pinned checkout, run `python -m unittest discover -s tests -p test_perf01_prefreeze_ledger_guard.py -v` followed by `python benchmarks/runtime_v1/verify_perf01_prefreeze_ledger.py --root . --output reviewer-preflight.json`. This uses only tracked **derived JSON**, and must never be represented as rehashing remote raw evidence.
+3. Separately download the original GitHub Actions artifacts above (the first six-source replay [42108194894](https://github.com/ahmadkhanloo/hgfx/actions/runs/42108194894) provides an existing scripted raw/recompute pathway), run the archived raw SHA-256 checks and original scientific comparators on the **same** unchanged source/config/data, and record the first mismatched coordinates and masks.
+4. Verify the exact source of MATLAB `core/fitModel.m`, `core/quasinewton_optim.m`, the active binary HGF path, optimizer gradient/termination semantics, full iteration field interpretation and numerical sensitivity evidence. Review source-only one-ULP reference self-sensitivity without a post-hoc exception.
+5. Verify all **28** preregistered workload cases, including 16 concordant *review-pending* and 12 *blocked*; the 9-cell headline is ineligible. Review CPU affinity/threads, full API timing boundary, GPU physical hardware policy and analysis statistics. **Do not execute final paper-performance timing** at this point.
+6. A reviewer independent of the implementer must provide a signed `PERF01C_REVIEW_<date>.md`: identity, exact reviewed SHA, all evidence hashes/artifacts, findings and severity, issue references, per-case eligibility, and explicit `APPROVE_PROSPECTIVE_FREEZE` or `BLOCK_FREEZE`. If approved, a new versioned performance protocol lock and acceptance manifest must be committed **before** any final timing. A green job is not the review.
+
+## Cross-ledger guard limitations
+
+The new `benchmarks/runtime_v1/verify_perf01_prefreeze_ledger.py` cross-checks five immutable **tracked derived reports**: 576 subject/model/horizon combinations, 64 public fits and 28 fields, unchanged original and updated 28-case ledgers, and six ABBA contrasts with four source/run identifiers. It fails on moved denominators, changed original failure fields, fabricated independent-review status, altered BLAS report/hash entries or a changed blocked-case justification outside the two originally described fitting cases.
+
+The guard validates **internal consistency only**, not that these archived raw bytes and MATLAB paths are scientifically correct; the remote raw re-download and independent source inspection remain mandatory. It never sets scientific or runtime gate status to PASS and makes no performance claim.
+
+Historical failures remain visible: raw ABBA v1 auto-kernel control [42248605099](https://github.com/ahmadkhanloo/hgfx/actions/runs/42248605099), v2 analyzer legacy label error [42249566219](https://github.com/ahmadkhanloo/hgfx/actions/runs/42249566219), new-run ISA SIGILL [42250002320](https://github.com/ahmadkhanloo/hgfx/actions/runs/42250002320), and archive-only missing-package preflight [42250386120](https://github.com/ahmadkhanloo/hgfx/actions/runs/42250386120). None retroactively qualifies as scientific pass.
+
+**Current disposition:** PERF-01C OPEN, external reviewer NOT RECEIVED, frozen performance protocol NOT APPROVED, PERF-01E–H NOT RUN, final performance/speedup NOT ESTABLISHED.
