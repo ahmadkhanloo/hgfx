@@ -52,7 +52,7 @@ jobs:
           test -f original/summary.json
           test -f original/comparison.json
 
-      - name: Same runner CPU, process-by-process: auto, Haswell, SkylakeX
+      - name: "Same runner CPU, process-by-process: auto, Haswell, SkylakeX"
         shell: bash
         run: |
           set -euo pipefail
