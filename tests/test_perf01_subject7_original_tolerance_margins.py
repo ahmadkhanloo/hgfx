@@ -84,9 +84,17 @@ class ArchivedToleranceMargins(unittest.TestCase):
                            "residual")
 
     def test_falsified_lagged_mu_hat_index_rejected(self):
+        def tamper(r):
+            item=r["vs_original"]["SkylakeX_1"]["vs_original_matlab"][
+                "critical_field_mismatch_details"]["traj.muhat"][1]
+            item["index_zero_based"]=[108,1]
+            item["trial_one_based"]=109
+        self.expect_tamper(tamper,"one-trial")
+
+    def test_falsified_first_mismatch_index_rejected(self):
         self.expect_tamper(lambda r:r["vs_original"]["SkylakeX_1"]["vs_original_matlab"]["critical_field_mismatch_details"]["traj.muhat"][0].update(
                            index_zero_based=[83,1]),
-                           "one-trial|presentation")
+                           "first mismatch")
 
     def test_mismatched_mu_muhat_source_values_rejected(self):
         self.expect_tamper(lambda r:r["pairwise"]["cross_mode_first"]["original_numeric_tolerances"]["critical_field_mismatch_details"]["traj.muhat"][0].update(
