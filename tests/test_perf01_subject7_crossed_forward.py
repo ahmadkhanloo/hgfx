@@ -38,7 +38,7 @@ def report(engine):
         "frozen_hgfx_sha":HGFX_SHA,
         "frozen_matlab_sha":MATLAB_SHA,
         "source_run_id":SOURCE,
-        "original_raw_sha256":RAW if engine=="hgfx" else {
+        "original_raw_sha256":dict(RAW) if engine=="hgfx" else {
             "hgfx_raw_json":RAW["hgfx_raw.json"],
             "matlab_raw_json":RAW["matlab_raw.json"]},
         "source_input_sha256":"unmodified-input",
