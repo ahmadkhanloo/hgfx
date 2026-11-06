@@ -1,0 +1,114 @@
+name: "PERF-01C seven-source original-raw evidence replay (NOT independent review)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-seven-source-raw-replay.yml'
+      - 'benchmarks/runtime_v1/verify_perf01_seven_source_handoff.py'
+      - 'tests/test_perf01_seven_source_handoff.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  seven-source-raw-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check frozen release and install pinned NumPy plus exact frozen package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+      - name: Validate seventh-source tamper controls and existing original scientific replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s work/tests -p 'test_perf01_seven_source_handoff.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_prefreeze_ledger_guard.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_same_host_repeatability_v2.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_evidence_followup.py' -v
+      - name: Download six original MATLAB/HGFX scientific artifact sets, not regenerated data
+        shell: bash
+        run: |
+          set -euo pipefail
+          for spec in \
+            "41854644533 perf01-trialwise-run-41854644533" \
+            "41855647245 perf01-fit-preflight-41855647245" \
+            "41860187774 perf01-all-subjects-41860187774" \
+            "41863441006 perf01-64-full-fits-41863441006" \
+            "41868723514 perf01-subject7-same-vector-41868723514" \
+            "41870479069 perf01-matlab-reference-self-sensitivity-41870479069"
+          do
+            read -r run_id artifact <<< "$spec"
+            mkdir -p "archives/$run_id"
+            gh run download "$run_id" --repo "$GITHUB_REPOSITORY" \
+              --name "$artifact" --dir "archives/$run_id"
+            if [[ "$run_id" == "41870479069" ]]; then
+              test -f "archives/$run_id/run-$run_id.json"
+            else
+              test -f "archives/$run_id/hgfx_raw.json"
+              test -f "archives/$run_id/matlab_raw.json"
+            fi
+          done
+      - name: Download exact seventh ORIGINAL four-process ABBA v2 artifact from failed post-analysis run
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p abba/four_fits
+          gh run download 42249566219 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-issue90-abba-v2-42249566219 --dir abba/four_fits
+          for case in SkylakeX_1 Haswell_1 Haswell_2 SkylakeX_2; do
+            test -f "abba/four_fits/${case}_raw.json"
+            test -f "abba/four_fits/${case}_environment.json"
+          done
+      - name: Recompute all 7 sources against original unchanged records and 28-case ledger
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/verify_perf01_seven_source_handoff.py \
+            --root work/benchmarks/runtime_v1 \
+            --archives archives --abba abba \
+            --output reviewer-raw/derived-seven-source.json
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path("reviewer-raw/derived-seven-source.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_SEVEN_RAW_SOURCES_REPLAY_MATCH_DECISIONS_NOT_INDEPENDENT_REVIEW"
+          assert r["scientific_full_fit"]=="63/64 NONPASS; original zero-based subject 7"
+          assert r["reviewer_signature"]=="NOT_RECEIVED"
+          assert r["perf01c"]=="NOT_FROZEN"
+          assert r["final_performance_timing"]=="NOT_RUN"
+          assert len(r["seventh_abba_original_raw_sha256"])==4
+          assert r["seventh_abba_28_field_decisions"]["all_six_pairwise_and_four_reference_28_field_decisions_match"]
+          r["replay_source_commit_sha"]=os.environ["GITHUB_SHA"]
+          r["replay_run_id"]=os.environ["GITHUB_RUN_ID"]
+          p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print("SUCCESS 7 historic original source runs (6 scientific, 1 ABBA); no new fits, speeds or independent review.")
+          PY
+      - name: Preserve complete computed seventh-source floats, raw hashes and original 63/64 NONPASS
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-seven-source-original-raw-${{ github.run_id }}
+          path: reviewer-raw/derived-seven-source.json
+          if-no-files-found: warn
