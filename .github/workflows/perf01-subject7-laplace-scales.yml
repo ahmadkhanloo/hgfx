@@ -1,0 +1,130 @@
+name: "PERF-01D posthoc subject7 Laplace fitted-scale audit (NO science PASS)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-laplace-scales.yml'
+      - 'benchmarks/runtime_v1/derive_subject7_laplace_scales.py'
+      - 'tests/test_perf01_subject7_laplace_scales.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archive-derived-only-no-refitting:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate frozen v1.0.0 and strict synthetic matrix controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_laplace_scales.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_same_runner_matlab_hgfx.py' -v
+      - name: Preserve original SIX raw source-archive identity and real eight-comparison digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/13528955307" --jq '.digest')" = \
+            'sha256:ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c'
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/13527858098" --jq '.digest')" = \
+            'sha256:c87604802b8506717cfeac01b5f0de827afd1a8616d69b82b41f6b0b7cf286c2'
+          mkdir -p original-six verified-pairs output
+          gh run download 42268256755 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-same-runner-matlab-hgfx-42268256755 \
+            --dir original-six
+          gh run download 42268990557 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-same-runner-8-original-tolerance-pairs-42268990557 \
+            --dir verified-pairs
+          echo '2133b60ca7dcd51b85d93dfad109f715bd8fe35fa71c2bd84ff4a63cac672139  original-six/matlab_raw.json' | sha256sum -c -
+          echo '3c90a24b94921b90e80f1967dfaaaaff821b809d893b5939b5a314ed8635b327  verified-pairs/matched-runner-8-pairs.json' | sha256sum -c -
+          echo "Downloaded source-locked real 4 HGFX + 2 MATLAB frozen fits, no new source fitting."
+      - name: Derive ALL 8 descriptive local Hessian/parameter scales from original public fits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/derive_subject7_laplace_scales.py \
+            --source-six original-six \
+            --paired verified-pairs/matched-runner-8-pairs.json \
+            --output output/subject7-posthoc-local-laplace-scales.json
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path("output/subject7-posthoc-local-laplace-scales.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="POSTHOC_LOCAL_LAPLACE_SCALE_DIAGNOSTIC_ORIGINAL_FITTING_63_OF_64_NONPASS"
+          assert r["original_64_fit_scientific_gate"].startswith("63/64 NONPASS")
+          assert r["source_28_field_pair_denominator"]==8
+          assert len(r["all_eight_original_full_fit_pair_scales"])==8
+          assert r["independent_reviewer_verdict"]=="NOT_RECEIVED"
+          assert r["perf01c"]=="NOT_FROZEN" and r["final_performance_timing"]=="NOT_RUN"
+          r["analysis_source_sha"]=os.environ["GITHUB_SHA"]
+          r["analysis_run_id"]=os.environ["GITHUB_RUN_ID"]
+          p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print("Posthoc eight full 28-field source cases retained, original 63/64 NONPASS unchanged.")
+          PY
+      - name: Negative controls against raw byte mutation, hidden failure or posthoc exclusions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,shutil,sys,tempfile
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1")
+          sys.path.insert(0,str(root))
+          from derive_subject7_laplace_scales import derive
+          raw=Path("original-six"); report=Path("verified-pairs/matched-runner-8-pairs.json")
+          with tempfile.TemporaryDirectory() as d:
+              tmp=Path(d)
+              fake=tmp/"tampered"
+              shutil.copytree(raw,fake)
+              p=fake/"Haswell_1_raw.json"
+              p.write_bytes(p.read_bytes()+b" ")
+              try:
+                  derive(fake,report)
+                  raise AssertionError("A raw SHA mutation was not rejected")
+              except ValueError as exc:
+                  assert "SHA256" in str(exc)
+              data=json.loads(report.read_bytes())
+              data["original_scientific"]="64/64 PASS"
+              bad=tmp/"bad_science.json";bad.write_text(json.dumps(data))
+              try:
+                  derive(raw,bad)
+                  raise AssertionError("A scientific gate promotion was not rejected")
+              except ValueError as exc:
+                  assert "NONPASS" in str(exc)
+              data=json.loads(report.read_bytes())
+              data["all_eight_fresh_matlab_hgfx_28_field_comparisons"].pop("Haswell_1_vs_MATLAB_2")
+              bad.write_text(json.dumps(data))
+              try:
+                  derive(raw,bad)
+                  raise AssertionError("An omitted mismatching original pair was not rejected")
+              except ValueError as exc:
+                  assert "inventory" in str(exc)
+          print("Three fail-closed original source scientific tampering controls passed.")
+          PY
+      - name: Preserve full exact old-gate and posthoc scale report even when an audit fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-subject7-posthoc-laplace-scales-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
