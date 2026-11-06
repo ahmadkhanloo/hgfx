@@ -114,7 +114,7 @@ def verify_raw(raw:dict,engine:str,summary:dict,params:dict)->dict:
                 or set(c["traj"])!=FIELDS):
             raise ValueError(f"{engine} did not evaluate exactly original transformed {anchor}")
         for k in FIELDS:
-            if np.asarray(decode_tree(c["traj"][k]),float).shape!=(128,3):
+            if np.asarray(decode_tree(c["traj"][k]),float).shape!=((128,2) if k=="w" else (128,3)):
                 raise ValueError(f"{engine} full HGF trialwise field shape changed: {k}")
         if np.asarray(decode_tree(c["inf_states"]),float).shape!=(128,3,4):
             raise ValueError(f"{engine} original forward inference state shape changed")
