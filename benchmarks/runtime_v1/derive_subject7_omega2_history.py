@@ -27,6 +27,8 @@ def first(predicate)->int|None:
 def pointwise_drift(h,m,rtol,atol)->list[dict]:
     if h.shape!=m.shape or h.ndim!=2 or h.shape[1]!=3:
         raise ValueError("Expected matching transformed free-coordinate histories Nx3")
+    if not np.all(np.isfinite(h)) or not np.all(np.isfinite(m)):
+        raise ValueError("Original archived transformed free-parameter history nonfinite")
     rows=[]
     for i,(a,b) in enumerate(zip(h,m)):
         delta=a-b
