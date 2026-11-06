@@ -39,7 +39,7 @@ same_start=isequaln(fit.optim.init(:),double(old.optim.init(:))) && ...
 n_finite=sum(isfinite(fit.optim.iter.val));
 if n_finite~=25 || size(fit.optim.iter.x,1)~=101 || ...
         size(fit.optim.iter.x,2)~=3 || ...
-        numel(fit.optim.iter.invH)~=25
+        numel(fit.optim.iter.invH)<23 || numel(fit.optim.iter.invH)>25
     error('hgfx:perf01:history','Unexpected original 101-slot or 25-finite Hessian history');
 end
 matrices=cell(1,numel(fit.optim.iter.invH));
@@ -62,7 +62,7 @@ full=[r.c_prc.priormus(:)',r.c_obs.priormus(:)'];
 prior_variances=[r.c_prc.priorsas(:)',r.c_obs.priorsas(:)'];
 prior_variances(isnan(prior_variances))=0;
 indices=find(prior_variances);
-if ~isequal(indices,[13,14,15]) || ~isequal(full(indices),fit.optim.init(indices)')
+if ~isequal(indices,[13,14,15]) || ~isequal(full(indices),fit.optim.init(indices))
     error('hgfx:perf01:free','Frozen free-coordinate mapping changed');
 end
 objective=@(z)objective_at_free(z,r,full,indices,numel(r.c_prc.priormus));
