@@ -1,4 +1,4 @@
-name: PERF-01D Issue90: fixed-affinity ABBA four-process original subject7 refits (untimed)
+name: "PERF-01D Issue90: fixed-affinity ABBA four-process original subject7 refits (untimed)"
 
 on:
   workflow_dispatch:
