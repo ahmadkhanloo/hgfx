@@ -73,3 +73,10 @@ A reproducible CI check was added to reduce the *mechanical* work needed by an i
 - Independently assess model/source paths, MATLAB optimizer convergence/termination, numerical basin/classification and the *prospective* clock/hardware contract. Do not treat a comparator replay or this document as an external reviewer signature.
 
 **Review verdict remains unset: BLOCK_FREEZE / REVIEW NOT YET DONE, with PERF-01C OPEN and no performance timing.**
+
+
+## Original subject-7 BFGS branch audit, additional review material (2026-11-06)
+
+The newest *author-side* diagnostic has a fully preserved, source-anchored evidence chain: [real MATLAB/HGFX BFGS run 42187240378](https://github.com/ahmadkhanloo/hgfx/actions/runs/42187240378), [rederived immutable mathematical branch report 42188247052](https://github.com/ahmadkhanloo/hgfx/actions/runs/42188247052), and [numeric report](PERF01D_SUBJECT7_BFGS_BRANCH_2026-11-06.md). Two raw SHA-256-checked BFGS exports hold each engine's 101-slot history, 25 finite objective/gradient states, 24 inverse-Hessian matrices and all reset indices. The source-derived record-1 first matrix difference, record-10 ~183.57× matrix norm change, 22 curvature decisions, 22 reconstructable candidate full steps and terminal history overwrite must all be reviewed **as diagnostics**. No hidden/altered original 63/64 fitting result or 28-case prefreeze ledger is permitted.
+
+**Additional mandatory external-review distinction:** same candidate reconstructed step/Armijo and BFGS curvature branch does *not* prove the exact internal acceptance event log, equality of optimizer floating-point accumulation, precise MATLAB termination reason, or a permissible reference limitation. Evaluate source code and identify if more evidence is needed; do not upgrade the release gate based on green author-side CI. The original subject-7 scientific mismatch remains a recorded non-PASS, and independent `APPROVE_PROSPECTIVE_FREEZE`/`BLOCK_FREEZE` judgement is still absent.
