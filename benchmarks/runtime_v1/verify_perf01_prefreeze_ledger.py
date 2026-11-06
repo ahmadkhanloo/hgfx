@@ -144,16 +144,46 @@ def check_eligibility(old, new):
             [x["case_id"] for x in a] == [x["case_id"] for x in b] and
             len({x["case_id"] for x in a}) == 28,
             "candidate original 28-case order/identity changed")
+    expected_additions = {
+        "throughput_fit_1x128": (1,1,0),
+        "throughput_fit_16x128": (16,15,1),
+        "throughput_fit_64x128": (64,63,1),
+    }
     modified = []
     for one, two in zip(a,b):
-        if one == two:
+        key=one["case_id"]
+        if key not in expected_additions:
+            require(one == two, "candidate unauthorized change outside 3 exact original fitting cells")
             continue
-        modified.append(one["case_id"])
-        identical_except_class = {k:v for k,v in one.items() if k != "classification"} == \
-                                 {k:v for k,v in two.items() if k != "classification"}
-        require(identical_except_class and one["case_id"] in MISMATCH_CASES and
-                one["classification"] == OLD_CLASS and two["classification"] == NEW_CLASS,
-                "candidate classification changed beyond original two explicitly blocked fitting cases")
+        submitted,concordant,mismatched = expected_additions[key]
+        require("additional_fitting_evidence" not in one and
+                "previous_classification" not in one,
+                "candidate original historical fitting evidence was rewritten")
+        annotation=two.get("additional_fitting_evidence")
+        expected_annotation={
+            "submitted":submitted, "same_numerical_output":concordant,
+            "numerical_mismatch":mismatched, "other_failures_or_noncomparable":0,
+            "source_run_id":"41863441006",
+            "scientific_status":"DIAGNOSTIC_ONLY_NOT_INDEPENDENTLY_APPROVED",
+        }
+        require(annotation == expected_annotation, "candidate exact new full-fit evidence annotation changed")
+        old_core = {k:v for k,v in one.items()}
+        new_core = {k:v for k,v in two.items()
+                    if k not in ("additional_fitting_evidence","previous_classification")}
+        if key in MISMATCH_CASES:
+            require(one["classification"] == OLD_CLASS and
+                    two["classification"] == NEW_CLASS and
+                    two.get("previous_classification") == OLD_CLASS,
+                    "candidate prior blocked classification not preserved")
+            old_core["classification"] = NEW_CLASS
+            modified.append(key)
+        else:
+            require("previous_classification" not in two and
+                    two["classification"] == one["classification"] ==
+                    "DIAGNOSTIC_CONCORDANT_REVIEW_PENDING",
+                    "candidate original one-subject fit review status changed")
+        require(old_core == new_core,
+                "candidate unsupported changes beyond prespecified fitting evidence/classification")
     require(set(modified) == MISMATCH_CASES, "candidate two blocked fitting reasons absent")
     classes = Counter(x["classification"] for x in b)
     require(dict(classes) == EXPECTED_CLASSES and new["classification_counts"] == dict(classes)
@@ -162,6 +192,7 @@ def check_eligibility(old, new):
             and len(new["blocked_case_ids"]) == 12,
             "candidate 16 pending and 12 blocked accounting changed")
     return {"total": 28, "review_pending": 16, "blocked": 12,
+            "additional_exact_full_fit_evidence": sorted(expected_additions),
             "newly_evidenced_blocked_fitting_cases": sorted(MISMATCH_CASES)}
 
 def check_abba(d, fit):

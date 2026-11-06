@@ -63,7 +63,19 @@ class TestPrefreezeReviewerLedger(unittest.TestCase):
 
     def test_candidate_posthoc_different_classification_rejected(self):
         def tamper(d): d["cases"][0]["classification"]="DIAGNOSTIC_PASS"
-        self.check_raises("candidate",tamper,"classification changed")
+        self.check_raises("candidate",tamper,"unauthorized change")
+
+    def test_candidate_new_full_fit_provenance_tamper_rejected(self):
+        def tamper(d):
+            next(x for x in d["cases"] if x["case_id"]=="throughput_fit_16x128")[
+                "additional_fitting_evidence"]["same_numerical_output"]=16
+        self.check_raises("candidate",tamper,"exact new full-fit evidence")
+
+    def test_candidate_previous_block_classification_tamper_rejected(self):
+        def tamper(d):
+            next(x for x in d["cases"] if x["case_id"]=="throughput_fit_64x128")[
+                "previous_classification"]="DIAGNOSTIC_CONCORDANT_REVIEW_PENDING"
+        self.check_raises("candidate",tamper,"prior blocked classification")
 
     def test_abba_endpoint_source_run_changed_rejected(self):
         def tamper(d): d["analysis_provenance"]["archived_source_run_id"]="1"
