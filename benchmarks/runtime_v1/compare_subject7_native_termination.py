@@ -78,8 +78,11 @@ def valid(matlab:dict,hgfx:dict,original:Path)->dict:
         if not set(FIT_FIELDS).issubset(full):
             raise ValueError("MATLAB output lost original full optimizer fields")
     for field in FIT_FIELDS:
-        if numeric(matlab["baseline_full"][field],matlab["verbose_full"][field],
-                   *TOLS.get(field,(3e-8,3e-10)))["mismatch_count"]:
+        if field=="decompLME":
+            if matlab["baseline_full"][field]!=matlab["verbose_full"][field]:
+                raise ValueError("MATLAB verbose altered original numeric field decompLME")
+        elif numeric(matlab["baseline_full"][field],matlab["verbose_full"][field],
+                     *TOLS.get(field,(3e-8,3e-10)))["mismatch_count"]:
             raise ValueError(f"MATLAB verbose altered original numeric field {field}")
     for field in oldm["traj"]:
         a=np.asarray(decode_tree(matlab["baseline_traj"][field]),float)
