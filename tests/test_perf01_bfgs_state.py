@@ -18,7 +18,7 @@ def fixture(engine: str):
     x.append(list(x[-1]))
     val=[float(100-i) for i in range(24)]
     val.append(val[-1])
-    filled=[{"record_index_zero_based":i,"free_parameters":row,
+    filled=[{"record_index_zero_based":i,"free_parameters":list(row),
              "objective_recomputed":v,"grad":[-1.,0.,0.],
              "ridders_error":[0.,0.,0.]}
             for i,(row,v) in enumerate(zip(x,val))]
