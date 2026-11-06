@@ -1,0 +1,125 @@
+name: "PERF-01D real frozen private MATLAB nested Ridders + BFGS decision margins (UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-direct-nested-gradient-bfgs.yml'
+      - 'benchmarks/runtime_v1/matlab/subject7_direct_nested_gradient_matlab.m'
+      - 'benchmarks/runtime_v1/subject7_direct_nested_gradient_bfgs.py'
+      - 'tests/test_perf01_direct_nested_gradient_bfgs.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  direct-real-nested-matlab-ridders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check pinned frozen source identities, canonical data and 16 focused positive/negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_direct_nested_gradient_bfgs.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download exact original BFGS source and verify the historical 63/64 failed evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          python work/benchmarks/runtime_v1/subject7_direct_nested_gradient_bfgs.py \
+            --stage prepare --root work/benchmarks/runtime_v1 \
+            --archive original-bfgs --anchors output/locked-50-bfgs-anchors.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('output/locked-50-bfgs-anchors.json')
+          a=json.loads(p.read_bytes())
+          assert a['original_science']=='63/64 NONPASS'
+          assert a['no_timing'] is True
+          assert len(a['cases'])==50
+          assert [row['anchor_origin'] for row in a['cases']]==['hgfx']*25+['matlab']*25
+          assert [row['record_index_zero_based'] for row in a['cases']]==list(range(25))*2
+          print('ALL ORIGINAL 25+25 BFGS own-history points locked before MATLAB Ridders execution.')
+          PY
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Actual private nested MATLAB objective Ridders at all 50 saved x; delegate original optimizer; native 28-field control
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_direct_nested_gradient_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'output','locked-50-bfgs-anchors.json'),fullfile(pwd,'output','real-private-matlab-ridders.json'))"
+      - name: Frozen HGFX Ridders at exact same 50 x and retrospective original BFGS margins
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_direct_nested_gradient_bfgs.py \
+            --stage compare --root work/benchmarks/runtime_v1 \
+            --archive original-bfgs --anchors output/locked-50-bfgs-anchors.json \
+            --matlab output/real-private-matlab-ridders.json \
+            --output output/paired-direct-private-gradient-bfgs-margins.json
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path('output')
+          p=root/'paired-direct-private-gradient-bfgs-margins.json'
+          d=json.loads(p.read_bytes())
+          assert d['full_original_50_anchor_occurrences']==50
+          assert d['source_original_64_full_fit']=='63/64 SCIENTIFIC NONPASS'
+          assert d['independent_scientific_review']=='NOT_RECEIVED'
+          assert d['perf01c']=='NOT_FROZEN' and d['performance_timing']=='NOT_RUN'
+          assert d['same_session_matlab_28_field_strict_binary64']['field_count']==28
+          hashes={name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+                  for name in ('locked-50-bfgs-anchors.json',
+                               'real-private-matlab-ridders.json',
+                               'paired-direct-private-gradient-bfgs-margins.json')}
+          (root/'provenance.json').write_text(json.dumps({
+              'run_id':os.environ['GITHUB_RUN_ID'],'candidate_sha':os.environ['GITHUB_SHA'],
+              'source_prespec_commit':'0ed460572d5323ba6e1c1f562955755eea7a29d7',
+              'preserved_historical_science':'63/64 NONPASS',
+              'independent_review':'NOT_RECEIVED','perf01c':'NOT_FROZEN',
+              'sha256':hashes},indent=2,sort_keys=True)+'\n')
+          print(json.dumps({'status':d['status'],'rows':50,'matlab_neutral':d['instrumentation_neutral'],
+                            'matlab_evaluated':d['fully_evaluated_matlab_private_gradients'],
+                            'source_63_of_64_nonpass':True,'new_artifact_hashes':hashes},sort_keys=True))
+          PY
+      - name: Preserve original locked anchors, private MATLAB raw and paired/margin reports even after failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-direct-nested-matlab-gradient-bfgs-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
