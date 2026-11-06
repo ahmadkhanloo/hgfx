@@ -1,0 +1,114 @@
+name: PERF-01D issue90 same-host OpenBLAS dispatch isolation (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-issue90-same-host.yml'
+      - 'benchmarks/runtime_v1/compare_issue90_same_host.py'
+      - 'tests/test_perf01_same_host_dispatch.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01-issue90-same-host-science-evidence
+  cancel-in-progress: false
+
+jobs:
+  same-runner-three-independent-processes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pinned NumPy and 22 negative/positive engineering guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.3.5' threadpoolctl
+          python -m unittest discover -s work/tests -p test_perf01_host_binary64.py -v
+          python -m unittest discover -s work/tests -p test_perf01_same_host_dispatch.py -v
+
+      - name: Restore exactly same full-public-fit BFGS raw archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+          test -f original/summary.json
+          test -f original/comparison.json
+
+      - name: Same runner CPU, process-by-process: auto, Haswell, SkylakeX
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          for mode in auto Haswell SkylakeX; do
+            if [ "$mode" = auto ]; then
+              unset OPENBLAS_CORETYPE || true
+            else
+              export OPENBLAS_CORETYPE="$mode"
+            fi
+            python work/benchmarks/runtime_v1/audit_subject7_host_binary64.py \
+              --archive original --output "out/${mode}.json"
+          done
+          unset OPENBLAS_CORETYPE || true
+          python work/benchmarks/runtime_v1/compare_issue90_same_host.py \
+            --auto out/auto.json --haswell out/Haswell.json \
+            --skylakex out/SkylakeX.json \
+            --output "out/derived-same-runner-${{ github.run_id }}.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          name="out/derived-same-runner-${{ github.run_id }}.json"
+          j=json.loads(Path(name).read_bytes())
+          assert j["status"]=="CONTROLLED_SAME_RUNNER_FLOAT_DISPATCH_DIAGNOSTIC_NO_GATE_PASS"
+          assert j["total_source_rows"]==48
+          print(json.dumps({
+              "github_run_id":j["shared_host"]["github_run_id"],
+              "cpu":j["shared_host"]["linux_cpu_model"],
+              "norm_auto_vs_haswell":j["norm_auto_vs_haswell_differing_rows"],
+              "slope_auto_vs_haswell":j["slope_auto_vs_haswell_differing_rows"],
+              "norm_auto_vs_skylakex":j["norm_auto_vs_skylakex_differing_rows"],
+              "slope_auto_vs_skylakex":j["slope_auto_vs_skylakex_differing_rows"],
+              "blas":j["effective_blas_architecture"],
+              "science":"ORIGINAL 63/64, NOT PASS, NO TIMING"
+          },sort_keys=True))
+          PY
+
+      - name: Upload all source-verified binary64 observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-issue90-same-host-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Retain new machine-readable same-runner evidence in repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-same-runner-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-same-runner-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-same-runner-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve controlled same-host OpenBLAS dispatch diagnostic'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
