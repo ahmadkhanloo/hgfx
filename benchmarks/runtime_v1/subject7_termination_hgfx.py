@@ -109,7 +109,7 @@ def execute(root:Path,original:Path)->dict:
         "direct_fitted_free":clean(direct.arg_min),
         "direct_iter_x":clean(direct.iter_x),
         "direct_iter_val":clean(direct.iter_val),
-        "public_traj":clean(fit.traj),
+        "public_traj":{k:clean(v) for k,v in fit.traj.items()},
         "note":"No MATLAB reference classification: source-native HGFX optimization stop is not an external scientific parity PASS",
         "limitations":[
             "Only original frozen HGFX v1.0.0 source; direct source replay independently matches same-host public fit",
