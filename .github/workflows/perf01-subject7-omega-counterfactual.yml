@@ -1,0 +1,168 @@
+name: PERF-01D original subject7 omega2-omega3 source-locked counterfactual (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-omega-counterfactual.yml'
+      - 'benchmarks/runtime_v1/subject7_omega_counterfactual_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_omega_counterfactual_matlab.m'
+      - 'benchmarks/runtime_v1/compare_subject7_omega_counterfactual.py'
+      - 'tests/test_perf01_subject7_omega_counterfactual.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01d-frozen-omega-counterfactual-original-reference
+  cancel-in-progress: false
+
+jobs:
+  fixed-omega-corners-original-matlab-hgfx:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Source lock, canonical frozen data and science negative tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C matlab-reference rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_omega_counterfactual.py -v
+          python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+
+      - name: Restore original complete frozen 64-case MATLAB and HGFX fitting
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 out
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path("original-64")
+          s=json.loads((p/"summary-41863441006.json").read_bytes())
+          assert s["hgfx_sha"]=="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          assert s["matlab_sha"]=="2437f4dc241541072722a2695ddeca7b44d83dd3"
+          assert s["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          assert s["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          for filename,digest in s["raw_evidence_sha256"].items():
+              assert hashlib.sha256((p/filename).read_bytes()).hexdigest()==digest
+          print("Exact original 63/64 scientific NON-PASS preserved")
+          PY
+
+      - name: Four predeclared original perceptual-omega counterfactual corners HGFX forward
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_omega_counterfactual_hgfx.py \
+            --input work/benchmarks/runtime_v1 --original original-64 \
+            --output out/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Four predeclared original perceptual-omega counterfactual corners MATLAB forward
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_omega_counterfactual_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'original-64'),fullfile(pwd,'out','matlab_raw.json'))"
+
+      - name: Verify source-matched 4-corner matrix and signed omega decomposition of ALL 11 fields
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_omega_counterfactual.py \
+            --hgfx out/hgfx_raw.json --matlab out/matlab_raw.json \
+            --original original-64 --input work/benchmarks/runtime_v1 \
+            --output "out/derived-omega-counterfactual-${{ github.run_id }}.json"
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path("out")
+          path=root/"derived-omega-counterfactual-${{ github.run_id }}.json"
+          r=json.loads(path.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_SIGNED_OMEGA_DECOMPOSITION_NOT_FIT_PARITY_OR_CAUSAL_OPTIMIZER_VERDICT"
+          assert r["original_fitted_reference_11_field_report"]["mismatched_fields"]==["mu","muhat"]
+          assert r["omega_2x2_corners"]==[
+              "MM_original_matlab","HM_hgfx_omega2_matlab_omega3",
+              "MH_matlab_omega2_hgfx_omega3","HH_original_hgfx"]
+          assert len(r["complete_11_field_signed_decomposition"])==11
+          r["github_run_id"]=os.environ["GITHUB_RUN_ID"]
+          r["tested_sha"]=os.environ["GITHUB_SHA"]
+          r["raw_evidence_sha256"]={
+              name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+              for name in ("hgfx_raw.json","matlab_raw.json")}
+          path.write_text(json.dumps(r,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          print(json.dumps({
+              "run_id":r["github_run_id"],
+              "tested_sha":r["tested_sha"],
+              "original_64_science":"63/64 NON-PASS",
+              "four_same_vector_cross_source_mismatched_fields":{
+                  name:res["mismatched_fields"]
+                  for name,res in r["same_vector_cross_source_11_field_reports"].items()},
+              "original_failed_fields":r["original_fitted_reference_11_field_report"]["mismatched_fields"],
+              "original_failing_coordinate_signed_omega_contributions":{
+                  name:entry["original_outside_fixed_tolerance"]
+                  for name,entry in r["complete_11_field_signed_decomposition"].items()
+                  if entry["num_original_outside_fixed_tolerance"]},
+              "raw_sha256":r["raw_evidence_sha256"],
+              "performance_timing":"NEVER RUN",
+          },sort_keys=True))
+          PY
+
+      - name: Preserve both complete raw cross-engine trajectories on failures too
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-omega-counterfactual-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit only new separately classified machine-readable diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-omega-counterfactual-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-omega-counterfactual-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-omega-counterfactual-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve original 2x2 perceptual omega scientific counterfactual without gate promotion'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
