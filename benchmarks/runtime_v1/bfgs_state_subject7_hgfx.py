@@ -62,8 +62,8 @@ def run(root: Path, original: Path) -> dict:
         raise ValueError("Unexpected original trace buffer or finite-slot inventory")
     inverse_hessians = history.get("invH", ())
     matrices = [np.asarray(item["T"], dtype=np.float64) for item in inverse_hessians]
-    if len(matrices) != 25 or any(m.shape != (3, 3) for m in matrices):
-        raise ValueError("Expected exactly 25 original populated 3x3 BFGS matrices")
+    if not 23 <= len(matrices) <= 25 or any(m.shape != (3, 3) for m in matrices):
+        raise ValueError("Expected between 23 and 25 saved 3x3 BFGS matrices; terminal history can overwrite indices")
     reset_indices = np.asarray(history.get("rst", ()), dtype=np.int64).reshape(-1)
     problem = hgf_binary_unitsq_fit_problem(y, u)
     if tuple(problem.free_indices) != (12, 13, 14):
