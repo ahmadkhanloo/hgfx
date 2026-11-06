@@ -1,0 +1,65 @@
+name: "PERF-01D subject7 unchanged-tolerance margins (no new fit/no timing)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-tolerance-margins.yml'
+      - 'benchmarks/runtime_v1/derive_subject7_original_tolerance_margins.py'
+      - 'tests/test_perf01_subject7_original_tolerance_margins.py'
+      - 'benchmarks/runtime_v1/issue90_results/derived-archived-v2-42250539438.json'
+permissions:
+  contents: read
+jobs:
+  derive-archived-original-tolerance-margins:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fail-closed checks for historical 28 fields, 6 pairs and unchanged numeric tolerances
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests \
+            -p 'test_perf01_subject7_original_tolerance_margins.py' -v
+      - name: Recompute all original failing trial/level exceedances from archived report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python benchmarks/runtime_v1/derive_subject7_original_tolerance_margins.py \
+            --root . --output derived/subject7-unchanged-tolerance-margins.json
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path("derived/subject7-unchanged-tolerance-margins.json")
+          d=json.loads(p.read_bytes())
+          assert d["status"]=="AUTHOR_SIDE_ORIGINAL_TOLERANCE_EXCEEDANCE_63_OF_64_NONPASS"
+          assert d["original_fit"]=="63/64 SCIENTIFIC NONPASS; original subject index 7"
+          assert d["independent_review"]=="NOT_RECEIVED"
+          assert d["perf01c"]=="NOT_FROZEN"
+          assert d["performance_timing"]=="NOT_RUN"
+          for label, values in d["original_matlab_summary"].items():
+              assert values["failed_mu_cells"]==(4 if label.startswith("SkylakeX") else 14)
+              assert values["failed_muhat_cells"]==values["failed_mu_cells"]
+          for label, values in d["same_runner_summary"].items():
+              expected=0 if "within_mode" in label else 4
+              assert values["failed_mu_cells"]==expected
+              assert values["failed_muhat_cells"]==expected
+          d["tested_commit_sha"]=os.environ["GITHUB_SHA"]
+          d["analysis_run_id"]=os.environ["GITHUB_RUN_ID"]
+          p.write_text(json.dumps(d,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print("No scientific promotion; historical 63/64 failure and unchanged criteria retained.")
+          PY
+      - name: Preserve exact derived per-cell exceedances, original hashes and unchanged gates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-subject7-original-tolerance-${{ github.run_id }}
+          path: derived/subject7-unchanged-tolerance-margins.json
+          if-no-files-found: warn
