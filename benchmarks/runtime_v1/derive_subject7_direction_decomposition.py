@@ -9,7 +9,41 @@ from pathlib import Path
 import numpy as np
 
 from compare_subject7_gradient_probes import compare as compare_paired
-from derive_subject7_bfgs_branch import derive as verify_bfgs
+from derive_subject7_bfgs_branch import (
+    ORIGINAL_RUN as BFGS_FROZEN_RUN,
+    ORIGINAL_SHA as BFGS_FROZEN_SHA,
+    EXPECTED as BFGS_FROZEN_RAW,
+)
+
+def verify_original_bfgs_archive(root:Path, branch_report:Path):
+    """Verify exact original report/summary identity and RAW SHA without a
+    cross-host floating-point bitwise recomputation of non-scientific norms.
+    The unchanged STRICT replayer remains in derive_subject7_bfgs_branch.py;
+    its new-run bitwise reproducibility failure must remain documented.
+    """
+    original=json.loads((root/"summary.json").read_bytes())
+    comparison=json.loads((root/"comparison.json").read_bytes())
+    body={k:v for k,v in original.items() if k not in {
+        "github_run_id","candidate_sha","raw_evidence_sha256","raw_evidence_location"}}
+    if (str(original.get("github_run_id"))!=BFGS_FROZEN_RUN
+            or original.get("candidate_sha")!=BFGS_FROZEN_SHA
+            or original.get("raw_evidence_sha256")!=BFGS_FROZEN_RAW
+            or original.get("source_run_id")!="41863441006"
+            or original.get("status")!="AUTHOR_SIDE_BFGS_STATE_RECONSTRUCTION_NOT_SCIENTIFIC_PASS_NOT_TIMED"
+            or comparison!=body):
+        raise ValueError("Original immutable BFGS summary/comparison identity differs")
+    for name,expected in BFGS_FROZEN_RAW.items():
+        if sha256((root/name).read_bytes()).hexdigest()!=expected:
+            raise ValueError(f"Immutable original BFGS raw SHA256 differs: {name}")
+    old_derived=json.loads(branch_report.read_bytes())
+    if (old_derived.get("original_raw_sha256")!=BFGS_FROZEN_RAW
+            or old_derived.get("derived_from_github_run")!=BFGS_FROZEN_RUN
+            or old_derived.get("derived_from_exact_candidate_sha")!=BFGS_FROZEN_SHA
+            or old_derived.get("source_BFGS_decision_disagreements")!=0
+            or old_derived.get("full_step_candidate_both_count")!=22
+            or old_derived.get("status")!="AUTHOR_SIDE_UNTIMED_SOURCE_DERIVED_NO_SCIENTIFIC_PASS"):
+        raise ValueError("Prior successfully frozen BFGS branch evidence altered")
+    return original,old_derived
 
 BFGS_RUN = "42187240378"
 PAIR_RUN = "42120381058"
@@ -82,11 +116,8 @@ def history(raw,engine):
     return T,x,g
 
 
-def report(bfgs_root:Path,paired_root:Path):
-    audit=verify_bfgs(bfgs_root)  # verifies BOTH raw SHA256 and entire original comparator.
-    if (audit["source_BFGS_decision_disagreements"]!=0
-            or audit["full_step_candidate_both_count"]!=22):
-        raise ValueError("Original BFGS source verdict changed")
+def report(bfgs_root:Path,paired_root:Path,branch_report:Path):
+    original,audit=verify_original_bfgs_archive(bfgs_root,branch_report)
     raw={engine:json.loads((bfgs_root/f"{engine}_raw.json").read_bytes())
          for engine in ("hgfx","matlab")}
     paired=read_paired(paired_root)
@@ -183,6 +214,8 @@ def report(bfgs_root:Path,paired_root:Path):
         "original_matched_gradient_run":PAIR_RUN,
         "original_matched_gradient_source_sha":PAIR_SHA,
         "original_bfgs_raw_sha256":audit["original_raw_sha256"],
+        "prior_strict_bitwise_replay_at_different_runner":"NOT_REPRODUCED_ENGINEERING_FLOAT_REDUCTION_VARIANCE__SEE_RUNS_42194275053_AND_42194481974",
+        "source_report_and_summary_exact_bytes_interpreted_as_JSON":True,
         "original_paired_raw_sha256":PAIR_RAW,
         "original_scientific_failure":"63/64 public fits, zero-based subject 7 traj.mu and traj.muhat mismatch",
         "direction_records":rows,
@@ -204,9 +237,10 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--bfgs",type=Path,required=True)
     p.add_argument("--paired",type=Path,required=True)
+    p.add_argument("--branch",type=Path,required=True)
     p.add_argument("--output",type=Path,required=True)
     a=p.parse_args()
-    result=report(a.bfgs,a.paired)
+    result=report(a.bfgs,a.paired,a.branch)
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,sort_keys=True,indent=2,allow_nan=False)+"\n")
     print(json.dumps({
