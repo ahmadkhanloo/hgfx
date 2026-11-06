@@ -24,8 +24,8 @@ if ~isequal(names(1:25),repmat({'hgfx'},1,25)) || ...
    ~isequal(indices,[0:24,0:24])
     error('hgfx:perf01:inventory','Original 50-case source order changed');
 end
-if ~isequal(a.free_indices_zero_based,[12,13,14]) || ...
-   ~isequal(a.start_free,[-3,-6,3.871201010907891])
+if ~isequal(double(a.free_indices_zero_based(:)'),[12,13,14]) || ...
+   ~isequal(double(a.start_free(:)'),[-3,-6,3.871201010907891])
     error('hgfx:perf01:start','Frozen scientific start changed');
 end
 data=jsondecode(fileread(fullfile(root,'inputs','binary_128_s64.json')));
