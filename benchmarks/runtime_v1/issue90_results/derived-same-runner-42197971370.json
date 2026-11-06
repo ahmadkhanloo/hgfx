@@ -1,0 +1,1195 @@
+{
+  "archived_norm_mismatch_counts": {
+    "Haswell": 0,
+    "SkylakeX": 3,
+    "auto": 3
+  },
+  "archived_slope_mismatch_counts": {
+    "Haswell": 0,
+    "SkylakeX": 13,
+    "auto": 13
+  },
+  "effective_blas_architecture": {
+    "Haswell": "Haswell",
+    "SkylakeX": "SkylakeX",
+    "auto": "SkylakeX"
+  },
+  "limitations": [
+    "Single GitHub runner controls observed CPU/OS/Python/NumPy, but still not an experimental reproduction of archived original runner CPU/kernel.",
+    "Only derived dot/norm binary64 operations are compared. No fitting, output trajectory, CPU benchmark time, physical GPU or external scientific approval.",
+    "Changing OpenBLAS dispatch to get matching archived decimal representations is a diagnostic intervention, not a validated scientific method or permission to change production optimiser.",
+    "Original scientific 63/64 and external review issue #88 remain blocking. Original strict bitwise replay failures remain preserved at issue #90."
+  ],
+  "norm_auto_vs_haswell_differing_rows": 3,
+  "norm_auto_vs_skylakex_differing_rows": 0,
+  "original_bfgs_source_run": "42187240378",
+  "original_raw_sha256": {
+    "hgfx_raw.json": "060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce",
+    "matlab_raw.json": "4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a"
+  },
+  "record_bits": [
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "4096a3cf693bf204",
+      "norm_auto_eq_haswell": false,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "4096a3cf693bf204",
+        "SkylakeX": "4096a3cf693bf203",
+        "auto": "4096a3cf693bf203"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": false,
+      "record_index_zero_based": 0,
+      "slope_archive_bits": "c1400483bef2da48",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c1400483bef2da48",
+        "SkylakeX": "c1400483bef2da47",
+        "auto": "c1400483bef2da47"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "40015dbc7590e42c",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "40015dbc7590e42c",
+        "SkylakeX": "40015dbc7590e42c",
+        "auto": "40015dbc7590e42c"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 1,
+      "slope_archive_bits": "c070bac7bf3191e4",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c070bac7bf3191e4",
+        "SkylakeX": "c070bac7bf3191e3",
+        "auto": "c070bac7bf3191e3"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fe9ca498788f6cc",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe9ca498788f6cc",
+        "SkylakeX": "3fe9ca498788f6cc",
+        "auto": "3fe9ca498788f6cc"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 2,
+      "slope_archive_bits": "c072a5a4348d832f",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c072a5a4348d832f",
+        "SkylakeX": "c072a5a4348d8330",
+        "auto": "c072a5a4348d8330"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fe90c1e9e812bd6",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe90c1e9e812bd6",
+        "SkylakeX": "3fe90c1e9e812bd6",
+        "auto": "3fe90c1e9e812bd6"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 3,
+      "slope_archive_bits": "c05376b5c974abda",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c05376b5c974abda",
+        "SkylakeX": "c05376b5c974abd9",
+        "auto": "c05376b5c974abd9"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3feb1520f0230a87",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3feb1520f0230a87",
+        "SkylakeX": "3feb1520f0230a87",
+        "auto": "3feb1520f0230a87"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 4,
+      "slope_archive_bits": "c042409518e662c1",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c042409518e662c1",
+        "SkylakeX": "c042409518e662c1",
+        "auto": "c042409518e662c1"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fe7574b52307b0e",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe7574b52307b0e",
+        "SkylakeX": "3fe7574b52307b0e",
+        "auto": "3fe7574b52307b0e"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 5,
+      "slope_archive_bits": "c02715a3693064ce",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c02715a3693064ce",
+        "SkylakeX": "c02715a3693064cf",
+        "auto": "c02715a3693064cf"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3ff3fb5c7bbfe753",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff3fb5c7bbfe753",
+        "SkylakeX": "3ff3fb5c7bbfe753",
+        "auto": "3ff3fb5c7bbfe753"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 6,
+      "slope_archive_bits": "c017fae0cbcf3be2",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c017fae0cbcf3be2",
+        "SkylakeX": "c017fae0cbcf3be2",
+        "auto": "c017fae0cbcf3be2"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fc5705767fbfbaa",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fc5705767fbfbaa",
+        "SkylakeX": "3fc5705767fbfbaa",
+        "auto": "3fc5705767fbfbaa"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 7,
+      "slope_archive_bits": "bfeca6bb5a41e822",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfeca6bb5a41e822",
+        "SkylakeX": "bfeca6bb5a41e823",
+        "auto": "bfeca6bb5a41e823"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fce56e4ee110394",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fce56e4ee110394",
+        "SkylakeX": "3fce56e4ee110394",
+        "auto": "3fce56e4ee110394"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 8,
+      "slope_archive_bits": "bfd6708af14cbcfd",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfd6708af14cbcfd",
+        "SkylakeX": "bfd6708af14cbcfd",
+        "auto": "bfd6708af14cbcfd"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fde41f66bae4392",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fde41f66bae4392",
+        "SkylakeX": "3fde41f66bae4392",
+        "auto": "3fde41f66bae4392"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 9,
+      "slope_archive_bits": "bfca753b9c796ef5",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfca753b9c796ef5",
+        "SkylakeX": "bfca753b9c796ef5",
+        "auto": "bfca753b9c796ef5"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "405e32413560266f",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "405e32413560266f",
+        "SkylakeX": "405e32413560266f",
+        "auto": "405e32413560266f"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 10,
+      "slope_archive_bits": "c049e3bc0528a0d5",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c049e3bc0528a0d5",
+        "SkylakeX": "c049e3bc0528a0d5",
+        "auto": "c049e3bc0528a0d5"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "4060b83bca7f33aa",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "4060b83bca7f33aa",
+        "SkylakeX": "4060b83bca7f33aa",
+        "auto": "4060b83bca7f33aa"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 11,
+      "slope_archive_bits": "c04fc2a532b79ce6",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c04fc2a532b79ce6",
+        "SkylakeX": "c04fc2a532b79ce6",
+        "auto": "c04fc2a532b79ce6"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "400f493cfa5fa5c7",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "400f493cfa5fa5c7",
+        "SkylakeX": "400f493cfa5fa5c7",
+        "auto": "400f493cfa5fa5c7"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 12,
+      "slope_archive_bits": "bff90c089125fafa",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff90c089125fafa",
+        "SkylakeX": "bff90c089125fafa",
+        "auto": "bff90c089125fafa"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fee896fe7325984",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fee896fe7325984",
+        "SkylakeX": "3fee896fe7325984",
+        "auto": "3fee896fe7325984"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 13,
+      "slope_archive_bits": "bfd0f69f13c13fbc",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfd0f69f13c13fbc",
+        "SkylakeX": "bfd0f69f13c13fbc",
+        "auto": "bfd0f69f13c13fbc"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fe43a0c8a522c20",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe43a0c8a522c20",
+        "SkylakeX": "3fe43a0c8a522c20",
+        "auto": "3fe43a0c8a522c20"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 14,
+      "slope_archive_bits": "bfc7c45284f55364",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfc7c45284f55364",
+        "SkylakeX": "bfc7c45284f55365",
+        "auto": "bfc7c45284f55365"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3ff91f516940fca3",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff91f516940fca3",
+        "SkylakeX": "3ff91f516940fca3",
+        "auto": "3ff91f516940fca3"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 15,
+      "slope_archive_bits": "bfe3cf2a08e298f2",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfe3cf2a08e298f2",
+        "SkylakeX": "bfe3cf2a08e298f3",
+        "auto": "bfe3cf2a08e298f3"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fff9fbb0f7c4cff",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fff9fbb0f7c4cff",
+        "SkylakeX": "3fff9fbb0f7c4cff",
+        "auto": "3fff9fbb0f7c4cff"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 16,
+      "slope_archive_bits": "bfef04506412bb9e",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfef04506412bb9e",
+        "SkylakeX": "bfef04506412bb9e",
+        "auto": "bfef04506412bb9e"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3ffa5ab9ffd898df",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ffa5ab9ffd898df",
+        "SkylakeX": "3ffa5ab9ffd898df",
+        "auto": "3ffa5ab9ffd898df"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 17,
+      "slope_archive_bits": "bff1f2da2ae22a3e",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff1f2da2ae22a3e",
+        "SkylakeX": "bff1f2da2ae22a3e",
+        "auto": "bff1f2da2ae22a3e"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fde6576f1e62237",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fde6576f1e62237",
+        "SkylakeX": "3fde6576f1e62237",
+        "auto": "3fde6576f1e62237"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 18,
+      "slope_archive_bits": "bfeb331e3b313c4b",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfeb331e3b313c4b",
+        "SkylakeX": "bfeb331e3b313c4a",
+        "auto": "bfeb331e3b313c4a"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3ff5e416ccbca9bc",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff5e416ccbca9bc",
+        "SkylakeX": "3ff5e416ccbca9bc",
+        "auto": "3ff5e416ccbca9bc"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 19,
+      "slope_archive_bits": "bfe633508df6e8b7",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfe633508df6e8b7",
+        "SkylakeX": "bfe633508df6e8b7",
+        "auto": "bfe633508df6e8b7"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "400bda31ad5ba489",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "400bda31ad5ba489",
+        "SkylakeX": "400bda31ad5ba489",
+        "auto": "400bda31ad5ba489"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 20,
+      "slope_archive_bits": "bff33938104a1b8b",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff33938104a1b8b",
+        "SkylakeX": "bff33938104a1b8b",
+        "auto": "bff33938104a1b8b"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fe52b3c2ac8c6a0",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe52b3c2ac8c6a0",
+        "SkylakeX": "3fe52b3c2ac8c6a0",
+        "auto": "3fe52b3c2ac8c6a0"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 21,
+      "slope_archive_bits": "bfb72419fb7ad0d4",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfb72419fb7ad0d4",
+        "SkylakeX": "bfb72419fb7ad0d4",
+        "auto": "bfb72419fb7ad0d4"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3fd2ce842e9f85f0",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fd2ce842e9f85f0",
+        "SkylakeX": "3fd2ce842e9f85f0",
+        "auto": "3fd2ce842e9f85f0"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 22,
+      "slope_archive_bits": "bfa5801b6eb4bd3d",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfa5801b6eb4bd3d",
+        "SkylakeX": "bfa5801b6eb4bd3d",
+        "auto": "bfa5801b6eb4bd3d"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "hgfx",
+      "norm_archive_bits": "3f7dd67a4c6846ff",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3f7dd67a4c6846ff",
+        "SkylakeX": "3f7dd67a4c6846ff",
+        "auto": "3f7dd67a4c6846ff"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 23,
+      "slope_archive_bits": "bef76341e6a188c1",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bef76341e6a188c1",
+        "SkylakeX": "bef76341e6a188c1",
+        "auto": "bef76341e6a188c1"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "4096a3cf693bf242",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "4096a3cf693bf242",
+        "SkylakeX": "4096a3cf693bf242",
+        "auto": "4096a3cf693bf242"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 0,
+      "slope_archive_bits": "c1400483bef2daa0",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c1400483bef2daa0",
+        "SkylakeX": "c1400483bef2daa0",
+        "auto": "c1400483bef2daa0"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "40015dbc75914a18",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "40015dbc75914a18",
+        "SkylakeX": "40015dbc75914a18",
+        "auto": "40015dbc75914a18"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 1,
+      "slope_archive_bits": "c070bac7bf319b90",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c070bac7bf319b90",
+        "SkylakeX": "c070bac7bf319b90",
+        "auto": "c070bac7bf319b90"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fe9ca49878794be",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe9ca49878794be",
+        "SkylakeX": "3fe9ca49878794be",
+        "auto": "3fe9ca49878794be"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 2,
+      "slope_archive_bits": "c072a5a4348db0d5",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c072a5a4348db0d5",
+        "SkylakeX": "c072a5a4348db0d4",
+        "auto": "c072a5a4348db0d4"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fe90c1e9e91a54a",
+      "norm_auto_eq_haswell": false,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe90c1e9e91a54a",
+        "SkylakeX": "3fe90c1e9e91a549",
+        "auto": "3fe90c1e9e91a549"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": false,
+      "record_index_zero_based": 3,
+      "slope_archive_bits": "c05376b5c974e4e5",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c05376b5c974e4e5",
+        "SkylakeX": "c05376b5c974e4e5",
+        "auto": "c05376b5c974e4e5"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3feb1520f01dacc4",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3feb1520f01dacc4",
+        "SkylakeX": "3feb1520f01dacc4",
+        "auto": "3feb1520f01dacc4"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 4,
+      "slope_archive_bits": "c042409518e66ae2",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c042409518e66ae2",
+        "SkylakeX": "c042409518e66ae3",
+        "auto": "c042409518e66ae3"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fe7574b522a1e32",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe7574b522a1e32",
+        "SkylakeX": "3fe7574b522a1e32",
+        "auto": "3fe7574b522a1e32"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 5,
+      "slope_archive_bits": "c02715a369302d2f",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c02715a369302d2f",
+        "SkylakeX": "c02715a369302d2f",
+        "auto": "c02715a369302d2f"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3ff3fb5c7fa146af",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff3fb5c7fa146af",
+        "SkylakeX": "3ff3fb5c7fa146af",
+        "auto": "3ff3fb5c7fa146af"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 6,
+      "slope_archive_bits": "c017fae0cf62247d",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c017fae0cf62247d",
+        "SkylakeX": "c017fae0cf62247d",
+        "auto": "c017fae0cf62247d"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fc570576922b517",
+      "norm_auto_eq_haswell": false,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fc570576922b517",
+        "SkylakeX": "3fc570576922b516",
+        "auto": "3fc570576922b516"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": false,
+      "record_index_zero_based": 7,
+      "slope_archive_bits": "bfeca6bb603b9555",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfeca6bb603b9555",
+        "SkylakeX": "bfeca6bb603b9555",
+        "auto": "bfeca6bb603b9555"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fce56e4e96e1e1d",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fce56e4e96e1e1d",
+        "SkylakeX": "3fce56e4e96e1e1d",
+        "auto": "3fce56e4e96e1e1d"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 8,
+      "slope_archive_bits": "bfd6708af4294e17",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfd6708af4294e17",
+        "SkylakeX": "bfd6708af4294e17",
+        "auto": "bfd6708af4294e17"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fde41f660351e4e",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fde41f660351e4e",
+        "SkylakeX": "3fde41f660351e4e",
+        "auto": "3fde41f660351e4e"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 9,
+      "slope_archive_bits": "bfca753b93b4c7e3",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfca753b93b4c7e3",
+        "SkylakeX": "bfca753b93b4c7e3",
+        "auto": "bfca753b93b4c7e3"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "405e324021d67a1a",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "405e324021d67a1a",
+        "SkylakeX": "405e324021d67a1a",
+        "auto": "405e324021d67a1a"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 10,
+      "slope_archive_bits": "c049e3bb1766d3a6",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c049e3bb1766d3a6",
+        "SkylakeX": "c049e3bb1766d3a6",
+        "auto": "c049e3bb1766d3a6"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "4060b83b35788029",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "4060b83b35788029",
+        "SkylakeX": "4060b83b35788029",
+        "auto": "4060b83b35788029"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 11,
+      "slope_archive_bits": "c04fc2a41ca16438",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "c04fc2a41ca16438",
+        "SkylakeX": "c04fc2a41ca16438",
+        "auto": "c04fc2a41ca16438"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "400f493d2dd588c2",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "400f493d2dd588c2",
+        "SkylakeX": "400f493d2dd588c2",
+        "auto": "400f493d2dd588c2"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 12,
+      "slope_archive_bits": "bff90c08c9ec44d2",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff90c08c9ec44d2",
+        "SkylakeX": "bff90c08c9ec44d2",
+        "auto": "bff90c08c9ec44d2"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fee897024e300e1",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fee897024e300e1",
+        "SkylakeX": "3fee897024e300e1",
+        "auto": "3fee897024e300e1"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 13,
+      "slope_archive_bits": "bfd0f69f5313f0e8",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfd0f69f5313f0e8",
+        "SkylakeX": "bfd0f69f5313f0e8",
+        "auto": "bfd0f69f5313f0e8"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fe43a0cb440733e",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe43a0cb440733e",
+        "SkylakeX": "3fe43a0cb440733e",
+        "auto": "3fe43a0cb440733e"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 14,
+      "slope_archive_bits": "bfc7c452de96a7de",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfc7c452de96a7de",
+        "SkylakeX": "bfc7c452de96a7de",
+        "auto": "bfc7c452de96a7de"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3ff91f51972ec51f",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff91f51972ec51f",
+        "SkylakeX": "3ff91f51972ec51f",
+        "auto": "3ff91f51972ec51f"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 15,
+      "slope_archive_bits": "bfe3cf2a4b2e3256",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfe3cf2a4b2e3256",
+        "SkylakeX": "bfe3cf2a4b2e3255",
+        "auto": "bfe3cf2a4b2e3255"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fff9fbb29263f87",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fff9fbb29263f87",
+        "SkylakeX": "3fff9fbb29263f87",
+        "auto": "3fff9fbb29263f87"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 16,
+      "slope_archive_bits": "bfef0450b2eeae94",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfef0450b2eeae94",
+        "SkylakeX": "bfef0450b2eeae94",
+        "auto": "bfef0450b2eeae94"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3ffa5ab9cf2ec07e",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ffa5ab9cf2ec07e",
+        "SkylakeX": "3ffa5ab9cf2ec07e",
+        "auto": "3ffa5ab9cf2ec07e"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 17,
+      "slope_archive_bits": "bff1f2da34fa4c43",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff1f2da34fa4c43",
+        "SkylakeX": "bff1f2da34fa4c43",
+        "auto": "bff1f2da34fa4c43"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fde6575bb8a5006",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fde6575bb8a5006",
+        "SkylakeX": "3fde6575bb8a5006",
+        "auto": "3fde6575bb8a5006"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 18,
+      "slope_archive_bits": "bfeb331deeb7fcd8",
+      "slope_auto_eq_haswell": false,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfeb331deeb7fcd8",
+        "SkylakeX": "bfeb331deeb7fcd9",
+        "auto": "bfeb331deeb7fcd9"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": false
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3ff5e41735c49958",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3ff5e41735c49958",
+        "SkylakeX": "3ff5e41735c49958",
+        "auto": "3ff5e41735c49958"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 19,
+      "slope_archive_bits": "bfe63350d74ea2c8",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfe63350d74ea2c8",
+        "SkylakeX": "bfe63350d74ea2c8",
+        "auto": "bfe63350d74ea2c8"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "400bda3109d1f4a3",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "400bda3109d1f4a3",
+        "SkylakeX": "400bda3109d1f4a3",
+        "auto": "400bda3109d1f4a3"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 20,
+      "slope_archive_bits": "bff33937738814c8",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bff33937738814c8",
+        "SkylakeX": "bff33937738814c8",
+        "auto": "bff33937738814c8"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fe52b3abbc0d8aa",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fe52b3abbc0d8aa",
+        "SkylakeX": "3fe52b3abbc0d8aa",
+        "auto": "3fe52b3abbc0d8aa"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 21,
+      "slope_archive_bits": "bfb7241770ea7187",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfb7241770ea7187",
+        "SkylakeX": "bfb7241770ea7187",
+        "auto": "bfb7241770ea7187"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3fd2ce823885cb16",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3fd2ce823885cb16",
+        "SkylakeX": "3fd2ce823885cb16",
+        "auto": "3fd2ce823885cb16"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 22,
+      "slope_archive_bits": "bfa58016d796763f",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bfa58016d796763f",
+        "SkylakeX": "bfa58016d796763f",
+        "auto": "bfa58016d796763f"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    },
+    {
+      "engine": "matlab",
+      "norm_archive_bits": "3f7dd675e2cebba0",
+      "norm_auto_eq_haswell": true,
+      "norm_auto_eq_skylakex": true,
+      "norm_bits": {
+        "Haswell": "3f7dd675e2cebba0",
+        "SkylakeX": "3f7dd675e2cebba0",
+        "auto": "3f7dd675e2cebba0"
+      },
+      "norm_haswell_eq_archived": true,
+      "norm_skylakex_eq_archived": true,
+      "record_index_zero_based": 23,
+      "slope_archive_bits": "bef7633a99b435bb",
+      "slope_auto_eq_haswell": true,
+      "slope_auto_eq_skylakex": true,
+      "slope_bits": {
+        "Haswell": "bef7633a99b435bb",
+        "SkylakeX": "bef7633a99b435bb",
+        "auto": "bef7633a99b435bb"
+      },
+      "slope_haswell_eq_archived": true,
+      "slope_skylakex_eq_archived": true
+    }
+  ],
+  "schema": "perf01d-issue90-within-runner-dispatch-comparison-v1",
+  "shared_host": {
+    "github_run_id": "42197971370",
+    "linux_cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "numpy": "2.3.5",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  },
+  "slope_auto_vs_haswell_differing_rows": 13,
+  "slope_auto_vs_skylakex_differing_rows": 0,
+  "status": "CONTROLLED_SAME_RUNNER_FLOAT_DISPATCH_DIAGNOSTIC_NO_GATE_PASS",
+  "total_source_rows": 48
+}
