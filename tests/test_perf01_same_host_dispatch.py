@@ -27,7 +27,7 @@ def sample(mode):
         "schema":"perf01d-issue90-host-binary64-ulp-audit-v1",
         "status":"ENGINEERING_ULP_MEASUREMENTS_ONLY_NOT_EXACT_REPLAY_PASS",
         "original_bfgs_run":"42187240378",
-        "original_bfgs_raw_sha256":ORIGINAL_SHA,
+        "original_bfgs_raw_sha256":dict(ORIGINAL_SHA),
         "original_fitting_science":"63/64 non-PASS, subject index 7 traj.mu/traj.muhat",
         "total_original_engine_history_rows":48,
         "rows":rows,
