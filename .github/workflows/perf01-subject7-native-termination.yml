@@ -1,0 +1,161 @@
+name: PERF-01D source-native subject7 optimizer termination audit (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-native-termination.yml'
+      - 'benchmarks/runtime_v1/matlab/subject7_termination_verbose_matlab.m'
+      - 'benchmarks/runtime_v1/subject7_termination_hgfx.py'
+      - 'benchmarks/runtime_v1/compare_subject7_native_termination.py'
+      - 'tests/test_perf01_subject7_native_termination.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01d-original-native-termination-locked
+  cancel-in-progress: false
+
+jobs:
+  source-native-stop-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify frozen source SHA and 12 native termination fail-closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C matlab-reference rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_native_termination.py -v
+          python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+
+      - name: Restore original full public 64-subject FAILED fitting data unmodified
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 out
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path("original-64")
+          j=json.loads((p/"summary-41863441006.json").read_bytes())
+          assert j["hgfx_sha"]=="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          assert j["matlab_sha"]=="2437f4dc241541072722a2695ddeca7b44d83dd3"
+          assert j["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          assert j["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          for filename,digest in j["raw_evidence_sha256"].items():
+              assert hashlib.sha256((p/filename).read_bytes()).hexdigest()==digest,filename
+          print("Original 63/64 full public fitting NON-PASS preserved, raw SHA256 verified.")
+          PY
+
+      - name: Frozen native HGFX exposed termination with direct/public source equality
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_termination_hgfx.py \
+            --input work/benchmarks/runtime_v1 \
+            --original original-64 \
+            --output out/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Frozen native MATLAB normal/verbose fitting — ONLY logging option changes
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_termination_verbose_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'original-64'),fullfile(pwd,'out','matlab_raw.json'))"
+
+      - name: Fail-closed attribution from exact original public fit source options only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_native_termination.py \
+            --matlab out/matlab_raw.json --hgfx out/hgfx_raw.json \
+            --original original-64 \
+            --output "out/derived-native-termination-${{ github.run_id }}.json"
+          python - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          root=Path("out")
+          p=root/"derived-native-termination-${{ github.run_id }}.json"
+          j=json.loads(p.read_bytes())
+          assert j["status"]=="AUTHOR_SIDE_NATIVE_TERMINATION_RECORDED_NO_SCIENTIFIC_FIT_PASS"
+          assert j["matlab_normal_verbose_all_outputs_exact"]
+          assert j["original_scientific_result"].startswith("63/64 NONPASS")
+          j["github_run_id"]=os.environ["GITHUB_RUN_ID"]
+          j["tested_sha"]=os.environ["GITHUB_SHA"]
+          j["fresh_raw_sha256"]={
+              f:hashlib.sha256((root/f).read_bytes()).hexdigest()
+              for f in ("hgfx_raw.json","matlab_raw.json")}
+          p.write_text(json.dumps(j,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          print(json.dumps({
+              "MATLAB_source_native_termination":j["matlab_source_termination_reason"],
+              "HGFX_source_native_termination":j["hgfx_source_termination_reason"],
+              "original_science":"63/64 NON-PASS",
+              "diagnostic_status":j["status"],
+              "raw_sha256":j["fresh_raw_sha256"],
+              "run_id":j["github_run_id"],
+              "tested_sha":j["tested_sha"],
+              "new_matlab_default_vs_old_full_fit_mismatched_fields":
+                  j["matlab_new_default_vs_original_archive_28_field_DIAGNOSTIC_ONLY"]["mismatched_fields"],
+              "no_timing":True,
+          },sort_keys=True))
+          PY
+
+      - name: Preserve original and new full native-stop evidence even on failed validation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-native-termination-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit only separate newly diagnosed native-source stop report (never historical science)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-native-termination-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-native-termination-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-native-termination-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve original optimizer source-native verbose stop without fitting PASS'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
