@@ -92,7 +92,7 @@ def run(root:Path,original:Path)->dict:
         if set(traj)!=FIELDS or np.asarray(states).shape!=(128,3,4):
             raise ValueError("Frozen HGF forward schema or 128x3x4 states changed")
         for field in FIELDS:
-            if np.asarray(traj[field]).shape!=(128,3):
+            if np.asarray(traj[field]).shape!=((128,2) if field=="w" else (128,3)):
                 raise ValueError(f"Malformed frozen forward trajectory {field}")
         rows.append({
             "origin":name,
