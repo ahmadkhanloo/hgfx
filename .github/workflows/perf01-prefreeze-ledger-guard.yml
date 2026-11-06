@@ -11,13 +11,17 @@ on:
       - 'benchmarks/runtime_v1/cohort_results/summary-41860187774.json'
       - 'benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json'
       - 'benchmarks/runtime_v1/issue90_results/derived-archived-v2-42250539438.json'
+      - 'benchmarks/runtime_v1/issue90_results/summary-matched-runner-42268990557.json'
       - 'benchmarks/runtime_v1/eligibility_candidates/**'
 permissions:
   contents: read
+  actions: read
 jobs:
   tracked-evidence-cross-ledger:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,17 +30,36 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Validate 17 exact negative/positive controls; stdlib-only
+      - name: Validate 31 exact negative/positive controls; stdlib-only
         shell: bash
         run: |
           set -euo pipefail
           python -m unittest discover -s work/tests -p test_perf01_prefreeze_ledger_guard.py -v
-      - name: Cross-check unchanged 576/64/28/ABBA derived evidence with no timer or MATLAB
+      - name: Fetch pinned full eight-pair real matched-runner derived artifact; verify both archive digests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/13527858098" --jq '.digest')" = \
+            'sha256:c87604802b8506717cfeac01b5f0de827afd1a8616d69b82b41f6b0b7cf286c2'
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/13528955307" --jq '.digest')" = \
+            'sha256:ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c'
+          mkdir -p reviewer-preflight/archive
+          gh run download 42268990557 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-same-runner-8-original-tolerance-pairs-42268990557 \
+            --dir reviewer-preflight/archive
+          printf '%s  %s\n' \
+            '3c90a24b94921b90e80f1967dfaaaaff821b809d893b5939b5a314ed8635b327' \
+            'reviewer-preflight/archive/matched-runner-8-pairs.json' | sha256sum -c -
+          echo "Full eight paired 28-field report and BOTH GitHub raw/derived artifact digests verified."
+
+      - name: Cross-check unchanged 576/64/28/ABBA and NEW eight-pair source evidence without timing
         shell: bash
         run: |
           set -euo pipefail
           python work/benchmarks/runtime_v1/verify_perf01_prefreeze_ledger.py \
-            --root work --output reviewer-preflight/ledger.json
+            --root work \
+            --matched-runner-full reviewer-preflight/archive/matched-runner-8-pairs.json \
+            --output reviewer-preflight/ledger.json
           python - <<'PY'
           import json,os
           from pathlib import Path
@@ -51,11 +74,20 @@ jobs:
           assert r["eligibility"]["blocked"]==12
           assert r["abba"]["within_dispatch_bitwise_equal"]==2
           assert r["abba"]["cross_dispatch_numeric_mismatch"]==4
+          assert r["matched_runner"]["eight_scientific_pair_comparisons"]==8
+          assert r["matched_runner"]["eight_pairs_with_original_tolerance_failures"]==8
+          assert r["matched_runner"]["original_fitting"]=="63/64 NONPASS"
+          assert len(r["tracked_report_sha256"])==6
+          assert r["matched_runner_full_report_sha256"]=="3c90a24b94921b90e80f1967dfaaaaff821b809d893b5939b5a314ed8635b327"
+          assert r["matched_runner_full_artifact"]["full_28_field_comparisons"]==8
+          assert r["matched_runner_full_artifact"]["old_tolerance_failed_pairs"]==8
+          assert r["matched_runner_full_artifact"]["original_64_scientific"]=="63/64 NONPASS"
+          assert r["matched_runner_full_artifact"]["independent_reviewer"]=="NOT_RECEIVED"
           r["run_id"]=os.environ["GITHUB_RUN_ID"]
           r["tested_source_sha"]=os.environ["GITHUB_SHA"]
-          r["scope_limitation"]="LOCAL TRACKED REPORTS ONLY; THIS RUN DOES NOT REDOWNLOAD OR REHASH REMOTE ORIGINAL ACTIONS RAW ARTIFACTS"
+          r["scope_limitation"]="SIX LOCAL TRACKED REPORTS PLUS FULL DOWNLOADED 8-PAIR DERIVED ARCHIVE SHA256. REMOTE ORIGINAL RAW SOURCE ARTIFACT ZIP DIGEST CHECKED VIA GITHUB METADATA, NOT DOWNLOADED OR RECALCULATED HERE; NO NEW MODEL FIT"
           p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
-          print("Tracked candidate evidence internally consistent. NO INDEPENDENT SIGNOFF OR SCIENTIFIC PASS.")
+          print("Six tracked ledgers and full external 28-field eight-pair derived archive consistent; all eight have original-tolerance failures. NO SCIENCE PASS/INDEPENDENT SIGNOFF.")
           PY
       - name: Archive tracked derived-only reviewer preflight including source SHA
         if: always()

@@ -27,7 +27,10 @@ class TestPrefreezeReviewerLedger(unittest.TestCase):
         self.assertEqual(d["fit"]["fitting"],"63/64 NONPASS")
         self.assertEqual(d["eligibility"]["blocked"],12)
         self.assertEqual(d["abba"]["cross_dispatch_numeric_mismatch"],4)
-        self.assertEqual(len(self.digests),5)
+        self.assertEqual(len(self.digests),6)
+        self.assertEqual(d["matched_runner"]["eight_scientific_pair_comparisons"],8)
+        self.assertEqual(d["matched_runner"]["eight_pairs_with_original_tolerance_failures"],8)
+        self.assertEqual(d["matched_runner"]["original_fitting"],"63/64 NONPASS")
 
     def test_dropped_cohort_subject_rejected(self):
         self.check_raises("cohort",lambda d:d["rows"].pop(), "576-case")
@@ -96,6 +99,85 @@ class TestPrefreezeReviewerLedger(unittest.TestCase):
     def test_abba_historical_matlab_mismatch_hidden_rejected(self):
         def tamper(d): d["vs_original"]["SkylakeX_1"]["vs_original_matlab"]["mismatched_fields"]=[]
         self.check_raises("abba",tamper,"MATLAB old-tolerance")
+
+
+    def test_matched_eight_pairs_omitted_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d["hgfx_vs_fresh_matlab"].pop(),
+                          "eight-pair")
+
+    def test_matched_skylakex_old_failure_hidden_rejected(self):
+        def mutate(d):
+            row=next(x for x in d["hgfx_vs_fresh_matlab"]
+                     if x["hgfx"]=="SkylakeX_1" and x["matlab"]=="MATLAB_1")
+            row["mismatched_fields"]=[]
+        self.check_raises("matched_runner",mutate,
+                          "28-field mismatch")
+
+    def test_matched_haswell_psi_failure_hidden_rejected(self):
+        def mutate(d):
+            row=next(x for x in d["hgfx_vs_fresh_matlab"]
+                     if x["hgfx"]=="Haswell_1" and x["matlab"]=="MATLAB_1")
+            row["psi_bad_cells"]=0
+        self.check_raises("matched_runner",mutate,
+                          "failed-cell counts")
+
+    def test_matched_hgfx_matlab_source_artifact_sha_forged_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(source_artifact_sha256="sha256:"+"0"*64),
+                          "artifact provenance")
+
+    def test_matched_eight_pair_full_json_sha_forged_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(reanalysis_full_report_sha256="0"*64),
+                          "artifact provenance")
+
+    def test_matched_prior_historical_failure_erased_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(secondary_attempt="RETRIED_AND_PASSED"),
+                          "historical failures")
+
+    def test_matched_matlab_bitwise_self_verdict_forged_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d["same_runner_reference_source_output_consistent"].update(
+                              matlab_two_fits_all_28_binary64_identical=False),
+                          "repeated controls")
+
+    def test_matched_hgfx_bitwise_self_verdict_forged_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d["same_runner_hgfx_same_dispatch_28_field_binary64_identical"].update(
+                              Haswell=False),
+                          "repeated controls")
+
+    def test_matched_original_trajectory_tolerance_relaxed_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d["original_trajectory_tolerance"].update(atol=1e-8),
+                          "original tolerances")
+
+    def test_matched_matlab_thread_policy_forged_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(matlab_max_computational_threads=4),
+                          "different BLAS")
+
+    def test_matched_false_speed_measurement_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(timing="PASS"),
+                          "scientific status")
+
+    def test_matched_false_review_signature_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(independent_reviewer_verdict="APPROVED"),
+                          "scientific status")
+
+    def test_matched_original_subject_seventy_or_64_pass_rejected(self):
+        self.check_raises("matched_runner",
+                          lambda d:d.update(historical_scientific="64/64 PASS"),
+                          "scientific status")
+
+    def test_matched_denominator_duplicate_row_rejected(self):
+        def mutate(d):
+            d["hgfx_vs_fresh_matlab"][1]=deepcopy(d["hgfx_vs_fresh_matlab"][0])
+        self.check_raises("matched_runner", mutate,"eight-pair")
 
 if __name__ == "__main__":
     unittest.main()
