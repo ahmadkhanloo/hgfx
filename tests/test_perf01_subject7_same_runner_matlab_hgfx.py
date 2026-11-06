@@ -84,6 +84,19 @@ class SameRunnerPublicFitControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"stdout"):
             validate_matlab(x,summary(),old,RUN,SHA)
 
+    def test_matlab_json_normalized_both_historical_raw_hash_keys(self):
+        x,old=fixture()
+        x["original_64_raw_sha256"]={
+            "hgfx_raw_json":"frozen-h","matlab_raw_json":"frozen-m"}
+        self.assertEqual(len(validate_matlab(x,summary(),old,RUN,SHA)),2)
+
+    def test_matlab_json_unexpected_raw_hash_key_rejected(self):
+        x,old=fixture()
+        x["original_64_raw_sha256"]={
+            "hgfx_raw_json":"frozen-h","matlab_raw_json":"frozen-m","extra":"untrusted"}
+        with self.assertRaisesRegex(ValueError,"provenance changed"):
+            validate_matlab(x,summary(),old,RUN,SHA)
+
     def test_forged_reference_sha_rejected(self):
         x,old=fixture()
         x["frozen_matlab_sha"]="0"*40
