@@ -53,7 +53,11 @@ end
 start=[r.c_prc.priormus(:)',r.c_obs.priormus(:)'];
 snapshot=NaN(1,numel(cfg.transformed_start_full));
 for i=1:numel(snapshot)
-    item=cfg.transformed_start_full(i);
+    if iscell(cfg.transformed_start_full)
+        item=cfg.transformed_start_full{i};
+    else
+        item=cfg.transformed_start_full(i);
+    end
     if isfield(item,'decimal')
         snapshot(i)=str2double(item.decimal);
     elseif isfield(item,'special')
