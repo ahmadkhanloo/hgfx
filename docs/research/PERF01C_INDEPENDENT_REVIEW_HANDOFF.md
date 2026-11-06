@@ -95,3 +95,13 @@ Reviewer must check MATLAB's separately composed source-identical objective agai
 - Terminal source history overwrites stored entries; exclude transitions 22→23 and 23→24 from step-acceptance claims. Original complete fitting **63/64 still NOT PASS**. Original 28 and nine-primary CPU eligibility unchanged.
 
 Use [PERF01D_SUBJECT7_BFGS_BRANCH_2026-11-06.md](PERF01D_SUBJECT7_BFGS_BRANCH_2026-11-06.md) for raw hashes, full numeric table, historical failures and reviewer limitations. Independent reviewer must check source-to-source objective and convergence handling, as well as protocol/clock/hardware semantics, before ANY separate prospective freeze. **No external approval has been provided by these computations.**
+
+
+## 2026-11-06 — bounded direction-algebra, original maxStep clipping and bitwise portability
+
+Review the source-anchored independent arithmetic reconstruction [42194769569](https://github.com/ahmadkhanloo/hgfx/actions/runs/42194769569) (39/39 tests), using unchanged immutable archived MATLAB/HGFX public optimizer `iter.invH`, own-state Ridders gradients, and 10 earlier **same-parameter** matched Ridders evaluations. [Full reviewer-bound numerical report](PERF01D_SUBJECT7_DIRECTION_DECOMPOSITION_2026-11-06.md). The calculations are strictly algebraic **and not a causal intervention**:
+
+- Record 10 BFGS spectral condition ~45198 in both sources, raw direction delta `6.569361905386501e-5`, **clipped actual-direction candidate** delta `1.6207306067271615e-9`, as both obey reference `maxStep=1`; no instrumented acceptance log.
+- Source-record 14 same-x engine-gradient term L2 `6.299323553659936e-12`, much smaller than stored-T and different-x terms under this chosen nonunique decomposition. This does **not** certify an implementation defect or reference-only limitation. Last two terminal transitions are excluded from acceptance conclusions.
+- Unexpected cross-run bitwise reproducibility failure for auxiliary norm/scalar diagnostic fields (original raw hashes unchanged) is documented as **OPEN Issue #90**; new report does not claim this engineering replay PASS. Historical strict failure CI runs are preserved; independent reviewer should decide whether any new host-independent exact replay protocol is needed prospectively.
+- Original 64 full-fit outcome **63/64 NON-PASS**; no changes to thresholds, original denominators, seed/dataset/model, science, or release gate. **PERF-01C NOT FROZEN** and speed benchmarking not authorized.
