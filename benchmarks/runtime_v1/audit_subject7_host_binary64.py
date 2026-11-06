@@ -159,9 +159,7 @@ def run(root: Path) -> dict:
                     [ulp_distance(a,b) for a,b in zip(d,d_exact)],
             })
     cfg=io.StringIO()
-    np.show_config(mode="full",file=cfg) if "file" in np.show_config.__code__.co_varnames else None
-    # numpy.show_config normally prints directly; use contextlib to capture if
-    # its API does not accept a file argument (numpy 2.3).
+    # Capture build diagnostics without assuming a 'file' argument.
     import contextlib
     with contextlib.redirect_stdout(cfg):
         np.show_config()
