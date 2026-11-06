@@ -32,6 +32,10 @@ EXPECTED_4={
 
 
 def to_array(x):
+    # Source archives are JSON trees; synthetic numerical negative controls
+    # may supply NumPy arrays. decode_tree intentionally handles JSON only.
+    if isinstance(x,np.ndarray):
+        return np.asarray(x,dtype=np.float64)
     return np.asarray(decode_tree(x),dtype=np.float64)
 
 
