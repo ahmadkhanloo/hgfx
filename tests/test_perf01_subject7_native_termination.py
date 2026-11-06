@@ -36,7 +36,7 @@ def raw():
         "frozen_hgfx_sha":native.HGFX,
         "frozen_matlab_sha":native.MATLAB,
         "original_64_fit_run_id":native.RUN,
-        "original_raw_sha256":summary["raw_evidence_sha256"],
+        "original_raw_sha256":dict(summary["raw_evidence_sha256"]),
         "source_input_sha256":"input0",
         "source_config_sha256":"config0",
         "subject_index_zero_based":7,
@@ -68,7 +68,7 @@ def raw():
         "frozen_hgfx_sha":native.HGFX,
         "frozen_matlab_sha":native.MATLAB,
         "original_64_fit_run_id":native.RUN,
-        "original_raw_sha256":summary["raw_evidence_sha256"],
+        "original_raw_sha256":dict(summary["raw_evidence_sha256"]),
         "source_input_sha256":"input0","source_config_sha256":"config0",
         "subject_index_zero_based":7,"trials":128,
         "model":"hgf_binary","observation_model":"unitsq_sgm",
@@ -95,7 +95,7 @@ class TestOriginalNativeStop(TestCase):
     def test_frozen_original_schema_fails_safe_no_promotion(self):
         a,b,s,o=raw()
         report=self.evaluate(a,b,s,o)
-        self.assertIn("NOT_SCIENTIFIC_FIT_PASS",report["status"])
+        self.assertIn("NO_SCIENTIFIC_FIT_PASS",report["status"])
         self.assertIn("63/64",report["original_scientific_result"])
         self.assertTrue(report["matlab_normal_verbose_all_outputs_exact"])
 
