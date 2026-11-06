@@ -59,6 +59,9 @@ jobs:
             --name perf01-64-full-fits-41863441006 --dir original-64
           gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
             --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          # Canonical 64-case summary is a tracked immutable provenance ledger,
+          # whereas the original Actions artifact contains the three raw files.
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
           python - <<'PY'
           import hashlib,json
           from pathlib import Path
