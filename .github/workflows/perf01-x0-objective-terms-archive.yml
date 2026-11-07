@@ -1,0 +1,94 @@
+name: "PERF-01D SHA-locked 71 objective term archival replay (no MATLAB)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-x0-objective-term-decomposition
+    paths:
+      - '.github/workflows/perf01-x0-objective-terms-archive.yml'
+      - 'benchmarks/runtime_v1/compare_original_x0_objective_terms.py'
+      - 'tests/test_perf01_x0_objective_terms.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source-archive-independent-parser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify 17 original 63/64 source scalar and MATLAB scalar-shape fail-closed controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_objective_terms.py' -v
+      - name: SHA-lock all original real raw HGFX and MATLAB component members from FAILED engineering run
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-terms original-x0 output
+          gh run download 42402137064 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-71-genuine-objective-source-terms-42402137064 \
+            --dir original-terms
+          echo 'cb255188b077ab0cdf5460a1307eb746512e8c6811e33e7e53ab5177aec56c41  original-terms/original-hgfx-71-objective-terms.json' | sha256sum -c -
+          echo 'f317530e24425b9e5b3aa376cf99ac8ed4ce457ea5b3cd8e483fa13f432a3a16  original-terms/original-hgfx-71-objective-terms.sha256' | sha256sum -c -
+          echo '65b074672ab41c89140ad072a68be4ddead2a2f7a343bb4101542640b492e539  original-terms/original-matlab-71-objective-terms.json' | sha256sum -c -
+          gh run download 42389292284 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-ridders-start-stencils-42389292284 \
+            --dir original-x0
+          echo 'fd8ea94bbf85e6f01feb1d7477ae15a42f86026cc0704503c9e0f00c9803599d  original-x0/hgfx-first-ridders.json' | sha256sum -c -
+          echo '1826535a8e15c522bc3c987978c15978e14a5594664fae25d618e6f9f22a4685  original-x0/matlab-first-private-ridders.json' | sha256sum -c -
+      - name: Independently compare 71 frozen full source scalar bits and 128 trials/prior constituents
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_original_x0_objective_terms.py \
+            --hgfx original-terms/original-hgfx-71-objective-terms.json \
+            --matlab original-terms/original-matlab-71-objective-terms.json \
+            --original-archive original-x0 \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --source-run-id 42402137064 \
+            --source-tested-sha c629903c8659db502ffb6e8228faf9c63af4475a \
+            --output output/independent-real-original-objective-constituent-comparison.json
+      - name: Preserve independent report and original source SHA on success OR failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.glob('*.json') if p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-real-original-71-constituent-archive-only-v1',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_commit':'b9d76455601677c224767238802327704cda2023',
+            'original_source_execution':'42402137064',
+            'original_source_sha':'c629903c8659db502ffb6e8228faf9c63af4475a',
+            'original_full_fitting':'63/64 SCIENTIFIC NONPASS',
+            'independent_scientific_reviewer':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'physical_gpu':'NOT_RUN','paper_timing':'NOT_RUN',
+            'derived_sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Preserve original failed experiment and new derived evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-71-term-archive-audit-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
