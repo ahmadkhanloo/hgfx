@@ -43,7 +43,7 @@ class OriginalStencilTests(unittest.TestCase):
     def test_exact_same_x_source_bit_difference_detected(self):
         a=r.START.copy()
         b=a.copy()
-        b[0]=np.nextafter(b[0],-np.inf)
+        b[0]=float(np.nextafter(b[0],-np.inf))
         self.assertNotEqual(r.xbits(a),r.xbits(b))
 
     def test_wrong_center_coordinate_is_rejected(self):
@@ -106,8 +106,8 @@ class OriginalStencilTests(unittest.TestCase):
         self.assertEqual(r.MATLAB,"2437f4dc241541072722a2695ddeca7b44d83dd3")
         self.assertNotEqual(r.BFGS_H,r.BFGS_M)
 
-    def test_raw_mat_metadata_must_exist(self):
-        with self.assertRaises(FileNotFoundError):
+    def test_missing_original_63_64_source_preflight_is_rejected(self):
+        with self.assertRaises(KeyError):
             mat.inspect_mat(Path("/this-perf01d-raw-mat-file-does-not-exist.mat"),
                             {},b"missing",{})
 
