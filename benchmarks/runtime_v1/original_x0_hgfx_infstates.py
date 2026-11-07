@@ -20,6 +20,7 @@ import sys
 import numpy as np
 from hgfx.models.hgf_binary import hgf_binary
 from hgfx.responses.unitsq_sigmoid import unitsq_sgm
+from hgfx.math.matlab_exp import matlab_exp_scalar
 from hgfx.compat.configs import unitsq_sgm_config
 from hgfx.core.trials import build_trial_masks
 
@@ -128,7 +129,7 @@ def collect(root,bfgs,x0,original_terms,output):
                 same(total,rh["original_hgfx_source_scalar"]) and
                 same(mm["value"],rm["original_matlab_private_source_scalar"]),
                 "Frozen source objective total no longer exact at node "+str(i))
-        zeta=float(np.exp(obs[0]))
+        zeta=float(matlab_exp_scalar(obs[0]))
         require(math.isfinite(zeta),"Original native observation zeta invalid")
         rows.append({
             "ordinal":i,"x":x,"x_hex":xhex(x),
