@@ -104,6 +104,26 @@ class FrozenObjectiveDecompositionControls(unittest.TestCase):
         self.assertEqual(len(z["all_14_original_joint_mismatch_indices"]),14)
         self.assertEqual(z["original_scientific_fit"],"63/64 SCIENTIFIC NONPASS")
 
+    def test_real_matlab_json_single_observation_prior_is_scalar(self):
+        v=list(dataset())
+        for item in v[1]["nodes"]:
+            item["components"]["observation_prior_terms"]=1.
+        z=self.replay(*v)
+        self.assertEqual(z["first_gradient_same_x_joint_unequal_count"],14)
+        self.assertEqual(z["full_original_71_node_component_counts"]["observation_prior_terms"]["nodes_with_bit_difference"],0)
+
+    def test_other_prior_cardinality_cannot_be_collapsed_to_scalar(self):
+        v=list(dataset())
+        v[1]["nodes"][3]["components"]["perceptual_prior_terms"]=2.
+        with self.assertRaisesRegex(ValueError,"vector length"):
+            self.replay(*v)
+
+    def test_observation_prior_two_terms_rejected(self):
+        v=list(dataset())
+        v[1]["nodes"][4]["components"]["observation_prior_terms"]=[1.,2.]
+        with self.assertRaisesRegex(ValueError,"vector length"):
+            self.replay(*v)
+
     def test_forged_scientific_64_64_refused(self):
         v=list(dataset());v[4]["classification_counts"]["FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES"]=64
         with self.assertRaisesRegex(ValueError,"63/64"):
