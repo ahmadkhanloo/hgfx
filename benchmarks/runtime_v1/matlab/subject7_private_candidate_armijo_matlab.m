@@ -114,7 +114,10 @@ report.native_console_characters=numel(native_console);
 report.instrumented_console_characters=numel(instrumented_console);
 report.compared_stable_field_count=numel(optim_fields)+numel(traj_fields);
 report.native_instrumented_stable_fields_identical=neutral;
-report.calls=[rows{:}];
+% Preserve heterogeneous base/candidate result fields as a JSON cell array.
+% Struct-array concatenation requires identical field sets and previously
+% failed AFTER the real objective calls, before the evidence was written.
+report.calls=rows;
 report.independent_scientific_review='NOT_RECEIVED';
 report.perf01c='NOT_FROZEN';report.timing='NOT_RUN';
 report.post_result_selected_counterfactual=true;
