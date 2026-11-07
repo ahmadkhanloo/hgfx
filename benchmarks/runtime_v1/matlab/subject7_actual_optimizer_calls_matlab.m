@@ -34,7 +34,7 @@ if ~strcmp(func2str(original),'quasinewton_optim') || ...
     error('hgfx:perf01:config','Original frozen optimizer settings changed');
 end
 native=[]; instrumented=[]; captured_optim=[];
-hook_count=0; delegated=false;
+hook_count=0; delegated=false; obj_callback=[];
 total_calls=0; indirect_calls=0;
 direct=cell(1,0); counts=[0,0,0,0];
 native_console=evalc('native=fitModel(y,u,''hgf_binary_config'',''unitsq_sgm_config'',cfg);');
@@ -153,13 +153,13 @@ fprintf('Original MATLAB-owned direct source calls archived, no optimizer source
            config.nRandInit~=0 || ~config.optIter
             error('hgfx:perf01:hook','Frozen original free start or optimizer history changed');
         end
-        optres=original(@logged_objective,init,config);
+        % Share the ACTUAL original private objective handle in parent scope.\n        % MATLAB sibling nested functions cannot access each other's locals.\n        obj_callback=obj;\n        optres=original(@logged_objective,init,config);
         captured_optim=optres;
         delegated=true;
     end
 
     function value=logged_objective(x)
-        value=double(obj(x));  % CALL THE EXACT PRIVATE MATLAB OBJECTIVE ONCE.
+        value=double(obj_callback(x));  % CALL THE EXACT PRIVATE MATLAB OBJECTIVE ONCE.
         total_calls=total_calls+1;
         stack=dbstack('-completenames');
         if numel(stack)<2 || ...
