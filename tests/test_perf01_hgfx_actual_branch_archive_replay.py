@@ -88,21 +88,21 @@ class GenuineArmijoBodyReplayTests(unittest.TestCase):
         h,m=fixture()
         arm=next(z for z in h["executed_source_branch_bodies"] if z["label"]=="ARMIO_BREAK_EXECUTED")
         arm["actual_j"]=1
-        with self.assertRaisesRegex(ValueError,"body mismatch"):
+        with self.assertRaisesRegex(ValueError,"mismatch at trial"):
             checker.reconcile(h,m)
 
     def test_branch_body_wrong_candidate_rejected(self):
         h,m=fixture()
         arm=next(z for z in h["executed_source_branch_bodies"] if z["label"]=="ACCEPTED_UPDATE_EXECUTED")
         arm["candidate_x"][0]+=1e-6
-        with self.assertRaisesRegex(ValueError,"body mismatch"):
+        with self.assertRaisesRegex(ValueError,"mismatch at trial"):
             checker.reconcile(h,m)
 
     def test_branch_body_wrong_objective_rejected(self):
         h,m=fixture()
         arm=next(z for z in h["executed_source_branch_bodies"] if z["label"]=="ARMIO_BREAK_EXECUTED")
         arm["candidate_value"]+=0.1
-        with self.assertRaisesRegex(ValueError,"body mismatch"):
+        with self.assertRaisesRegex(ValueError,"mismatch at trial"):
             checker.reconcile(h,m)
 
     def test_forged_original_fitting_pass_is_rejected(self):
