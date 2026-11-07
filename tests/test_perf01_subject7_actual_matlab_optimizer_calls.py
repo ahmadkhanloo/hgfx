@@ -133,7 +133,7 @@ class NativeSourceCallTraceTests(unittest.TestCase):
 
     def test_source_revision_with_duplicate_line_fails(self):
         report,original=fixture()
-        with self.assertRaisesRegex(ValueError,"source"):
+        with self.assertRaisesRegex(ValueError,"callsites changed"):
             audit.validate_trace(report,SOURCE+"val=f(x);\n",original)
 
     def test_reject_changed_bfgs_bytes(self):
