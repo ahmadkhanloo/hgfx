@@ -1,0 +1,123 @@
+name: "PERF-01D exploratory real private MATLAB Ridders stencil at observed outlier (UNTIMED, post-result)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-ridders-stencil-exploratory.yml'
+      - 'benchmarks/runtime_v1/subject7_ridders_stencil_exploratory.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_ridders_stencil_exploratory_matlab.m'
+      - 'tests/test_perf01_ridders_stencil_exploratory.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  direct-original-ridders-stencil:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen sources, original input/config, 13 post-result non-gate synthetic controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_ridders_stencil_exploratory.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download and SHA-verify prior 50 direct-private samples AND original two BFGS histories
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p archived-50 original-bfgs output
+          gh run download 42305573614 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-direct-nested-matlab-gradient-bfgs-42305573614 --dir archived-50
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo 'd92690111b2fa128c045f29b39aa95110b5e5cd838f90c48a733400a3e537913  archived-50/locked-50-bfgs-anchors.json' | sha256sum -c -
+          echo '90de6c75c13736fae95bc0645950ac0352546fd7262c4d5f70d97f8b9b14e978  archived-50/real-private-matlab-ridders.json' | sha256sum -c -
+          echo '2ff7dddac3892f1f7a6b7a78b20e5839315badebce60fd2d81c8847a3d4e2d2d  archived-50/paired-direct-private-gradient-bfgs-margins.json' | sha256sum -c -
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          python work/benchmarks/runtime_v1/subject7_ridders_stencil_exploratory.py \
+            --stage prepare --root work/benchmarks/runtime_v1 \
+            --archive archived-50 --original original-bfgs \
+            --manifest output/locked-postresult-stencil-target.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Trace actual ORIGINAL private MATLAB objective calls from real Ridders, and native 28-field control
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_ridders_stencil_exploratory_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'output','locked-postresult-stencil-target.json'),fullfile(pwd,'output','actual-private-matlab-stencil-trace.json'))"
+      - name: Trace frozen HGFX Ridders same-x actual calls; preserve all mismatched coords and values
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_ridders_stencil_exploratory.py \
+            --stage compare --root work/benchmarks/runtime_v1 \
+            --archive archived-50 --original original-bfgs \
+            --manifest output/locked-postresult-stencil-target.json \
+            --matlab output/actual-private-matlab-stencil-trace.json \
+            --output output/paired-actual-ridders-call-streams.json
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          p=Path('output/paired-actual-ridders-call-streams.json')
+          r=json.loads(p.read_bytes())
+          assert r['original_scientific_full_fit']=='63/64 NONPASS'
+          assert r['perf01c']=='NOT_FROZEN'
+          assert r['independent_scientific_review']=='NOT_RECEIVED'
+          assert r['timing']=='NOT_RUN'
+          assert r['same_session_matlab_28_field_neutrality']['field_count']==28
+          names=['locked-postresult-stencil-target.json',
+                 'actual-private-matlab-stencil-trace.json',
+                 'paired-actual-ridders-call-streams.json']
+          sha={k:hashlib.sha256((Path('output')/k).read_bytes()).hexdigest()
+               for k in names}
+          (Path('output')/'provenance.json').write_text(json.dumps({
+              'run_id':os.environ['GITHUB_RUN_ID'],'candidate_sha':os.environ['GITHUB_SHA'],
+              'post_result_exploratory_protocol_commit':'e1c3e2e83045896195701926a5f94fa361b0f091',
+              'original_science':'63/64 NONPASS',
+              'independent_scientific_review':'NOT_RECEIVED',
+              'perf01c':'NOT_FROZEN',
+              'sha256':sha},sort_keys=True,indent=2)+'\n')
+          print(json.dumps({'status':r['status'],'source_50_run':r['source_50_run_id'],
+                            'old_fit_science':r['original_scientific_full_fit'],
+                            'same_session_matlab_neutral':r['same_session_matlab_28_field_neutrality']['all_serialized_binary64_equal'],
+                            'actual_call_inventory':r['objective_call_pairing'],
+                            'new_sha256':sha},sort_keys=True)[:3500])
+          PY
+      - name: Always preserve source/preflight, actual private MATLAB trace and HGFX comparison, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-postresult-ridders-stencil-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
