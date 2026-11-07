@@ -87,7 +87,7 @@ class OriginalSourceBranchControls(unittest.TestCase):
         h,m=base()
         r=pair.compare_same_host(h,m)
         self.assertIsNone(r["first_bitwise_history_path_difference_zero_based"])
-        self.assertIsNone(r["first_bitwise_actual_trial_vector_difference_zero_based"])
+        self.assertEqual(r["first_bitwise_actual_trial_vector_difference_zero_based"],1)  # HGFX fixture has only one trial; MATLAB has 24
         self.assertEqual(r["same_x_cross_engine_trial_scalar_equal_count"],1)
         self.assertEqual(r["source_trial_count_difference"],-23)
         self.assertEqual(r["original_scientific_fitting"],"63/64 SCIENTIFIC NONPASS")
