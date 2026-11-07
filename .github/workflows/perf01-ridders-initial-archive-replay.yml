@@ -1,0 +1,86 @@
+name: "PERF-01D archived true Ridders x0 grid ULP source replay (UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-initial-ridders-stencil-source
+    paths:
+      - '.github/workflows/perf01-ridders-initial-archive-replay.yml'
+      - 'benchmarks/runtime_v1/replay_initial_ridders_stencil_archive.py'
+      - 'tests/test_perf01_ridders_stencil_archive_replay.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archive-only-same-x-source-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run 12 strict original Ridders source and scientific NONPASS controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_ridders_stencil_archive_replay.py' -v
+      - name: Download all five real original first Ridders source archive members and verify immutable hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original output
+          gh run download 42389292284 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-ridders-start-stencils-42389292284 --dir original
+          echo 'fd8ea94bbf85e6f01feb1d7477ae15a42f86026cc0704503c9e0f00c9803599d  original/hgfx-first-ridders.json' | sha256sum -c -
+          echo '1826535a8e15c522bc3c987978c15978e14a5594664fae25d618e6f9f22a4685  original/matlab-first-private-ridders.json' | sha256sum -c -
+          echo '6a4c30ccd4e9088fa373c5474522854972dd6bfcd15b577643f483e43d345ae4  original/matlab-first-ridders-native-and-wrapped.mat' | sha256sum -c -
+          echo '13c2b32d10fbb508a651c954c13de3c674c5f06ae6a2bb1e641c710ec8abd0c6  original/true-x0-both-stencils-cross-objective-audit.json' | sha256sum -c -
+          echo '8c39b3f6709c76e805534bbe4ffd040bdc17251c1aa47d517f97763b195649d4  original/independent-matlab-26-fields-and-full-iter.json' | sha256sum -c -
+      - name: Reconstruct all original Ridders source x+h/x-h grid coordinate bits, same-x objective ULPs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_initial_ridders_stencil_archive.py \
+            --archive original \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/independent-original-stencils-grid-and-same-x-ulps.json
+      - name: Preserve old and derived scientific evidence hashes on success/failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.iterdir() if p.is_file() and p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-archive-only-real-ridders-x0-ulp-replay-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'source_true_ridders_run':'42389292284',
+            'source_original_scientific_fitting':'63/64 SCIENTIFIC NONPASS',
+            'pre_observation_protocol_commit':'39fc6bd63c40f7b48ceec572a2d2bdf6e7ac537d',
+            'independent_scientific_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN',
+            'physical_gpu':'NOT_RUN',
+            'sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload full independent archive-only ULP replay and failure artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-initial-ridders-grid-ulps-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn

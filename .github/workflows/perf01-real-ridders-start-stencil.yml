@@ -1,0 +1,140 @@
+name: "PERF-01D true x0 Ridders stencil cross-objective same-x (AUTHOR-SIDE, UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-initial-ridders-stencil-source
+    paths:
+      - '.github/workflows/perf01-real-ridders-start-stencil.yml'
+      - 'benchmarks/runtime_v1/subject7_first_ridders_stencil.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_first_ridders_matlab.m'
+      - 'benchmarks/runtime_v1/verify_first_ridders_matlab_raw.py'
+      - 'tests/test_perf01_first_ridders_stencil.py'
+      - 'docs/research/PERF01D_INITIAL_RIDDERS_STENCIL_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  actual-frozen-first-ridders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          path: frozen-matlab
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify immutable source commits and 14 fail-closed Ridders tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C frozen-matlab rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_first_ridders_stencil.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Verify original 63/64 failed full fitting and download immutable BFGS source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+      - name: Original frozen HGFX source Ridders initial x0 ±h calls, original gradient/error
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_first_ridders_stencil.py \
+            --stage prepare \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs original-bfgs \
+            --output output/hgfx-first-ridders.json
+          echo "$(cat output/hgfx-first-ridders.sha256)  output/hgfx-first-ridders.json" | sha256sum -c -
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Genuine nested MATLAB private Ridders stencil; cross-evaluate all HGFX nodes, native public fit control
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_first_ridders_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'frozen-matlab'),fullfile(pwd,'output','hgfx-first-ridders.json'),fullfile(pwd,'output','hgfx-first-ridders.sha256'),fullfile(pwd,'output','matlab-first-private-ridders.json'),fullfile(pwd,'output','matlab-first-ridders-native-and-wrapped.mat'))"
+      - name: Evaluate every real MATLAB Ridders stencil node with untouched HGFX objective at exact x
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_first_ridders_stencil.py \
+            --stage verify \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs original-bfgs \
+            --hgfx-source output/hgfx-first-ridders.json \
+            --matlab-source output/matlab-first-private-ridders.json \
+            --output output/true-x0-both-stencils-cross-objective-audit.json
+      - name: Separate SciPy raw MAT parser verifies 26/26 MATLAB public fields PLUS complete iter
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/verify_first_ridders_matlab_raw.py \
+            --mat output/matlab-first-ridders-native-and-wrapped.mat \
+            --report output/matlab-first-private-ridders.json \
+            --hgfx-source output/hgfx-first-ridders.json \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/independent-matlab-26-fields-and-full-iter.json
+      - name: Record source and derived byte hashes on success AND failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.iterdir() if p.is_file() and p.name!='provenance.json'}
+          meta={
+            'schema':'perf01d-real-initial-ridders-stencil-both-original-objectives-v1',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_sha':'39fc6bd63c40f7b48ceec572a2d2bdf6e7ac537d',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'original_bfgs_run':'42187240378',
+            'original_scientific_fitting':'63/64 SCIENTIFIC NONPASS',
+            'original_subject7_failed_traj_mu':4,
+            'original_subject7_failed_traj_muhat':4,
+            'review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN',
+            'physical_gpu':'NOT_RUN',
+            'sha256':hashes,
+          }
+          (root/'provenance.json').write_text(json.dumps(meta,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Preserve all real and failed immutable x0 stencil source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-ridders-start-stencils-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
