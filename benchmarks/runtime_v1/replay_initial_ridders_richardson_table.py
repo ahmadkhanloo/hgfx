@@ -135,7 +135,7 @@ def reconstruct_axis(raw_pairs, axis, min_steps=MIN_STEPS, max_steps=MAX_STEPS,
         table.append({
             "row_zero_based":i,"step_one_based":i+1,"h":h,
             "raw_plus":plus,"raw_minus":minus,
-            "p_cells":row_cells,"best_after_row":best_df,
+            "p_cells":row_cells,"best_after_row":best_df if math.isfinite(best_df) else None,
             "best_error_after_row":best_err,
             "best_cell_after_row":best_index,
             "source_stop_eligible":eligible,
