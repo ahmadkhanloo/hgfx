@@ -24,7 +24,7 @@ def sample_rows():
         if i==0:x=list(probe.START)
         if i==6:x=list(probe.SIX)
         if i==24:x=rows[23]["free_parameters"][:]
-        g=[float(i)+0.1,float(i)+0.2,float(i)+0.3]
+        g=rows[23]["hgfx"]["gradient"][:] if i==24 else [float(i)+0.1,float(i)+0.2,float(i)+0.3]
         rows.append({"free_parameters":x,"hgfx":{"gradient":g[:]},
                      "matlab":{"gradient":[v+0.001 for v in g]}})
     return rows
@@ -106,7 +106,7 @@ class ExactAnchorCounterfactualSyntheticTests(unittest.TestCase):
         x[0]=math.nextafter(x[0],math.inf)
         with probe.interposition(fake,fake_fn,"matlab_gradient_record6_all3",rows,prov) as (hits,m):
             g,e=fake.ridders_gradient(None,x)
-            self.assertEqual(g,[11.,12.,13.])
+            self.assertEqual(g.tolist(),[11.,12.,13.])
             self.assertEqual(len(hits),0)
             self.assertFalse(prov["calls"][0]["intervened"])
 
@@ -117,7 +117,7 @@ class ExactAnchorCounterfactualSyntheticTests(unittest.TestCase):
         with probe.interposition(fake,fake_fn,"matlab_gradient_start_all3",rows,prov) as (hits,m):
             g,e=fake.ridders_gradient(None,list(probe.START))
             self.assertEqual(list(g),rows[0]["matlab"]["gradient"])
-            self.assertEqual(e,[.1,.2,.3])
+            self.assertEqual(e.tolist(),[.1,.2,.3])
         self.assertIs(fake.ridders_gradient,fake_fn)
 
     def test_original_gradient_restored_when_exception(self):
