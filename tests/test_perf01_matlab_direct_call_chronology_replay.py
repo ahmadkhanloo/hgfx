@@ -68,6 +68,10 @@ class SourceChronologyTests(unittest.TestCase):
         self.assertTrue(z["terminal_history_duplicate_last_two"])
         self.assertEqual(z["distinct_exact_binary64_direct_candidate_vectors"],23)
         self.assertIsNone(z["first_same_run_matlab_vs_prior_matlab_history_bit_difference"])
+        self.assertIsNone(z["first_same_run_matlab_vs_prior_matlab_objective_value_bit_difference"])
+        self.assertEqual(z["previous_matlab_objective_value_bit_difference_count"],0)
+        self.assertEqual(z["all_nonmatching_direct_row_indices"],[])
+        self.assertTrue(z["last_source_direct_candidate_equals_last_native_history_bits"])
         self.assertEqual(z["original_scientific_fitting"],"63/64 SCIENTIFIC NONPASS")
 
     def test_missing_source_candidate_is_rejected(self):
@@ -83,6 +87,23 @@ class SourceChronologyTests(unittest.TestCase):
         z=v.compare_chronology(t,h,m)
         self.assertFalse(z["same_run_exact_chronological_call_to_history_all_equal"])
         self.assertEqual(z["first_nonmatching_direct_row"],3)
+
+    def test_original_terminal_history_overwrite_is_explicit_not_mislabeled(self):
+        t,h,m=fixtures()
+        t["direct_calls"][23]["free_x"]=[99.,99.,99.]
+        z=v.compare_chronology(t,h,m)
+        self.assertEqual(z["all_nonmatching_direct_row_indices"],[23])
+        self.assertTrue(z["last_source_direct_candidate_equals_last_native_history_bits"])
+        self.assertFalse(z["penultimate_source_direct_candidate_equals_penultimate_history_bits"])
+        self.assertTrue(z["terminal_history_duplicate_last_two"])
+
+    def test_archived_matlab_objective_value_drift_not_hidden(self):
+        t,h,m=fixtures()
+        m["iter_val"][12]+=1e-10
+        z=v.compare_chronology(t,h,m)
+        self.assertEqual(z["first_same_run_matlab_vs_prior_matlab_objective_value_bit_difference"],12)
+        self.assertEqual(z["previous_matlab_objective_value_bit_difference_count"],1)
+        self.assertIsNone(z["first_same_run_matlab_vs_prior_matlab_history_bit_difference"])
 
     def test_different_actual_coordinate_is_reported_not_thresholded(self):
         t,h,m=fixtures()
