@@ -107,8 +107,9 @@ class OriginalStencilTests(unittest.TestCase):
         self.assertNotEqual(r.BFGS_H,r.BFGS_M)
 
     def test_raw_mat_metadata_must_exist(self):
-        with self.assertRaises((KeyError,ValueError,TypeError)):
-            mat.inspect_mat(Path("/dev/null"),{},b"missing",{})
+        with self.assertRaises(FileNotFoundError):
+            mat.inspect_mat(Path("/this-perf01d-raw-mat-file-does-not-exist.mat"),
+                            {},b"missing",{})
 
 
 if __name__=="__main__": unittest.main()
