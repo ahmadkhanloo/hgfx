@@ -1,4 +1,4 @@
-function subject7_private_candidate_armijo_matlab(root, toolbox_root, candidate_path, output_path)
+function subject7_private_candidate_armijo_matlab(root, toolbox_root, candidate_path, output_path, public_output_path)
 % PERF-01D: two post-result-selected x6/T6 counterfactual step candidates.
 % THREE actual frozen private fitModel objective calls; NO new fitting claims.
 % The native original fit is an instrumentation-neutrality control only.
@@ -130,6 +130,57 @@ cleanup=onCleanup(@()fclose(fid));
 fprintf(fid,'%s\n',jsonencode(report));
 if hook_count~=1 || ~delegated || ~neutral || report.compared_stable_field_count~=26
     error('hgfx:perf01:neutrality','Original native optimizer callback was not strictly neutral');
+end
+% Optional additional evidence only; the original 4-argument execution is unchanged.
+% New MATLAB -v7 file retains the ACTUAL values of ALL 26 previously checked
+% public fields for a separately implemented SciPy archive comparator.
+if nargin>=5 && ~isempty(public_output_path)
+    native_public=struct();instrumented_public=struct();
+    native_public.optim=struct();instrumented_public.optim=struct();
+    native_public.traj=struct();instrumented_public.traj=struct();
+    for k=1:numel(optim_fields)
+        f=optim_fields{k};
+        if ~isfield(native.optim,f) || ~isfield(instrumented.optim,f)
+            error('hgfx:perf01:rawmissing','Cannot export omitted optim field %s',f);
+        end
+        native_public.optim.(f)=native.optim.(f);
+        instrumented_public.optim.(f)=instrumented.optim.(f);
+    end
+    for k=1:numel(traj_fields)
+        f=traj_fields{k};
+        if ~isfield(native.traj,f) || ~isfield(instrumented.traj,f)
+            error('hgfx:perf01:rawmissing','Cannot export omitted trajectory field %s',f);
+        end
+        native_public.traj.(f)=native.traj.(f);
+        instrumented_public.traj.(f)=instrumented.traj.(f);
+    end
+    metadata=struct();
+    metadata.schema='perf01d-26-matlab-public-stable-fields-raw-v1';
+    metadata.optim_fields=optim_fields;
+    metadata.traj_fields=traj_fields;
+    metadata.field_count=26;
+    metadata.frozen_hgfx_sha=hgfx;
+    metadata.frozen_matlab_sha=ref;
+    metadata.original_64_public_science='63/64 SCIENTIFIC NONPASS';
+    metadata.subject_index_zero_based=7;
+    metadata.original_trial_count=128;
+    metadata.github_run_id=getenv('GITHUB_RUN_ID');
+    metadata.tested_sha=getenv('GITHUB_SHA');
+    metadata.matlab_version=version;
+    metadata.original_matlab_fitmodel_path=p;
+    metadata.original_matlab_optimizer_path=q;
+    metadata.hook_count=hook_count;
+    metadata.original_optimizer_delegated=delegated;
+    metadata.native_instrumented_26_field_equality_producer=neutral;
+    metadata.original_source_candidate_sha256= ...
+        'b2f2134a4eb5276fd7734dacedb26c74b4cd410eb984caf945befe9758b42144';
+    metadata.independent_scientific_review='NOT_RECEIVED';
+    metadata.perf01c='NOT_FROZEN';
+    metadata.performance_timing='NOT_RUN';
+    [public_folder,~,~]=fileparts(public_output_path);
+    if ~isfolder(public_folder);mkdir(public_folder);end
+    save(public_output_path,'native_public','instrumented_public','metadata','-v7');
+    fprintf('Exported native and instrumented actual 26 public field pairs to MAT v7\n');
 end
 fprintf('Three frozen private MATLAB objective calls archived; original 63/64 NONPASS remains\n');
 
