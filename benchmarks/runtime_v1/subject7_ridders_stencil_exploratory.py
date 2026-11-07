@@ -194,8 +194,11 @@ def run_compare(root, archive, original, manifest_path, matlab_path):
             and m.get("original_50_probe_run_id") == SOURCE_RUN
             and m.get("original_frozen_hgfx_sha") == HGFX_SHA
             and m.get("original_frozen_matlab_sha") == MATLAB_SHA
-            and m.get("source_50_sha256") == SOURCE_HASH
-            and m.get("source_original_bfgs_sha256") == ORIGINAL_HASH
+            and m.get("source_50_anchor_sha256") == SOURCE_HASH["locked-50-bfgs-anchors.json"]
+            and m.get("source_50_matlab_sha256") == SOURCE_HASH["real-private-matlab-ridders.json"]
+            and m.get("source_50_paired_sha256") == SOURCE_HASH["paired-direct-private-gradient-bfgs-margins.json"]
+            and m.get("source_original_bfgs_hgfx_sha256") == ORIGINAL_HASH["hgfx_raw.json"]
+            and m.get("source_original_bfgs_matlab_sha256") == ORIGINAL_HASH["matlab_raw.json"]
             and m.get("source_input_sha256") == manifest["source_input_sha256"]
             and m.get("source_config_sha256") == manifest["source_config_sha256"]
             and m.get("hook_count") == 1
