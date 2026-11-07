@@ -186,6 +186,7 @@ def prepare(root,archive,out):
     need(len(classified)==sum(steps),"Source initial node accounting changed")
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,indent=2,sort_keys=True,allow_nan=False)+"\n")
+    out.with_suffix(".sha256").write_text(digest(out)+"\n")
     print(json.dumps({"stage":"prepare","gradient":result["hgfx_gradient"],
                       "steps_per_coordinate":steps,"num_nodes":len(nodes),
                       "source_status":"63/64 SCIENTIFIC NONPASS"},sort_keys=True))
