@@ -166,10 +166,23 @@ def compare_chronology(trace: dict, archived_hgfx: dict,
         "same_run_exact_chronological_call_to_history_all_equal":matches==len(actual_rows),
         "first_nonmatching_direct_row":next((x["native_history_zero_based"] for x in actual_rows
                                             if not x["exact_source_record_match"]),None),
+        "all_nonmatching_direct_row_indices": [
+            x["native_history_zero_based"] for x in actual_rows
+            if not x["exact_source_record_match"]],
+        "last_source_direct_candidate_equals_last_native_history_bits":
+            actual_rows[-1]["exact_source_record_match"],
+        "penultimate_source_direct_candidate_equals_penultimate_history_bits":
+            actual_rows[-2]["exact_source_record_match"],
         "terminal_history_duplicate_last_two":terminal_duplicate,
         "first_same_run_matlab_vs_prior_matlab_history_bit_difference":next(
             (x["record_index_zero_based"] for x in historical
              if not x["actual_matlab_native_vs_archived_matlab_equal_bits"]),None),
+        "first_same_run_matlab_vs_prior_matlab_objective_value_bit_difference":next(
+            (x["record_index_zero_based"] for x in historical
+             if not x["actual_matlab_native_vs_original_matlab_value_equal_bits"]),None),
+        "previous_matlab_objective_value_bit_difference_count":sum(
+            not x["actual_matlab_native_vs_original_matlab_value_equal_bits"]
+            for x in historical),
         "first_same_run_matlab_vs_archived_hgfx_history_bit_difference":next(
             (x["record_index_zero_based"] for x in historical
              if not x["actual_matlab_native_vs_archived_hgfx_equal_bits"]),None),
