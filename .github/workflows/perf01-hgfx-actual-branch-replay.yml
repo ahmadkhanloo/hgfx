@@ -1,0 +1,86 @@
+name: "PERF-01D SHA-locked actual HGFX branch-body replay (AUTHOR-SIDE, UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-same-runner-hgfx-matlab-calls
+    paths:
+      - '.github/workflows/perf01-hgfx-actual-branch-replay.yml'
+      - 'benchmarks/runtime_v1/replay_hgfx_real_branch_events_archive.py'
+      - 'tests/test_perf01_hgfx_actual_branch_archive_replay.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archived-source-branch-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ten exact synthetic branch-event negative and positive controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_hgfx_actual_branch_archive_replay.py' -v
+      - name: Download and SHA-verify ALL four original same-runner source members
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original output
+          gh run download 42387244467 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-same-runner-hgfx-matlab-source-calls-42387244467 \
+            --dir original
+          echo '56b2e80272c42f0affd4c0084a28fc65e6ba737cf3d67335918c8ff49c335ac3  original/actual-frozen-hgfx-original-optimizer-source-calls.json' | sha256sum -c -
+          echo '7604e4311d2d66c3b5fc17e54db4f4fee62915e0988887168122d4cdbd58b94d  original/actual-frozen-matlab-optimizer-source-calls.json' | sha256sum -c -
+          echo 'fe5e8ea763496a0f0fe76864bed42b849a4ad7f2878d4ad7edac383ff0c83b74  original/matlab-native-and-wrapped-26-plus-iter.mat' | sha256sum -c -
+          echo '9ef73979f96627baa201aa72a2b9ad1b8df0a2b2273cb9b1d72ace14212d0cce  original/independent-same-runner-source-comparison.json' | sha256sum -c -
+      - name: Independently replay actual executed HGFX source branches and cross-source ULP deltas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_hgfx_real_branch_events_archive.py \
+            --archive original \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/actual-hgfx-24-armijo-source-body-replay.json
+      - name: Persist original and derived source evidence including failed runs
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.iterdir() if p.is_file() and p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-actual-hgfx-branch-source-replay-provenance-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'original_source_same_runner':'42387244467',
+            'original_source_sha':'52268e5220169aae3615d373bd52472e5e9a2336',
+            'original_fit_science':'63/64 SCIENTIFIC NONPASS',
+            'independent_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN',
+            'gpu':'NOT_RUN',
+            'sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload derived replay including partial evidence on failure
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01d-hgfx-actual-source-branch-archive-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
