@@ -61,7 +61,7 @@ Replaying the actual preserved 100 first-coordinate `f(x±h)` pairs under this e
 | h at selected row | **4.6291400080406515e-07** | **1.291908018719193e-07** |
 | Exactly reproduced gradient | **5.046862798072859** | **5.046862866922409** |
 | Exactly reproduced source Ridders internal error estimate | **8.881784197001252e-16** | **2.6645352591003757e-15** |
-| Same-x gradient difference | colspan: **6.884955006114524e-08** | |
+| Absolute difference between the two gradients | **6.884955006114524e-08** | **6.884955006114524e-08** |
 
 For completeness, the same exact source-formula replay reproduces the other two returned gradient components and errors in both engines. Component 2 (zero-based 1): 11 levels in each, selected (row 9, column 5) HGFX vs (row 7, column 7) MATLAB; component 3 (zero-based 2): 13 levels, selected (row 11, column 7) HGFX vs 11 levels, selected (row 10, column 9) MATLAB. The four additional HGFX evaluations belong only to the third component and were **not** paired with nonexistent MATLAB source calls.
 
