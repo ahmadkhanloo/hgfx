@@ -1,0 +1,108 @@
+name: "PERF-01D exact-original-anchor Ridders gradient sensitivity, post-result (UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-gradient-interposition.yml'
+      - 'benchmarks/runtime_v1/subject7_exact_anchor_gradient_interposition.py'
+      - 'tests/test_perf01_subject7_gradient_interposition.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  exact-bit-gradient-counterfactual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check exact frozen product and 14 synthetic intervention controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          python -m pip install "numpy==2.3.5" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_gradient_interposition.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download EXACT all-original failed-fit BFGS and real private MATLAB 50 gradients
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs private50 output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          gh run download 42305573614 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-direct-nested-matlab-gradient-bfgs-42305573614 --dir private50
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          echo 'd92690111b2fa128c045f29b39aa95110b5e5cd838f90c48a733400a3e537913  private50/locked-50-bfgs-anchors.json' | sha256sum -c -
+          echo '90de6c75c13736fae95bc0645950ac0352546fd7262c4d5f70d97f8b9b14e978  private50/real-private-matlab-ridders.json' | sha256sum -c -
+          echo '2ff7dddac3892f1f7a6b7a78b20e5839315badebce60fd2d81c8847a3d4e2d2d  private50/paired-direct-private-gradient-bfgs-margins.json' | sha256sum -c -
+          python - <<'PY'
+          import sys,json,hashlib
+          from pathlib import Path
+          sys.path.insert(0,str(Path('work/benchmarks/runtime_v1').resolve()))
+          from subject7_exact_anchor_gradient_interposition import original_source_inventory,ARMS
+          raw,rows=original_source_inventory(Path('work/benchmarks/runtime_v1'),Path('original-bfgs'),Path('private50'))
+          assert len(rows)==50
+          assert len(ARMS)==8
+          assert raw['hgfx']['subject_index_zero_based']==7
+          print('Eight counterfactual arms locked; historical 63/64 original science NONPASS and all raw sources SHA-verified BEFORE execution.')
+          PY
+      - name: Eight original frozen HGFX optimizer diagnostics with strictly scoped source-gradient interposition (NOT ORIGINAL FIT)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_exact_anchor_gradient_interposition.py \
+            --root work/benchmarks/runtime_v1 \
+            --archive-bfgs original-bfgs --archive50 private50 \
+            --output output/eight-exact-anchor-gradient-counterfactuals.json
+      - name: Preserve provenance, all arms, exact data, original nonpass and no timing
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.glob('*.json') if p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'candidate_sha':os.environ['GITHUB_SHA'],
+            'protocol_committed_before_results':'7049b23a6acf118038149a1bbbb31cb5d40da45f',
+            'frozen_hgfx_sha':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'original_63_of_64_scientific_failure':'63/64 NONPASS',
+            'independent_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'no_performance_timing':True,
+            'sha256':hashes},sort_keys=True,indent=2)+'\n')
+          print('Provenance: '+json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload complete counterfactuals including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-exact-gradient-counterfactuals-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
