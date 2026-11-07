@@ -153,7 +153,10 @@ fprintf('Original MATLAB-owned direct source calls archived, no optimizer source
            config.nRandInit~=0 || ~config.optIter
             error('hgfx:perf01:hook','Frozen original free start or optimizer history changed');
         end
-        % Share the ACTUAL original private objective handle in parent scope.\n        % MATLAB sibling nested functions cannot access each other's locals.\n        obj_callback=obj;\n        optres=original(@logged_objective,init,config);
+        % Share the ACTUAL original private objective handle in parent scope.
+        % MATLAB sibling nested functions cannot access each other's locals.
+        obj_callback=obj;
+        optres=original(@logged_objective,init,config);
         captured_optim=optres;
         delegated=true;
     end
