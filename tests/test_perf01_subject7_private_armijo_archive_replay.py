@@ -108,7 +108,7 @@ class ArchiveReplayTests(unittest.TestCase):
     def test_reject_missing_original_candidate(self):
         data = mock_inputs()
         data[1]["calls"].pop()
-        with self.assertRaisesRegex(ValueError, "three"):
+        with self.assertRaisesRegex(ValueError, "Three complete"):
             replay.replay(*data)
 
     def test_reject_mutated_source_full_step_slope(self):
