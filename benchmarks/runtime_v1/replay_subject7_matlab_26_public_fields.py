@@ -176,10 +176,10 @@ def replay(native, instrumented, metadata, private, original, raw_hash):
             "Original 15+11 public stable field selection changed")
     per_field = []
     for category, fields in (("optim", OPT), ("traj", traj)):
-        left_group = getattr(native, category)
-        right_group = getattr(instrumented, category)
-        require(isinstance(left_group, mat_struct) and isinstance(right_group, mat_struct),
-                "Missing MATLAB raw " + category + " struct")
+        # scipy.io.loadmat(..., squeeze_me=False) preserves nested MATLAB
+        # 1x1 structs as a 1x1 object ndarray holding a mat_struct.
+        left_group = only_struct(getattr(native, category))
+        right_group = only_struct(getattr(instrumented, category))
         require(set(left_group._fieldnames) == set(fields)
                 and set(right_group._fieldnames) == set(fields),
                 "A native/intercepted raw " + category + " field was omitted or added")
