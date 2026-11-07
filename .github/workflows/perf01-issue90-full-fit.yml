@@ -1,0 +1,183 @@
+name: PERF-01D frozen HGFX full-fit OpenBLAS dispatch comparison (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-issue90-full-fit.yml'
+      - 'benchmarks/runtime_v1/compare_issue90_hgfx_full_fit.py'
+      - 'tests/test_perf01_hgfx_full_fit_dispatch.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01-issue90-full-fit-evidence
+  cancel-in-progress: false
+
+jobs:
+  same-host-frozen-public-fitting:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify untouched release and 10 comparator tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' ./release_source threadpoolctl
+          python -m unittest discover -s work/tests -p test_perf01_hgfx_full_fit_dispatch.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+
+      - name: Restore and verify BOTH original 64-fit and subject-7 BFGS archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 original-bfgs
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          # Canonical 64-case summary is a tracked immutable provenance ledger,
+          # whereas the original Actions artifact contains the three raw files.
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path("original-64")
+          data=json.loads((p/"summary-41863441006.json").read_bytes())
+          assert data["hgfx_sha"]=="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          assert data["matlab_sha"]=="2437f4dc241541072722a2695ddeca7b44d83dd3"
+          for name,h in data["raw_evidence_sha256"].items():
+              assert hashlib.sha256((p/name).read_bytes()).hexdigest()==h,name
+          assert data["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          print("The original subject 7 63/64 scientific mismatch remains untouched")
+          PY
+
+      - name: Refit original subject 7 twice on the SAME CPU without measuring time
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          for mode in auto Haswell; do
+            if [ "$mode" = auto ]; then
+              unset OPENBLAS_CORETYPE || true
+            else
+              export OPENBLAS_CORETYPE="$mode"
+            fi
+            export HGFX_TEST_BLAS_MODE="$mode"
+            python work/benchmarks/runtime_v1/bfgs_state_subject7_hgfx.py \
+              --input work/benchmarks/runtime_v1 \
+              --original original-64 \
+              --output "out/${mode}_raw.json"
+            python - <<'PY'
+          import json,os,platform,numpy as np
+          from pathlib import Path
+          from threadpoolctl import threadpool_info
+          mode=os.environ["HGFX_TEST_BLAS_MODE"]
+          source=Path("out")/f"{mode}_raw.json"
+          report=json.loads(source.read_bytes())
+          assert report["status"]=="UNTIMED_PUBLIC_FIT_BFGS_STATE_EXPORTED"
+          inf={
+              "mode":mode,
+              "run_id":os.environ["GITHUB_RUN_ID"],
+              "github_sha":os.environ["GITHUB_SHA"],
+              "platform":platform.platform(),
+              "machine":platform.machine(),
+              "numpy":np.__version__,
+              "openblas_coretype":os.environ.get("OPENBLAS_CORETYPE"),
+              "pools":[{"api":p.get("internal_api"),"architecture":p.get("architecture"),
+                        "num_threads":p.get("num_threads"),"version":p.get("version")}
+                       for p in threadpool_info()],
+          }
+          (Path("out")/f"{mode}_environment.json").write_text(
+              json.dumps(inf,sort_keys=True,indent=2)+"\n")
+          PY
+          done
+          unset OPENBLAS_CORETYPE || true
+
+      - name: Compare public full endpoints/histories to BOTH original archived engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_issue90_hgfx_full_fit.py \
+            --auto out/auto_raw.json --haswell out/Haswell_raw.json \
+            --archive original-bfgs --output "out/derived-full-fit-${{ github.run_id }}.json"
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=Path("out")
+          a=json.loads((d/"auto_environment.json").read_bytes())
+          h=json.loads((d/"Haswell_environment.json").read_bytes())
+          assert a["run_id"]==h["run_id"]
+          assert a["machine"]==h["machine"] and a["platform"]==h["platform"]
+          assert a["numpy"]==h["numpy"]=="2.3.5"
+          assert a["openblas_coretype"] is None
+          assert h["openblas_coretype"]=="Haswell"
+          assert any(p["api"]=="openblas" and p["architecture"]=="Haswell" for p in h["pools"])
+          r=json.loads((d/"derived-full-fit-${{ github.run_id }}.json").read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_UNTIMED_SAME_HOST_FULL_FIT_DIAGNOSTIC_NO_SCIENTIFIC_PASS"
+          raw_hashes={n:hashlib.sha256((d/n).read_bytes()).hexdigest()
+                      for n in ("auto_raw.json","Haswell_raw.json")}
+          r["github_run_id"]=a["run_id"]
+          r["github_candidate_sha"]=a["github_sha"]
+          r["raw_evidence_sha256"]=raw_hashes
+          r["runner_environment"]={"auto":a,"Haswell":h}
+          (d/"derived-full-fit-${{ github.run_id }}.json").write_text(
+              json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print(json.dumps({
+              "science":r["status"],
+              "source_original_scientific_fit":"63/64 NON-PASS",
+              "same_host_mode_comparison":r["results"]["auto_vs_haswell"],
+              "original_matlab_endpoints":{
+                  "auto":r["results"]["auto_vs_historical_matlab"]["final"],
+                  "Haswell":r["results"]["haswell_vs_historical_matlab"]["final"]},
+              "sha256":raw_hashes,
+          },sort_keys=True))
+          PY
+
+      - name: Preserve all new untimed BFGS raw histories, even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-issue90-full-fit-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit only new, separately labeled derived audit (never original science)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-full-fit-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-full-fit-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-full-fit-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve frozen full-public-fit BLAS dispatch sensitivity'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures

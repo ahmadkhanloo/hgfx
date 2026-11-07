@@ -1,0 +1,264 @@
+{
+  "classification_counts": {
+    "BLOCKED_UNSTABLE_DEFAULT_START_NONCOMPARABLE_RESTART_POLICY": 2,
+    "FULL_FIT_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES": 1
+  },
+  "github_run_id": "41855647245",
+  "matlab_release": "2026a",
+  "raw_evidence_location": "GitHub Actions artifact perf01-fit-preflight-41855647245",
+  "raw_evidence_sha256": {
+    "hgfx_raw.json": "5fedcec3eebe6515b5be6bee983a7ee9c21929422b7c9c2db0fe0694b7e53e04",
+    "matlab_raw.json": "6aa0c5f03d1d0cced124090a04316656bdb2fadcb93d43055c58c414a306fd4a"
+  },
+  "rows": [
+    {
+      "case_id": "primary_fit_compat_full_128",
+      "classification": "FULL_FIT_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES",
+      "fields": {
+        "AIC": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 3.126388037344441e-13,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "BIC": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 3.126388037344441e-13,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "Corr": {
+          "atol": 5e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 3.326489242837027e-12,
+          "mismatch_count": 0,
+          "rtol": 5e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "H": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 9.621636820611457e-12,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "LME": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.0321522242738865e-12,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "Sigma": {
+          "atol": 5e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.537614562925228e-10,
+          "mismatch_count": 0,
+          "rtol": 5e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "decompLME.freepars": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "decompLME.logjoint": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "decompLME.postpredcorr": {
+          "atol": 2e-08,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.010280830688771e-12,
+          "mismatch_count": 0,
+          "rtol": 2e-06,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "final": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 9.048761739904876e-12,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "init": {
+          "atol": 0.0,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 0.0,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "negLj": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.4210854715202004e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "negLl": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.5631940186722204e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "res": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.97761815204467e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "resAC": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 3.351485755587191e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.4144241333724494e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.0686590501407522e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 6.439293542825908e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 5.696276783595522e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.524789183804387e-10,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.2379875730393906e-12,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.2368773500147654e-12,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.4144241333724494e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.6903579230787003e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 6.217942827291267e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.7619239400801234e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "trialLogLlsplit": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 7.367439991412539e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.4144241333724494e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "hgfx_status": "HGFX_FULL_FIT_COMPLETED_PARITY_NOT_ASSESSED",
+      "matlab_status": "MATLAB_FULL_FIT_COMPLETED_PARITY_NOT_ASSESSED",
+      "n_trials": 128
+    },
+    {
+      "case_id": "primary_fit_compat_full_512",
+      "classification": "BLOCKED_UNSTABLE_DEFAULT_START_NONCOMPARABLE_RESTART_POLICY",
+      "hgfx_status": "BLOCKED_UNSTABLE_DEFAULT_START_MATLAB_RESAMPLES_HGFX_REJECTS",
+      "matlab_status": "BLOCKED_UNSTABLE_DEFAULT_START_MATLAB_RESAMPLES_HGFX_REJECTS",
+      "n_trials": 512
+    },
+    {
+      "case_id": "primary_fit_compat_full_1024",
+      "classification": "BLOCKED_UNSTABLE_DEFAULT_START_NONCOMPARABLE_RESTART_POLICY",
+      "hgfx_status": "BLOCKED_UNSTABLE_DEFAULT_START_MATLAB_RESAMPLES_HGFX_REJECTS",
+      "matlab_status": "BLOCKED_UNSTABLE_DEFAULT_START_MATLAB_RESAMPLES_HGFX_REJECTS",
+      "n_trials": 1024
+    }
+  ],
+  "schema": "perf01-fit-comparison-v1",
+  "status": "DIAGNOSTIC_ONLY_UNFROZEN_NO_PERFORMANCE"
+}

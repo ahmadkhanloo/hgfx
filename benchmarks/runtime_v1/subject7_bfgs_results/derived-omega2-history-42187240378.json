@@ -1,0 +1,798 @@
+{
+  "all_25_original_populated_history_records": [
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -3.0,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        9.029999999999998e-08,
+        1.8029999999999997e-07,
+        1.1643603032723671e-07
+      ],
+      "matlab_free_parameter_omega2": -3.0,
+      "max_abs_any_free_coord": 0.0,
+      "obs_logze_signed_diff": 0.0,
+      "omega2_abs_diff": 0.0,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 0.0,
+      "omega3_signed_diff": 0.0,
+      "record_index_zero_based": 0
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -3.290128779495461,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        9.900386338486371e-08,
+        1.8030217895072945e-07,
+        8.772640202191374e-08
+      ],
+      "matlab_free_parameter_omega2": -3.2901287794954572,
+      "max_abs_any_free_coord": 9.769962616701378e-15,
+      "obs_logze_signed_diff": 1.3322676295501878e-15,
+      "omega2_abs_diff": 3.552713678800501e-15,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -3.552713678800501e-15,
+      "omega3_signed_diff": -9.769962616701378e-15,
+      "record_index_zero_based": 1
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.432867146666637,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        7.328601439997907e-08,
+        1.8027341807681622e-07,
+        7.227999737867071e-08
+      ],
+      "matlab_free_parameter_omega2": -2.432867146665969,
+      "max_abs_any_free_coord": 5.942801806213538e-12,
+      "obs_logze_signed_diff": -1.0933476346508542e-12,
+      "omega2_abs_diff": 6.679101716144942e-13,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -6.679101716144942e-13,
+      "omega3_signed_diff": 5.942801806213538e-12,
+      "record_index_zero_based": 2
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.580979685759135,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        7.772939057556296e-08,
+        1.8540995714670258e-07,
+        4.907520335152693e-08
+      ],
+      "matlab_free_parameter_omega2": -2.580979685852099,
+      "max_abs_any_free_coord": 9.296385883317271e-11,
+      "obs_logze_signed_diff": -2.868261184119092e-11,
+      "omega2_abs_diff": 9.296385883317271e-11,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 9.296385883317271e-11,
+      "omega3_signed_diff": 2.2160051571518125e-12,
+      "record_index_zero_based": 3
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.1707108242517665,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        6.542132472570539e-08,
+        1.8781718165517074e-07,
+        2.9222857652118388e-08
+      ],
+      "matlab_free_parameter_omega2": -2.17071082419018,
+      "max_abs_any_free_coord": 6.158673571121653e-11,
+      "obs_logze_signed_diff": 1.828759366162558e-11,
+      "omega2_abs_diff": 6.158673571121653e-11,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -6.158673571121653e-11,
+      "omega3_signed_diff": -6.0813576396867575e-12,
+      "record_index_zero_based": 4
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -1.6584977147840165,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        5.0054931443065235e-08,
+        1.900064034398497e-07,
+        9.129897634923716e-09
+      ],
+      "matlab_free_parameter_omega2": -1.6584977147688411,
+      "max_abs_any_free_coord": 1.517541647899634e-11,
+      "obs_logze_signed_diff": 4.203859482743155e-12,
+      "omega2_abs_diff": 1.517541647899634e-11,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.517541647899634e-11,
+      "omega3_signed_diff": -3.891997835125949e-12,
+      "record_index_zero_based": 5
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -1.1621811570388512,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        3.5165434712241144e-08,
+        1.9164505185172725e-07,
+        7.4215149478980905e-09
+      ],
+      "matlab_free_parameter_omega2": -1.1621811570747047,
+      "max_abs_any_free_coord": 3.5853542357244805e-11,
+      "obs_logze_signed_diff": -1.1737388838639617e-11,
+      "omega2_abs_diff": 3.5853542357244805e-11,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 3.5853542357244805e-11,
+      "omega3_signed_diff": -3.2640556923979602e-12,
+      "record_index_zero_based": 6
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.1610252709992253,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        6.513075813043881e-08,
+        1.929755528284471e-07,
+        6.865493730891115e-09
+      ],
+      "matlab_free_parameter_omega2": -2.161025271014627,
+      "max_abs_any_free_coord": 1.964719109626145e-09,
+      "obs_logze_signed_diff": -1.964719109626145e-09,
+      "omega2_abs_diff": 1.5401901976019872e-11,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 1.5401901976019872e-11,
+      "omega3_signed_diff": -3.588116470609748e-10,
+      "record_index_zero_based": 7
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.2448162197883,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        6.764448657564442e-08,
+        1.9283731142681973e-07,
+        1.1214049433817325e-08
+      ],
+      "matlab_free_parameter_omega2": -2.2448162191881478,
+      "max_abs_any_free_coord": 9.856671034924602e-10,
+      "obs_logze_signed_diff": -9.856671034924602e-10,
+      "omega2_abs_diff": 6.001523722432012e-10,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -6.001523722432012e-10,
+      "omega3_signed_diff": -2.404130228228496e-10,
+      "record_index_zero_based": 8
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.467189412434889,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        7.431568227509898e-08,
+        1.9201093288187938e-07,
+        1.3532622276008321e-08
+      ],
+      "matlab_free_parameter_omega2": -2.467189409169966,
+      "max_abs_any_free_coord": 3.2649229986247974e-09,
+      "obs_logze_signed_diff": 1.0503747871482005e-10,
+      "omega2_abs_diff": 3.2649229986247974e-09,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -3.2649229986247974e-09,
+      "omega3_signed_diff": -1.1510170594419833e-10,
+      "record_index_zero_based": 9
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -2.9372349810891216,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        8.84170490150689e-08,
+        1.9051820438449357e-07,
+        1.3234845262306625e-08
+      ],
+      "matlab_free_parameter_omega2": -2.9372349671689637,
+      "max_abs_any_free_coord": 1.3920157915237041e-08,
+      "obs_logze_signed_diff": 1.2337486587910007e-09,
+      "omega2_abs_diff": 1.3920157915237041e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.3920157915237041e-08,
+      "omega3_signed_diff": 5.298614880189234e-10,
+      "record_index_zero_based": 10
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -3.9314104816832938,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        1.1824231403049711e-07,
+        1.8745477341662925e-07,
+        1.220094127034019e-08
+      ],
+      "matlab_free_parameter_omega2": -3.9314104676832375,
+      "max_abs_any_free_coord": 1.4000056225427215e-08,
+      "obs_logze_signed_diff": -3.674988646729105e-10,
+      "omega2_abs_diff": 1.4000056225427215e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.4000056225427215e-08,
+      "omega3_signed_diff": 2.9239455301421913e-10,
+      "record_index_zero_based": 11
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -4.9255889813426865,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        1.48067669017929e-07,
+        1.843928816465147e-07,
+        1.1165075129482433e-08
+      ],
+      "matlab_free_parameter_omega2": -4.925588967264301,
+      "max_abs_any_free_coord": 1.4078385568438989e-08,
+      "obs_logze_signed_diff": -2.019223566129824e-09,
+      "omega2_abs_diff": 1.4078385568438989e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.4078385568438989e-08,
+      "omega3_signed_diff": 8.819966978990124e-11,
+      "record_index_zero_based": 12
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -5.9196756869710265,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        1.7789027018352143e-07,
+        1.8142474839096834e-07,
+        9.822449084998859e-09
+      ],
+      "matlab_free_parameter_omega2": -5.919675672784048,
+      "max_abs_any_free_coord": 1.4186978702923625e-08,
+      "obs_logze_signed_diff": -5.579429751545462e-09,
+      "omega2_abs_diff": 1.4186978702923625e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.4186978702923625e-08,
+      "omega3_signed_diff": 6.075495662116737e-10,
+      "record_index_zero_based": 13
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -6.866997769447973,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.0630993607228884e-07,
+        1.7862205873897565e-07,
+        7.810524827436891e-09
+      ],
+      "matlab_free_parameter_omega2": -6.866997869076296,
+      "max_abs_any_free_coord": 9.962832248078257e-08,
+      "obs_logze_signed_diff": -2.0023447011574547e-08,
+      "omega2_abs_diff": 9.962832248078257e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 9.962832248078257e-08,
+      "omega3_signed_diff": -8.644740034924325e-09,
+      "record_index_zero_based": 14
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -7.4916822403559316,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.2505047249667094e-07,
+        1.7685325138236085e-07,
+        5.520719168205284e-09
+      ],
+      "matlab_free_parameter_omega2": -7.491682416555698,
+      "max_abs_any_free_coord": 1.7619976677707427e-07,
+      "obs_logze_signed_diff": -3.6989257240493956e-08,
+      "omega2_abs_diff": 1.7619976677707427e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 1.7619976677707427e-07,
+      "omega3_signed_diff": -1.2704115981421182e-08,
+      "record_index_zero_based": 15
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -8.473272173180549,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.54498170417606e-07,
+        1.742709325095658e-07,
+        4.0557338371742773e-10
+      ],
+      "matlab_free_parameter_omega2": -8.473272347253534,
+      "max_abs_any_free_coord": 1.7407298535943028e-07,
+      "obs_logze_signed_diff": -5.327694324597232e-08,
+      "omega2_abs_diff": 1.7407298535943028e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 1.7407298535943028e-07,
+      "omega3_signed_diff": -4.693856858750678e-09,
+      "record_index_zero_based": 16
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -9.442860365516536,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.8358581604694355e-07,
+        1.7202457991623367e-07,
+        7.1846177272974284e-09
+      ],
+      "matlab_free_parameter_omega2": -9.442860534898118,
+      "max_abs_any_free_coord": 1.6938158253765323e-07,
+      "obs_logze_signed_diff": -7.650200914421923e-08,
+      "omega2_abs_diff": 1.6938158253765323e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 1.6938158253765323e-07,
+      "omega3_signed_diff": 6.829623089288361e-09,
+      "record_index_zero_based": 17
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -10.380744901033545,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        3.1172235160405365e-07,
+        1.7041786452507625e-07,
+        1.7468285968508562e-08
+      ],
+      "matlab_free_parameter_omega2": -10.380745053468456,
+      "max_abs_any_free_coord": 1.524349109160994e-07,
+      "obs_logze_signed_diff": -1.2598569765209788e-07,
+      "omega2_abs_diff": 1.524349109160994e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": 1.524349109160994e-07,
+      "omega3_signed_diff": 2.677912469550847e-08,
+      "record_index_zero_based": 18
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -10.601534803815067,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        3.183460348097558e-07,
+        1.7157737871886325e-07,
+        3.002996543597377e-08
+      ],
+      "matlab_free_parameter_omega2": -10.601534493658528,
+      "max_abs_any_free_coord": 3.101565386742777e-07,
+      "obs_logze_signed_diff": -3.747004495568973e-08,
+      "omega2_abs_diff": 3.101565386742777e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -3.101565386742777e-07,
+      "omega3_signed_diff": 7.644350397129074e-08,
+      "record_index_zero_based": 19
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -9.61193901436987,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.886581611211826e-07,
+        1.751802931564036e-07,
+        3.240676231561787e-08
+      ],
+      "matlab_free_parameter_omega2": -9.61193870403942,
+      "max_abs_any_free_coord": 3.1033044933792553e-07,
+      "obs_logze_signed_diff": -3.493972644541543e-08,
+      "omega2_abs_diff": 3.1033044933792553e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "omega2_signed_diff": -3.1033044933792553e-07,
+      "omega3_signed_diff": 7.667970258751211e-08,
+      "record_index_zero_based": 20
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -8.617481416938098,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.588244331927193e-07,
+        1.7829671205630158e-07,
+        3.1920335413828086e-08
+      ],
+      "matlab_free_parameter_omega2": -8.617481106423977,
+      "max_abs_any_free_coord": 3.1051412108240584e-07,
+      "obs_logze_signed_diff": -2.31829233587888e-08,
+      "omega2_abs_diff": 3.1051412108240584e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "omega2_signed_diff": -3.1051412108240584e-07,
+      "omega3_signed_diff": 7.308632365976564e-08,
+      "record_index_zero_based": 21
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "hgfx_free_parameter_omega2": -7.960746188755471,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.391223968394529e-07,
+        1.8021607018772007e-07,
+        3.0505401552576375e-08
+      ],
+      "matlab_free_parameter_omega2": -7.960746561315097,
+      "max_abs_any_free_coord": 3.7255962581639324e-07,
+      "obs_logze_signed_diff": 5.884619902474242e-09,
+      "omega2_abs_diff": 3.7255962581639324e-07,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": true,
+      "omega2_signed_diff": 3.7255962581639324e-07,
+      "omega3_signed_diff": -5.451867401973232e-09,
+      "record_index_zero_based": 22
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -8.223463964305836,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.47003918361951e-07,
+        1.7948755423638598e-07,
+        3.049801017002985e-08
+      ],
+      "matlab_free_parameter_omega2": -8.223463945398366,
+      "max_abs_any_free_coord": 3.291654060433302e-08,
+      "obs_logze_signed_diff": -6.787941320141044e-10,
+      "omega2_abs_diff": 1.890746936794585e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.890746936794585e-08,
+      "omega3_signed_diff": 3.291654060433302e-08,
+      "record_index_zero_based": 23
+    },
+    {
+      "any_free_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "hgfx_free_parameter_omega2": -8.223463964305836,
+      "inherited_FINAL_parameter_tolerance_descriptive_only": [
+        2.47003918361951e-07,
+        1.7948755423638598e-07,
+        3.049801017002985e-08
+      ],
+      "matlab_free_parameter_omega2": -8.223463945398366,
+      "max_abs_any_free_coord": 3.291654060433302e-08,
+      "obs_logze_signed_diff": -6.787941320141044e-10,
+      "omega2_abs_diff": 1.890746936794585e-08,
+      "omega2_outside_final_tolerance_descriptive_not_optimizer_iter_gate": false,
+      "omega2_signed_diff": -1.890746936794585e-08,
+      "omega3_signed_diff": 3.291654060433302e-08,
+      "record_index_zero_based": 24
+    }
+  ],
+  "excluded_terminal_transition_indices": [
+    22,
+    23
+  ],
+  "first_exact_binary64_omega2_record_difference": 1,
+  "first_omega2_difference_beyond_inherited_FINAL_fit_tolerance_DESCRIPTIVE_ONLY": 20,
+  "free_parameter_names": [
+    "om[1] omega2",
+    "om[2] omega3",
+    "logze observation"
+  ],
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "inherited_final_fit_tolerance_descriptive_only": {
+    "atol": 3e-10,
+    "rtol": 3e-08
+  },
+  "last_populated_omega2_signed_diff": -1.890746936794585e-08,
+  "limitations": [
+    "This is original archived data with post-fit re-evaluated source gradients, not instrumented source optimizer event trace.",
+    "The original MATLAB public optimizer overwrites two terminal iteration records; do not interpret slots 22 or 23 as accepted transitions.",
+    "Applying existing FINAL fitted parameter tolerance to intermediate optimizer states is explicitly DESCRIPTIVE ONLY, not a new scientific acceptance gate.",
+    "First floating-point difference is not a demonstrated unique cause; BLAS dispatch and BFGS amplification may affect path.",
+    "Original source + oracle frozen, input/config/parameter count/seeds/grids unchanged; 63/64 full fit NON-PASS.",
+    "No fitted trajectory parity PASS, optimizer defect or reference-only scientific limitation classification, timing/GPU/speedup or reviewer verdict."
+  ],
+  "max_recorded_omega2_difference": 3.7255962581639324e-07,
+  "model": "hgf_binary",
+  "n_trials": 128,
+  "original_bfgs_raw_sha256": {
+    "hgfx_raw.json": "060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce",
+    "matlab_raw.json": "4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a"
+  },
+  "original_bfgs_run": "42187240378",
+  "original_bfgs_tested_sha": "5fdb627244c12d1ebd7582f83cc2c0783fb3cd5d",
+  "original_final_endpoint_from_saved_slot_23_max_abs_error": {
+    "hgfx": 0.0,
+    "matlab": 0.0
+  },
+  "original_final_logze_signed_diff": -6.787941320141044e-10,
+  "original_final_omega2_signed_diff": -1.890746936794585e-08,
+  "original_final_omega3_signed_diff": 3.291654060433302e-08,
+  "original_scientific_result": "63/64 FULL PUBLIC FITS NONPASS; subject 7 mu/muhat",
+  "original_source_branch_report_run": "42187240378",
+  "safe_nonterminal_transition_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "schema": "perf01d-subject7-original-omega2-optimizer-history-v1",
+  "source_derived_step_omega2_22_nonterminal_and_two_excluded_terminal_records": [
+    {
+      "clipped_step_omega2_signed_diff": -3.497202527569243e-15,
+      "hgfx_clipped_step_omega2": -0.2901287794954608,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.2901287794954573,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -3.552713678800501e-15,
+      "omega2_signed_decomposition_residual": -5.551115123125783e-17,
+      "previous_omega2_signed_diff": 0.0,
+      "record_index_zero_based": 0,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -6.645795025406187e-13,
+      "hgfx_clipped_step_omega2": 0.857261632828824,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": 0.8572616328294885,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -6.679101716144942e-13,
+      "omega2_signed_decomposition_residual": 2.220446049250313e-16,
+      "previous_omega2_signed_diff": -3.552713678800501e-15,
+      "record_index_zero_based": 1,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 9.36340727175633e-11,
+      "hgfx_clipped_step_omega2": -0.14811253909249814,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.1481125391861322,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 9.296385883317271e-11,
+      "omega2_signed_decomposition_residual": -2.3037127760972e-15,
+      "previous_omega2_signed_diff": -6.679101716144942e-13,
+      "record_index_zero_based": 2,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.5454887369870107e-10,
+      "hgfx_clipped_step_omega2": 0.41026886150736847,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": 0.41026886166191734,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -6.158673571121653e-11,
+      "omega2_signed_decomposition_residual": -1.7208456881689926e-15,
+      "previous_omega2_signed_diff": 9.296385883317271e-11,
+      "record_index_zero_based": 3,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 4.6410097986893106e-11,
+      "hgfx_clipped_step_omega2": 0.5122131094677499,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": 0.5122131094213398,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -1.517541647899634e-11,
+      "omega2_signed_decomposition_residual": 1.2212453270876722e-15,
+      "previous_omega2_signed_diff": -6.158673571121653e-11,
+      "record_index_zero_based": 4,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 5.102795963551898e-11,
+      "hgfx_clipped_step_omega2": 0.4963165577451654,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": 0.49631655769413746,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 3.5853542357244805e-11,
+      "omega2_signed_decomposition_residual": 9.992007221626409e-16,
+      "previous_omega2_signed_diff": -1.517541647899634e-11,
+      "record_index_zero_based": 5,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -2.0451751403527396e-11,
+      "hgfx_clipped_step_omega2": -0.9988441139603741,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.9988441139399223,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 1.5401901976019872e-11,
+      "omega2_signed_decomposition_residual": 1.1102230246251565e-16,
+      "previous_omega2_signed_diff": 3.5853542357244805e-11,
+      "record_index_zero_based": 6,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -6.155544407526747e-10,
+      "hgfx_clipped_step_omega2": -0.08379094878907507,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.08379094817352063,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -6.001523722432012e-10,
+      "omega2_signed_decomposition_residual": 1.6653345369377348e-16,
+      "previous_omega2_signed_diff": 1.5401901976019872e-11,
+      "record_index_zero_based": 7,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -2.664770709648323e-09,
+      "hgfx_clipped_step_omega2": -0.2223731926465891,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.2223731899818184,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -3.2649229986247974e-09,
+      "omega2_signed_decomposition_residual": 8.326672684688674e-17,
+      "previous_omega2_signed_diff": -6.001523722432012e-10,
+      "record_index_zero_based": 8,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.0655234694567639e-08,
+      "hgfx_clipped_step_omega2": -0.47004556865423236,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.47004555799899767,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -1.3920157915237041e-08,
+      "omega2_signed_decomposition_residual": -2.220446049250313e-16,
+      "previous_omega2_signed_diff": -3.2649229986247974e-09,
+      "record_index_zero_based": 9,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -7.98986432570814e-11,
+      "hgfx_clipped_step_omega2": -0.9941755005941724,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.9941755005142737,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -1.4000056225427215e-08,
+      "omega2_signed_decomposition_residual": 3.3306690738754696e-16,
+      "previous_omega2_signed_diff": -1.3920157915237041e-08,
+      "record_index_zero_based": 10,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -7.832900994486636e-11,
+      "hgfx_clipped_step_omega2": -0.9941784996593925,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.9941784995810635,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -1.4078385568438989e-08,
+      "omega2_signed_decomposition_residual": -3.3306690738754696e-16,
+      "previous_omega2_signed_diff": -1.4000056225427215e-08,
+      "record_index_zero_based": 11,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.0859313448463581e-10,
+      "hgfx_clipped_step_omega2": -0.9940867056283402,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.9940867055197471,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -1.4186978702923625e-08,
+      "omega2_signed_decomposition_residual": 0.0,
+      "previous_omega2_signed_diff": -1.4078385568438989e-08,
+      "record_index_zero_based": 12,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 1.138153016277954e-07,
+      "hgfx_clipped_step_omega2": -0.9473220824769467,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.9473221962922483,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 9.962832248078257e-08,
+      "omega2_signed_decomposition_residual": -4.440892098500626e-16,
+      "previous_omega2_signed_diff": -1.4186978702923625e-08,
+      "record_index_zero_based": 13,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 7.657144374118019e-08,
+      "hgfx_clipped_step_omega2": -0.6246844709079585,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.6246845474794023,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 1.7619976677707427e-07,
+      "omega2_signed_decomposition_residual": 5.551115123125783e-16,
+      "previous_omega2_signed_diff": 9.962832248078257e-08,
+      "record_index_zero_based": 14,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -2.126782416844719e-09,
+      "hgfx_clipped_step_omega2": -0.9815899328246174,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.981589930697835,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 1.7407298535943028e-07,
+      "omega2_signed_decomposition_residual": 9.992007221626409e-16,
+      "previous_omega2_signed_diff": 1.7619976677707427e-07,
+      "record_index_zero_based": 15,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -4.691402044620929e-09,
+      "hgfx_clipped_step_omega2": -0.9695881923359866,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.9695881876445845,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 1.6938158253765323e-07,
+      "omega2_signed_decomposition_residual": -7.771561172376096e-16,
+      "previous_omega2_signed_diff": 1.7407298535943028e-07,
+      "record_index_zero_based": 16,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.6946671288486925e-08,
+      "hgfx_clipped_step_omega2": -0.9378845355170093,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": -0.937884518570338,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 1.524349109160994e-07,
+      "omega2_signed_decomposition_residual": -3.3306690738754696e-16,
+      "previous_omega2_signed_diff": 1.6938158253765323e-07,
+      "record_index_zero_based": 17,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -4.625914497013994e-07,
+      "hgfx_clipped_step_omega2": -0.22078990278152205,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": -0.22078944019007235,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -3.101565386742777e-07,
+      "omega2_signed_decomposition_residual": 1.1102230246251565e-16,
+      "previous_omega2_signed_diff": 1.524349109160994e-07,
+      "record_index_zero_based": 18,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.739109967147101e-10,
+      "hgfx_clipped_step_omega2": 0.9895957894451959,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": 0.9895957896191069,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -3.1033044933792553e-07,
+      "omega2_signed_decomposition_residual": 3.3306690738754696e-16,
+      "previous_omega2_signed_diff": -3.101565386742777e-07,
+      "record_index_zero_based": 19,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": -1.8367307674793665e-10,
+      "hgfx_clipped_step_omega2": 0.9944575974317718,
+      "hgfx_raw_direction_was_clipped": true,
+      "matlab_clipped_step_omega2": 0.9944575976154448,
+      "matlab_raw_direction_was_clipped": true,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": -3.1051412108240584e-07,
+      "omega2_signed_decomposition_residual": 1.3322676295501878e-15,
+      "previous_omega2_signed_diff": -3.1033044933792553e-07,
+      "record_index_zero_based": 20,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "clipped_step_omega2_signed_diff": 6.830737466767545e-07,
+      "hgfx_clipped_step_omega2": 0.656735228182627,
+      "hgfx_raw_direction_was_clipped": false,
+      "matlab_clipped_step_omega2": 0.6567345451088803,
+      "matlab_raw_direction_was_clipped": false,
+      "neither_step_measured_as_instrumented_line_search_event": true,
+      "observed_next_omega2_signed_diff": 3.7255962581639324e-07,
+      "omega2_signed_decomposition_residual": 2.220446049250313e-16,
+      "previous_omega2_signed_diff": -3.1051412108240584e-07,
+      "record_index_zero_based": 21,
+      "status": "SOURCE_NONTERMINAL_STORED_TRANSITION"
+    },
+    {
+      "record_index_zero_based": 22,
+      "status": "TERMINAL_OVERWRITE_UNSAFE_AS_ACCEPTANCE_EVIDENCE"
+    },
+    {
+      "record_index_zero_based": 23,
+      "status": "TERMINAL_OVERWRITE_UNSAFE_AS_ACCEPTANCE_EVIDENCE"
+    }
+  ],
+  "source_history_allocated_slots": 101,
+  "source_history_populated_slots": 25,
+  "status": "AUTHOR_SIDE_ORIGINAL_OMEGA2_25_HISTORY_NOT_CAUSAL_OR_SCIENTIFIC_PASS",
+  "subject_index_zero_based": 7
+}

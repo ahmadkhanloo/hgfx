@@ -1,0 +1,127 @@
+name: PERF-01D same-host full fitting diagnostic (no timers)
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/fit_hgfx_preflight.py'
+      - 'benchmarks/runtime_v1/matlab/fit_matlab_preflight.m'
+      - 'benchmarks/runtime_v1/compare_fits.py'
+      - '.github/workflows/perf01-fit-preflight.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fit-preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify release, canonical inputs, and recorded trialwise preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("work/benchmarks/runtime_v1/trialwise_results/summary-41854644533.json")
+          x=json.loads(f.read_text())
+          assert x["counts"] == {
+            "BOTH_FAILED_FIRST_INVALID_PREFIX_AGREES_UNVERIFIED_MECHANISM":3,
+            "FULL_TRIALWISE_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE":7,
+          }
+          print("Prospective trialwise diagnostic present; scientific gate still open")
+          PY
+
+      - name: HGFX full fitting on eligible 128-trial cell
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/fit_hgfx_preflight.py \
+            --input work/benchmarks/runtime_v1 \
+            --output work/benchmarks/runtime_v1/fitting_results/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: MATLAB full fitting on same eligible 128-trial cell
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); fit_matlab_preflight(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','fitting_results','matlab_raw.json'))"
+
+      - name: Classify fitting scope and numerical outputs
+        id: compare
+        continue-on-error: true
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/compare_fits.py \
+            --hgfx work/benchmarks/runtime_v1/fitting_results/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/fitting_results/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/fitting_results/comparison.json
+
+      - name: Retain original successful and failed raw outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-fit-preflight-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/fitting_results/
+          if-no-files-found: warn
+
+      - name: Record summary with raw evidence checksums in repository
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f work/benchmarks/runtime_v1/fitting_results/comparison.json; then
+            python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/fitting_results")
+          x=json.loads((root/"comparison.json").read_text())
+          x["github_run_id"]="${{ github.run_id }}"
+          x["raw_evidence_sha256"]={
+            name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+            for name in ("hgfx_raw.json","matlab_raw.json") if (root/name).is_file()
+          }
+          x["raw_evidence_location"]="GitHub Actions artifact perf01-fit-preflight-${{ github.run_id }}"
+          (root/"summary-${{ github.run_id }}.json").write_text(json.dumps(x,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          PY
+            git -C work config user.name 'github-actions[bot]'
+            git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C work add benchmarks/runtime_v1/fitting_results/summary-${{ github.run_id }}.json
+            git -C work commit -m 'evidence(perf01): retain 128-trial fit diagnostic ${{ github.run_id }}'
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi
+
+      - name: Fail diagnostic on unresolved fitting mismatch
+        if: always()
+        env:
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: |
+          if test "$COMPARE_OUTCOME" = "failure"; then
+            echo "Fitting mismatch remains; preserve failed result and classify."
+            exit 1
+          fi

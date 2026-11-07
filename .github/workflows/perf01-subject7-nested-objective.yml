@@ -1,0 +1,124 @@
+name: "PERF-01D frozen private MATLAB fitModel objective at 50 actual historic anchors (UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-nested-objective.yml'
+      - 'benchmarks/runtime_v1/subject7_nested_fitmodel_objective.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_nested_objective_matlab.m'
+      - 'tests/test_perf01_subject7_nested_objective.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  real-frozen-nested-objective-capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Original source code identities, 12 negative/positive controls, frozen data
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_nested_objective.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+      - name: Download six REAL old full-fitting raw files and verify original immutable source bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/13528955307" --jq '.digest')" = \
+            'sha256:ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c'
+          mkdir -p source-six output
+          gh run download 42268256755 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-same-runner-matlab-hgfx-42268256755 \
+            --dir source-six
+          echo '2133b60ca7dcd51b85d93dfad109f715bd8fe35fa71c2bd84ff4a63cac672139  source-six/matlab_raw.json' | sha256sum -c -
+      - name: Predeclare every real MATLAB history record 0..24 TIMES TWO before new scientific evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_nested_fitmodel_objective.py \
+            --stage prepare --root work/benchmarks/runtime_v1 \
+            --source-six source-six \
+            --anchors output/prespecified-50-original-anchors.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("output/prespecified-50-original-anchors.json").read_bytes())
+          assert d["source_original_fitting"]=="63/64 NONPASS"
+          assert d["counts"]=={"MATLAB_1":25,"MATLAB_2":25}
+          assert len(d["cases"])==50
+          assert d["anchor_indices_zero_based"]==list(range(25))
+          assert d["perf01c"]=="NOT_FROZEN"
+          print("Prespecified 50/50 anchor occurrences including duplicates; no new data choice.")
+          PY
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Capture ACTUAL MATLAB nested private obj_fun through public config, then delegate unchanged original optimizer
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_nested_objective_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'output','prespecified-50-original-anchors.json'),fullfile(pwd,'output','real-matlab-nested-objective.json'))"
+      - name: All 50 exact-vector HGFX original objective values + all 28 output neutrality controls, no fitting or timer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_nested_fitmodel_objective.py \
+            --stage compare --root work/benchmarks/runtime_v1 \
+            --source-six source-six \
+            --anchors output/prespecified-50-original-anchors.json \
+            --matlab output/real-matlab-nested-objective.json \
+            --output output/nested-vs-hgfx-50-pair-diagnostic.json
+          python - <<'PY'
+          from pathlib import Path
+          import json,os
+          p=Path("output/nested-vs-hgfx-50-pair-diagnostic.json")
+          d=json.loads(p.read_bytes())
+          assert d["original_strict_fit_gate"]=="63/64 NONPASS"
+          assert d["anchor_occurrences"]==d["matlab_nested_evaluated_count"]==50
+          assert d["independent_scientific_review"]=="NOT_RECEIVED"
+          assert d["perf01c"]=="NOT_FROZEN" and d["timing"]=="NOT_RUN"
+          assert d["native_vs_instrumented_matlab_public_full_28_fields"]["field_count"]==28
+          d["executed_source_sha"]=os.environ["GITHUB_SHA"]
+          d["executed_run_id"]=os.environ["GITHUB_RUN_ID"]
+          p.write_text(json.dumps(d,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print("Exact native nested objective evidence retained, no new scientific fitting parity PASS.")
+          PY
+      - name: Keep raw 50-point source, real nested MATLAB output, all numerical comparisons EVEN on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-nested-matlab-hgfx-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn

@@ -1,0 +1,26 @@
+# PERF-01D: prospectively specified SAME-RUNNER original-subject-7 MATLAB/HGFX diagnostic (2026-11-06)
+
+**STATE: PRESPECIFICATION ONLY, BEFORE NEW SCIENTIFIC EXECUTION. NOT FROZEN PERF-01C, NOT AN ELIGIBILITY RECLASSIFICATION, NO PERFORMANCE TIMERS.**
+
+## Rationale and immutable originals
+
+All preceding source-locked ABBA v2 fits used four HGFX public full fits on the same GitHub CPU runner, but compared them to original MATLAB outputs from historical run **41863441006 on a different runner**. This is a scientific numerical-path attribution confound, not proof of reference limitation. No successful source-matched CPU/MATLAB pairing on the ABBA runner was previously available. The original 64-subject full fitting **63/64 NONPASS** remains immutable: subject zero-based **7**, four `traj.mu` and four `traj.muhat` cells failing the old `rtol=3e-8, atol=3e-10` trajectory threshold.
+
+All trialwise input bytes, original 15-parameter transformed start, no-restart policy, model `hgf_binary + unitsq_sgm`, horizon **128**, subject **7**, HGFX v1.0.0 source **4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27** and MATLAB HGF toolbox 8.2.0 source **2437f4dc241541072722a2695ddeca7b44d83dd3** are mandatory. MATLAB R2026a, NumPy 2.3.5, `OPENBLAS_NUM_THREADS=4`, CPU-only JAX, run on **one** Ubuntu GitHub Actions runner. MATLAB uses its own BLAS/runtime: **same VM runner does not imply same linear algebra kernels or exactly matching thread affinity**.
+
+## Experiment, before observing outcomes
+
+1. Download and hash-check BOTH original 64-subject full-fit raw exports from 41863441006; verify the published 63/64 counts, source commits, original subject-7 mismatch and original input/config SHA.
+2. Verify canonical input/config byte generator; use **only unchanged subject index 7**.
+3. Predeclare **four** HGFX full public `fit_model` processes in fixed order: **SkylakeX_1, Haswell_1, Haswell_2, SkylakeX_2**. Pin them to the same first four allowed logical CPUs; verify effective OpenBLAS architecture/version and environment per process, with archived raw SHA. Do **not** retry only the best-result mode, change optimizers, fit fields, starts, seeds, hardware or subjects after inspecting outputs.
+4. In that very SAME Actions job/VM, run frozen MATLAB public `fitModel` **twice in one MATLAB session** with identical default options, same original subject/input, and console captured only because this is untimed. Validate installed model resolution path belongs to frozen checkout, all **15 public optim fields plus 11 trajectory fields** retained, exact original start, nRandInit=0, whole 101-slot optimization-history buffer and finite slot count recorded. The two copies are compared bitwise after normalized JSON float64 conversion, retaining divergent cases as failures.
+5. Independently recompute **all 8 HGFX-vs-fresh-MATLAB paired 28-field contrasts** (4×2), both within-source-repeat comparisons, all four versus the ORIGINAL archived MATLAB and the two new MATLAB fits versus the original archived MATLAB; original `compare_subject7_full_fit_trajectories.compare_pair` unchanged, all **28** fitting fields and previous field-specific tolerances unchanged. Retain all failures and actual first differing trial; no median/selective best-run report.
+6. Record hardware, CPU allowed set and affinity for HGFX, MATLAB execution host name, runner ID, MATLAB release, source path, process/environment thread policy, exact raw SHA256, source commit and every numerical comparison. Archive full raw JSON even if numerical parity fails. A comparator *observing scientific mismatch is data*; it must not erase evidence. A test/infrastructure failure remains red and diagnosed, not recast as a good scientific result.
+
+## Acceptance and valid interpretations
+
+**ENGINEERING PASS** only if exact source, raw evidence, complete 4+2 attempted original public fits, six environment records, model/start identity and all derived comparisons are preserved. It does not require a favorable numerical parity result. **SCIENTIFIC PAIR COMPARISON** reports each 28-field outcome using unchanged old original field-specific tolerances. A result outside tolerance remains **NONPASS**; the original 63/64 cohort failure cannot be overwritten even if a new pair is concordant. A newly concordant pair cannot establish general optimizer identifiability without an independent reviewer and prospective policy. Same-host GitHub correctness conditions do NOT establish fair *performance* CPU affinity or uncontended timing, and MATLAB/OpenBLAS kernel and thread policy differences must be disclosed.
+
+**No new MATLAB/GPU time measurement, no new benchmark speed claim, no reclassification of 28-case prefreeze matrix (16 review-pending / 12 blocked), no PERF-01C freeze**, and no modification to original frozen product or MATLAB toolbox. Preserve all failed historical experiments, and provide the exact Actions run and successful/failed status to Issue #88/#89/#90 and PR #87.
+
+**If environment/Licensing/toolbox checkout fails:** preserve failure as BLOCKED_ENVIRONMENT, do not downgrade standards or shrink the fixed set. Independent scientific adjudication under Issue #88 remains necessary regardless of the observed numerical outcomes.

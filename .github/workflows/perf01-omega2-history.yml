@@ -1,0 +1,108 @@
+name: PERF-01D original subject7 omega2 optimizer history (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-omega2-history.yml'
+      - 'benchmarks/runtime_v1/derive_subject7_omega2_history.py'
+      - 'tests/test_perf01_subject7_omega2_history.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01d-omega2-history-frozen-original
+  cancel-in-progress: false
+
+jobs:
+  immutable-25-optimizer-record-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Original final-fit tolerance and signed-history synthetic controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.3.5'
+          python -m unittest discover -s work/tests -p test_perf01_subject7_omega2_history.py -v
+          python -m unittest discover -s work/tests -p test_perf01_bfgs_branch_derived.py -v
+          python -m unittest discover -s work/tests -p test_perf01_direction_decomposition.py -v
+
+      - name: Restore original exact BFGS public fit and prior successful branch auditor
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original
+          test -f original/summary.json
+          test -f original/comparison.json
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+          test -f work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json
+
+      - name: Analyze only 25 recorded omega2 states and 22 source-verifiable steps
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/derive_subject7_omega2_history.py \
+            --source original \
+            --branch work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json \
+            --output "work/benchmarks/runtime_v1/subject7_bfgs_results/derived-omega2-history-42187240378.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("work/benchmarks/runtime_v1/subject7_bfgs_results/derived-omega2-history-42187240378.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_ORIGINAL_OMEGA2_25_HISTORY_NOT_CAUSAL_OR_SCIENTIFIC_PASS"
+          assert r["original_bfgs_run"]=="42187240378"
+          assert r["source_history_populated_slots"]==25
+          assert len(r["all_25_original_populated_history_records"])==25
+          assert r["safe_nonterminal_transition_indices"]==list(range(22))
+          assert r["excluded_terminal_transition_indices"]==[22,23]
+          assert r["all_25_original_populated_history_records"][0]["omega2_signed_diff"]==0
+          assert r["original_scientific_result"].startswith("63/64")
+          print(json.dumps({
+              "run":"42187240378",
+              "first_exact_omega2":r["first_exact_binary64_omega2_record_difference"],
+              "first_descriptive_outside_final_fit_tolerance":r["first_omega2_difference_beyond_inherited_FINAL_fit_tolerance_DESCRIPTIVE_ONLY"],
+              "original_final_omega2_diff":r["original_final_omega2_signed_diff"],
+              "max_history_omega2_diff":r["max_recorded_omega2_difference"],
+              "same_science":"63/64 NON-PASS; no timing",
+          },sort_keys=True))
+          PY
+
+      - name: Preserve original-derived omega2 evidence even on failed validation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-original-omega2-history-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_bfgs_results/derived-omega2-history-42187240378.json
+          if-no-files-found: warn
+
+      - name: Commit new derived report only; preserve all original raw SHA256 evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add benchmarks/runtime_v1/subject7_bfgs_results/derived-omega2-history-42187240378.json
+          if ! git -C work diff --cached --quiet; then
+            git -C work commit -m 'evidence(perf01d): preserve original 25-slot omega2 fit path without scientific promotion'
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi

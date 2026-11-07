@@ -1,0 +1,78 @@
+name: PERF-01D immutable BFGS curvature replay (no optimization or timers)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-bfgs-branch-derived.yml'
+      - 'benchmarks/runtime_v1/derive_subject7_bfgs_branch.py'
+      - 'tests/test_perf01_bfgs_branch_derived.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01-subject7-bfgs-branch-archive
+  cancel-in-progress: false
+
+jobs:
+  archived-curvature-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: BFGS branch algebra/denominator regression
+        run: |
+          python -m pip install "numpy==2.3.5"
+          python -m unittest discover -s work/tests -p test_perf01_bfgs_state.py -v
+          python -m unittest discover -s work/tests -p test_perf01_bfgs_branch_derived.py -v
+
+      - name: Verify both original raw BFGS source SHAs and preserve historical report
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original
+          test -f original/summary.json
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+          test -f original/comparison.json
+          python work/benchmarks/runtime_v1/derive_subject7_bfgs_branch.py \
+            --archive original \
+            --output work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json
+
+      - name: Archive separate derived source-anchored scientific evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-bfgs-branch-derived-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json
+          if-no-files-found: warn
+
+      - name: Commit new derived file without mutating historical raw artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          file=benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json
+          git -C work add "$file"
+          if git -C work diff --cached --quiet; then
+            echo "Derived file already committed; no changes"
+          else
+            git -C work commit -m "evidence(perf01d): preserve immutable BFGS curvature and reconstructed full steps"
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi

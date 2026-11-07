@@ -1,0 +1,119 @@
+name: PERF-01D trialwise same-host MATLAB vs HGFX diagnostics
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/trialwise_hgfx_export.py'
+      - 'benchmarks/runtime_v1/matlab/trialwise_matlab_export.m'
+      - 'benchmarks/runtime_v1/compare_trialwise.py'
+      - '.github/workflows/perf01-trialwise.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  trialwise:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify exact source identities, inputs and installs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+
+      - name: Export raw HGFX trialwise vectors and sequential prefix observations
+        run: |
+          python work/benchmarks/runtime_v1/trialwise_hgfx_export.py \
+            --input work/benchmarks/runtime_v1 \
+            --output work/benchmarks/runtime_v1/trialwise_results/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Export raw MATLAB trialwise vectors and sequential prefix observations
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); trialwise_matlab_export(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','trialwise_results','matlab_raw.json'))"
+
+      - name: Compare all 10 exact stage cells without performance testing
+        id: compare
+        continue-on-error: true
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/compare_trialwise.py \
+            --hgfx work/benchmarks/runtime_v1/trialwise_results/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/trialwise_results/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/trialwise_results/comparison.json
+
+      - name: Preserve raw dataset and reports even on mismatch
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-trialwise-run-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/trialwise_results/
+          if-no-files-found: warn
+
+      - name: Commit trialwise comparison summary and raw SHA-256 provenance
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=work/benchmarks/runtime_v1/trialwise_results
+          if test -f "$root/comparison.json"; then
+            python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/trialwise_results")
+          summary=json.loads((root/"comparison.json").read_text())
+          summary["raw_evidence_sha256"]={
+            k:hashlib.sha256((root/k).read_bytes()).hexdigest()
+            for k in ("hgfx_raw.json","matlab_raw.json") if (root/k).is_file()
+          }
+          summary["github_run_id"]="${{ github.run_id }}"
+          summary["raw_evidence_location"]="GitHub Actions artifact perf01-trialwise-run-${{ github.run_id }}"
+          out=Path("work/benchmarks/runtime_v1/trialwise_results/summary-${{ github.run_id }}.json")
+          out.write_text(json.dumps(summary,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          PY
+            git -C work config user.name 'github-actions[bot]'
+            git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C work add benchmarks/runtime_v1/trialwise_results/summary-${{ github.run_id }}.json
+            git -C work commit -m 'evidence(perf01): retain trialwise MATLAB-HGFX summary ${{ github.run_id }}'
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          else
+            echo "No comparison summary was produced; inspect artifact and logs."
+          fi
+
+      - name: Keep numerical mismatches as failed validation (not a PASS)
+        if: always()
+        env:
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        run: |
+          if test "$COMPARE_OUTCOME" = "failure"; then
+            echo "Trialwise diagnostic mismatch: evidence was retained."
+            exit 1
+          fi

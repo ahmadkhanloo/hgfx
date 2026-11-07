@@ -1,0 +1,142 @@
+name: PERF-01D 64-subject full fitting scientific preflight (not timed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/fit_cohort_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/fit_cohort_matlab.m'
+      - 'benchmarks/runtime_v1/compare_fit_cohort.py'
+      - '.github/workflows/perf01-cohort-fitting.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: perf01-cohort-fit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cohort-fit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: true
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify product, MATLAB oracle and exact canonical inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          o=json.loads(Path("work/benchmarks/runtime_v1/cohort_results/summary-41860187774.json").read_bytes())
+          r=[s for s in o["strata"] if s["model"]=="hgf_binary" and s["trials"]==128
+             and s["submitted_subjects"]==64]
+          assert len(r)==1 and r[0]["completed_scalar_pairs"]==64
+          print("Existing cohort fixed-vector parity evidence verified, fitting is separate")
+          PY
+
+      - name: Run 64 unchanged HGFX 128-trial full fits with failure accounting
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/fit_cohort_hgfx.py \
+            --input work/benchmarks/runtime_v1 \
+            --output work/benchmarks/runtime_v1/fit_cohort_results/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Run same 64 unchanged MATLAB 128-trial full fits
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); fit_cohort_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','fit_cohort_results','matlab_raw.json'))"
+
+      - name: Compare full fitModel outputs including numerical and iteration status
+        id: compare
+        continue-on-error: true
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/compare_fit_cohort.py \
+            --hgfx work/benchmarks/runtime_v1/fit_cohort_results/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/fit_cohort_results/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/fit_cohort_results/comparison.json
+
+      - name: Preserve all raw successful and failed fits as run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-64-full-fits-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/fit_cohort_results/
+          if-no-files-found: warn
+
+      - name: Store source-anchored and unmodified case report on PR branch
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=work/benchmarks/runtime_v1/fit_cohort_results
+          if test -f "$root/comparison.json"; then
+            python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/fit_cohort_results")
+          report=json.loads((root/"comparison.json").read_text())
+          report["github_run_id"]="${{ github.run_id }}"
+          report["raw_evidence_sha256"]={
+            n:hashlib.sha256((root/n).read_bytes()).hexdigest()
+            for n in ("hgfx_raw.json","matlab_raw.json") if (root/n).exists()
+          }
+          report["raw_evidence_location"]="GitHub Actions artifact perf01-64-full-fits-${{ github.run_id }}"
+          (root/"summary-${{ github.run_id }}.json").write_text(
+            json.dumps(report,sort_keys=True,indent=2,allow_nan=False)+"\n",
+            encoding="utf-8")
+          PY
+            git -C work config user.name 'github-actions[bot]'
+            git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C work add benchmarks/runtime_v1/fit_cohort_results/summary-${{ github.run_id }}.json
+            git -C work commit -m 'evidence(perf01): preserve complete 64-subject fitting diagnostic ${{ github.run_id }}'
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          else
+            echo "No paired comparison summary; see original artifact and run logs"
+          fi
+
+      - name: Scientific mismatch is an unpassed gate even if outputs were archived
+        if: always()
+        env:
+          COMPARE_OUTCOME: ${{ steps.compare.outcome }}
+        shell: bash
+        run: |
+          if test "$COMPARE_OUTCOME" = "failure"; then
+            echo "Fitting numerical parity is not satisfied; failures retained."
+            exit 1
+          fi

@@ -1,0 +1,78 @@
+name: PERF-01D derive immutable original subject-7 optimizer trace (no timers)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-trace-derived-evidence.yml'
+      - 'benchmarks/runtime_v1/derive_optimizer_trace_evidence.py'
+      - 'benchmarks/runtime_v1/compare_optimizer_trace_subject7.py'
+      - 'tests/test_perf01_optimizer_trace.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01-subject7-trace-archive
+  cancel-in-progress: false
+
+jobs:
+  derive-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify static trace comparator and fail-closed regression tests
+        run: |
+          python -m pip install "numpy==2.3.5"
+          python -m unittest discover -s work/tests -p 'test_perf01_optimizer_trace.py' -v
+
+      - name: Download immutable original same-host MATLAB/HGFX trace artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42115887599 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-optimizer-trace-42115887599 --dir original
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+          test -f original/summary.json
+          python work/benchmarks/runtime_v1/derive_optimizer_trace_evidence.py \
+            --archive original \
+            --output work/benchmarks/runtime_v1/subject7_optimizer_trace_results/derived-42115887599.json
+
+      - name: Archive derived report independently of original raw artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-trace-derived-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_optimizer_trace_results/derived-42115887599.json
+          if-no-files-found: warn
+
+      - name: Commit newly derived source-specific record, never replace original
+        shell: bash
+        run: |
+          set -euo pipefail
+          path=benchmarks/runtime_v1/subject7_optimizer_trace_results/derived-42115887599.json
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "$path"
+          if git -C work diff --cached --quiet; then
+            echo "Already archived; existing derived record retained"
+          else
+            git -C work commit -m "evidence(perf01d): archive subject-7 first optimizer drift and buffers"
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi

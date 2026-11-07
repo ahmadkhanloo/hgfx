@@ -1,0 +1,78 @@
+{
+  "schema": "perf01d-nested-real-matlab-50-anchor-archive-summary-v1",
+  "status": "AUTHOR_SIDE_DIRECT_PRIVATE_MATLAB_OBJECTIVE_EVIDENCE_PASS_NOT_SCIENTIFIC_PARITY",
+  "prespecification_commit": "addce9238e87f1a359c963d0b2990c0f9cb9eedf",
+  "run_id": "42295760572",
+  "run_status": "SUCCESS",
+  "executed_commit_sha": "7cb33c660097112b53e11314beb783636e975cf4",
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "matlab_release": "2026a",
+  "matlab_version": "26.1.0.3346908 (R2026a) Update 5",
+  "original_fit_run": "42268256755",
+  "original_fit_matlab_raw_sha256": "2133b60ca7dcd51b85d93dfad109f715bd8fe35fa71c2bd84ff4a63cac672139",
+  "artifact_id": 13542495603,
+  "artifact_sha256": "c004076e22678c71559d4e1c571315017d6dc02665fc917c8b4401dcbaf46db5",
+  "artifact_files_sha256": {
+    "prespecified-50-original-anchors.json": "29d49a925660a64c4333e40866ef80c4f0bc871dea20b019b6fa224d4ca18c0f",
+    "real-matlab-nested-objective.json": "37be7f7a30fe62ce2e59cc8fd4483100ad6e59eb79791826478c31586736a5dd",
+    "nested-vs-hgfx-50-pair-diagnostic.json": "f1d295ecf10fd88e3d6639c107d1fe05004423169de4b6261e22a25a3a228e42"
+  },
+  "source_original_public_fit_subject_index_zero_based": 7,
+  "source_original_full_public_64_subject_classification": "63/64 SCIENTIFIC NONPASS",
+  "source_model": "hgf_binary + unitsq_sgm",
+  "source_trial_count": 128,
+  "source_unchanged_free_parameter_indices_zero_based": [
+    12,
+    13,
+    14
+  ],
+  "source_matlab_optimizer_histories": 2,
+  "finite_anchors_per_original_history": 25,
+  "predeclared_anchor_occurrences": 50,
+  "evaluated_anchor_occurrences": 50,
+  "unique_parameter_vectors": 24,
+  "same_origin_matlab_archived_history_equal": 50,
+  "objective_delta_nonzero_occurrences": 14,
+  "objective_delta_zero_occurrences": 36,
+  "maximum_absolute_objective_difference": 2.842170943040401e-14,
+  "maximum_matlab_ulp_distance": 2,
+  "maximum_ratio_using_original_final_vector_tolerance_as_descriptive_lens": 9.022305120778346e-9,
+  "original_tolerance_was_not_objective_acceptance_criterion": true,
+  "instrumented_matlab_vs_native_28_fields": {
+    "total_fields": 28,
+    "failed_original_tolerance_fields": 0,
+    "all_serialized_binary64_equal": true
+  },
+  "nested_callback_invocations": 1,
+  "original_frozen_optimizer_delegated": true,
+  "preflight_synthetic_tests_passed": 12,
+  "historical_attempts": [
+    {
+      "run_id": 42289559328,
+      "conclusion": "FAILURE",
+      "reason": "MATLAB jsondecode anchor index row/column shape checker",
+      "artifact_id": 13538034790
+    },
+    {
+      "run_id": 42290004888,
+      "conclusion": "FAILURE",
+      "reason": "MATLAB evalc static workspace undeclared fit output",
+      "artifact_id": 13540248359
+    },
+    {
+      "run_id": 42295760572,
+      "conclusion": "SUCCESS",
+      "reason": "strict 50 anchors, direct objective capture, original optimizer delegation, full 28-field binary64 neutrality",
+      "artifact_id": 13542495603
+    }
+  ],
+  "same_runner_eight_hgfx_matlab_pairs": "8/8 original-tolerance scientific NONPASS, separate source run 42268990557",
+  "predeclared_28_case_workload_eligibility": "16 REVIEW PENDING / 12 BLOCKED",
+  "independent_scientific_review": "NOT_RECEIVED",
+  "perf01c": "NOT_FROZEN",
+  "final_timing": "NOT_RUN",
+  "gpu_validation": "NOT_CLAIMED",
+  "scientific_identifiability": "NOT_ADJUDICATED",
+  "result_scope": "Author-side exact original-vector private nested MATLAB scalar function agreement; not a full numerical optimizer-path oracle"
+}

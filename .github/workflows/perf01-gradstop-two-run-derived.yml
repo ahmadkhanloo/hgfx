@@ -1,0 +1,138 @@
+name: PERF-01D subject7 grad-stop source margin and two-run replay (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-gradstop-two-run-derived.yml'
+      - 'benchmarks/runtime_v1/derive_subject7_gradstop_repeatability.py'
+      - 'tests/test_perf01_subject7_gradstop_repeatability.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01d-gradstop-two-run-raw-immutable
+  cancel-in-progress: false
+
+jobs:
+  hash-locked-raw-source-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Frozen source identity and all fail-closed diagnostic controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_gradstop_repeatability.py -v
+          python -m unittest discover -s work/tests -p test_perf01_subject7_native_termination.py -v
+          python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
+          python -m unittest discover -s work/tests -p test_perf01_bfgs_branch_derived.py -v
+
+      - name: Restore three immutable prior success-run source artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p old-bfgs native-a native-b
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir old-bfgs
+          gh run download 42232378487 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-native-termination-42232378487 --dir native-a
+          gh run download 42232421468 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-native-termination-42232421468 --dir native-b
+          for where in old-bfgs native-a native-b; do
+            test -f "$where/hgfx_raw.json"
+            test -f "$where/matlab_raw.json"
+          done
+          test -f old-bfgs/summary.json
+          test -f old-bfgs/comparison.json
+          test -f native-a/derived-native-termination-42232378487.json
+          test -f native-b/derived-native-termination-42232421468.json
+          test -f work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json
+
+      - name: Recheck source SHA256 and original Ridders terminal convergence margins
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/derive_subject7_gradstop_repeatability.py \
+            --bfgs old-bfgs \
+            --branch work/benchmarks/runtime_v1/subject7_bfgs_results/derived-42187240378.json \
+            --native-first native-a \
+            --native-second native-b \
+            --output "out/derived-gradstop-two-run-${{ github.run_id }}.json"
+          python - <<'PY'
+          from pathlib import Path
+          import json,os
+          p=Path("out/derived-gradstop-two-run-${{ github.run_id }}.json")
+          j=json.loads(p.read_bytes())
+          assert j["status"]=="AUTHOR_SIDE_SOURCE_NATIVE_GRADIENT_MARGIN_AND_TWO_RUN_REPLAY_NOT_SCIENTIFIC_PASS"
+          assert j["native_run_ids"]==["42232378487","42232421468"]
+          assert j["original_64_scientific_full_fit"].startswith("63/64 NONPASS")
+          assert j["matlab_two_run_raw_sha_exact_same"] is True
+          assert j["hgfx_two_run_raw_sha_exact_same"] is False
+          assert j["threshold_source_tolGrad"]==1e-3
+          assert j["hgfx_two_run_direct_history"]["first_differing_index_zero_based"]==[2,0]
+          assert all(j["gradient_terminal_own_engine_states"][e]["23"]["source_tolGrad_metric"]<1e-3
+                     for e in ("hgfx","matlab"))
+          assert all(j["gradient_terminal_own_engine_states"][e]["22"]["source_tolGrad_metric"]>1e-3
+                     for e in ("hgfx","matlab"))
+          assert all(j["hgfx_two_run_full_trialwise_11_fields"][k]
+                     ["HGFX_run_first_vs_MATLAB_mismatched_cells_OLD_TOL"]==4
+                     for k in ("mu","muhat"))
+          j["derived_run_id"]=os.environ["GITHUB_RUN_ID"]
+          j["derived_tested_sha"]=os.environ["GITHUB_SHA"]
+          p.write_text(json.dumps(j,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print(json.dumps({
+              "status":j["status"],
+              "raw_sources_sha256":j["native_raw_sha256_each"],
+              "gradient_last_hgfx":j["gradient_terminal_own_engine_states"]["hgfx"]["23"]["source_tolGrad_metric"],
+              "gradient_last_matlab":j["gradient_terminal_own_engine_states"]["matlab"]["23"]["source_tolGrad_metric"],
+              "HGFX_two_run_first_drift":j["hgfx_two_run_direct_history"]["first_differing_index_zero_based"],
+              "HGFX_max_final_abs_drift":j["hgfx_two_run_public_final"]["maximum_absolute_difference"],
+              "MATLAB_raw_byte_identical":j["matlab_two_run_raw_sha_exact_same"],
+              "scientific_gate":"63/64 FULL FIT NON-PASS, NO TIMING",
+          },sort_keys=True))
+          PY
+
+      - name: Preserve new derived evidence whether validation passes or fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-gradstop-two-run-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit separate immutable derived evidence (never modify original history)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-gradstop-two-run-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-gradstop-two-run-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-gradstop-two-run-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve original-source gradstop margin and two-run raw drift'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
