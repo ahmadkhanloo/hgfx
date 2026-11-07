@@ -1,0 +1,137 @@
+name: "PERF-01D actual HGFX+MATLAB same-runner source calls (AUTHOR-SIDE, UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-same-runner-hgfx-matlab-calls
+    paths:
+      - '.github/workflows/perf01-same-runner-source-calls.yml'
+      - 'benchmarks/runtime_v1/hgfx_actual_optimizer_calls.py'
+      - 'benchmarks/runtime_v1/compare_same_runner_actual_optimizer_calls.py'
+      - 'tests/test_perf01_same_runner_actual_source_calls.py'
+      - 'docs/research/PERF01D_SAME_RUNNER_REAL_OPTIMIZER_CALLS_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  same-physical-runner:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: frozen-matlab
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen sources and 15 source-call/branch negative controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C frozen-matlab rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_same_runner_actual_source_calls.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download unchanged original BFGS raw archive and original 63/64 failed public fit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json').read_bytes())
+          assert x['subject_count']==64
+          assert x['classification_counts']=={
+              'FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES':63,
+              'FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH':1}
+          assert x['cases'][7]['mismatched_fields']==['traj.mu','traj.muhat']
+          assert all(x['cases'][7]['fields'][k]['mismatch_count']==4
+                     for k in ('traj.mu','traj.muhat'))
+          print('Original 63/64 scientific full-fit NONPASS preserved, 4+4 subject 7.')
+          PY
+      - name: ACTUAL original HGFX full native and wrapped fit, source calls and executed branch bodies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/hgfx_actual_optimizer_calls.py \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs original-bfgs \
+            --output output/actual-frozen-hgfx-original-optimizer-source-calls.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: ACTUAL original MATLAB full native and wrapped fit on THIS runner, private source calls
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_actual_optimizer_calls_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'frozen-matlab'),fullfile(pwd,'output','actual-frozen-matlab-optimizer-source-calls.json'),fullfile(pwd,'output','matlab-native-and-wrapped-26-plus-iter.mat'))"
+      - name: Independently audit actual two source callstreams and MATLAB raw neutral public fits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_same_runner_actual_optimizer_calls.py \
+            --hgfx output/actual-frozen-hgfx-original-optimizer-source-calls.json \
+            --matlab output/actual-frozen-matlab-optimizer-source-calls.json \
+            --matlab-mat output/matlab-native-and-wrapped-26-plus-iter.mat \
+            --matlab-source frozen-matlab/core/quasinewton_optim.m \
+            --hgfx-frozen-source frozen-hgfx/src/hgfx/optim/compat_quasinewton.py \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/independent-same-runner-source-comparison.json
+      - name: Persist raw source evidence SHA-256 and all failed attempts
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          folder=Path('output')
+          checks={x.name:hashlib.sha256(x.read_bytes()).hexdigest()
+                  for x in folder.iterdir() if x.is_file() and x.name!='provenance.json'}
+          meta={
+            'schema':'perf01d-same-runner-raw-source-provenance-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_sha':'b9c8a1be17ba46104add2113ecba3fde4f246040',
+            'old_original_bfgs_run':'42187240378',
+            'original_full_fit_science':'63/64 SCIENTIFIC NONPASS',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'review':'NOT_RECEIVED','perf01c':'NOT_FROZEN',
+            'paper_runtime':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'sha256':checks,
+          }
+          (folder/'provenance.json').write_text(json.dumps(meta,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(checks,sort_keys=True))
+          PY
+      - name: Upload all unmodified paired raw objective callstreams, comparator and failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-same-runner-hgfx-matlab-source-calls-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
