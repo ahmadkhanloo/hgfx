@@ -21,6 +21,27 @@ git show -s --format='%H %an <%ae> %ai' HEAD
 
 Record the **actual full reviewed commit SHA**, rather than an assumed current head. If the PR advances after checkout, do not claim to have reviewed those later commits without repeating the relevant diff audit. Compare current base `main` SHA to the review commit and record both.
 
+## 2026-11-08 — review BOTH canonical benchmark candidate and later diagnostic handoff
+
+The original checkout example above targets PR #87 **as it existed when this instruction file was written**. It must **not** be interpreted as covering later research and numerical policy-triage revisions by default. The independently reviewable current evidence is split between:
+
+- [PR #87](https://github.com/ahmadkhanloo/hgfx/pull/87): original PERF-01 benchmark candidate, now ready for GitHub review (not draft). Check out **its actual current head**.
+- [PR #99](https://github.com/ahmadkhanloo/hgfx/pull/99): stacked **DRAFT** original numerical diagnosis and policy/decision handoff, with [28-case unsigned decision worksheet](PERF01C_28_CASE_INDEPENDENT_DECISION_WORKSHEET_2026-11-08.md). It is **not** itself an independent verdict. Review its *actual current head* and the full stacked diff, not merely the PR #87 historical head.
+- [Issue #88](https://github.com/ahmadkhanloo/hgfx/issues/88): **sole** authorized destination for an external review signature and the prospective freeze decision. As of preparation of this addendum, **no independent reviewer is assigned/requested and no verdict is received**. An implementer or author-side AI must not claim independence from their own source edits.
+
+Review both independently, recording their **current** immutable commit IDs:
+
+```bash
+git fetch origin pull/87/head:refs/remotes/origin/perf01-pr87
+git fetch origin pull/99/head:refs/remotes/origin/perf01-pr99-handoff
+git rev-parse refs/remotes/origin/perf01-pr87
+git rev-parse refs/remotes/origin/perf01-pr99-handoff
+git checkout --detach refs/remotes/origin/perf01-pr99-handoff
+git rev-parse HEAD
+```
+
+Do **not** presume that the two PR heads have identical source, that PR #99 changes are already merged into PR #87, or that a green regression on either head proves the scientific gate. Inspect the exact diff from the candidate being signed off, source SHA and raw artifacts. The frozen reference and HGFX comparison stay `2437f4dc241541072722a2695ddeca7b44d83dd3` versus `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, original 28 workloads 16 review-pending/12 blocked, original 63/64 full fit scientific **NONPASS**, and all original per-field numerical tolerances unchanged. Tiny intermediate ULP differences do not trigger a new bitwise gate, but the eight original trajectory out-of-bound cells cannot be waived post-hoc. Sign a new protocol's **prospective** scope only if all remaining evidence and timing boundaries are reviewed.
+
 ## Exact scientific evidence to inspect
 
 - Prospective original protocol: `docs/research/RUNTIME_PERFORMANCE_PROTOCOL_V1.md`.
