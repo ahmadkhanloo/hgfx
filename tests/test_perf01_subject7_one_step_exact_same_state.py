@@ -1,6 +1,7 @@
 """Synthetic source formula tests: post-result one original BFGS state only."""
 from pathlib import Path
 import importlib.util
+from unittest.mock import patch
 import sys
 import unittest
 import numpy as np
@@ -59,11 +60,22 @@ class FrozenSourceOneStepTests(unittest.TestCase):
         b=probe.original_direction(x2,np.eye(3),[.3,.4,0.],10.)
         np.testing.assert_allclose(np.asarray(b["source_next_full_step_free_x"])-a["source_next_full_step_free_x"],[.001,0.,0.])
 
+    def test_wrong_frozen_version_is_rejected_first(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            with patch.object(probe.metadata,"version",return_value="not-1.0.0"):
+                with self.assertRaisesRegex(ValueError,"Frozen source version changed"):
+                    probe.analyze(Path(d),Path(d),Path(d))
+
     def test_historically_failed_source_mandatory(self):
         import tempfile
         with tempfile.TemporaryDirectory() as d:
-            with self.assertRaises(FileNotFoundError):
-                probe.analyze(Path(d),Path(d),Path(d))
+            # Regression installs the development checkout, whereas the archived
+            # experiment requires the immutable 1.0.0 package. Isolate the
+            # original-archive missing-source guard from the version guard.
+            with patch.object(probe.metadata,"version",return_value="1.0.0"):
+                with self.assertRaises(FileNotFoundError):
+                    probe.analyze(Path(d),Path(d),Path(d))
 
 
 if __name__=="__main__":
