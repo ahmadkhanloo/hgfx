@@ -362,7 +362,15 @@ def main():
             "matlab_stop_row":result["all_original_source_formula_axis_tables"]["matlab"][i]["reconstructed_first_source_stop_step"],
             "hgfx_original_gradient_exact_bits":result["original_vs_reconstructed_coordinate_comparisons"][i]["exact_source_returned_gradient_bits_per_engine"]["hgfx"],
             "matlab_original_gradient_exact_bits":result["original_vs_reconstructed_coordinate_comparisons"][i]["exact_source_returned_gradient_bits_per_engine"]["matlab"],
-            "best_cell_equal":result["original_vs_reconstructed_coordinate_comparisons"][i]["same_selected_table_cell"]
+            "best_cell_equal":result["original_vs_reconstructed_coordinate_comparisons"][i]["same_selected_table_cell"],
+            "hgfx_source_reported_error_exact_bits":result["all_original_source_formula_axis_tables"]["hgfx"][i]["real_original_observed_error"]["exact_equal_binary64"],
+            "matlab_source_reported_error_exact_bits":result["all_original_source_formula_axis_tables"]["matlab"][i]["real_original_observed_error"]["exact_equal_binary64"],
+            "hgfx_stop_count_consistent":result["all_original_source_formula_axis_tables"]["hgfx"][i]["reconstructed_stopping_matches_observed_source_pair_count"],
+            "matlab_stop_count_consistent":result["all_original_source_formula_axis_tables"]["matlab"][i]["reconstructed_stopping_matches_observed_source_pair_count"],
+            "counterfactual_matlab_on_hgfx_selected":result["all_same_x_scalar_only_counterfactual_axis_tables"]["matlab_on_hgfx_grid"][i]["reconstructed_best_cell_zero_based"],
+            "counterfactual_hgfx_on_matlab_selected":result["all_same_x_scalar_only_counterfactual_axis_tables"]["hgfx_on_matlab_grid"][i]["reconstructed_best_cell_zero_based"],
+            "counterfactual_matlab_on_hgfx_gradient_equal_real_matlab_formula":result["all_same_x_scalar_only_counterfactual_axis_tables"]["matlab_on_hgfx_grid"][i]["exact_same_returned_source_formula_bits_as_real_matlab"]["gradient"],
+            "counterfactual_hgfx_on_matlab_gradient_equal_real_hgfx_formula":result["all_same_x_scalar_only_counterfactual_axis_tables"]["hgfx_on_matlab_grid"][i]["exact_same_returned_source_formula_bits_as_real_hgfx"]["gradient"]
         } for i in range(NUM_AXES)]},sort_keys=True))
 
 
