@@ -1,0 +1,86 @@
+name: "PERF-01D SHA-locked private Armijo archive replay (AUTHOR-SIDE, UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01-subject7-private-armijo-candidates
+    paths:
+      - '.github/workflows/perf01-private-armijo-archive-replay.yml'
+      - 'benchmarks/runtime_v1/replay_subject7_private_armijo_archive.py'
+      - 'tests/test_perf01_subject7_private_armijo_archive_replay.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archived-source-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ten strictly fail-closed source-only synthetic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_private_armijo_archive_replay.py' -v
+      - name: Download the original candidate plus exact archived private MATLAB output
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p source archived output
+          gh run download 42366705874 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-source-same-state-x6-single-step-42366705874 --dir source
+          gh run download 42375431029 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-private-matlab-three-candidate-armijo-42375431029 --dir archived
+          echo 'b2f2134a4eb5276fd7734dacedb26c74b4cd410eb984caf945befe9758b42144  source/source-same-state-two-gradient-candidates.json' | sha256sum -c -
+          echo 'b901486c9f8a17cc414f60b284ecc707c0fb314652e1089db29a91ae208fadd7  archived/private-matlab-three-candidate-objectives.json' | sha256sum -c -
+          echo 'f42274c7f284edaa19bbb5ff09e69887471be9e04bbb615e9effca3a35a75275  archived/derived-private-matlab-armijo-summary.json' | sha256sum -c -
+      - name: Replay raw source-formula arithmetic without producer comparator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_subject7_private_armijo_archive.py \
+            --candidate source/source-same-state-two-gradient-candidates.json \
+            --matlab archived/private-matlab-three-candidate-objectives.json \
+            --derived archived/derived-private-matlab-armijo-summary.json \
+            --provenance archived/provenance.json \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/private-armijo-archived-replay.json
+      - name: Preserve derived replay SHA with scope/status, including after failures
+        shell: bash
+        if: always()
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import json,os,hashlib
+          from pathlib import Path
+          output=Path("output")
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in output.glob("*.json") if p.name!="provenance.json"}
+          (output/"provenance.json").write_text(json.dumps({
+            "schema":"perf01d-archive-only-arithmetic-replay-v1",
+            "run_id":os.environ["GITHUB_RUN_ID"],
+            "tested_sha":os.environ["GITHUB_SHA"],
+            "source_matlab_run":"42375431029",
+            "source_matlab_sha":"b3821627e787380766843660a36ae04017535987",
+            "original_public_fit":"63/64 SCIENTIFIC NONPASS",
+            "independent_scientific_review":"NOT_RECEIVED",
+            "perf01c":"NOT_FROZEN","performance_timing":"NOT_RUN",
+            "sha256":hashes,
+          },sort_keys=True,indent=2)+"\n")
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload raw derived replay and failures without changing source
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01d-private-armijo-archived-replay-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
