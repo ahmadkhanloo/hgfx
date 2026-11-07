@@ -21,8 +21,8 @@ from hgfx.responses.unitsq_sigmoid import unitsq_sgm
 from hgfx.core.trials import build_trial_masks
 
 from original_x0_hgfx_infstates import SCHEMA as H_SCHEMA, ORIGINAL_TERM_SHA
-from replay_initial_ridders_stencil_archive import MEMBERS, scientific_original
-from subject7_first_ridders_stencil import base_problem, xbits, xhex, HGFX, MATLAB, RUN, SOURCE_SHA
+from replay_initial_ridders_stencil_archive import MEMBERS, scientific_original, RUN, SOURCE_SHA
+from subject7_first_ridders_stencil import base_problem, xbits, xhex, HGFX, MATLAB
 
 M_SCHEMA="perf01d-frozen-matlab-infstates-71-native-and-cross-obs-v1"
 STAGES=("muhat","sahat","mu","sa")
@@ -158,6 +158,14 @@ def main_compare(h,m,realh,realm,fit,hbytes,problem,
                      "Original MATLAB unitsq on HGFX prediction")
         ha=states_check(a["native_inf_states"],"HGFX")
         ma=states_check(b["native_inf_states"],"MATLAB")
+        # Independently execute unchanged HGFX observation on its own
+        # reconstituted original infStates before using them for a swap.
+        check_hgfx_native=unitsq_sgm(
+            problem.responses,ha,problem.expand(x)[problem.n_perceptual:],
+            irregular_trials=irregular,predorpost=1)[0]
+        check_hgfx_native=[float(z) for z in np.asarray(check_hgfx_native).reshape(-1)]
+        need(not mismatch(check_hgfx_native,a["native_logp"]),
+             "Source HGFX observation did not reproduce its own genuine all-128 native trial LL")
         for idx,(name,predictor,posterior,states) in enumerate((
             ("HGFX",a["native_prediction_level1"],a["native_posterior_level1"],ha),
             ("MATLAB",b["native_prediction_level1"],b["native_posterior_level1"],ma),
