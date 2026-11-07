@@ -1,0 +1,132 @@
+name: "PERF-01D actual native MATLAB BFGS objective direct calls (AUTHOR-SIDE; UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-matlab-native-objective-calltrace
+    paths:
+      - '.github/workflows/perf01-native-matlab-objective-calls.yml'
+      - 'docs/research/PERF01D_NATIVE_MATLAB_OBJECTIVE_CALLTRACE_PRESPEC_2026-11-07.md'
+      - 'benchmarks/runtime_v1/matlab/subject7_actual_optimizer_calls_matlab.m'
+      - 'benchmarks/runtime_v1/replay_subject7_actual_matlab_optimizer_calls.py'
+      - 'tests/test_perf01_subject7_actual_matlab_optimizer_calls.py'
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  actual-original-matlab-direct-calls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check two frozen releases and source-based exact direct-call tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_actual_matlab_optimizer_calls.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Check historical BFGS raw and original scientific failed subject 7
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p old-bfgs output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir old-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  old-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  old-bfgs/matlab_raw.json' | sha256sum -c -
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json').read_bytes())
+          assert d["subject_count"]==64
+          assert d["classification_counts"]=={
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63,
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1}
+          assert d["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          assert all(d["cases"][7]["fields"][k]["mismatch_count"]==4
+                     for k in ("traj.mu","traj.muhat"))
+          print('Original 63/64 scientific fitting NONPASS and 4+4 failed subject-7 entries retained.')
+          PY
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Real frozen MATLAB optimizer source direct objective calls with exact native control
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_actual_optimizer_calls_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'output','actual-original-matlab-optimizer-direct-calls.json'),fullfile(pwd,'output','native-vs-wrapped-public-plus-iter.mat'))"
+      - name: Independent source-file-line replay and full raw MATLAB pair comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_subject7_actual_matlab_optimizer_calls.py \
+            --trace output/actual-original-matlab-optimizer-direct-calls.json \
+            --optimizer-source matlab-reference/core/quasinewton_optim.m \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --mat output/native-vs-wrapped-public-plus-iter.mat \
+            --original-hgfx-bfgs old-bfgs/hgfx_raw.json \
+            --original-matlab-bfgs old-bfgs/matlab_raw.json \
+            --output output/source-callsite-replay-and-history-membership.json
+      - name: Preserve original direct source call evidence and partial failure artifacts
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.iterdir() if p.is_file() and p.name!='provenance.json'}
+          meta={
+            "schema":"perf01d-true-reference-direct-objective-raw-source-v1",
+            "run_id":os.environ["GITHUB_RUN_ID"],
+            "tested_sha":os.environ["GITHUB_SHA"],
+            "prespec_sha":"65e321c0e8f6555d5f0db71a92638faa74943627",
+            "original_matlab":"2437f4dc241541072722a2695ddeca7b44d83dd3",
+            "original_hgfx":"4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+            "original_scientific_fit":"63/64 SCIENTIFIC NONPASS",
+            "source_line_events":"OBJECTIVE_CALLS_NOT_PRIVATE_IF_BRANCH_EVENTS",
+            "independent_scientific_review":"NOT_RECEIVED",
+            "perf01c":"NOT_FROZEN",
+            "paper_performance_timing":"NOT_RUN",
+            "source_original_bfgs_run":"42187240378",
+            "sha256":hashes,
+          }
+          (root/'provenance.json').write_text(json.dumps(meta,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload all archived raw MATLAB / replay / failure evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01d-matlab-native-optimizer-direct-calls-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
