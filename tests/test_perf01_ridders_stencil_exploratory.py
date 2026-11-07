@@ -94,11 +94,12 @@ class RiddersStencilExploratoryTests(unittest.TestCase):
 
     def test_shorter_trace_preserves_unpaired_tail(self):
         s = sample_stream()
-        t = sample_stream()[:-1]
+        s.append(dict(s[-1]))  # 8 synthetic calls, but both streams still meet minimum inventory.
+        t = sample_stream()      # 7 synthetic calls; only final eighth call is absent.
         res = audit.pair_streams(s, t)
-        self.assertEqual(res["hgfx_call_count"], 7)
-        self.assertEqual(res["matlab_call_count"], 6)
-        self.assertEqual(res["first_coord_mismatch_index"], 6)
+        self.assertEqual(res["hgfx_call_count"], 8)
+        self.assertEqual(res["matlab_call_count"], 7)
+        self.assertEqual(res["first_coord_mismatch_index"], 7)
         self.assertFalse(res["all_calls_by_original_index_with_unpaired_coordinates_explicit"][-1]["both_present"])
 
     def test_missing_source_artifact_denied(self):
