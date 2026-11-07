@@ -70,6 +70,8 @@ def audit(h,m,d,native,original):
          and m["source_hgfx_stencil_sha256"]==MEMBERS["hgfx-first-ridders.json"]
          and m["original_science"]=="63/64 SCIENTIFIC NONPASS"
          and m["original_failure"]=={"traj_mu":4,"traj_muhat":4}
+         and m["source_hgfx_stencil_sha256"]==MEMBERS["hgfx-first-ridders.json"]
+         and m["hook_count"]==1 and m["original_optimizer_delegated"] is True
          and m["native_wrapped_26_and_iter_exact"] is True
          and m["independent_review"]=="NOT_RECEIVED" and m["perf01c"]=="NOT_FROZEN",
          "Actual private MATLAB nested source, runner or neutrality changed")
