@@ -62,8 +62,10 @@ def stage_formula(x,y,zeta):
     xx=np.asarray(x,dtype=np.float64)
     yy=np.asarray(y,dtype=np.float64)
     ze=np.float64(zeta)
-    need(xx.shape==yy.shape==(128,) and np.isfinite(xx).all()
-         and np.all((xx>0)&(xx<1)) and math.isfinite(ze) and ze>0,
+    need(xx.shape==yy.shape==(128,),
+         "Original true source requires all 128 trial predictors and responses")
+    need(np.isfinite(xx).all() and np.all((xx>0)&(xx<1))
+         and math.isfinite(ze) and ze>0,
          "Original true source input probabilities/zeta invalid")
     with np.errstate(divide="ignore",invalid="ignore",over="ignore",under="ignore"):
         one_minus=np.float64(1.0)-xx
