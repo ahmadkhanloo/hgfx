@@ -213,7 +213,7 @@ def verify(root,archive,source_path,matlab_path,output):
          and ma["frozen_hgfx_sha"]==HGFX and ma["frozen_matlab_sha"]==MATLAB
          and ma["source_hgfx_stencil_sha256"]==sha256(py_bytes).hexdigest()
          and ma["original_science"]=="63/64 SCIENTIFIC NONPASS"
-         and ma["original_failure"]=={"traj.mu":4,"traj.muhat":4}
+         and ma["original_failure"]=={"traj_mu":4,"traj_muhat":4}
          and str(ma["github_run_id"])==os.environ.get("GITHUB_RUN_ID")
          and ma["tested_sha"]==os.environ.get("GITHUB_SHA")
          and ma["hook_count"]==1 and ma["original_optimizer_delegated"] is True
