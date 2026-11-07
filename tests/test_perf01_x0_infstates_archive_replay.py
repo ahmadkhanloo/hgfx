@@ -36,6 +36,12 @@ class FrozenStageArchiveDeepEqualityTests(unittest.TestCase):
         self.assertEqual(r.RUN,"42404444341")
         self.assertEqual(r.SHA,"a6168bb2b1be07a0f084abc07599e9ffda61b22b")
         self.assertEqual(len(r.SOURCE_FILES),3)
+    def test_original_verified_member_SHA_pin_is_exact(self):
+        self.assertEqual(
+            r.SOURCE_FILES["original-hgfx-71-infstates-and-native-ll.json"],
+            "53c998070dbbfc8b8a5c5ce7e8d962b44f9820635f60c567fd2012bf48fcd415",
+        )
+
     def test_missing_file_fails_before_reconstruction(self):
         with self.assertRaises(FileNotFoundError):
             r.read_checked(Path("/does-not-exist-perf01d-x0-source-report.json"),
