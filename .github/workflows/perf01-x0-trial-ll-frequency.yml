@@ -1,0 +1,92 @@
+name: "PERF-01D immutable 71x128 original trial LL bit frequency (archive only)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-x0-objective-term-decomposition
+    paths:
+      - '.github/workflows/perf01-x0-trial-ll-frequency.yml'
+      - 'benchmarks/runtime_v1/aggregate_original_x0_trial_likelihood_bits.py'
+      - 'tests/test_perf01_x0_trial_frequency_archive.py'
+      - 'docs/research/PERF01D_TRIAL_LL_FREQUENCY_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  authentic-71-by-128-source-trial-archive:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify 14 synthetic 71x128 original and scientific-failure controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_trial_frequency_archive.py' -v
+      - name: Download and hash exact real successful MATLAB/HGFX source trial terms and prior independent check
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-real original-x0 output
+          gh run download 42402421462 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-71-genuine-objective-source-terms-42402421462 \
+            --dir original-real
+          echo 'eb085a07e633aa10979602d9f9fb5e9221e2a1132aecd9fb7b73953a4d2850df  original-real/original-hgfx-71-objective-terms.json' | sha256sum -c -
+          echo '4d9cd77d1187f203a0b467b602d6ab74b4283f2c76476c97d5c8b9e3dc95d0ea  original-real/original-matlab-71-objective-terms.json' | sha256sum -c -
+          echo '4bfedca4318343bfa3422a5f85e150b039771e53a7a2823995309feac15e0d25  original-real/independent-71-node-likelihood-and-prior-source-audit.json' | sha256sum -c -
+          gh run download 42389292284 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-ridders-start-stencils-42389292284 \
+            --dir original-x0
+          echo 'fd8ea94bbf85e6f01feb1d7477ae15a42f86026cc0704503c9e0f00c9803599d  original-x0/hgfx-first-ridders.json' | sha256sum -c -
+          echo '1826535a8e15c522bc3c987978c15978e14a5594664fae25d618e6f9f22a4685  original-x0/matlab-first-private-ridders.json' | sha256sum -c -
+      - name: Source-locked 128 original trial positions across all 71 genuine Ridders sample coordinates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/aggregate_original_x0_trial_likelihood_bits.py \
+            --real-source original-real \
+            --original-x0 original-x0 \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/immutable-71-by-128-original-trial-differences.json
+      - name: Preserve original 63/64 NONPASS and derived audit hashes, including unsuccessful attempts
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.glob('*.json') if p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-original-71x128-trial-source-mismatch-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_commit':'fd5a7c1da60804ba87a500b5b687e452ad6fe00b',
+            'original_real_term_run':'42402421462',
+            'original_real_term_sha':'3ae1ac5330bd1b6bc1ea8017f16f0f66be6b3b57',
+            'original_source_stencil_run':'42389292284',
+            'original_scientific_fitting':'63/64 SCIENTIFIC NONPASS',
+            'independent_review':'NOT_RECEIVED','perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'source_derived_sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Archive full 71x128 source positional frequency and failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-71x128-trial-source-frequency-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
