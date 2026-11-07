@@ -1,0 +1,76 @@
+name: "PERF-01D exact raw Ridders Richardson selection source replay (UNTIMED, post-result)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-ridders-stencil-source-selection-replay.yml'
+      - 'benchmarks/runtime_v1/replay_subject7_ridders_stencil_source_selection.py'
+      - 'tests/test_perf01_ridders_source_selection_replay.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  exact-source-richardson-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ten synthetic positive/negative source replay controls
+        run: |
+          set -euo pipefail
+          python -m pip install numpy==2.3.5
+          python -m unittest discover -s tests -p 'test_perf01_ridders_source_selection_replay.py' -v
+      - name: Immutable real MATLAB/HGFX source trace artifact and source-provenance verification
+        run: |
+          set -euo pipefail
+          mkdir -p source-stencil output
+          gh run download 42361286407 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-postresult-ridders-stencil-42361286407 --dir source-stencil
+          echo '45d06ee935637c6c110a75d56e77b42db0d6d9977abac58f6969115ee407f66e  source-stencil/paired-actual-ridders-call-streams.json' | sha256sum -c -
+          echo '8f068c88cde8fd18df03e40c8f525214239786d43b3f524b06898a14a2fd1986  source-stencil/actual-private-matlab-stencil-trace.json' | sha256sum -c -
+          echo '12f7ea77552cc48a50fbaa26ef8b89c9a22c7f94a444900eb4862aa6b2e498f7  source-stencil/locked-postresult-stencil-target.json' | sha256sum -c -
+          python benchmarks/runtime_v1/replay_subject7_ridders_stencil_source_selection.py \
+            --archive source-stencil --output output/reconstructed-original-richardson-selection.json
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          p=Path('output/reconstructed-original-richardson-selection.json')
+          d=json.loads(p.read_bytes())
+          assert d['original_63_64_nonpass']=='63/64 SCIENTIFIC NONPASS'
+          assert d['independent_scientific_review']=='NOT_RECEIVED'
+          assert d['perf01c']=='NOT_FROZEN' and d['performance_timing']=='NOT_RUN'
+          for origin in ('hgfx','matlab'):
+              a=d['reconstructed_sources'][origin][0]
+              assert a['source_extrapolation_levels_evaluated']==100
+              assert a['source_frozen_returning_realmax_sentinel_at_first_plus']
+              assert a['reconstructed_nonfinite_diagonal_first_nan_level']==3
+              assert a['source_formula_reconstruction_not_internal_selection_branch_log']
+          sha=hashlib.sha256(p.read_bytes()).hexdigest()
+          (Path('output')/'provenance.json').write_text(json.dumps({
+              'run_id':os.environ['GITHUB_RUN_ID'],
+              'candidate_sha':os.environ['GITHUB_SHA'],
+              'source_stencil_run':'42361286407',
+              'source_protocol_commit':'e1c3e2e83045896195701926a5f94fa361b0f091',
+              'original_science':'63/64 NONPASS',
+              'review':'NOT_RECEIVED',
+              'perf01c':'NOT_FROZEN',
+              'richardson_replay_sha256':sha},sort_keys=True,indent=2)+'\n')
+          print('Exact Ridders source-formula replay PASS as AUTHOR-SIDE NUMERICAL DIAGNOSTIC ONLY; no scientific fit PASS.')
+          print('Reconstructed raw SHA-256:',sha)
+          PY
+      - name: Preserve source-formula replay and provenance after success/failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-richardson-selection-replay-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
