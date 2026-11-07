@@ -53,6 +53,12 @@ class FrozenSourceFormulaTests(unittest.TestCase):
         self.assertEqual(sum(len(z["p_cells"]) for z in a["full_triangular_row_source_reconstruction"]),
                          11*12//2)
 
+    def test_first_row_uninitialized_best_is_json_null_not_nonfinite(self):
+        import json
+        result=source.reconstruct_axis(synthetic_pairs(),0)
+        self.assertIsNone(result["full_triangular_row_source_reconstruction"][0]["best_after_row"])
+        json.dumps(result,sort_keys=True,allow_nan=False)
+
     def test_wrong_min_steps_rejected(self):
         with self.assertRaisesRegex(ValueError,"options/steps"):
             source.reconstruct_axis(synthetic_pairs(),0,min_steps=9)
