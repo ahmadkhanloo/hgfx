@@ -25,9 +25,8 @@
 | Gradient coordinate 0 | `420.3828348417702` | `420.38283484176924` |
 | Gradient coordinate 1 | `0.10523987386444607` | `0.10523987385121879` |
 | Gradient coordinate 2 | `1386.6296379643848` | `1386.6296379644` |
-| Absolute coordinate-0 gradient difference | \multicolumn{2}{c}{`9.663381206337363e-13`} |
-| Absolute coordinate-1 gradient difference | \multicolumn{2}{c}{`1.3227280382110962e-11`} |
-| Absolute coordinate-2 gradient difference | \multicolumn{2}{c}{`1.5234036254696548e-11`} |
+
+The **absolute gradient component differences (0, 1, 2)** are respectively `9.663381206337363e-13`, `1.3227280382110962e-11`, and `1.5234036254696548e-11`.
 
 The 71 objective evaluations consist of **one original center `f(x0)` evaluation** and **70 ordered ± stencil evaluations**. A separate archive replay verified all **70/70 matched source positive/negative coordinate vectors bitwise identical across MATLAB and HGFX**, as well as the identical center vector. Thus **this first-gradient discrepancy cannot be attributed to choosing different finite-difference x±h coordinates or different counts of Ridders steps** in this comparison.
 
