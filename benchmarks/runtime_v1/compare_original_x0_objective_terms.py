@@ -53,8 +53,17 @@ def compare_fields(h,m):
             need(eq,"Original model regular trial masks changed")
             continue
         if k in ("full_trial_log_likelihood","perceptual_prior_terms","observation_prior_terms"):
+            # MATLAB jsonencode represents 1x1 double arrays as JSON scalars,
+            # unlike Python's explicit one-element list. Only the ORIGINAL
+            # single observation-prior term has this known source shape.
+            # No reduction/term calculation is changed, and a missing or
+            # extra prior term remains a hard error.
+            if k=="observation_prior_terms" and type(a) is list and len(a)==1:
+                if type(b) in (int,float):
+                    b=[b]
             need(type(a) is list and type(b) is list and len(a)==len(b)
-                 and (len(a)==128 if k=="full_trial_log_likelihood" else True),
+                 and (len(a)==128 if k=="full_trial_log_likelihood" else
+                      len(a)==2 if k=="perceptual_prior_terms" else len(a)==1),
                  "Original model source constituent vector length changed: "+k)
             differ=[i for i,(x,y) in enumerate(zip(a,b)) if not equal_float(x,y)]
             diff[k]=differ
@@ -63,7 +72,7 @@ def compare_fields(h,m):
     return diff
 
 
-def verify_sources(h,m,old_h,old_m,fit,sha_sidecar):
+def verify_sources(h,m,old_h,old_m,fit,sha_sidecar,source_run_id=None,source_tested_sha=None):
     scientific_original(fit)
     need(h["schema"]==SCHEMA
          and h["status"]=="AUTHOR_SIDE_FROZEN_HGFX_71_SOURCE_TERM_DECOMPOSITION"
@@ -90,10 +99,12 @@ def verify_sources(h,m,old_h,old_m,fit,sha_sidecar):
          and m["original_71_source_node_count"]==71
          and m["independent_review"]=="NOT_RECEIVED" and m["perf01c"]=="NOT_FROZEN",
          "Genuine MATLAB source-term reconstruction or original failure altered")
+    expected_run=source_run_id if source_run_id is not None else os.getenv("GITHUB_RUN_ID")
+    expected_sha=source_tested_sha if source_tested_sha is not None else os.getenv("GITHUB_SHA")
     need(h["environment"]["run_id"]==m["github_run_id"]
          and h["environment"]["tested_sha"]==m["tested_sha"]
-         and h["environment"]["run_id"]==os.getenv("GITHUB_RUN_ID")
-         and m["tested_sha"]==os.getenv("GITHUB_SHA"),
+         and h["environment"]["run_id"]==expected_run
+         and m["tested_sha"]==expected_sha,
          "Original frozen MATLAB and HGFX term outputs are NOT from same runner and commit")
     need(m["native_perceptual_function"]=="hgf_binary"
          and m["native_observation_function"]=="unitsq_sgm"
@@ -108,8 +119,9 @@ def verify_sources(h,m,old_h,old_m,fit,sha_sidecar):
     return hh,mm
 
 
-def audit(h,m,original_h,original_m,fit,source_h_bytes):
-    hh,mm=verify_sources(h,m,original_h,original_m,fit,sha256(source_h_bytes).hexdigest())
+def audit(h,m,original_h,original_m,fit,source_h_bytes,source_run_id=None,source_tested_sha=None):
+    hh,mm=verify_sources(h,m,original_h,original_m,fit,sha256(source_h_bytes).hexdigest(),
+                         source_run_id=source_run_id,source_tested_sha=source_tested_sha)
     rows=[];tallies=Counter()
     for i,(ha,ma,oh,om) in enumerate(zip(hh,mm,original_h["hgfx_nodes"],
                                        original_m["matlab_nodes"])):
@@ -181,7 +193,11 @@ def main():
     p=argparse.ArgumentParser()
     for k in ("hgfx","matlab","original-archive","original-fit","output"):
         p.add_argument("--"+k,type=Path,required=True)
+    p.add_argument("--source-run-id")
+    p.add_argument("--source-tested-sha")
     a=p.parse_args()
+    need((a.source_run_id is None)==(a.source_tested_sha is None),
+         "Both archived original source run and tested SHA required together")
     hbytes=a.hgfx.read_bytes()
     h=json.loads(hbytes);m=json.loads(a.matlab.read_bytes())
     originals={}
@@ -191,7 +207,8 @@ def main():
         originals[name]=json.loads(bb)
     result=audit(h,m,originals["hgfx-first-ridders.json"],
                  originals["matlab-first-private-ridders.json"],
-                 json.loads(a.original_fit.read_bytes()),hbytes)
+                 json.loads(a.original_fit.read_bytes()),hbytes,
+                 source_run_id=a.source_run_id,source_tested_sha=a.source_tested_sha)
     result["new_hgfx_decomposition_sha256"]=sha256(hbytes).hexdigest()
     result["new_matlab_decomposition_sha256"]=sha256(a.matlab.read_bytes()).hexdigest()
     a.output.parent.mkdir(parents=True,exist_ok=True)
