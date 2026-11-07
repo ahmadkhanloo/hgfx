@@ -72,8 +72,10 @@ def base():
         "direct_counts":[1,24,0,0],"github_run_id":"42","tested_sha":"f"*40,
         "indirect_calls":120,
     }
-    mc=[{"kind":"INITIAL","free_x":xs[0].copy(),"private_objective":100.}]
-    mc.extend({"kind":"LINESEARCH","free_x":xs[i].copy(),"private_objective":vs[i]}
+    mc=[{"kind":"INITIAL","free_x":xs[0].copy(),"private_objective":100.,
+         "call_number":1}]
+    mc.extend({"kind":"LINESEARCH","free_x":xs[i].copy(),"private_objective":vs[i],
+               "call_number":i+1}
               for i in range(1,25))
     m={"metadata":mm,"direct_calls":mc,
        "native_history_x":copy.deepcopy(xs),"native_history_val":vs.copy()}
@@ -103,7 +105,7 @@ class OriginalSourceBranchControls(unittest.TestCase):
     def test_missing_public_field_fails(self):
         h,m=base()
         h["native_vs_wrapped_26_field_results"].pop()
-        with self.assertRaisesRegex(ValueError,"26 fields"):
+        with self.assertRaisesRegex(ValueError,"native versus wrapper"):
             pair.compare_same_host(h,m)
 
     def test_forged_scientific_pass_rejected(self):
