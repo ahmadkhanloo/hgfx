@@ -1,0 +1,139 @@
+name: "PERF-01D 71 genuine HGF infStates and unitsq stage cross-eval (untimed)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-x0-infstate-observation-source
+    paths:
+      - '.github/workflows/perf01-x0-infstates-observation.yml'
+      - 'benchmarks/runtime_v1/original_x0_hgfx_infstates.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_x0_matlab_infstates.m'
+      - 'benchmarks/runtime_v1/compare_original_x0_infstates_observation.py'
+      - 'tests/test_perf01_x0_infstates_observation.py'
+      - 'docs/research/PERF01D_X0_INFSTATES_OBS_STAGE_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-first-ridders-observation-source-stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          path: frozen-matlab
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify immutable original HGFX/MATLAB source and 14 source-stage fail-closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C frozen-matlab rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_infstates_observation.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Verify prior genuine private MATLAB Ridders 71 x and old 71 full objective terms
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-x0 old-terms old-bfgs output
+          gh run download 42389292284 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-ridders-start-stencils-42389292284 --dir original-x0
+          gh run download 42402421462 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-71-genuine-objective-source-terms-42402421462 --dir old-terms
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir old-bfgs
+          echo 'fd8ea94bbf85e6f01feb1d7477ae15a42f86026cc0704503c9e0f00c9803599d  original-x0/hgfx-first-ridders.json' | sha256sum -c -
+          echo '1826535a8e15c522bc3c987978c15978e14a5594664fae25d618e6f9f22a4685  original-x0/matlab-first-private-ridders.json' | sha256sum -c -
+          echo 'eb085a07e633aa10979602d9f9fb5e9221e2a1132aecd9fb7b73953a4d2850df  old-terms/original-hgfx-71-objective-terms.json' | sha256sum -c -
+          echo '4d9cd77d1187f203a0b467b602d6ab74b4283f2c76476c97d5c8b9e3dc95d0ea  old-terms/original-matlab-71-objective-terms.json' | sha256sum -c -
+          echo '4bfedca4318343bfa3422a5f85e150b039771e53a7a2823995309feac15e0d25  old-terms/independent-71-node-likelihood-and-prior-source-audit.json' | sha256sum -c -
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  old-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  old-bfgs/matlab_raw.json' | sha256sum -c -
+      - name: Real frozen HGFX 71-node full 128x3x4 infStates and exact original 128 trial LL
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/original_x0_hgfx_infstates.py \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs old-bfgs \
+            --original-x0 original-x0 \
+            --original-terms old-terms \
+            --output output/original-hgfx-71-infstates-and-native-ll.json
+          echo "$(cat output/original-hgfx-71-infstates-and-native-ll.sha256)  output/original-hgfx-71-infstates-and-native-ll.json" | sha256sum -c -
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Real frozen original MATLAB native fitModel HGF infStates and MATLAB unitsq cross-eval on HGFX predictors
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_x0_matlab_infstates(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'frozen-matlab'),fullfile(pwd,'output','original-hgfx-71-infstates-and-native-ll.json'),fullfile(pwd,'output','original-hgfx-71-infstates-and-native-ll.sha256'),fullfile(pwd,'old-terms','original-matlab-71-objective-terms.json'),fullfile(pwd,'output','original-matlab-71-infstates-and-cross-ll.json'))"
+      - name: Independent all-71 HGF state/unitsq stage comparison and HGFX unitsq on MATLAB predictor
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_original_x0_infstates_observation.py \
+            --hgfx-source output/original-hgfx-71-infstates-and-native-ll.json \
+            --matlab-source output/original-matlab-71-infstates-and-cross-ll.json \
+            --prior-hgfx-terms old-terms/original-hgfx-71-objective-terms.json \
+            --prior-matlab-terms old-terms/original-matlab-71-objective-terms.json \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs old-bfgs \
+            --output output/independent-hgf-infstates-unitsq-71-source-stage.json
+      - name: Preserve genuine raw MATLAB/HGFX HGF state evidence on success or error
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          root=Path('output')
+          hashes={f.name:hashlib.sha256(f.read_bytes()).hexdigest()
+                  for f in root.iterdir() if f.is_file() and f.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-original-x0-hgf-infstates-obs-cross-source-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_commit':'4d3c8579f84fed71e44c1aedc21398b9a8cdb107',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'genuine_private_source_run':'42389292284',
+            'genuine_trial_terms_source_run':'42402421462',
+            'original_fitting':'63/64 SCIENTIFIC NONPASS',
+            'original_subject7_failures':{'traj.mu':4,'traj.muhat':4},
+            'independent_reviewer':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN','paper_timing':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload full real/source failed or verified stage files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-real-x0-hgf-infstates-unitsq-stage-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
