@@ -1,0 +1,118 @@
+name: "PERF-01D archived MATLAB direct-call chronology vs original HGFX/MATLAB BFGS"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-direct-call-chronology-replay
+    paths:
+      - '.github/workflows/perf01-matlab-direct-chronology-archive.yml'
+      - 'benchmarks/runtime_v1/compare_matlab_direct_call_chronology.py'
+      - 'tests/test_perf01_matlab_direct_call_chronology_replay.py'
+      - 'docs/research/PERF01D_MATLAB_DIRECT_CALL_CHRONOLOGY_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archive-only-chronology:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check frozen MATLAB oracle and 13 fail-closed synthetic archive controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_matlab_direct_call_chronology_replay.py' -v
+      - name: Fetch and byte-hash original source MATLAB direct-call trace and original BFGS exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p objective-call-source original-bfgs output
+          gh run download 42380372791 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-matlab-native-optimizer-direct-calls-42380372791 \
+            --dir objective-call-source
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo '321393efe9aaf00c0fc96752de66fa27b4e9eebbc1b7f93ea485528ee59da2e9  objective-call-source/actual-original-matlab-optimizer-direct-calls.json' | sha256sum -c -
+          echo '1bdaa8c7a5db9c27bef65691e2a988ab6172554f8bc22af1089fdeb22014a802  objective-call-source/source-callsite-replay-and-history-membership.json' | sha256sum -c -
+          echo '5b0b0006e36d3fe5391d89a1a7121239e20a8425cd14e6b7032b1887ec929dae  objective-call-source/native-vs-wrapped-public-plus-iter.mat' | sha256sum -c -
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json').read_bytes())
+          assert x['subject_count']==64
+          assert x['classification_counts']=={
+            'FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES':63,
+            'FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH':1}
+          assert x['cases'][7]['mismatched_fields']==['traj.mu','traj.muhat']
+          assert all(x['cases'][7]['fields'][k]['mismatch_count']==4
+                     for k in ('traj.mu','traj.muhat'))
+          print('Original 63/64 public scientific NONPASS and both subject7 4+4 failures immutable.')
+          PY
+      - name: Replay exact chronological source call and compare original owned BFGS paths untimed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_matlab_direct_call_chronology.py \
+            --trace objective-call-source/actual-original-matlab-optimizer-direct-calls.json \
+            --derived objective-call-source/source-callsite-replay-and-history-membership.json \
+            --native-mat objective-call-source/native-vs-wrapped-public-plus-iter.mat \
+            --hgfx original-bfgs/hgfx_raw.json \
+            --matlab original-bfgs/matlab_raw.json \
+            --source matlab-reference/core/quasinewton_optim.m \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output output/matlab-direct-chronology-and-original-owned-paths.json
+      - name: Preserve failed and successful derived evidence hashes
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import os,json,hashlib
+          from pathlib import Path
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.glob('*.json') if p.name != 'provenance.json'}
+          out={
+            'schema':'perf01d-source-archived-matlab-chronology-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_sha':'3daa0a13004ed445c0c3fdd8bd2cae15428820b2',
+            'source_matlab_run':'42380372791',
+            'source_original_bfgs_run':'42187240378',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'original_public_science':'63/64 SCIENTIFIC NONPASS',
+            'independent_scientific_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN',
+            'sha256':hashes,
+          }
+          (root/'provenance.json').write_text(json.dumps(out,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Preserve full derived chronological audit, never overwrite original source
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01d-matlab-actual-chronology-replay-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
