@@ -1,0 +1,107 @@
+name: "PERF-01D archive-only genuine 71 HGF/unitsq stage exact report replay"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-x0-infstate-observation-source
+    paths:
+      - '.github/workflows/perf01-x0-infstates-archive-replay.yml'
+      - 'benchmarks/runtime_v1/replay_original_x0_infstates_observation_archive.py'
+      - 'tests/test_perf01_x0_infstates_archive_replay.py'
+      - 'docs/research/PERF01D_X0_INFSTATE_ARCHIVE_REPLAY_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  cross-runner-source-stage-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Original HGFX release SHA, ten bitwise report controls and 14 original stage guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_infstates_archive_replay.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_infstates_observation.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+      - name: SHA256-pin all three real source-stage archive members and original 71-source term files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-stage old-terms old-bfgs output
+          gh run download 42404444341 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-x0-hgf-infstates-unitsq-stage-42404444341 --dir original-stage
+          echo '53c998070dbbfc8b8a5c5ce7e8d962b44f9820635f60c567fd2012bf48fcd415  original-stage/original-hgfx-71-infstates-and-native-ll.json' | sha256sum -c -
+          echo '15c2f3e50d3ff257d333e412b881053cd6bc0240137ddbae448b3ce7d1647006  original-stage/original-matlab-71-infstates-and-cross-ll.json' | sha256sum -c -
+          echo '5d1d03f200bb8be7bf058fe54d64e63ab8909a29857a6750014bad83db029af0  original-stage/independent-hgf-infstates-unitsq-71-source-stage.json' | sha256sum -c -
+          gh run download 42402421462 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-71-genuine-objective-source-terms-42402421462 --dir old-terms
+          echo 'eb085a07e633aa10979602d9f9fb5e9221e2a1132aecd9fb7b73953a4d2850df  old-terms/original-hgfx-71-objective-terms.json' | sha256sum -c -
+          echo '4d9cd77d1187f203a0b467b602d6ab74b4283f2c76476c97d5c8b9e3dc95d0ea  old-terms/original-matlab-71-objective-terms.json' | sha256sum -c -
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir old-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  old-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  old-bfgs/matlab_raw.json' | sha256sum -c -
+      - name: Independently replay full 71 real HGF/unitsq original source report and compare every binary64 result
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_original_x0_infstates_observation_archive.py \
+            --original-stage original-stage \
+            --old-terms old-terms \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs old-bfgs \
+            --output output/independent-full-real-71-hgf-unitsq-stage-replay.json
+      - name: Preserve original scientific failure and raw/derived hashes on success and failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          p=Path('output')
+          hashes={q.name:hashlib.sha256(q.read_bytes()).hexdigest()
+                  for q in p.iterdir() if q.is_file() and q.name!='provenance.json'}
+          (p/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-original-x0-hgf-obs-source-archive-exact-replay-v1',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'prespec_commit':'9e4704145c1e3bc965614a4c244c0bf121cf189b',
+            'original_real_source_run':'42404444341',
+            'original_real_source_commit':'a6168bb2b1be07a0f084abc07599e9ffda61b22b',
+            'original_science':'63/64 SCIENTIFIC NONPASS',
+            'independent_scientific_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'sha256_derived':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Preserve full original-source candidate and nonmatching evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-genuine-hgf-unitsq-source-archive-exact-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
