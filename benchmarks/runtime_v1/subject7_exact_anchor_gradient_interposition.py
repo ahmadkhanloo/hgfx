@@ -112,10 +112,10 @@ def arm_sources(arm, hgfx_history_rows):
     require(arm in ARMS, "Unexpected or retrospectively selected arm")
     require(len(hgfx_history_rows) == 25, "Original HGFX history denominator changed")
     selected = []
-    if arm.startswith("placebo_") or arm.startswith("matlab_gradient_start"):
-        selected = [0]
-    elif "start_and_record6" in arm:
+    if "start_and_record6" in arm:
         selected = [0,6]
+    elif arm.startswith("placebo_") or arm.startswith("matlab_gradient_start"):
+        selected = [0]
     elif "record6" in arm:
         selected = [6]
     elif arm == "matlab_gradient_all_original_hgfx_history_25":
