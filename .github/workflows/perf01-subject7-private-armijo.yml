@@ -1,0 +1,129 @@
+name: "PERF-01D actual frozen private MATLAB x7 objective/Armijo (EXPLORATORY, UNTIMED)"
+on:
+  push:
+    branches:
+      - research/perf01-subject7-private-armijo-candidates
+    paths:
+      - '.github/workflows/perf01-subject7-private-armijo.yml'
+      - 'benchmarks/runtime_v1/subject7_private_candidate_armijo.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_private_candidate_armijo_matlab.m'
+      - 'tests/test_perf01_subject7_private_candidate_armijo.py'
+      - 'docs/research/PERF01D_PRIVATE_MATLAB_X7_ARMIJO_PRESPEC_2026-11-07.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  actual-private-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check frozen source and nine fail-closed candidate/Armijo synthetic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C matlab-reference rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_private_candidate_armijo.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download original real source and exact archived original one-step candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs candidate output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          gh run download 42366705874 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-source-same-state-x6-single-step-42366705874 --dir candidate
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          echo 'b2f2134a4eb5276fd7734dacedb26c74b4cd410eb984caf945befe9758b42144  candidate/source-same-state-two-gradient-candidates.json' | sha256sum -c -
+          python work/benchmarks/runtime_v1/subject7_private_candidate_armijo.py \
+            --stage prepare --candidate candidate/source-same-state-two-gradient-candidates.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json')
+          s=json.loads(p.read_bytes())
+          assert s['subject_count']==64
+          assert s['classification_counts']=={
+            'FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES':63,
+            'FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH':1}
+          assert s['cases'][7]['mismatched_fields']==['traj.mu','traj.muhat']
+          assert s['cases'][7]['fields']['traj.mu']['mismatch_count']==4
+          assert s['cases'][7]['fields']['traj.muhat']['mismatch_count']==4
+          print('Original 63/64 public full-fit NONPASS and four+four preserved.')
+          PY
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Actual frozen private nested MATLAB objective at x6 and BOTH saved x7 candidates
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_private_candidate_armijo_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'candidate','source-same-state-two-gradient-candidates.json'),fullfile(pwd,'output','private-matlab-three-candidate-objectives.json'))"
+      - name: Validate all private calls and unmodified native MATLAB fitting control
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_private_candidate_armijo.py \
+            --stage verify --candidate candidate/source-same-state-two-gradient-candidates.json \
+            --matlab output/private-matlab-three-candidate-objectives.json \
+            --output output/derived-private-matlab-armijo-summary.json
+      - name: Record immutable raw and derived hashes even if a probe fails
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          root=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.glob('*.json') if p.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_candidate_commit':os.environ['GITHUB_SHA'],
+            'protocol_commit':'a79cd7a0f83f14b4959b16dadbb1c696960c96bc',
+            'original_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'original_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'original_public_fit':'63/64 SCIENTIFIC NONPASS',
+            'post_result_selected':True,
+            'independent_review':'NOT_RECEIVED','perf01c':'NOT_FROZEN',
+            'performance_timing':'NOT_RUN','sha256':hashes,
+          },indent=2,sort_keys=True)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Preserve full raw/derived failure and success evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-private-matlab-three-candidate-armijo-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
