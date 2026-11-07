@@ -81,7 +81,7 @@ def prepare(*, mutate=None):
     with tempfile.TemporaryDirectory() as folder:
         file = Path(folder) / "public.mat"
         savemat(file, {"native_public": native, "instrumented_public": intercepted,
-                       "metadata": metadata}, do_compression=False)
+                       "metadata": metadata}, do_compression=False, long_field_names=True)
         a, b, c, digest = audit.read_public(file)
         return audit.replay(a, b, c, private, original, digest)
 
