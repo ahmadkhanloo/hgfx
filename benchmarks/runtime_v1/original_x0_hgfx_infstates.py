@@ -97,6 +97,7 @@ def collect(root,bfgs,x0,original_terms,output):
             "Original frozen observation family is no longer default predictor")
     masks=build_trial_masks(p.responses,p.inputs)
     irreg=np.flatnonzero(masks.irregular).astype(int).tolist()
+    ignored=np.flatnonzero(masks.ignored).astype(int).tolist()
     rows=[]
     for i in range(71):
         hh=hg["hgfx_nodes"][i];mm=ml["matlab_nodes"][i]
@@ -111,7 +112,7 @@ def collect(root,bfgs,x0,original_terms,output):
         prc=full[:p.n_perceptual]
         obs=full[p.n_perceptual:]
         traj,states=hgf_binary(p.inputs,prc,transformed=True,
-                               ignored_trials=irreg)
+                               ignored_trials=ignored)
         require(states.shape==(128,3,4),"Frozen original HGF returned wrong infStates dimensions")
         predicted=floats(states[:,0,0])
         posterior=floats(states[:,0,2])
