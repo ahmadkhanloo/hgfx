@@ -30,7 +30,7 @@ def sample_rows():
     return rows
 
 
-def fake_fn(x,opts=None):
+def fake_fn(function,x,options=None):
     return [11.,12.,13.],[0.1,0.2,0.3]
 
 
