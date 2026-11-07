@@ -1,0 +1,114 @@
+name: "PERF-01D SHA-locked real x0 Ridders Richardson full-table replay (untimed)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-ridders-richardson-replay
+    paths:
+      - '.github/workflows/perf01-ridders-richardson-source-replay.yml'
+      - 'benchmarks/runtime_v1/replay_initial_ridders_richardson_table.py'
+      - 'tests/test_perf01_ridders_richardson_archive_replay.py'
+      - 'docs/research/PERF01D_RIDDERS_RICHARDSON_REPLAY_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-source-richardson-archive:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: frozen-matlab
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check frozen original Ridders implementations and 15 strict negative and positive tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C frozen-matlab rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2"
+          python -m unittest discover -s work/tests -p 'test_perf01_ridders_richardson_archive_replay.py' -v
+      - name: Download and SHA-verify raw genuine HGFX+MATLAB first-gradient archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original previous output
+          gh run download 42389292284 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-ridders-start-stencils-42389292284 --dir original
+          echo 'fd8ea94bbf85e6f01feb1d7477ae15a42f86026cc0704503c9e0f00c9803599d  original/hgfx-first-ridders.json' | sha256sum -c -
+          echo '1826535a8e15c522bc3c987978c15978e14a5594664fae25d618e6f9f22a4685  original/matlab-first-private-ridders.json' | sha256sum -c -
+          echo '6a4c30ccd4e9088fa373c5474522854972dd6bfcd15b577643f483e43d345ae4  original/matlab-first-ridders-native-and-wrapped.mat' | sha256sum -c -
+          echo '13c2b32d10fbb508a651c954c13de3c674c5f06ae6a2bb1e641c710ec8abd0c6  original/true-x0-both-stencils-cross-objective-audit.json' | sha256sum -c -
+          echo '8c39b3f6709c76e805534bbe4ffd040bdc17251c1aa47d517f97763b195649d4  original/independent-matlab-26-fields-and-full-iter.json' | sha256sum -c -
+      - name: Download and SHA-verify previously independently validated both-grid ULP audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run download 42389872139 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-initial-ridders-grid-ulps-42389872139 --dir previous
+          echo '1bfa7dc78c5878d8b441d6d0d6b551d9f0bb2b214c8892fc46685b45d63a37ff  previous/independent-original-stencils-grid-and-same-x-ulps.json' | sha256sum -c -
+      - name: Replay complete frozen original Ridders Richardson P-tables at exact source x and scalar bits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_initial_ridders_richardson_table.py \
+            --source-archive original \
+            --previous-archive previous \
+            --original-fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --frozen-hgfx-ridders frozen-hgfx/src/hgfx/optim/ridders.py \
+            --frozen-matlab-ridders frozen-matlab/utilities/riddersdiff.m \
+            --output output/true-initial-ridders-richardson-six-tables.json
+      - name: Preserve success and failed scientific-derivation evidence SHA-256
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import os, json, hashlib
+          from pathlib import Path
+          p=Path('output')
+          members={v.name:hashlib.sha256(v.read_bytes()).hexdigest()
+                   for v in p.glob('*.json') if v.name!='provenance.json'}
+          result={
+            'schema':'perf01d-initial-richardson-real-source-archive-v1',
+            'github_run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'original_prespec_commit':'b3733bccdccbfa5672f26280d197e24eaded20da',
+            'real_original_run_id':'42389292284',
+            'previous_independent_ulp_run':'42389872139',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'original_science':'63/64 SCIENTIFIC NONPASS',
+            'review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_time':'NOT_RUN',
+            'physical_gpu':'NOT_RUN',
+            'derived_member_sha256':members,
+          }
+          (p/'provenance.json').write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+          print(json.dumps(members,sort_keys=True))
+          PY
+      - name: Upload complete derived source P-tables even when failing
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-x0-richardson-tables-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
