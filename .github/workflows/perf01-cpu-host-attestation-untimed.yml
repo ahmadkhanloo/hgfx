@@ -1,0 +1,86 @@
+name: PERF-01C same-runner CPU environment attestation (NO TIMING)
+
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/runtime_v1/probe_cpu_host_hgfx_untimed.py'
+      - 'benchmarks/runtime_v1/matlab/probe_cpu_host_matlab_untimed.m'
+      - 'benchmarks/runtime_v1/compare_cpu_host_attestation.py'
+      - 'tests/test_perf01_cpu_host_attestation.py'
+      - '.github/workflows/perf01-cpu-host-attestation-untimed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  host-attestation-untimed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      BLIS_NUM_THREADS: '1'
+      VECLIB_MAXIMUM_THREADS: '1'
+      NUMEXPR_NUM_THREADS: '1'
+    steps:
+      - name: Check out probe sources
+        uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - name: Check out actual frozen MATLAB HGF source
+        uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - name: Check out frozen HGFX 1.0.0
+        uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen_release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify exact frozen sources and run fail-closed host-contract unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen_release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install 'numpy==2.3.5' 'threadpoolctl==3.6.0' ./frozen_release
+          python -m unittest discover -s work/tests -p 'test_perf01_cpu_host_attestation.py' -v
+      - name: Record actual frozen HGFX CPU host, affinity and BLAS threads (NO TIMER)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/probe_cpu_host_hgfx_untimed.py \
+            --output evidence/hgfx_host.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Record actual MATLAB CPU host and maxNumCompThreads (NO TIMER)
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); probe_cpu_host_matlab_untimed(fullfile(pwd,'evidence','matlab_host.json'))"
+      - name: Reject different physical boot, kernel, CPU, affinity or thread request (NO TIMER)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_cpu_host_attestation.py \
+            --hgfx evidence/hgfx_host.json \
+            --matlab evidence/matlab_host.json \
+            --output evidence/cpu_host_comparison.json
+      - name: Retain host evidence and any failure without rewriting past science
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-cpu-host-untimed-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: warn
