@@ -33,7 +33,7 @@ jobs:
         run: |
           python tools/audit_compstat_confusion.py --shard-dir "${{ runner.temp }}/s7-original" --expected evidence/revision/confusion_audit.json
           sha256sum evidence/revision/confusion_audit.json
-      - name: Negative control: a falsified confusion count MUST fail
+      - name: "Negative control: falsified confusion count MUST fail"
         shell: bash
         run: |
           python - <<'PY'
