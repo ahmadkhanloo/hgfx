@@ -50,7 +50,7 @@ def read_pairs(directory: Path):
         for comparison in comps:
             manifest = comparison.with_name(comparison.name.replace("-comparison.json", "-manifest.json"))
             check(manifest.exists(), f"missing matching manifest: {manifest}")
-            yield (comparison.name.replace("-comparison.json", ".zip"),
+            yield ("m18-s7-shard-" + comparison.name.replace("-comparison.json", ".zip"),
                    manifest.read_bytes(), comparison.read_bytes(), None)
 
 
