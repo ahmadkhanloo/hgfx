@@ -21,3 +21,11 @@
 /paper/**/*.pdf binary
 /paper/**/*.png binary
 /paper/**/*.zip binary
+
+# PERF-01 frozen candidate fixture bytes: prevent Windows CRLF conversion.
+# Preserves existing committed JSON contents and SHA-256s; changes checkout EOL only.
+/benchmarks/runtime_v1/inputs/*.json text eol=lf
+/benchmarks/runtime_v1/configs/*.json text eol=lf
+/benchmarks/runtime_v1/inputs_manifest.json text eol=lf
+/benchmarks/runtime_v1/resolved_configs_manifest.json text eol=lf
+/benchmarks/runtime_v1/eligibility_candidates/*.json text eol=lf
