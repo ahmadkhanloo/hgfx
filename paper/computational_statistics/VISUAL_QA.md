@@ -17,3 +17,13 @@ box remains. Final page 6 was checked after removing an orphaned short final
 section. Main text has five bound figures and three complete tables. The new
 empirical figure uses the full 614 saved observations, with explicit in-sample
 interpretation. Prior 16/4-page counts above are historical, not current.
+
+## Published-input integration, 8 November 2026
+
+The rebuilt main PDF has 17 pages and the supplement has 7 pages. All 24
+pages were rendered as PNGs and inspected in contact sheets. The revised
+Methods 4.6 and Supplement S7 were then inspected at larger size. Supplement
+S7 starts on a new page. Figures and tables remain complete and readable.
+The build logs contain no overfull-box, undefined-citation or missing-glyph
+warning. The final editable TeX and source archive match the new PDFs through
+package/build_manifest.json. The package remains an author-review draft.

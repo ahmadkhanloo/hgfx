@@ -1,6 +1,6 @@
 # Editorial integration candidate: published-input forward compatibility
 
-**Status: VERIFIED NUMERICAL EVIDENCE / MANUSCRIPT INTEGRATION PENDING.** This file is a stand-alone section proposal; the current `manuscript.md`, claim ledger and frozen PDF/source ZIP have **not** been regenerated or changed. Verify against the exact [executed evidence](../case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md) before inclusion. Original papers' model fitting and published findings remain unsupported.
+**Status: HISTORICAL EDITORIAL PROPOSAL.** The bounded published-input result is integrated in the 8 November author-review draft, Methods 4.6, Results 5.5 and Supplement S7. The text below records the earlier proposal.
 
 ## Candidate Methods paragraph (English)
 

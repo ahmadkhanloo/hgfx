@@ -16,15 +16,15 @@
       "Copyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org"
     ],
     "pdfinfo": [
-      "pdfinfo version 24.04.0",
-      "Copyright 2005-2024 The Poppler Developers - http://poppler.freedesktop.org"
+      "pdfinfo version 26.07.0",
+      "Copyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org"
     ]
   },
   "inputs": {
-    "manuscript.md": "b2a4110acd1fc6f5ac845b85adcf9647c1833a376ed97d54899586022e258749",
-    "supplement.md": "cd6861287a3fe609478b5a5e1654e3258cf2c064b4d476732b4643987c56e31c",
-    "references.bib": "e5be40b1de72bff40c2db13e8f26fa2ee5f1ec7b36fcc3de4ce79c4137e35fe3",
-    "build_submission.py": "b63722ac57b6d9a99d9f49c2298e0b22bb325922bc1009892a6f4507f3a886fc",
+    "manuscript.md": "5f4cd7d88c16462f581480cedb13c4943942f9d50ef68d91842d09e9a03b414a",
+    "supplement.md": "270c35b5c583e641e36d80cf7c17a4239d1598c41789b8b17160922a0d2ff4f1",
+    "references.bib": "e7afda8edea7a6824c6a4c5719f1731bacdc8d64e1dd573bd481223d16b79342",
+    "build_submission.py": "35c73691c544e7a18dd28f05ede93ac59a0c6d7ccbc3f1ea2483f3837bcf8795",
     "THIRD_PARTY_NOTICES.md": "88fc2aad19e879174bb71a4740ebfe8d978001e186585584ac3aac70a0081b07",
     "figures/fig_gpu_applicability.pdf": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
     "figures/fig_model_selection.pdf": "33cd5f1f1e5aff07d0b82194a55e6462235529a57c52e70b0bfb7cd98a10d87b",
@@ -36,10 +36,10 @@
     "springer-basic-author-date.csl": "4d531a58f1c8a3ab3d6c7543ff5efe552d0e385e1d4fff50b476c4d4051eab38"
   },
   "outputs": {
-    "HGFX_CompStat.pdf": "a8900a17131e32b7b2fc59180bbfd51c194fa3a544d4d48cb686071df6fa424f",
-    "HGFX_CompStat.tex": "cfb77141924c2719d0b1314a07a1173523e59f02393782fc8acbf0fd13a2f04f",
-    "HGFX_CompStat_source.zip": "383098cae362d35bef0bbe8e6b5f29d5f61bd18b55e5834ad21730a8a8916e79",
-    "HGFX_Supplement.pdf": "43c8959fe228865557d7579afa0cc0de72df2e223ca15344fd513f60ae2da75c",
-    "HGFX_Supplement.tex": "c0f156b176742c642500a39dd3cf29aa3b6b6a4b1a41e0684dabac0eef5b9e93"
+    "HGFX_CompStat.pdf": "ba1512b1305b853bd543e4904c7dcaf90a1cca1066770b7952c36d8eba6b5c8a",
+    "HGFX_CompStat.tex": "e6864e7f5a5b886a9af414b6cfcb8ccfb30b1626f3a9168d68c8ae16bc40a662",
+    "HGFX_CompStat_source.zip": "ab490c097b29077679e16c848aaa544d149210203fddf7826f78620db9f2a3e2",
+    "HGFX_Supplement.pdf": "9bc6c182de5481c1eb7617bc1b89b0f401563b0ad304a6fdee8b40343781c42a",
+    "HGFX_Supplement.tex": "cf552bd78c34b68d5f275b3dd83e0eae859bac8185e4f9d562fdd0df284e06c1"
   }
 }

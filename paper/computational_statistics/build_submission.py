@@ -61,7 +61,7 @@ def main():
             shutil.copyfile(image, work / image.name)
         for stem, name, title in [('HGFX_CompStat', 'manuscript.md', 'HGFX: reference-compatible hierarchical Gaussian filtering in Python'), ('HGFX_Supplement', 'supplement.md', 'HGFX supplementary evidence and provenance')]:
             (work / f'{stem}.md').write_text(source_text(name), encoding='utf-8', newline='\n')
-            command = ['pandoc', f'{stem}.md', '--standalone', '--no-highlight', '--citeproc', '--bibliography=references.bib', '--metadata=reference-section-title:References', f'--metadata=title:{title}', '--metadata=author:Mohammad Ahmadkhanloo', '--metadata=date:Author-review draft, 4 November 2026', '-V', 'geometry:margin=25mm', '-V', 'fontsize:11pt', '-V', 'colorlinks:true', '-o', f'{stem}.tex']
+            command = ['pandoc', f'{stem}.md', '--standalone', '--no-highlight', '--citeproc', '--bibliography=references.bib', '--metadata=reference-section-title:References', f'--metadata=title:{title}', '--metadata=author:Mohammad Ahmadkhanloo', '--metadata=date:Author-review draft, 8 November 2026', '-V', 'geometry:margin=25mm', '-V', 'fontsize:11pt', '-V', 'colorlinks:true', '-o', f'{stem}.tex']
             if (HERE / 'springer-basic-author-date.csl').exists():
                 command.insert(2, f'--csl={HERE / "springer-basic-author-date.csl"}')
             run(command, work)

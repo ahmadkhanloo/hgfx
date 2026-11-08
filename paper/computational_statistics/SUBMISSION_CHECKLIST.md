@@ -2,7 +2,7 @@
 
 | Independent status | Current outcome | Remaining gate |
 |---|---|---|
-| Scientific evidence ready | Frozen compatibility evidence documented; full planned case-study scope NOT READY | No eligible external real-data replication; human claim verification pending |
+| Scientific evidence available | Frozen compatibility and 324-block published-input Forward evidence documented | Human claim verification and secondary-data reuse review pending; original study fits remain outside the tested scope |
 | Editorial package ready | READY FOR AUTHOR REVIEW, not submission | Final scientific author review and venue-specific preflight; declarations confirmed |
 | Zero-fee route cleared | NO / OPEN | All mandatory charges and institutional conditions need explicit clearance |
 | Author approval pending | YES | Author must verify scientific claims and final files; affiliation/contributions/funding/conflicts confirmed in chat |
@@ -38,6 +38,8 @@ Sending requires closing actual scientific/administrative gaps and author
 approval. A package that opens correctly is not automatically submission-ready.
 
 ## Current revision
+
+- Integrated the executed 324-block Forward validation and its warning count. Source files and the numerical evidence remain pinned. The separate 63/64 synthetic full-fit result is also disclosed.
 
 - Added the executed empirical USD/CHF example (614 observations), Figure 5 and full outputs.
 - Distinguished ten absent winners from competing selections using all original P3 shards.
