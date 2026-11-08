@@ -3,8 +3,8 @@
 **Scope:** `COMPSTAT_REVISION_PLAN.md`; working branch `compstat-revision`.
 **Baseline main commit:** `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885` (2026-11-08).
 **Historical release evidence:** HGFX v1.0.0 at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; immutable.
-**Phase:** REV-0 gate still BLOCKED by the missing baseline tag; REV-1.1 was separately audited and is `EXPLAINED`.
-**Gate REV-0:** NOT PASSED (baseline tag missing). REV-0.4 focused CI PASS is an inventory, not final 100% numeric-claim coverage.
+**Phase:** REV-1 audits are IN PROGRESS; REV-1.1 and REV-1.2 are `EXPLAINED` with committed evidence. REV-0 baseline tag remains outstanding.
+**Gate REV-0:** NOT PASSED until baseline tag verified. REV-0.4 focused CI PASS is an inventory, not final 100% numeric-claim coverage.
 
 ## REV-0.3 verified repository inventory (2026-11-09)
 
@@ -61,4 +61,22 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Explanation:** Two identical marginal HGF/uHGF confusion rows are genuine: only `4/12` matched-stratum datasets have the same selected model, with `0/12` same seeds, inputs, or responses and `12/12` identical transformed truth vectors. Data generation uses distinct HGF/uHGF model dispatch. Small BIC runner-up margins and the limited grid are consistent with weak separation, not evidence of an aggregation/copy bug.
 - **Open limitation:** This audit does not identify a causal scientific/structural identifiability mechanism; REV-1.2 and REV-2.5 address uncertainty/design. S7 historical parameter-recovery failures are preserved.
 - **Time spent:** not instrumented precisely; bounded audit completed without rerunning the historical experiment.
-- **Phase gate:** REV-1 is NOT complete; REV-1.2–1.4 remain OPEN. REV-0 baseline tag remains HUMAN_ACTION.
+- **Phase gate at time of REV-1.1:** REV-1 was incomplete; REV-1.2–1.4 were OPEN. See subsequent REV-1.2 report.
+
+
+## REV-1.2 — terminal task report (2026-11-09; ≤15 lines)
+
+- **ID · status:** REV-1.2 · `EXPLAINED` (C2 uncertainty audit; historical scientific FAIL unchanged).
+- **Protocol before execution:** `evidence/revision/protocols/REV-1.2_PROTOCOL.md` committed at `15907221646aa2664dc8e05b6d0ee6ff5bd32994`.
+- **Actions:** Retrieved original 12 S7 shards from run `34896442847`; verified pinned artifact/member SHA-256; no simulations, no fitting, no resampling of original cases.
+- **Statistics:** Clopper–Pearson two-sided 95% CIs for convergence and per-class recovery; one-sided and two-sided exact binomial p-values vs chance 1/3; paired-horizon cluster bootstrap for correlations/sRMSE, B=2000, seed `20261109`, with all 2000 draws valid.
+- **Primary parameters:** transformed omega2, omega3, log zeta (zero-based free indices `12,13,14`) for each perceptual model; pooled medians are secondary.
+- **Raw proof:** `evidence/revision/recovery_uncertainty.json` SHA-256 `e5437e5cbdaced53e811050c19761835672b5c8673b234055e0b8e0b7c46a538`; S7 decision source SHA-256 `6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c`.
+- **Test:** [workflow 42528948338](https://github.com/ahmadkhanloo/hgfx/actions/runs/42528948338) PASS; five focused tests PASS; no frozen metric changed. Output commit `f0640674f654884929e589f07f03b74c617cfe55` created by verified CI.
+- **Figure outputs:** `paper/computational_statistics/figures/fig2_recovery_uncertainty.{png,pdf}` and `fig3_model_recovery_uncertainty.{png,pdf}` plus `revision_figures_manifest.json`, with SHA-256 for each. Historical `paper/figures` untouched.
+- **Model recovery (HGF/eHGF/uHGF):** correct `4/12`, `11/12`, `6/12`; 95% CIs `[0.0992,0.6511]`, `[0.6152,0.9979]`, `[0.2109,0.7891]`; one-sided chance p-values `0.606925`, `0.00004704`, `0.177722`; balanced accuracy `0.5833333`.
+- **Convergence (HGF/eHGF/uHGF):** `20/24`, `22/24`, `19/24`; original M18 convergence criterion `>=0.80` remains unchanged; uHGF `0.7917` is below it.
+- **Example primary diagnostic:** HGF omega3 correlation `-0.3964899554`, 95% paired-cluster bootstrap interval `[-0.6222508675,-0.1253496962]`; this does not establish general structural identifiability.
+- **Limitations:** historical deterministic/stratified truths and reused paired horizons limit nominal CI/test interpretation; no general population inference; scientific recovery FAIL preserved.
+- **Time spent:** not instrumented precisely; audit completed without heavy computation.
+- **Phase gate:** REV-1 remains IN PROGRESS pending REV-1.3/1.4 and human decision D1; REV-0 tag remains OPEN.
