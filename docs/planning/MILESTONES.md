@@ -80,10 +80,10 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | Task ID | Scope | Current status | Acceptance |
 |---|---|---|---|
 | REV-0.1 | Branch and pre-revision tag | IN PROGRESS (branch created; tag missing) | Branch and tag verified |
-| REV-0.2 | Ledger, backlog, REV registration | IN PROGRESS | All three committed |
-| REV-0.3 | Reality-check workflows, evidence paths, GPU | IN PROGRESS | Inventory in ledger |
-| REV-0.4 | Manuscript numeric-claim checker | IN PROGRESS | Executed coverage table; mismatches fail |
-| REV-1.1 | Raw BIC confusion audit | OPEN | Raw counts + audited JSON + ledger |
+| REV-0.2 | Ledger, backlog, REV registration | IMPLEMENTED / COMMITTED | Ledger, backlog, registry present in PR #107 |
+| REV-0.3 | Reality-check workflows, evidence paths, GPU | INVENTORIED | File absences and historical S7 raw archive recovery recorded; current GPU unverified |
+| REV-0.4 | Manuscript numeric-claim checker | IMPLEMENTED / TESTED (partial coverage) | Run 42525414857, 4 tests PASS; 257 numeric tokens unmapped |
+| REV-1.1 | Raw BIC confusion audit | EXPLAINED / CI PASS | Original 36 raw selections verified; evidence JSON + terminal ledger report; run 42526812868 |
 | REV-1.2 | Recovery uncertainty and chance baselines | OPEN | Existing-case intervals, no refitting |
 | REV-1.3 | Archived warning cross-tab | OPEN | Per-block warning classification |
 | REV-1.4 | First divergence (four asymmetric cases and subject 7) | OPEN | Two-attempt cap, evidence or limitation |

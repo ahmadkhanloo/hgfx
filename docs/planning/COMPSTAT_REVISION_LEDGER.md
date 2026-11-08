@@ -3,8 +3,8 @@
 **Scope:** `COMPSTAT_REVISION_PLAN.md`; working branch `compstat-revision`.
 **Baseline main commit:** `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885` (2026-11-08).
 **Historical release evidence:** HGFX v1.0.0 at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; immutable.
-**Phase:** REV-0 in progress. No REV task has a terminal `FIXED`, `EXPLAINED`, or `DOCUMENTED_LIMITATION` report yet.
-**Gate:** NOT PASSED. Required baseline tag and complete audit execution remain to be verified.
+**Phase:** REV-0 gate still BLOCKED by the missing baseline tag; REV-1.1 was separately audited and is `EXPLAINED`.
+**Gate REV-0:** NOT PASSED (baseline tag missing). REV-0.4 focused CI PASS is an inventory, not final 100% numeric-claim coverage.
 
 ## REV-0.3 verified repository inventory (2026-11-09)
 
@@ -14,7 +14,7 @@
 | `pre-compstat-revision` tag | Not present in Git refs; connected GitHub tools cannot create tags | HUMAN_ACTION / OPEN |
 | MATLAB oracle workflows | `.github/workflows/m18-s7-paired-recovery.yml`, `m18-d02-matlab-self-sensitivity.yml`, `m18-d08-matlab-self-sensitivity.yml`, `m18-scientific-validation.yml` and more | PRESENT; execution NOT VERIFIED |
 | GPU capability | Historical physical T4 result in `gpu_validation_results/m18_s9_physical_gpu_revalidation.json` | HISTORICAL EVIDENCE PRESENT; current runner UNKNOWN |
-| `evidence/s7_aggregate.json` | No `evidence/` tree on `main`; `reference/validation/m18_s7_reference_limitation/decision.json` summarizes S7; raw shards are workflow artifacts | EXPECTED FILE MISSING; RAW AVAILABILITY NOT VERIFIED |
+| `evidence/s7_aggregate.json` | No `evidence/` tree on `main`; `reference/validation/m18_s7_reference_limitation/decision.json` summarizes S7; raw shards are workflow artifacts | EXPECTED FILE MISSING; historical 12 raw S7 shard archives recovered and audited from run `34896442847` |
 | `evidence/published_input_41809919116.json` | Not in `main` tree | MISSING |
 | `empirical_example/`, `worked_example/` | Neither present in `main` tree | MISSING |
 | `Manuscript.tex` and `ESM_1.tex` | No committed `.tex` files; active journal source: `paper/computational_statistics/manuscript.md`, supplement `paper/SUPPLEMENTARY_APPENDICES.md` | MARKDOWN BASELINE; TeX NOT CREATED |
@@ -35,7 +35,7 @@
 
 Task report format: ID · `FIXED|EXPLAINED|DOCUMENTED_LIMITATION` · actions · evidence paths and SHA-256 · manuscript numbers · open limitations · time spent.
 
-No terminal reports yet. Recording an inventory is not a claim that REV-0 gate passed.
+REV-1.1 terminal report follows below. Recording an inventory is not a claim that REV-0 gate passed.
 
 
 ## REV-0.4 targeted CI evidence (initial audit; not a terminal task report)
@@ -49,3 +49,16 @@ No terminal reports yet. Recording an inventory is not a claim that REV-0 gate p
 - SHA-256 checked: physical T4 record `7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82`.
 - Those fingerprints are now pinned in the mapping registry; later unexpected evidence changes are an audit error.
 - Full-run results and `pre-compstat-revision` tag are separate pending gate items. REV-1 experiments have NOT started.
+
+## REV-1.1 — terminal task report (2026-11-09; ≤15 lines)
+
+- **ID · status:** REV-1.1 · `EXPLAINED` (C2 reporting audit; not a model-identifiability PASS).
+- **Actions:** Downloaded all 12 original S7 shard ZIPs from historical workflow [34896442847](https://github.com/ahmadkhanloo/hgfx/actions/runs/34896442847); recomputed per-dataset minimum-BIC winners for all 36 cases from original comparisons, verified case-input digests and model-specific seeds, and inspected generator dispatch.
+- **Independent verification:** [Targeted CI run 42526812868](https://github.com/ahmadkhanloo/hgfx/actions/runs/42526812868) PASS; deliberate corruption of one reported matrix count correctly caused FAIL; no new fit or simulation.
+- **Evidence:** `evidence/revision/confusion_audit.json`, SHA-256 `0b652e5eda3827ee304281fe0f3ce5000b3651beb968c981765d026b526053b6`.
+- **Raw evidence:** twelve artifact/member SHA-256 hashes are pinned in the JSON; archived `aggregate.json` SHA-256 `fcc7ce91383ecb4e46847fba6844f7c91562d98be4997d3745f79f25ba9cfdda`; source decision SHA-256 `6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c`.
+- **Manuscript figures:** BIC-selection counts (generating rows × winning columns HGF, eHGF, uHGF) = `[[4,2,6],[0,11,1],[4,2,6]]` in **both** MATLAB and HGFX; `36/36` paired winners match; balanced accuracy `0.5833333333333334` (chance baseline `1/3`, descriptive only).
+- **Explanation:** Two identical marginal HGF/uHGF confusion rows are genuine: only `4/12` matched-stratum datasets have the same selected model, with `0/12` same seeds, inputs, or responses and `12/12` identical transformed truth vectors. Data generation uses distinct HGF/uHGF model dispatch. Small BIC runner-up margins and the limited grid are consistent with weak separation, not evidence of an aggregation/copy bug.
+- **Open limitation:** This audit does not identify a causal scientific/structural identifiability mechanism; REV-1.2 and REV-2.5 address uncertainty/design. S7 historical parameter-recovery failures are preserved.
+- **Time spent:** not instrumented precisely; bounded audit completed without rerunning the historical experiment.
+- **Phase gate:** REV-1 is NOT complete; REV-1.2–1.4 remain OPEN. REV-0 baseline tag remains HUMAN_ACTION.
