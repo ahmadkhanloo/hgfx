@@ -11,7 +11,8 @@
         {
           "pointer": "/model_recovery/winner_matches"
         }
-      ]
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
     },
     {
       "id": "s7_balanced_accuracy_abstract",
@@ -23,7 +24,8 @@
           "pointer": "/model_recovery/hgfx_balanced_accuracy",
           "decimal_places": 3
         }
-      ]
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
     },
     {
       "id": "s7_bic_pair",
@@ -37,7 +39,8 @@
         {
           "pointer": "/model_recovery/total_cases"
         }
-      ]
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
     },
     {
       "id": "s7_balanced_accuracy_caption",
@@ -49,7 +52,8 @@
           "pointer": "/model_recovery/hgfx_balanced_accuracy",
           "decimal_places": 12
         }
-      ]
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
     },
     {
       "id": "p3_differing_bic",
@@ -64,7 +68,8 @@
         {
           "pointer": "/model_recovery/total_cases"
         }
-      ]
+      ],
+      "sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
     },
     {
       "id": "p3_shards",
@@ -78,7 +83,8 @@
         {
           "pointer": "/coverage/expected_shards"
         }
-      ]
+      ],
+      "sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
     },
     {
       "id": "s9_objective_gap",
@@ -90,7 +96,8 @@
           "pointer": "/physical_gpu/cases/1/final_objective_gap",
           "significant_digits": 3
         }
-      ]
+      ],
+      "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82"
     },
     {
       "id": "s9_objective_gate",
@@ -101,7 +108,8 @@
         {
           "pointer": "/criteria/jax_cpu_vs_physical_gpu_final_objective_gap_max"
         }
-      ]
+      ],
+      "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82"
     }
   ]
 }

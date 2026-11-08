@@ -36,3 +36,16 @@
 Task report format: ID · `FIXED|EXPLAINED|DOCUMENTED_LIMITATION` · actions · evidence paths and SHA-256 · manuscript numbers · open limitations · time spent.
 
 No terminal reports yet. Recording an inventory is not a claim that REV-0 gate passed.
+
+
+## REV-0.4 targeted CI evidence (initial audit; not a terminal task report)
+
+- First CI run `42525152221`: **FAIL** (1 of 3 tests): sentence-final decimal was not recognized; raw log retained in GitHub Actions.
+- Correction in commit `b597101e799a56e5170dda97866ec61ba167b168`: numeric-token regex now recognizes sentence-final values without changing any evidence.
+- CI run `42525216174`: **PASS (3 tests)**; claim inventory executed with zero evidence mismatches.
+- Inventory: active manuscript 13/166 numeric tokens mapped; supplement 0/104; **257 tokens unmapped** (including section labels, version numbers, file paths, and scientific values). This is not 13/166 scientific-claim coverage.
+- SHA-256 checked: S7 decision `6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c`.
+- SHA-256 checked: P3 aggregate `83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4`.
+- SHA-256 checked: physical T4 record `7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82`.
+- Those fingerprints are now pinned in the mapping registry; later unexpected evidence changes are an audit error.
+- Full-run results and `pre-compstat-revision` tag are separate pending gate items. REV-1 experiments have NOT started.

@@ -70,3 +70,17 @@ def test_unmapped_values_fail_strict_but_are_listed_in_inventory(tmp_path):
     inventory = _run(tmp_path, "--allow-unmapped")
     assert inventory.returncode == 0
     assert "UNMAPPED" in inventory.stdout
+
+
+def test_sha256_pin_detects_altered_evidence_even_when_values_match(tmp_path):
+    import hashlib
+    _setup(tmp_path)
+    source = tmp_path / "evidence" / "values.json"
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    registry["claims"][0]["sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    source.write_bytes(source.read_bytes() + b"\n")
+    result = _run(tmp_path, "--allow-unmapped")
+    assert result.returncode != 0
+    assert "evidence SHA-256 changed" in result.stderr
