@@ -29,14 +29,19 @@ static int matched_library(const char *src) {
     if (n >= sizeof(lower)) n = sizeof(lower) - 1;
     for (i = 0; i < n; ++i) lower[i] = (char)tolower((unsigned char)base[i]);
     lower[n] = '\0';
-    return strstr(lower, "mkl") != NULL ||
-           strstr(lower, "blas") != NULL ||
-           strstr(lower, "blis") != NULL ||
-           strstr(lower, "aocl") != NULL ||
-           strstr(lower, "libiomp") != NULL ||
-           strstr(lower, "libgomp") != NULL ||
-           strstr(lower, "libomp.") != NULL ||
-           strstr(lower, "libmwomp") != NULL;
+    /* Prefixes only: 'libmwagentspflegacyservicepublisher.so' contains
+       'blis' within 'publisher' and is NOT a BLIS library. */
+    return strcmp(lower, "mkl.so") == 0 ||
+           strncmp(lower, "libmkl", 6) == 0 ||
+           strncmp(lower, "libmwblas", 9) == 0 ||
+           strncmp(lower, "libmwgraphblas", 14) == 0 ||
+           strncmp(lower, "libblas", 7) == 0 ||
+           strncmp(lower, "libblis", 7) == 0 ||
+           strncmp(lower, "libaocl", 7) == 0 ||
+           strncmp(lower, "libiomp", 7) == 0 ||
+           strncmp(lower, "libgomp", 7) == 0 ||
+           strncmp(lower, "libomp", 6) == 0 ||
+           strncmp(lower, "libmwomp", 8) == 0;
 }
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
