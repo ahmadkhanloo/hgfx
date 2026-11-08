@@ -110,3 +110,13 @@ The verifier's text-extension list omitted YAML, so the claim ledger recorded
 the checkout bytes. A regression test first reproduced that difference. The
 existing text-hash policy now includes .yml and .yaml, while ZIP/PDF bytes stay
 exact. Scientific sources, fixture bytes and thresholds were untouched.
+
+## Approved publication-completion execution, 8 November 2026
+
+Baseline edaf2a46583837bf664093ca3a7362a90b878871 unchanged at start; existing clean paper worktree reused. Required documents read. Warning aggregate independently recounted: 48 Reed cases, 86 events; all 48 have ignored trials. Missing messages/locations/categories and unresolved mechanism are explicit. No fresh MATLAB/HGFX run claimed. Two bounded source candidates blocked before fitting; original code digest and fixed Git commit recorded, OSF responses 410/401 retained. No core/dispatch/threshold/data change; conditional application phase not activated.
+
+Official Springer publishing and submission pages rechecked; no-APC subscription confirmed, comprehensive financial/institutional/account clearance remains open. Main manuscript claims and their ledger remain unchanged; supplement S8 and execution handoff record actual new audit findings. PDFs and editable archive rebuilt. Baseline targeted suite: 13 passed. Rebuilt package verifier: PASS_LOCAL_ARTIFACT_CHECKS_ONLY, all 75 protected identities unchanged, 76 claim paragraphs and 15 citation keys checked. Main 17 pages and supplement 8 pages rendered to contact sheets; supplement pages 7/8 inspected at larger size, no clipping observed. Generic layout remains author-review only.
+
+Separate read-only agent review independently checked warning math and frozen observation dispatch: no blocking findings. Source digest and count-reproduction command added to improve traceability. Ruling: retain warning mechanism as unresolved because the aggregate cannot establish it; claim scope remains narrow. No speed evidence, submission, upload, external message or financial commitment.
+
+Final post-build targeted suite: 13 passed in 34.22 seconds. No scientific implementation tests were added for these documentation/evidence changes.

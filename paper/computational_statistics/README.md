@@ -43,3 +43,7 @@ Rebuild the audit first with `python paper/computational_statistics/audit_frozen
 Then use the figure/build/verification commands above. The latest revision
 manifest supersedes prior package hashes; historical checkout verification is
 retained as an earlier record, not proof for this revision.
+
+## Publication completion follow-up, 8 November 2026
+
+See [the executed handoff](PUBLICATION_COMPLETION_2026-11-08.md). Warning counts are audited without inferring their mechanism; both bounded application candidates failed feasibility before fitting. Supplement S8 records this disposition. This remains an author-review package, not submission-ready.

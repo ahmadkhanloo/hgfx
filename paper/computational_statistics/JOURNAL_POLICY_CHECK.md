@@ -41,3 +41,7 @@ any relevant conditions for an author affiliated with IPM in Iran. We cannot
 proceed with any positive mandatory author charge.
 
 **Zero-fee route cleared: NO (OPEN).** No email, submission or payment occurred.
+
+## Official policy recheck, 8 November 2026
+
+The official publishing-options page was opened again and explicitly states that subscription publishing has no APC. The official submission guidelines were also opened; editable source and human accountability requirements remain relevant. No comprehensive clearance of submission/page/supplement/other fees, IPM conditions or authenticated portal terms was obtained. Zero-fee route clearance remains OPEN; optional OA and paid services are not selected.

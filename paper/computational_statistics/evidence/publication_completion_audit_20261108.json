@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-08",
+  "baseline": "edaf2a46583837bf664093ca3a7362a90b878871",
+  "source": "paper/computational_statistics/evidence/published_input_41809919116.json",
+  "cases": 324,
+  "warning_cases": 48,
+  "warning_events": 86,
+  "warning_cases_by_study": {
+    "reed_2020": 48
+  },
+  "warning_events_per_case": {
+    "1": 29,
+    "3": 19
+  },
+  "warning_cases_with_ignored_trials": 48,
+  "warning_message_location_category": "NOT_RETAINED_IN_AGGREGATE",
+  "causal_status": "UNRESOLVED_NOT_CERTIFIED_HARMLESS",
+  "fresh_matlab_or_hgfx_execution": false,
+  "candidate_outcomes": {
+    "Oberwelland2021": "BLOCKED_UNSUPPORTED_SOFTMAX_BINARY_FITTING_AND_DATA_ACCESS",
+    "Gao2024": "BLOCKED_SOURCE_ACCESS_HTTP401_NOT_EVIDENCE_OF_PERMANENT_UNAVAILABILITY"
+  },
+  "application_fitting": "NOT_RUN_TERMINAL_FEASIBILITY_GATE",
+  "raw_observations_exported": false,
+  "source_text_lf_sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+}

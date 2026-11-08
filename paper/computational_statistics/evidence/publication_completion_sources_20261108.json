@@ -1,0 +1,67 @@
+{
+  "oberwelland_code": {
+    "url": "https://raw.githubusercontent.com/msrlab/reversal_learning_behav/main/run_analysis.m",
+    "status": "RETRIEVED",
+    "sha256": "8b8c59681cb2679111b600cc8042eee9ca0150c4096cc1f8561b4ca393b8e60b",
+    "bytes": 12518,
+    "relevant_lines": [
+      {
+        "line": 12,
+        "text": "% tapas_rw_binary_config.m: RW-model"
+      },
+      {
+        "line": 13,
+        "text": "% tapas_hgf_binary_config_custom.m: HGF-model including theta"
+      },
+      {
+        "line": 14,
+        "text": "% tapas_hgf_binary_config_custom_ft.m: HGF-model including theta, but set to 0"
+      },
+      {
+        "line": 58,
+        "text": "% theta set to a fixed value. see the custom tapas config files for settings used"
+      },
+      {
+        "line": 59,
+        "text": "% tapas_rw_binary_config.m: RW-model"
+      },
+      {
+        "line": 71,
+        "text": "bopars_rw = tapas_fitModel(choice_input, cont_input, 'tapas_rw_binary_config_custom', 'tapas_softmax_binary_config','tapas_quasinewton_optim_config');"
+      },
+      {
+        "line": 74,
+        "text": "bopars_hgf = tapas_fitModel(choice_input, cont_input,'tapas_hgf_binary_config_custom', 'tapas_softmax_binary_config','tapas_quasinewton_optim_config');"
+      },
+      {
+        "line": 77,
+        "text": "bopars_hgfft = tapas_fitModel(choice_input, cont_input,'tapas_hgf_binary_config_custom_ft', 'tapas_softmax_binary_config','tapas_quasinewton_optim_config');"
+      },
+      {
+        "line": 119,
+        "text": "LME_rw = sh.bopars_rw{i}.(sh.conditions{j}).optim.LME;"
+      },
+      {
+        "line": 120,
+        "text": "LME_hgf = sh.bopars_hgf{i}.(sh.conditions{j}).optim.LME;"
+      },
+      {
+        "line": 121,
+        "text": "LME_hgfft = sh.bopars_hgfft{i}.(sh.conditions{j}).optim.LME;"
+      }
+    ],
+    "commit": "46bc70dd45746b3d826da05dad17718bb203cc8c",
+    "pinned_url": "https://raw.githubusercontent.com/msrlab/reversal_learning_behav/46bc70dd45746b3d826da05dad17718bb203cc8c/run_analysis.m",
+    "pinned_content_matches": true
+  },
+  "gao_osf": {
+    "url": "https://api.osf.io/v2/nodes/sk82r/files/osfstorage/",
+    "status": "UNAVAILABLE_THIS_ATTEMPT",
+    "error": "HTTP Error 401: Unauthorized"
+  },
+  "oberwelland_osf": {
+    "url": "https://api.osf.io/v2/nodes/3xrn2/files/osfstorage/",
+    "status": "UNAVAILABLE_THIS_ATTEMPT",
+    "error": "HTTP Error 410: Gone"
+  }
+}

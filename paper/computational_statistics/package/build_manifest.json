@@ -22,7 +22,7 @@
   },
   "inputs": {
     "manuscript.md": "5f4cd7d88c16462f581480cedb13c4943942f9d50ef68d91842d09e9a03b414a",
-    "supplement.md": "270c35b5c583e641e36d80cf7c17a4239d1598c41789b8b17160922a0d2ff4f1",
+    "supplement.md": "06b6f97ea3dc6b966faff37de4b692563f6bbd8d80b23ba7d787f6d797776800",
     "references.bib": "e7afda8edea7a6824c6a4c5719f1731bacdc8d64e1dd573bd481223d16b79342",
     "build_submission.py": "35c73691c544e7a18dd28f05ede93ac59a0c6d7ccbc3f1ea2483f3837bcf8795",
     "THIRD_PARTY_NOTICES.md": "88fc2aad19e879174bb71a4740ebfe8d978001e186585584ac3aac70a0081b07",
@@ -36,10 +36,10 @@
     "springer-basic-author-date.csl": "4d531a58f1c8a3ab3d6c7543ff5efe552d0e385e1d4fff50b476c4d4051eab38"
   },
   "outputs": {
-    "HGFX_CompStat.pdf": "ba1512b1305b853bd543e4904c7dcaf90a1cca1066770b7952c36d8eba6b5c8a",
+    "HGFX_CompStat.pdf": "17fe835388e1ec09df5f8d87375d78fc07a9513ae2d3378c08bd7323dde65195",
     "HGFX_CompStat.tex": "e6864e7f5a5b886a9af414b6cfcb8ccfb30b1626f3a9168d68c8ae16bc40a662",
-    "HGFX_CompStat_source.zip": "ab490c097b29077679e16c848aaa544d149210203fddf7826f78620db9f2a3e2",
-    "HGFX_Supplement.pdf": "9bc6c182de5481c1eb7617bc1b89b0f401563b0ad304a6fdee8b40343781c42a",
-    "HGFX_Supplement.tex": "cf552bd78c34b68d5f275b3dd83e0eae859bac8185e4f9d562fdd0df284e06c1"
+    "HGFX_CompStat_source.zip": "ad63db327bf9b196b6db50315d23460cfc19439d0b1b1418b755b6436685a4b9",
+    "HGFX_Supplement.pdf": "d5ca72e70ca6afe0c0d66bd23730ea15dc1e318a9cbff07c84fe7927aa3938a7",
+    "HGFX_Supplement.tex": "410e371588eb906cf6e01375d20484e802cc85fabd1773b7c5a8e06768506e87"
   }
 }
