@@ -46,6 +46,9 @@ def example():
             "mkl_target_max_threads": 1,
             "mkl_symbol_source": "/matlab/bin/glnxa64/libmkl_rt.so",
             "query_kind": "TARGET_MAX_THREAD_CAP_NOT_OBSERVED_WORKER_COUNT",
+            "omp_get_max_threads_available": True,
+            "omp_target_max_threads": 1,
+            "omp_symbol_source": "/matlab/sys/os/glnxa64/libiomp5.so",
         },
     }
     return h, m, native
@@ -70,6 +73,24 @@ class NativeMatlabBlasProvenance(unittest.TestCase):
         self.assertEqual(r["matlab_mkl_target_max_threads"], 4)
         self.assertFalse(r["matlab_mkl_target_one_observed"])
         self.assertEqual(r["original_environment_gate"], "BLOCKED_MATLAB_MKL_ENV")
+
+    def test_openmp_target_is_separate_from_mkl_target_and_workers(self):
+        h, m, n = example()
+        n["native"]["omp_target_max_threads"] = 4
+        r = compare(h, m, n)
+        self.assertEqual(r["matlab_openmp_target_max_threads"], 4)
+        self.assertFalse(r["matlab_openmp_target_one_observed"])
+        self.assertEqual(r["matlab_mkl_target_max_threads"], 1)
+        self.assertFalse(r["matlab_actual_blas_worker_count_independently_verified"])
+        h, m, n = example()
+        n["native"]["omp_get_max_threads_available"] = False
+        n["native"]["omp_target_max_threads"] = -1
+        r = compare(h, m, n)
+        self.assertIsNone(r["matlab_openmp_target_max_threads"])
+        h, m, n = example()
+        n["native"]["omp_get_max_threads_available"] = False
+        with self.assertRaisesRegex(ValueError, "must not infer"):
+            compare(h, m, n)
 
     def test_unavailable_symbol_and_compiler_are_reported_not_faked(self):
         h, m, n = example()
