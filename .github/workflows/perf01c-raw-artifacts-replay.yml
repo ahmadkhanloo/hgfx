@@ -1,0 +1,60 @@
+name: PERF-01C original raw archives 64 fit + forward7 replay (NO TIMING)
+
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/runtime_v1/verify_perf01c_raw_archives.py'
+      - 'tests/test_perf01c_raw_archive_replay.py'
+      - 'docs/research/PERF01C_RAW_ARCHIVE_REVIEW_HANDOFF_2026-11-08.md'
+      - '.github/workflows/perf01c-raw-artifacts-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  original-raw-evidence-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+    steps:
+      - name: Checkout reviewer handoff tools (not a frozen source replacement)
+        uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original comparator dependencies and test raw-hash replay guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.3.5'
+          python -m unittest discover -s work/tests -p 'test_perf01c_raw_archive_replay.py' -v
+      - name: Fetch ORIGINAL historical raw artifacts with Actions read token
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/original-fit evidence/forward7
+          gh run download 41863441006 --repo ahmadkhanloo/hgfx             --name perf01-64-full-fits-41863441006 --dir evidence/original-fit
+          gh run download 42481218455 --repo ahmadkhanloo/hgfx             --name perf01c-forward7-boundary-untimed-42481218455 --dir evidence/forward7
+          test "$(find evidence/original-fit -maxdepth 1 -type f | wc -l)" -eq 3
+          test "$(find evidence/forward7 -maxdepth 1 -type f | wc -l)" -eq 3
+      - name: Recompute original 64-fit and all 7 forward full outputs from RAW bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/verify_perf01c_raw_archives.py             --root work/benchmarks/runtime_v1             --original-fit evidence/original-fit             --forward7 evidence/forward7             --output evidence/raw_archive_replay.json
+      - name: Preserve verification report (raw original archives remain at their historical run URLs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-original-raw-replay-${{ github.run_id }}
+          path: evidence/raw_archive_replay.json
+          if-no-files-found: warn
