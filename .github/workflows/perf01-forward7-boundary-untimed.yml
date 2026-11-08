@@ -67,7 +67,7 @@ jobs:
       - name: Run proposed MATLAB full forward-call region exactly once (NO TIMER)
         uses: matlab-actions/run-command@v3
         with:
-          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); forward7_boundary_matlab_untimed(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'evidence','matlab_forward7.json'))"
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); forward7_boundary_matlab_untimed(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'evidence','matlab_forward7_boundary.json'))"
       - name: Check exact boundary, all full outputs and original case lock (NO TIMER)
         shell: bash
         run: |
