@@ -1,0 +1,336 @@
+{
+  "task_id": "REV-1.1",
+  "status": "EXPLAINED",
+  "protocol": "m18-s7-paired-recovery-1",
+  "source_workflow_run": 34896442847,
+  "source_artifacts_expire_at": "2026-12-13T21:02:02Z",
+  "raw_artifacts": [
+    {
+      "artifact": "m18-s7-shard-ehgf-t128-s015.zip",
+      "archive_sha256": "953d5b8f8948d2f2dd8bade81b541fc239994dbde669ccf84c45503b7162bdaf",
+      "manifest_sha256": "90462e2022ea137731c8d26015531f4c9f144f48f952f909d97ce3c3ad1f75ec",
+      "comparison_sha256": "f6feb86c703cf247f85abebbde3702e38de5e078967e09c06a142086429a8566"
+    },
+    {
+      "artifact": "m18-s7-shard-ehgf-t128-s035.zip",
+      "archive_sha256": "bbf06011c1a3992eaf69a9692d1c145f97644d737355694a595bfc84ba381695",
+      "manifest_sha256": "64d17569919e89ee22a91284638924e428da9f3f25f24aa5d5d744fc55bf9028",
+      "comparison_sha256": "a5cc2652e2733c6c8a34f39651f78ca3c0b7d9ad0deafc2831b372f10f6af338"
+    },
+    {
+      "artifact": "m18-s7-shard-ehgf-t256-s015.zip",
+      "archive_sha256": "944d7d823d6309ae70f13bbce651fad3b92ea086db5a60a5edceb2fa9f95815f",
+      "manifest_sha256": "e82b89d45b0b2b071f6f5ec7e587b0acef0fc3590cede1fa5164a779fc8e68fc",
+      "comparison_sha256": "4cee72ae34ca5338ca6f2864f193de1ef844aa2e87dbe54089ce708374247e13"
+    },
+    {
+      "artifact": "m18-s7-shard-ehgf-t256-s035.zip",
+      "archive_sha256": "831b7ea081fe2131f74af301bba2b1fa482143a0d0e41351ddf373573b9cf3d0",
+      "manifest_sha256": "0f223247ee3fe231d8236edd4c325e1865332fd2da2bb6d2df4980f26f86fe35",
+      "comparison_sha256": "b6ce97bbe2eae6250a78a0d97f7d46e050a58eb1183843afcba667b99abd500b"
+    },
+    {
+      "artifact": "m18-s7-shard-hgf-t128-s015.zip",
+      "archive_sha256": "24a72507e5469dc701e0edc8bf8fafb4fc2c5a8b01cbd315fe3c918f23c45acb",
+      "manifest_sha256": "469f771445b17d7c40b25ddb85152f9e0ffd76f6e8379bc5bec2178839eca0ea",
+      "comparison_sha256": "fa2bd8d2a4b31cc4531edcd71e9e4f5a20698c37052b6f729679e2c9942d5183"
+    },
+    {
+      "artifact": "m18-s7-shard-hgf-t128-s035.zip",
+      "archive_sha256": "8269a53422f11b1215d5bac88d86504bf73dbd44899c2fa27527a637091db51b",
+      "manifest_sha256": "b5fe035372ed80a5f3d85e203a190d9da29b296c2c5fd339ac943fc4d0c7bf81",
+      "comparison_sha256": "1e475ef2d8559c550529574ad2171d4f4ed532565150237c6a323cd0731675bd"
+    },
+    {
+      "artifact": "m18-s7-shard-hgf-t256-s015.zip",
+      "archive_sha256": "62666b958972e59e0c3584ff4442f6f7c9d9397dfb1c4d4f245910d355dc567d",
+      "manifest_sha256": "7c80132935528ef61192a0b6fd8809e86f459a9420c1e470dc72839f03366126",
+      "comparison_sha256": "1deb8767ac95f23b81fc70b1b6672dc7c3468ac49a353903bf8a029dae341267"
+    },
+    {
+      "artifact": "m18-s7-shard-hgf-t256-s035.zip",
+      "archive_sha256": "d46278a7465d3552ae929bdf9676a8ca960c8d99c0f351cb0e61ddb527049263",
+      "manifest_sha256": "26b65eb6d67ed213d9dbf45187d986e02c192e70622bd77d4c19ac073fd029a2",
+      "comparison_sha256": "c1dd79301ecaac6270c5e83f99f51cceac3c43040669b806d47eba91ff1d54d5"
+    },
+    {
+      "artifact": "m18-s7-shard-uhgf-t128-s015.zip",
+      "archive_sha256": "bcd5c1e0a3ce95bdb7571e2a4edb213371c812576c1e9d0622280190cf581e5b",
+      "manifest_sha256": "78151a2b60a4d9932d89fd15ccee38088e03a0fcf69974996d6cdb88f73f2b12",
+      "comparison_sha256": "c79aa02c7452ffa9aa40454cdfb99b747709f82a7105bf7ae8b3ce7ef91e2d78"
+    },
+    {
+      "artifact": "m18-s7-shard-uhgf-t128-s035.zip",
+      "archive_sha256": "308726d57794a01d5b051e4b88100fe0b98c700e39ddc103c0c0c96d64fa4107",
+      "manifest_sha256": "639d704c554f88c20939c4f899199e8941885688fda72ca2bb2a6ca084ca4bc2",
+      "comparison_sha256": "770233eb6129f335b01bba610832621b0be77e50e549e9cc03558e08aecc14eb"
+    },
+    {
+      "artifact": "m18-s7-shard-uhgf-t256-s015.zip",
+      "archive_sha256": "0779ad6245d60a2bab07663085872b11324cd49d6e7efcbcd3530f4fa1c1e376",
+      "manifest_sha256": "9bb04dc6a7a5fd537e35ebdbc01dc7781ff3cf35b0b73785e516ffce32c855f2",
+      "comparison_sha256": "c599674a0b1251fff3290657e1f2c19a9169c0cf265d265542c3738107c015fe"
+    },
+    {
+      "artifact": "m18-s7-shard-uhgf-t256-s035.zip",
+      "archive_sha256": "eeea29be4e3956b904bdba0f459cbebb3665625fd3fc5b2c3cebc2492a5642c3",
+      "manifest_sha256": "e0eef32df1e10435fe2372a3249c1581512bbe72e999fd9f7e0821c017cb6ec7",
+      "comparison_sha256": "8899acd9a0ee38feb116db3f5a1a86df330fdaf69d5347fbb29fd31e8462ba01"
+    }
+  ],
+  "source_aggregate_json_sha256": "fcc7ce91383ecb4e46847fba6844f7c91562d98be4997d3745f79f25ba9cfdda",
+  "frozen_release_decision_sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c",
+  "n_shards": 12,
+  "n_model_datasets": 36,
+  "n_candidate_fits_each": 108,
+  "models_order": [
+    "hgf_binary",
+    "ehgf_binary",
+    "uhgf_binary"
+  ],
+  "confusion_matrix_counts": [
+    [
+      4,
+      2,
+      6
+    ],
+    [
+      0,
+      11,
+      1
+    ],
+    [
+      4,
+      2,
+      6
+    ]
+  ],
+  "matlab_confusion_matrix_counts": [
+    [
+      4,
+      2,
+      6
+    ],
+    [
+      0,
+      11,
+      1
+    ],
+    [
+      4,
+      2,
+      6
+    ]
+  ],
+  "paired_winners_match": 36,
+  "balanced_accuracy": 0.5833333333333334,
+  "paired_hgf_uhgf_diagnostics": {
+    "same_seed": 0,
+    "same_input": 0,
+    "same_response": 0,
+    "same_truth_free": 12,
+    "same_probs": 0,
+    "same_selected": 4
+  },
+  "hgfx_BIC_margins": {
+    "hgf_binary": {
+      "median": 0.2718572807155617,
+      "min": 0.0018390929073532902
+    },
+    "ehgf_binary": {
+      "median": 5.476987926236658,
+      "min": 0.06819141892784586
+    },
+    "uhgf_binary": {
+      "median": 0.6427085801451984,
+      "min": 0.013991099777939553
+    }
+  },
+  "case_selections": [
+    [
+      "MR-hgf_binary-T128-S0.15-R0",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T128-S0.15-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T128-S0.15-R2",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T128-S0.35-R0",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T128-S0.35-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T128-S0.35-R2",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.15-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.15-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.15-R2",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.35-R0",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.35-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-hgf_binary-T256-S0.35-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.15-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.15-R1",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.15-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.35-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.35-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T128-S0.35-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.15-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.15-R1",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.15-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.35-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.35-R1",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-ehgf_binary-T256-S0.35-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.15-R0",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.15-R1",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.15-R2",
+      "ehgf_binary",
+      "ehgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.35-R0",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.35-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T128-S0.35-R2",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.15-R0",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.15-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.15-R2",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.35-R0",
+      "hgf_binary",
+      "hgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.35-R1",
+      "uhgf_binary",
+      "uhgf_binary"
+    ],
+    [
+      "MR-uhgf_binary-T256-S0.35-R2",
+      "uhgf_binary",
+      "uhgf_binary"
+    ]
+  ],
+  "explanation": "Counts for generating HGF/uHGF are genuinely identical marginal BIC-selection counts, not a copied row: only 4/12 matched-stratum case winners match, while all 12 pairwise seeds, input arrays and response arrays differ. Both use a common truth-vector grid in free transformed coordinates, but the generator dispatches distinct model configurations and simulations. Small BIC runner-up gaps and poor HGF/uHGF discrimination are observed; this alone does not establish a causal identifiability mechanism. Historical scientific FAIL unchanged.",
+  "source_dispatch": [
+    "scripts/prepare_m18_s7_paired_recovery.py",
+    "src/hgfx/diagnostics/recovery.py"
+  ]
+}
