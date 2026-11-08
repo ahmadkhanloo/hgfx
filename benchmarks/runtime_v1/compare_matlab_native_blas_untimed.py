@@ -74,6 +74,19 @@ def compare(hgfx: dict, matlab: dict, native: dict) -> dict:
                 "Native MKL API availability not boolean")
         require(isinstance(mex.get("mkl_target_max_threads"), int),
                 "Native MKL target thread cap not numeric integer")
+        require(isinstance(mex.get("omp_get_max_threads_available"), bool),
+                "OpenMP API availability not boolean")
+        require(isinstance(mex.get("omp_target_max_threads"), int)
+                and isinstance(mex.get("omp_symbol_source"), str),
+                "OpenMP target evidence incomplete")
+        if mex["omp_get_max_threads_available"]:
+            require(mex["omp_target_max_threads"] > 0,
+                    "OpenMP API returned nonpositive target threads")
+            require(bool(mex["omp_symbol_source"]),
+                    "OpenMP symbol resolved without a source")
+        else:
+            require(mex["omp_target_max_threads"] == -1,
+                    "Missing OpenMP symbol must not infer target workers")
         if mex["mkl_get_max_threads_available"]:
             require(mex["mkl_target_max_threads"] > 0,
                     "Native MKL API returned nonpositive thread cap")
@@ -87,6 +100,8 @@ def compare(hgfx: dict, matlab: dict, native: dict) -> dict:
                 "MEX instrumentation failure not preserved")
 
     old_env_blocked = observed_env != "1"
+    omp_target = (mex.get("omp_target_max_threads")
+                  if compiled and mex.get("omp_get_max_threads_available") else None)
     target = (mex.get("mkl_target_max_threads")
               if compiled and mex.get("mkl_get_max_threads_available") else None)
     policy = "BLOCKED_MATLAB_MKL_ENV" if old_env_blocked else "STILL_NOT_FROZEN"
@@ -106,6 +121,9 @@ def compare(hgfx: dict, matlab: dict, native: dict) -> dict:
         ),
         "matlab_mkl_target_max_threads": target,
         "matlab_mkl_target_one_observed": target == 1,
+        "matlab_openmp_target_max_threads": omp_target,
+        "matlab_openmp_target_one_observed": omp_target == 1,
+        "openmp_target_is_not_mkl_or_active_worker_count": True,
         "matlab_actual_blas_worker_count_independently_verified": False,
         "matlab_process_threads_before": native["thread_count_before"],
         "matlab_process_threads_after_blas": native["thread_count_after_blas"],
