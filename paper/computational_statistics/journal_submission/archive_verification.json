@@ -1,0 +1,11 @@
+{
+  "Manuscript": {
+    "flat_archive_compile": "PASS",
+    "no_external_worktree_paths": true
+  },
+  "ESM_1": {
+    "flat_archive_compile": "PASS",
+    "no_external_worktree_paths": true
+  },
+  "scientific_sources_unchanged": true
+}

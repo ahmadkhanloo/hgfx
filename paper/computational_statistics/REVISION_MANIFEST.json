@@ -61,7 +61,7 @@
     "evidence/s7_parameter_table.md": "1f435c9937cb1957f271112078cde53d402e408e656271d43e4e3acd0f70f0e7",
     "evidence/workflow_10294714175.zip": "2aa62628d16198f8f335b56fca0f015303439406bb278a329b4cae09b9e69afd",
     "evidence/workflow_10319807926.zip": "a8f537ab1491c0648a5b0cde1243d2b5abfee479e2380922533b01627f7de7c5",
-    "EXECUTION_LOG.md": "05b31c56702ab07b4e1c1d9d4d4da8ec9349226dcb4a75e639853146581f0ba2",
+    "EXECUTION_LOG.md": "eda73807bcf64de01a7ad619ca7eeb80edab2e3528bf512b43be4dfece649cfa",
     "figures/fig_gpu_applicability.pdf": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
     "figures/fig_gpu_applicability.png": "1522a91693c62cbf0fd1a858725ddff8148de0ba1e3162e5563ab3f89132d582",
     "figures/fig_model_selection.pdf": "33cd5f1f1e5aff07d0b82194a55e6462235529a57c52e70b0bfb7cd98a10d87b",
@@ -93,7 +93,7 @@
     "policy_sources/biorxiv_metadata.json": "d51d42afac09c129fb241e6755a68679b44821bc95d4f9ed33947820814960a1",
     "policy_sources/citation_metadata.json": "bff88e79e0eaad78ec56d82a686e61572154ae860feec41051ef11a8c5ae4d89",
     "policy_sources/manifest.json": "3d17b270b7a7274211e9ccc84ec96a8774c9bba9b2fc2507098ba313a4ffb590",
-    "README.md": "a600359c4b8bbb90d9ea19be463afd37656a0abb60765d22c9d462dc9a90fb98",
+    "README.md": "80005e5bc17175e378c00310f56e72b2b77db3f402bd955e226ba563e0ee8b41",
     "references.bib": "e7afda8edea7a6824c6a4c5719f1731bacdc8d64e1dd573bd481223d16b79342",
     "RESPONSE_TO_CRITIQUE_FA.md": "4d8e6ce9efa768b44312ec78f0855237d9fe2fd2b16cc4c06a155e9a5ba1a970",
     "REVISION_PROTOCOL.md": "4944531c2b0c5de6dd31944f504a7fb756fc1ff21591d5b848e33a6556b38b1a",
@@ -116,7 +116,8 @@
     "PUBLISHED_INPUT_VALIDATION_EDITORIAL_INSERT.md": "93deae3e45a0d041ba9357495f60567ce6364792f748f6c99305d5c448e08019",
     "PUBLICATION_COMPLETION_2026-11-08.md": "79443518e527ccf7804c249f7a6d137502073f81d8c8c974298583fcc022479e",
     "evidence/publication_completion_audit_20261108.json": "ff07b3b3cf499d7c62749f810d85dc608e838e23e70aa431b4e1e69ccce4c475",
-    "evidence/publication_completion_sources_20261108.json": "efe29cd23f8221ff54f09993f9c623b2a3f814b0a85cd9445514a3b195af70e5"
+    "evidence/publication_completion_sources_20261108.json": "efe29cd23f8221ff54f09993f9c623b2a3f814b0a85cd9445514a3b195af70e5",
+    "build_compstat_files.py": "0933a315af94fac776ccfa4b8cf68b2c62c62440a046bd89d7b608bc392a1eb4"
   },
   "hash_convention": "text LF; binary exact; initial raw baseline also retained",
   "checkout_portability": "YAML sources normalized with existing text policy after first Linux CI failure; binary artifact hashes remain exact",
@@ -143,5 +144,6 @@
   },
   "publication_completion_baseline": "edaf2a46583837bf664093ca3a7362a90b878871",
   "application_opportunity": "BOTH_CANDIDATES_BLOCKED_BEFORE_FITTING",
-  "warning_diagnosis": "COUNTS_AUDITED_MECHANISM_UNRESOLVED"
+  "warning_diagnosis": "COUNTS_AUDITED_MECHANISM_UNRESOLVED",
+  "journal_specific_delivery": "journal_submission/manifest.json; independent flat archive compilation PASS; instruction-adapted standard LaTeX"
 }

@@ -47,3 +47,7 @@ retained as an earlier record, not proof for this revision.
 ## Publication completion follow-up, 8 November 2026
 
 See [the executed handoff](PUBLICATION_COMPLETION_2026-11-08.md). Warning counts are audited without inferring their mechanism; both bounded application candidates failed feasibility before fitting. Supplement S8 records this disposition. This remains an author-review package, not submission-ready.
+
+## Computational Statistics-specific files, 9 November 2026
+
+[Journal files](journal_submission/README.txt): main Manuscript.pdf, Online Resource ESM_1.pdf, one-page cover letter, independent flat source ZIPs and Fig-numbered PDF/EPS files. Rebuild with `python paper/computational_statistics/build_compstat_files.py` after the candidate build. The publisher ZIP endpoint returned HTTP 403; this is instruction-adapted standard LaTeX, not the official class. Both source ZIPs compiled independently outside the checkout. Author scientific/data/financial approval remains open; no submission occurred.
