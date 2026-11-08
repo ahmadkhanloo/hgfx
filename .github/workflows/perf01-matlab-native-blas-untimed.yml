@@ -1,0 +1,86 @@
+name: PERF-01C MATLAB in-process native BLAS target probe (NO TIMING)
+
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/runtime_v1/matlab/perf01c_native_mkl_probe.c'
+      - 'benchmarks/runtime_v1/matlab/probe_matlab_native_blas_untimed.m'
+      - 'benchmarks/runtime_v1/compare_matlab_native_blas_untimed.py'
+      - 'tests/test_perf01_matlab_native_blas_untimed.py'
+      - '.github/workflows/perf01-matlab-native-blas-untimed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-blas-inspection:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      BLIS_NUM_THREADS: '1'
+      VECLIB_MAXIMUM_THREADS: '1'
+      NUMEXPR_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen_release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact release pins, unchanged old host-contract tests, native-MKL negative tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          test "$(git -C frozen_release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' 'threadpoolctl==3.6.0' ./frozen_release
+          python -m unittest discover -s work/tests -p 'test_perf01_cpu_host_attestation.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_matlab_native_blas_untimed.py' -v
+      - name: Inspect the frozen Python process/BLAS, UNTIMED
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/probe_cpu_host_hgfx_untimed.py \
+            --output evidence/hgfx_host.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Inspect MATLAB's same-process BLAS mappings and native MKL target API, NO TIMER
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); probe_cpu_host_matlab_untimed(fullfile(pwd,'evidence','matlab_host.json')); probe_matlab_native_blas_untimed(fullfile(pwd,'evidence','matlab_native_blas.json'),fullfile(pwd,'work','benchmarks','runtime_v1','matlab','perf01c_native_mkl_probe.c'))"
+      - name: Label observed target cap separately from active workers and preserve old ENV BLOCK, NO TIMER
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_matlab_native_blas_untimed.py \
+            --hgfx evidence/hgfx_host.json \
+            --matlab evidence/matlab_host.json \
+            --native evidence/matlab_native_blas.json \
+            --output evidence/native_blas_analysis.json
+      - name: Archive complete native/host evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-matlab-native-blas-untimed-${{ github.run_id }}
+          path: |
+            evidence/*.json
+          if-no-files-found: warn
