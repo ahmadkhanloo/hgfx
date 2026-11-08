@@ -1,0 +1,85 @@
+name: PERF-01C proposed same-task forward-call boundary (NO TIMING)
+
+on:
+  pull_request:
+    paths:
+      - 'benchmarks/runtime_v1/forward7_boundary_hgfx_untimed.py'
+      - 'benchmarks/runtime_v1/matlab/forward7_boundary_matlab_untimed.m'
+      - 'benchmarks/runtime_v1/compare_forward7_boundary_untimed.py'
+      - 'tests/test_perf01_forward7_boundary_untimed.py'
+      - 'benchmarks/runtime_v1/forward7_hgfx_untimed.py'
+      - 'benchmarks/runtime_v1/matlab/forward7_matlab_untimed.m'
+      - '.github/workflows/perf01-forward7-boundary-untimed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  seven-forward-untimed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+    steps:
+      - name: Check out diagnostic branch
+        uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - name: Check out genuine frozen MATLAB HGF 8.2.0
+        uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - name: Check out frozen HGFX 1.0.0
+        uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen_release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen sources, original fixtures and fail-closed tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          test "$(git -C frozen_release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install "numpy==2.3.5" ./frozen_release
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python -m unittest discover -s work/tests -p 'test_perf01_forward7_untimed.py' -v
+          python -m unittest discover -s work/tests -p 'test_perf01_forward7_boundary_untimed.py' -v
+      - name: Run proposed HGFX full forward-call region exactly once (NO TIMER)
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/forward7_boundary_hgfx_untimed.py \
+            --input work/benchmarks/runtime_v1 \
+            --output evidence/hgfx_forward7_boundary.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Run proposed MATLAB full forward-call region exactly once (NO TIMER)
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); forward7_boundary_matlab_untimed(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'evidence','matlab_forward7.json'))"
+      - name: Check exact boundary, all full outputs and original case lock (NO TIMER)
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/compare_forward7_boundary_untimed.py \
+            --input work/benchmarks/runtime_v1 \
+            --hgfx evidence/hgfx_forward7_boundary.json \
+            --matlab evidence/matlab_forward7_boundary.json \
+            --output evidence/forward7_boundary_comparison.json
+      - name: Preserve full outputs and comparison on PASS or FAIL
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01c-forward7-boundary-untimed-${{ github.run_id }}
+          path: evidence/
+          if-no-files-found: warn
