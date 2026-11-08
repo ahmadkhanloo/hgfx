@@ -3,15 +3,15 @@
 **Scope:** `COMPSTAT_REVISION_PLAN.md`; working branch `compstat-revision`.
 **Baseline main commit:** `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885` (2026-11-08).
 **Historical release evidence:** HGFX v1.0.0 at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; immutable.
-**Phase:** REV-1 audits are IN PROGRESS; REV-1.1 and REV-1.2 are `EXPLAINED` with committed evidence. REV-0 baseline tag remains outstanding.
-**Gate REV-0:** NOT PASSED until baseline tag verified. REV-0.4 focused CI PASS is an inventory, not final 100% numeric-claim coverage.
+**Phase:** REV-0 gate PASS. REV-1 audits IN PROGRESS: REV-1.1 and REV-1.2 `EXPLAINED`; REV-1.3 and REV-1.4 OPEN.
+**Gate REV-0:** PASS (branch, exact baseline tag, ledger/backlog, verified path inventory, numeric-claim coverage script operational). REV-0.4 inventory is not the later final 100% manuscript-claim gate.
 
 ## REV-0.3 verified repository inventory (2026-11-09)
 
 | Plan expectation | Checked result at baseline | Status |
 |---|---|---|
 | Revision branch | `compstat-revision` created from recorded `main` SHA | CREATED |
-| `pre-compstat-revision` tag | Not present in Git refs; connected GitHub tools cannot create tags | HUMAN_ACTION / OPEN |
+| `pre-compstat-revision` tag | Lightweight tag created and verified by [CI 42529284444](https://github.com/ahmadkhanloo/hgfx/actions/runs/42529284444), resolves to `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885` | FIXED |
 | MATLAB oracle workflows | `.github/workflows/m18-s7-paired-recovery.yml`, `m18-d02-matlab-self-sensitivity.yml`, `m18-d08-matlab-self-sensitivity.yml`, `m18-scientific-validation.yml` and more | PRESENT; execution NOT VERIFIED |
 | GPU capability | Historical physical T4 result in `gpu_validation_results/m18_s9_physical_gpu_revalidation.json` | HISTORICAL EVIDENCE PRESENT; current runner UNKNOWN |
 | `evidence/s7_aggregate.json` | No `evidence/` tree on `main`; `reference/validation/m18_s7_reference_limitation/decision.json` summarizes S7; raw shards are workflow artifacts | EXPECTED FILE MISSING; historical 12 raw S7 shard archives recovered and audited from run `34896442847` |
@@ -79,4 +79,13 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Example primary diagnostic:** HGF omega3 correlation `-0.3964899554`, 95% paired-cluster bootstrap interval `[-0.6222508675,-0.1253496962]`; this does not establish general structural identifiability.
 - **Limitations:** historical deterministic/stratified truths and reused paired horizons limit nominal CI/test interpretation; no general population inference; scientific recovery FAIL preserved.
 - **Time spent:** not instrumented precisely; audit completed without heavy computation.
-- **Phase gate:** REV-1 remains IN PROGRESS pending REV-1.3/1.4 and human decision D1; REV-0 tag remains OPEN.
+- **Phase gate at time of REV-1.2:** REV-1 remains IN PROGRESS pending REV-1.3/1.4 and D1. The separately verified tag is accounted for under REV-0 below.
+
+## REV-0 terminal reports and gate verification (2026-11-09)
+
+- **REV-0.1 · FIXED:** `compstat-revision` originates from `main` `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885`; lightweight `pre-compstat-revision` tag resolves exactly to that SHA. GitHub Actions run `42529284444` PASS; no historical release tag changed; effort not separately timed.
+- **REV-0.2 · FIXED:** committed this ledger, `REVISION_BACKLOG.md`, and REV task registry in `MILESTONES.md`; code and document path links are retained; effort not separately timed.
+- **REV-0.3 · EXPLAINED:** listed present/missing oracle workflow, raw evidence, GPU status and active Markdown article in table above. Original S7 shards were subsequently located and verified (REV-1.1); absent `evidence/published_input_41809919116.json` and example directories remain explicit limitations; effort not separately timed.
+- **REV-0.4 · FIXED:** `tools/check_manuscript_claims.py` plus pinned JSON claim map, focused tests and operational coverage report; run `42529284493` PASS, while **257 numeric tokens remain unmapped** for later audit. This is a setup/coverage gate only, never the final 100% claims-validation gate; effort not separately timed.
+- **REV-0 phase gate · PASS:** branch/tag confirmed, ledger/backlog committed, evidence inventory committed, claims checker runs and prints source coverage. No MATLAB or physical GPU execution was inferred.
+- **Current REV-1 phase gate · OPEN:** REV-1.3/1.4 and D1 remain outstanding; REV-2 experiments are not authorized.

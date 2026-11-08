@@ -79,10 +79,10 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 
 | Task ID | Scope | Current status | Acceptance |
 |---|---|---|---|
-| REV-0.1 | Branch and pre-revision tag | IN PROGRESS (branch created; tag missing) | Branch and tag verified |
-| REV-0.2 | Ledger, backlog, REV registration | IMPLEMENTED / COMMITTED | Ledger, backlog, registry present in PR #107 |
-| REV-0.3 | Reality-check workflows, evidence paths, GPU | INVENTORIED | File absences and historical S7 raw archive recovery recorded; current GPU unverified |
-| REV-0.4 | Manuscript numeric-claim checker | IMPLEMENTED / TESTED (partial coverage) | Run 42525414857, 4 tests PASS; 257 numeric tokens unmapped |
+| REV-0.1 | Branch and pre-revision tag | FIXED | Tag verified at original baseline SHA; CI 42529284444 |
+| REV-0.2 | Ledger, backlog, REV registration | FIXED | Ledger, backlog, registry committed in PR #107 |
+| REV-0.3 | Reality-check workflows, evidence paths, GPU | EXPLAINED | Paths verified; missing evidence and current GPU unavailability documented |
+| REV-0.4 | Manuscript numeric-claim checker | FIXED (REV-0 setup gate) | Checker and audit CI PASS; 257 numeric tokens unmapped remain REV-3 gate |
 | REV-1.1 | Raw BIC confusion audit | EXPLAINED / CI PASS | Original 36 raw selections verified; evidence JSON + terminal ledger report; run 42526812868 |
 | REV-1.2 | Recovery uncertainty and chance baselines | EXPLAINED / CI PASS | Frozen 12-shard audit; exact CIs, paired-horizon bootstrap B=2000, revised figures; run 42528948338 |
 | REV-1.3 | Archived warning cross-tab | OPEN | Per-block warning classification |
@@ -98,3 +98,5 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-5 | Verification and submission package | OPEN (later phase) | Full CI, final gates, author D3 |
 
 **Human decision gates:** D1 after all REV-1 reports; D2 after REV-2 reports; D3 after the final submission pack. Do not run REV-2 before D1. No numerical threshold, seed, dataset, or frozen release evidence can be modified to obtain a PASS.
+
+**REV-0 phase gate PASS (2026-11-09):** see `COMPSTAT_REVISION_LEDGER.md` and tag `pre-compstat-revision` at `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885`. This does not imply final manuscript claims coverage or REV-1 phase completion.
