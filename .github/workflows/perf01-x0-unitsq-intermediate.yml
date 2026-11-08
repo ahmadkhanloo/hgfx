@@ -1,0 +1,138 @@
+name: "PERF-01D true-source unitsq log/pow intermediate localization (untimed)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-unitsq-intermediate-arithmetic
+    paths:
+      - '.github/workflows/perf01-x0-unitsq-intermediate.yml'
+      - 'benchmarks/runtime_v1/original_x0_unitsq_arithmetic_python.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_x0_matlab_unitsq_arithmetic.m'
+      - 'benchmarks/runtime_v1/compare_original_x0_unitsq_arithmetic.py'
+      - 'tests/test_perf01_x0_unitsq_arithmetic.py'
+      - 'docs/research/PERF01D_UNITSQ_INTERMEDIATE_ARITHMETIC_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  frozen-original-same-predictor-observation-arithmetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          path: frozen-matlab
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify source SHA and all 14 exact staged log/pow source controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          test "$(git -C frozen-matlab rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_unitsq_arithmetic.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: SHA-lock complete old actual first-gradient HGF/observation arrays and original 63/64 failure
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p old-stage old-terms old-bfgs output
+          gh run download 42404444341 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-x0-hgf-infstates-unitsq-stage-42404444341 --dir old-stage
+          echo '53c998070dbbfc8b8a5c5ce7e8d962b44f9820635f60c567fd2012bf48fcd415  old-stage/original-hgfx-71-infstates-and-native-ll.json' | sha256sum -c -
+          echo '15c2f3e50d3ff257d333e412b881053cd6bc0240137ddbae448b3ce7d1647006  old-stage/original-matlab-71-infstates-and-cross-ll.json' | sha256sum -c -
+          echo '5d1d03f200bb8be7bf058fe54d64e63ab8909a29857a6750014bad83db029af0  old-stage/independent-hgf-infstates-unitsq-71-source-stage.json' | sha256sum -c -
+          gh run download 42402421462 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-71-genuine-objective-source-terms-42402421462 --dir old-terms
+          echo 'eb085a07e633aa10979602d9f9fb5e9221e2a1132aecd9fb7b73953a4d2850df  old-terms/original-hgfx-71-objective-terms.json' | sha256sum -c -
+          echo '4d9cd77d1187f203a0b467b602d6ab74b4283f2c76476c97d5c8b9e3dc95d0ea  old-terms/original-matlab-71-objective-terms.json' | sha256sum -c -
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir old-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  old-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  old-bfgs/matlab_raw.json' | sha256sum -c -
+      - name: Original frozen HGFX unitsq both predictors, all 71x128 real original native likelihoods and 20 source algebra stages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/original_x0_unitsq_arithmetic_python.py \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs old-bfgs \
+            --old-stage old-stage \
+            --old-terms old-terms \
+            --output output/authentic-hgfx-71x128x2-unitsq-arithmetic.json
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: Original unchanged MATLAB native unitsq vs same source predictors, and full source formula log/pow stages
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_x0_matlab_unitsq_arithmetic(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'frozen-matlab'),fullfile(pwd,'output','authentic-hgfx-71x128x2-unitsq-arithmetic.json'),fullfile(pwd,'old-stage','original-hgfx-71-infstates-and-native-ll.json'),fullfile(pwd,'old-stage','original-matlab-71-infstates-and-cross-ll.json'),fullfile(pwd,'output','authentic-matlab-71x128x2-unitsq-arithmetic.json'))"
+      - name: Independently verify every genuine 71x128x2 source and formula binary64 bit and classify first effective arithmetic stage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_original_x0_unitsq_arithmetic.py \
+            --hgfx-arithmetic output/authentic-hgfx-71x128x2-unitsq-arithmetic.json \
+            --matlab-arithmetic output/authentic-matlab-71x128x2-unitsq-arithmetic.json \
+            --old-hgfx-stage old-stage/original-hgfx-71-infstates-and-native-ll.json \
+            --old-matlab-stage old-stage/original-matlab-71-infstates-and-cross-ll.json \
+            --old-independent-stage old-stage/independent-hgf-infstates-unitsq-71-source-stage.json \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs old-bfgs \
+            --output output/independent-original-71x128x2-unitsq-first-arithmetic-stage.json
+      - name: Preserve all raw real source stage arrays, including source-nonmatch host and formula failures
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import os,json,hashlib
+          root=Path('output')
+          sha={f.name:hashlib.sha256(f.read_bytes()).hexdigest()
+               for f in root.iterdir() if f.is_file() and f.name!='provenance.json'}
+          (root/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-original-71x128x2-unitsq-arithmetic-stage-source-v1',
+            'source_observation_stage_prespec_commit':'4edab86de425dc58b04e689aa78cb1a845d47565',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_commit':os.environ['GITHUB_SHA'],
+            'frozen_hgfx_sha':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab_sha':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'genuine_original_71_node_source_run':'42404444341',
+            'original_full_fitting':'63/64 SCIENTIFIC NONPASS',
+            'original_subject7_failed_fields':{'traj.mu':4,'traj.muhat':4},
+            'independent_scientific_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'source_and_derived_member_sha256':sha,
+          },indent=2,sort_keys=True)+'\n')
+          print(json.dumps(sha,sort_keys=True))
+          PY
+      - name: Preserve complete raw true-source numerical intermediate arrays even on scientific/host NONMATCH
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-original-71-unitsq-first-arithmetic-${{ github.run_id }}-attempt-${{ github.run_attempt }}
+          path: output/
+          if-no-files-found: warn

@@ -1,0 +1,110 @@
+name: "PERF-01D original 71x128x2 unitsq arithmetic complete SHA archive replay"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf01d-unitsq-intermediate-arithmetic
+    paths:
+      - '.github/workflows/perf01-x0-unitsq-arithmetic-archive.yml'
+      - 'benchmarks/runtime_v1/replay_original_x0_unitsq_arithmetic_archive.py'
+      - 'tests/test_perf01_x0_unitsq_arithmetic_archive.py'
+      - 'docs/research/PERF01D_UNITSQ_ARITHMETIC_ARCHIVE_PRESPEC_2026-11-07.md'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-true-source-full-stage-archive-parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: frozen-hgfx
+          ref: v1.0.0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify frozen HGFX Git SHA and 14 independent 71x128x2 source/bits/failed-science controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-hgfx rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          python -m pip install "numpy==2.3.5" "scipy>=1.14,<2" ./frozen-hgfx
+          python -m unittest discover -s work/tests -p 'test_perf01_x0_unitsq_arithmetic_archive.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+      - name: Download and SHA-pin all original real MATLAB/HGFX 20-stage files, original HGF source and original BFGS full NONPASS
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-arithmetic original-infstates original-bfgs output
+          gh run download 42408646109 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-original-71-unitsq-first-arithmetic-42408646109-attempt-1 --dir original-arithmetic
+          echo '0afd513e73549143f210cbf83360439bb144913116c6f794212425754ce935b6  original-arithmetic/authentic-hgfx-71x128x2-unitsq-arithmetic.json' | sha256sum -c -
+          echo '343528058e711737d12105ae3b70b7dcfeecce6232d0d195478c38d163791413  original-arithmetic/authentic-matlab-71x128x2-unitsq-arithmetic.json' | sha256sum -c -
+          echo '9a65d743a13f1da62e6751e4636605d9c712b6bb1575debfae515006fb2abb7c  original-arithmetic/independent-original-71x128x2-unitsq-first-arithmetic-stage.json' | sha256sum -c -
+          gh run download 42404444341 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-real-x0-hgf-infstates-unitsq-stage-42404444341 --dir original-infstates
+          echo '53c998070dbbfc8b8a5c5ce7e8d962b44f9820635f60c567fd2012bf48fcd415  original-infstates/original-hgfx-71-infstates-and-native-ll.json' | sha256sum -c -
+          echo '15c2f3e50d3ff257d333e412b881053cd6bc0240137ddbae448b3ce7d1647006  original-infstates/original-matlab-71-infstates-and-cross-ll.json' | sha256sum -c -
+          echo '5d1d03f200bb8be7bf058fe54d64e63ab8909a29857a6750014bad83db029af0  original-infstates/independent-hgf-infstates-unitsq-71-source-stage.json' | sha256sum -c -
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+      - name: Independently deep-replay complete all-71 x both original predictors x 128 trials source report without invoking native unitsq
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/replay_original_x0_unitsq_arithmetic_archive.py \
+            --root work/benchmarks/runtime_v1 \
+            --old-bfgs original-bfgs \
+            --real-source original-arithmetic \
+            --old-stage original-infstates \
+            --output output/independent-full-original-unitsq-arithmetic-report-replay.json
+      - name: Preserve evidence and immutable previous failed scientific acceptance on success/failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import os,json,hashlib
+          p=Path('output')
+          hashes={f.name:hashlib.sha256(f.read_bytes()).hexdigest()
+                  for f in p.glob('*.json') if f.name!='provenance.json'}
+          (p/'provenance.json').write_text(json.dumps({
+            'schema':'perf01d-original-same-predictor-unitsq-full-arithmetic-archive-replay-v1',
+            'archive_only_prespec_sha':'5dc742f1ccbb69bb09c3ce5a0502f7c098cfb14d',
+            'run_id':os.environ['GITHUB_RUN_ID'],
+            'tested_sha':os.environ['GITHUB_SHA'],
+            'genuine_source_run':'42408646109',
+            'genuine_source_sha':'8e9a21e62efc5099e7e519bbf13b44f505cd1ad8',
+            'old_source_run':'42404444341',
+            'frozen_hgfx':'4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27',
+            'frozen_matlab':'2437f4dc241541072722a2695ddeca7b44d83dd3',
+            'original_fitting':'63/64 SCIENTIFIC NONPASS',
+            'subject7_failed_traj_mu':4,'subject7_failed_traj_muhat':4,
+            'independent_scientific_review':'NOT_RECEIVED','perf01c':'NOT_FROZEN',
+            'paper_timing':'NOT_RUN','physical_gpu':'NOT_RUN',
+            'derived_sha256':hashes,
+          },sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Archive full original-source report rederivation, all historical failed-run caveats
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-unitsq-arithmetic-exact-report-replay-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
