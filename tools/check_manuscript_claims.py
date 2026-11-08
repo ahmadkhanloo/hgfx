@@ -18,7 +18,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REGISTRY = "docs/planning/COMPSTAT_CLAIM_MAP.json"
-NUM_RE = re.compile(r"(?<![\w.])[-+]?\d+(?:,\d{3})*(?:\.\d+)?(?:[eE][-+]?\d+)?(?![\w.])")
+NUM_RE = re.compile(r"(?<![\w.])[-+]?\d+(?:,\d{3})*(?:\.\d+)?(?:[eE][-+]?\d+)?(?!\w)")
 
 
 def numeric_spans(text: str) -> list[tuple[int, int, str]]:
