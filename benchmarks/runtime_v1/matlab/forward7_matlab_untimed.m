@@ -24,11 +24,23 @@ fields = {'mu','sa','muhat','sahat','v','w','da','ud','psi','epsi','wt'};
 rows = cell(1,numel(ids));
 for k = 1:numel(ids)
     id = ids{k}; model = models{k}; n = trials(k);
-    hit = find(strcmp({registry.cases.id},id));
+    % jsondecode produces a cell array for heterogeneous original case records
+    % (the robustness case has extra mask fields); handle both representations.
+    if iscell(registry.cases)
+        all_ids = cellfun(@(item) item.id, registry.cases, ...
+            'UniformOutput',false);
+    else
+        all_ids = {registry.cases.id};
+    end
+    hit = find(strcmp(all_ids,id));
     if numel(hit) ~= 1
         error('hgfx:perf01c:registry','Missing/duplicated forward ID: %s',id);
     end
-    spec = registry.cases(hit);
+    if iscell(registry.cases)
+        spec = registry.cases{hit};
+    else
+        spec = registry.cases(hit);
+    end
     if ~strcmp(spec.model,model) || spec.n_trials ~= n || ...
             ~strcmp(spec.stage,'forward')
         error('hgfx:perf01c:registry','Original forward selection changed');
