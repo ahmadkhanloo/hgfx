@@ -92,10 +92,48 @@ def main() -> None:
     p.add_argument("--matlab", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     a = p.parse_args()
-    report = compare(json.loads(a.hgfx.read_bytes()), json.loads(a.matlab.read_bytes()))
+    hgfx, matlab = json.loads(a.hgfx.read_bytes()), json.loads(a.matlab.read_bytes())
+    blocked = False
+    try:
+        report = compare(hgfx, matlab)
+    except ValueError as exc:
+        # An environmental FAIL must be retained as machine-readable evidence
+        # and must still leave this job non-green. Never "repair" the observed
+        # runtime environment with a post-start getenv/setenv trick.
+        blocked = True
+        variables = {
+            key: {
+                "python": hgfx.get("environment_thread_requests", {}).get(key),
+                "matlab": matlab.get("environment_thread_requests", {}).get(key),
+            }
+            for key in EXPECTED_ENV
+            if hgfx.get("environment_thread_requests", {}).get(key)
+            != matlab.get("environment_thread_requests", {}).get(key)
+        }
+        report = {
+            "schema": "perf01c-cpu-host-attestation-untimed-comparison-v1",
+            "status": "BLOCKED_ENVIRONMENT_ATTESTATION",
+            "reason": str(exc),
+            "observed_thread_environment_mismatches": variables,
+            "host_fields_concordant": {
+                key: bool(hgfx.get(key) and hgfx.get(key) == matlab.get(key))
+                for key in COMMON_IDENTITY
+            },
+            "matlab_max_num_comp_threads": matlab.get("matlab_max_num_comp_threads"),
+            "python_actual_blas_threadpools": hgfx.get("runtime_threadpools", []),
+            "matlab_active_blas_threads_independently_verified": False,
+            "run_id": hgfx.get("github_run_id"),
+            "observed_github_execution_sha": hgfx.get("github_sha"),
+            "clock": "ABSENT",
+            "performance": "NOT_MEASURED",
+            "scientific_gate": "BLOCK_FREEZE_NOT_FROZEN",
+            "independent_reviewer_signoff": "NOT_RECEIVED",
+        }
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=False) + "\n")
     print(report["status"], "untimed; not a benchmark and not a freeze")
+    if blocked:
+        raise SystemExit("BLOCKED environment evidence retained: " + report["reason"])
 
 
 if __name__ == "__main__":
