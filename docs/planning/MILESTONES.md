@@ -71,3 +71,30 @@ Current product closure follows `M18_COMPLETION_PLAN.md` and the frozen referenc
 Git tag `v1.0.0` is verified to resolve directly to `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. GitHub Release ID `389966452` is published at https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0 and is neither draft nor prerelease.
 
 **The HGFX v1.0.0 milestone/release sequence is closed.** Future research, publication, maintenance, upstream compatibility, packaging/distribution, or feature work requires explicit post-v1 milestones and does not reopen the frozen v1 evidence.
+
+
+## Post-v1 publication revision — COMPSTAT (new REV IDs; historical M0–M20 unchanged)
+
+Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publication revision is distinct from the v1.0.0 scientific and release gates; no M18 scientific FAIL is reclassified.
+
+| Task ID | Scope | Current status | Acceptance |
+|---|---|---|---|
+| REV-0.1 | Branch and pre-revision tag | IN PROGRESS (branch created; tag missing) | Branch and tag verified |
+| REV-0.2 | Ledger, backlog, REV registration | IN PROGRESS | All three committed |
+| REV-0.3 | Reality-check workflows, evidence paths, GPU | IN PROGRESS | Inventory in ledger |
+| REV-0.4 | Manuscript numeric-claim checker | IN PROGRESS | Executed coverage table; mismatches fail |
+| REV-1.1 | Raw BIC confusion audit | OPEN | Raw counts + audited JSON + ledger |
+| REV-1.2 | Recovery uncertainty and chance baselines | OPEN | Existing-case intervals, no refitting |
+| REV-1.3 | Archived warning cross-tab | OPEN | Per-block warning classification |
+| REV-1.4 | First divergence (four asymmetric cases and subject 7) | OPEN | Two-attempt cap, evidence or limitation |
+| REV-2.1 | Warning capture and multi-vector sweep | BLOCKED BY D1 | Precommitted protocol, single run |
+| REV-2.2 | USD/CHF comparison and convergence | BLOCKED BY D1 | Precommitted protocol, diagnostics |
+| REV-2.3 | Performance/resource benchmarking | BLOCKED BY D1 | Precommitted protocol, hardware provenance |
+| REV-2.4 | Objective cross-evaluation | BLOCKED BY D1 | Precommitted protocol, parity and gaps |
+| REV-2.5 | Redesigned recovery | BLOCKED BY D1 | Precommitted protocol, full failure log |
+| REV-2.6 | Statistical-computing investigation (one angle) | BLOCKED BY D1 | Precommitted protocol, measured result |
+| REV-3 | Manuscript and supplement rewrite | BLOCKED BY D2 | Claims and build gates |
+| REV-4 | Archive/licensing/declarations | OPEN (later phase) | DOI, notices, author actions |
+| REV-5 | Verification and submission package | OPEN (later phase) | Full CI, final gates, author D3 |
+
+**Human decision gates:** D1 after all REV-1 reports; D2 after REV-2 reports; D3 after the final submission pack. Do not run REV-2 before D1. No numerical threshold, seed, dataset, or frozen release evidence can be modified to obtain a PASS.
