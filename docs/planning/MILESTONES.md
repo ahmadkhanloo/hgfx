@@ -85,7 +85,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-0.4 | Manuscript numeric-claim checker | FIXED (REV-0 setup gate) | Checker and audit CI PASS; 257 numeric tokens unmapped remain REV-3 gate |
 | REV-1.1 | Raw BIC confusion audit | EXPLAINED / CI PASS | Original 36 raw selections verified; evidence JSON + terminal ledger report; run 42526812868 |
 | REV-1.2 | Recovery uncertainty and chance baselines | EXPLAINED / CI PASS | Frozen 12-shard audit; exact CIs, paired-horizon bootstrap B=2000, revised figures; run 42528948338 |
-| REV-1.3 | Archived warning cross-tab | OPEN | Per-block warning classification |
+| REV-1.3 | Archived warning cross-tab | EXPLAINED / CI PASS | 324 original status records + 64 pinned Reed masks verified; 48 warning blocks / 86 events; types/mechanism unknown; CI 42531284505 |
 | REV-1.4 | First divergence (four asymmetric cases and subject 7) | OPEN | Two-attempt cap, evidence or limitation |
 | REV-2.1 | Warning capture and multi-vector sweep | BLOCKED BY D1 | Precommitted protocol, single run |
 | REV-2.2 | USD/CHF comparison and convergence | BLOCKED BY D1 | Precommitted protocol, diagnostics |
