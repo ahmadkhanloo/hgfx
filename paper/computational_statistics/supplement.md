@@ -243,3 +243,20 @@ choice/RT models require separate migration. Its 399 random starts and original
 MATLAB R2019b settings were not silently simplified. Neither study was fitted.
 The exchange-rate example adds empirical-input use but does not close external
 participant-study replication. Upstream participant files remain local and ignored.
+
+\clearpage
+
+## S7 Published behavioral input validation
+
+The comparison used the two source files below. The preparation code verified their SHA-256 digests before deriving the exact source-defined block inventory.
+
+- Suthaharan dataset [@suthaharan2021], 130 participant prefixes and 260 blocks. [Pinned source file](https://github.com/psuthaharan/covid19paranoia/blob/c618e032228fb4ed03821f11bdc57af608695631/data/hgfPRL/pandemic_prelockdown_TP117_TP261_130.mat).
+- Reed dataset [@reed2020], 32 participant prefixes and 64 condition halves. [Pinned source file](https://github.com/ModelDBRepository/258631/blob/39ccaca508b81ca610e7666a613e061c801faaf9/IRL_Data.mat).
+
+The [initial source gate](https://github.com/ahmadkhanloo/hgfx/actions/runs/41809479255) rejected the assumed 326-block inventory before full-cohort filtering. The MATLAB variable `ans` was outside the participant schema. The corrected protocol fixed the 324-block population before running the paired scientific computation. It retained all observed source blocks and applied the union of missing-choice and missing-outcome indices as the ignored-trial mask.
+
+The perceptual model was `hgf_ar1_binary_mab`, with three arms, uncoupled updates and regular intervals. The native vector was $(\mathrm{NaN},0,1,\mathrm{NaN},0.1,1,\mathrm{NaN},0,0.2,\mathrm{NaN},0,1,1,1,\mathrm{NaN},-2,-6)$. The workflow used MATLAB R2025b Update 7 and the HGF Toolbox 8.2.0 source identified in S1, and the released HGFX 1.0.0 wheel with CPU binary64. It compared complete trajectories and inference states with the inherited tolerances of $2\times10^{-9}$ relative and $2\times10^{-11}$ absolute. Matched nonfinite entries were included in the array-entry count.
+
+The [executed run](https://github.com/ahmadkhanloo/hgfx/actions/runs/41809919116) retained all 324 comparison outcomes and exported an [aggregate and status artifact](https://github.com/ahmadkhanloo/hgfx/actions/runs/41809919116/artifacts/13311622738). The [protocol, source digests, environment and result](https://github.com/ahmadkhanloo/hgfx/blob/2dedd1dcf102ecc598f9151c2dc3ed6933c8c494/paper/case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md) are recorded with the reproduction code. The summary counts 48 blocks with Python warnings. Participant inputs and per-trial outputs were excluded from the public artifact.
+
+The archived summary was retrieved again during the 8 November editorial revision. Its ZIP SHA-256 was verified as `1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391`. The unchanged JSON member, retained at `evidence/published_input_41809919116.json`, has SHA-256 `47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70`. This retrieval verifies the aggregate record. The underlying per-trial comparisons were performed in the recorded workflow.

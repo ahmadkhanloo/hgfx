@@ -107,56 +107,56 @@ e.sty
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg)
 [1{C:/Users/Mak/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Mak/
-AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2]
+AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2{C:/Users/Mak/Ap
+pData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}]
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd) [3{C:/Users
-/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/M
-ak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/App
-Data/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak/A
-ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
+/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/A
+ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak
+/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 434.
+(caption)                particular \caption on input line 426.
 See the caption package documentation for explanation.
 
-[5] [6 <./fig_workflow.pdf>] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 616--651
+[5] [6 <./fig_workflow.pdf>] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 628--663
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 616--651
+Underfull \hbox (badness 10000) in paragraph at lines 628--663
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 680--714
+
+Underfull \hbox (badness 10000) in paragraph at lines 692--726
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 680--714
+Underfull \hbox (badness 10000) in paragraph at lines 692--726
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 735--764
+Underfull \hbox (badness 10000) in paragraph at lines 747--776
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 735--764
+Underfull \hbox (badness 10000) in paragraph at lines 747--776
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 771.
+(caption)                particular \caption on input line 783.
 See the caption package documentation for explanation.
 
 [10]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 788.
+(caption)                particular \caption on input line 800.
 See the caption package documentation for explanation.
 
 [11 <./fig_recovery_metrics.pdf> <./fig_model_selection.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 828.
+(caption)                particular \caption on input line 840.
 See the caption package documentation for explanation.
 
 [12] [13 <./fig_pyhgf_common_scope.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 875.
+(caption)                particular \caption on input line 887.
 See the caption package documentation for explanation.
 
 [14 <./fig_usdchf_workflow.pdf>] [15] [16]
@@ -182,7 +182,7 @@ ts/type1/public/lm/lmr8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/lm/lmsy10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/lm/lmsy8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/lm/lmtt10.pfb>
-Output written on HGFX_CompStat.pdf (17 pages, 403406 bytes).
+Output written on HGFX_CompStat.pdf (17 pages, 408942 bytes).
 Transcript written on HGFX_CompStat.log.
 
 This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex.fmt)
@@ -293,56 +293,56 @@ e.sty
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd)
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg)
 [1{C:/Users/Mak/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Mak/
-AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2]
+AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [2{C:/Users/Mak/Ap
+pData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}]
 (C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd) [3{C:/Users
-/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/M
-ak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/App
-Data/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak/A
-ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
+/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Mak/A
+ppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [4{C:/Users/Mak
+/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 434.
+(caption)                particular \caption on input line 426.
 See the caption package documentation for explanation.
 
-[5] [6 <./fig_workflow.pdf>] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 616--651
+[5] [6 <./fig_workflow.pdf>] [7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 628--663
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 616--651
+Underfull \hbox (badness 10000) in paragraph at lines 628--663
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 680--714
+
+Underfull \hbox (badness 10000) in paragraph at lines 692--726
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 680--714
+Underfull \hbox (badness 10000) in paragraph at lines 692--726
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 735--764
+Underfull \hbox (badness 10000) in paragraph at lines 747--776
 [][]
 
-Underfull \hbox (badness 10000) in paragraph at lines 735--764
+Underfull \hbox (badness 10000) in paragraph at lines 747--776
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 771.
+(caption)                particular \caption on input line 783.
 See the caption package documentation for explanation.
 
 [10]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 788.
+(caption)                particular \caption on input line 800.
 See the caption package documentation for explanation.
 
 [11 <./fig_recovery_metrics.pdf> <./fig_model_selection.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 828.
+(caption)                particular \caption on input line 840.
 See the caption package documentation for explanation.
 
 [12] [13 <./fig_pyhgf_common_scope.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 875.
+(caption)                particular \caption on input line 887.
 See the caption package documentation for explanation.
 
 [14 <./fig_usdchf_workflow.pdf>] [15] [16]
@@ -364,5 +364,5 @@ ts/type1/public/lm/lmr8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/lm/lmsy10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/lm/lmsy8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/lm/lmtt10.pfb>
-Output written on HGFX_CompStat.pdf (17 pages, 403406 bytes).
+Output written on HGFX_CompStat.pdf (17 pages, 408942 bytes).
 Transcript written on HGFX_CompStat.log.

@@ -73,3 +73,40 @@ Ridders invalid-subtraction warnings were visible; finite outputs are not a
 convergence certificate. No optimizer/priors/thresholds/core implementation changed.
 Author declarations were confirmed in the conversation. See the critique response
 for remaining scope limitations; no external communication or submission occurred.
+
+## Published-input evidence integrated, 8 November 2026
+
+The revision begins at paper branch commit `e059e80d3804c02dc3ca152e96158e31ea79c4f1`.
+It integrates the previously executed 324-block comparison into the abstract,
+Methods 4.6, Results 5.5, Discussion and Supplement S7. Two publisher-verified
+references and the archived numerical summary support the new text. The original
+aggregate ZIP was retrieved through the connected GitHub app and rehashed.
+All 324 unique status records and the 48 warning records were counted directly.
+The summary contains aggregate and block-status information. Observed input
+values and trialwise posterior arrays are absent from that artifact.
+
+A separate paragraph reports the 63/64 full-fit diagnostic from run 41863441006.
+Its complete comparison JSON was copied byte-for-byte from the immutable
+research commit, with the original eight trajectory failures retained.
+The paper's standard HGF fitting and MAB Forward experiments remain distinct.
+
+The publication strategy focuses the article on reference-compatible statistical
+software, published-input Forward validation, existing recovery experiments and
+a descriptive empirical example. The prospective MATLAB/HGFX speed benchmark
+remains a separate research gate. Article acceptance is an editorial decision.
+Final scientific author approval, warning review, source-data reuse review and
+the recorded financial/portal clearance remain open.
+
+The first PDF build attempt was stopped before execution because the automatic
+approval reviewer reached its usage limit. Following the request to continue,
+the local build ran. Later checks and visual inspection are recorded in
+VISUAL_QA.md and verification.json.
+
+## Linux CI portability correction
+
+The first PR #106 integrity job (run 42500192492) stopped on the newly cited
+YAML workflow source. Its Git blob was LF and the Windows worktree was CRLF.
+The verifier's text-extension list omitted YAML, so the claim ledger recorded
+the checkout bytes. A regression test first reproduced that difference. The
+existing text-hash policy now includes .yml and .yaml, while ZIP/PDF bytes stay
+exact. Scientific sources, fixture bytes and thresholds were untouched.

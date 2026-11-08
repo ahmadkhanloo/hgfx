@@ -52,6 +52,39 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -74,7 +107,7 @@
 
 \title{HGFX supplementary evidence and provenance}
 \author{Mohammad Ahmadkhanloo}
-\date{Author-review draft, 4 November 2026}
+\date{Author-review draft, 8 November 2026}
 
 \setlength{\emergencystretch}{3em}
 \usepackage{graphicx,caption}
@@ -479,5 +512,85 @@ starts and original MATLAB R2019b settings were not silently simplified.
 Neither study was fitted. The exchange-rate example adds empirical-input
 use but does not close external participant-study replication. Upstream
 participant files remain local and ignored.
+
+\clearpage
+
+\subsection{S7 Published behavioral input
+validation}\label{s7-published-behavioral-input-validation}
+
+The comparison used the two source files below. The preparation code
+verified their SHA-256 digests before deriving the exact source-defined
+block inventory.
+
+\begin{itemize}
+\tightlist
+\item
+  Suthaharan dataset (Suthaharan et al. 2021), 130 participant prefixes
+  and 260 blocks.
+  \href{https://github.com/psuthaharan/covid19paranoia/blob/c618e032228fb4ed03821f11bdc57af608695631/data/hgfPRL/pandemic_prelockdown_TP117_TP261_130.mat}{Pinned
+  source file}.
+\item
+  Reed dataset (Reed et al. 2020), 32 participant prefixes and 64
+  condition halves.
+  \href{https://github.com/ModelDBRepository/258631/blob/39ccaca508b81ca610e7666a613e061c801faaf9/IRL_Data.mat}{Pinned
+  source file}.
+\end{itemize}
+
+The
+\href{https://github.com/ahmadkhanloo/hgfx/actions/runs/41809479255}{initial
+source gate} rejected the assumed 326-block inventory before full-cohort
+filtering. The MATLAB variable \texttt{ans} was outside the participant
+schema. The corrected protocol fixed the 324-block population before
+running the paired scientific computation. It retained all observed
+source blocks and applied the union of missing-choice and
+missing-outcome indices as the ignored-trial mask.
+
+The perceptual model was \texttt{hgf\_ar1\_binary\_mab}, with three
+arms, uncoupled updates and regular intervals. The native vector was
+\((\mathrm{NaN},0,1,\mathrm{NaN},0.1,1,\mathrm{NaN},0,0.2,\mathrm{NaN},0,1,1,1,\mathrm{NaN},-2,-6)\).
+The workflow used MATLAB R2025b Update 7 and the HGF Toolbox 8.2.0
+source identified in S1, and the released HGFX 1.0.0 wheel with CPU
+binary64. It compared complete trajectories and inference states with
+the inherited tolerances of \(2\times10^{-9}\) relative and
+\(2\times10^{-11}\) absolute. Matched nonfinite entries were included in
+the array-entry count.
+
+The
+\href{https://github.com/ahmadkhanloo/hgfx/actions/runs/41809919116}{executed
+run} retained all 324 comparison outcomes and exported an
+\href{https://github.com/ahmadkhanloo/hgfx/actions/runs/41809919116/artifacts/13311622738}{aggregate
+and status artifact}. The
+\href{https://github.com/ahmadkhanloo/hgfx/blob/2dedd1dcf102ecc598f9151c2dc3ed6933c8c494/paper/case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md}{protocol,
+source digests, environment and result} are recorded with the
+reproduction code. The summary counts 48 blocks with Python warnings.
+Participant inputs and per-trial outputs were excluded from the public
+artifact.
+
+The archived summary was retrieved again during the 8 November editorial
+revision. Its ZIP SHA-256 was verified as
+\texttt{1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391}.
+The unchanged JSON member, retained at
+\texttt{evidence/published\_input\_41809919116.json}, has SHA-256
+\texttt{47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70}.
+This retrieval verifies the aggregate record. The underlying per-trial
+comparisons were performed in the recorded workflow.
+
+\section*{References}\label{bibliography}
+\addcontentsline{toc}{section}{References}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
+\interlinepenalty=10000
+\bibitem[\citeproctext]{ref-reed2020}
+Reed EJ, Uddenberg S, Suthaharan P, et al (2020) Paranoia as a deficit
+in non-social belief updating. eLife 9:e56345.
+\url{https://doi.org/10.7554/eLife.56345}
+
+\bibitem[\citeproctext]{ref-suthaharan2021}
+Suthaharan P, Reed EJ, Leptourgos P, et al (2021) Paranoia and belief
+updating during the {COVID-19} crisis. Nature Human Behaviour
+5:1190--1202. \url{https://doi.org/10.1038/s41562-021-01176-8}
+
+\end{CSLReferences}
 
 \end{document}

@@ -20,10 +20,10 @@ perceptual case; response negative log-likelihood remains not directly comparabl
 
 The software and accompanying source, evidence manifests and reproducibility
 instructions are publicly available through the HGFX repository. A released-wheel example applies the continuous HGF to all 614 observations
-of the reference toolbox's empirical USD/CHF series. Source audits of two published
-applications reveal unresolved custom-model requirements; the manuscript does
-not claim that an external real-data replication has been completed. This
-limitation is part of the proposed evaluation, not omitted from the presentation.
+of the reference toolbox's empirical USD/CHF series. The evaluation also compares fixed-parameter perceptual outputs across MATLAB and HGFX on
+324 source-defined blocks from two published behavioral input files. All blocks met the
+prespecified numerical criterion. The paper reports the warnings and distinguishes this
+compatibility result from fitting or reproducing either study's scientific conclusions.
 
 We believe the combination of statistical software, numerical evidence and a
 clear account of inferential limitations fits the journal's stated package-report

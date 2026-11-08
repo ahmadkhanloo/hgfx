@@ -108,7 +108,7 @@
 \title{HGFX: reference-compatible hierarchical Gaussian filtering in
 Python}
 \author{Mohammad Ahmadkhanloo}
-\date{Author-review draft, 4 November 2026}
+\date{Author-review draft, 8 November 2026}
 
 \setlength{\emergencystretch}{3em}
 \usepackage{graphicx,caption}
@@ -125,30 +125,25 @@ reproducibility; model selection; research software; uncertainty
 
 \subsection{Abstract}\label{abstract}
 
-Moving an established statistical analysis between programming languages
-requires preserving parameter conventions, observation models and
-numerical behavior. HGFX provides hierarchical Gaussian filtering in
-Python against a frozen MATLAB HGF Toolbox 8.2.0 reference, without
-MATLAB in the user runtime. We present the statistical contract, user
-workflow and scoped evaluation of HGFX 1.0.0. In 36 paired
-model-selection datasets, the implementations select identical Bayesian
-information criterion winners, while generating-model recovery balanced
-accuracy is 0.583 in each. Parameter recovery does not meet all
-predeclared criteria. A separate trial-horizon experiment fails its
-integrity gate. Inspection of its retained raw outputs distinguishes ten
-datasets with no selectable model in either implementation from
-disagreement between two selected models, and identifies four asymmetric
-initial-fit outcomes. A mapped comparison with pyhgf 0.3.2 shows
-agreement for 11 perceptual quantities in one binary case; response
-likelihood remains not directly comparable. Retained Tesla T4
-measurements establish objective agreement in tested cells, without a
-speed claim. A reproducible continuous-input example uses the reference
-toolbox's empirical USD/CHF series; customized published participant
-analyses remain outside the demonstrated application scope. HGFX's
-contribution is a versioned compatibility workflow with inspectable
-numerical boundaries. Cross-implementation agreement does not establish
-parameter identifiability, reliable model discrimination or validity for
-a new experimental design.
+HGFX provides hierarchical Gaussian filtering in Python against the
+frozen MATLAB HGF Toolbox 8.2.0 reference. We evaluate version 1.0.0 at
+three levels: agreement of fixed-parameter calculations, agreement of
+fitted model selections, and recovery of known parameters and generating
+models. On two published behavioral input files, the same
+fixed-parameter perceptual model agreed across implementations in all
+324 source-defined 80-trial blocks (25,920 trials). No array element
+exceeded the prespecified tolerance across 12 outputs per block. Python
+emitted warnings in 48 blocks. The comparison covers the forward filter
+at one parameter vector. The original studies' observation models,
+parameter estimates and substantive results remain unevaluated. In 36
+simulated model-selection datasets, both implementations selected the
+same minimum Bayesian information criterion model, with generating-model
+balanced accuracy of 0.583 in each. Parameter recovery fell short of
+some predeclared criteria, and a separate trial-horizon experiment
+failed its integrity gate. A continuous-input worked example illustrates
+the workflow on 614 empirical exchange-rate observations. These results
+document where the released implementation reproduces the reference and
+where model recovery and fitting still limit interpretation.
 
 \subsection{1 Introduction}\label{introduction}
 
@@ -222,16 +217,13 @@ and allows later users to understand which behavior was reproduced. It
 also limits generalization to other toolbox releases and customized
 analysis pipelines.
 
-The contribution has three parts. First, HGFX supplies a
-MATLAB-independent user workflow for fitting, simulation and sampling
-with a documented compatibility contract. Second, the evaluation
-connects configuration and fixed-parameter checks to paired fitting,
-official workflows and backend evidence. Third, the paper reports
-inferential failures alongside implementation agreement, so that
-successful reproduction is not presented as successful scientific
-recovery. A continuous-input worked example illustrates the user
-workflow, while source audits of two customized participant studies
-delimit applications requiring further migration.
+HGFX supplies a MATLAB-independent workflow for fitting, simulation and
+sampling with a documented compatibility contract. The evaluation tests
+fixed-parameter perceptual calculations on two published behavioral
+input files and separates that agreement from fitting and model recovery
+in simulations. A continuous-input worked example illustrates the user
+workflow. Source audits identify additional requirements for
+transporting customized participant analyses.
 
 \subsection{2 Statistical formulation}\label{statistical-formulation}
 
@@ -583,6 +575,26 @@ SPIRL (Hess et al. 2025) assess whether their customized participant
 pipelines can be transferred without changing the models; neither
 proceeds to fitting.
 
+\subsubsection{4.6 Forward validation on published behavioral
+inputs}\label{forward-validation-on-published-behavioral-inputs}
+
+To evaluate fixed-parameter agreement on published behavioral inputs, we
+used two 80-trial blocks or condition halves per participant prefix from
+two archived behavioral input files (Reed et al. 2020; Suthaharan et al.
+2021). The initial 326-block source check stopped before full-cohort
+model execution because one Reed workspace variable was not a
+participant identifier. The revised protocol, recorded before the paired
+full-cohort execution, retained all 260 Suthaharan and 64 Reed blocks in
+the two pinned source files. We preserved binary outcomes, three-choice
+coding and the mask for trials with a missing choice or outcome. Both
+implementations evaluated the same uncoupled three-arm perceptual model
+at the native 17-parameter vector inherited from reference test M12B. We
+compared 12 trajectory or inference-state outputs per block in CPU
+binary64 with relative tolerance \(2\times10^{-9}\) and absolute
+tolerance \(2\times10^{-11}\), including matched nonfinite values. The
+workflow held all parameters fixed and omitted the observation model.
+Supplement S7 records the source, protocol and software identities.
+
 \subsection{5 Results}\label{results}
 
 \subsubsection{5.1 Reference workflows and sensitive
@@ -876,6 +888,20 @@ to the reproducibility dossier, not to an empirical result.
 \end{minipage}
 \end{center}
 
+\subsubsection{5.5 Forward agreement on published behavioral
+inputs}\label{forward-agreement-on-published-behavioral-inputs}
+
+Both implementations completed the fixed-parameter comparison for all
+324 blocks (25,920 input trials). Across 3,888 fields and 2,540,160
+compared array entries, no entry exceeded the specified criterion. The
+largest absolute difference among finite pairs was
+\(3.109\times10^{-15}\). Python emitted warnings in 48 of the 324
+blocks. The archived summary retains the warning counts, and the warning
+mechanisms remain uncharacterized. The result concerns numerical
+compatibility of the perceptual filter on the two selected input files.
+Replication of the original fitted parameters, model comparisons and
+group-level results remains outside this experiment.
+
 \subsection{6 Discussion}\label{discussion}
 
 HGFX serves analysts who need the tested conventions of a particular
@@ -907,14 +933,28 @@ state. The extended horizon grid therefore remains outside the supported
 paired-fitting claim. No general structural-identifiability conclusion
 follows, and the successful subset does not rescue the original gate.
 
-The empirical-input example supplies a reproducible analysis using a
-standard model, whereas the Pain and SPIRL audits expose the additional
-work required by customized published pipelines. Users should first
-identify exact configurations, transforms and missing-trial rules,
-compare fixed-parameter quantities, and only then compare fitted
-outputs. Failed cases must remain in the accounting. The current article
-does not establish end-to-end replication of an external participant
-study.
+The published behavioral inputs test the same perceptual calculation
+across observed choice and outcome sequences from two source files.
+Their numerical agreement extends the synthetic checks to those inputs
+at one parameter vector. Assessing transportability of the original
+analyses would require their observation likelihoods, priors,
+optimization procedures, sample definitions and outcome analyses. The 48
+blocks with Python warnings also warrant diagnostic follow-up. The
+USD/CHF example separately demonstrates fitting for a standard
+continuous model, while the Pain and SPIRL audits identify open
+requirements for customized workflows.
+
+A separate untimed diagnostic on 64 synthetic standard-binary HGF
+datasets further distinguishes forward agreement from complete-fit
+agreement. Sixty-three fits met the existing full-output criteria. For
+subject index 7, four level-2 posterior means and four corresponding
+predicted means exceeded the trajectory criterion, although the fitted
+parameters and other compared fit quantities met their field-specific
+criteria. This cohort result limits an end-to-end fitting-equivalence
+claim. It also motivates comparison of complete fitted trajectories
+after checking the fixed-parameter calculation. The
+\href{https://github.com/ahmadkhanloo/hgfx/blob/81d9e8fc67c1d801f7d749cf44ba9fcfffdbf1f3/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json}{archived
+64-fit record} retains the failed values and unchanged thresholds.
 
 HGFX and pyhgf have complementary evaluation scopes here. Eleven mapped
 perceptual quantities agree at rounding scale in one case, but the
@@ -934,16 +974,17 @@ deciding what can be transferred and what still requires validation.
 \subsection{7 Data and code
 availability}\label{data-and-code-availability}
 
-HGFX 1.0.0 source and release are available at the
+HGFX 1.0.0 is available from the
 \href{https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0}{versioned
-release} (HGFX developers 2026). The package is MIT-licensed. Historical
-evidence, manifests, tables and reproducibility instructions remain in
-the repository. The present revision has its own editable manuscript,
-figure script, claim ledger and build instructions. Third-party sources
-retain their own licenses; locally inspected unlicensed study files are
-not redistributed. MATLAB is required only to regenerate oracle
-evidence. New source-feasibility inventories are distinct from frozen
-numerical outputs.
+release} (HGFX developers 2026) under the MIT license. The repository
+provides the manuscript, evidence manifests and reproducibility
+instructions. Supplement S7 identifies the original behavioral input
+files and their source commits, the preparation and comparison code, and
+the archived numerical summary. Participant inputs and per-trial
+trajectories are available only through their respective original
+sources or regeneration under the recorded workflow, as applicable. They
+are excluded from this package. MATLAB is required to regenerate the
+reference outputs.
 
 \subsection{Statements and
 Declarations}\label{statements-and-declarations}
@@ -960,10 +1001,12 @@ ethics}\label{author-contributions-and-ethics}
 
 Mohammad Ahmadkhanloo: conceptualization, software, validation, formal
 analysis, data curation, visualization, and writing (original draft and
-review/editing). The present work uses computational validation, source
-audits and an exchange-rate example; it does not undertake new
-participant-data analysis. No new participant recruitment, consent or
-ethics approval is claimed.
+review/editing). The software evaluation uses existing publicly archived
+choice and outcome sequences as numerical inputs and includes an
+empirical exchange-rate example. It involved no new participant
+recruitment or data collection. The source studies report their original
+ethics and consent procedures (Reed et al. 2020; Suthaharan et al.
+2021).
 
 \subsubsection{Generative AI use and
 accountability}\label{generative-ai-use-and-accountability}
@@ -1041,6 +1084,16 @@ Neuroscience 8:825. \url{https://doi.org/10.3389/fnhum.2014.00825}
 \bibitem[\citeproctext]{ref-peng2011reproducible}
 Peng RD (2011) Reproducible research in computational science. Science
 334:1226--1227. \url{https://doi.org/10.1126/science.1213847}
+
+\bibitem[\citeproctext]{ref-reed2020}
+Reed EJ, Uddenberg S, Suthaharan P, et al (2020) Paranoia as a deficit
+in non-social belief updating. eLife 9:e56345.
+\url{https://doi.org/10.7554/eLife.56345}
+
+\bibitem[\citeproctext]{ref-suthaharan2021}
+Suthaharan P, Reed EJ, Leptourgos P, et al (2021) Paranoia and belief
+updating during the {COVID-19} crisis. Nature Human Behaviour
+5:1190--1202. \url{https://doi.org/10.1038/s41562-021-01176-8}
 
 \bibitem[\citeproctext]{ref-wilson2019ten}
 Wilson RC, Collins AGE (2019) Ten simple rules for the computational

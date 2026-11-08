@@ -1,6 +1,6 @@
 # HGFX: reference-compatible hierarchical Gaussian filtering in Python
 
-**Status:** Author-review draft, 4 November 2026. No successful external real-data replication is claimed. Financial clearance and author verification remain open.
+**Status:** Author-review draft, 8 November 2026. Final scientific approval, secondary-data reuse verification and financial clearance are pending.
 
 Mohammad Ahmadkhanloo
 
@@ -12,7 +12,7 @@ Correspondence: m.ahmadkhanloo@ipm.ir
 
 ## Abstract
 
-Moving an established statistical analysis between programming languages requires preserving parameter conventions, observation models and numerical behavior. HGFX provides hierarchical Gaussian filtering in Python against a frozen MATLAB HGF Toolbox 8.2.0 reference, without MATLAB in the user runtime. We present the statistical contract, user workflow and scoped evaluation of HGFX 1.0.0. In 36 paired model-selection datasets, the implementations select identical Bayesian information criterion winners, while generating-model recovery balanced accuracy is 0.583 in each. Parameter recovery does not meet all predeclared criteria. A separate trial-horizon experiment fails its integrity gate. Inspection of its retained raw outputs distinguishes ten datasets with no selectable model in either implementation from disagreement between two selected models, and identifies four asymmetric initial-fit outcomes. A mapped comparison with pyhgf 0.3.2 shows agreement for 11 perceptual quantities in one binary case; response likelihood remains not directly comparable. Retained Tesla T4 measurements establish objective agreement in tested cells, without a speed claim. A reproducible continuous-input example uses the reference toolbox's empirical USD/CHF series; customized published participant analyses remain outside the demonstrated application scope. HGFX's contribution is a versioned compatibility workflow with inspectable numerical boundaries. Cross-implementation agreement does not establish parameter identifiability, reliable model discrimination or validity for a new experimental design.
+HGFX provides hierarchical Gaussian filtering in Python against the frozen MATLAB HGF Toolbox 8.2.0 reference. We evaluate version 1.0.0 at three levels: agreement of fixed-parameter calculations, agreement of fitted model selections, and recovery of known parameters and generating models. On two published behavioral input files, the same fixed-parameter perceptual model agreed across implementations in all 324 source-defined 80-trial blocks (25,920 trials). No array element exceeded the prespecified tolerance across 12 outputs per block. Python emitted warnings in 48 blocks. The comparison covers the forward filter at one parameter vector. The original studies' observation models, parameter estimates and substantive results remain unevaluated. In 36 simulated model-selection datasets, both implementations selected the same minimum Bayesian information criterion model, with generating-model balanced accuracy of 0.583 in each. Parameter recovery fell short of some predeclared criteria, and a separate trial-horizon experiment failed its integrity gate. A continuous-input worked example illustrates the workflow on 614 empirical exchange-rate observations. These results document where the released implementation reproduces the reference and where model recovery and fitting still limit interpretation.
 
 ## 1 Introduction
 
@@ -28,7 +28,7 @@ Python implementations already address HGF-related modeling. In particular, pyhg
 
 This article asks how an established reference HGF workflow can be transferred to Python while preserving model semantics and the known limits of inference. The evaluated release is HGFX 1.0.0. Features added on the active development line are outside this evidence scope. The reference is HGF Toolbox 8.2.0 at a recorded immutable commit, rather than a moving upstream branch. This choice makes the target inspectable and allows later users to understand which behavior was reproduced. It also limits generalization to other toolbox releases and customized analysis pipelines.
 
-The contribution has three parts. First, HGFX supplies a MATLAB-independent user workflow for fitting, simulation and sampling with a documented compatibility contract. Second, the evaluation connects configuration and fixed-parameter checks to paired fitting, official workflows and backend evidence. Third, the paper reports inferential failures alongside implementation agreement, so that successful reproduction is not presented as successful scientific recovery. A continuous-input worked example illustrates the user workflow, while source audits of two customized participant studies delimit applications requiring further migration.
+HGFX supplies a MATLAB-independent workflow for fitting, simulation and sampling with a documented compatibility contract. The evaluation tests fixed-parameter perceptual calculations on two published behavioral input files and separates that agreement from fitting and model recovery in simulations. A continuous-input worked example illustrates the user workflow. Source audits identify additional requirements for transporting customized participant analyses.
 
 ## 2 Statistical formulation
 
@@ -152,6 +152,10 @@ The backend comparison distinguishes compatibility CPU versus JAX CPU from JAX C
 
 The empirical example follows the frozen toolbox's continuous-input demonstration: a two-level classic HGF with the bayes_optimal likelihood evaluates the USD/CHF observations directly, with an empty response vector. Default priors, placeholder resolution and optimizer settings are retained. The complete sequence is used in its recorded order, without generated responses or removed rows. It is a descriptive fit to an empirical series, not an out-of-sample forecasting test. Separate source audits of Pain 2025 [@pain_2025] and SPIRL [@spirl_2025] assess whether their customized participant pipelines can be transferred without changing the models; neither proceeds to fitting.
 
+### 4.6 Forward validation on published behavioral inputs
+
+To evaluate fixed-parameter agreement on published behavioral inputs, we used two 80-trial blocks or condition halves per participant prefix from two archived behavioral input files [@suthaharan2021; @reed2020]. The initial 326-block source check stopped before full-cohort model execution because one Reed workspace variable was not a participant identifier. The revised protocol, recorded before the paired full-cohort execution, retained all 260 Suthaharan and 64 Reed blocks in the two pinned source files. We preserved binary outcomes, three-choice coding and the mask for trials with a missing choice or outcome. Both implementations evaluated the same uncoupled three-arm perceptual model at the native 17-parameter vector inherited from reference test M12B. We compared 12 trajectory or inference-state outputs per block in CPU binary64 with relative tolerance $2\times10^{-9}$ and absolute tolerance $2\times10^{-11}$, including matched nonfinite values. The workflow held all parameters fixed and omitted the observation model. Supplement S7 records the source, protocol and software identities.
+
 ## 5 Results
 
 ### 5.1 Reference workflows and sensitive fits
@@ -244,6 +248,10 @@ The example shows how an analyst can inspect one-step predictions and changing l
 
 **Fig. 5** Empirical-input worked example with all 614 USD/CHF observations from the frozen toolbox demo. The upper panel shows observed rates and one-step predicted means from the continuous two-level HGF; the lower panel shows the fitted level-2 posterior mean, which modulates innovation variance. Parameters are estimated using the full series. No held-out accuracy, parameter uncertainty, new MATLAB agreement or participant-study replication is implied
 
+### 5.5 Forward agreement on published behavioral inputs
+
+Both implementations completed the fixed-parameter comparison for all 324 blocks (25,920 input trials). Across 3,888 fields and 2,540,160 compared array entries, no entry exceeded the specified criterion. The largest absolute difference among finite pairs was $3.109\times10^{-15}$. Python emitted warnings in 48 of the 324 blocks. The archived summary retains the warning counts, and the warning mechanisms remain uncharacterized. The result concerns numerical compatibility of the perceptual filter on the two selected input files. Replication of the original fitted parameters, model comparisons and group-level results remains outside this experiment.
+
 ## 6 Discussion
 
 HGFX serves analysts who need the tested conventions of a particular MATLAB HGF release in a Python environment. The contribution is the combination of a usable interface and scoped numerical evidence: parameter spaces, priors, masks, likelihoods and returned statistics are part of the analysis specification. Table 1 separates this evidence into surfaces that a user can evaluate before transporting an existing workflow. A shared model name alone is insufficient.
@@ -252,7 +260,9 @@ Implementation agreement and scientific recovery answer different questions. In 
 
 The horizon audit also illustrates why failure labels require inspection of raw outputs. Missing winners after invalid generation are different from competing finite model selections. Empty index arrays after execution failure are different from reordered parameters. Nonetheless, four asymmetric initial-fit outcomes remain, and the historical outputs do not identify their first divergent trial, level and intermediate state. The extended horizon grid therefore remains outside the supported paired-fitting claim. No general structural-identifiability conclusion follows, and the successful subset does not rescue the original gate.
 
-The empirical-input example supplies a reproducible analysis using a standard model, whereas the Pain and SPIRL audits expose the additional work required by customized published pipelines. Users should first identify exact configurations, transforms and missing-trial rules, compare fixed-parameter quantities, and only then compare fitted outputs. Failed cases must remain in the accounting. The current article does not establish end-to-end replication of an external participant study.
+The published behavioral inputs test the same perceptual calculation across observed choice and outcome sequences from two source files. Their numerical agreement extends the synthetic checks to those inputs at one parameter vector. Assessing transportability of the original analyses would require their observation likelihoods, priors, optimization procedures, sample definitions and outcome analyses. The 48 blocks with Python warnings also warrant diagnostic follow-up. The USD/CHF example separately demonstrates fitting for a standard continuous model, while the Pain and SPIRL audits identify open requirements for customized workflows.
+
+A separate untimed diagnostic on 64 synthetic standard-binary HGF datasets further distinguishes forward agreement from complete-fit agreement. Sixty-three fits met the existing full-output criteria. For subject index 7, four level-2 posterior means and four corresponding predicted means exceeded the trajectory criterion, although the fitted parameters and other compared fit quantities met their field-specific criteria. This cohort result limits an end-to-end fitting-equivalence claim. It also motivates comparison of complete fitted trajectories after checking the fixed-parameter calculation. The [archived 64-fit record](https://github.com/ahmadkhanloo/hgfx/blob/81d9e8fc67c1d801f7d749cf44ba9fcfffdbf1f3/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json) retains the failed values and unchanged thresholds.
 
 HGFX and pyhgf have complementary evaluation scopes here. Eleven mapped perceptual quantities agree at rounding scale in one case, but the response-probability boundary prevents a likelihood-equivalence claim. Likewise, T4 objective agreement does not establish throughput or scaling. Broader response comparisons and performance benchmarks require their own prospective protocols.
 
@@ -260,7 +270,7 @@ Compatibility is tied to the immutable 8.2.0 reference and the tested scopes, no
 
 ## 7 Data and code availability
 
-HGFX 1.0.0 source and release are available at the [versioned release](https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0) [@hgfx100]. The package is MIT-licensed. Historical evidence, manifests, tables and reproducibility instructions remain in the repository. The present revision has its own editable manuscript, figure script, claim ledger and build instructions. Third-party sources retain their own licenses; locally inspected unlicensed study files are not redistributed. MATLAB is required only to regenerate oracle evidence. New source-feasibility inventories are distinct from frozen numerical outputs.
+HGFX 1.0.0 is available from the [versioned release](https://github.com/ahmadkhanloo/hgfx/releases/tag/v1.0.0) [@hgfx100] under the MIT license. The repository provides the manuscript, evidence manifests and reproducibility instructions. Supplement S7 identifies the original behavioral input files and their source commits, the preparation and comparison code, and the archived numerical summary. Participant inputs and per-trial trajectories are available only through their respective original sources or regeneration under the recorded workflow, as applicable. They are excluded from this package. MATLAB is required to regenerate the reference outputs.
 
 ## Statements and Declarations
 
@@ -270,7 +280,7 @@ No specific grant funding was received for this work. Mohammad Ahmadkhanloo is t
 
 ### Author contributions and ethics
 
-Mohammad Ahmadkhanloo: conceptualization, software, validation, formal analysis, data curation, visualization, and writing (original draft and review/editing). The present work uses computational validation, source audits and an exchange-rate example; it does not undertake new participant-data analysis. No new participant recruitment, consent or ethics approval is claimed.
+Mohammad Ahmadkhanloo: conceptualization, software, validation, formal analysis, data curation, visualization, and writing (original draft and review/editing). The software evaluation uses existing publicly archived choice and outcome sequences as numerical inputs and includes an empirical exchange-rate example. It involved no new participant recruitment or data collection. The source studies report their original ethics and consent procedures [@suthaharan2021; @reed2020].
 
 ### Generative AI use and accountability
 

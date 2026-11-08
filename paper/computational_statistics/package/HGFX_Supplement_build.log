@@ -114,21 +114,23 @@ MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/Mak/AppData/Local/Programs/Mi
 KTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [2] [3]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 359.
+(caption)                particular \caption on input line 392.
 See the caption package documentation for explanation.
 
 [4 <./fig_p3_horizon_diagnostics.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 379.
+(caption)                particular \caption on input line 412.
 See the caption package documentation for explanation.
 
-[5 <./fig_gpu_applicability.pdf>]
+[5 <./fig_gpu_applicability.pdf>] [6]
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd)
 
 Package caption Warning: Unused \captionsetup[table] on input line 44.
 See the caption package documentation for explanation.
 
-[6] (HGFX_Supplement.aux)
+[7{C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
+(HGFX_Supplement.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
@@ -143,7 +145,7 @@ pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Mak/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Mak/AppData/
 Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Mak/AppData/Loc
 al/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on HGFX_Supplement.pdf (6 pages, 283248 bytes).
+Output written on HGFX_Supplement.pdf (7 pages, 293868 bytes).
 Transcript written on HGFX_Supplement.log.
 
 This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex.fmt)
@@ -261,30 +263,32 @@ MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/Mak/AppData/Local/Programs/Mi
 KTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [2] [3]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 359.
+(caption)                particular \caption on input line 392.
 See the caption package documentation for explanation.
 
 [4 <./fig_p3_horizon_diagnostics.pdf>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 379.
+(caption)                particular \caption on input line 412.
 See the caption package documentation for explanation.
 
-[5 <./fig_gpu_applicability.pdf>]
+[5 <./fig_gpu_applicability.pdf>] [6]
+(C:\Users\Mak\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd)
 
 Package caption Warning: Unused \captionsetup[table] on input line 44.
 See the caption package documentation for explanation.
 
-[6] (HGFX_Supplement.aux) )<C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/lm/lmbx10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmbx12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/lm/lmmi10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/lm/lmmi8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmr10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/l
-m/lmr12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
-mr17.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8
-.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.p
-fb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-<C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on HGFX_Supplement.pdf (6 pages, 283248 bytes).
+[7{C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
+(HGFX_Supplement.aux) )<C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/lm/lmbx10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/lm/lmbx12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmmi10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/lm/lmmi8.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
+/lmr10.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+r12.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17
+.pfb><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb
+><C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><
+C:/Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/
+Users/Mak/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
+Output written on HGFX_Supplement.pdf (7 pages, 293868 bytes).
 Transcript written on HGFX_Supplement.log.
