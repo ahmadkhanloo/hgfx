@@ -88,6 +88,29 @@ def read_original_members(source: Path, archive: dict) -> tuple[dict, str]:
     return {name: json.loads(data) for name, data in raw.items()}, form
 
 
+def first_json_difference(lhs, rhs, path: str = "$"):
+    """Locate actual tracked-versus-original result divergence, no filtering."""
+    if type(lhs) is not type(rhs):
+        return (path, repr(lhs)[:240], repr(rhs)[:240])
+    if isinstance(lhs, dict):
+        if lhs.keys() != rhs.keys():
+            return (path + ".keys", sorted(lhs.keys()), sorted(rhs.keys()))
+        for k in sorted(lhs):
+            failure = first_json_difference(lhs[k], rhs[k], path + "." + k)
+            if failure is not None:
+                return failure
+    elif isinstance(lhs, list):
+        if len(lhs) != len(rhs):
+            return (path + ".length", len(lhs), len(rhs))
+        for i, (a, b) in enumerate(zip(lhs, rhs)):
+            failure = first_json_difference(a, b, path + "[" + str(i) + "]")
+            if failure is not None:
+                return failure
+    elif lhs != rhs:
+        return (path, repr(lhs)[:240], repr(rhs)[:240])
+    return None
+
+
 def independent_trajectory_failures(hgfx_subject: dict, matlab_subject: dict,
                                     field: str) -> dict:
     """Independent scalar arithmetic, not archived or project comparator labels."""
@@ -150,8 +173,12 @@ def verify(root: Path, fit_source: Path, forward_source: Path) -> dict:
     require(recomputed_fit == recorded_fit,
             "Raw 64-fit comparator does not reproduce archived full comparison")
     tracked_path = root / "fit_cohort_results" / "summary-41863441006.json"
-    require(recomputed_fit == json.loads(tracked_path.read_bytes()),
-            "Original Git-tracked 64-fit summary differs from actual raw source replay")
+    tracked = json.loads(tracked_path.read_bytes())
+    if recomputed_fit != tracked:
+        diff = first_json_difference(recomputed_fit, tracked)
+        raise ValueError("Original Git-tracked 64-fit summary differs from actual "
+                         "raw source replay. FIRST DIFF (raw_recomputed,git_tracked)="
+                         + repr(diff))
     require(recomputed_fit["hgfx_sha"] == HGFX_SHA
             and recomputed_fit["matlab_sha"] == MATLAB_SHA
             and recomputed_fit["classification_counts"] ==
