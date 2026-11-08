@@ -6,7 +6,6 @@
  * Uses RTLD_NOLOAD: no new BLAS libraries can be initialized by this probe.
  * Preserve original frozen MATLAB source; compile probe outside repository.
  */
-#define _GNU_SOURCE
 #include "mex.h"
 #include <ctype.h>
 #include <dlfcn.h>
@@ -17,30 +16,44 @@
 #define MAPS_BUF_SIZE 524288
 #define PATH_LIMIT 4096
 typedef int (*mkl_max_threads_fn)(void);
+typedef int (*omp_max_threads_fn)(void);
 
 static int matched_library(const char *src) {
+    /* Match the actual shared-library BASENAME, never directory names
+       (for example 'component' was a false OpenMP path match). */
+    const char *base = strrchr(src, '/');
     char lower[PATH_LIMIT];
-    size_t n = strlen(src);
-    size_t i;
+    size_t n, i;
+    base = base ? base + 1 : src;
+    n = strlen(base);
     if (n >= sizeof(lower)) n = sizeof(lower) - 1;
-    for (i = 0; i < n; ++i) lower[i] = (char)tolower((unsigned char)src[i]);
+    for (i = 0; i < n; ++i) lower[i] = (char)tolower((unsigned char)base[i]);
     lower[n] = '\0';
-    return (strstr(lower, "mkl") || strstr(lower, "blas") ||
-            strstr(lower, "blis") || strstr(lower, "aocl") ||
-            strstr(lower, "omp") || strstr(lower, "iomp")) != NULL;
+    return strstr(lower, "mkl") != NULL ||
+           strstr(lower, "blas") != NULL ||
+           strstr(lower, "blis") != NULL ||
+           strstr(lower, "aocl") != NULL ||
+           strstr(lower, "libiomp") != NULL ||
+           strstr(lower, "libgomp") != NULL ||
+           strstr(lower, "libomp.") != NULL ||
+           strstr(lower, "libmwomp") != NULL;
 }
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     FILE *maps;
     char line[8192];
     char paths[MAPS_BUF_SIZE];
-    char sym_source[PATH_LIMIT];
+    char sym_source[PATH_LIMIT], omp_source[PATH_LIMIT];
     int target = -1, symbol_found = 0, seen = 0;
+    int omp_target = -1, omp_found = 0;
     mkl_max_threads_fn mk = NULL;
+    omp_max_threads_fn omp = NULL;
     const char *fields[] = {
         "pid", "mapped_libraries", "mapped_library_count",
         "mkl_get_max_threads_available", "mkl_target_max_threads",
-        "mkl_symbol_source", "query_kind"
+        "mkl_symbol_source", "query_kind",
+        "omp_get_max_threads_available", "omp_target_max_threads",
+        "omp_symbol_source"
     };
     (void)prhs;
     if (nrhs != 0 || nlhs > 1)
@@ -48,6 +61,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 
     paths[0] = '\0';
     sym_source[0] = '\0';
+    omp_source[0] = '\0';
+    omp = (omp_max_threads_fn)dlsym(RTLD_DEFAULT, "omp_get_max_threads");
+    if (omp) {
+        omp_found = 1;
+        strncpy(omp_source, "RTLD_DEFAULT", sizeof(omp_source) - 1);
+        omp_source[sizeof(omp_source) - 1] = '\0';
+    }
     mk = (mkl_max_threads_fn)dlsym(RTLD_DEFAULT, "mkl_get_max_threads");
     if (!mk) mk = (mkl_max_threads_fn)dlsym(RTLD_DEFAULT, "MKL_Get_Max_Threads");
     if (mk) {
@@ -80,35 +100,49 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         seen++;
 
         /* Never load a new numerical library. Only query an already mapped .so */
-        if (!mk) {
+        if (!symbol_found || !omp_found) {
             loaded = dlopen(path, RTLD_LAZY | RTLD_NOLOAD);
             if (loaded) {
-                candidate = (mkl_max_threads_fn)dlsym(loaded, "mkl_get_max_threads");
-                if (!candidate)
-                    candidate = (mkl_max_threads_fn)dlsym(loaded, "MKL_Get_Max_Threads");
-                if (candidate) {
-                    mk = candidate;
-                    symbol_found = 1;
-                    strncpy(sym_source, path, sizeof(sym_source) - 1);
-                    sym_source[sizeof(sym_source) - 1] = '\0';
-                    /* Keep existing library handle reference until after call. */
-                    target = mk();
+                if (!symbol_found) {
+                    candidate = (mkl_max_threads_fn)dlsym(loaded, "mkl_get_max_threads");
+                    if (!candidate)
+                        candidate = (mkl_max_threads_fn)dlsym(loaded, "MKL_Get_Max_Threads");
+                    if (candidate) {
+                        symbol_found = 1;
+                        strncpy(sym_source, path, sizeof(sym_source) - 1);
+                        sym_source[sizeof(sym_source) - 1] = '\0';
+                        target = candidate();
+                    }
+                }
+                if (!omp_found && (strstr(path, "iomp") || strstr(path, "gomp") ||
+                                   strstr(path, "libomp"))) {
+                    omp_max_threads_fn omp_candidate =
+                        (omp_max_threads_fn)dlsym(loaded, "omp_get_max_threads");
+                    if (omp_candidate) {
+                        omp_found = 1;
+                        strncpy(omp_source, path, sizeof(omp_source) - 1);
+                        omp_source[sizeof(omp_source) - 1] = '\0';
+                        omp_target = omp_candidate();
+                    }
                 }
                 dlclose(loaded);
-                if (symbol_found) mk = NULL; /* target was read while handle live */
             }
         }
     }
     fclose(maps);
 
     if (mk && target < 0) target = mk();
-    plhs[0] = mxCreateStructMatrix(1, 1, 7, fields);
+    if (omp && omp_target < 0) omp_target = omp();
+    plhs[0] = mxCreateStructMatrix(1, 1, 10, fields);
     mxSetField(plhs[0], 0, "pid", mxCreateDoubleScalar((double)getpid()));
     mxSetField(plhs[0], 0, "mapped_libraries", mxCreateString(paths));
     mxSetField(plhs[0], 0, "mapped_library_count", mxCreateDoubleScalar((double)seen));
     mxSetField(plhs[0], 0, "mkl_get_max_threads_available", mxCreateLogicalScalar(symbol_found != 0));
     mxSetField(plhs[0], 0, "mkl_target_max_threads", mxCreateDoubleScalar((double)target));
     mxSetField(plhs[0], 0, "mkl_symbol_source", mxCreateString(sym_source));
+    mxSetField(plhs[0], 0, "omp_get_max_threads_available", mxCreateLogicalScalar(omp_found != 0));
+    mxSetField(plhs[0], 0, "omp_target_max_threads", mxCreateDoubleScalar((double)omp_target));
+    mxSetField(plhs[0], 0, "omp_symbol_source", mxCreateString(omp_source));
     mxSetField(plhs[0], 0, "query_kind",
                mxCreateString("TARGET_MAX_THREAD_CAP_NOT_OBSERVED_WORKER_COUNT"));
 }
