@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import copy
+import json
+import tempfile
+from unittest.mock import patch
 import sys
 from pathlib import Path
 import unittest
@@ -9,7 +12,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1] / "benchmarks" / "runtime_v1"
 sys.path.insert(0, str(ROOT))
 
-from compare_cpu_host_attestation import compare  # noqa: E402
+from compare_cpu_host_attestation import compare, main  # noqa: E402
 from probe_cpu_host_hgfx_untimed import EXPECTED_ENV  # noqa: E402
 
 
@@ -116,6 +119,33 @@ class HostAttestationContractTests(unittest.TestCase):
         m["scientific_gate"] = "PASS"
         with self.assertRaisesRegex(ValueError, "benchmark/freezing"):
             compare(h, m)
+
+    def test_blocked_matlab_mkl_request_retained_in_report_and_exit_failure(self):
+        h, m = paired()
+        m["environment_thread_requests"]["MKL_NUM_THREADS"] = ""
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            h_path, m_path, output = (
+                root / "hgfx.json", root / "matlab.json", root / "comparison.json"
+            )
+            h_path.write_text(json.dumps(h))
+            m_path.write_text(json.dumps(m))
+            with patch("sys.argv", [
+                "compare_cpu_host_attestation.py",
+                "--hgfx", str(h_path), "--matlab", str(m_path),
+                "--output", str(output),
+            ]):
+                with self.assertRaisesRegex(SystemExit, "BLOCKED environment"):
+                    main()
+            report = json.loads(output.read_text())
+            self.assertEqual(report["status"], "BLOCKED_ENVIRONMENT_ATTESTATION")
+            self.assertEqual(
+                report["observed_thread_environment_mismatches"],
+                {"MKL_NUM_THREADS": {"python": "1", "matlab": ""}},
+            )
+            self.assertTrue(all(report["host_fields_concordant"].values()))
+            self.assertEqual(report["performance"], "NOT_MEASURED")
+            self.assertEqual(report["scientific_gate"], "BLOCK_FREEZE_NOT_FROZEN")
 
 
 if __name__ == "__main__":
