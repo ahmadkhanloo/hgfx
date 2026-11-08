@@ -1,0 +1,50 @@
+name: CompStat REV-1.1 Frozen S7 Confusion Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/audit_compstat_confusion.py'
+      - 'evidence/revision/confusion_audit.json'
+      - '.github/workflows/compstat-confusion-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  audit-s7-raw-bic-selections:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download original 12 S7 shard artifacts (no fits)
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 34896442847
+          github-token: ${{ github.token }}
+          pattern: m18-s7-shard-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/s7-original
+      - name: Recompute 36 BIC winners from raw per-case records
+        run: |
+          python tools/audit_compstat_confusion.py --shard-dir "${{ runner.temp }}/s7-original" --expected evidence/revision/confusion_audit.json
+          sha256sum evidence/revision/confusion_audit.json
+      - name: Negative control: a falsified confusion count MUST fail
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          src=pathlib.Path('evidence/revision/confusion_audit.json')
+          obj=json.loads(src.read_text())
+          obj['confusion_matrix_counts'][0][0] += 1
+          pathlib.Path('tampered-compstat-evidence.json').write_text(json.dumps(obj))
+          PY
+          if python tools/audit_compstat_confusion.py --shard-dir "${{ runner.temp }}/s7-original" --expected tampered-compstat-evidence.json; then
+            echo 'ERROR: tampering went undetected'; exit 1
+          else
+            echo 'EXPECTED: fabricated matrix rejected'
+          fi
