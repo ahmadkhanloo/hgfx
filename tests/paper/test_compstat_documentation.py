@@ -44,3 +44,17 @@ def test_extensionless_reference_file_hash_is_line_ending_invariant(tmp_path):
         assert verifier["sha"](test_file) == expected
         test_file.write_bytes(b"changed scientific identity\n")
         assert verifier["sha"](test_file) != expected
+
+
+def test_workflow_source_hash_is_line_ending_invariant(tmp_path):
+    import runpy
+    verifier = runpy.run_path(str(PAPER / "verify_revision.py"))
+    original = b"name: source parity\non: workflow_dispatch\n"
+    for suffix in (".yml", ".yaml"):
+        workflow = tmp_path / ("workflow" + suffix)
+        workflow.write_bytes(original)
+        expected = verifier["sha"](workflow)
+        workflow.write_bytes(original.replace(b"\n", b"\r\n"))
+        assert verifier["sha"](workflow) == expected
+        workflow.write_bytes(b"name: changed source experiment\n")
+        assert verifier["sha"](workflow) != expected

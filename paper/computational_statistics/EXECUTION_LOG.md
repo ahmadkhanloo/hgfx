@@ -101,3 +101,12 @@ The first PDF build attempt was stopped before execution because the automatic
 approval reviewer reached its usage limit. Following the request to continue,
 the local build ran. Later checks and visual inspection are recorded in
 VISUAL_QA.md and verification.json.
+
+## Linux CI portability correction
+
+The first PR #106 integrity job (run 42500192492) stopped on the newly cited
+YAML workflow source. Its Git blob was LF and the Windows worktree was CRLF.
+The verifier's text-extension list omitted YAML, so the claim ledger recorded
+the checkout bytes. A regression test first reproduced that difference. The
+existing text-hash policy now includes .yml and .yaml, while ZIP/PDF bytes stay
+exact. Scientific sources, fixture bytes and thresholds were untouched.

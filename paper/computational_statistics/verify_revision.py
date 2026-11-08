@@ -12,7 +12,7 @@ ROOT = HERE.parents[1]
 
 def sha(path):
     data = path.read_bytes()
-    if path.suffix.lower() in {'.json', '.md', '.txt', '.log', '.bib', '.py', '.csv', '.csl', '.tex', '.tsv', '.m', '.xml'} or path.name in {'HGF_VERSION', 'HGF_COMMIT'}:
+    if path.suffix.lower() in {'.json', '.md', '.txt', '.log', '.bib', '.py', '.csv', '.csl', '.tex', '.tsv', '.m', '.xml', '.yml', '.yaml'} or path.name in {'HGF_VERSION', 'HGF_COMMIT'}:
         data = data.replace(b'\r\n', b'\n')
     return hashlib.sha256(data).hexdigest()
 
