@@ -174,11 +174,25 @@ def verify(root: Path, fit_source: Path, forward_source: Path) -> dict:
             "Raw 64-fit comparator does not reproduce archived full comparison")
     tracked_path = root / "fit_cohort_results" / "summary-41863441006.json"
     tracked = json.loads(tracked_path.read_bytes())
-    if recomputed_fit != tracked:
-        diff = first_json_difference(recomputed_fit, tracked)
-        raise ValueError("Original Git-tracked 64-fit summary differs from actual "
-                         "raw source replay. FIRST DIFF (raw_recomputed,git_tracked)="
-                         + repr(diff))
+    # Git's derived summary is the archived original comparator PLUS three
+    # additional provenance fields. They are NOT scientific differences.
+    expected_provenance = {
+        "github_run_id": str(FIT_ARCHIVE["run_id"]),
+        "raw_evidence_location": "GitHub Actions artifact perf01-64-full-fits-41863441006",
+        "raw_evidence_sha256": {
+            name: FIT_ARCHIVE["members"][name]
+            for name in ("hgfx_raw.json", "matlab_raw.json")
+        },
+    }
+    require(set(tracked) == set(recomputed_fit) | set(expected_provenance),
+            "Git-tracked full-fit summary has missing/extra scientific or provenance keys")
+    require(all(tracked[k] == v for k, v in expected_provenance.items()),
+            "Git-tracked source archive provenance fields conflict with exact raw hashes")
+    tracked_science = {k: tracked[k] for k in recomputed_fit}
+    if recomputed_fit != tracked_science:
+        diff = first_json_difference(recomputed_fit, tracked_science)
+        raise ValueError("Original Git-tracked SCIENTIFIC fields differ from raw replay. "
+                         "FIRST DIFF (raw_recomputed,git_tracked)=" + repr(diff))
     require(recomputed_fit["hgfx_sha"] == HGFX_SHA
             and recomputed_fit["matlab_sha"] == MATLAB_SHA
             and recomputed_fit["classification_counts"] ==
