@@ -1,0 +1,38 @@
+name: CompStat REV-0 Baseline Tag
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/compstat-baseline-tag.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  record-pre-revision-main:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create or verify immutable baseline tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          baseline=46fe45e1fdd110a0e72a6dc661bf05c9c38e8885
+          current_main="$(git ls-remote origin refs/heads/main | cut -f1)"
+          if [ "$current_main" != "$baseline" ]; then
+            echo "main advanced; human review required before baseline tagging"; exit 1
+          fi
+          current_tag="$(git ls-remote origin refs/tags/pre-compstat-revision | cut -f1)"
+          if [ -n "$current_tag" ]; then
+            test "$current_tag" = "$baseline" || { echo 'Baseline tag mismatch'; exit 1; }
+            echo 'Pre-revision lightweight tag already exists and is correct'
+          else
+            git tag pre-compstat-revision "$baseline"
+            git push origin refs/tags/pre-compstat-revision
+            echo "Tagged pre-compstat-revision -> $baseline"
+          fi

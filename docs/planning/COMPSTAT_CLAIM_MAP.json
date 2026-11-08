@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "scope": "REV-0.4 partial mapping against active Markdown; unmapped numeric tokens are retained for later work",
+  "claims": [
+    {
+      "id": "s7_36_cases",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "all 36 cases",
+      "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "values": [
+        {
+          "pointer": "/model_recovery/winner_matches"
+        }
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "id": "s7_balanced_accuracy_abstract",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "balanced accuracy of 0.583",
+      "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "values": [
+        {
+          "pointer": "/model_recovery/hgfx_balanced_accuracy",
+          "decimal_places": 3
+        }
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "id": "s7_bic_pair",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "36/36 BIC winners match",
+      "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "values": [
+        {
+          "pointer": "/model_recovery/winner_matches"
+        },
+        {
+          "pointer": "/model_recovery/total_cases"
+        }
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "id": "s7_balanced_accuracy_caption",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "balanced accuracy is 0.583333333333",
+      "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
+      "values": [
+        {
+          "pointer": "/model_recovery/hgfx_balanced_accuracy",
+          "decimal_places": 12
+        }
+      ],
+      "sha256": "6b8400e49bad979e3a5e24592615868cc96462724a1545b9fd0c6e54b008cf4c"
+    },
+    {
+      "id": "p3_differing_bic",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "10 of 72 model-recovery BIC winners disagreed",
+      "evidence": "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+      "values": [
+        {
+          "pointer": "/model_recovery/mismatched_cases",
+          "operation": "length"
+        },
+        {
+          "pointer": "/model_recovery/total_cases"
+        }
+      ],
+      "sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
+    },
+    {
+      "id": "p3_shards",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "24/24 shards",
+      "evidence": "paper/reproducibility/p3_m18c2_aggregate_35272347167.json",
+      "values": [
+        {
+          "pointer": "/coverage/shards"
+        },
+        {
+          "pointer": "/coverage/expected_shards"
+        }
+      ],
+      "sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4"
+    },
+    {
+      "id": "s9_objective_gap",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "1.42e-14",
+      "evidence": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+      "values": [
+        {
+          "pointer": "/physical_gpu/cases/1/final_objective_gap",
+          "significant_digits": 3
+        }
+      ],
+      "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82"
+    },
+    {
+      "id": "s9_objective_gate",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "criterion <= 1e-7",
+      "evidence": "gpu_validation_results/m18_s9_physical_gpu_revalidation.json",
+      "values": [
+        {
+          "pointer": "/criteria/jax_cpu_vs_physical_gpu_final_objective_gap_max"
+        }
+      ],
+      "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82"
+    }
+  ]
+}

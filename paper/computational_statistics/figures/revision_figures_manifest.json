@@ -1,0 +1,10 @@
+{
+  "source": "evidence/revision/recovery_uncertainty.json",
+  "source_sha256": "e5437e5cbdaced53e811050c19761835672b5c8673b234055e0b8e0b7c46a538",
+  "figures": {
+    "fig2_recovery_uncertainty.png": "e03210cc800e5fa17a1b760a535f72b5f2393dded772fa4b19fffaed89fe4a51",
+    "fig2_recovery_uncertainty.pdf": "0e58c24418e32a026bb58c6667e94576ed759213965ff05bde892aeff7c821b1",
+    "fig3_model_recovery_uncertainty.png": "12f2b6eb7b505c3d77e958b60905f193d1ba9c98be35584e610deead39aab2cb",
+    "fig3_model_recovery_uncertainty.pdf": "face87d276fd9050c525c81d0f0219b196619f08b036aa75271b2c4d107b842f"
+  }
+}

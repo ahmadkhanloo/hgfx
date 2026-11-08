@@ -1,0 +1,35 @@
+name: CompStat REV-0 Claims Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/check_manuscript_claims.py'
+      - 'docs/planning/COMPSTAT_CLAIM_MAP.json'
+      - 'tests/paper/test_compstat_claims.py'
+      - 'paper/computational_statistics/**'
+      - 'paper/SUPPLEMENTARY_APPENDICES.md'
+      - '.github/workflows/compstat-claims-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  rev0-claims-inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install focused test dependency
+        run: python -m pip install pytest
+      - name: Run targeted claim-audit tests
+        run: python -m pytest -q tests/paper/test_compstat_claims.py
+      - name: Inventory claim coverage (incomplete is NOT PASS)
+        run: python tools/check_manuscript_claims.py --allow-unmapped --json-out compstat-claims-inventory.json
+      - name: Upload numerical-claims coverage inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-claims-inventory
+          path: compstat-claims-inventory.json
+          if-no-files-found: warn

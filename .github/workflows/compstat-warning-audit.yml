@@ -1,0 +1,96 @@
+name: CompStat REV-1.3 Original Warning Cross-tab
+
+on:
+  pull_request:
+    paths:
+      - 'evidence/revision/protocols/REV-1.3_PROTOCOL.md'
+      - 'tools/audit_compstat_warnings.py'
+      - 'tests/paper/test_compstat_warning_crosstab.py'
+      - '.github/workflows/compstat-warning-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archived-warning-masks:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install input-only scientific dependencies
+        run: python -m pip install 'numpy>=2.0' 'scipy>=1.11' 'pytest>=8'
+      - name: Run targeted unit tests
+        run: python -m pytest -q tests/paper/test_compstat_warning_crosstab.py
+      - name: Retrieve archived 324-status artifact and original Reed source
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rev13-private"
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/13311622738/zip" \
+            --output "$RUNNER_TEMP/rev13-private/fullcohort-status.zip"
+          echo '1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391  '"$RUNNER_TEMP/rev13-private/fullcohort-status.zip" | sha256sum --check --status
+          curl --fail --silent --show-error --location --retry 3 \
+            'https://raw.githubusercontent.com/ModelDBRepository/258631/39ccaca508b81ca610e7666a613e061c801faaf9/IRL_Data.mat' \
+            --output "$RUNNER_TEMP/rev13-private/IRL_Data.mat"
+          echo 'b5a2e70a9604221a0d578f9be5fb09567431e51a764a1ac40f5794fb7c14e708  '"$RUNNER_TEMP/rev13-private/IRL_Data.mat" | sha256sum --check --status
+      - name: Analyze warning counts and missing-trial position aggregates
+        run: |
+          python tools/audit_compstat_warnings.py \
+            --archive "$RUNNER_TEMP/rev13-private/fullcohort-status.zip" \
+            --reed-source "$RUNNER_TEMP/rev13-private/IRL_Data.mat" \
+            --output evidence/revision/warning_crosstab.json
+      - name: Verify all aggregates and no participant-level export
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('evidence/revision/warning_crosstab.json')
+          j=json.loads(p.read_text())
+          assert j['denominator'] == 324 and j['suthaharan_blocks'] == 260 and j['reed_blocks'] == 64
+          assert j['warning_blocks'] == 48 and j['warning_events'] == 86
+          assert j['warning_count_distribution'] == {'0':276,'1':29,'3':19}
+          assert j['ignored_trials_total'] == 293 and j['blocks_with_ignored_trials'] == 48
+          assert j['all_warning_blocks_reed'] and j['all_warning_blocks_have_ignored_trial']
+          assert j['all_ignored_trial_blocks_have_warning'] and not j['per_block_rows_published']
+          assert sum(x['blocks'] for x in j['cross_tabs']['study']) == 324
+          assert sum(x['ignored_occurrences'] for x in j['cross_tabs']['all_ignored_trial_position_occurrences']) == 293
+          assert sum(x['warning_events'] for x in j['cross_tabs']['reed_arm']) == 86
+          assert sum(x['blocks'] for x in j['cross_tabs']['reed_arm']) == 64
+          forbidden=('participant_choices','participant_outcomes','subject_id','per_case_statuses','responses','input_arrays')
+          assert all(x not in j for x in forbidden)
+          print('REV-1.3 validation PASS: 324 statuses; 48 warning blocks; 86 events; 293 masks')
+          PY
+          sha256sum evidence/revision/warning_crosstab.json
+      - name: Upload aggregated warning audit only (no raw source)
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev13-warning-crosstab
+          path: evidence/revision/warning_crosstab.json
+          if-no-files-found: error
+      - name: Commit derived aggregate evidence to revision branch
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/revision/warning_crosstab.json
+          if git diff --cached --quiet; then
+            echo 'No changed evidence'
+          else
+            git commit -m 'REV-1.3: preserve verified archived warning cross-tab'
+            git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
+          fi

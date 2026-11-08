@@ -1,0 +1,2214 @@
+{
+  "all_ignored_trial_blocks_have_warning": true,
+  "all_warning_blocks_have_ignored_trial": true,
+  "all_warning_blocks_reed": true,
+  "archive": {
+    "archive_sha256": "1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391",
+    "artifact_id": 13311622738,
+    "frozen_m12b_criteria": {
+      "atol": 2e-11,
+      "inherited_from": "tools/check_m12bc_parity.py",
+      "rtol": 2e-09
+    },
+    "github_run_id": 41809919116,
+    "source_hgfx_wheel": "1.0.0",
+    "status_member_sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+  },
+  "blocks_with_ignored_trials": 48,
+  "cross_tabs": {
+    "all_ignored_trial_position_occurrences": [
+      {
+        "ignored_occurrences": 19,
+        "in_warning_blocks": 19,
+        "index_one_based": 1,
+        "index_zero_based": 0
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 3,
+        "index_zero_based": 2
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 4,
+        "index_zero_based": 3
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 5,
+        "index_zero_based": 4
+      },
+      {
+        "ignored_occurrences": 7,
+        "in_warning_blocks": 7,
+        "index_one_based": 6,
+        "index_zero_based": 5
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 7,
+        "index_zero_based": 6
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 9,
+        "index_zero_based": 8
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 10,
+        "index_zero_based": 9
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 11,
+        "index_zero_based": 10
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 12,
+        "index_zero_based": 11
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 13,
+        "index_zero_based": 12
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 14,
+        "index_zero_based": 13
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 15,
+        "index_zero_based": 14
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 16,
+        "index_zero_based": 15
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 17,
+        "index_zero_based": 16
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 18,
+        "index_zero_based": 17
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 19,
+        "index_zero_based": 18
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 20,
+        "index_zero_based": 19
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 21,
+        "index_zero_based": 20
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 22,
+        "index_zero_based": 21
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 23,
+        "index_zero_based": 22
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 24,
+        "index_zero_based": 23
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 25,
+        "index_zero_based": 24
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 26,
+        "index_zero_based": 25
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 27,
+        "index_zero_based": 26
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 28,
+        "index_zero_based": 27
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 29,
+        "index_zero_based": 28
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 30,
+        "index_zero_based": 29
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 31,
+        "index_zero_based": 30
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 32,
+        "index_zero_based": 31
+      },
+      {
+        "ignored_occurrences": 7,
+        "in_warning_blocks": 7,
+        "index_one_based": 33,
+        "index_zero_based": 32
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 34,
+        "index_zero_based": 33
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 35,
+        "index_zero_based": 34
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 36,
+        "index_zero_based": 35
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 37,
+        "index_zero_based": 36
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 38,
+        "index_zero_based": 37
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 39,
+        "index_zero_based": 38
+      },
+      {
+        "ignored_occurrences": 7,
+        "in_warning_blocks": 7,
+        "index_one_based": 40,
+        "index_zero_based": 39
+      },
+      {
+        "ignored_occurrences": 18,
+        "in_warning_blocks": 18,
+        "index_one_based": 41,
+        "index_zero_based": 40
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 42,
+        "index_zero_based": 41
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 43,
+        "index_zero_based": 42
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 44,
+        "index_zero_based": 43
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 45,
+        "index_zero_based": 44
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 46,
+        "index_zero_based": 45
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 47,
+        "index_zero_based": 46
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 48,
+        "index_zero_based": 47
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 49,
+        "index_zero_based": 48
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 50,
+        "index_zero_based": 49
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 51,
+        "index_zero_based": 50
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 52,
+        "index_zero_based": 51
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 53,
+        "index_zero_based": 52
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 54,
+        "index_zero_based": 53
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 55,
+        "index_zero_based": 54
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 56,
+        "index_zero_based": 55
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 57,
+        "index_zero_based": 56
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 58,
+        "index_zero_based": 57
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 59,
+        "index_zero_based": 58
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 60,
+        "index_zero_based": 59
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 61,
+        "index_zero_based": 60
+      },
+      {
+        "ignored_occurrences": 2,
+        "in_warning_blocks": 2,
+        "index_one_based": 62,
+        "index_zero_based": 61
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 63,
+        "index_zero_based": 62
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 64,
+        "index_zero_based": 63
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 65,
+        "index_zero_based": 64
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 66,
+        "index_zero_based": 65
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 67,
+        "index_zero_based": 66
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 68,
+        "index_zero_based": 67
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 69,
+        "index_zero_based": 68
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 70,
+        "index_zero_based": 69
+      },
+      {
+        "ignored_occurrences": 5,
+        "in_warning_blocks": 5,
+        "index_one_based": 71,
+        "index_zero_based": 70
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 72,
+        "index_zero_based": 71
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 73,
+        "index_zero_based": 72
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 74,
+        "index_zero_based": 73
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 75,
+        "index_zero_based": 74
+      },
+      {
+        "ignored_occurrences": 1,
+        "in_warning_blocks": 1,
+        "index_one_based": 76,
+        "index_zero_based": 75
+      },
+      {
+        "ignored_occurrences": 4,
+        "in_warning_blocks": 4,
+        "index_one_based": 77,
+        "index_zero_based": 76
+      },
+      {
+        "ignored_occurrences": 3,
+        "in_warning_blocks": 3,
+        "index_one_based": 78,
+        "index_zero_based": 77
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 79,
+        "index_zero_based": 78
+      },
+      {
+        "ignored_occurrences": 6,
+        "in_warning_blocks": 6,
+        "index_one_based": 80,
+        "index_zero_based": 79
+      }
+    ],
+    "first_ignored_index_zero_based": [
+      {
+        "blocks": 16,
+        "first_ignored_index_zero_based": null,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "blocks": 19,
+        "first_ignored_index_zero_based": 0,
+        "ignored_trials_total": 196,
+        "warning_blocks": 19,
+        "warning_events": 57
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 10,
+        "ignored_trials_total": 4,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 11,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 12,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 14,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 2,
+        "first_ignored_index_zero_based": 16,
+        "ignored_trials_total": 9,
+        "warning_blocks": 2,
+        "warning_events": 2
+      },
+      {
+        "blocks": 2,
+        "first_ignored_index_zero_based": 21,
+        "ignored_trials_total": 3,
+        "warning_blocks": 2,
+        "warning_events": 2
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 24,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 3,
+        "first_ignored_index_zero_based": 26,
+        "ignored_trials_total": 14,
+        "warning_blocks": 3,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 27,
+        "ignored_trials_total": 4,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 30,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 4,
+        "first_ignored_index_zero_based": 40,
+        "ignored_trials_total": 8,
+        "warning_blocks": 4,
+        "warning_events": 4
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 44,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 4,
+        "first_ignored_index_zero_based": 5,
+        "ignored_trials_total": 28,
+        "warning_blocks": 4,
+        "warning_events": 4
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 56,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 59,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 60,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 62,
+        "ignored_trials_total": 3,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 67,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "first_ignored_index_zero_based": 9,
+        "ignored_trials_total": 3,
+        "warning_blocks": 1,
+        "warning_events": 1
+      }
+    ],
+    "ignored_count": [
+      {
+        "blocks": 276,
+        "ignored_trials": 0,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "blocks": 10,
+        "ignored_trials": 1,
+        "ignored_trials_total": 10,
+        "warning_blocks": 10,
+        "warning_events": 12
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 14,
+        "ignored_trials_total": 14,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 16,
+        "ignored_trials_total": 16,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 17,
+        "ignored_trials_total": 17,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 18,
+        "ignored_trials_total": 18,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 19,
+        "ignored_trials_total": 19,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 8,
+        "ignored_trials": 2,
+        "ignored_trials_total": 16,
+        "warning_blocks": 8,
+        "warning_events": 12
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 22,
+        "ignored_trials_total": 22,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 24,
+        "ignored_trials_total": 24,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 28,
+        "ignored_trials_total": 28,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 6,
+        "ignored_trials": 3,
+        "ignored_trials_total": 18,
+        "warning_blocks": 6,
+        "warning_events": 10
+      },
+      {
+        "blocks": 4,
+        "ignored_trials": 4,
+        "ignored_trials_total": 16,
+        "warning_blocks": 4,
+        "warning_events": 8
+      },
+      {
+        "blocks": 5,
+        "ignored_trials": 5,
+        "ignored_trials_total": 25,
+        "warning_blocks": 5,
+        "warning_events": 7
+      },
+      {
+        "blocks": 2,
+        "ignored_trials": 6,
+        "ignored_trials_total": 12,
+        "warning_blocks": 2,
+        "warning_events": 6
+      },
+      {
+        "blocks": 3,
+        "ignored_trials": 7,
+        "ignored_trials_total": 21,
+        "warning_blocks": 3,
+        "warning_events": 5
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 8,
+        "ignored_trials_total": 8,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 9,
+        "ignored_trials_total": 9,
+        "warning_blocks": 1,
+        "warning_events": 3
+      }
+    ],
+    "reed_arm": [
+      {
+        "arm": "804020",
+        "blocks": 32,
+        "ignored_trials_total": 151,
+        "warning_blocks": 22,
+        "warning_events": 44
+      },
+      {
+        "arm": "905010",
+        "blocks": 32,
+        "ignored_trials_total": 142,
+        "warning_blocks": 26,
+        "warning_events": 42
+      }
+    ],
+    "reed_arm_by_first_ignored_index": [
+      {
+        "arm": "804020",
+        "blocks": 10,
+        "first_ignored_index_zero_based": null,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "arm": "804020",
+        "blocks": 11,
+        "first_ignored_index_zero_based": 0,
+        "ignored_trials_total": 111,
+        "warning_blocks": 11,
+        "warning_events": 33
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 12,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 16,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 21,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 2,
+        "first_ignored_index_zero_based": 26,
+        "ignored_trials_total": 9,
+        "warning_blocks": 2,
+        "warning_events": 2
+      },
+      {
+        "arm": "804020",
+        "blocks": 2,
+        "first_ignored_index_zero_based": 40,
+        "ignored_trials_total": 4,
+        "warning_blocks": 2,
+        "warning_events": 2
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 44,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 5,
+        "ignored_trials_total": 14,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 60,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 67,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 6,
+        "first_ignored_index_zero_based": null,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "arm": "905010",
+        "blocks": 8,
+        "first_ignored_index_zero_based": 0,
+        "ignored_trials_total": 85,
+        "warning_blocks": 8,
+        "warning_events": 24
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 10,
+        "ignored_trials_total": 4,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 11,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 14,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 16,
+        "ignored_trials_total": 7,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 21,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 24,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 26,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 27,
+        "ignored_trials_total": 4,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 30,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 2,
+        "first_ignored_index_zero_based": 40,
+        "ignored_trials_total": 4,
+        "warning_blocks": 2,
+        "warning_events": 2
+      },
+      {
+        "arm": "905010",
+        "blocks": 3,
+        "first_ignored_index_zero_based": 5,
+        "ignored_trials_total": 14,
+        "warning_blocks": 3,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 56,
+        "ignored_trials_total": 2,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 59,
+        "ignored_trials_total": 1,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 62,
+        "ignored_trials_total": 3,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "first_ignored_index_zero_based": 9,
+        "ignored_trials_total": 3,
+        "warning_blocks": 1,
+        "warning_events": 1
+      }
+    ],
+    "reed_arm_by_ignored_count": [
+      {
+        "arm": "804020",
+        "blocks": 10,
+        "ignored_trials": 0,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "arm": "804020",
+        "blocks": 4,
+        "ignored_trials": 1,
+        "ignored_trials_total": 4,
+        "warning_blocks": 4,
+        "warning_events": 6
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 14,
+        "ignored_trials_total": 14,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 16,
+        "ignored_trials_total": 16,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 17,
+        "ignored_trials_total": 17,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 5,
+        "ignored_trials": 2,
+        "ignored_trials_total": 10,
+        "warning_blocks": 5,
+        "warning_events": 7
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 22,
+        "ignored_trials_total": 22,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 28,
+        "ignored_trials_total": 28,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 3,
+        "ignored_trials": 3,
+        "ignored_trials_total": 9,
+        "warning_blocks": 3,
+        "warning_events": 7
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 4,
+        "ignored_trials_total": 4,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 5,
+        "ignored_trials_total": 5,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 6,
+        "ignored_trials_total": 6,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 7,
+        "ignored_trials_total": 7,
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "arm": "804020",
+        "blocks": 1,
+        "ignored_trials": 9,
+        "ignored_trials_total": 9,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 6,
+        "ignored_trials": 0,
+        "ignored_trials_total": 0,
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "arm": "905010",
+        "blocks": 6,
+        "ignored_trials": 1,
+        "ignored_trials_total": 6,
+        "warning_blocks": 6,
+        "warning_events": 6
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "ignored_trials": 18,
+        "ignored_trials_total": 18,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "ignored_trials": 19,
+        "ignored_trials_total": 19,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 3,
+        "ignored_trials": 2,
+        "ignored_trials_total": 6,
+        "warning_blocks": 3,
+        "warning_events": 5
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "ignored_trials": 24,
+        "ignored_trials_total": 24,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 3,
+        "ignored_trials": 3,
+        "ignored_trials_total": 9,
+        "warning_blocks": 3,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 3,
+        "ignored_trials": 4,
+        "ignored_trials_total": 12,
+        "warning_blocks": 3,
+        "warning_events": 5
+      },
+      {
+        "arm": "905010",
+        "blocks": 4,
+        "ignored_trials": 5,
+        "ignored_trials_total": 20,
+        "warning_blocks": 4,
+        "warning_events": 6
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "ignored_trials": 6,
+        "ignored_trials_total": 6,
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "arm": "905010",
+        "blocks": 2,
+        "ignored_trials": 7,
+        "ignored_trials_total": 14,
+        "warning_blocks": 2,
+        "warning_events": 4
+      },
+      {
+        "arm": "905010",
+        "blocks": 1,
+        "ignored_trials": 8,
+        "ignored_trials_total": 8,
+        "warning_blocks": 1,
+        "warning_events": 1
+      }
+    ],
+    "reed_arm_position_occurrences": [
+      {
+        "arm": "804020",
+        "ignored_occurrences": 11,
+        "index_one_based": 1,
+        "index_zero_based": 0
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 3,
+        "index_zero_based": 2
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 4,
+        "index_zero_based": 3
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 5,
+        "index_zero_based": 4
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 6,
+        "index_zero_based": 5
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 7,
+        "index_zero_based": 6
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 9,
+        "index_zero_based": 8
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 10,
+        "index_zero_based": 9
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 11,
+        "index_zero_based": 10
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 13,
+        "index_zero_based": 12
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 14,
+        "index_zero_based": 13
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 15,
+        "index_zero_based": 14
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 16,
+        "index_zero_based": 15
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 17,
+        "index_zero_based": 16
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 19,
+        "index_zero_based": 18
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 20,
+        "index_zero_based": 19
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 21,
+        "index_zero_based": 20
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 22,
+        "index_zero_based": 21
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 23,
+        "index_zero_based": 22
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 25,
+        "index_zero_based": 24
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 26,
+        "index_zero_based": 25
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 27,
+        "index_zero_based": 26
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 28,
+        "index_zero_based": 27
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 29,
+        "index_zero_based": 28
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 30,
+        "index_zero_based": 29
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 31,
+        "index_zero_based": 30
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 5,
+        "index_one_based": 33,
+        "index_zero_based": 32
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 34,
+        "index_zero_based": 33
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 35,
+        "index_zero_based": 34
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 36,
+        "index_zero_based": 35
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 38,
+        "index_zero_based": 37
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 39,
+        "index_zero_based": 38
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 40,
+        "index_zero_based": 39
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 9,
+        "index_one_based": 41,
+        "index_zero_based": 40
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 42,
+        "index_zero_based": 41
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 44,
+        "index_zero_based": 43
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 45,
+        "index_zero_based": 44
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 46,
+        "index_zero_based": 45
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 49,
+        "index_zero_based": 48
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 50,
+        "index_zero_based": 49
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 54,
+        "index_zero_based": 53
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 55,
+        "index_zero_based": 54
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 56,
+        "index_zero_based": 55
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 59,
+        "index_zero_based": 58
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 60,
+        "index_zero_based": 59
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 61,
+        "index_zero_based": 60
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 62,
+        "index_zero_based": 61
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 3,
+        "index_one_based": 63,
+        "index_zero_based": 62
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 64,
+        "index_zero_based": 63
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 65,
+        "index_zero_based": 64
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 66,
+        "index_zero_based": 65
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 68,
+        "index_zero_based": 67
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 69,
+        "index_zero_based": 68
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 70,
+        "index_zero_based": 69
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 4,
+        "index_one_based": 71,
+        "index_zero_based": 70
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 72,
+        "index_zero_based": 71
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 5,
+        "index_one_based": 73,
+        "index_zero_based": 72
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 74,
+        "index_zero_based": 73
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 75,
+        "index_zero_based": 74
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 1,
+        "index_one_based": 76,
+        "index_zero_based": 75
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 77,
+        "index_zero_based": 76
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 78,
+        "index_zero_based": 77
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 79,
+        "index_zero_based": 78
+      },
+      {
+        "arm": "804020",
+        "ignored_occurrences": 2,
+        "index_one_based": 80,
+        "index_zero_based": 79
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 8,
+        "index_one_based": 1,
+        "index_zero_based": 0
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 6,
+        "index_zero_based": 5
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 9,
+        "index_zero_based": 8
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 10,
+        "index_zero_based": 9
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 11,
+        "index_zero_based": 10
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 12,
+        "index_zero_based": 11
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 13,
+        "index_zero_based": 12
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 15,
+        "index_zero_based": 14
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 16,
+        "index_zero_based": 15
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 17,
+        "index_zero_based": 16
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 18,
+        "index_zero_based": 17
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 19,
+        "index_zero_based": 18
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 22,
+        "index_zero_based": 21
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 23,
+        "index_zero_based": 22
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 24,
+        "index_zero_based": 23
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 25,
+        "index_zero_based": 24
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 26,
+        "index_zero_based": 25
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 27,
+        "index_zero_based": 26
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 28,
+        "index_zero_based": 27
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 29,
+        "index_zero_based": 28
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 31,
+        "index_zero_based": 30
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 32,
+        "index_zero_based": 31
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 33,
+        "index_zero_based": 32
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 34,
+        "index_zero_based": 33
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 35,
+        "index_zero_based": 34
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 36,
+        "index_zero_based": 35
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 37,
+        "index_zero_based": 36
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 39,
+        "index_zero_based": 38
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 5,
+        "index_one_based": 40,
+        "index_zero_based": 39
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 9,
+        "index_one_based": 41,
+        "index_zero_based": 40
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 42,
+        "index_zero_based": 41
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 43,
+        "index_zero_based": 42
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 44,
+        "index_zero_based": 43
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 45,
+        "index_zero_based": 44
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 46,
+        "index_zero_based": 45
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 47,
+        "index_zero_based": 46
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 48,
+        "index_zero_based": 47
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 49,
+        "index_zero_based": 48
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 50,
+        "index_zero_based": 49
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 51,
+        "index_zero_based": 50
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 52,
+        "index_zero_based": 51
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 53,
+        "index_zero_based": 52
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 54,
+        "index_zero_based": 53
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 55,
+        "index_zero_based": 54
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 56,
+        "index_zero_based": 55
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 57,
+        "index_zero_based": 56
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 58,
+        "index_zero_based": 57
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 4,
+        "index_one_based": 60,
+        "index_zero_based": 59
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 61,
+        "index_zero_based": 60
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 62,
+        "index_zero_based": 61
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 63,
+        "index_zero_based": 62
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 64,
+        "index_zero_based": 63
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 4,
+        "index_one_based": 65,
+        "index_zero_based": 64
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 66,
+        "index_zero_based": 65
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 67,
+        "index_zero_based": 66
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 68,
+        "index_zero_based": 67
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 69,
+        "index_zero_based": 68
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 70,
+        "index_zero_based": 69
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 71,
+        "index_zero_based": 70
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 72,
+        "index_zero_based": 71
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 73,
+        "index_zero_based": 72
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 74,
+        "index_zero_based": 73
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 3,
+        "index_one_based": 75,
+        "index_zero_based": 74
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 2,
+        "index_one_based": 77,
+        "index_zero_based": 76
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 1,
+        "index_one_based": 78,
+        "index_zero_based": 77
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 4,
+        "index_one_based": 79,
+        "index_zero_based": 78
+      },
+      {
+        "arm": "905010",
+        "ignored_occurrences": 4,
+        "index_one_based": 80,
+        "index_zero_based": 79
+      }
+    ],
+    "study": [
+      {
+        "blocks": 64,
+        "ignored_trials_total": 293,
+        "study": "reed_2020",
+        "warning_blocks": 48,
+        "warning_events": 86
+      },
+      {
+        "blocks": 260,
+        "ignored_trials_total": 0,
+        "study": "suthaharan_2021",
+        "warning_blocks": 0,
+        "warning_events": 0
+      }
+    ],
+    "study_by_ignored_count": [
+      {
+        "blocks": 16,
+        "ignored_trials": 0,
+        "ignored_trials_total": 0,
+        "study": "reed_2020",
+        "warning_blocks": 0,
+        "warning_events": 0
+      },
+      {
+        "blocks": 10,
+        "ignored_trials": 1,
+        "ignored_trials_total": 10,
+        "study": "reed_2020",
+        "warning_blocks": 10,
+        "warning_events": 12
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 14,
+        "ignored_trials_total": 14,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 16,
+        "ignored_trials_total": 16,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 17,
+        "ignored_trials_total": 17,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 18,
+        "ignored_trials_total": 18,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 19,
+        "ignored_trials_total": 19,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 8,
+        "ignored_trials": 2,
+        "ignored_trials_total": 16,
+        "study": "reed_2020",
+        "warning_blocks": 8,
+        "warning_events": 12
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 22,
+        "ignored_trials_total": 22,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 24,
+        "ignored_trials_total": 24,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 28,
+        "ignored_trials_total": 28,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 6,
+        "ignored_trials": 3,
+        "ignored_trials_total": 18,
+        "study": "reed_2020",
+        "warning_blocks": 6,
+        "warning_events": 10
+      },
+      {
+        "blocks": 4,
+        "ignored_trials": 4,
+        "ignored_trials_total": 16,
+        "study": "reed_2020",
+        "warning_blocks": 4,
+        "warning_events": 8
+      },
+      {
+        "blocks": 5,
+        "ignored_trials": 5,
+        "ignored_trials_total": 25,
+        "study": "reed_2020",
+        "warning_blocks": 5,
+        "warning_events": 7
+      },
+      {
+        "blocks": 2,
+        "ignored_trials": 6,
+        "ignored_trials_total": 12,
+        "study": "reed_2020",
+        "warning_blocks": 2,
+        "warning_events": 6
+      },
+      {
+        "blocks": 3,
+        "ignored_trials": 7,
+        "ignored_trials_total": 21,
+        "study": "reed_2020",
+        "warning_blocks": 3,
+        "warning_events": 5
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 8,
+        "ignored_trials_total": 8,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 1
+      },
+      {
+        "blocks": 1,
+        "ignored_trials": 9,
+        "ignored_trials_total": 9,
+        "study": "reed_2020",
+        "warning_blocks": 1,
+        "warning_events": 3
+      },
+      {
+        "blocks": 260,
+        "ignored_trials": 0,
+        "ignored_trials_total": 0,
+        "study": "suthaharan_2021",
+        "warning_blocks": 0,
+        "warning_events": 0
+      }
+    ]
+  },
+  "denominator": 324,
+  "historical_source_gate": {
+    "failed_pre_experiment_run": 41809479255,
+    "original_plan_cases": 326,
+    "source_verified_cases": 324
+  },
+  "ignored_trials_total": 293,
+  "interpretation_limits": [
+    "Warning-count associations with ignored trials are descriptive only, not causes.",
+    "The historical 324-block aggregate did not retain Python warning message categories.",
+    "Numerical/overflow/masking mechanism remains unknown; investigate under REV-2.1 after D1.",
+    "Original published HGF model fits and clinical/group findings were not reproduced.",
+    "No individual participant choice/outcome or participant mask is included in this report.",
+    "Source-arm labels are reconstructed only for original Reed blocks using pinned data.",
+    "Suthaharan arm labels are unavailable from the historical status archive."
+  ],
+  "no_forward_execution": true,
+  "per_block_rows_published": false,
+  "reed_blocks": 64,
+  "reed_input": {
+    "expected_blocks": 64,
+    "expected_people": 32,
+    "source_commit": "39ccaca508b81ca610e7666a613e061c801faaf9",
+    "source_sha256": "b5a2e70a9604221a0d578f9be5fb09567431e51a764a1ac40f5794fb7c14e708"
+  },
+  "scope": "archived 324-block fixed-vector perceptual-forward parity warnings; NOT study fitting",
+  "status": "SOURCE_AUDITED_DESCRIPTIVE_ONLY",
+  "suthaharan_blocks": 260,
+  "task": "REV-1.3",
+  "trial_count_per_block": 80,
+  "warning_blocks": 48,
+  "warning_count_distribution": {
+    "0": 276,
+    "1": 29,
+    "3": 19
+  },
+  "warning_events": 86
+}

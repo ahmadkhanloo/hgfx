@@ -1,6 +1,6 @@
 # Computational Statistics working revision
 
-> Current execution extension (2026-11-04): [case-study and full journal rewrite handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md). Sections J1-J6 define the venue decision, section-level rewrite, figures, financial checks and final submission package. New scientific work is limited to its predeclared gates; frozen results remain unchanged. Submission itself is excluded.
+> Current execution authority (2026-11-09): [COMPSTAT revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md), with its [task ledger](../../docs/planning/COMPSTAT_REVISION_LEDGER.md). The earlier [case-study handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md) is historical planning, not authority to run experiments outside the fixed COMPSTAT task list. Submission remains excluded until D1–D3 author gates.
 
 Status: **DRAFT — initial editorial revision, not submission-ready** (2026-11-03).
 
@@ -27,3 +27,23 @@ Local preparation can proceed through all eight tasks. Actual journal submission
 ## Published-study extension
 
 The author requested real published applications with public code and data. See [the source dossier](../case_studies/README_FA.md) and [the execution addendum](../../docs/superpowers/plans/2026-11-03-published-case-studies.md). This is source acquisition and a prospective plan, not completed replication evidence. No new case-study results have been inserted into the manuscript.
+
+
+## REV-1 evidence and updated candidate figures (2026-11-09)
+
+The original S7 36-case matrix and the new per-parameter uncertainty audit are traceable in
+`evidence/revision/confusion_audit.json` (REV-1.1) and
+`evidence/revision/recovery_uncertainty.json` (REV-1.2).
+Both were computed from archived original MATLAB/HGFX paired S7 shards. No refitting.
+For current candidate-specific review, Figure 2 and Figure 3 with confidence intervals
+and the one-third chance baseline are generated at:
+
+- `paper/computational_statistics/figures/fig2_recovery_uncertainty.{png,pdf}`
+- `paper/computational_statistics/figures/fig3_model_recovery_uncertainty.{png,pdf}`
+- `paper/computational_statistics/figures/revision_figures_manifest.json`
+
+Use `python tools/plot_compstat_recovery_uncertainty.py` to regenerate
+these figures from the committed REV-1.2 JSON. The **historical**
+`paper/figures` assets must remain unmodified. The active manuscript has
+not yet been rewritten to include these new figures: that is REV-3, after D2.
+REV-1.3/1.4 are open and the publication is **not** submission-ready.

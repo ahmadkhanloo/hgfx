@@ -1,0 +1,102 @@
+name: CompStat REV-1.2 S7 Recovery Uncertainty
+
+on:
+  pull_request:
+    paths:
+      - 'evidence/revision/protocols/REV-1.2_PROTOCOL.md'
+      - 'tools/compute_compstat_recovery_uncertainty.py'
+      - 'tools/plot_compstat_recovery_uncertainty.py'
+      - 'tests/paper/test_compstat_recovery_uncertainty.py'
+      - '.github/workflows/compstat-recovery-uncertainty.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archived-s7-uncertainty:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install audit-only scientific dependencies
+        run: python -m pip install 'numpy>=2.0' 'scipy>=1.11' 'matplotlib>=3.9' 'pytest>=8'
+      - name: Run targeted tests without fitting
+        run: python -m pytest -q tests/paper/test_compstat_recovery_uncertainty.py
+      - name: Retrieve all original S7 ZIPs and preserve bytes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/s7-original-zips"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/34896442847/artifacts" --paginate \
+            --jq '.artifacts[] | select(.name | startswith("m18-s7-shard-")) | [.id,.name] | @tsv' > "$RUNNER_TEMP/s7-artifacts.tsv"
+          test "$(wc -l < "$RUNNER_TEMP/s7-artifacts.tsv")" -eq 12
+          while IFS=$'\t' read -r id name; do
+            curl --fail --silent --show-error --location \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" \
+              --output "$RUNNER_TEMP/s7-original-zips/$name.zip"
+          done < "$RUNNER_TEMP/s7-artifacts.tsv"
+          test "$(find "$RUNNER_TEMP/s7-original-zips" -name '*.zip' | wc -l)" -eq 12
+      - name: Recompute exact CI and 2000 clustered bootstrap draws
+        run: |
+          python tools/compute_compstat_recovery_uncertainty.py \
+            --archive-dir "$RUNNER_TEMP/s7-original-zips" \
+            --audit evidence/revision/confusion_audit.json \
+            --decision reference/validation/m18_s7_reference_limitation/decision.json \
+            --output evidence/revision/recovery_uncertainty.json
+      - name: Verify all bootstrap draws and historical point estimates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path('evidence/revision/recovery_uncertainty.json').read_text())
+          assert j['no_refitting'] and j['bootstrap']['B'] == 2000
+          for model in j['per_model'].values():
+              assert model['case_count']==24 and model['unique_truth_clusters']==12
+              for imp in model['implementations'].values():
+                  for par in imp['parameters'].values():
+                      for metric in par.values():
+                          assert metric['quality_ok'] and metric['bootstrap_valid']==2000
+                  for metric in imp['pooled_secondary'].values():
+                      assert metric['quality_ok'] and metric['bootstrap_valid']==2000
+          assert j['model_recovery']['balanced_accuracy']==7/12
+          PY
+      - name: Create new revision figures only
+        run: |
+          python tools/plot_compstat_recovery_uncertainty.py \
+            --source evidence/revision/recovery_uncertainty.json \
+            --out-dir paper/computational_statistics/figures
+          sha256sum evidence/revision/recovery_uncertainty.json paper/computational_statistics/figures/*
+      - name: Retain machine-readable audit and figure assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev12-uncertainty-and-figures
+          path: |
+            evidence/revision/recovery_uncertainty.json
+            paper/computational_statistics/figures/*
+          if-no-files-found: error
+      - name: Commit checked derived outputs to revision branch
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/revision/recovery_uncertainty.json paper/computational_statistics/figures/
+          if git diff --cached --quiet; then
+            echo 'No derived changes'
+          else
+            git commit -m 'REV-1.2: record verified S7 uncertainty and revision figures'
+            git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
+          fi
