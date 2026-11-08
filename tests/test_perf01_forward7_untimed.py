@@ -34,10 +34,10 @@ def examples():
             "inf_states": [[[0.0] * 4 for _ in range(3)] for _ in range(n)],
             "traj": {f: [[0.0, 0.0] for _ in range(n)] for f in TRAJ},
         }
-        hgfx["cells"].append(dict(record,
+        hgfx["cells"].append(dict(copy.deepcopy(record),
                                   config_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
                                   status="HGFX_UNTIMED_FORWARD_COMPLETED_MATLAB_UNVERIFIED"))
-        matlab["cells"].append(dict(record,
+        matlab["cells"].append(dict(copy.deepcopy(record),
                                    resolved_function_path=f"/frozen/{model}.m",
                                    status="MATLAB_UNTIMED_FORWARD_COMPLETED_HGFX_UNVERIFIED"))
     return hgfx, matlab
