@@ -60,6 +60,8 @@ for k = 1:numel(ids)
         error('hgfx:perf01c:start','Original transformed prior/start mismatch');
     end
     r = struct('u',u,'y',y,'ign',[],'irr',[]);
+    r.c_prc = c_prc;
+    r.c_obs = unitsq_sgm_config();
     source_path = which(model);
     if isempty(source_path)
         error('hgfx:perf01c:path','Cannot resolve MATLAB forward model');
