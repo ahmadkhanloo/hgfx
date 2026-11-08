@@ -117,7 +117,7 @@
     "PUBLICATION_COMPLETION_2026-11-08.md": "79443518e527ccf7804c249f7a6d137502073f81d8c8c974298583fcc022479e",
     "evidence/publication_completion_audit_20261108.json": "ff07b3b3cf499d7c62749f810d85dc608e838e23e70aa431b4e1e69ccce4c475",
     "evidence/publication_completion_sources_20261108.json": "efe29cd23f8221ff54f09993f9c623b2a3f814b0a85cd9445514a3b195af70e5",
-    "build_compstat_files.py": "0933a315af94fac776ccfa4b8cf68b2c62c62440a046bd89d7b608bc392a1eb4"
+    "build_compstat_files.py": "197526d2c0eb7b456f8d36f587dbd941abae50777449fc1768b86f19fc027f9a"
   },
   "hash_convention": "text LF; binary exact; initial raw baseline also retained",
   "checkout_portability": "YAML sources normalized with existing text policy after first Linux CI failure; binary artifact hashes remain exact",

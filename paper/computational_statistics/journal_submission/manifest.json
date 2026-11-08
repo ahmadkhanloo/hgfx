@@ -5,7 +5,7 @@
   "status": "AUTHOR_REVIEW_NOT_SUBMISSION_CLEARED",
   "official_template": "Publisher ZIP HTTP403; standard LaTeX article allowed by journal instructions; no official class claimed",
   "inputs": {
-    "build_compstat_files.py": "0933a315af94fac776ccfa4b8cf68b2c62c62440a046bd89d7b608bc392a1eb4",
+    "build_compstat_files.py": "197526d2c0eb7b456f8d36f587dbd941abae50777449fc1768b86f19fc027f9a",
     "package/HGFX_CompStat.tex": "e6864e7f5a5b886a9af414b6cfcb8ccfb30b1626f3a9168d68c8ae16bc40a662",
     "package/HGFX_Supplement.tex": "410e371588eb906cf6e01375d20484e802cc85fabd1773b7c5a8e06768506e87",
     "cover_letter.md": "48f8ce32c7f050b76ad2b1ab74e9d9b925310701d99d9ea6297e842f1b69b53d",
@@ -21,23 +21,23 @@
   "outputs": {
     "Cover_letter.md": "b23a34a14a5b0e94771af40bc638b818f00ab0343d6259d046542c8e97e3b3c8",
     "Cover_letter.pdf": "4b8ae5e54114e95851d3056d1d8512b128e1de74a2352eccbe9af115454f6389",
-    "Cover_letter.tex": "371bde7aa36bb34b738fcaa0bb685ca653e5532858f41fe3a0ca9f9265e9ca9a",
+    "Cover_letter.tex": "d8f942bbc88939ffc674ad00fd63eeeb503cf8c5c51d75b7890b9784608e438e",
     "ESM_1.pdf": "1fe742f28a216f1e24165b75cf0be7a16d2a9ec354fd44e4e916930d5c96d43d",
     "ESM_1.tex": "e669cffdd870902861a809733f78c7065d167266fbbe71a080651b2c044cde38",
     "ESM_1_source.zip": "1cb172708b881a7e95c9de62a2bf6ae32ddaa4826eddf869d11b9115d69ab899",
-    "Fig1.eps": "6029162579cee2cbaf2e8705235c5eb062fefa30d582388993d0969e12880661",
+    "Fig1.eps": "ae8f86a1b05d3f584d7851e2e12d0616ca5c92a78e6002dc7be00b031b55f6f4",
     "Fig1.pdf": "444c246abda1f31b0e14de6acf708d71f707c3afe987c7aaaa51d34521d3095c",
-    "Fig2.eps": "6fa8e3fe09dd73c30487814e82b66c19b9e3ce99e109dc70265f4bedae1cd090",
+    "Fig2.eps": "9a3d180b81d0386f6a02e7d47f4d463d35709801cf69f4c85dbe2ced9666b098",
     "Fig2.pdf": "0fe4222c844313fa632683938b3270affc7f3928ad1c3db84cae34eca0eaf946",
-    "Fig3.eps": "ec9952736ea6a4c60d5c338f89bcea8ce2ab7ccb32db97541048ff48e3bd69a2",
+    "Fig3.eps": "2dcdeb6d91e00378368dbd5e21e4bcb274b1d7560c3c42b05941b33cff5b601f",
     "Fig3.pdf": "33cd5f1f1e5aff07d0b82194a55e6462235529a57c52e70b0bfb7cd98a10d87b",
-    "Fig4.eps": "6873540a6d0a3adbd5f3fc140eb6b871ba7fc1f51d635ff9a30fc4b578d8fd98",
+    "Fig4.eps": "c2543b310bd7d39f8a49204961e8cf4e9b6e758112443e037db7bc5147e81f8a",
     "Fig4.pdf": "d1d03f9b8ece4b2a19c5bce56893e6e53366a51c8cf21cede4152ae1afb8d556",
-    "Fig5.eps": "890776e11a4cbd19a95d2469a222cb91590e7f522bd74f5763b4d066936f67ad",
+    "Fig5.eps": "c58e28bd56eac0a7dd9a04d0c7ea93bcf62af91ce7b39e840c16f534d82e68f5",
     "Fig5.pdf": "2c7b788fe2d83f38efc0ee9fdcce0347d3e6fcf15d3c49d4c1a16a6b872ba591",
-    "FigS1.eps": "8d686abc28effb1594346aec0b2024c78acabed3b232c2f31248253b77492c9f",
+    "FigS1.eps": "b44f87b1d1f76bf3d1429b3a008b83c545c61392a5021ba90824282a961d4e88",
     "FigS1.pdf": "38228320930c1ee013d708b672200647c0d2780e3f6179fba2889c43976b8cb4",
-    "FigS2.eps": "690e52304b7d36dbd71f0d19087ac6a95f2e56091ee3eb123e10443f192cf0df",
+    "FigS2.eps": "fbc75195ed0ea126c2b05364777b1ed5896fefd5f528f4e36be0ccffb05ba7c6",
     "FigS2.pdf": "703237a125232fd2c4e21714bac10d27a105bc83e4ed13b84bbe6e02c4a11cd9",
     "Manuscript.pdf": "836db3c177c929081b312816e708e638241c0a2a91426adbbe4c725e076438ed",
     "Manuscript.tex": "dce5801420fc3f32cf08a6828bd72dca6ba3c4ef01c525b9bd8a36dc5104f681",
@@ -57,5 +57,6 @@
     "independent_archive_compile": "PASS_BOTH",
     "targeted_tests": "13 passed",
     "historical_protected_files": 75
-  }
+  },
+  "text_line_endings": "LF before source hashing; binary outputs byte-exact"
 }

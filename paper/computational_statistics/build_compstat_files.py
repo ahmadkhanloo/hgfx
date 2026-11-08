@@ -70,6 +70,10 @@ def main():
             for name in names: z.write(OUT/name,name)
         with zipfile.ZipFile(OUT / (target+'_source.zip')) as z:
             assert z.testzip() is None and all('/' not in n and '\\' not in n for n in z.namelist())
+    # Keep textual source hashes stable across Windows and Linux Git checkouts.
+    for path in OUT.iterdir():
+        if path.suffix in {'.tex', '.eps', '.md', '.bib', '.txt'}:
+            path.write_bytes(path.read_bytes().replace(b'\r\n', b'\n'))
     inputs = [HERE/'build_compstat_files.py', HERE/'package/HGFX_CompStat.tex', HERE/'package/HGFX_Supplement.tex', HERE/'cover_letter.md', HERE/'references.bib']+list((HERE/'figures').glob('*.pdf'))
     outputs = [p for p in OUT.iterdir() if p.suffix in {'.pdf','.tex','.zip','.eps','.md'} or p.name=='README.txt']
     manifest = {'date':'2026-11-09','venue':'Computational Statistics','type':'software/package contribution; exact portal category unverified','status':'AUTHOR_REVIEW_NOT_SUBMISSION_CLEARED','official_template':'Publisher ZIP HTTP403; standard LaTeX article allowed by journal instructions; no official class claimed','inputs':{p.relative_to(HERE).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},'outputs':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in outputs},'science_changed':False,'submitted':False}
