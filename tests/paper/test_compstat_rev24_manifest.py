@@ -13,7 +13,7 @@ import numpy as np
 from tools.compstat_rev24_manifest import (
     BASE_SEED, MODELS, NUMPY_VERSION, PROTOCOL, REPLICATES,
     binary_data, build_manifest, f64_hash, validate_manifest,
-    verify_installed_wheel_files,
+    verify_installed_wheel_files, verify_wheel_against_tag_sources,
 )
 
 
@@ -121,6 +121,21 @@ class Rev24ManifestContractTests(unittest.TestCase):
         manifest["strata"][0]["prior_means_full"][1] = 999.0
         with self.assertRaisesRegex(ValueError, "config fingerprint"):
             validate_manifest(manifest)
+
+    def test_tagged_release_source_mismatch_is_rejected(self):
+        with tempfile.TemporaryDirectory() as raw:
+            base = Path(raw)
+            wheel = base / "hgfx-1.0.0-py3-none-any.whl"
+            frozen_tag = base / "v1"
+            module = frozen_tag / "src" / "hgfx" / "models" / "example.py"
+            module.parent.mkdir(parents=True, exist_ok=True)
+            module.write_bytes(b"original module from frozen tag")
+            with ZipFile(wheel, "w") as archive:
+                archive.writestr("hgfx/models/example.py", module.read_bytes())
+            self.assertEqual(verify_wheel_against_tag_sources(wheel, frozen_tag), 1)
+            module.write_bytes(b"unexpected change in published wheel or tag")
+            with self.assertRaisesRegex(ValueError, "source differs"):
+                verify_wheel_against_tag_sources(wheel, frozen_tag)
 
     def test_wrong_rng_version_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "Requires exact NumPy"):
