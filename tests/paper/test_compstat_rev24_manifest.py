@@ -115,6 +115,13 @@ class Rev24ManifestContractTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "differs"):
                 verify_installed_wheel_files(wheel, DummyDist(base))
 
+    def test_config_fingerprint_rejects_prior_drift(self):
+        manifest = self.build()
+        self.assertEqual(len(manifest["strata"][0]["config_sha256"]), 64)
+        manifest["strata"][0]["prior_means_full"][1] = 999.0
+        with self.assertRaisesRegex(ValueError, "config fingerprint"):
+            validate_manifest(manifest)
+
     def test_wrong_rng_version_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "Requires exact NumPy"):
             build_manifest(small_fake_configs(), "a" * 64, "2.3.5")
