@@ -19,6 +19,11 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: rev24_frozen_tag
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -37,6 +42,7 @@ jobs:
           python -m pip install --no-deps "${wheels[0]}"
           wheel_path="$(realpath "${wheels[0]}")"
           echo "REV24_WHEEL=$wheel_path" >> "$GITHUB_ENV"
+          echo '5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90  '"$wheel_path" | sha256sum -c
           sha256sum "$wheel_path"
           python -m pip show hgfx numpy jax jaxlib
       - name: Run contract tests (these are NOT scientific parity results)
@@ -47,12 +53,14 @@ jobs:
         run: |
           python -m tools.compstat_rev24_manifest \
             --release-wheel "$REV24_WHEEL" \
+            --frozen-tag-source rev24_frozen_tag \
             --output rev24_job/manifest.json
       - name: Evaluate exact released HGFX 1.0.0 objective without optimizer
         run: |
           python -m tools.compstat_rev24_hgfx_eval \
             --manifest rev24_job/manifest.json \
             --release-wheel "$REV24_WHEEL" \
+            --frozen-tag-source rev24_frozen_tag \
             --output rev24_job/hgfx.json
       - name: Evaluate exact same 600 vectors in MATLAB HGF Toolbox 8.2.0
         uses: matlab-actions/run-command@v2
