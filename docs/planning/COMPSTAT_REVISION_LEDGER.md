@@ -106,3 +106,11 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Historical scope:** frozen `hgfx==1.0.0` fixed-vector forward parity only, **not** published paper-fitting replication. The failed 326-case prescreen run `41809479255` is retained separately and is not reclassified.
 - **Time spent:** not separately instrumented; bounded source-only cross-tab.
 - **Gate:** REV-1.3 terminal descriptive audit complete; REV-1.4 **OPEN**, D1 not reached, REV-2 blocked. Final paper 100% claim audit is also still pending.
+
+## REV-1.4 — bounded source-only audit implementation (NONTERMINAL)
+
+- **Status:** IN PROGRESS; **not** FIXED, EXPLAINED, DOCUMENTED_LIMITATION, or REV-1 gate PASS.
+- Frozen five-case protocol precommitted at `260483f225d413c0f770a3abed95e267e5e5274c`: `evidence/revision/protocols/REV-1.4_PROTOCOL.md`. Original P3 artifacts 10519038480/10519860062 and original 64-fit artifact 13341288055 verified **present/unexpired in GitHub's archive inventory**, not yet byte-replayed by this revision.
+- Source-only Python audit, five independent integrity tests and PR-only workflow authored at `18d82ea00ea4c6afdfda54f7c17adb68608f00b8`. This stage is **not** new paired MATLAB/HGFX execution or optimizer repair. It preserves historical P3 FAIL and subject-7 63/64 NONPASS.
+- **Execution evidence:** no REV-1.4 workflow result or committed `first_divergence_audit.json` yet at this ledger update. Do not claim five-case source replay, a first causal intermediate, or test PASS until run/job/artifact hashes are inspected.
+- **Next:** obtain one authenticated archive replay via `.github/workflows/compstat-first-divergence-audit.yml`, log actual run and derived JSON SHA-256, then execute only any missing same-input/same-start MATLAB oracle comparisons on the four P3 cases and subject 7. If absent MATLAB/arrays, use the documented terminal limitation after the bounded budget; then present D1 to the author. No REV-2 before D1.
