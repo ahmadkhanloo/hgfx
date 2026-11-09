@@ -136,3 +136,11 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Phase gate:** REV-1.1–1.3 have existing terminal reports; REV-1.4 now has this terminal limitation and evidence. **REV-1 report-completion checklist MET, scientific parity NOT PASS**. D1 is HUMAN PENDING; do not start REV-2.
 - **D1 author pack:** `docs/planning/COMPSTAT_D1_DECISION_PACK.md` gives options A (continue COMPSTAT with REV-2.4 priority) and B (prospective retarget); no human choice inferred.
 - **Time:** not precisely instrumented; source-only audit and one bounded local validation, no new optimizer experiment.
+
+## REV-1.4 — postterminal local validation (supplement, 2026-11-09)
+
+- The EXACT repository source files were reconstructed and checked against their Git blob SHAs: `tools/audit_compstat_first_divergence.py` = `cf5eb85cc828143c774a242e5d9a50984216c8f9`; `tests/paper/test_compstat_first_divergence.py` = `840ff1e781316ddca53824a07c4ed36867f0550e`.
+- **Executed** `python -m unittest discover -s tests/paper -p 'test_compstat_first_divergence.py' -v` on Linux CPU / Python 3.13.5: **5 tests PASS, 0 errors, 0 failures**. This is local targeted validation, **not** the as-yet-unexecuted GitHub Actions Python 3.11 CI workflow.
+- **Executed** the checked-in source audit against the three pinned ORIGINAL artifact ZIPs 10519038480, 10519860062, 13341288055; exit code 0; archived original ZIP digests, four case SHA-256/IDs, and subject-7 four `mu` plus four `muhat` above-gate cells verified. Local derived source-only JSON SHA-256: `747c211e006a36537e09cdfbedd9fc248e9d7208750d6673ce0a90122aeaf03b`.
+- Repeatable command, environment, Git blobs and unmodified failure flags are recorded in `evidence/revision/first_divergence_local_validation.json`, SHA-256 `1588d972a89962254afe85583f84fb46e2610dc5858f444b3c0b484ff396201f`, blob `96ba1b76f81f9a0d195146970b5212724c11f664`.
+- **Unchanged gates:** REV-1.4 terminal `DOCUMENTED_LIMITATION`; scientific MATLAB-HGFX first-cause still unestablished. No fit, optimization, new experiment, tolerance edit, CI/physical GPU claim, or D1 author selection. **D1 PENDING; REV-2 BLOCKED**.
