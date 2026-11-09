@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import tempfile
+from pathlib import Path
+from zipfile import ZipFile
 import unittest
 
 import numpy as np
@@ -10,6 +13,7 @@ import numpy as np
 from tools.compstat_rev24_manifest import (
     BASE_SEED, MODELS, NUMPY_VERSION, PROTOCOL, REPLICATES,
     binary_data, build_manifest, f64_hash, validate_manifest,
+    verify_installed_wheel_files,
 )
 
 
@@ -67,6 +71,27 @@ class Rev24ManifestContractTests(unittest.TestCase):
         m["strata"][0]["rows"][4]["full_transformed"][1] = 2.5
         with self.assertRaises(ValueError):
             validate_manifest(m)
+
+    def test_installed_release_matches_wheel_and_tamper_fails(self):
+        class DummyDist:
+            def __init__(self, base):
+                self.base = base
+
+            def locate_file(self, name):
+                return self.base / name
+
+        with tempfile.TemporaryDirectory() as raw:
+            base = Path(raw)
+            wheel = base / "hgfx-1.0.0-py3-none-any.whl"
+            module = base / "hgfx" / "models" / "example.py"
+            module.parent.mkdir(parents=True, exist_ok=True)
+            module.write_bytes(b"print('original')")
+            with ZipFile(wheel, "w") as z:
+                z.writestr("hgfx/models/example.py", module.read_bytes())
+            self.assertEqual(verify_installed_wheel_files(wheel, DummyDist(base)), 1)
+            module.write_bytes(b"print('modified')")
+            with self.assertRaisesRegex(ValueError, "differs"):
+                verify_installed_wheel_files(wheel, DummyDist(base))
 
     def test_wrong_rng_version_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "Requires exact NumPy"):
