@@ -86,7 +86,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-1.1 | Raw BIC confusion audit | EXPLAINED / CI PASS | Original 36 raw selections verified; evidence JSON + terminal ledger report; run 42526812868 |
 | REV-1.2 | Recovery uncertainty and chance baselines | EXPLAINED / CI PASS | Frozen 12-shard audit; exact CIs, paired-horizon bootstrap B=2000, revised figures; run 42528948338 |
 | REV-1.3 | Archived warning cross-tab | EXPLAINED / CI PASS | 324 original status records + 64 pinned Reed masks verified; 48 warning blocks / 86 events; types/mechanism unknown; CI 42531284505 |
-| REV-1.4 | First divergence (four asymmetric cases and subject 7) | IN PROGRESS (NO SCIENTIFIC PASS) | Preregistered at 260483f; original-archive source-audit code at 18d82ea; replay/oracle evidence pending, two-attempt cap |
+| REV-1.4 | First divergence (four asymmetric cases and subject 7) | DOCUMENTED_LIMITATION (NO SCIENTIFIC PASS) | Original P3/64-fit ZIP and case hashes audited; four HGFX initial prechecks vs MATLAB fit outputs; subject-7 first threshold exceedance found; same-vector MATLAB intermediate evidence unavailable; terminal report and D1 packet |
 | REV-2.1 | Warning capture and multi-vector sweep | BLOCKED BY D1 | Precommitted protocol, single run |
 | REV-2.2 | USD/CHF comparison and convergence | BLOCKED BY D1 | Precommitted protocol, diagnostics |
 | REV-2.3 | Performance/resource benchmarking | BLOCKED BY D1 | Precommitted protocol, hardware provenance |
@@ -97,6 +97,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-4 | Archive/licensing/declarations | OPEN (later phase) | DOI, notices, author actions |
 | REV-5 | Verification and submission package | OPEN (later phase) | Full CI, final gates, author D3 |
 
+**REV-1 audit-report gate complete with DOCUMENTED_LIMITATION (2026-11-09):** all four REV-1 terminal reports and aggregate evidence are committed; this is NOT a scientific, fitting or causal-parity PASS. D1 decision packet: [COMPSTAT_D1_DECISION_PACK.md](COMPSTAT_D1_DECISION_PACK.md). D1 human choice remains PENDING; REV-2 BLOCKED.
 **Human decision gates:** D1 after all REV-1 reports; D2 after REV-2 reports; D3 after the final submission pack. Do not run REV-2 before D1. No numerical threshold, seed, dataset, or frozen release evidence can be modified to obtain a PASS.
 
 **REV-0 phase gate PASS (2026-11-09):** see `COMPSTAT_REVISION_LEDGER.md` and tag `pre-compstat-revision` at `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885`. This does not imply final manuscript claims coverage or REV-1 phase completion.

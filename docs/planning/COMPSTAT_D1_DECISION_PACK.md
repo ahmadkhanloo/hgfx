@@ -1,0 +1,41 @@
+# D1 author decision packet — Computational Statistics revision
+
+**Status: AWAITING HUMAN D1.** Prepared from REV-0 and all REV-1 terminal audit records; this is **not** author approval, independent scientific review, journal acceptance, or permission to proceed to REV-2. Historical M18 scientific FAIL, P3 failed criterion, and PERF-01C BLOCK_FREEZE are preserved.
+
+## Source and revision integrity
+
+- Original immutable HGFX v1.0.0: `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; MATLAB HGF 8.2.0 oracle: `2437f4dc241541072722a2695ddeca7b44d83dd3`.
+- Branch: `compstat-revision`, [PR #107](https://github.com/ahmadkhanloo/hgfx/pull/107) (draft, not merged).
+- Source-only REV-1.4 record: [`first_divergence_source_replay.json`](../../evidence/revision/first_divergence_source_replay.json); terminal disposition: [`first_divergence_audit.json`](../../evidence/revision/first_divergence_audit.json).
+- The separate [publication-cycle audit at `58383e8`](https://github.com/ahmadkhanloo/hgfx/commit/58383e81c9e67f7ab2ebe69f4cc262d2c28ce522) suggests a tightly bounded software/compatibility paper and says speed benchmarking is not a prerequisite **if no speed claim is made**. This is a strategy recommendation, **not** an already executed change to the COMPSTAT acceptance plan or D1 signoff.
+
+## REV-1 audit outputs (no heavy new fitting)
+
+| Task | Terminal status | Evidence and exact limits |
+|---|---|---|
+| REV-1.1 | EXPLAINED | Original 36-case BIC winner reconstruction; MATLAB/HGFX paired winners 36/36; HGF/eHGF/uHGF confusion rows `[4,2,6]`, `[0,11,1]`, `[4,2,6]`; balanced accuracy 0.583333. Equal marginal rows are not copied raw cases. |
+| REV-1.2 | EXPLAINED | 95% exact CIs, chance tests and paired-cluster bootstrap (B=2000, precommitted seed); HGF and uHGF recovery remain weak; original parameter-recovery failures unchanged. |
+| REV-1.3 | EXPLAINED | 324 original blocks; 48 blocks / 86 warning events, all in Reed ignored-trial blocks; numerical warning message/type and causal mechanism **not archived**. |
+| REV-1.4 | DOCUMENTED_LIMITATION | Four exact P3 cases: HGFX stopped at pre-optimizer initial stability guard; MATLAB fit reports were recorded. Subject 7: 8 out-of-gate `mu/muhat` cells in 64-fit original; first threshold exceedance trial 83/level 1. No matched-vector MATLAB objective/intermediate replay: **cause not established**. |
+
+## Scientific claims to retain or exclude
+
+**Supported in frozen scope:** fixed-vector forward comparison on 324 source blocks, original S7 BIC-selection agreement 36/36, uncertainty-qualified and limited model/parameter recovery diagnostics, reproducible provenance. These do NOT imply that original published empirical analyses were replicated.
+
+**Unsupported / must not be stated as established:** complete fitting parity or full 64/64 numerical trajectory parity, generative-model identifiability, numerical harmlessness of warnings, USD/CHF MATLAB fit equivalence/convergence certificate, overall HGFX speedup, physical GPU benchmark on this revision, or end-to-end reproduction of two human studies.
+
+**Specific unresolved C1:** four P3 pre-optimizer HGFX failures vs MATLAB optimizer outputs, plus one subject-7 numerical trajectory failure. `DOCUMENTED_LIMITATION` is a **bounded-investigation outcome**, not a scientific/model limitation diagnosis; no threshold, seed, dataset or original outcome was changed.
+
+## D1 — ONE author choice required before REV-2
+
+**Option A: continue targeting Computational Statistics.** Keep the existing REV-2 scientific agenda, with REV-2.4 same-vector objective/oracle analysis prioritized because C1 is unresolved; do not call the article ready before D2/REV-3/REV-4/REV-5. If MATLAB/GPU are missing, explicitly apply the predeclared per-task fallbacks, limit empirical claims accordingly and keep failed outcomes. Any reduction of compulsory scope requires a separate explicit author decision and prospectively updated acceptance matrix; do not silently delete old tasks.
+
+**Option B: retarget to a software-/methods-oriented venue.** Preserve REV-0/REV-1 evidence; create a new prospective venue-specific scope/acceptance plan after author approval, keep historical COMPSTAT milestone meanings intact, explicitly exclude unmeasured speed claims and unsupported full fitting/replication claims. REV-2 cannot be treated as implicitly passed or retroactively waived.
+
+**Author decision needed:** A or B, with venue if known. Record the decision, date and scope in the ledger and synchronize roadmap, submission gate and manuscript claims before executing any REV-2 work.
+
+## Administrative state
+
+- REV-1 **audit-documentation phase complete with one documented limitation**; this does **not** mean validation PASSED.
+- D1 = HUMAN ACTION / PENDING. D2 and D3 likewise pending; no submission.
+- The REV-1.4 local source-only replay is verified, but new branch CI and matched MATLAB oracle execution are **not** verified PASS. Do not merge draft PR #107 as submission-ready.

@@ -1,0 +1,184 @@
+{
+  "schema": "compstat-rev-1.4-terminal-disposition-v1",
+  "task": "REV-1.4",
+  "terminal_status": "DOCUMENTED_LIMITATION",
+  "classification_scope": "Investigation ended with incomplete oracle/intermediate evidence; not a proven scientific/model limitation or HGFX-compatible fit PASS.",
+  "source_protocol": "evidence/revision/protocols/REV-1.4_PROTOCOL.md",
+  "source_protocol_commit": "260483f225d413c0f770a3abed95e267e5e5274c",
+  "source_audit": "evidence/revision/first_divergence_source_replay.json",
+  "source_audit_commit": "750c920233f2fe271b3b8206fd604b2fa9f52162",
+  "source_audit_git_blob_sha": "db14df55918d6bc3312810412067e2a45af818ed",
+  "reference": {
+    "matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+    "hgfx_1_0_0_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+  },
+  "original_archives": [
+    {
+      "artifact_id": 10519038480,
+      "sha256": "35effd1aa5f46afa874042d0df9b15389ae5eb2fa0294482d7ffc52223c1d940",
+      "scope": "P3 HGF T512 scale0.35"
+    },
+    {
+      "artifact_id": 10519860062,
+      "sha256": "e6f6e05417f3fc7ec1f0fc2907ff026a704aebeff59651402adbb050ddc24e66",
+      "scope": "P3 HGF T1024 scale0.35"
+    },
+    {
+      "artifact_id": 13341288055,
+      "sha256": "45d3ae8c52f335b85af7d63bc9600596eb398d40f36996e5adaf9b0e3d938587",
+      "scope": "original 64-subject full fits"
+    }
+  ],
+  "exact_p3_cases": [
+    {
+      "id": "PR-hgf_binary-T512-S0.35-R0",
+      "seed": 72718,
+      "matlab_initial_free": [
+        -0.9585521669922388,
+        -27.32941568601217,
+        13.302849990998887
+      ],
+      "matlab_negLj": "-Infinity",
+      "matlab_termination": "max_resets",
+      "hgfx_original": "Initial recovery fit point is unstable",
+      "same_vector_objective": "NOT_RUN",
+      "first_intermediate": "UNKNOWN"
+    },
+    {
+      "id": "PR-hgf_binary-T512-S0.35-R4",
+      "seed": 72722,
+      "matlab_initial_free": [
+        -23.44871245983264,
+        -3.339568450050984,
+        -8.388538164061412
+      ],
+      "matlab_negLj": 247.25740970068986,
+      "matlab_termination": "converged_no_terminal_warning",
+      "hgfx_original": "Initial recovery fit point is unstable",
+      "same_vector_objective": "NOT_RUN",
+      "first_intermediate": "UNKNOWN"
+    },
+    {
+      "id": "PR-hgf_binary-T1024-S0.35-R0",
+      "seed": 123918,
+      "matlab_initial_free": [
+        -0.9585521669922388,
+        -27.32941568601217,
+        13.302849990998887
+      ],
+      "matlab_negLj": "-Infinity",
+      "matlab_termination": "max_resets",
+      "hgfx_original": "Initial recovery fit point is unstable",
+      "same_vector_objective": "NOT_RUN",
+      "first_intermediate": "UNKNOWN"
+    },
+    {
+      "id": "PR-hgf_binary-T1024-S0.35-R4",
+      "seed": 123922,
+      "matlab_initial_free": [
+        -23.44871245983264,
+        -3.339568450050984,
+        -8.388538164061412
+      ],
+      "matlab_negLj": 620.4345219314272,
+      "matlab_termination": "converged_no_terminal_warning",
+      "hgfx_original": "Initial recovery fit point is unstable",
+      "same_vector_objective": "NOT_RUN",
+      "first_intermediate": "UNKNOWN"
+    }
+  ],
+  "p3_interpretation": "HGFX pre-optimizer finite/stability guard is the first OBSERVED workflow difference. The first numerical divergence, the HGFX rval/negLj on the same MATLAB free vector, and per-trial level/intermediate cannot be established from original archives. No claim of shared objective parity, MATLAB defect, or demonstrated HGFX mathematical defect.",
+  "subject7": {
+    "original_run": 41863441006,
+    "subject_zero_based": 7,
+    "original_fit_gate": "SCIENTIFIC_NONPASS_63_OF_64",
+    "both_original_starts_equal": true,
+    "both_original_optimizer_iteration_count": 101,
+    "original_matlab_final_free": [
+      -8.223463945398366,
+      -5.9729184745462,
+      1.006600339000995
+    ],
+    "original_hgfx_final_free": [
+      -8.223463964353124,
+      -5.972918441775384,
+      1.0066003383203503
+    ],
+    "existing_gate": {
+      "atol": 3e-10,
+      "rtol": 3e-8
+    },
+    "first_mu_out_of_gate": {
+      "trial_zero_based": 83,
+      "level_zero_based": 1,
+      "abs_diff": 7.841805399477764e-10,
+      "allowed": 7.299856796816515e-10
+    },
+    "first_muhat_out_of_gate": {
+      "trial_zero_based": 84,
+      "level_zero_based": 1,
+      "abs_diff": 7.841805399477764e-10,
+      "allowed": 7.299856796816515e-10
+    },
+    "all_out_of_gate_cells": {
+      "traj.mu": [
+        [
+          83,
+          1
+        ],
+        [
+          108,
+          1
+        ],
+        [
+          116,
+          1
+        ],
+        [
+          126,
+          1
+        ]
+      ],
+      "traj.muhat": [
+        [
+          84,
+          1
+        ],
+        [
+          109,
+          1
+        ],
+        [
+          117,
+          1
+        ],
+        [
+          127,
+          1
+        ]
+      ]
+    },
+    "all_other_original_trajectory_fields_within_gate": true,
+    "earliest_causal_internal_state": "UNKNOWN; original outputs are fits at DIFFERENT optimized endpoints, not a same-vector intermediate replay"
+  },
+  "verification": {
+    "source": "Direct authenticated original GitHub artifact ZIP bytes, plus independent local read-only archive check.",
+    "method": "Pinned ZIP SHA256 and 3 full-fit raw member SHA256, P3 canonical shard and case hashes, exact four case selection, original 64 subject denominators, 11 retained trajectory fields, unaltered first 8 exceedances.",
+    "local_independent_source_checks": "PASS",
+    "targeted_repository_test_and_ci": "NOT_EXECUTED_ON_NEW_HEAD; no PASS claimed",
+    "matlab_oracle_runtime": "NOT_AVAILABLE_IN_THIS_EXECUTION_ENVIRONMENT",
+    "released_hgfx_wheel_runtime": "NOT_AVAILABLE_IN_THIS_EXECUTION_ENVIRONMENT",
+    "new_fit_or_simulation": "NONE"
+  },
+  "budget_and_stop": {
+    "fix_attempts": 0,
+    "no_fix_attempt_reason": "No diagnosis or verified golden MATLAB fixture permitting a justified code edit.",
+    "source_only_diagnostic_executions": 1,
+    "stop_reason": "Frozen MATLAB oracle and original per-trial same-vector intermediate evidence unavailable; task time-box/anti-loop rule requires a terminal DOCUMENTED_LIMITATION rather than repeating uninformative source audits."
+  },
+  "scientific_consequence": "Do not state fit-level parity for the four P3 cases or all 64 fits; retain P3 failure and subject-7 nonpass; future REV-2.4 prioritizes same-vector oracle cross-evaluation if D1 authorizes.",
+  "historical_scientific_failure_preserved": true,
+  "rev1_audit_completion": "COMPLETE_WITH_DOCUMENTED_LIMITATION_NOT_SCIENTIFIC_PASS",
+  "human_gate_D1": "PENDING_AUTHOR_DECISION",
+  "rev2": "BLOCKED_BY_D1"
+}
