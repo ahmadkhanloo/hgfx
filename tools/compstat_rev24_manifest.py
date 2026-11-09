@@ -70,26 +70,29 @@ def make_cases(
     variances = np.asarray(full_prior_variances, dtype=np.float64).reshape(-1)
     demand(means.shape == variances.shape and means.size > 0,
            "Invalid resolved full prior vector lengths")
-    demand(np.all(np.isfinite(means)), "Resolved prior means must be finite")
+    demand(not np.any(np.isinf(means)), "Infinite resolved prior mean is invalid")
     demand(count > 0, "Grid size must be positive")
     free = np.flatnonzero(np.isfinite(variances) & (variances > 0))
     demand(free.size > 0, "Model has no valid free parameters")
+    demand(not np.any(np.isinf(variances)), "Infinite prior variance is unsupported")
     demand(np.all((~np.isfinite(variances)) | (variances >= 0)),
            "Negative prior variance in release config")
+    demand(np.all(np.isfinite(means[free])), "Free prior means must be finite")
     rng = np.random.Generator(np.random.PCG64(seed))
     rows = []
     for i in range(count):
         z = rng.standard_normal(free.size)
         sample = means.copy()
         sample[free] = means[free] + np.sqrt(variances[free]) * z
-        demand(np.all(np.isfinite(sample)), f"Nonfinite drawn vector at index {i}")
+        demand(np.all(np.isfinite(sample[free])) and not np.any(np.isinf(sample)),
+               f"Invalid free/undefined vector at index {i}")
         row = {
             "case_id": f"REV24-G-{model}-{i:03d}",
             "replicate_zero_based": i,
             "seed": seed,
             "model": model,
             "observation_model": "unitsq_sgm",
-            "full_transformed": sample.tolist(),
+            "full_transformed": [ieee(x) for x in sample],
             "free_transformed": sample[free].tolist(),
         }
         row["case_sha256"] = content_sha256(row)
@@ -99,7 +102,7 @@ def make_cases(
         "observation_model": "unitsq_sgm",
         "seed": seed,
         "free_indices_zero_based": free.tolist(),
-        "prior_means_full": means.tolist(),
+        "prior_means_full": [ieee(x) for x in means],
         "prior_variances_full_ieee": [ieee(x) for x in variances],
         "rows": rows,
     }
@@ -164,7 +167,10 @@ def validate_manifest(payload: dict) -> None:
                "Grid model/seed identity changed")
         rows = group["rows"]
         demand(len(rows) == REPLICATES, "Model grid denominator changed")
-        priors = np.asarray(group["prior_means_full"], dtype=np.float64)
+        priors = np.asarray([
+            float("nan") if x == "NaN" else float(x)
+            for x in group["prior_means_full"]
+        ], dtype=np.float64)
         variances = np.asarray([
             float("nan") if x == "NaN" else float(x)
             for x in group["prior_variances_full_ieee"]
@@ -181,12 +187,13 @@ def validate_manifest(payload: dict) -> None:
                    content_sha256({k: v for k, v in item.items()
                                    if k != "case_sha256"}), "Case hash mismatch")
             full = np.asarray(item["full_transformed"], dtype=np.float64)
-            demand(full.shape == priors.shape and np.all(np.isfinite(full)),
+            demand(full.shape == priors.shape and not np.any(np.isinf(full)) and
+                   np.all(np.isfinite(full[free])),
                    "Invalid frozen full vector")
             fixed = np.ones(len(priors), dtype=bool)
             fixed[free] = False
-            demand(np.array_equal(full[fixed], priors[fixed]),
-                   "A fixed parameter was changed")
+            demand(np.array_equal(full[fixed], priors[fixed], equal_nan=True),
+                   "A fixed or undefined parameter was changed")
             demand(item["free_transformed"] == full[free].tolist(),
                    "Free/full transform mismatch")
     demand(payload["manifest_sha256"] ==
