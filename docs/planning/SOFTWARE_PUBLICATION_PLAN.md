@@ -2,6 +2,8 @@
 
 **Authority date:** 2026-11-10. **Author D1:** explicitly chose **B — change journal**. **Status:** ACTIVE PLANNING; SWPUB-1 venue/zero-cost gate OPEN; **not ready to submit**.
 
+The chronological execution record is [SOFTWARE_PUBLICATION_LEDGER.md](SOFTWARE_PUBLICATION_LEDGER.md). SWPUB-0 documentation gate has passed its 12 targeted static checks; this does **not** establish manuscript, fee, code or scientific submission readiness.
+
 This is the *prospective* publication roadmap. It does **not** rename, delete, pass, retroactively waive or reinterpret historical `REV-0..REV-5` in [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md), nor M0–M20/v1.0.0 validation. Old COMPSTAT `REV-2..REV-5` are **not authorized for this new journal article**, yet remain valid preserved history, including their unfulfilled tests. The old JOSS/SoftwareX names mentioned there were suggestions, not author venue approval.
 
 ## Current goal and article positioning
@@ -36,7 +38,7 @@ Current `compstat-revision` working tree contains `pyproject.toml` version **`1.
 
 ## Execution order and stop policy
 
-1. SWPUB-0 document-only changes and static verification. Do **not** modify the 1.0.0 software implementation/frozen scientific results for this task.
+1. SWPUB-0 document-only changes and static verification (**DONE / documentation-only PASS**; source evidence in the SWPUB ledger). Do **not** modify the 1.0.0 software implementation/frozen scientific results for this task.
 2. SWPUB-1: screen publishers using their official current instructions; select one on actual price/eligibility and author decision. If a candidate is financially blocked, record it as such; do not wait indefinitely or send fee-acceptance request on behalf of author. JOSS six-month condition is a hard eligibility blocker for immediate submission.
 3. SWPUB-2: use the software manuscript draft **only as a distinct working candidate**. Keep the original Computational Statistics manuscript, Figures, REV reports and previous submitted PDFs untouched. Structure according to the actually confirmed venue; include what the software does, need, software design/choice vs alternatives, evidence, install/example, limitations, data/code licenses.
 4. SWPUB-3: run focused claims tests and clean-install release demonstration. `tools/check_manuscript_claims.py --allow-unmapped` is inventory only, **not** a final pass. Do not cherry-pick failures or invent performance results. If demonstration cannot run, report block.
