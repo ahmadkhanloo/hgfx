@@ -1,0 +1,91 @@
+{
+  "command_source_audit": "python tools/audit_compstat_first_divergence.py --p3-512 <original artifact 10519038480> --p3-1024 <original artifact 10519860062> --fullfit <original artifact 13341288055> --output <local result>",
+  "command_unit_tests": "python -m unittest discover -s tests/paper -p 'test_compstat_first_divergence.py' -v",
+  "date_utc": "2026-11-09",
+  "environment": {
+    "hgfx_wheel_installed_or_executed": false,
+    "matlab_available": false,
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.13.5",
+    "runtime": "LOCAL_CONTAINER_CPU"
+  },
+  "integrity_note": "Original frozen scientific data and historical failed outcomes unchanged. This validator does not replace a physical MATLAB oracle, independent reviewer, or Python 3.11 Actions workflow.",
+  "limits": {
+    "github_actions_ci": "NOT_RUN_FOR_NEW_HEAD",
+    "human_d1": "PENDING",
+    "numerical_first_cause": "NOT_ESTABLISHED",
+    "oracle_same_vector": "NOT_EXECUTED",
+    "perf01c": "BLOCK_FREEZE",
+    "rev14_status": "DOCUMENTED_LIMITATION",
+    "rev1_report_gate": "COMPLETE_NOT_SCIENTIFIC_PASS",
+    "rev2": "BLOCKED_BY_D1"
+  },
+  "original_archives_sha256": {
+    "10519038480": "35effd1aa5f46afa874042d0df9b15389ae5eb2fa0294482d7ffc52223c1d940",
+    "10519860062": "e6f6e05417f3fc7ec1f0fc2907ff026a704aebeff59651402adbb050ddc24e66",
+    "13341288055": "45d3ae8c52f335b85af7d63bc9600596eb398d40f36996e5adaf9b0e3d938587"
+  },
+  "schema": "compstat-rev14-postterminal-local-validator-execution-v1",
+  "source_audit_result": {
+    "exact_p3_case_ids": [
+      "PR-hgf_binary-T512-S0.35-R0",
+      "PR-hgf_binary-T512-S0.35-R4",
+      "PR-hgf_binary-T1024-S0.35-R0",
+      "PR-hgf_binary-T1024-S0.35-R4"
+    ],
+    "output_sha256": "747c211e006a36537e09cdfbedd9fc248e9d7208750d6673ce0a90122aeaf03b",
+    "status": "PASS_SOURCE_INTEGRITY_ONLY",
+    "subject7_mu_outside_gate_cells": [
+      [
+        83,
+        1
+      ],
+      [
+        108,
+        1
+      ],
+      [
+        116,
+        1
+      ],
+      [
+        126,
+        1
+      ]
+    ],
+    "subject7_muhat_outside_gate_cells": [
+      [
+        84,
+        1
+      ],
+      [
+        109,
+        1
+      ],
+      [
+        117,
+        1
+      ],
+      [
+        127,
+        1
+      ]
+    ]
+  },
+  "source_branch": "compstat-revision",
+  "source_files": {
+    "tests/paper/test_compstat_first_divergence.py": {
+      "git_blob_sha": "840ff1e781316ddca53824a07c4ed36867f0550e"
+    },
+    "tools/audit_compstat_first_divergence.py": {
+      "git_blob_sha": "cf5eb85cc828143c774a242e5d9a50984216c8f9"
+    }
+  },
+  "source_head_before_validation": "7be773f0200cd575547db4ff7267e6c90a4cd15e",
+  "unit_test_result": {
+    "errors": 0,
+    "failures": 0,
+    "status": "PASS",
+    "tests_run": 5
+  }
+}
