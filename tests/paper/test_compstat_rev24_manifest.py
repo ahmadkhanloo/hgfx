@@ -72,6 +72,28 @@ class Rev24ManifestContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_manifest(m)
 
+    def test_undefined_nan_placeholders_are_preserved_without_resampling(self):
+        configs = small_fake_configs()
+        for model in MODELS:
+            means, variances = configs[model]
+            means[2] = float("nan")
+            variances[2] = float("nan")
+        manifest = build_manifest(configs, "a" * 64, NUMPY_VERSION)
+        validate_manifest(manifest)
+        for group in manifest["strata"]:
+            self.assertEqual(len(group["rows"]), REPLICATES)
+            self.assertEqual(group["prior_means_full"][2], "NaN")
+            self.assertEqual(group["prior_variances_full_ieee"][2], "NaN")
+            for row in group["rows"]:
+                self.assertEqual(row["full_transformed"][2], "NaN")
+                self.assertEqual(row["replicate_zero_based"], int(row["case_id"].split("-")[-1]))
+
+    def test_infinite_parameter_placeholder_is_not_silently_accepted(self):
+        configs = small_fake_configs()
+        configs[MODELS[0]][0][2] = float("inf")
+        with self.assertRaisesRegex(ValueError, "Infinite resolved prior mean"):
+            build_manifest(configs, "a" * 64, NUMPY_VERSION)
+
     def test_installed_release_matches_wheel_and_tamper_fails(self):
         class DummyDist:
             def __init__(self, base):
