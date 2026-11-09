@@ -92,7 +92,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-2.1 | Warning capture and multi-vector sweep | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, single run |
 | REV-2.2 | USD/CHF comparison and convergence | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, diagnostics |
 | REV-2.3 | Performance/resource benchmarking | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, hardware provenance |
-| REV-2.4 | Objective cross-evaluation | **IN PROGRESS — protocol precommitted, generator/tests/CI authored; SCIENTIFIC VALIDATION OPEN** | REV-2.4_PROTOCOL at d1986311, wheel-guarded 600-vector manifest; no new MATLAB/HGFX actual objective results, no CI PASS |
+| REV-2.4 | Objective cross-evaluation | **IMPLEMENTED BUT NOT SCIENTIFICALLY VALIDATED / IN PROGRESS** | Prior 600-vector protocol; JSON NaN semantics; frozen PyPI Wheel/tag guard; MATLAB + HGFX evaluators and manual paired-oracle workflow authored; 9 synthetic comparator tests local PASS, source generator 12 tests/real MATLAB/600 paired science NOT RUN; Panel E D02/D08/64 OPEN |
 | REV-2.5 | Redesigned recovery | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, full failure log |
 | REV-2.6 | Statistical-computing investigation (one angle) | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, measured result |
 | REV-3 | Manuscript and supplement rewrite | BLOCKED BY D2 | Claims and build gates |
