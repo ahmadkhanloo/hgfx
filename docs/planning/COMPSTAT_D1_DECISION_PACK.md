@@ -38,4 +38,4 @@
 
 - REV-1 **audit-documentation phase complete with one documented limitation**; this does **not** mean validation PASSED.
 - D1 = HUMAN ACTION / PENDING. D2 and D3 likewise pending; no submission.
-- The REV-1.4 local source-only replay is verified, but new branch CI and matched MATLAB oracle execution are **not** verified PASS. Do not merge draft PR #107 as submission-ready.
+- REV-1.4 source-only replay **and five targeted tests** have now been executed locally on Linux/Python 3.13.5 using the exact committed script/test blobs. Evidence: [`first_divergence_local_validation.json`](../../evidence/revision/first_divergence_local_validation.json), SHA-256 `1588d972a89962254afe85583f84fb46e2610dc5858f444b3c0b484ff396201f`. New branch GitHub Actions Python 3.11 CI and matched MATLAB oracle objective comparisons are **still NOT RUN/PASS**. Do not merge draft PR #107 as submission-ready.
