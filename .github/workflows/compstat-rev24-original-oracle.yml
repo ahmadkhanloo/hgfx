@@ -1,0 +1,91 @@
+name: CompStat REV-2.4 original MATLAB/HGFX objective oracle (MANUAL)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  paired-panel-g:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    env:
+      JAX_ENABLE_X64: "true"
+      JAX_PLATFORMS: cpu
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: matlab-actions/setup-matlab@v2
+      - name: Verify exact frozen MATLAB reference before science execution
+        run: python scripts/verify_reference_freeze.py
+      - name: Install exact model-input RNG and archived public release Wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_job/wheel
+          python -m pip install --index-url https://pypi.org/simple 'numpy==2.0.2' 'jax>=0.4.30'
+          python -m pip download --index-url https://pypi.org/simple --no-deps 'hgfx==1.0.0' -d rev24_job/wheel
+          wheels=(rev24_job/wheel/hgfx-1.0.0-*.whl)
+          test ${#wheels[@]} -eq 1
+          python -m pip install --no-deps "${wheels[0]}"
+          wheel_path="$(realpath "${wheels[0]}")"
+          echo "REV24_WHEEL=$wheel_path" >> "$GITHUB_ENV"
+          sha256sum "$wheel_path"
+          python -m pip show hgfx numpy jax jaxlib
+      - name: Run contract tests (these are NOT scientific parity results)
+        run: |
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_manifest.py' -v
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_compare.py' -v
+      - name: Build exactly one frozen 600-vector manifest
+        run: |
+          python -m tools.compstat_rev24_manifest \
+            --release-wheel "$REV24_WHEEL" \
+            --output rev24_job/manifest.json
+      - name: Evaluate exact released HGFX 1.0.0 objective without optimizer
+        run: |
+          python -m tools.compstat_rev24_hgfx_eval \
+            --manifest rev24_job/manifest.json \
+            --release-wheel "$REV24_WHEEL" \
+            --output rev24_job/hgfx.json
+      - name: Evaluate exact same 600 vectors in MATLAB HGF Toolbox 8.2.0
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_compstat_rev24_matlab(fullfile(pwd,'rev24_job','manifest.json'),fullfile(pwd,'rev24_job','matlab.json'))
+      - name: Audit both independently generated outputs, no global PASS inference
+        run: |
+          python -m tools.compstat_rev24_compare \
+            --manifest rev24_job/manifest.json \
+            --matlab rev24_job/matlab.json \
+            --hgfx rev24_job/hgfx.json \
+            --output rev24_job/comparison.json
+          sha256sum rev24_job/manifest.json rev24_job/matlab.json \
+            rev24_job/hgfx.json rev24_job/comparison.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("rev24_job/comparison.json").read_text())
+          assert x["scientific_gate"] == "NOT_GLOBAL_PASS"
+          assert len(x["cases"]) == 600
+          assert all(v["denominator"] == 200 for v in x["summary"].values())
+          print("EXECUTION DATA CAPTURED; STILL NO REV-2.4 SCIENTIFIC PASS; PANEL E IS NOT RUN")
+          print(json.dumps(x["summary"],indent=2,sort_keys=True))
+          PY
+      - name: Upload original paired result and frozen manifest for independent review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev24-original-paired-panel-g
+          path: |
+            rev24_job/manifest.json
+            rev24_job/hgfx.json
+            rev24_job/matlab.json
+            rev24_job/comparison.json
+          if-no-files-found: warn
+          retention-days: 90
