@@ -13,4 +13,6 @@
 
 **Venue candidates:** `SoftwareX` conditional on a confirmed zero-mandatory-fee route and editorial scope; Wiley `Software: Practice and Experience` subscription backup only with adequate original engineering novelty; `JOSS` fee-free but currently blocked by >6-month public-development age and documented impact gate. Do not infer cost clearance or JOSS eligibility.
 
+**Working manuscript:** [manuscript_draft.md](manuscript_draft.md) is a distinct venue-neutral draft, not a submission package and not a claim that the author has approved the paper. The branch metadata is 1.1.0b1; science claims must use the frozen v1.0.0 tag and matching PyPI release, not this worktree.
+
 **Next work:** SWPUB-1 venue/fee preflight; independently verify release version, MIT license, author declarations, DOI/preprint exact status. No external upload, transfer, fee acceptance, new experiment or submission is recorded here.

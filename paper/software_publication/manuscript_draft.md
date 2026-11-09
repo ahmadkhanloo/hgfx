@@ -2,6 +2,8 @@
 
 > **WORKING SOFTWARE ARTICLE, NOT A SUBMISSION:** authored under SWPUB following the 2026-11-10 D1 journal-change decision. This draft is **venue-neutral**, not converted to an official SoftwareX/JOSS template and **not author-approved**. It reuses existing released-software evidence without changing source results. Review all numbers, citations, affiliations and disclosures prior to a final journal-specific build.
 
+**Version-integrity warning:** This working branch has `pyproject.toml` version `1.1.0b1`; the discussed release is exactly `v1.0.0` at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Re-evaluate any reproducibility example from the tagged release; do not infer new release validation from this draft branch.
+
 **Provisional author metadata — requires author reconfirmation:** Mohammad Ahmadkhanloo; Institute for Research in Fundamental Sciences (IPM), Tehran, Iran.
 
 ## Software metadata

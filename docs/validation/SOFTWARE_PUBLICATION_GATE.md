@@ -13,6 +13,10 @@
 | SWPUB-4 metadata/legal | Explicit author/affiliation/acknowledgment/AI disclosure signoff; verified program license (MIT `LICENSE` present), `CITATION.cff`, third-party and data sharing permissions, archived release DOI **if actually issued**, bioRxiv original version/crosslink, finances and submission forms | **OPEN** |
 | SWPUB-5 final reviewer/author | Independently reviewed exact final candidate with zero unresolved CRITICAL/HIGH; clean build/figures/references; signed author final journal+claims+declarations+zero fees decision | **BLOCKED** |
 
+### Frozen-release source identity (mandatory for SWPUB-3)
+
+The current working branch's `pyproject.toml` is **`1.1.0b1`**, while the immutable `v1.0.0` tag's `pyproject.toml` is **`1.0.0`**. Any demonstration, DOI, comparison or claim about released HGFX 1.0.0 must be traced to the **v1.0.0 tag/wheel** at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, and document Python/JAX/NumPy runtime provenance. Development-branch successes cannot silently validate the released paper; an unverified clean environment keeps SWPUB-3 OPEN.
+
 ### Claims that may be included only when appropriately qualified
 
 - v1.0.0 frozen compatibility tests, fixed-vector forward parity on original 324 blocks/25,920 trials (not study replication), evidence-linked frozen 36/36 BIC winner comparison with balanced accuracy about 0.583 (not reliable generating-model recovery), software usability/released package and observed GPU **applicability** in the original hardware's scope.

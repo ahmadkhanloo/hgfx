@@ -34,12 +34,12 @@
 
 **Option B: retarget to a software-/methods-oriented venue.** Preserve REV-0/REV-1 evidence; create a new prospective venue-specific scope/acceptance plan after author approval, keep historical COMPSTAT milestone meanings intact, explicitly exclude unmeasured speed claims and unsupported full fitting/replication claims. REV-2 cannot be treated as implicitly passed or retroactively waived.
 
-**Author decision needed:** A or B, with venue if known. Record the decision, date and scope in the ledger and synchronize roadmap, submission gate and manuscript claims before executing any REV-2 work.
+**Original D1 question — answered 2026-11-10:** author selected **B / retarget**. The resulting active scope is SWPUB, not REV-2. A particular destination venue remains unapproved.
 
 ## Administrative state
 
 - REV-1 **audit-documentation phase complete with one documented limitation**; this does **not** mean validation PASSED.
-- D1 = HUMAN ACTION / PENDING. D2 and D3 likewise pending; no submission.
+- D1 = DONE (author B / retarget on 2026-11-10). The old COMPSTAT D2/D3 have not occurred and do not govern the new SWPUB article. No submission.
 - REV-1.4 source-only replay **and five targeted tests** have now been executed locally on Linux/Python 3.13.5 using the exact committed script/test blobs. Evidence: [`first_divergence_local_validation.json`](../../evidence/revision/first_divergence_local_validation.json), SHA-256 `1588d972a89962254afe85583f84fb46e2610dc5858f444b3c0b484ff396201f`. New branch GitHub Actions Python 3.11 CI and matched MATLAB oracle objective comparisons are **still NOT RUN/PASS**. Do not merge draft PR #107 as submission-ready.
 
 

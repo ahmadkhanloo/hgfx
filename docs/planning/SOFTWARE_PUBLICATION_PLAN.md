@@ -10,6 +10,10 @@ Prepare and independently validate one concise **research software / compatibili
 
 **Candidate venue order (not yet journal-approved):** (1) *SoftwareX* if official zero-mandatory-fee eligibility and editorial fit are confirmed; (2) *Software: Practice and Experience* conventional subscription publication if a substantial original software-design contribution can be demonstrated; (3) *JOSS* only after public-development/history and actual research-impact eligibility are met (no earlier than March 2027 at the absolute earliest). JORS only if zero fees confirmed. Source and current constraints: [VENUE SCREEN](../submissions/2026-11-10_SOFTWARE_VENUE_SCREEN.md).
 
+## Mandatory release-source separation
+
+Current `compstat-revision` working tree contains `pyproject.toml` version **`1.1.0b1`**, whereas the **frozen tag `v1.0.0`** contains `pyproject.toml` version **`1.0.0`**. These were independently checked on GitHub (working blob `c792d06db3b8428d5d484377fad46b92654144a1`, tagged-release blob `d287d28e69d89f9f1a3cf8347922a25b9fb18b4c`). Every claim attributed to HGFX **1.0.0** must use the **tag's own artifact and scientifically frozen reference source**, not code run from this revision branch. This separation is a hard source identity condition for SWPUB-3 and SWPUB-5. The documentation revision is **not** a new software release.
+
 ## Historical evidence to reuse truthfully
 
 - 1.0.0 release immutable SHA `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; MATLAB 8.2.0 reference `2437f4dc241541072722a2695ddeca7b44d83dd3`.

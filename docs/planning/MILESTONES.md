@@ -108,7 +108,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 
 | New gate | Scope | Status | Acceptance authority |
 | --- | --- | --- | --- |
-| SWPUB-0 | Record author D1 and establish prospective software-publication acceptance policy | IMPLEMENTED — pending documentation verification | New plan and gate files, no modified scientific results |
+| SWPUB-0 | Record author D1 and establish prospective software-publication acceptance policy | **DONE / documentation-only gate PASS (2026-11-10)** | Decision, plan, gate, venue screen, workspace, linked docs verified; **not manuscript or science acceptance** |
 | SWPUB-1 | Venue eligibility and **zero mandatory author fee** verification | OPEN / BLOCKED ON VERIFIED TERMS | Actual venue-specific official rules, written zero-charge eligibility, final author journal choice |
 | SWPUB-2 | Source-backed software paper and honest comparison with alternatives | OPEN | Venue-specific manuscript; no unsupported fit/identifiability/speed/replication claim |
 | SWPUB-3 | Frozen-release runnable examples, exact claims and source-bounded evidence audit | OPEN | Reproducible input/output, strict numeric-claim check, scoped validation, limitations preserved |
