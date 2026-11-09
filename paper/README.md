@@ -1,5 +1,7 @@
 # Paper
 
+> [Computational Statistics author-review package](computational_statistics/README.md) and [publication-cycle audit](../docs/submissions/2026-11-08_publication_cycle_audit_fa.md) cover the current manuscript and its evidence. See the [revision plan](../docs/planning/COMPSTAT_REVISION_PLAN.md) for remaining work.
+
 Status: **PV1-02 ACTIVE / POST-M19 / WORKING MANUSCRIPT CREATED**
 Tracking: GitHub issue #32
 

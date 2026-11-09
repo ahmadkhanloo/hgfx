@@ -1,5 +1,7 @@
 # PV1-02 Methods Paper Execution Plan
 
+> For the Computational Statistics candidate, see the [publication-cycle audit](../submissions/2026-11-08_publication_cycle_audit_fa.md) and the [revision plan](../planning/COMPSTAT_REVISION_PLAN.md). PERF-01C governs comparative runtime claims.
+
 Last synchronized: 2026-09-18
 Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2 DONE; REPLACEMENT P7 CANDIDATE IN PREPARATION; P8 REVIEW REQUIRED BEFORE FINAL P6A FREEZE**
 Tracking: GitHub issue #32

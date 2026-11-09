@@ -1,5 +1,7 @@
 # Computational Statistics author-review package
 
+> See the [publication-cycle audit](../../docs/submissions/2026-11-08_publication_cycle_audit_fa.md) for the rationale behind the bounded compatibility claim and the [revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md) for remaining work.
+
 Executed 2026-11-04 under the [Pain and journal handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md) and [parent plan](../../docs/superpowers/plans/2026-11-03-publication-revision.md).
 **Ready for author review; not ready for submission.** The 8 November draft integrates the executed [324-block published-input Forward validation](../case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md). See Methods 4.6, Results 5.5 and Supplement S7.
 
