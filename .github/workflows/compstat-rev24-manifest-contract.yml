@@ -5,6 +5,8 @@ on:
     paths:
       - 'tools/compstat_rev24_manifest.py'
       - 'tests/paper/test_compstat_rev24_manifest.py'
+      - 'tools/compstat_rev24_compare.py'
+      - 'tests/paper/test_compstat_rev24_compare.py'
       - 'evidence/revision/protocols/REV-2.4_PROTOCOL.md'
       - '.github/workflows/compstat-rev24-manifest-contract.yml'
   workflow_dispatch:
@@ -28,6 +30,8 @@ jobs:
           JAX_ENABLE_X64: 'true'
           JAX_PLATFORMS: cpu
         run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_manifest.py' -v
+      - name: Verify paired-output fail-closed comparator contract (synthetic fixtures only)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_compare.py' -v
       - name: Report scientific execution boundary
         run: |
           echo 'REV-2.4 only input-grid unit tests; NO HGFX 1.0.0 objective executed; NO MATLAB oracle; NO scientific PASS'
