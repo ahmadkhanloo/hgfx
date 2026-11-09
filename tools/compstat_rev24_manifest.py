@@ -13,6 +13,7 @@ import importlib.metadata
 import json
 import math
 from pathlib import Path
+from zipfile import ZipFile
 
 import numpy as np
 
@@ -211,6 +212,25 @@ def release_config_vectors() -> dict[str, tuple[np.ndarray, np.ndarray]]:
     return result
 
 
+def verify_installed_wheel_files(wheel: Path, dist: object) -> int:
+    """Verify the *installed* HGFX Python sources match the supplied wheel."""
+    with ZipFile(wheel) as archive:
+        source_members = [
+            name for name in archive.namelist()
+            if name.startswith("hgfx/") and name.endswith(".py")
+        ]
+        demand(bool(source_members), "Released wheel has no HGFX Python modules")
+        for name in source_members:
+            installed = Path(dist.locate_file(name))
+            demand(installed.is_file(), f"Installed release source absent: {name}")
+            demand(
+                hashlib.sha256(installed.read_bytes()).digest()
+                == hashlib.sha256(archive.read(name)).digest(),
+                f"Installed HGFX source differs from supplied release wheel: {name}",
+            )
+    return len(source_members)
+
+
 def require_released_runtime(wheel: Path) -> str:
     demand(np.__version__ == NUMPY_VERSION,
            f"Do not generate scientific input on NumPy {np.__version__}; required {NUMPY_VERSION}")
@@ -224,6 +244,7 @@ def require_released_runtime(wheel: Path) -> str:
     demand(wheel.is_file() and
            wheel.name.startswith("hgfx-1.0.0-") and
            wheel.suffix.lower() == ".whl", "Require archived original 1.0.0 wheel")
+    verify_installed_wheel_files(wheel, dist)
     return hashlib.sha256(wheel.read_bytes()).hexdigest()
 
 
