@@ -1,0 +1,86 @@
+name: CompStat REV-1.4 original first-divergence source audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/audit_compstat_first_divergence.py'
+      - 'tests/paper/test_compstat_first_divergence.py'
+      - '.github/workflows/compstat-first-divergence-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  source-only-first-divergence:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit test without fitting or simulation
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_first_divergence.py' -v
+      - name: Download exact three original historical artifact ZIPs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rev14-original"
+          for id in 10519038480 10519860062 13341288055; do
+            curl --fail --silent --show-error --location --retry 2 \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" \
+              --output "$RUNNER_TEMP/rev14-original/$id.zip"
+          done
+          echo "35effd1aa5f46afa874042d0df9b15389ae5eb2fa0294482d7ffc52223c1d940  $RUNNER_TEMP/rev14-original/10519038480.zip" | sha256sum -c
+          echo "e6f6e05417f3fc7ec1f0fc2907ff026a704aebeff59651402adbb050ddc24e66  $RUNNER_TEMP/rev14-original/10519860062.zip" | sha256sum -c
+          echo "45d3ae8c52f335b85af7d63bc9600596eb398d40f36996e5adaf9b0e3d938587  $RUNNER_TEMP/rev14-original/13341288055.zip" | sha256sum -c
+      - name: Audit original P3 case identities and subject-7 first observed gate exceedance
+        shell: bash
+        run: |
+          python tools/audit_compstat_first_divergence.py \
+            --p3-512 "$RUNNER_TEMP/rev14-original/10519038480.zip" \
+            --p3-1024 "$RUNNER_TEMP/rev14-original/10519860062.zip" \
+            --fullfit "$RUNNER_TEMP/rev14-original/13341288055.zip" \
+            --output evidence/revision/first_divergence_audit.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("evidence/revision/first_divergence_audit.json").read_text())
+          assert result["rev14_status"] == "IN_PROGRESS_NOT_TERMINAL"
+          assert len([v for group in result["p3"] for v in group["cases"]]) == 4
+          assert result["subject7"]["fields"]["traj.mu"]["outside_gate_count"] == 4
+          assert result["subject7"]["fields"]["traj.muhat"]["outside_gate_count"] == 4
+          assert result["historical_m18_and_p3_fail_preserved"] is True
+          print("REV-1.4 source-only audit PASS; first-cause localization remains OPEN")
+          PY
+          sha256sum evidence/revision/first_divergence_audit.json
+      - name: Publish aggregate-only evidence artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev14-source-only-first-divergence
+          path: evidence/revision/first_divergence_audit.json
+          if-no-files-found: warn
+      - name: Commit derived source-only aggregate without rewriting historical failures
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/revision/first_divergence_audit.json
+          if git diff --cached --quiet; then
+            echo 'No changed evidence'
+          else
+            git commit -m 'REV-1.4: record original source-only five-case diagnostic (OPEN)'
+            git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
+          fi
