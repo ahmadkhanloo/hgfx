@@ -1,0 +1,189 @@
+{
+  "protocol": "compstat-rev-1.4-source-audit-v1",
+  "outcome": "ORIGINAL_ARCHIVE_SOURCE_REPLAY_SUCCEEDED_FIRST_CAUSE_UNRESOLVED",
+  "performed": "Source-only SHA-verified original archive replay; NO MATLAB/HGFX refitting or objective cross-evaluation",
+  "protocol_commit": "260483f225d413c0f770a3abed95e267e5e5274c",
+  "matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_release": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "p3": {
+    "original_workflow_run": 35272347167,
+    "archive_zip_sha256": {
+      "10519038480": "35effd1aa5f46afa874042d0df9b15389ae5eb2fa0294482d7ffc52223c1d940",
+      "10519860062": "e6f6e05417f3fc7ec1f0fc2907ff026a704aebeff59651402adbb050ddc24e66"
+    },
+    "original_aggregate_sha256": "83ccbb7f5c4f0eed213d60330d0b318a37e74f03ba08a93a4e4d5d60841131b4",
+    "cases": [
+      {
+        "case_id": "PR-hgf_binary-T512-S0.35-R0",
+        "seed": 72718,
+        "case_sha256": "c6a1451c4c74d997c2b568bf5180f98061e354690bd347f5a73482d78973eabe",
+        "trial_count": 512,
+        "truth_scale": 0.35,
+        "replicate": 0,
+        "artifact_id": 10519038480,
+        "input_response_case_hash_valid": true,
+        "simulation_success_original": true,
+        "matlab_fit_success": true,
+        "matlab_negLj": "-Infinity",
+        "matlab_termination": "max_resets",
+        "hgfx_fit_success": false,
+        "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+        "same_vector_objective_replay": "NOT_EXECUTED",
+        "first_causal_intermediate": "NOT_LOCALIZED"
+      },
+      {
+        "case_id": "PR-hgf_binary-T512-S0.35-R4",
+        "seed": 72722,
+        "case_sha256": "65fc942336a00f435ed099febb44cabdadbff420bf79a2cdb5e7439ae4d5aece",
+        "trial_count": 512,
+        "truth_scale": 0.35,
+        "replicate": 4,
+        "artifact_id": 10519038480,
+        "input_response_case_hash_valid": true,
+        "simulation_success_original": true,
+        "matlab_fit_success": true,
+        "matlab_negLj": 247.25740970068986,
+        "matlab_termination": "converged_no_terminal_warning",
+        "hgfx_fit_success": false,
+        "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+        "same_vector_objective_replay": "NOT_EXECUTED",
+        "first_causal_intermediate": "NOT_LOCALIZED"
+      },
+      {
+        "case_id": "PR-hgf_binary-T1024-S0.35-R0",
+        "seed": 123918,
+        "case_sha256": "75a5fe2605b21db994470ffc6ec7f3da97e7f162d324e00d1a93a6a85aded3e0",
+        "trial_count": 1024,
+        "truth_scale": 0.35,
+        "replicate": 0,
+        "artifact_id": 10519860062,
+        "input_response_case_hash_valid": true,
+        "simulation_success_original": true,
+        "matlab_fit_success": true,
+        "matlab_negLj": "-Infinity",
+        "matlab_termination": "max_resets",
+        "hgfx_fit_success": false,
+        "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+        "same_vector_objective_replay": "NOT_EXECUTED",
+        "first_causal_intermediate": "NOT_LOCALIZED"
+      },
+      {
+        "case_id": "PR-hgf_binary-T1024-S0.35-R4",
+        "seed": 123922,
+        "case_sha256": "14b80a34a80e842423a2b073682cf8c7240e94775985224ca81804122047dd66",
+        "trial_count": 1024,
+        "truth_scale": 0.35,
+        "replicate": 4,
+        "artifact_id": 10519860062,
+        "input_response_case_hash_valid": true,
+        "simulation_success_original": true,
+        "matlab_fit_success": true,
+        "matlab_negLj": 620.4345219314272,
+        "matlab_termination": "converged_no_terminal_warning",
+        "hgfx_fit_success": false,
+        "hgfx_error": "RuntimeError: Initial recovery fit point is unstable for hgf_binary",
+        "same_vector_objective_replay": "NOT_EXECUTED",
+        "first_causal_intermediate": "NOT_LOCALIZED"
+      }
+    ],
+    "original_gate": "FAIL_UNCHANGED"
+  },
+  "subject7": {
+    "original_run": 41863441006,
+    "original_artifact_id": 13341288055,
+    "original_archive_zip_sha256": "45d3ae8c52f335b85af7d63bc9600596eb398d40f36996e5adaf9b0e3d938587",
+    "original_member_sha256": {
+      "comparison.json": "97877d64f609a62b3ca10674809907ae18562321c170f9b47aebaf672f3fcede",
+      "hgfx_raw.json": "6c9a2598e12e0340a62d871011e8fd7652ec2d975d2c03395a37854052043abb",
+      "matlab_raw.json": "2ea074f97fd470149d0d871e06ed42bf8c2ab604ee38f340a3b18e6b4f81cd98"
+    },
+    "subject_index_zero_based": 7,
+    "original_fit_gate": "SCIENTIFIC_NONPASS_63_OF_64",
+    "compared_fields": [
+      "traj.mu",
+      "traj.muhat"
+    ],
+    "existing_atol": 3e-10,
+    "existing_rtol": 3e-8,
+    "first_nonzero_differences": {
+      "traj.mu": {
+        "trial_zero_based": 0,
+        "level_zero_based": 1,
+        "abs_difference": 6.5762048584439015e-12
+      },
+      "traj.muhat": {
+        "trial_zero_based": 1,
+        "level_zero_based": 0,
+        "abs_difference": 1.6431300764452317e-12
+      }
+    },
+    "first_outside_gate": {
+      "traj.mu": {
+        "trial_zero_based": 83,
+        "level_zero_based": 1,
+        "hgfx": 0.014332855205207846,
+        "matlab": 0.014332855989388386,
+        "abs_difference": 7.841805399477764e-10,
+        "allowed_difference": 7.299856796816515e-10
+      },
+      "traj.muhat": {
+        "trial_zero_based": 84,
+        "level_zero_based": 1,
+        "hgfx": 0.014332855205207846,
+        "matlab": 0.014332855989388386,
+        "abs_difference": 7.841805399477764e-10,
+        "allowed_difference": 7.299856796816515e-10
+      }
+    },
+    "outside_gate_cells_zero_based": {
+      "traj.mu": [
+        [
+          83,
+          1
+        ],
+        [
+          108,
+          1
+        ],
+        [
+          116,
+          1
+        ],
+        [
+          126,
+          1
+        ]
+      ],
+      "traj.muhat": [
+        [
+          84,
+          1
+        ],
+        [
+          109,
+          1
+        ],
+        [
+          117,
+          1
+        ],
+        [
+          127,
+          1
+        ]
+      ]
+    },
+    "outside_gate_count_each_field": 4,
+    "max_abs_difference_each_field": 1.5704625655477145e-9,
+    "first_causal_intermediate": "NOT_AVAILABLE_IN_ORIGINAL_TRAJECTORY_OUTPUT",
+    "same_start_initial_objective": "NOT_EXECUTED"
+  },
+  "original_raw_zip_byte_sha256_verified": true,
+  "original_p3_case_sha256_verified": true,
+  "original_64_fit_raw_member_sha256_verified": true,
+  "chronological_note": "First nonzero float discrepancy is distinct from first out-of-gate discrepancy; no causal conclusion.",
+  "historical_scientific_failures_preserved": true,
+  "rev14_status": "IN_PROGRESS",
+  "unresolved": "Run preregistered paired MATLAB/HGFX objective and state comparison on only four P3 cases and exact subject 7; no full P3 rerun.",
+  "data_privacy": "Aggregate identifiers, hashes, statuses and failed output cells only. No participant inputs or trialwise arrays."
+}
