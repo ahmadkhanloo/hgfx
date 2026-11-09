@@ -13,6 +13,7 @@ import importlib.metadata
 import json
 import math
 from pathlib import Path
+import subprocess
 from zipfile import ZipFile
 
 import numpy as np
@@ -247,7 +248,31 @@ def verify_installed_wheel_files(wheel: Path, dist: object) -> int:
     return len(source_members)
 
 
-def require_released_runtime(wheel: Path) -> str:
+def verify_wheel_against_tag_sources(wheel: Path, frozen_tag: Path) -> int:
+    """Reject a wheel whose actual HGFX Python modules differ from v1.0.0."""
+    source = frozen_tag / "src"
+    demand(source.is_dir(), "Frozen tag checkout must have src/hgfx")
+    with ZipFile(wheel) as archive:
+        members = [name for name in archive.namelist()
+                   if name.startswith("hgfx/") and name.endswith(".py")]
+        demand(bool(members), "No HGFX Python source in release wheel")
+        for name in members:
+            target = source / name
+            demand(target.is_file(), f"Frozen tagged code not found: {name}")
+            demand(hashlib.sha256(target.read_bytes()).digest()
+                   == hashlib.sha256(archive.read(name)).digest(),
+                   f"PyPI wheel source differs from frozen v1.0.0 tag: {name}")
+    return len(members)
+
+
+def verify_frozen_tag_head(frozen_tag: Path) -> None:
+    proc = subprocess.run(["git", "-C", str(frozen_tag), "rev-parse", "HEAD"],
+                          text=True, capture_output=True, check=False)
+    demand(proc.returncode == 0 and proc.stdout.strip() == FROZEN_RELEASE,
+           "Frozen source checkout is not the exact v1.0.0 commit")
+
+
+def require_released_runtime(wheel: Path, frozen_tag: Path) -> str:
     demand(np.__version__ == NUMPY_VERSION,
            f"Do not generate scientific input on NumPy {np.__version__}; required {NUMPY_VERSION}")
     demand(importlib.metadata.version("hgfx") == "1.0.0",
@@ -261,15 +286,18 @@ def require_released_runtime(wheel: Path) -> str:
            wheel.name.startswith("hgfx-1.0.0-") and
            wheel.suffix.lower() == ".whl", "Require archived original 1.0.0 wheel")
     verify_installed_wheel_files(wheel, dist)
+    verify_frozen_tag_head(frozen_tag)
+    verify_wheel_against_tag_sources(wheel, frozen_tag)
     return hashlib.sha256(wheel.read_bytes()).hexdigest()
 
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--release-wheel", type=Path, required=True)
+    p.add_argument("--frozen-tag-source", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
-    wheel_sha = require_released_runtime(args.release_wheel)
+    wheel_sha = require_released_runtime(args.release_wheel, args.frozen_tag_source)
     payload = build_manifest(release_config_vectors(), wheel_sha, np.__version__)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     # No implicit regeneration over an earlier frozen paired input.
