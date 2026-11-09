@@ -1,3 +1,5 @@
+> **LATEST AUTHOR D1 INSTRUCTION — 2026-11-10: A / CONTINUE COMPUTATIONAL STATISTICS.** This explicitly supersedes the earlier B retarget for **future** work; the post-D1 SWPUB section below is preserved as dated history but the SWPUB track is **PAUSED**. Original REV-2 tasks resume; `REV-2.4` is priority and not yet scientifically validated. D2/D3 remain human gates. [Current revision plan](COMPSTAT_REVISION_PLAN.md) · [ledger](COMPSTAT_REVISION_LEDGER.md).
+
 # Milestones and Gates
 
 ## M0 — Reference Frozen
@@ -87,12 +89,12 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-1.2 | Recovery uncertainty and chance baselines | EXPLAINED / CI PASS | Frozen 12-shard audit; exact CIs, paired-horizon bootstrap B=2000, revised figures; run 42528948338 |
 | REV-1.3 | Archived warning cross-tab | EXPLAINED / CI PASS | 324 original status records + 64 pinned Reed masks verified; 48 warning blocks / 86 events; types/mechanism unknown; CI 42531284505 |
 | REV-1.4 | First divergence (four asymmetric cases and subject 7) | DOCUMENTED_LIMITATION (NO SCIENTIFIC PASS) | Original P3/64-fit ZIP and case hashes audited; four HGFX initial prechecks vs MATLAB fit outputs; subject-7 first threshold exceedance found; same-vector MATLAB intermediate evidence unavailable; terminal report and D1 packet |
-| REV-2.1 | Warning capture and multi-vector sweep | BLOCKED BY D1 | Precommitted protocol, single run |
-| REV-2.2 | USD/CHF comparison and convergence | BLOCKED BY D1 | Precommitted protocol, diagnostics |
-| REV-2.3 | Performance/resource benchmarking | BLOCKED BY D1 | Precommitted protocol, hardware provenance |
-| REV-2.4 | Objective cross-evaluation | BLOCKED BY D1 | Precommitted protocol, parity and gaps |
-| REV-2.5 | Redesigned recovery | BLOCKED BY D1 | Precommitted protocol, full failure log |
-| REV-2.6 | Statistical-computing investigation (one angle) | BLOCKED BY D1 | Precommitted protocol, measured result |
+| REV-2.1 | Warning capture and multi-vector sweep | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, single run |
+| REV-2.2 | USD/CHF comparison and convergence | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, diagnostics |
+| REV-2.3 | Performance/resource benchmarking | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, hardware provenance |
+| REV-2.4 | Objective cross-evaluation | IN PROGRESS (D1 A AUTHORIZED; PREREGISTRATION PENDING; NO SCIENTIFIC PASS) | Precommitted protocol, parity and gaps |
+| REV-2.5 | Redesigned recovery | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, full failure log |
+| REV-2.6 | Statistical-computing investigation (one angle) | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, measured result |
 | REV-3 | Manuscript and supplement rewrite | BLOCKED BY D2 | Claims and build gates |
 | REV-4 | Archive/licensing/declarations | OPEN (later phase) | DOI, notices, author actions |
 | REV-5 | Verification and submission package | OPEN (later phase) | Full CI, final gates, author D3 |

@@ -1,3 +1,5 @@
+> **PAUSED (latest author D1=A, 2026-11-10):** The following separately drafted alternate-venue paper is preserved for possible future use but is not the current manuscript. Active work has returned to the [Computational Statistics revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md); no SWPUB gate other than its historical documentation-only milestone was passed.
+
 # HGFX — software-publication working article
 
 **Working status:** SWPUB-0 in progress; **target venue not selected/cleared**; no submission or final author signoff. D1 on 2026-11-10 selected **change journal**, not a named journal.

@@ -1,5 +1,8 @@
 # HGFX Roadmap
 
+> **LATEST ACTIVE PAPER OBJECTIVE — 2026-11-10: Computational Statistics, D1=A.** Author reversed the earlier B retarget because JOSS does not yet meet the public-history requirement. Use [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md) for execution; `REV-2.4` prioritized. Earlier SWPUB strategy remains in the document history but is PAUSED. Released 1.0.0 science, all historical failures and D2/D3 release gates unchanged.
+
+
 > **Current post-v1 publication objective — updated 2026-11-10:** Author chose D1 **B: change journal**, replacing *Computational Statistics* as target. The active software-publication gate is [SOFTWARE_PUBLICATION_PLAN.md](SOFTWARE_PUBLICATION_PLAN.md) with [acceptance policy](../validation/SOFTWARE_PUBLICATION_GATE.md). SWPUB-1 venue/zero-cost eligibility is OPEN. Preserve all REV history, the released v1.0.0 scientific gates and failed evidence; older design-stage paper tasks below are historical, not the live retarget queue.
 
 

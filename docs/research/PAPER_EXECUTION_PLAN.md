@@ -1,5 +1,8 @@
 # PV1-02 Methods Paper Execution Plan
 
+> **CURRENT PUBLICATION EXECUTION AUTHORITY — 2026-11-10: [COMPSTAT revision plan](../planning/COMPSTAT_REVISION_PLAN.md) (D1=A).** The author reversed the B/retarget decision and chose to continue `Computational Statistics`. The SWPUB branch of planning is PAUSED, not an authorized current task queue. The PV1-02 protocol and prior completed P milestones below retain their original meaning; REV-2.4 is first, not scientifically PASSED, and D2/D3 remain open.
+
+
 > **Live publication authority (2026-11-10):** Author D1 chose retargeting from *Computational Statistics*. For future submission tasks use [SOFTWARE_PUBLICATION_PLAN.md](../planning/SOFTWARE_PUBLICATION_PLAN.md) and [SOFTWARE_PUBLICATION_GATE.md](../validation/SOFTWARE_PUBLICATION_GATE.md). This PV1-02 plan is retained as scientific/methods publication history, and none of its unexecuted tasks is deemed PASS or waived. The software-publication venue, zero-fee route and final upload are not yet authorized.
 
 

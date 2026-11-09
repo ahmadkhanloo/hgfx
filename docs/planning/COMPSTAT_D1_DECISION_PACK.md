@@ -1,3 +1,5 @@
+> **CURRENT D1 DECISION — 2026-11-10, LATEST AUTHOR INSTRUCTION = OPTION A / CONTINUE COMPUTATIONAL STATISTICS.** The author expressly reversed the earlier B retarget decision after noting the six-month public-history barrier for JOSS. **Option A is authorized**; REV-2.4 is prioritized and may begin with a preregistered protocol. **The B decision remains recorded below as genuine prior history**, not edited away. Neither D1 decision implies scientific PASS, acceptance by the journal, zero mandatory charges or permission to submit. Active authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md) and [latest ledger entry](COMPSTAT_REVISION_LEDGER.md).
+
 > **Decision record (current; supersedes this document's original pending-choice language):** On 2026-11-10, the author explicitly selected **Option B: change journal**. D1 is DONE at the venue-category level. *Computational Statistics* is no longer the target. No specific journal, article charge, or final upload was authorized. Existing REV-2–REV-5 criteria remain as historical unexecuted scope, not PASS. New active authority: [Software publication plan](SOFTWARE_PUBLICATION_PLAN.md) and [gate](../validation/SOFTWARE_PUBLICATION_GATE.md).
 
 # D1 author decision packet — Computational Statistics revision
@@ -49,3 +51,11 @@
 - **Prospective candidate:** *SoftwareX* subject to publication fee/waiver clearance and exact author-guideline fit; alternative *Software: Practice and Experience* subscription route subject to novel-contribution assessment. *JOSS* no-fee but currently ineligible for immediate submission due to public development-age gate.
 - **Preserved:** REV-1.1 to REV-1.4 reports, original M18 recovery FAIL, P3 insufficient evidence, 63/64 full-fit NONPASS, PERF-01C BLOCK_FREEZE. REV-2–REV-5 are not automatically passed or silently scoped away; the new article has distinct `SWPUB` acceptance gates.
 - **No authority implied:** financial commitment, human final claims approval, actual journal submission or preprint upload. Next step `SWPUB-1` venue and cost preflight.
+
+
+## Latest author decision addendum — 2026-11-10 (append-only; supersedes B for future work)
+
+- **D1 = A — continue targeting Computational Statistics**, stated explicitly after the B retarget. The author's reason was the current JOSS public-repository history requirement; do not imply JOSS was formally rejected or that its date alone guarantees future eligibility.
+- **Resume original REV-2 tasks with REV-2.4 first** due to original C1 numerical/fitting divergence; all original acceptance thresholds, sample sizes, source SHAs, historical FAIL statuses and experiment attempt caps are unchanged. Commit the prospective REV-2.4 protocol before running any new experiment.
+- The SWPUB alternative remains available as paused historical scope, with its 12/12 documentation-only checks and unsigned draft intact, but no active journal-selection work authorized under this A decision.
+- Human D2 and D3 remain pending; no scientific acceptance or final submission authorization inferred.

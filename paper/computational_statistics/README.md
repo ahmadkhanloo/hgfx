@@ -1,5 +1,8 @@
 # Computational Statistics working revision
 
+> **CURRENT ACTIVE COMPSTAT WORKSPACE — 2026-11-10 (LATEST AUTHOR D1=A):** author explicitly resumed Computational Statistics after the B retarget. The original [revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md) is active; REV-1.4 stays `DOCUMENTED_LIMITATION`; next step REV-2.4. Earlier B/SWPUB supersession text below is **preserved historical context only**, not current authority. Working manuscript and evidence remain subject to D2/D3, independent review, cost/portal checks and full numeric claims audit. **NOT SUBMISSION-READY.**
+
+
 > **HISTORICAL COMPSTAT CANDIDATE — superseded for future submission (2026-11-10).** The author chose D1 B (change journal). Keep this directory, its prior manuscript and frozen evidence as history; do **not** rename completed REV tasks or treat old REV-2–REV-5 as passed. Active new path: [software-publication plan](../../docs/planning/SOFTWARE_PUBLICATION_PLAN.md), [working paper directory](../software_publication/README.md) and [new acceptance gate](../../docs/validation/SOFTWARE_PUBLICATION_GATE.md). The final venue/author fee clearance remains OPEN.
 
 

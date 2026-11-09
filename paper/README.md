@@ -1,5 +1,8 @@
 # Paper
 
+> **LATEST PAPER DIRECTION — 2026-11-10: Computational Statistics** (author D1=A after earlier D1=B). The [CompStat revision plan](../docs/planning/COMPSTAT_REVISION_PLAN.md), [task ledger](../docs/planning/COMPSTAT_REVISION_LEDGER.md) and [working CompStat manuscript](computational_statistics/manuscript.md) are active. The SWPUB alternate-venue workspace is PAUSED, but preserved. Original scientific FAILs remain, and no manuscript or submission is approved.
+
+
 > **Active publication direction (author D1 on 2026-11-10):** Change journal, prepare a bounded research-software manuscript. Use [SWPUB plan](../docs/planning/SOFTWARE_PUBLICATION_PLAN.md), [gate](../docs/validation/SOFTWARE_PUBLICATION_GATE.md) and [active software-paper workspace](software_publication/README.md). Earlier methods/Computational Statistics drafts below are historical and retain their original evidence. **No venue or fee waiver is finally approved; not submission-ready.**
 
 

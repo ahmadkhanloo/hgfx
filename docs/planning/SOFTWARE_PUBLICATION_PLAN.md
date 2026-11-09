@@ -1,3 +1,5 @@
+> **PAUSED / NOT CURRENT EXECUTION AUTHORITY (2026-11-10):** The author explicitly reversed the earlier B journal-retarget decision and chose A: continue targeting `Computational Statistics` because JOSS does not yet satisfy the public-history criterion. This SWPUB prospective plan and its SWPUB-0 documentation-only PASS are **preserved as historical evidence**; SWPUB-1..5 are not authorized for execution or silently marked PASS. Active next step: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md) / REV-2.4.
+
 # SOFTWARE_PUBLICATION_PLAN — active post-D1 research-software article track
 
 **Authority date:** 2026-11-10. **Author D1:** explicitly chose **B — change journal**. **Status:** ACTIVE PLANNING; SWPUB-1 venue/zero-cost gate OPEN; **not ready to submit**.

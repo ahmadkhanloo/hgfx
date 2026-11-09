@@ -1,3 +1,5 @@
+> **DORMANT GATE (2026-11-10):** superseding author D1 A decision resumed `Computational Statistics`. SWPUB gates are **PAUSED**, not accomplished or deleted. If alternative venue work resumes later, revalidate all costs, author criteria and policies afresh. Current science/submission authority: [COMPSTAT_REVISION_PLAN.md](../planning/COMPSTAT_REVISION_PLAN.md).
+
 # SWPUB software-publication acceptance gate — prospective (2026-11-10)
 
 **Current status: NOT READY FOR SUBMISSION.** Author D1 selected a new **venue category**, not a particular journal. Historical `COMPSTAT` revision and M18/v1.0.0 scientific acceptance criteria are **immutable**. Authority: [SOFTWARE_PUBLICATION_PLAN](../planning/SOFTWARE_PUBLICATION_PLAN.md).

@@ -154,3 +154,12 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - New active publication track: `docs/planning/SOFTWARE_PUBLICATION_PLAN.md`; hard acceptance gates: `docs/validation/SOFTWARE_PUBLICATION_GATE.md`; venue screen: `docs/submissions/2026-11-10_SOFTWARE_VENUE_SCREEN.md`.
 - No particular venue approved yet. *SoftwareX* is conditional editorial/fee candidate; JOSS cannot pass the current six-month public-development requirement; no waiver or zero charges inferred. No paper or preprint was submitted.
 - New release/product M0–M20 closed evidence and the separate PERF-01C `BLOCK_FREEZE` remain unaffected. The next open stage is `SWPUB-1` venue/fee verification, NOT old `REV-2.1`.
+
+
+## D1 — latest author direction A / resume Computational Statistics (2026-11-10)
+
+- **LATEST AUTHOR DECISION: D1 = OPTION A / CONTINUE COMPUTATIONAL STATISTICS**, following the earlier explicit B retarget decision on the same date. The author cited the six-month public-repository age requirement for JOSS. This new explicit instruction supersedes B for future actions; previous B entry and SWPUB-0 paperwork remain preserved as provenance, not deleted or passed into a science gate.
+- **Execution authority:** original `COMPSTAT_REVISION_PLAN.md` restored. The next task is **REV-2.4 (C1)**, prioritized because REV-1.4 terminal `DOCUMENTED_LIMITATION` established only the first observed output discrepancy and not the first causal objective/intermediate difference. Remaining REV-2 tasks are open, unexecuted; none is PASS by decision.
+- **Science unchanged:** exact immutable source HGFX v1.0.0 `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; MATLAB HGF Toolbox 8.2.0 `2437f4dc241541072722a2695ddeca7b44d83dd3`. M18 parameter recovery scientific FAIL, P3 paired-integrity FAIL, 64-subject 63/64 NONPASS and PERF-01C `BLOCK_FREEZE` all remain.
+- **Publication gates still open:** Computational Statistics author charges / subscription route, journal article-format preflight, independent scientific review, strict manuscript claim mapping, D2/D3 and human final submission approval are not complete. **No upload or fee acceptance**.
+- **Required immediate next action:** write a bounded `REV-2.4_PROTOCOL.md` with N=200 transformed free vectors per model, D02/D08/64 endpoint cross-evaluation and unchanged frozen objective tolerances; commit it **before** any new execution. If the MATLAB oracle is unavailable, record that condition; never substitute development-branch results for validated 1.0.0 results.

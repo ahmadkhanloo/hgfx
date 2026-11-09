@@ -13,3 +13,10 @@ Current execution authority: [SOFTWARE_PUBLICATION_PLAN.md](SOFTWARE_PUBLICATION
 - **Venue reality:** SoftwareX is **conditional candidate** subject to confirmed **zero mandatory author charges** and actual journal fit. JOSS is fee-free but its more-than-six-month public repository history gate prevents submission in November 2026 (GitHub creation 2026-09-06; public-start and sustained activity still require verification). Wiley Software: Practice and Experience conventional subscription route has no page charge but novelty risk. Original publisher policies and URLs recorded in the venue screen; none is final author venue approval.
 - **Gate result:** **SWPUB-0 DONE / PASS documentation and governance ONLY**. **SWPUB-1 OPEN/BLOCKED pending exact venue+cost verification**, SWPUB-2 manuscript draft exists but is unvalidated, SWPUB-3/4 OPEN, SWPUB-5 BLOCKED. D1 B author choice is done, but the subsequent journal-specific author decision, financial authorization and final submission approval are not inferred.
 - **Environment limitation:** these 12 checks were source-structure/static tool checks against GitHub files and the frozen release tag; no new GitHub Actions workflow, new clean 1.0.0 test, physical GPU run, MATLAB oracle fitting, journal portal action, or independent paper review is claimed.
+
+
+## 2026-11-10 — superseding human decision: SWPUB PAUSED
+
+- **LATEST AUTHOR D1 = A**, reversing earlier B retarget: actively continue `Computational Statistics` rather than pursue an alternate journal while JOSS public-repository history is too short.
+- SWPUB-0 prior **documentation-only** PASS remains recorded; signed original author choice B is not erased. SWPUB-1..5 remain **OPEN / PAUSED** and **none passed** by changing the objective.
+- Current authority: `COMPSTAT_REVISION_PLAN.md` and `COMPSTAT_REVISION_LEDGER.md`. No SWPUB journal submission, APC approval, independent review, clean-install science or publisher action occurred.
