@@ -1,5 +1,8 @@
 # HGFX Roadmap
 
+> **Current post-v1 publication objective — updated 2026-11-10:** Author chose D1 **B: change journal**, replacing *Computational Statistics* as target. The active software-publication gate is [SOFTWARE_PUBLICATION_PLAN.md](SOFTWARE_PUBLICATION_PLAN.md) with [acceptance policy](../validation/SOFTWARE_PUBLICATION_GATE.md). SWPUB-1 venue/zero-cost eligibility is OPEN. Preserve all REV history, the released v1.0.0 scientific gates and failed evidence; older design-stage paper tasks below are historical, not the live retarget queue.
+
+
 ## Current execution authority — 2026-09-18
 
 HGFX `v1.0.0` is **RELEASED / CLOSED**. Use [version policy](VERSION_POLICY.md), [live TODO](V1_TODO.md), [release gate](V1_RELEASE_GATE.md), [final release provenance](../validation/V1_FINAL_RELEASE_PROVENANCE.md), and [evidence index](../validation/V1_EVIDENCE_INDEX.md) as the frozen v1 authority set.

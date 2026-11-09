@@ -101,3 +101,18 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 **Human decision gates:** D1 after all REV-1 reports; D2 after REV-2 reports; D3 after the final submission pack. Do not run REV-2 before D1. No numerical threshold, seed, dataset, or frozen release evidence can be modified to obtain a PASS.
 
 **REV-0 phase gate PASS (2026-11-09):** see `COMPSTAT_REVISION_LEDGER.md` and tag `pre-compstat-revision` at `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885`. This does not imply final manuscript claims coverage or REV-1 phase completion.
+
+## Post-D1 software-publication track — SWPUB (prospective, historical REV unchanged)
+
+**Author decision 2026-11-10:** D1 **B / RETARGET DONE**: change journal from *Computational Statistics* to a software/research-software venue. This human choice does **not** approve any particular journal, fee, scientific waiver or manuscript submission. Active source: [SOFTWARE_PUBLICATION_PLAN.md](SOFTWARE_PUBLICATION_PLAN.md) and [SOFTWARE_PUBLICATION_GATE.md](../validation/SOFTWARE_PUBLICATION_GATE.md). Old REV-2–REV-5 retain their original historical definitions and were not completed or passed; they are no longer authorized as the retargeted article's task list.
+
+| New gate | Scope | Status | Acceptance authority |
+| --- | --- | --- | --- |
+| SWPUB-0 | Record author D1 and establish prospective software-publication acceptance policy | IMPLEMENTED — pending documentation verification | New plan and gate files, no modified scientific results |
+| SWPUB-1 | Venue eligibility and **zero mandatory author fee** verification | OPEN / BLOCKED ON VERIFIED TERMS | Actual venue-specific official rules, written zero-charge eligibility, final author journal choice |
+| SWPUB-2 | Source-backed software paper and honest comparison with alternatives | OPEN | Venue-specific manuscript; no unsupported fit/identifiability/speed/replication claim |
+| SWPUB-3 | Frozen-release runnable examples, exact claims and source-bounded evidence audit | OPEN | Reproducible input/output, strict numeric-claim check, scoped validation, limitations preserved |
+| SWPUB-4 | Archive, license, declarations, authorship, preprint and DOI review | OPEN | All legal and administrative constraints independently verified and author-confirmed |
+| SWPUB-5 | Independent pre-submission review, artifact build, human final approval | BLOCKED ON SWPUB-1..4 | Exact candidate reviewed, no critical/high unresolved, explicit author submission signoff |
+
+**Never declare SWPUB-5 PASS because older v1.0.0 software/product CI was green.** Old REV scientific results, the failed P3 gate, 63/64 nonpass and PERF-01C BLOCK_FREEZE remain permanently visible.

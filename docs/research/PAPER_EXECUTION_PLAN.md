@@ -1,5 +1,8 @@
 # PV1-02 Methods Paper Execution Plan
 
+> **Live publication authority (2026-11-10):** Author D1 chose retargeting from *Computational Statistics*. For future submission tasks use [SOFTWARE_PUBLICATION_PLAN.md](../planning/SOFTWARE_PUBLICATION_PLAN.md) and [SOFTWARE_PUBLICATION_GATE.md](../validation/SOFTWARE_PUBLICATION_GATE.md). This PV1-02 plan is retained as scientific/methods publication history, and none of its unexecuted tasks is deemed PASS or waived. The software-publication venue, zero-fee route and final upload are not yet authorized.
+
+
 Last synchronized: 2026-09-18
 Status: **IN PROGRESS — P1/P2/P2A/P3/P5/P6/P6A-1/P6A-2 DONE; REPLACEMENT P7 CANDIDATE IN PREPARATION; P8 REVIEW REQUIRED BEFORE FINAL P6A FREEZE**
 Tracking: GitHub issue #32

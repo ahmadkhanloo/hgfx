@@ -1,5 +1,8 @@
 # Computational Statistics working revision
 
+> **HISTORICAL COMPSTAT CANDIDATE — superseded for future submission (2026-11-10).** The author chose D1 B (change journal). Keep this directory, its prior manuscript and frozen evidence as history; do **not** rename completed REV tasks or treat old REV-2–REV-5 as passed. Active new path: [software-publication plan](../../docs/planning/SOFTWARE_PUBLICATION_PLAN.md), [working paper directory](../software_publication/README.md) and [new acceptance gate](../../docs/validation/SOFTWARE_PUBLICATION_GATE.md). The final venue/author fee clearance remains OPEN.
+
+
 > Current execution authority (2026-11-09): [COMPSTAT revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md), with its [task ledger](../../docs/planning/COMPSTAT_REVISION_LEDGER.md). The earlier [case-study handoff](../../docs/superpowers/plans/2026-11-04-pain-case-study-handoff.md) is historical planning, not authority to run experiments outside the fixed COMPSTAT task list. Submission remains excluded until D1–D3 author gates.
 
 Status: **DRAFT — initial editorial revision, not submission-ready** (2026-11-03).

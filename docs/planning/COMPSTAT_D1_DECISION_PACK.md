@@ -1,6 +1,8 @@
+> **Decision record (current; supersedes this document's original pending-choice language):** On 2026-11-10, the author explicitly selected **Option B: change journal**. D1 is DONE at the venue-category level. *Computational Statistics* is no longer the target. No specific journal, article charge, or final upload was authorized. Existing REV-2–REV-5 criteria remain as historical unexecuted scope, not PASS. New active authority: [Software publication plan](SOFTWARE_PUBLICATION_PLAN.md) and [gate](../validation/SOFTWARE_PUBLICATION_GATE.md).
+
 # D1 author decision packet — Computational Statistics revision
 
-**Status: AWAITING HUMAN D1.** Prepared from REV-0 and all REV-1 terminal audit records; this is **not** author approval, independent scientific review, journal acceptance, or permission to proceed to REV-2. Historical M18 scientific FAIL, P3 failed criterion, and PERF-01C BLOCK_FREEZE are preserved.
+**Status: HUMAN D1 DECIDED — OPTION B, RETARGET (2026-11-10).** Prepared from REV-0 and all REV-1 terminal audit records; this is **not** author approval, independent scientific review, journal acceptance, or permission to proceed to REV-2. Historical M18 scientific FAIL, P3 failed criterion, and PERF-01C BLOCK_FREEZE are preserved.
 
 ## Source and revision integrity
 
@@ -39,3 +41,11 @@
 - REV-1 **audit-documentation phase complete with one documented limitation**; this does **not** mean validation PASSED.
 - D1 = HUMAN ACTION / PENDING. D2 and D3 likewise pending; no submission.
 - REV-1.4 source-only replay **and five targeted tests** have now been executed locally on Linux/Python 3.13.5 using the exact committed script/test blobs. Evidence: [`first_divergence_local_validation.json`](../../evidence/revision/first_divergence_local_validation.json), SHA-256 `1588d972a89962254afe85583f84fb46e2610dc5858f444b3c0b484ff396201f`. New branch GitHub Actions Python 3.11 CI and matched MATLAB oracle objective comparisons are **still NOT RUN/PASS**. Do not merge draft PR #107 as submission-ready.
+
+
+## D1 outcome addendum — 2026-11-10 (append-only)
+
+- **Author decision:** B — retarget journal; confirmed directly in conversation; do not infer a named destination.
+- **Prospective candidate:** *SoftwareX* subject to publication fee/waiver clearance and exact author-guideline fit; alternative *Software: Practice and Experience* subscription route subject to novel-contribution assessment. *JOSS* no-fee but currently ineligible for immediate submission due to public development-age gate.
+- **Preserved:** REV-1.1 to REV-1.4 reports, original M18 recovery FAIL, P3 insufficient evidence, 63/64 full-fit NONPASS, PERF-01C BLOCK_FREEZE. REV-2–REV-5 are not automatically passed or silently scoped away; the new article has distinct `SWPUB` acceptance gates.
+- **No authority implied:** financial commitment, human final claims approval, actual journal submission or preprint upload. Next step `SWPUB-1` venue and cost preflight.

@@ -1,3 +1,5 @@
+> **CURRENT AUTHORITY — 2026-11-10 (author D1 = B, RETARGET):** The author explicitly chose **changing journal** after REV-1. This historical Computational Statistics plan is **no longer the active submission task list**. Retain all REV task numbers, failed results and original gates as written. Future publication work is governed by [SOFTWARE_PUBLICATION_PLAN.md](SOFTWARE_PUBLICATION_PLAN.md) and [SOFTWARE_PUBLICATION_GATE.md](../validation/SOFTWARE_PUBLICATION_GATE.md). Old REV-2 to REV-5 tasks are **NOT AUTHORIZED for the new article**; they are neither PASS nor retroactively cancelled or waived. A named venue and guaranteed zero-mandatory-cost path have **not** yet been approved.
+
 # COMPSTAT_REVISION_PLAN.md
  
 Target: `docs/planning/COMPSTAT_REVISION_PLAN.md` in `ahmadkhanloo/hgfx`.

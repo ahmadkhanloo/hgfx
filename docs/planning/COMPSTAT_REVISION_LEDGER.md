@@ -144,3 +144,13 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Executed** the checked-in source audit against the three pinned ORIGINAL artifact ZIPs 10519038480, 10519860062, 13341288055; exit code 0; archived original ZIP digests, four case SHA-256/IDs, and subject-7 four `mu` plus four `muhat` above-gate cells verified. Local derived source-only JSON SHA-256: `747c211e006a36537e09cdfbedd9fc248e9d7208750d6673ce0a90122aeaf03b`.
 - Repeatable command, environment, Git blobs and unmodified failure flags are recorded in `evidence/revision/first_divergence_local_validation.json`, SHA-256 `1588d972a89962254afe85583f84fb46e2610dc5858f444b3c0b484ff396201f`, blob `96ba1b76f81f9a0d195146970b5212724c11f664`.
 - **Unchanged gates:** REV-1.4 terminal `DOCUMENTED_LIMITATION`; scientific MATLAB-HGFX first-cause still unestablished. No fit, optimization, new experiment, tolerance edit, CI/physical GPU claim, or D1 author selection. **D1 PENDING; REV-2 BLOCKED**.
+
+
+## D1 — author decision recorded 2026-11-10 (terminal human scope choice)
+
+- **HUMAN D1 = OPTION B / RETARGET**. The author explicitly requested a journal change, superseding the earlier request for CompStat. This is an authorized scope decision, not a numerical/scientific PASS.
+- Old CompStat REV-0/REV-1 reports remain complete in their original meaning; REV-1.4 `DOCUMENTED_LIMITATION` and its original incomplete MATLAB-oracle trace are unchanged.
+- Old REV-2–REV-5 were **not run**, are not counted as PASS, and are not the new publication task queue. Preserve their historical protocol definitions and evidence inventory.
+- New active publication track: `docs/planning/SOFTWARE_PUBLICATION_PLAN.md`; hard acceptance gates: `docs/validation/SOFTWARE_PUBLICATION_GATE.md`; venue screen: `docs/submissions/2026-11-10_SOFTWARE_VENUE_SCREEN.md`.
+- No particular venue approved yet. *SoftwareX* is conditional editorial/fee candidate; JOSS cannot pass the current six-month public-development requirement; no waiver or zero charges inferred. No paper or preprint was submitted.
+- New release/product M0–M20 closed evidence and the separate PERF-01C `BLOCK_FREEZE` remain unaffected. The next open stage is `SWPUB-1` venue/fee verification, NOT old `REV-2.1`.

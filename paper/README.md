@@ -1,5 +1,8 @@
 # Paper
 
+> **Active publication direction (author D1 on 2026-11-10):** Change journal, prepare a bounded research-software manuscript. Use [SWPUB plan](../docs/planning/SOFTWARE_PUBLICATION_PLAN.md), [gate](../docs/validation/SOFTWARE_PUBLICATION_GATE.md) and [active software-paper workspace](software_publication/README.md). Earlier methods/Computational Statistics drafts below are historical and retain their original evidence. **No venue or fee waiver is finally approved; not submission-ready.**
+
+
 Status: **PV1-02 ACTIVE / POST-M19 / WORKING MANUSCRIPT CREATED**
 Tracking: GitHub issue #32
 
