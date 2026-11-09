@@ -1,5 +1,8 @@
 # REV-2.4 execution handoff — preregistered science, awaiting real oracle
 
+> **CURRENT executable handoff (2026-11-10):** The original example commands further below precede the frozen-tag byte-verification hardening and must not be run verbatim. The current audited entrypoint is [`.github/workflows/compstat-rev24-original-oracle.yml`](../../.github/workflows/compstat-rev24-original-oracle.yml), a **manual** authentic MATLAB/HGFX objective run. It must be run from an authorized Actions checkout where a true HGF 8.2.0 MATLAB reference is present; the workflow has **not** run in this session. The currently configured artifact identity is the actual [PyPI HGFX 1.0.0 wheel](https://pypi.org/project/hgfx/1.0.0/) SHA-256 `5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90`. Both the runner and standalone manifest/evaluator now require `--frozen-tag-source <checkout-of-v1.0.0>` and verify every `hgfx/*.py` wheel member against that frozen tag. This is stricter than checking just the version string.
+
+
 **Current author D1:** A / continue *Computational Statistics* (2026-11-10).  
 **Milestone:** REV-2.4 **IN PROGRESS / IMPLEMENTED INPUT TOOLING, SCIENTIFIC VALIDATION OPEN**.  
 **Protocol authority:** [REV-2.4_PROTOCOL.md](../../evidence/revision/protocols/REV-2.4_PROTOCOL.md) — commit `d1986311b8a5ff97f088ebac35c612e16cbe89db`; this file was committed **before** the manifest tool or any experimental execution.
@@ -46,3 +49,15 @@ Then separately obtain D02, D08 and the original 64-fit source endpoints, with s
 ## Required publication outputs after independent execution
 
 `evidence/revision/rev24_grid_manifest.json`, original raw MATLAB and HGFX result hashes (the latter only after actual execution), per-field first-divergence table, `evidence/revision/rev24_objective_result.json`, one compact ledger report with exact commit/run/versions, and D2 author-reviewed claim scope. No inference of full fitting parity from objective-only results.
+
+## Current pipeline, actual implementation status (2026-11-10)
+
+1. Preregistered `REV-2.4_PROTOCOL.md` and appended a prospective **`NaN` fixed-slot JSON encoding clarification** before any original paired experiment. No sample, seed, parameter mask or frozen tolerance changed.
+2. Source-grid generator `tools/compstat_rev24_manifest.py` now writes literal `"NaN"` for preserved undefined parameters, not invalid JSON floats. Per-family free-index, priormus, priorsas and model identity are bound by `config_sha256`. It blocks negative/inf variance, non-finite free draws, altered case counts, missing source, wrong NumPy 2.0.2 or editable 1.1.0b1 installations.
+3. The public HGFX 1.0.0 PyPI Wheel SHA-256 is pinned to `5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90`. PyPI attestation names publish commit `8d46da2a559d869c693eb33602ac3fb0b49ab5eb`; GitHub comparison against frozen `v1.0.0` `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27` found 10 subsequent commits but **no changes under `src/hgfx/`**. The final runtime guard nevertheless compares **actual module bytes** inside the downloaded Wheel to frozen tagged checkout. Do not assume matching distribution name is proof of source identity.
+4. `tools/compstat_rev24_hgfx_eval.py` evaluates the exact installed Wheel's `_objective_for_variant` on all 600 manifest vectors **without an optimizer**; records status, full per-trial likelihoods, joint/likelihood totals and all failures.
+5. `reference/matlab/run_compstat_rev24_matlab.m` consumes precisely the same manifest; asserts real HGF Toolbox 8.2.0 git SHA and config/prior/free-index identity; evaluates all 600 fixed vectors without fitting. It has **not** been executed in MATLAB or independently reviewed here.
+6. `tools/compstat_rev24_compare.py` checks exact 600-case identity and provenance of both returned records, rejects per-case config drift/shape/NaN errors, uses only the pre-existing HGF M8 objective threshold and returns `NO_PREDECLARED_FAMILY_OBJECTIVE_GATE` for eHGF/uHGF. **Nine synthetic comparator unit tests executed locally and passed on Python 3.13.5**; these are not evidence of real oracle parity. The input generator now has **12 authored** unit tests, not verified by CI yet.
+7. Manual [REV-2.4 original-oracle workflow](../../.github/workflows/compstat-rev24-original-oracle.yml) combines frozen tag, pinned PyPI download, release-only manifest, HGFX and MATLAB evaluations and paired audit. It uploads immutable workflow artifacts rather than modifying historical M18 files. **Panel E original D02/D08/64 cross-endpoints remains a distinct OPEN task.**
+
+**Execution gate today:** No new GitHub Actions run has been observed for these commits, no original paired MATLAB/HGFX 600-vector analysis was executed, no Objective parity or fitted science pass may be claimed. Any test/runner failures must be retained and fixed only through documented source changes without changing input-grid definitions.
