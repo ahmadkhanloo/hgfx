@@ -125,10 +125,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--release-wheel", type=Path, required=True)
+    parser.add_argument("--frozen-tag-source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     check(not args.output.exists(), "Refusing to overwrite the original evaluation")
-    wheel_hash = require_released_runtime(args.release_wheel)
+    wheel_hash = require_released_runtime(args.release_wheel, args.frozen_tag_source)
     check(np.__version__ == NUMPY_VERSION, "Wrong frozen NumPy runtime")
     # Import the scientific release only AFTER verifying its Wheel/runtime.
     import hgfx
