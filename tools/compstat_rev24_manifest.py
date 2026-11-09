@@ -97,7 +97,7 @@ def make_cases(
         }
         row["case_sha256"] = content_sha256(row)
         rows.append(row)
-    return {
+    group = {
         "model": model,
         "observation_model": "unitsq_sgm",
         "seed": seed,
@@ -106,6 +106,10 @@ def make_cases(
         "prior_variances_full_ieee": [ieee(x) for x in variances],
         "rows": rows,
     }
+    keys = ("model", "observation_model", "free_indices_zero_based",
+            "prior_means_full", "prior_variances_full_ieee")
+    group["config_sha256"] = content_sha256({key: group[key] for key in keys})
+    return group
 
 
 def build_manifest(configs: dict[str, tuple[np.ndarray, np.ndarray]],
@@ -178,6 +182,11 @@ def validate_manifest(payload: dict) -> None:
         free = np.flatnonzero(np.isfinite(variances) & (variances > 0))
         demand(group["free_indices_zero_based"] == free.tolist(),
                "Free parameters changed")
+        keys = ("model", "observation_model", "free_indices_zero_based",
+                "prior_means_full", "prior_variances_full_ieee")
+        demand(group.get("config_sha256") ==
+               content_sha256({key: group[key] for key in keys}),
+               "Resolved model/observation config fingerprint changed")
         for i, item in enumerate(rows):
             demand(item["case_id"] == f"REV24-G-{model}-{i:03d}" and
                    item["replicate_zero_based"] == i and
