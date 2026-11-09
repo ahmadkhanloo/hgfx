@@ -162,7 +162,7 @@ if iscell(value)
     return;
 end
 if isstring(value)
-    numeric = arrayfun(@parse_scalar, cellstr(value));
+    numeric = cellfun(@parse_scalar, cellstr(value));
     return;
 end
 error('REV24:encoding', 'Unsupported IEEE scalar/array JSON encoding.');
