@@ -52,4 +52,4 @@ Use `python tools/plot_compstat_recovery_uncertainty.py` to regenerate
 these figures from the committed REV-1.2 JSON. The **historical**
 `paper/figures` assets must remain unmodified. The active manuscript has
 not yet been rewritten to include these new figures: that is REV-3, after D2.
-REV-1.3/1.4 are open and the publication is **not** submission-ready.
+**Current correction (2026-11-10):** REV-1.3 is terminal EXPLAINED and REV-1.4 terminal DOCUMENTED_LIMITATION (not scientific PASS). Latest D1=A authorized REV-2.4; its preregistered protocol and guarded input tools exist, but the same-vector MATLAB/HGFX objective experiment has **not run**. Publication remains **not submission-ready**.

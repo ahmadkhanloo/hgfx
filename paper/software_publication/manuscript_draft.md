@@ -1,3 +1,5 @@
+> **PAUSED ALTERNATIVE DRAFT:** author subsequently chose Computational Statistics (D1=A, 2026-11-10). This manuscript has never been approved, reviewed or submitted. Working source and history are retained for possible later reuse.
+
 # HGFX: a Python/JAX implementation of Hierarchical Gaussian Filter workflows with evidence-bounded MATLAB compatibility
 
 > **WORKING SOFTWARE ARTICLE, NOT A SUBMISSION:** authored under SWPUB following the 2026-11-10 D1 journal-change decision. This draft is **venue-neutral**, not converted to an official SoftwareX/JOSS template and **not author-approved**. It reuses existing released-software evidence without changing source results. Review all numbers, citations, affiliations and disclosures prior to a final journal-specific build.

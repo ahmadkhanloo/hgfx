@@ -2,7 +2,7 @@
 
 # SOFTWARE_PUBLICATION_PLAN — active post-D1 research-software article track
 
-**Authority date:** 2026-11-10. **Author D1:** explicitly chose **B — change journal**. **Status:** ACTIVE PLANNING; SWPUB-1 venue/zero-cost gate OPEN; **not ready to submit**.
+**Historical authority date:** 2026-11-10. **Earlier author D1:** B — change journal; **SUPERSEDED BY LATER D1=A ON 2026-11-10**. **Current SWPUB status: PAUSED**; the historical documentation-only SWPUB-0 PASS stands, SWPUB-1..5 are unexecuted and not PASS. No journal submission.
 
 The chronological execution record is [SOFTWARE_PUBLICATION_LEDGER.md](SOFTWARE_PUBLICATION_LEDGER.md). SWPUB-0 documentation gate has passed its 12 targeted static checks; this does **not** establish manuscript, fee, code or scientific submission readiness.
 

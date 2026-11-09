@@ -1,3 +1,5 @@
+> **PAUSED OPTIONAL VENUE SCREEN (2026-11-10):** Author made a newer, explicit D1=A decision to continue Computational Statistics. This previously gathered alternative-venue information is retained as dated research, not an active submission/fee decision. If reused, refresh all official policies at that time.
+
 # HGFX software-publication venue screen — 2026-11-10
 
 **Decision D1 (author):** RETARGET away from *Computational Statistics*. **No specific destination journal has yet been approved**. Aim: scientifically defensible research-software paper, zero **mandatory** author payment, preserving all original failed evidence and not claiming unsupported benchmark speedups.

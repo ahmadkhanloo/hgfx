@@ -1,5 +1,8 @@
 # Computational Statistics revision ledger
 
+> **Latest status (2026-11-10, author D1=A):** REV-0 PASS; REV-1.1–1.3 terminal EXPLAINED, REV-1.4 terminal DOCUMENTED_LIMITATION (not scientific PASS); REV-2 is authorized with REV-2.4 first, scientific tests still OPEN. Earlier D1 B decision and SWPUB preparation remain preserved as chronological history; active manuscript is Computational Statistics. M18/P3/63-of-64 and PERF-01C failed/block statuses are unchanged.
+
+
 **Scope:** `COMPSTAT_REVISION_PLAN.md`; working branch `compstat-revision`.
 **Baseline main commit:** `46fe45e1fdd110a0e72a6dc661bf05c9c38e8885` (2026-11-08).
 **Historical release evidence:** HGFX v1.0.0 at `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; immutable.
@@ -163,3 +166,13 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Science unchanged:** exact immutable source HGFX v1.0.0 `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`; MATLAB HGF Toolbox 8.2.0 `2437f4dc241541072722a2695ddeca7b44d83dd3`. M18 parameter recovery scientific FAIL, P3 paired-integrity FAIL, 64-subject 63/64 NONPASS and PERF-01C `BLOCK_FREEZE` all remain.
 - **Publication gates still open:** Computational Statistics author charges / subscription route, journal article-format preflight, independent scientific review, strict manuscript claim mapping, D2/D3 and human final submission approval are not complete. **No upload or fee acceptance**.
 - **Required immediate next action:** write a bounded `REV-2.4_PROTOCOL.md` with N=200 transformed free vectors per model, D02/D08/64 endpoint cross-evaluation and unchanged frozen objective tolerances; commit it **before** any new execution. If the MATLAB oracle is unavailable, record that condition; never substitute development-branch results for validated 1.0.0 results.
+
+## REV-2.4 — preregistered input-grid implementation and execution gate (2026-11-10; NONTERMINAL)
+
+- **ID:** REV-2.4 / C1, prioritized by author D1 A; **status = IN PROGRESS / IMPLEMENTED BUT NOT SCIENTIFICALLY VALIDATED**. REV-1.4 terminal `DOCUMENTED_LIMITATION` remains unchanged, and historical P3 FAIL / 63-of-64 NONPASS are not retested or overwritten.
+- **Preregistered BEFORE execution:** `evidence/revision/protocols/REV-2.4_PROTOCOL.md`, commit `d1986311b8a5ff97f088ebac35c612e16cbe89db`. Locked grid: `N=200` transformed prior-based free vectors each for `hgf_binary`, `ehgf_binary`, `uhgf_binary` (600 total), no exclusion; original model/observation configuration and exact HGFX v1.0.0 vs frozen MATLAB HGF 8.2.0 only; D02/D08 and all original 64 fit endpoints are distinct Panel E.
+- **Implementation:** `tools/compstat_rev24_manifest.py` with frozen default seeds, little-endian binary64 input/response hashes, per-case/manifests SHA256, strict fixed/free prior masks, exact 600 denominator, NumPy 2.0.2 and HGFX 1.0.0 non-editable Wheel + installed source-byte guards. Source commits `45cb2b8` and `38b22bb` (initial and strengthened). `tests/paper/test_compstat_rev24_manifest.py` includes **8 authored** pure guard tests (commit `69dff30`), including missing-case, RNG version, mutated fixed parameter and installed Wheel mismatch rejection.
+- **CI:** `.github/workflows/compstat-rev24-manifest-contract.yml`, commit `939dd07`, Python 3.11/NumPy 2.0.2 static manifest-contract job. **No new CI execution PASS on this branch has been observed**; authored tests are not declared passed or run here.
+- **Scientific source limitations:** current local Python 3.13.5, NumPy 2.3.5, no installed HGFX v1.0.0 or MATLAB command; a configured-index `pip download hgfx==1.0.0` found no matching version. **No frozen manifest was generated and zero MATLAB/HGFX scientific objective evaluations were run.** Runner handoff/commands: `docs/research/REV24_EXECUTION_HANDOFF.md`, commit `9de8334`.
+- **Unchanged gates:** M8 existing HGF objective family `rtol=2e-11, atol=2e-13` only, other families cannot claim objective PASS absent a previously registered exact objective tolerance; original M18 fit-field gates unchanged. No threshold, seed, optimizer or archived source evidence changed; no performance/GPU evidence.
+- **Next:** run input-contract CI on authorized infrastructure, obtain/pin original `v1.0.0` wheel and real MATLAB 8.2.0 oracle, implement exact source-matched paired evaluators and execute once. If environment remains unavailable, explicitly record `INSUFFICIENT_REFERENCE_EVIDENCE` rather than a scientific PASS. D2/REV-3 remain BLOCKED.

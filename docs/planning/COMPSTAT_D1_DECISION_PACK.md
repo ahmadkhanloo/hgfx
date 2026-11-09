@@ -4,7 +4,7 @@
 
 # D1 author decision packet — Computational Statistics revision
 
-**Status: HUMAN D1 DECIDED — OPTION B, RETARGET (2026-11-10).** Prepared from REV-0 and all REV-1 terminal audit records; this is **not** author approval, independent scientific review, journal acceptance, or permission to proceed to REV-2. Historical M18 scientific FAIL, P3 failed criterion, and PERF-01C BLOCK_FREEZE are preserved.
+**Historical status at the earlier 2026-11-10 B decision (now superseded by the newer author A decision at the top of this file): HUMAN D1 OPTION B / RETARGET.** Prepared from REV-0 and all REV-1 terminal audit records; this is **not** author approval, independent scientific review, journal acceptance, or permission to proceed to REV-2. Historical M18 scientific FAIL, P3 failed criterion, and PERF-01C BLOCK_FREEZE are preserved.
 
 ## Source and revision integrity
 

@@ -92,7 +92,7 @@ Authority: [COMPSTAT_REVISION_PLAN.md](COMPSTAT_REVISION_PLAN.md). The publicati
 | REV-2.1 | Warning capture and multi-vector sweep | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, single run |
 | REV-2.2 | USD/CHF comparison and convergence | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, diagnostics |
 | REV-2.3 | Performance/resource benchmarking | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, hardware provenance |
-| REV-2.4 | Objective cross-evaluation | IN PROGRESS (D1 A AUTHORIZED; PREREGISTRATION PENDING; NO SCIENTIFIC PASS) | Precommitted protocol, parity and gaps |
+| REV-2.4 | Objective cross-evaluation | **IN PROGRESS — protocol precommitted, generator/tests/CI authored; SCIENTIFIC VALIDATION OPEN** | REV-2.4_PROTOCOL at d1986311, wheel-guarded 600-vector manifest; no new MATLAB/HGFX actual objective results, no CI PASS |
 | REV-2.5 | Redesigned recovery | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, full failure log |
 | REV-2.6 | Statistical-computing investigation (one angle) | OPEN (D1 A AUTHORIZED; NOT YET EXECUTED) | Precommitted protocol, measured result |
 | REV-3 | Manuscript and supplement rewrite | BLOCKED BY D2 | Claims and build gates |
