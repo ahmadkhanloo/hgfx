@@ -1,0 +1,54 @@
+{
+  "schema": "compstat-rev24-implementation-preflight-v1",
+  "date": "2026-11-10",
+  "author_decision": "D1_A_COMPUTATIONAL_STATISTICS",
+  "rev24": "IN_PROGRESS_IMPLEMENTED_BUT_NOT_VALIDATED",
+  "protocol_id": "compstat-rev2-4-objective-cross-eval-v1",
+  "protocol_status": "PREREGISTERED_BEFORE_EXPERIMENT",
+  "grid": {"model_families": ["hgf_binary", "ehgf_binary", "uhgf_binary"], "n_per_family": 200, "total": 600, "seeds": [2026111000, 2026111001, 2026111002], "horizon": 128, "no_case_exclusions": true},
+  "reference": {"matlab_hgf_8_2_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3", "hgfx_v1_0_0_tag_commit": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"},
+  "pypi_public_source": {"url": "https://pypi.org/project/hgfx/1.0.0/", "distribution": "hgfx-1.0.0-py3-none-any.whl", "sha256": "5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90", "attested_publisher_source_commit": "8d46da2a559d869c693eb33602ac3fb0b49ab5eb", "github_comparison_to_tag": "10 commit difference, no source files under src/hgfx changed in the GitHub compare result; actual Wheel contents NOT yet downloaded or independently validated"},
+  "implemented": [
+    "tools/compstat_rev24_manifest.py: strict 600 case denominator, PCG64 seeds, IEEE NaN for preexisting undefined fixed slots, prior config hash, original Wheel and tag byte checks",
+    "tools/compstat_rev24_hgfx_eval.py: frozen v1.0.0 fixed-vector objective without fitting",
+    "reference/matlab/run_compstat_rev24_matlab.m: frozen MATLAB 8.2.0 fixed-vector evaluator, no optimization; NOT executed",
+    "tools/compstat_rev24_compare.py: fail-closed matching outputs, 600 cases retained, exact HGF M8 tolerance, no new thresholds for eHGF/uHGF",
+    ".github/workflows/compstat-rev24-original-oracle.yml: MANUAL-only genuine paired run and artifact upload",
+    ".github/workflows/compstat-rev24-manifest-contract.yml: input schema and output comparator tests"
+  ],
+  "executed_local_checks": {
+    "python_version": "3.13.5",
+    "numpy_version": "2.3.5",
+    "command": "python -m unittest discover -s tests/paper -p 'test_compstat_rev24_compare.py' -v",
+    "result": "PASS: 9 synthetic-only comparator tests, 0 errors and 0 failures",
+    "exercised_repository_blobs": {
+      "tools/compstat_rev24_compare.py": "1402b34246698e4fff623ab94e9a59e96e6d54b5",
+      "tests/paper/test_compstat_rev24_compare.py": "bca56157aeb2a86e40b463a86b40fa0ecba899db"
+    },
+    "also_executed": "one isolated IEEE NaN fixed-placeholder JSON roundtrip smoke PASS; NOT a test of the full released generator",
+    "scientific_meaning": "Contract tests only; synthetic mocks are not MATLAB or HGFX model oracle data"
+  },
+  "not_executed": [
+    "12 authored generator/tag identity unit tests on new head",
+    "actual 1.0.0 Wheel installation or byte comparison to checked-out tag",
+    "genuine original MATLAB HGF 8.2.0 objective evaluator",
+    "genuine HGFX 1.0.0 600-vector objective evaluator",
+    "Panel-G 600 paired objective evaluations",
+    "Panel-E original D02/D08/64 endpoint cross-evaluation",
+    "REV-2.4 original-oracle GitHub Actions workflow",
+    "physical GPU numerical parity or speed measurement"
+  ],
+  "numeric_policy": {
+    "hgf_binary_m8_rtol": 2e-11,
+    "hgf_binary_m8_atol": 2e-13,
+    "ehgf_uhgf_objective_gate": "NO_PREDECLARED_FAMILY_OBJECTIVE_GATE_UNTIL_EXACT_OLD_POLICY_PINNED",
+    "no_threshold_or_seed_change": true
+  },
+  "historical": {
+    "m18_scientific_recovery": "FAIL_UNCHANGED",
+    "p3_horizon_paired_integrity": "FAIL_UNCHANGED",
+    "original_64_fit_subject7": "NONPASS_UNCHANGED",
+    "perf01c": "BLOCK_FREEZE_UNCHANGED"
+  },
+  "next_required_step": "Run manual original-oracle workflow with a genuine MATLAB runtime, inspect all artifacts plus exact source/NumPy/CPU details, then separately implement/verify Panel E; do not mark REV-2.4 PASS without family-specific frozen gates and a human evidence review."
+}
