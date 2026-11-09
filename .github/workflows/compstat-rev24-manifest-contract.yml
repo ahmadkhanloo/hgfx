@@ -1,0 +1,33 @@
+name: CompStat REV-2.4 frozen vector-grid contract (NO SCIENCE)
+
+on:
+  pull_request:
+    paths:
+      - 'tools/compstat_rev24_manifest.py'
+      - 'tests/paper/test_compstat_rev24_manifest.py'
+      - 'evidence/revision/protocols/REV-2.4_PROTOCOL.md'
+      - '.github/workflows/compstat-rev24-manifest-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  input-contract-no-objective:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install only pinned manifest RNG dependency
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Verify input-grid schema and anti-cherry-pick unit guards
+        env:
+          JAX_ENABLE_X64: 'true'
+          JAX_PLATFORMS: cpu
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_manifest.py' -v
+      - name: Report scientific execution boundary
+        run: |
+          echo 'REV-2.4 only input-grid unit tests; NO HGFX 1.0.0 objective executed; NO MATLAB oracle; NO scientific PASS'
