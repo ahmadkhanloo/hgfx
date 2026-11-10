@@ -1,13 +1,10 @@
 name: REV-2.4 D019 frozen MATLAB/HGFX latent diagnostic (NOT PARITY)
 
-# One separately precommitted diagnostic; no full Panel G replay or new fits.
-# Remove the one-shot trigger after the real run is observed. Old Panel G
-# pass/fail and original evidence are immutable.
+# Original prospectively authorized one-case run 42796827923 started at
+# c3950cd85a8e83aae5753fa6b4753c7d94c37831.
+# One-shot automatic scientific trigger retired; further diagnostic runs
+# require separate explicit protocol authorization and review.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EHGF019_DIAGNOSTIC_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
