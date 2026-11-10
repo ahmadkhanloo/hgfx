@@ -26,6 +26,7 @@ MATLAB_REF = "2437f4dc241541072722a2695ddeca7b44d83dd3"
 MATLAB_CONFIG_BLOB = "c05a77f1c3b9a0b820120b9dcbd05c5a65857925"
 MATLAB_TRANSFORM_BLOB = "de46708de2d0af43e5fc26f12a4c27510743e725"
 SELECTION_SEED = 2026111021
+SELECTION_SHA256 = "adcb0e8694e72c8c82e4ae3416d54d409273729dea0558b9c3e31043d5c06047"
 PHI2_ZERO_BASED = 7
 PHI3_ZERO_BASED = 8
 DEFAULT_NATIVE_BASELINE = (math.nan,0.0,1.0,math.nan,.1,1.0,
@@ -129,12 +130,14 @@ def fixed_block_selection() -> dict:
     require(len(chosen)==len(set(chosen))==64
             and len(reed)==len(set(reed))==64,
             "Precommitted source-independent selection invalid")
+    digest=sha_bytes(("\n".join(chosen)+"\n").encode("ascii"))
+    require(digest==SELECTION_SHA256,
+            "Prerecorded Suthaharan block selection SHA256 mismatch")
     return {
         "seed":SELECTION_SEED,
         "rule":"rank SHA256(ASCII(f'{seed}:{source_case_id}')); lowest 64 of 260",
         "selected_suthaharan_blocks":64,
-        "selected_suthaharan_case_ids_sha256":
-            sha_bytes(("\n".join(chosen)+"\n").encode("ascii")),
+        "selected_suthaharan_case_ids_sha256":SELECTION_SHA256,
         "all_original_reed_blocks":64,
         "total_multivector_source_blocks":128,
         "selection_independent_of_scientific_outcomes":True,
