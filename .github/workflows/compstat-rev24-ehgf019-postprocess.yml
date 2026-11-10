@@ -1,0 +1,110 @@
+name: REV-2.4 eHGF-019 archived trace postprocessor (NO NEW SCIENCE)
+
+# Converts only the ORIGINAL archived MATLAB JSON cell-layout. No numerical
+# HGF, MATLAB, HGFX, fitting, objective or new diagnostic execution.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tools/compstat_rev24_ehgf019_trace_compare.py'
+      - 'tests/paper/test_compstat_rev24_ehgf019_trace.py'
+      - '.github/workflows/compstat-rev24-ehgf019-postprocess.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  archived-raw-source-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install NumPy for manifest validation only
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Regressions for MATLAB column-major JSON and fail-closed source schemas
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_ehgf019_trace.py' -v
+      - name: Download two immutable ORIGINAL synthetic science archives
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_trace_original rev24_trace_derived
+          for entry in 'panel_g_original.zip:13743694091' 'd019_original_trace.zip:13754932663'; do
+            file="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              -o "rev24_trace_original/${file}"
+          done
+          echo 'faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c  rev24_trace_original/panel_g_original.zip' | sha256sum -c
+          echo 'a115cc946ddbe3504050e8a1720f50c0a1eb244a89a41a3ed33a9c971ab520e1  rev24_trace_original/d019_original_trace.zip' | sha256sum -c
+      - name: Verify exact unchanged original source members; decode transport without any model call
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from hashlib import sha256
+          from tools.compstat_rev24_ehgf019_trace_compare import ORIGINAL_MEMBERS
+          root=Path('rev24_trace_original')
+          sources=[
+            ('panel_g_original.zip',ORIGINAL_MEMBERS),
+            ('d019_original_trace.zip',{
+                'matlab_trace.json':'9d96afb97ff2a516a2a224c2f52aa7a3c5675e3b0a877fd0c602f0c21a639354',
+                'hgfx_trace.json':'c346f54572c396a9d9b2ea29e40b726edab1de4152251bfbc1cddf0a3c007ff2',
+            }),
+          ]
+          for name,files in sources:
+              with ZipFile(root/name) as archive:
+                  assert set(archive.namelist())==set(files),name
+                  for member,expected in files.items():
+                      raw=archive.read(member)
+                      assert sha256(raw).hexdigest()==expected,member
+                      output=root/member
+                      assert not output.exists()
+                      output.write_bytes(raw)
+          print('ARCHIVED ORIGINAL SCIENCE BYTES VERIFIED — no model imported or invoked')
+          PY
+      - name: Compare already-archived paired traces with MATLAB 128x3 column-major reconstruction only
+        run: |
+          python -m tools.compstat_rev24_ehgf019_trace_compare \
+            --manifest rev24_trace_original/manifest.json \
+            --matlab-trace rev24_trace_original/matlab_trace.json \
+            --hgfx-trace rev24_trace_original/hgfx_trace.json \
+            --original-matlab rev24_trace_original/matlab.json \
+            --original-hgfx rev24_trace_original/hgfx.json \
+            --output rev24_trace_derived/diagnostic_comparison.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('rev24_trace_derived/diagnostic_comparison.json')
+          report=json.loads(p.read_text())
+          assert report['scientific_gate']=='NOT_GLOBAL_PASS'
+          assert report['original_global_600_row_grid_replaced'] is False
+          assert report['matlab_json_transport_normalization']['numeric_values_modified'] is False
+          assert report['causal_expression_and_mechanism']=='NOT_ESTABLISHED'
+          assert len(report['matlab_json_transport_normalization']['fields_reoriented'])==15
+          print('DIAGNOSTIC POSTPROCESSING SUCCESS; no scientific gate changed')
+          PY
+          sha256sum rev24_trace_original/matlab_trace.json \
+            rev24_trace_original/hgfx_trace.json rev24_trace_derived/*.json
+      - name: Delete original source duplication, upload only derived comparator
+        if: always()
+        run: rm -rf rev24_trace_original
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rev24-ehgf019-posthoc-archived-trace-comparison
+          path: rev24_trace_derived/*.json
+          if-no-files-found: warn
+          retention-days: 90
