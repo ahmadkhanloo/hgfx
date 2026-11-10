@@ -193,3 +193,15 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Local, genuinely executed validation:** independent synthetic-only comparator tests **9/9 PASS**, Python **3.13.5** (blobs `1402b34246698e4fff623ab94e9a59e96e6d54b5`, `bca56157aeb2a86e40b463a86b40fa0ecba899db`); one isolated undefined-NaN JSON fixed-slot smoke PASS. Neither is full Wheel/runtime test or MATLAB scientific evidence. **12 generator tests authored but not executed/CI-verified on new head**; MATLAB/HGFX evaluators not executed; new GitHub Actions REV-2.4 run count **0** at the time of check.
 - **Evidence snapshot:** `evidence/revision/REV24_IMPLEMENTATION_PREFLIGHT_2026-11-10.json`. No `rev24_grid_manifest.json`, `rev24_objective_result.json` or Panel-E cross-endpoint results exist. D02, D08 and all 64 original subjects remain a separately required Panel E, not silently waived.
 - **Status:** **REV-2.4 IN PROGRESS / IMPLEMENTED BUT NOT SCIENTIFICALLY VALIDATED**. Scientific gate not PASS; archived M18 recovery FAIL, P3 paired FAIL, subject 7 (63/64 diagnostic NONPASS) and PERF-01C BLOCK_FREEZE retained unchanged. D2 and REV-3 submission claims remain blocked pending real pinned-oracle evidence, family-specific pre-existing tolerances and independent review.
+
+
+## REV-2.4 — original wrapper fix and Panel E archival preflight (2026-11-10; NONTERMINAL)
+
+- **ID / status:** REV-2.4 C1; `IN PROGRESS`, not `FIXED` or scientific `PASS`; source-only readiness.
+- **Code:** corrected MATLAB frozen-family dispatch in `reference/matlab/run_compstat_rev24_matlab.m` (commit `b9c7378fa970f57622933153af6fe941c2d30b4a`), using `pc.prc_fun` rather than nonexistent eHGF/uHGF `*_unified` entrypoints. No frozen model/data/seed/gate modification.
+- **Panel E evidence:** original D02 artifact `10339454535`, D08 `10339403480`, 64-fit artifact `13341288055`, all present and unexpired at inspection; original archive SHA-256 pins preserved in `tools/compstat_rev24_endpoint_sources.py`. No archived endpoint values or participant data committed.
+- **Validation:** local Python 3.13.5 `python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_sources.py' -v` = **5 tests PASS**, synthetic ZIP fixture contract ONLY. MATLAB source dispatch contracts authored; no authentic MATLAB invocation.
+- **Workflow:** `.github/workflows/compstat-rev24-endpoint-preflight.yml` downloads three original archives and checks hashes, while uploading only sanitized source-identities; actual run and results remain to be independently checked. The original scientific `workflow_dispatch` is still branch-only and **not executed**.
+- **Open:** exact original D02/D08/64 endpoint parsing, vector/mask cross-evaluation, single authentic Panel G/G+E oracle result, family-specific existing objective gates, and independent scientific adjudication.
+- **Scientific history:** REV-1.4 `DOCUMENTED_LIMITATION`, P3 FAIL, 63/64 original fit NONPASS, M18 recovery FAIL, PERF-01C `BLOCK_FREEZE` unchanged. Manuscript/D2 and author D3 not passed.
+- **Detailed handoff:** `docs/research/REV24_EXECUTION_HANDOFF.md` (2026-11-10 continuation). 
