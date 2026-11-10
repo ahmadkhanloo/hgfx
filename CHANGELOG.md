@@ -5,6 +5,7 @@ All notable changes to HGFX should be documented here.
 ## Unreleased
 
 ### Added
+- REV-2.2 development-only additive `fitModel(...).optim.termination` and `.optim.converged` diagnostics expose the existing compatibility BFGS stop reason without changing the solver or original released v1.0.0. `converged` requires a finite final state and a solver `tol_grad` or `tol_arg` stop; small-step `tol_arg` can indicate stagnation and does not establish a global optimum or MATLAB agreement.
 - Initial repository scaffold.
 - Migration planning documents.
 - Numerical validation policy.
