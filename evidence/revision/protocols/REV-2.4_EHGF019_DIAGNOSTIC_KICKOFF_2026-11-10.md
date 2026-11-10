@@ -1,0 +1,12 @@
+# REV-2.4 eHGF 019 — single prospective latent diagnostic kickoff (2026-11-10)
+
+This commit triggers **one separate, explicitly scoped diagnostic** under [REV-2.4_EHGF019_DIAGNOSTIC_PROTOCOL_2026-11-10.md](REV-2.4_EHGF019_DIAGNOSTIC_PROTOCOL_2026-11-10.md), originally committed `3322249553e6479cd36cdd638ba9a9f7b6066df8` **before this kickoff and before any diagnostic numerical execution**.
+
+- Fixed original case `REV24-G-ehgf_binary-019`, case SHA `276d21f43a91fc8748438aafc6ec44f759f23dc2ae97dae8b4cc1274aba3fefb`; original 600-vector synthetic Panel G evidence artifact `13743694091`, ZIP SHA-256 `faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c`; original manifest semantic SHA `35e7c766d3f63cb53aa407c2e6563a34b1a5fd795b982d147475e4c3d409ea95`. The original 600-case paired experiment is **not** repeated, overwritten, censored or reclassified.
+- Reuse exact pinned MATLAB HGF 8.2.0 reference SHA `2437f4dc241541072722a2695ddeca7b44d83dd3` and frozen HGFX v1.0.0 Wheel SHA-256 `5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90` with original 128 trial inputs and one fixed transformed vector; no fitted objective, optimization, parameter substitution or sample selection.
+- Record all original `traj` and `infStates` numeric fields and trial log likelihoods for both. Independent comparison reports **earliest observed finite-state asymmetry** and earliest finite arithmetic difference separately. It is not proof of first causal operation; eHGF/uHGF have no registered objective parity gate.
+- Synthetic-only preflight [CI 42796704536](https://github.com/ahmadkhanloo/hgfx/actions/runs/42796704536): **success**, shape/mask/source and MATLAB static tests; no numerical science.
+- One original diagnostic paired run authorized; at most one *separately documented infrastructure-only retry* if necessary. This is **not** permission for a new Panel G grid, parameter recovery, threshold change, or model repair.
+- Original one-sided invalid `REV24-G-ehgf_binary-019`, 39 jointly invalid Panel G rows, missing D02 endpoint, historical subject-7 trajectory and 63/64 fit NONPASS, M18/P3/PERF-01C and REV-2.4 scientific `BLOCKED` all remain untouched. The reviewer verdict stays `BLOCK_GLOBAL_PARITY`, conditional limited HGF same-vector claim, and missing reference evidence.
+
+After the run starts, disable the one-shot automatic trigger so that neither failed result nor newly observed scientific values can cause an unrecorded rerun.
