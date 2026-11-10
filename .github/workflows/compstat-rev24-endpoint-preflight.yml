@@ -1,0 +1,62 @@
+name: CompStat REV-2.4 original endpoint source preflight (NO SCIENCE)
+
+on:
+  pull_request:
+    paths:
+      - 'tools/compstat_rev24_endpoint_sources.py'
+      - 'tests/paper/test_compstat_rev24_endpoint_sources.py'
+      - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
+      - 'reference/matlab/run_compstat_rev24_matlab.m'
+      - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  archive-source-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify static endpoint and MATLAB dispatch contracts (NOT science)
+        run: |
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_sources.py' -v
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_matlab_source_contract.py' -v
+      - name: Download original historical evidence archives (no refitting)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_endpoint_archives
+          for entry in 'd02:10339454535' 'd08:10339403480' 'cohort64:13341288055'; do
+            label="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              --header "Authorization: Bearer ${GH_TOKEN}" \
+              --header 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              --output "rev24_endpoint_archives/${label}.zip"
+          done
+      - name: Verify pinned ZIP bytes and original 64-cohort raw-file digests
+        run: |
+          python -m tools.compstat_rev24_endpoint_sources \
+            --d02 rev24_endpoint_archives/d02.zip \
+            --d08 rev24_endpoint_archives/d08.zip \
+            --cohort64 rev24_endpoint_archives/cohort64.zip \
+            --output rev24_endpoint_archives/source_audit.json
+          echo 'ARCHIVE INTEGRITY ONLY: no endpoint extraction or MATLAB/HGFX evaluation'
+      - name: Publish sanitized source-only audit (never publish participant-level raw ZIP)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev24-panel-e-source-preflight
+          path: rev24_endpoint_archives/source_audit.json
+          if-no-files-found: warn
+          retention-days: 90
