@@ -1,12 +1,11 @@
 name: REV-2.2 official D08 published-Wheel MATLAB paired oracle (ONE SHOT)
 
-# The single scientific run is explicitly preregistered and triggered ONLY by
-# the separately recorded REV-2.2 kickoff. No schedule or broad push trigger.
+# ONE prospectively preregistered original D08 scientific execution
+# launched as Actions 42910756224 at source
+# f127f6066bbc22f00d7fb9f410c317bad0cb431f.
+# Automatic push trigger retired immediately. Additional science executions
+# are NOT authorized by this workflow/experimental protocol.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.2_D08_ORACLE_SCIENCE_KICKOFF_2026-11-11.md'
   workflow_dispatch:
 
 permissions:
