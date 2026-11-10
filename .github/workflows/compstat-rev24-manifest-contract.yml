@@ -1,6 +1,16 @@
 name: CompStat REV-2.4 frozen vector-grid contract (NO SCIENCE)
 
 on:
+  push:
+    branches:
+      - compstat-revision
+    paths:
+      - 'tools/compstat_rev24_manifest.py'
+      - 'tests/paper/test_compstat_rev24_manifest.py'
+      - 'tools/compstat_rev24_compare.py'
+      - 'tests/paper/test_compstat_rev24_compare.py'
+      - 'evidence/revision/protocols/REV-2.4_PROTOCOL.md'
+      - '.github/workflows/compstat-rev24-manifest-contract.yml'
   pull_request:
     paths:
       - 'tools/compstat_rev24_manifest.py'
