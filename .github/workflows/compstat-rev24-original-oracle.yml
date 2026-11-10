@@ -1,13 +1,9 @@
 name: CompStat REV-2.4 original MATLAB/HGFX objective oracle (PREREGISTERED)
 
-# One-shot scientific execution: the only push-triggering path is the
-# immutable kickoff record. This is not a broad branch push hook.
+# The single authorized push execution was launched at run 42776302837,
+# commit ae1adfbf5060ed3a2c64348a0119aca46088a851.
+# Push hook removed to prohibit accidental repeat; dispatch remains manual.
 on:
-  push:
-    branches:
-      - compstat-revision
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EXECUTION_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
