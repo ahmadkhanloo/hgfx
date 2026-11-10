@@ -1,14 +1,9 @@
 name: CompStat REV-2.4 original MATLAB/HGFX objective oracle (PREREGISTERED)
 
-# The 2026-11-10 original paired attempt 42776302837 failed on JSON
-# serialization (NumPy bool) before MATLAB pairing; infrastructure only.
-# ONE protocol-allowed infrastructure retry on this exact kickoff path.
+# Original scientific run 42776302837 failed in JSON output serialization.
+# Sole documented infrastructure retry 42776781367 launched at c5c44d2.
+# Push trigger retired permanently: no third run authorized by this protocol.
 on:
-  push:
-    branches:
-      - compstat-revision
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_INFRASTRUCTURE_RETRY_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
