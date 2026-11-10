@@ -95,7 +95,12 @@ jobs:
                           '  '+file.relative_to(root).as_posix()+'\n')
           print('Human review packet source files:',len(files))
           PY
-          python -m py_compile human_packet/verify_evidence.py
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          ast.parse(Path('human_packet/verify_evidence.py').read_text())
+          print('Verifier syntax check PASS, no untracked __pycache__ generated')
+          PY
           python human_packet/verify_evidence.py
       - name: Create single portable ZIP and print SHA-256
         run: |
