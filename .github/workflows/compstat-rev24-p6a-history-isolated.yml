@@ -1,12 +1,9 @@
 name: REV-2.4 P6A historical ancestry isolated proof (NOT FULL CI)
 
-# One narrowly scoped read-only infrastructure diagnostic, NOT an extra
-# full-suite or MATLAB/HGFX scientific run. Retire push trigger after launch.
+# One narrowly scoped read-only history check, run 42815782002, started
+# at 983a1bf5a2975f50174d6f54ffd108332c829139. Automatic one-shot
+# trigger retired; no unrecorded re-executions or full-suite replays.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_P6A_FULL_HISTORY_ISOLATED_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
