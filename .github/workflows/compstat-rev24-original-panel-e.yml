@@ -1,12 +1,9 @@
 name: CompStat REV-2.4 original Panel E endpoints (SCIENTIFIC, NOT PASS)
 
-# Explicitly authorized once by the immutable Panel E kickoff document.
-# Remove push trigger immediately after the actual Actions run is observed.
+# Original authorized Panel E run 42786519173 at 4708518b started.
+# One-shot push trigger retired. Explicit dispatch alone does not authorize
+# another scientific execution under the frozen protocol.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_PANEL_E_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
