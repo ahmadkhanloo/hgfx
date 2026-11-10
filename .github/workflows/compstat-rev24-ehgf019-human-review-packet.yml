@@ -1,14 +1,10 @@
 name: REV-2.4 eHGF019 HUMAN reviewer offline evidence ZIP (NO SCIENCE)
 
-# Initial no-science packaging 42820014023 failed on generated __pycache__
-# inventory after all source/ZIP hashes passed. Sole reviewed packaging-only
-# infrastructure retry activated for the exact written retry kickoff path.
-# No MATLAB/JAX/HGFX model/science execution.
+# Original offline human review packet run 42820014023 failed after source
+# verification on an untracked bytecode cache; sole packaging retry
+# 42820298890 started at aec0fbcfc0991cf0f4c2e92e0d786443d89dbf36.
+# Automatic packaging push trigger retired. NO SCIENCE AUTHORIZED.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EHGF019_HUMAN_PACKET_RETRY_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
