@@ -1,0 +1,105 @@
+{
+  "protocol": "compstat-rev2-2-d08-original-oracle-v1",
+  "evidence_type": "archived-original-paired-science-and-read-only-summary",
+  "source_execution": {
+    "run_id": 42910756224,
+    "executed_git_head": "f127f6066bbc22f00d7fb9f410c317bad0cb431f",
+    "workflow_conclusion": "success_execution_only",
+    "artifact_id": 13808150860,
+    "artifact_zip_sha256": "a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534",
+    "members_sha256": {
+      "matlab_reference.json": "5546a6cbd51d780d7d0886bcd14de982d0b970bda857752a2d37344975d5f165",
+      "hgfx_published_wheel.json": "d06a2f961a27f73a9c38621a86fe2204aebb481f2857ce45368e176111a9f37d",
+      "matlab_cross_evaluation.json": "8bdcad1f1c2c6bc628eb6622c258188343025136df9a345e7fb2a84da5d9f9b9",
+      "paired_d08_comparison.json": "0304d8366c497d1e03cf9b75da1670a8a2d09e06979c064098cdd4e062595440"
+    }
+  },
+  "original_source": {
+    "model": "uhgf",
+    "observation": "gaussian_obs",
+    "n_trials": 614,
+    "official_seed": 123456789,
+    "same_matlab_simulated_responses_as_hgfx": true,
+    "input_source_git_blob": "29a4d0322faf8894c414883c517950aa87b481db",
+    "matlab_hgf_toolbox_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+    "matlab_version": "26.2.0.3433840 (R2026b) Update 1",
+    "published_hgfx_release": "1.0.0",
+    "published_hgfx_wheel_sha256": "5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90",
+    "original_source_protocol_commit": "600c0499cacd57067d6f8e345b485e0d34872322"
+  },
+  "direct_existing_m18_field_checks": {
+    "total_fields": 25,
+    "within_frozen_gate": 24,
+    "outside_frozen_gate": 1,
+    "outside_field": "traj.epsi",
+    "epsi_elements": 1228,
+    "epsi_finite_status_mismatches": 0,
+    "epsi_out_of_gate": 4,
+    "first_bad_flat_index_c_order_zero_based": 357,
+    "first_bad_trial_zero_based": 178,
+    "first_bad_level_zero_based": 1,
+    "first_matlab": -4.788757533201755,
+    "first_hgfx": -4.788755010867239,
+    "first_absolute_difference": 0.0000025223345163638555,
+    "maximum_absolute_difference_eps_field": 0.000009533250704407692,
+    "original_rtol": 3e-8,
+    "original_atol": 3e-10,
+    "all_four_bad_trial_zero_based": [
+      178,
+      322,
+      412,
+      577
+    ],
+    "all_four_level_zero_based": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "other_fields_out_of_gate": 0
+  },
+  "direct_fit_summaries": {
+    "matlab": {
+      "negLj": -2323.459762013518,
+      "negLl": -2474.7536183437173,
+      "LME": 2317.003896399031,
+      "BIC": -4904.567272190405,
+      "hessian_positive_definite": true,
+      "hessian_condition_2": 88962.50563387308
+    },
+    "hgfx": {
+      "negLj": -2323.4597620137324,
+      "negLl": -2474.7536183383972,
+      "LME": 2317.0038963991306,
+      "BIC": -4904.567272179765,
+      "hessian_positive_definite": true,
+      "hessian_condition_2": 88962.50564796684
+    },
+    "maximum_absolute_final_transformed_parameter_gap": 1.3502421403188691e-9
+  },
+  "same_vector_cross_evaluation": {
+    "matlab_endpoint_matlab_and_hgfx_negLj_absolute_gap": 0,
+    "hgfx_endpoint_matlab_and_hgfx_negLj_absolute_gap": 0,
+    "matlab_endpoint_matlab_and_hgfx_negLl_absolute_gap": 0,
+    "hgfx_endpoint_matlab_and_hgfx_negLl_absolute_gap": 0,
+    "matlab_endpoint_trial_likelihood_bitwise_differences": 77,
+    "hgfx_endpoint_trial_likelihood_bitwise_differences": 34,
+    "max_per_trial_absolute_difference_matlab_endpoint": 1.7763568394002505e-15,
+    "max_per_trial_absolute_difference_hgfx_endpoint": 3.1530333899354446e-14,
+    "family_objective_gate": "NO_PREDECLARED_UHGF_FAMILY_GATE",
+    "scientific_cross_objective_parity_claim": false,
+    "reference_self_replay_same_vector_exact": true
+  },
+  "interpretation": {
+    "new_scoped_direct_result": "UNRESOLVED_DISCREPANCY",
+    "consistent_with": "NUMERICAL_OPTIMIZER_ENDPOINT_OR_PATH_SENSITIVITY_NOT_CAUSALLY_PROVED",
+    "matlab_termination": "NOT_EXPORTED",
+    "hgfx_v1_termination": "NOT_EXPORTED",
+    "warning_coverage": "WARNING_COVERAGE_INCOMPLETE",
+    "warnings_all_categorized": false,
+    "original_D08_M18_failure_preserved": true,
+    "rev24_global": "NOT_GLOBAL_PASS",
+    "D2_D3": "BLOCKED",
+    "full_cpu": "NOT_PASS"
+  }
+}
