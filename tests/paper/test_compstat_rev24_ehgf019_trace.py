@@ -12,6 +12,7 @@ from tools.compstat_rev24_ehgf019_hgfx_trace import (
 from tools.compstat_rev24_ehgf019_trace_compare import (
     classify, first_status_event, paired_numeric_summary,
     likelihood_status_reproduction, values_checked, ORIGINAL_MEMBERS,
+    normalize_matlab_flattened_trace,
 )
 
 
@@ -41,6 +42,36 @@ class OriginalD019TraceContracts(unittest.TestCase):
         })
         self.assertEqual(ORIGINAL_MEMBERS["comparison.json"],
                          "cfd0c7e9f66890c2873706b77518a721119b725a04393ad99ef71e573c780430")
+
+    def test_matlab_flat_128x3_colmajor_is_transport_only(self):
+        original=fake_trace("matlab")
+        for field in ("muhat","sahat","mu","sa"):
+            original["inferred_states"][field]=[
+                1000.0*lev+float(t) for lev in range(3) for t in range(128)
+            ]
+        for field,matrix in original["trajectories"].items():
+            original["trajectories"][field]=[
+                matrix[t][lev]
+                for lev in range(2 if field=="w" else 3)
+                for t in range(128)
+            ]
+        rebuilt,fields=normalize_matlab_flattened_trace(original)
+        self.assertEqual(len(fields),15)
+        self.assertEqual(rebuilt["inferred_states"]["mu"][11],
+                         [11.0,1011.0,2011.0])
+        self.assertEqual(rebuilt["trajectories"]["w"][0],[0.0,0.0])
+        values_checked(rebuilt,"matlab")
+        self.assertEqual(len(original["inferred_states"]["mu"]),384)
+        again,fields2=normalize_matlab_flattened_trace(rebuilt)
+        self.assertFalse(fields2)
+        self.assertEqual(again,rebuilt)
+
+    def test_ambiguous_matlab_layout_must_fail_closed(self):
+        doc=fake_trace("matlab")
+        doc["inferred_states"]["mu"]=[0.0]*384
+        doc["inferred_states"]["mu"].pop()
+        with self.assertRaisesRegex(ValueError,"Unrecognized MATLAB trace"):
+            normalize_matlab_flattened_trace(doc)
 
     def test_trace_identity_and_complete_fields(self):
         doc=fake_trace("matlab")
