@@ -153,6 +153,11 @@ def build_private_inputs(d02_data, d08_data, d08_comparison,
             "Panel E cannot omit or duplicate an original case")
     require(sum(c["endpoints"]["hgfx"] is None for c in cases) == 1,
             "Panel E missing original D02 HGFX endpoint is a required blocker")
+    # SHA-bind the original trial data, archived endpoint values and all
+    # observation priors before any scientific evaluator receives the case.
+    # Never use SHA digests as substitutes for original numeric values.
+    for case in cases:
+        case["case_sha256"] = digest(case)
     payload = {
         "protocol": PROTOCOL,
         "panel": "E",
