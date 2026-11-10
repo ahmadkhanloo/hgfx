@@ -34,7 +34,7 @@ jobs:
       - name: Verify 334 pinned frozen MATLAB source identities; NO oracle execution
         run: python scripts/verify_reference_freeze.py
       - name: Complete CPU test suite at 1.1.0b1 (NOT frozen release science)
-        run: pytest -q --junitxml=regression-results.xml
+        run: python -m pytest -q --junitxml=regression-results.xml
       - uses: actions/upload-artifact@v4
         if: always()
         with:
