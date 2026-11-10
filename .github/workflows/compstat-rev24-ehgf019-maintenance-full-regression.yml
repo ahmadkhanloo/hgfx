@@ -1,12 +1,9 @@
 name: REV-2.4 eHGF019 one-shot full CPU regression (MAINTENANCE ONLY)
 
-# Full repository CPU CI once at end of this maintenance phase.
-# Source branch 1.1.0b1, no original v1.0.0 MATLAB/Panel G/E execution.
+# Original one-shot full CPU maintenance run 42800906817 launched at
+# ed3636a11bf70108eae6c3d520f457f309de96b8.
+# Scoped automatic push trigger retired; no extra regression loop.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EHGF019_FULL_REGRESSION_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
