@@ -7,6 +7,8 @@ on:
     paths:
       - 'tools/compstat_rev24_endpoint_sources.py'
       - 'tests/paper/test_compstat_rev24_endpoint_sources.py'
+      - 'tests/paper/test_compstat_rev24_endpoint_coverage.py'
+      - 'tools/compstat_rev24_endpoint_coverage.py'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -14,6 +16,8 @@ on:
     paths:
       - 'tools/compstat_rev24_endpoint_sources.py'
       - 'tests/paper/test_compstat_rev24_endpoint_sources.py'
+      - 'tests/paper/test_compstat_rev24_endpoint_coverage.py'
+      - 'tools/compstat_rev24_endpoint_coverage.py'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -36,6 +40,14 @@ jobs:
         run: |
           python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_sources.py' -v
           python -m unittest discover -s tests/paper -p 'test_compstat_rev24_matlab_source_contract.py' -v
+      - name: Pin original cohort input fixture at its executing commit
+        uses: actions/checkout@v4
+        with:
+          ref: 81ae256b318e18ea08b03ab6fcb69100ac6c836d
+          path: rev24_original_input_source
+          persist-credentials: false
+      - name: Verify endpoint source-coverage fail-closed unit contracts
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_coverage.py' -v
       - name: Download original historical evidence archives (no refitting)
         shell: bash
         env:
@@ -61,11 +73,22 @@ jobs:
             --cohort64 rev24_endpoint_archives/cohort64.zip \
             --output rev24_endpoint_archives/source_audit.json
           echo 'ARCHIVE INTEGRITY ONLY: no endpoint extraction or MATLAB/HGFX evaluation'
+      - name: Audit exact D02 D08 and original 64-subject endpoint coverage (NO science)
+        run: |
+          python -m tools.compstat_rev24_endpoint_coverage \
+            --d02 rev24_endpoint_archives/d02.zip \
+            --d08 rev24_endpoint_archives/d08.zip \
+            --cohort64 rev24_endpoint_archives/cohort64.zip \
+            --cohort-input rev24_original_input_source/benchmarks/runtime_v1/inputs/binary_128_s64.json \
+            --output rev24_endpoint_archives/coverage_audit.json
+          echo 'SOURCE COVERAGE ONLY: original D02 HGFX full endpoint still missing'
       - name: Publish sanitized source-only audit (never publish participant-level raw ZIP)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: compstat-rev24-panel-e-source-preflight
-          path: rev24_endpoint_archives/source_audit.json
+          path: |
+            rev24_endpoint_archives/source_audit.json
+            rev24_endpoint_archives/coverage_audit.json
           if-no-files-found: warn
           retention-days: 90
