@@ -1,0 +1,125 @@
+name: REV-2.4 eHGF019 HUMAN reviewer offline evidence ZIP (NO SCIENCE)
+
+# One packaging-only run. Never launches MATLAB/JAX/HGFX evaluation.
+# This is NOT a human signature, a scientific experiment or an acceptance gate.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_EHGF019_HUMAN_PACKET_KICKOFF_2026-11-10.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  portable-human-review-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: v1_0_0_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify immutable MATLAB reference files (NO MATLAB execution)
+        run: python scripts/verify_reference_freeze.py
+      - name: Retrieve ONLY original immutable SYNTHETIC and DIAGNOSTIC artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p human_packet/evidence human_packet/source human_packet/docs
+          for entry in 'panel_g_original_synthetic.zip:13743694091' 'ehgf019_original_raw_trace.zip:13754932663' 'ehgf019_read_only_derived_comparison.zip:13755237519'; do
+            label="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              --header "Authorization: Bearer ${GH_TOKEN}" \
+              --header 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              --output "human_packet/evidence/${label}"
+          done
+          echo 'faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c  human_packet/evidence/panel_g_original_synthetic.zip' | sha256sum -c
+          echo 'a115cc946ddbe3504050e8a1720f50c0a1eb244a89a41a3ed33a9c971ab520e1  human_packet/evidence/ehgf019_original_raw_trace.zip' | sha256sum -c
+          echo 'db61cebae88dc5a408e1bf4c8955a13fe1fa0695fdc40d4b658e9497293e58be  human_packet/evidence/ehgf019_read_only_derived_comparison.zip' | sha256sum -c
+      - name: Capture exact frozen MATLAB, released HGFX and development patch sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp external/hgf-toolbox/building_blocks/hgf_volatility_update.m human_packet/source/matlab_hgf_volatility_update.m
+          cp v1_0_0_source/src/hgfx/updates/volatility.py human_packet/source/hgfx_v1_0_0_volatility.py
+          cp src/hgfx/updates/volatility.py human_packet/source/hgfx_dev_1_1_0b1_volatility.py
+          git diff f198da34d39c5b071cc217dac516fa50d7ce2008 e6eb57fdc037aeb0d0c5776ed0fb07ee3cccbad6 -- src/hgfx/updates/volatility.py > human_packet/source/development_patch_exact.diff
+          test -s human_packet/source/development_patch_exact.diff
+          for entry in \
+            'f5f50a160397de94f5f11545fdce4d74db6ca27b:human_packet/source/matlab_hgf_volatility_update.m' \
+            'afdbdcb5b4ae15926a7526cc604f6ca8f6fe7a76:human_packet/source/hgfx_v1_0_0_volatility.py' \
+            '07f70bba0df945c6be8b378a5d0db63a0f4e9a18:human_packet/source/hgfx_dev_1_1_0b1_volatility.py'; do
+            sha="${entry%%:*}"
+            file="${entry#*:}"
+            test "$(git hash-object "$file")" = "$sha"
+          done
+      - name: Assemble plain-English reviewer instructions, blank signing form and prior results
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp docs/research/reviews/REV24_EHGF019_HUMAN_REVIEW_HANDOFF_2026-11-10.md human_packet/README_FIRST.md
+          cp docs/research/reviews/REV24_EHGF019_HUMAN_REVIEW_TEMPLATE_2026-11-10.md human_packet/REVIEW_RESPONSE_TEMPLATE.md
+          cp tools/compstat_rev24_ehgf019_human_review_bundle_verify.py human_packet/verify_evidence.py
+          cp evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_PROPOSAL_2026-11-10.md human_packet/docs/PROPOSED_SCIENTIFIC_PROTOCOL_NOT_APPROVED.md
+          cp evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_CONTRACT.json human_packet/docs/PROPOSED_SCIENTIFIC_CONTRACT_NOT_APPROVED.json
+          cp docs/research/REV24_EHGF019_ORIGINAL_TRACE_RESULT_2026-11-10.md human_packet/docs/ORIGINAL_TRACE_RESULT.md
+          cp docs/research/REV24_EHGF019_MAINTENANCE_RESULT_2026-11-10.md human_packet/docs/MAINTENANCE_PATCH_RESULT.md
+          cp docs/research/REV24_EHGF019_FULL_REGRESSION_RESULT_2026-11-10.md human_packet/docs/FULL_CPU_REGRESSION_NOT_PASS.md
+          cp docs/research/REV24_EHGF019_P6A_GIT_DEPTH_ISOLATED_RESULT_2026-11-10.md human_packet/docs/ISOLATED_P6A_GIT_HISTORY_PASS.md
+          cp tests/unit/test_ehgf_max_nan_compat.py human_packet/source/original_scalar_golden_test.py
+          cp tests/paper/test_rev24_dev_validation_policy.py human_packet/source/source_policy_tests.py
+          git rev-parse HEAD > human_packet/PACKET_SOURCE_COMMIT.txt
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          root=Path('human_packet')
+          files=sorted(x for x in root.rglob('*') if x.is_file())
+          assert len(files)>=15
+          with (root/'SHA256SUMS.txt').open('w',encoding='utf8') as f:
+              for file in files:
+                  f.write(sha256(file.read_bytes()).hexdigest()+
+                          '  '+file.relative_to(root).as_posix()+'\n')
+          print('Human review packet source files:',len(files))
+          PY
+          python -m py_compile human_packet/verify_evidence.py
+          python human_packet/verify_evidence.py
+      - name: Create single portable ZIP and print SHA-256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile,ZIP_DEFLATED
+          from hashlib import sha256
+          root=Path('human_packet')
+          out=Path('REV24_eHGF019_human_review_evidence_2026-11-10.zip')
+          assert not out.exists()
+          with ZipFile(out,'w',ZIP_DEFLATED,compresslevel=7) as z:
+              for f in sorted(p for p in root.rglob('*') if p.is_file()):
+                  z.write(f,f.relative_to(root).as_posix())
+          with ZipFile(out) as z:
+              assert z.testzip() is None and 'SHA256SUMS.txt' in z.namelist()
+          print('HUMAN REVIEW ZIP',out.name,'bytes=',out.stat().st_size,
+                'sha256=',sha256(out.read_bytes()).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: REV24_eHGF019_human_review_evidence_2026-11-10
+          path: REV24_eHGF019_human_review_evidence_2026-11-10.zip
+          if-no-files-found: error
+          retention-days: 90
