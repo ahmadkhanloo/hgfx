@@ -41,8 +41,11 @@ jobs:
           assert 'version = "1.1.0b1"' in project
           print('ONLY DEVELOPMENT 1.1.0b1 UNIT TESTS; NOT ORIGINAL SCIENTIFIC PARITY')
           PY
-      - name: Test published trial-8 scalar golden and current eHGF forward regression
+      - name: Golden scalar and related HGF/eHGF/uHGF forward/fitting unit regressions
         run: |
           python -m pytest -q -ra \
             tests/unit/test_ehgf_max_nan_compat.py \
-            tests/unit/test_ehgf_forward.py
+            tests/unit/test_ehgf_forward.py \
+            tests/unit/test_hgf_forward.py \
+            tests/unit/test_uhgf_forward.py \
+            tests/unit/test_compat_fitting.py
