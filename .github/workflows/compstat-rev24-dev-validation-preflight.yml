@@ -1,0 +1,48 @@
+name: REV-2.4 eHGF dev validation proposal preflight (SOURCE ONLY)
+
+# May rerun on source/doc changes. This checks only immutable evidence identities,
+# Python source blobs, original MATLAB reference source, and NOT-AUTHORIZED gate.
+# It does NOT execute MATLAB, HGFX, a fit, a filter, an objective, or the full suite.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_CONTRACT.json'
+      - 'evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_PROPOSAL_2026-11-10.md'
+      - 'docs/research/reviews/REV24_EHGF019_HUMAN_REVIEW_HANDOFF_2026-11-10.md'
+      - 'tests/paper/test_rev24_dev_validation_policy.py'
+      - '.github/workflows/compstat-rev24-dev-validation-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-review-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify 334 original frozen MATLAB source files (no MATLAB execution)
+        run: python scripts/verify_reference_freeze.py
+      - name: Seven original-source, patch and human-approval gate tests (NO SCIENCE)
+        run: python -m unittest discover -s tests/paper -p 'test_rev24_dev_validation_policy.py' -v
+      - name: Preserve blocked scientific decision, no automatic oracle
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_CONTRACT.json')
+          c=json.loads(p.read_text())
+          assert c['status']=='PROPOSED_NOT_REVIEWED_NOT_AUTHORIZED'
+          assert not c['review_requirement']['human_review_accepted']
+          assert not c['review_requirement']['author_execution_approval']
+          print('SOURCE PREFLIGHT ONLY. SCIENTIFIC VALIDATION=NOT AUTHORIZED.')
+          PY
