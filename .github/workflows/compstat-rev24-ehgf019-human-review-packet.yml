@@ -1,12 +1,9 @@
 name: REV-2.4 eHGF019 HUMAN reviewer offline evidence ZIP (NO SCIENCE)
 
-# One packaging-only run. Never launches MATLAB/JAX/HGFX evaluation.
-# This is NOT a human signature, a scientific experiment or an acceptance gate.
+# Packaging-only run 42820014023 started at kickoff
+# aa779bfc7147f12ad5cfe607e60347d79f4d0957; automatic trigger retired.
+# No MATLAB/JAX/HGFX numerical model execution or scientific acceptance.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EHGF019_HUMAN_PACKET_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
