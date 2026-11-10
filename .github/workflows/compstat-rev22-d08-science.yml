@@ -1,0 +1,118 @@
+name: REV-2.2 D08 one-shot official MATLAB/HGFX paired fit (SCIENTIFIC)
+
+# New prospectively specified one-case research run, NOT a historical M18
+# holdout replay. Automatic source trigger is removed after kickoff.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_SCIENCE_KICKOFF_2026-11-11.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-official-d08-614:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: rev22_frozen_tag
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - name: Original 334-file HGF Toolbox SHA and exact official USDCHF input identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev22_science rev22_temp/wheel
+          python scripts/verify_reference_freeze.py
+          test "$(git -C external/hgf-toolbox rev-parse HEAD)" = '2437f4dc241541072722a2695ddeca7b44d83dd3'
+          test "$(git -C external/hgf-toolbox hash-object demo/example_usdchf.txt)" = '29a4d0322faf8894c414883c517950aa87b481db'
+          test "$(git rev-parse v1.0.0^{commit})" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          echo "RUN_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Install actual PyPI released HGFX 1.0.0 Wheel (never editable worktree)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --index-url https://pypi.org/simple 'numpy==2.0.2' 'jax>=0.4.30'
+          python -m pip download --index-url https://pypi.org/simple --no-deps 'hgfx==1.0.0' -d rev22_temp/wheel
+          wheels=(rev22_temp/wheel/hgfx-1.0.0-*.whl)
+          test ${#wheels[@]} -eq 1
+          python -m pip install --no-deps "${wheels[0]}"
+          wheel="$(realpath "${wheels[0]}")"
+          echo "REV22_WHEEL=$wheel" >> "$GITHUB_ENV"
+          echo '5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90  '"$wheel" | sha256sum -c
+          python -m pip show hgfx numpy jax jaxlib
+      - name: Validate original source, IEEE, Hessian and cross-field contracts BEFORE science
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev22_d08_protocol.py' -v
+      - name: ONE authentic MATLAB D08 simulation + ONE default fit with immutable source
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_rev22_d08_matlab(fullfile(pwd,'rev22_science','matlab_reference.json'),fullfile(pwd,'rev22_temp','matlab_fit_context.mat'))
+      - name: Fit released HGFX Wheel to exact MATLAB-generated 614 responses
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.compstat_rev22_d08_hgfx \
+            --matlab-reference rev22_science/matlab_reference.json \
+            --release-wheel "$REV22_WHEEL" \
+            --frozen-tag-source rev22_frozen_tag \
+            --output rev22_science/hgfx_released_fit.json
+      - name: Evaluate both original fitted endpoints in genuine MATLAB without any refit
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_rev22_d08_matlab_cross(fullfile(pwd,'rev22_temp','matlab_fit_context.mat'),fullfile(pwd,'rev22_science','hgfx_released_fit.json'),fullfile(pwd,'rev22_science','matlab_cross_endpoints.json'))
+      - name: Classify old exact-field direct criteria and raw cross-objective gaps
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.compstat_rev22_d08_compare \
+            --matlab-reference rev22_science/matlab_reference.json \
+            --hgfx rev22_science/hgfx_released_fit.json \
+            --matlab-cross rev22_science/matlab_cross_endpoints.json \
+            --output rev22_science/rev22_comparison.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('rev22_science/rev22_comparison.json').read_text())
+          assert d['official_case']=='D08_fit'
+          assert d['input_source_identity']['same_614_simulated_response_values']
+          assert d['cross_family_objective_pass']=='NO_PREDECLARED_UHGF_FAMILY_GATE'
+          assert d['scientific_global_parity']=='NOT_GLOBAL_PASS'
+          assert d['d2_d3']=='BLOCKED'
+          assert not d['existing_original_m18_d08_failed_status_overwritten']
+          print('SCOPED RESEARCH RESULT ONLY, global science remains BLOCKED')
+          PY
+      - name: Immutable SHA-256 audit of all retained results
+        if: always()
+        shell: bash
+        run: |
+          echo "REV22 run source HEAD=$(git rev-parse HEAD)"
+          find rev22_science -maxdepth 1 -type f -name '*.json' -print -exec sha256sum {} \;
+      - name: Delete transient MATLAB fit context and original released Wheel cache
+        if: always()
+        shell: bash
+        run: rm -rf rev22_temp rev22_frozen_tag
+      - name: Preserve every available original scientific result EVEN on error
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rev22-d08-original-official-614-matlab-released-wheel-science
+          path: rev22_science/*.json
+          if-no-files-found: warn
+          retention-days: 90
