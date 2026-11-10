@@ -44,7 +44,7 @@ def _full_endpoint(value, count, identity):
     return out
 
 
-def _case(case_id, model, observation, inputs, responses, matlab, hgfx, source):
+def _case(case_id, model, observation, inputs, responses, matlab, hgfx, source, *, obs_prior_variance, source_prior_variances=None):
     require(isinstance(inputs, list) and isinstance(responses, list)
             and len(inputs) == len(responses) and len(inputs) > 0,
             f"{case_id}: invalid original input/response pairing")
@@ -56,6 +56,8 @@ def _case(case_id, model, observation, inputs, responses, matlab, hgfx, source):
         "case_id": case_id, "perceptual_model": model,
         "observation_model": observation, "source": source,
         "trials": len(inputs), "inputs": safe(inputs), "responses": safe(responses),
+        "obs_prior_variance": obs_prior_variance,
+        "source_prior_variances": safe(source_prior_variances),
         "endpoints": {
             "matlab": matlab,
             "hgfx": hgfx,
@@ -86,6 +88,9 @@ def build_private_inputs(d02_data, d08_data, d08_comparison,
         d02["inputs"], d02["responses"],
         _full_endpoint(original_matlab["data"], 15, "D02 MATLAB"),
         None, "d02:m18_workflows.json",
+        obs_prior_variance=d02["obs_prior_variance"],
+        source_prior_variances={"perceptual": d02["fit"]["prc_priorsas"],
+                                "observation": d02["fit"]["obs_priorsas"]},
     )]
     require(cases[0]["trials"] == 320, "D02 original trial length changed")
 
@@ -106,6 +111,9 @@ def build_private_inputs(d02_data, d08_data, d08_comparison,
         d08_data["inputs"], d08_data["responses"],
         d08_matlab, d08_hgfx,
         "d08:m18_d08_endpoint.json+m18_d08_endpoint_comparison.json",
+        obs_prior_variance=d08_data["obs_priorsas"],
+        source_prior_variances={"perceptual": d08_data["prc_priorsas"],
+                                "observation": [d08_data["obs_priorsas"]]},
     ))
     require(cases[1]["trials"] == 614, "D08 original trial length changed")
 
@@ -136,7 +144,11 @@ def build_private_inputs(d02_data, d08_data, d08_comparison,
             _full_endpoint(hgfx_raw["cases"][idx]["optim"]["final"], 15,
                            f"cohort64 subject {idx} HGFX"),
             "cohort64:matlab_raw.json+hgfx_raw.json+binary_128_s64.json",
+            obs_prior_variance=1.0,
         ))
+    require(cases[0]["obs_prior_variance"] == 0.5 and
+            cases[1]["obs_prior_variance"] == 0.1,
+            "Original D02/D08 observation-prior variances changed")
     require(len(cases) == 66 and len({c["case_id"] for c in cases}) == 66,
             "Panel E cannot omit or duplicate an original case")
     require(sum(c["endpoints"]["hgfx"] is None for c in cases) == 1,
