@@ -1,0 +1,184 @@
+name: REV-2.4 reviewer evidence ZIP (NO SCIENCE)
+
+# Single packaging-only trigger. Never runs HGFX or MATLAB numerical models.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_REVIEW_PACKET_KICKOFF_2026-11-10.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  evidence-bundle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 75a34897c84ee746feb96a874e0f2ac52789b93f
+          path: source_snapshot
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Retrieve original verified artifacts only; NO historical participant raw archives
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p review_packet/evidence review_packet/metadata
+          for entry in 'panel_g_original_artifact.zip:13743694091' 'panel_e_sanitized_artifact.zip:13749028134' 'panel_e_posthoc_bounds_artifact.zip:13749878975'; do
+            file="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              -o "review_packet/evidence/${file}"
+          done
+          echo 'faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c  review_packet/evidence/panel_g_original_artifact.zip' | sha256sum -c
+          echo '41e2aca61afb0d1961c653b87db3b36a1edd204f7b68ee0b362c958474fb96bb  review_packet/evidence/panel_e_sanitized_artifact.zip' | sha256sum -c
+          echo 'faeae69aefffa00be28dbeade9371c5e0df85c784d64ff8d2961640d4ca09c4c  review_packet/evidence/panel_e_posthoc_bounds_artifact.zip' | sha256sum -c
+      - name: Capture original GitHub Actions run metadata and frozen pre-registration compare
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          for id in 42776302837 42776781367 42786519173 42787522512; do
+            curl --fail --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/runs/${id}" \
+              -o "review_packet/metadata/run_${id}.raw.json"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=Path('review_packet/metadata')
+          fields=('id','name','event','head_branch','head_sha','status',
+                  'conclusion','created_at','updated_at','run_started_at',
+                  'run_attempt','html_url','workflow_id')
+          for path in d.glob('run_*.raw.json'):
+              obj=json.loads(path.read_text())
+              assert obj['id'] in (42776302837,42776781367,42786519173,42787522512)
+              source={k:obj.get(k) for k in fields}
+              path.with_name(path.name.replace('.raw.json','.json')).write_text(
+                  json.dumps(source,indent=2,sort_keys=True)+'\n')
+              path.unlink()
+          PY
+      - name: Copy frozen source snapshot, research reports and independent-review form
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > review_packet/metadata/repo_paths.txt <<'EOF'
+          docs/planning/COMPSTAT_REVISION_PLAN.md
+          docs/planning/COMPSTAT_REVISION_LEDGER.md
+          docs/research/REV24_EXECUTION_HANDOFF.md
+          docs/research/REV24_PANEL_G_ORIGINAL_RESULT_2026-11-10.md
+          docs/research/REV24_PANEL_E_COVERAGE_2026-11-10.md
+          docs/research/REV24_PANEL_E_ORIGINAL_RESULT_2026-11-10.md
+          docs/research/REV24_PANEL_E_POSTHOC_BOUNDS_2026-11-10.md
+          evidence/revision/protocols/REV-2.4_PROTOCOL.md
+          evidence/revision/protocols/REV-2.4_EXECUTION_KICKOFF_2026-11-10.md
+          evidence/revision/protocols/REV-2.4_INFRASTRUCTURE_RETRY_2026-11-10.md
+          evidence/revision/protocols/REV-2.4_PANEL_E_KICKOFF_2026-11-10.md
+          tools/compstat_rev24_manifest.py
+          tools/compstat_rev24_hgfx_eval.py
+          tools/compstat_rev24_compare.py
+          tools/compstat_rev24_endpoint_sources.py
+          tools/compstat_rev24_endpoint_coverage.py
+          tools/compstat_rev24_panel_e_inputs.py
+          tools/compstat_rev24_panel_e_hgfx.py
+          tools/compstat_rev24_panel_e_compare.py
+          tools/compstat_rev24_endpoint_gap_bounds.py
+          reference/matlab/run_compstat_rev24_matlab.m
+          reference/matlab/run_compstat_rev24_panel_e_matlab.m
+          tests/paper/test_compstat_rev24_manifest.py
+          tests/paper/test_compstat_rev24_compare.py
+          tests/paper/test_compstat_rev24_hgfx_output.py
+          tests/paper/test_compstat_rev24_endpoint_sources.py
+          tests/paper/test_compstat_rev24_endpoint_coverage.py
+          tests/paper/test_compstat_rev24_panel_e_inputs.py
+          tests/paper/test_compstat_rev24_panel_e_objectives.py
+          tests/paper/test_compstat_rev24_endpoint_gap_bounds.py
+          .github/workflows/compstat-rev24-original-oracle.yml
+          .github/workflows/compstat-rev24-original-panel-e.yml
+          .github/workflows/compstat-rev24-endpoint-preflight.yml
+          .github/workflows/compstat-rev24-manifest-contract.yml
+          .github/workflows/compstat-rev24-endpoint-gap-bounds.yml
+          EOF
+          while IFS= read -r path; do
+            test -f "source_snapshot/${path}" || { echo "MISSING EXACT FROZEN SOURCE: ${path}"; exit 1; }
+            mkdir -p "review_packet/repo/$(dirname "${path}")"
+            cp "source_snapshot/${path}" "review_packet/repo/${path}"
+          done < review_packet/metadata/repo_paths.txt
+          cp docs/research/reviews/REV24_REVIEW_PACKET_README_2026-11-10.md review_packet/README_FIRST.md
+          cp docs/research/reviews/REV24_INDEPENDENT_REVIEW_TEMPLATE_2026-11-10.md review_packet/REVIEW_RESPONSE_TEMPLATE.md
+          cp tools/compstat_rev24_verify_review_packet.py review_packet/verify_reviewer_packet.py
+          python - <<'PY'
+          from pathlib import Path
+          root=Path('review_packet')
+          (root/'metadata'/'frozen_head.txt').write_text(
+              '75a34897c84ee746feb96a874e0f2ac52789b93f\n')
+          (root/'PRELIMINARY_REVIEW_LIMITATIONS_FA.md').write_text('''# وضعیت داوری اولیه (تأیید نشده)
+
+          داوری مشروطی که پیش‌تر ارائه شده صرفاً متن Issue #108 را بررسی کرده بود؛ گزارش‌ها و پروتکل به‌دلیل محدودیت نرخ GitHub باز نشدند و artifactها، هش‌ها و کدها بازبینی نشده بودند. هیچ محاسبه‌ای اجرا نشده و هیچ رکورد امضاشده‌ای از داور مستقل دریافت نشده است.
+
+          حکم مقدماتی: BLOCK_GLOBAL_PARITY؛ اجازهٔ مشروط برای ONLY HGF SAME-VECTOR OBJECTIVE CLAIM پس از راستی‌آزمایی مستقل منابع؛ NEEDS_REFERENCE_EVIDENCE برای اختلاف eHGF case 019 و هر ادعای خانوادگی eHGF/uHGF؛ D2/D3 همچنان BLOCKED.
+
+          این بسته برای جبران محدودیت دسترسی ارسال می‌شود، نه برای تبدیل خودکار داوری مقدماتی به تأییدیه. لطفاً REVIEW_RESPONSE_TEMPLATE.md را شخصاً بر اساس شواهدی که واقعاً بررسی کرده‌اید تکمیل کنید. داده‌های خام Panel E در این بسته نیستند و باید NOT VERIFIED باقی بمانند مگر به‌طور مجاز و مستقل بررسی شوند.
+          '''.replace('          ','').strip()+'\n',encoding='utf-8')
+          PY
+      - name: Freeze bundle checksums and independently verify original record counts offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          root=Path('review_packet')
+          files=sorted(p for p in root.rglob('*') if p.is_file() and
+                       p.name!='SHA256SUMS.txt')
+          assert len(files)>35, len(files)
+          with (root/'SHA256SUMS.txt').open('w') as handle:
+              for p in files:
+                  rel=p.relative_to(root).as_posix()
+                  handle.write(sha256(p.read_bytes()).hexdigest()+'  '+rel+'\n')
+          print('Frozen review evidence files:',len(files))
+          PY
+          python review_packet/verify_reviewer_packet.py
+      - name: Build single portable ZIP; verify its contents
+        run: |
+          python - <<'PY'
+          from zipfile import ZipFile,ZIP_DEFLATED
+          from pathlib import Path
+          from hashlib import sha256
+          root=Path('review_packet')
+          out=Path('REV24_independent_reviewer_evidence_2026-11-10.zip')
+          assert not out.exists()
+          with ZipFile(out,'w',ZIP_DEFLATED,compresslevel=7) as z:
+              for f in sorted(p for p in root.rglob('*') if p.is_file()):
+                  z.write(f,f.relative_to(root).as_posix())
+          print('Review evidence ZIP:',out.name,'size=',out.stat().st_size,
+                'SHA256=',sha256(out.read_bytes()).hexdigest())
+          with ZipFile(out) as z:
+              assert z.testzip() is None
+              assert 'SHA256SUMS.txt' in z.namelist()
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: REV24_independent_reviewer_evidence_2026-11-10
+          path: REV24_independent_reviewer_evidence_2026-11-10.zip
+          if-no-files-found: error
+          retention-days: 90
