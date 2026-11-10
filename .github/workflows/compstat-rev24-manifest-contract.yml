@@ -9,6 +9,8 @@ on:
       - 'tests/paper/test_compstat_rev24_manifest.py'
       - 'tools/compstat_rev24_compare.py'
       - 'tests/paper/test_compstat_rev24_compare.py'
+      - 'tools/compstat_rev24_hgfx_eval.py'
+      - 'tests/paper/test_compstat_rev24_hgfx_output.py'
       - 'evidence/revision/protocols/REV-2.4_PROTOCOL.md'
       - '.github/workflows/compstat-rev24-manifest-contract.yml'
   pull_request:
@@ -17,6 +19,8 @@ on:
       - 'tests/paper/test_compstat_rev24_manifest.py'
       - 'tools/compstat_rev24_compare.py'
       - 'tests/paper/test_compstat_rev24_compare.py'
+      - 'tools/compstat_rev24_hgfx_eval.py'
+      - 'tests/paper/test_compstat_rev24_hgfx_output.py'
       - 'evidence/revision/protocols/REV-2.4_PROTOCOL.md'
       - '.github/workflows/compstat-rev24-manifest-contract.yml'
   workflow_dispatch:
@@ -42,6 +46,8 @@ jobs:
         run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_manifest.py' -v
       - name: Verify paired-output fail-closed comparator contract (synthetic fixtures only)
         run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_compare.py' -v
+      - name: Regression for original HGFX NumPy-bool JSON crash (synthetic fixtures only)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_hgfx_output.py' -v
       - name: Report scientific execution boundary
         run: |
           echo 'REV-2.4 only input-grid unit tests; NO HGFX 1.0.0 objective executed; NO MATLAB oracle; NO scientific PASS'
