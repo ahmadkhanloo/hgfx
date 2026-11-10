@@ -59,7 +59,7 @@ class Rev24PanelEPrivateInputsContract(unittest.TestCase):
         self.assertEqual(report["original_hgfx_endpoints"], 65)
         self.assertEqual(report["insufficient_reference_evidence"], ["D02_fit"])
         self.assertEqual(report["objective_evaluations"], 0)
-        self.assertEqual(report["scientific_gate"], "NOT_ASSESSED")
+        self.assertEqual(report["science_gate"], "NOT_ASSESSED")
         raw = json.dumps(report)
         self.assertNotIn('"inputs"', raw)
         self.assertNotIn('"responses"', raw)
