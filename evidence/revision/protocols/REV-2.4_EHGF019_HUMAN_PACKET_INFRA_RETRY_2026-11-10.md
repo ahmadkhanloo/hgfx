@@ -1,0 +1,9 @@
+# REV-2.4 eHGF019 human packet — packaging-only infrastructure retry (2026-11-10)
+
+**Science: NONE. Original results untouched.** First offline *review bundle* attempt [Actions run 42820014023](https://github.com/ahmadkhanloo/hgfx/actions/runs/42820014023), source commit `aa779bfc7147f12ad5cfe607e60347d79f4d0957`, **FAILED** after original three ZIP digests and pinned source blobs were successfully verified. The only failure was in offline ZIP packaging: an unnecessary `python -m py_compile human_packet/verify_evidence.py` created `__pycache__/verify_evidence.cpython-311.pyc` **after** `SHA256SUMS.txt` had been enumerated, causing `ValueError: Unlisted or missing files in packet`. No human-visible ZIP artifact was uploaded. The complete failed action logs are preserved.
+
+**Minimal correction:** commit `b74b7134a0042ec5d464b4c25f825175439a179d` replaces only that extraneous bytecode-generating syntax check with Python stdlib `ast.parse`, which does not create `__pycache__`; all original SHA-256 checks, archived inputs, original MATLAB/released/dev source bytes, reviewer text and scientific-gate policy remain unchanged.
+
+**Authorization:** exactly **one** infrastructure-only retry of the **offline packaging** workflow. The experiment/protocol execution caps for original 600-case Panel G, 66-case Panel E, separate eHGF019 diagnostic and complete CPU maintenance suite are **unaffected and NOT reopened**. This workflow must NOT run a filter, model, objective, JAX, MATLAB, GPU or any scientific calculation. After starting the single packaging retry, remove its temporary scoped push trigger. Retain both failures and record the final archive SHA/size only after the offline verifier succeeds. No repeat-until-green.
+
+**Current gates:** human expert countersignature **MISSING**, prospective development scientific protocol **NOT AUTHORIZED**, full CPU historical **NOT_PASS**, original REV-2.4 `NOT_GLOBAL_PASS`, manuscript D2/D3 **BLOCKED**.
