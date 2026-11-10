@@ -57,6 +57,8 @@ def priors_source_list(values):
         check(values.get("shape", [1, len(values.get("data", []))])
               == [1, len(values["data"])], "Archived prior-vector shape drift")
         values = values["data"]
+    if not isinstance(values, list):
+        values = [values]
     return as_float_array(values)
 
 
