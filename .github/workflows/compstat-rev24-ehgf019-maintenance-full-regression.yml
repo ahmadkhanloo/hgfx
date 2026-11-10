@@ -1,9 +1,14 @@
 name: REV-2.4 eHGF019 one-shot full CPU regression (MAINTENANCE ONLY)
 
-# Original one-shot full CPU maintenance run 42800906817 launched at
-# ed3636a11bf70108eae6c3d520f457f309de96b8.
-# Scoped automatic push trigger retired; no extra regression loop.
+# Original full regression 42800906817 failed test COLLECTION on both OSes
+# because standalone pytest did not resolve the local tools namespace.
+# This is the ONE documented infrastructure-only retry of the same full suite.
+# Remove temporary push trigger immediately after launch.
 on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_EHGF019_FULL_REGRESSION_INFRA_RETRY_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
