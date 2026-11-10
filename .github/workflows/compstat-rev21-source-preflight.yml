@@ -1,0 +1,87 @@
+name: REV-2.1 original warning-source + transformed M12B baseline preflight (NO SCIENCE)
+
+# Source-only pre-experiment mathematical guard, not a multi-vector run.
+# This workflow may run on protocol/source changes without exhausting science.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tools/compstat_rev21_source_preflight.py'
+      - 'tests/paper/test_compstat_rev21_source_preflight.py'
+      - '.github/workflows/compstat-rev21-source-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  source-identity-and-domain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ahmadkhanloo/hgfx
+          ref: e09f72020dbab52f2d73b90ff4d9ee40999b9fae
+          path: original_fullcohort_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Nine static AST/source-domain contracts; no model imports
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev21_source_preflight.py' -v
+      - name: Verify frozen MATLAB reference source inventory, no MATLAB execution
+        run: python scripts/verify_reference_freeze.py
+      - name: Retrieve only archived 324-case aggregate status, never participant source
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rev21_original"
+          curl --fail --location --retry 2 --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/actions/artifacts/13311622738/zip" \
+            -o "$RUNNER_TEMP/rev21_original/original_324_aggregate.zip"
+          echo '1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391  '"$RUNNER_TEMP/rev21_original/original_324_aggregate.zip" | sha256sum -c
+      - name: Source-only old prior/old native vector inverse logit audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/compstat_rev21_source_preflight.py \
+            --original-zip "$RUNNER_TEMP/rev21_original/original_324_aggregate.zip" \
+            --original-source original_fullcohort_source/paper/case_studies/compare_realdata_pair.py \
+            --config-source external/hgf-toolbox/perceptual/hgf_ar1_binary_mab_config_base.m \
+            --transform-source external/hgf-toolbox/perceptual/hgf_ar1_binary_mab_transp.m \
+            --output evidence/revision/rev21_source_preflight.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('evidence/revision/rev21_source_preflight.json')
+          j=json.loads(p.read_text())
+          assert j['status']=='BLOCKED_M12B_TRANSFORMED_BASELINE_UNDEFINED'
+          assert j['scientific_or_model_executions']==0
+          assert j['original_324_cases']==324
+          assert j['original_warning_blocks']==48 and j['original_warning_events']==86
+          assert j['selection']['total_multivector_source_blocks']==128
+          assert j['baseline_transform_check']['native_value']==0.0
+          assert j['baseline_transform_check']['transformed_prior_variance']==1.0
+          assert not j['baseline_transform_check']['finite_inverse_logit_exists']
+          assert j['new_multivector_vectors_generated']==0 and j['new_forward_cases_evaluated']==0
+          print('SOURCE PREFLIGHT SUCCESSFULLY IDENTIFIES A PRE-SCIENCE DESIGN BLOCKER; NO SCIENCE RUN')
+          PY
+          sha256sum evidence/revision/rev21_source_preflight.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev21-original-source-preflight-blocker-no-science
+          path: evidence/revision/rev21_source_preflight.json
+          if-no-files-found: error
+          retention-days: 90
