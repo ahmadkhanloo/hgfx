@@ -18,6 +18,8 @@ Python-first fitting API. The validated compatibility surface includes the froze
 
 MATLAB-style alias: `hgfx.fitModel(...)`.
 
+**Development-only REV-2.2 optimizer diagnostics (not available in the frozen `hgfx==1.0.0` release):** compatibility fits now expose `result.optim.termination` (existing quasi-Newton stop reason: `tol_grad`, `tol_arg`, `max_iter`, or `max_resets`) and `result.optim.converged` (Python `bool`, true only for a finite final objective and parameters with a `tol_grad` or `tol_arg` stopping condition). These are additive diagnostic keys retained under `result.to_dict(matlab_style=True)["optim"]`; existing MATLAB-style keys remain unchanged. A `tol_arg` stop may reflect stagnation, not a verified stationary point. These flags establish **neither global optimality nor MATLAB numerical/scientific parity**. Original per-fit iteration/reset history and reference evidence remain unchanged.
+
 Opt-in MAP on the same objective, different optimizer: `hgfx.optim.fit_map` / `hgfx.optim.minimize_map`. See `docs/user/V1_1.md`.
 
 ### `hgfx.sim_model(...)`
