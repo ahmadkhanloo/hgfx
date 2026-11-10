@@ -1,0 +1,136 @@
+name: REV-2.4 D019 frozen MATLAB/HGFX latent diagnostic (NOT PARITY)
+
+# One separately precommitted diagnostic; no full Panel G replay or new fits.
+# Remove the one-shot trigger after the real run is observed. Old Panel G
+# pass/fail and original evidence are immutable.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_EHGF019_DIAGNOSTIC_KICKOFF_2026-11-10.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  original-single-vector-diagnostic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: rev24_frozen_tag
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - name: Verify all frozen MATLAB reference files before any diagnostic
+        run: python scripts/verify_reference_freeze.py
+      - name: Install exact public 1.0.0 Wheel, NumPy 2.0.2, JAX x64 CPU
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_d019_original/wheel rev24_d019_result
+          python -m pip install --index-url https://pypi.org/simple 'numpy==2.0.2' 'jax>=0.4.30'
+          python -m pip download --index-url https://pypi.org/simple --no-deps 'hgfx==1.0.0' -d rev24_d019_original/wheel
+          wheels=(rev24_d019_original/wheel/hgfx-1.0.0-*.whl)
+          test ${#wheels[@]} -eq 1
+          python -m pip install --no-deps "${wheels[0]}"
+          wheel_path="$(realpath "${wheels[0]}")"
+          echo "REV24_WHEEL=$wheel_path" >> "$GITHUB_ENV"
+          echo '5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90  '"$wheel_path" | sha256sum -c
+          python -m pip show hgfx numpy jax jaxlib
+      - name: Synthetic-only D019 diagnostic source/shape tests (NOT SCIENCE)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_ehgf019_trace.py' -v
+      - name: Download same original completed Panel G artifact 13743694091 only
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${REPO}/actions/artifacts/13743694091/zip" \
+            --output rev24_d019_original/panel_g_original.zip
+          echo 'faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c  rev24_d019_original/panel_g_original.zip' | sha256sum -c
+      - name: SHA verify all original members; NEVER regenerate or select new case
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from hashlib import sha256
+          from tools.compstat_rev24_ehgf019_trace_compare import ORIGINAL_MEMBERS
+          from tools.compstat_rev24_ehgf019_hgfx_trace import source_case
+          import json
+          root=Path('rev24_d019_original')
+          with ZipFile(root/'panel_g_original.zip') as z:
+              assert set(z.namelist())==set(ORIGINAL_MEMBERS)
+              for file,digest in ORIGINAL_MEMBERS.items():
+                  data=z.read(file)
+                  assert sha256(data).hexdigest()==digest,file
+                  path=root/file
+                  assert not path.exists()
+                  path.write_bytes(data)
+          doc=json.loads((root/'manifest.json').read_text())
+          group,original=source_case(doc)
+          print('IMMUTABLE CASE VERIFIED', original['case_id'],
+                original['case_sha256'],
+                'n_original_cases=',sum(len(g['rows']) for g in doc['strata']))
+          PY
+      - name: Trace 128 original trials on frozen released HGFX without fitter
+        run: |
+          python -m tools.compstat_rev24_ehgf019_hgfx_trace \
+            --manifest rev24_d019_original/manifest.json \
+            --release-wheel "$REV24_WHEEL" \
+            --frozen-tag-source rev24_frozen_tag \
+            --output rev24_d019_result/hgfx_trace.json
+      - name: Trace exactly the same vector in real frozen MATLAB
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_compstat_rev24_ehgf019_matlab(fullfile(pwd,'rev24_d019_original','manifest.json'),fullfile(pwd,'rev24_d019_result','matlab_trace.json'))
+      - name: Compare latent statuses, preserve first divergence and no new gates
+        run: |
+          python -m tools.compstat_rev24_ehgf019_trace_compare \
+            --manifest rev24_d019_original/manifest.json \
+            --original-matlab rev24_d019_original/matlab.json \
+            --original-hgfx rev24_d019_original/hgfx.json \
+            --matlab-trace rev24_d019_result/matlab_trace.json \
+            --hgfx-trace rev24_d019_result/hgfx_trace.json \
+            --output rev24_d019_result/diagnostic_comparison.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('rev24_d019_result/diagnostic_comparison.json')
+          data=json.loads(p.read_text())
+          assert data['scientific_gate']=='NOT_GLOBAL_PASS'
+          assert data['case_id']=='REV24-G-ehgf_binary-019'
+          assert data['original_global_600_row_grid_replaced'] is False
+          assert data['causal_expression_and_mechanism']=='NOT_ESTABLISHED'
+          print('D019 DIAGNOSTIC COMPLETE — ORIGINAL SCIENCE STILL BLOCKED')
+          PY
+          sha256sum rev24_d019_result/*.json
+      - name: Delete original full manifest and wheel cache; preserve diagnostic only
+        if: always()
+        run: rm -rf rev24_d019_original rev24_frozen_tag
+      - name: Upload first-trial synthetic-case trace and diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rev24-ehgf019-original-fixed-vector-latent-diagnostic
+          path: rev24_d019_result/*.json
+          if-no-files-found: warn
+          retention-days: 90
