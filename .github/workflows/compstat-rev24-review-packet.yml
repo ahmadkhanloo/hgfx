@@ -1,11 +1,8 @@
 name: REV-2.4 reviewer evidence ZIP (NO SCIENCE)
 
-# Single packaging-only trigger. Never runs HGFX or MATLAB numerical models.
+# Initial non-science evidence packet run 42791945233 launched at 2021cfc3.
+# One-shot automatic trigger retired; manual packaging only from here.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_REVIEW_PACKET_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
