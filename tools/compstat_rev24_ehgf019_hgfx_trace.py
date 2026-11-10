@@ -139,7 +139,7 @@ def main():
     traj,states=ehgf_binary(
         u,full[:14],transformed=True,
         irregular_intervals=bool(original_config.options.get("irregular_intervals",False)),
-        ignored_trials=[],validate=True
+        ignored_trials=[]
     )
     ll,_,_=unitsq_sgm(y,states,full[14:],
                       predorpost=1,irregular_trials=[])
