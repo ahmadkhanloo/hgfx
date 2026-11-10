@@ -39,7 +39,7 @@ def check(ok,explain):
 def hash256(data):
  return hashlib.sha256(data).hexdigest()
 def git_blob(data):
- return hashlib.sha1(b"blob "+str(len(data)).encode()+b"\\0"+data).hexdigest()
+ return hashlib.sha1(b"blob "+str(len(data)).encode()+b"\0"+data).hexdigest()
 def parse_zip(name,expected,member_hashes):
  data=(ROOT/name).read_bytes()
  check(hash256(data)==expected,f"Unexpected frozen ZIP SHA256: {name}")
