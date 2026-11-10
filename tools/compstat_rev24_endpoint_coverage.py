@@ -42,7 +42,7 @@ def cohort_source(path: Path) -> dict:
     raw = path.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
     require(digest == COHORT_INPUT_SHA256, "Original cohort input SHA256 mismatch")
-    git_blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\\0" + raw).hexdigest()
+    git_blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + bytes((0,)) + raw).hexdigest()
     require(git_blob == COHORT_INPUT_GIT_BLOB,
             "Original run-commit source fixture git blob mismatch")
     data = json.loads(raw)
