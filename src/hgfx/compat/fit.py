@@ -24,6 +24,20 @@ from .matlab_names import coerce_quasinewton_options, require_model
 from .result import CompatibilityResult, MatlabStruct, config_struct, parameter_struct
 
 
+def _optimizer_converged(optimizer: object) -> bool:
+    """True only for a finite solver-tolerance stop, not proof of an optimum.
+
+    `tol_arg` is a small-step stop, which may also reflect stagnation; callers
+    must inspect `termination` and objective/curvature diagnostics before making
+    scientific convergence claims.
+    """
+    return bool(
+        optimizer.termination in ("tol_grad", "tol_arg")
+        and np.isfinite(optimizer.val_min)
+        and np.isfinite(optimizer.arg_min).all()
+    )
+
+
 def _optimizer_struct(
     fit: CompatibilityFitResult,
     stats: FitStatistics,
@@ -56,6 +70,10 @@ def _optimizer_struct(
         {
             "init": np.asarray(start_full, dtype=np.float64).copy(),
             "final": fit.final_full.copy(),
+            # Additive Python diagnostic metadata; original MATLAB fields stay
+            # unchanged. Solver tolerance is not proof of a global optimum.
+            "termination": str(optimizer.termination),
+            "converged": _optimizer_converged(optimizer),
             "H": stats.hessian.copy(),
             "Sigma": stats.sigma.copy(),
             "Corr": stats.correlation.copy(),
