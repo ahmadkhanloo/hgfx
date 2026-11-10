@@ -1,0 +1,48 @@
+name: REV-2.4 eHGF019 maintenance golden test (NO ORIGINAL SCIENCE)
+
+# Source/worktree v1.1.0b1 compatibility regression, never scientific v1.0.0.
+# Frozen original MATLAB/HGFX trace is read as reference only; this workflow
+# never executes the original full 128-trial case or any new 600-grid.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tests/unit/test_ehgf_max_nan_compat.py'
+      - 'tests/unit/test_ehgf_forward.py'
+      - 'src/hgfx/updates/volatility.py'
+      - '.github/workflows/compstat-rev24-ehgf019-maintenance-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-development-code:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Freeze source-only unit dependencies (NOT released HGFX wheel)
+        run: |
+          python -m pip install --index-url https://pypi.org/simple \
+            'numpy==2.0.2' 'pytest>=8,<9' 'jax>=0.4.30'
+          python - <<'PY'
+          from pathlib import Path
+          project=Path('pyproject.toml').read_text()
+          assert 'version = "1.1.0b1"' in project
+          print('ONLY DEVELOPMENT 1.1.0b1 UNIT TESTS; NOT ORIGINAL SCIENTIFIC PARITY')
+          PY
+      - name: Test published trial-8 scalar golden and current eHGF forward regression
+        run: |
+          python -m pytest -q -ra \
+            tests/unit/test_ehgf_max_nan_compat.py \
+            tests/unit/test_ehgf_forward.py
