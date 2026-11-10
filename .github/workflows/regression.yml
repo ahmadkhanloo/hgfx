@@ -39,7 +39,7 @@ jobs:
       - name: Complete frozen MATLAB source classification
         run: python tools/check_v1_source_classification.py
       - name: Complete CPU regression (physical GPU tests remain explicit)
-        run: pytest -q --junitxml=regression-results.xml
+        run: python -m pytest -q --junitxml=regression-results.xml
       - uses: actions/upload-artifact@v4
         if: always()
         with:
