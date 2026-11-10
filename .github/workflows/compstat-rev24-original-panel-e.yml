@@ -1,0 +1,133 @@
+name: CompStat REV-2.4 original Panel E endpoints (SCIENTIFIC, NOT PASS)
+
+# Explicitly authorized once by the immutable Panel E kickoff document.
+# Remove push trigger immediately after the actual Actions run is observed.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.4_PANEL_E_KICKOFF_2026-11-10.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  original-panel-e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: rev24_frozen_tag
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 81ae256b318e18ea08b03ab6fcb69100ac6c836d
+          path: rev24_original_input_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - name: Verify frozen original MATLAB toolbox source
+        run: python scripts/verify_reference_freeze.py
+      - name: Install the source-checked HGFX 1.0.0 wheel and frozen NumPy
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_private/wheel rev24_public
+          python -m pip install --index-url https://pypi.org/simple 'numpy==2.0.2' 'jax>=0.4.30'
+          python -m pip download --index-url https://pypi.org/simple --no-deps 'hgfx==1.0.0' -d rev24_private/wheel
+          wheels=(rev24_private/wheel/hgfx-1.0.0-*.whl)
+          test ${#wheels[@]} -eq 1
+          python -m pip install --no-deps "${wheels[0]}"
+          wheel_path="$(realpath "${wheels[0]}")"
+          echo "REV24_WHEEL=$wheel_path" >> "$GITHUB_ENV"
+          echo '5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90  '"$wheel_path" | sha256sum -c
+          python -m pip show hgfx numpy jax jaxlib
+      - name: Run immutable original source and Panel E synthetic output-contract tests
+        run: |
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_sources.py' -v
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_coverage.py' -v
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_panel_e_inputs.py' -v
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev24_panel_e_objectives.py' -v
+      - name: Download frozen original D02 D08 and 64 historical artifacts (NO refitting)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_private/archives
+          for entry in 'd02:10339454535' 'd08:10339403480' 'cohort64:13341288055'; do
+            label="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              --header "Authorization: Bearer ${GH_TOKEN}" \
+              --header 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              --output "rev24_private/archives/${label}.zip"
+          done
+      - name: SHA-verify and prepare the exact PRIVATE original 66-case input package
+        run: |
+          python -m tools.compstat_rev24_panel_e_inputs \
+            --d02 rev24_private/archives/d02.zip \
+            --d08 rev24_private/archives/d08.zip \
+            --cohort64 rev24_private/archives/cohort64.zip \
+            --cohort-input rev24_original_input_source/benchmarks/runtime_v1/inputs/binary_128_s64.json \
+            --private-output rev24_private/panel_e_inputs.json \
+            --audit-output rev24_public/input_source_audit.json
+      - name: Evaluate all original endpoints in released HGFX 1.0.0, no optimizer
+        run: |
+          python -m tools.compstat_rev24_panel_e_hgfx \
+            --private-input rev24_private/panel_e_inputs.json \
+            --release-wheel "$REV24_WHEEL" \
+            --frozen-tag-source rev24_frozen_tag \
+            --private-output rev24_private/hgfx.json
+      - name: Evaluate identical original endpoints in frozen MATLAB HGF 8.2.0
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_compstat_rev24_panel_e_matlab(fullfile(pwd,'rev24_private','panel_e_inputs.json'),fullfile(pwd,'rev24_private','matlab.json'))
+      - name: Audit matched objectives; publish ONLY sanitized numerical differences
+        run: |
+          python -m tools.compstat_rev24_panel_e_compare \
+            --private-input rev24_private/panel_e_inputs.json \
+            --private-matlab rev24_private/matlab.json \
+            --private-hgfx rev24_private/hgfx.json \
+            --sanitized-output rev24_public/panel_e_comparison.json
+          sha256sum rev24_public/*.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('rev24_public/panel_e_comparison.json').read_text())
+          assert report['scientific_gate']=='NOT_GLOBAL_PASS'
+          assert report['case_denominator']==66
+          assert report['endpoint_slot_denominator']==132
+          assert not report['includes_trial_data_or_full_endpoints']
+          print('REAL PANEL E EVIDENCE CAPTURED, NOT AN OBJECTIVE/SCIENTIFIC PASS')
+          PY
+      - name: Delete sensitive original Panel E sources and per-trial evaluations
+        if: always()
+        shell: bash
+        run: |
+          rm -rf rev24_private rev24_original_input_source
+          echo 'Original case data, endpoints and per-trial likelihoods not retained in CI workspace'
+      - name: Upload ONLY sanitized audit with no trial data or parameter vectors
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-rev24-panel-e-sanitized-results
+          path: rev24_public/*.json
+          if-no-files-found: warn
+          retention-days: 90
