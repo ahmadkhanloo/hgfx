@@ -1,0 +1,48 @@
+name: REV-2.2 official D08 scientific protocol source preflight (NO MODEL)
+
+# This validates only original source/shape/oracle identity and synthetic
+# comparator logic; it never executes MATLAB, HGFX, JAX or optimization.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_USDCHF_ORACLE_PROTOCOL_2026-11-11.md'
+      - 'reference/matlab/run_rev22_d08_matlab.m'
+      - 'reference/matlab/run_rev22_d08_matlab_cross.m'
+      - 'tools/compstat_rev22_d08_hgfx.py'
+      - 'tools/compstat_rev22_d08_compare.py'
+      - 'tests/paper/test_compstat_rev22_d08_protocol.py'
+      - '.github/workflows/compstat-rev22-d08-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-source-and-synthetic-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install NumPy ONLY for source and synthetic tests
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Full frozen MATLAB reference SHA inventory, no MATLAB invocation
+        run: python scripts/verify_reference_freeze.py
+      - name: Verify original D08 model/seed/data and comparator rules
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev22_d08_protocol.py' -v
+      - name: Static Python syntax verification only
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          for name in ('tools/compstat_rev22_d08_hgfx.py','tools/compstat_rev22_d08_compare.py'):
+              ast.parse(Path(name).read_text(encoding='utf8'))
+          print('REV22 source-only preflight completed, no scientific run')
+          PY
