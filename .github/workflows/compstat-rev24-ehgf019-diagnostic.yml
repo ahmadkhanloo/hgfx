@@ -1,14 +1,10 @@
 name: REV-2.4 D019 frozen MATLAB/HGFX latent diagnostic (NOT PARITY)
 
-# Original case diagnostic 42796827923 failed BEFORE science on a fourth
-# original archive member inventory check (documented infrastructure only).
-# Sole permitted infrastructure retry triggered only by the reviewed record.
-# Remove this push trigger immediately after retry starts.
+# Original diagnostic run 42796827923 failed pre-science on archive
+# member inventory; sole protocol-permitted retry 42797497943 launched
+# at 3ddb41283b2f7af8a5183e9e57e6c774942e9070.
+# No further original diagnostic run is authorized by this protocol.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.4_EHGF019_DIAGNOSTIC_RETRY_KICKOFF_2026-11-10.md'
   workflow_dispatch:
 
 permissions:
