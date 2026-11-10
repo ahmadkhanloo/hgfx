@@ -1,0 +1,75 @@
+name: CompStat REV-2.4 original endpoint posthoc bounds (NO NEW SCIENCE)
+
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tools/compstat_rev24_endpoint_gap_bounds.py'
+      - 'tests/paper/test_compstat_rev24_endpoint_gap_bounds.py'
+      - '.github/workflows/compstat-rev24-endpoint-gap-bounds.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  pinned-posthoc-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify pure arithmetic and fail-closed source contracts (synthetic)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_gap_bounds.py' -v
+      - name: Retrieve two frozen historical originals and successful original Panel E audit
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_posthoc_private rev24_posthoc_public
+          for entry in 'd08:10339403480' 'cohort64:13341288055' 'original_e_audit:13749028134'; do
+            label="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --silent --show-error --retry 2 \
+              --header "Authorization: Bearer ${GH_TOKEN}" \
+              --header 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              --output "rev24_posthoc_private/${label}.zip"
+          done
+      - name: Check immutable successful Panel E artifact before processing
+        run: |
+          echo '41e2aca61afb0d1961c653b87db3b36a1edd204f7b68ee0b362c958474fb96bb  rev24_posthoc_private/original_e_audit.zip' | sha256sum -c
+          python - <<'PY'
+          from zipfile import ZipFile
+          from pathlib import Path
+          with ZipFile('rev24_posthoc_private/original_e_audit.zip') as z:
+              assert 'panel_e_comparison.json' in z.namelist()
+              path=Path('rev24_posthoc_private/panel_e_comparison.json')
+              assert not path.exists()
+              path.write_bytes(z.read('panel_e_comparison.json'))
+          PY
+          echo '051aea43a11f7788b85d64a9cb8e82a59a274a70aa347f1927920d991a8ce86d  rev24_posthoc_private/panel_e_comparison.json' | sha256sum -c
+      - name: Compute posthoc triangle bounds from original archived results; NO science replay
+        run: |
+          python -m tools.compstat_rev24_endpoint_gap_bounds \
+            --d08 rev24_posthoc_private/d08.zip \
+            --cohort64 rev24_posthoc_private/cohort64.zip \
+            --panel-e-comparison rev24_posthoc_private/panel_e_comparison.json \
+            --sanitized-output rev24_posthoc_public/endpoint_gap_bounds.json
+      - name: Delete old raw source and upload ONLY aggregated posthoc bounds
+        if: always()
+        run: rm -rf rev24_posthoc_private
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compstat-rev24-posthoc-endpoint-gap-bounds
+          path: rev24_posthoc_public/*.json
+          if-no-files-found: warn
+          retention-days: 90
