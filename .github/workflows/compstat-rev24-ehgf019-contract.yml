@@ -1,0 +1,42 @@
+name: REV-2.4 D019 trace contract tests (NO SCIENCE)
+
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tests/paper/test_compstat_rev24_ehgf019_trace.py'
+      - 'tools/compstat_rev24_ehgf019_hgfx_trace.py'
+      - 'tools/compstat_rev24_ehgf019_trace_compare.py'
+      - 'reference/matlab/run_compstat_rev24_ehgf019_matlab.m'
+      - '.github/workflows/compstat-rev24-ehgf019-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  only-synthetic-contracts:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: NumPy contract semantics only
+        run: python -m pip install 'numpy==2.0.2'
+      - name: D019 original case, trace shapes, finite-status classification
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_ehgf019_trace.py' -v
+      - name: Frozen MATLAB diagnostic static contract, no MATLAB execution
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('reference/matlab/run_compstat_rev24_ehgf019_matlab.m').read_text()
+          assert 'REV24-G-ehgf_binary-019' in s
+          assert '276d21f43a91fc8748438aafc6ec44f759f23dc2ae97dae8b4cc1274aba3fefb' in s
+          assert '2437f4dc241541072722a2695ddeca7b44d83dd3' in s
+          assert 'pc.prc_fun' in s and 'oc.obs_fun' in s
+          assert 'fitModel(' not in s and 'simModel(' not in s
+          print('D019 MATLAB reference identity syntax contract PASS; NO oracle invoked')
+          PY
