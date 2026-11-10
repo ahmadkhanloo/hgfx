@@ -73,7 +73,9 @@ def evaluate_one(model: str, row: dict, group: dict, inputs: np.ndarray,
         result["trial_log_likelihoods"] = [ieee(v) for v in ll]
         result["perceptual_prior_total"] = ieee(objective.perceptual_prior.total)
         result["observation_prior_total"] = ieee(objective.observation_prior.total)
-        result["valid"] = (
+        # NumPy 2.0 returns np.bool_ for array predicates. Freeze the JSON
+        # schema to the built-in bool; np.bool_ is not JSON serializable.
+        result["valid"] = bool(
             objective.rval == 0
             and ll.shape == (128,)
             and np.all(np.isfinite(ll))
