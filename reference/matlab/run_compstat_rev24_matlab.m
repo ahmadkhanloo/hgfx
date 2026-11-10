@@ -108,7 +108,9 @@ try
     r_data.irr = unique([r_data.ign, find(isnan(y))']);
     r_data.c_prc = pc;
     r_data.c_obs = oc;
-    perceptual = str2func([model '_unified']);
+    % Dispatch through the frozen configuration's original perceptual wrapper.
+    % Only hgf_binary_unified exists; eHGF/uHGF have distinct wrappers.
+    perceptual = pc.prc_fun;
     [~, states] = perceptual(r_data, full(1:prc_length), 'trans');
     ll = unitsq_sgm(r_data, states, full(prc_length+1:end));
     ll = double(ll(:)');
