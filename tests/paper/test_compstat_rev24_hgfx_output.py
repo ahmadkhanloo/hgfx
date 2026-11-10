@@ -24,7 +24,7 @@ class Rev24HGFXOutputContract(unittest.TestCase):
         return {
             "case_id": "REV24-G-hgf_binary-000",
             "case_sha256": "a" * 64,
-            "full_transformed": [None, 0.5],
+            "full_transformed": ["NaN", 0.5],
             "free_transformed": [0.5],
         }
 
