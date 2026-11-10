@@ -11,7 +11,7 @@ from tools.compstat_rev24_ehgf019_hgfx_trace import (
 )
 from tools.compstat_rev24_ehgf019_trace_compare import (
     classify, first_status_event, paired_numeric_summary,
-    likelihood_status_reproduction, values_checked,
+    likelihood_status_reproduction, values_checked, ORIGINAL_MEMBERS,
 )
 
 
@@ -35,6 +35,13 @@ def fake_trace(side):
 
 
 class OriginalD019TraceContracts(unittest.TestCase):
+    def test_original_artifact_has_exact_four_immutable_members(self):
+        self.assertEqual(set(ORIGINAL_MEMBERS), {
+            "manifest.json", "matlab.json", "hgfx.json", "comparison.json",
+        })
+        self.assertEqual(ORIGINAL_MEMBERS["comparison.json"],
+                         "cfd0c7e9f66890c2873706b77518a721119b725a04393ad99ef71e573c780430")
+
     def test_trace_identity_and_complete_fields(self):
         doc=fake_trace("matlab")
         values_checked(doc,"matlab")
