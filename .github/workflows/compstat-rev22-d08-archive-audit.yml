@@ -1,0 +1,64 @@
+name: REV-2.2 archived original D08 independent re-audit (NO SCIENCE)
+
+# Read-only postprocessor of single original 614-trial paired science artifact.
+# No MATLAB/HGFX import, simulation, fitting, source editing, GPU or retry of
+# original official D08 model. Only SHA and field-level source verification.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'tools/compstat_rev22_d08_archive_audit.py'
+      - '.github/workflows/compstat-rev22-d08-archive-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  independent-read-only-original-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: NumPy for READ-ONLY archived numeric comparisons
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Download ONLY already-existing original science artifact, never invoke models
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/revision/temporary_original
+          curl --fail --location --retry 2 --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${REPO}/actions/artifacts/13808150860/zip" \
+            -o evidence/revision/temporary_original/original_rev22_d08.zip
+          echo 'a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534  evidence/revision/temporary_original/original_rev22_d08.zip' | sha256sum -c
+      - name: Independently verify original 25 source fields and four mismatch coordinates
+        run: |
+          python tools/compstat_rev22_d08_archive_audit.py \
+            --archive evidence/revision/temporary_original/original_rev22_d08.zip \
+            --output evidence/revision/rev22_d08_independent_read_only_audit.json
+      - name: Do not carry original raw 614 observations into derived artifact
+        if: always()
+        shell: bash
+        run: |
+          rm -rf evidence/revision/temporary_original
+          if test -f evidence/revision/rev22_d08_independent_read_only_audit.json; then
+            sha256sum evidence/revision/rev22_d08_independent_read_only_audit.json
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rev22-d08-independent-read-only-original-result-audit
+          path: evidence/revision/rev22_d08_independent_read_only_audit.json
+          if-no-files-found: warn
+          retention-days: 90
