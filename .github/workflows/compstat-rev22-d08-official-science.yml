@@ -1,0 +1,106 @@
+name: REV-2.2 official D08 published-Wheel MATLAB paired oracle (ONE SHOT)
+
+# The single scientific run is explicitly preregistered and triggered ONLY by
+# the separately recorded REV-2.2 kickoff. No schedule or broad push trigger.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_ORACLE_SCIENCE_KICKOFF_2026-11-11.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  published-wheel-official-matlab-d08:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 105
+    env:
+      JAX_ENABLE_X64: 'true'
+      JAX_PLATFORMS: cpu
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: original_release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: matlab-actions/setup-matlab@v2
+      - name: Preserve frozen 334 reference MATLAB files before any science
+        run: python scripts/verify_reference_freeze.py
+      - name: Install actual public 1.0.0 Wheel and originally specified CPU float64 runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev22_d08/raw rev22_d08/wheel
+          python -m pip install --index-url https://pypi.org/simple 'numpy==2.0.2' 'jax==0.10.2' 'jaxlib==0.10.2'
+          python -m pip download --index-url https://pypi.org/simple --no-deps 'hgfx==1.0.0' -d rev22_d08/wheel
+          wheels=(rev22_d08/wheel/hgfx-1.0.0-*.whl)
+          test ${#wheels[@]} -eq 1
+          python -m pip install --no-deps "${wheels[0]}"
+          echo '5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90  '"${wheels[0]}" | sha256sum -c
+          echo "REV22_WHEEL=$(realpath "${wheels[0]}")" >> "$GITHUB_ENV"
+          python -m pip show hgfx numpy jax jaxlib
+          python -m unittest discover -s tests/paper -p 'test_compstat_rev22_d08_protocol.py' -v
+      - name: Authentic MATLAB official seed 123456789 simulation and ONE default fit
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_rev22_d08_matlab(fullfile(pwd,'rev22_d08','raw','matlab_reference.json'), fullfile(pwd,'rev22_d08','rev22_internal_reference_cache.mat'))
+      - name: Released HGFX Wheel fit on exact MATLAB generated response vector
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.compstat_rev22_d08_hgfx \
+            --matlab-reference rev22_d08/raw/matlab_reference.json \
+            --release-wheel "$REV22_WHEEL" \
+            --frozen-tag-source original_release_source \
+            --output rev22_d08/raw/hgfx_published_wheel.json
+      - name: MATLAB cross evaluates both endpoints WITHOUT a second fit
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath(fullfile(pwd,'reference','matlab')); run_rev22_d08_matlab_cross(fullfile(pwd,'rev22_d08','rev22_internal_reference_cache.mat'), fullfile(pwd,'rev22_d08','raw','hgfx_published_wheel.json'), fullfile(pwd,'rev22_d08','raw','matlab_cross_evaluation.json'))
+      - name: Independent paired result postprocessor, original direct criteria ONLY
+        run: |
+          python -m tools.compstat_rev22_d08_compare \
+            --matlab-reference rev22_d08/raw/matlab_reference.json \
+            --hgfx rev22_d08/raw/hgfx_published_wheel.json \
+            --matlab-cross rev22_d08/raw/matlab_cross_evaluation.json \
+            --output rev22_d08/raw/paired_d08_comparison.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('rev22_d08/raw/paired_d08_comparison.json')
+          r=json.loads(p.read_text())
+          assert r['scientific_global_parity']=='NOT_GLOBAL_PASS'
+          assert r['d2_d3']=='BLOCKED'
+          assert r['cross_family_objective_pass']=='NO_PREDECLARED_UHGF_FAMILY_GATE'
+          assert r['existing_original_m18_d08_failed_status_overwritten'] is False
+          print('REV22 NEW SCIENCE: results preserved without upgrading old gate')
+          PY
+      - name: Retain raw outputs with digest; remove transient internal MATLAB cache
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          if test -d rev22_d08/raw; then
+            sha256sum rev22_d08/raw/*.json 2>/dev/null || true
+          fi
+          rm -rf rev22_d08/rev22_internal_reference_cache.mat rev22_d08/wheel original_release_source
+          echo 'Original REV22 model fit and non-PASS artifacts preserved, including partial outputs if failure.'
+      - name: Archive authentic new REV-2.2 one-shot results, including failure partials
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: REV22_D08_614_official_one_shot_original_matlab_published_hgfx
+          path: rev22_d08/raw/*.json
+          retention-days: 90
+          if-no-files-found: warn
