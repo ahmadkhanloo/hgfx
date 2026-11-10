@@ -9,6 +9,8 @@ on:
       - 'tests/paper/test_compstat_rev24_endpoint_sources.py'
       - 'tests/paper/test_compstat_rev24_endpoint_coverage.py'
       - 'tools/compstat_rev24_endpoint_coverage.py'
+      - 'tools/compstat_rev24_panel_e_inputs.py'
+      - 'tests/paper/test_compstat_rev24_panel_e_inputs.py'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -18,6 +20,8 @@ on:
       - 'tests/paper/test_compstat_rev24_endpoint_sources.py'
       - 'tests/paper/test_compstat_rev24_endpoint_coverage.py'
       - 'tools/compstat_rev24_endpoint_coverage.py'
+      - 'tools/compstat_rev24_panel_e_inputs.py'
+      - 'tests/paper/test_compstat_rev24_panel_e_inputs.py'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -82,6 +86,23 @@ jobs:
             --cohort-input rev24_original_input_source/benchmarks/runtime_v1/inputs/binary_128_s64.json \
             --output rev24_endpoint_archives/coverage_audit.json
           echo 'SOURCE COVERAGE ONLY: original D02 HGFX full endpoint still missing'
+      - name: Validate private original-endpoint packaging contracts (synthetic, no science)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_panel_e_inputs.py' -v
+      - name: Construct and immediately remove PRIVATE Panel E input manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p rev24_private
+          trap 'rm -rf rev24_private' EXIT
+          python -m tools.compstat_rev24_panel_e_inputs \
+            --d02 rev24_endpoint_archives/d02.zip \
+            --d08 rev24_endpoint_archives/d08.zip \
+            --cohort64 rev24_endpoint_archives/cohort64.zip \
+            --cohort-input rev24_original_input_source/benchmarks/runtime_v1/inputs/binary_128_s64.json \
+            --private-output rev24_private/panel_e_inputs.json \
+            --audit-output rev24_endpoint_archives/panel_e_inputs_audit.json
+          test -s rev24_private/panel_e_inputs.json
+          echo 'Private Panel E input manifest built; never upload trial data or endpoints; NO objectives evaluated'
       - name: Publish sanitized source-only audit (never publish participant-level raw ZIP)
         if: always()
         uses: actions/upload-artifact@v4
@@ -90,5 +111,6 @@ jobs:
           path: |
             rev24_endpoint_archives/source_audit.json
             rev24_endpoint_archives/coverage_audit.json
+            rev24_endpoint_archives/panel_e_inputs_audit.json
           if-no-files-found: warn
           retention-days: 90
