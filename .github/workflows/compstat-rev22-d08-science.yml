@@ -1,12 +1,10 @@
 name: REV-2.2 D08 one-shot official MATLAB/HGFX paired fit (SCIENTIFIC)
 
-# New prospectively specified one-case research run, NOT a historical M18
-# holdout replay. Automatic source trigger is removed after kickoff.
+# Prospectively specified original one-case scientific run 42910835710
+# launched at source commit 365cffc0f79f88f61d7c3836bc55a082f391ed69.
+# One-shot automatic source trigger retired immediately; no new automatic
+# science executions permitted. Original historical M18 unchanged.
 on:
-  push:
-    branches: [compstat-revision]
-    paths:
-      - 'evidence/revision/protocols/REV-2.2_D08_SCIENCE_KICKOFF_2026-11-11.md'
   workflow_dispatch:
 
 permissions:
