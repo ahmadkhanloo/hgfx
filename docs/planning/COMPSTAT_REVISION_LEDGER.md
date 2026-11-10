@@ -205,3 +205,13 @@ REV-1.1 terminal report follows below. Recording an inventory is not a claim tha
 - **Open:** exact original D02/D08/64 endpoint parsing, vector/mask cross-evaluation, single authentic Panel G/G+E oracle result, family-specific existing objective gates, and independent scientific adjudication.
 - **Scientific history:** REV-1.4 `DOCUMENTED_LIMITATION`, P3 FAIL, 63/64 original fit NONPASS, M18 recovery FAIL, PERF-01C `BLOCK_FREEZE` unchanged. Manuscript/D2 and author D3 not passed.
 - **Detailed handoff:** `docs/research/REV24_EXECUTION_HANDOFF.md` (2026-11-10 continuation). 
+
+
+## REV-2.4 — real source-coverage CI result (2026-11-10; NONTERMINAL)
+
+- **ID/status:** REV-2.4 / C1; source-only archival gate **PASS**, scientific objective parity **NOT ASSESSED** (original task still IN PROGRESS).
+- **Executed:** [Actions run 42773865848](https://github.com/ahmadkhanloo/hgfx/actions/runs/42773865848), head `2585e3b9cb5c88a6734ff8764e9125066418b17c`, completion `success`; tests, three original ZIP SHA-256 checks, input source commit checkout and full-endpoint source-coverage audit passed. No science evaluator invoked.
+- **Sanitized evidence:** workflow artifact `13743111655`: `coverage_audit.json` SHA-256 `80c0c60e13e6da3d086d6b4ce5ab301f827044dfc271c64c17d3fb4593745da3`; `source_audit.json` SHA-256 `e5b89d42a4e99cfda3fd704537f178d9907256ba59fff52e096568009651d393`.
+- **Numbers:** D02 original MATLAB 15-vector and 320 inputs present, but full original HGFX endpoint not found in pinned archived source; D08 original MATLAB+HGFX 11-vectors and 614 trial inputs complete; original 64 cohort MATLAB+HGFX 64×15 endpoints and 64×128 source inputs complete; original input SHA-256 `6d9b0a2e77c5a2dcc3e3503bf4f52ad8db5695aadbcb3c25bb13cf224db136ae`.
+- **Authoritative details:** `docs/research/REV24_PANEL_E_COVERAGE_2026-11-10.md`; original source audit code `tools/compstat_rev24_endpoint_coverage.py` and synthetic-only tests; historical 64 fitting run `41863441006` was **failure**, unchanged.
+- **Still OPEN:** D02 HGFX endpoint provenance, true MATLAB/HGFX 1.0.0 Panel G and original Panel E cross-evaluation, prior family gates and independent review. D2/D3 remain blocked; zero new scientific comparisons, zero changed historic thresholds or seeds.
