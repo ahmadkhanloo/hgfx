@@ -1,0 +1,24 @@
+# REV-2.4 eHGF019 full-CPU regression — honest two-attempt result and historical Git-depth blocker (2026-11-10)
+
+**Outcome:** FULL SUITE **NOT PASS** in the separately configured end-of-maintenance validation workflow. This is a diagnostic record, not another retry authorization and not a revision of any scientific or numerical gate. Original frozen v1.0.0 evidence and the user's non-PASS statuses are untouched.
+
+## Original end-of-phase complete-suite run (preserved)
+
+- [GitHub Actions 42800906817](https://github.com/ahmadkhanloo/hgfx/actions/runs/42800906817), source SHA `ed3636a11bf70108eae6c3d520f457f309de96b8`, Ubuntu24.04 + Windows: **both failed during pytest collection** on ten paper/static-contract modules with `ModuleNotFoundError: No module named 'tools'`. Source-only `pytest -q` entrypoint did not include local repo root in import path. No full suite numerical PASS/FAIL could be inferred from failure to collect. Original logs/JUnit retained.
+- Prospective infrastructure-only retry protocol `REV-2.4_EHGF019_FULL_REGRESSION_INFRA_RETRY_2026-11-10.md` at `bc2900ce34891d909ae2ffa00950eeeffdc05f45` documents this cause. **Only invocation** switched to `python -m pytest -q --junitxml=regression-results.xml`, also permanently fixed in normal `.github/workflows/regression.yml`. The same complete test suite was retained.
+
+## Sole complete-suite infrastructure retry (also preserved; NOT PASS)
+
+- [GitHub Actions 42801485168](https://github.com/ahmadkhanloo/hgfx/actions/runs/42801485168) source SHA `ba442bbb05698d3d8d5ae7f52443a998ebc5aa01`, Ubuntu24.04 + Windows: **both FAILED**, but import/collection issues were resolved and tests actually executed.
+- Both platforms: **302 PASS, 1 FAIL, 5 SKIPPED, 5 pytest subtests passed, 6 warnings**. Only failure: `tests/paper/test_p6a_manifest.py::test_committed_p6a_manifest_matches_generator`. Frozen historical P6A generator's source guard requires the exact historical candidate SHA `897aed804901f9f49ad1d73ecfab6fa714d50098` to be an actual ancestor Git commit, but `git cat-file -e 897aed804901f9f49ad1d73ecfab6fa714d50098^{commit}` failed in a **shallow Actions checkout** (the temporary new full-maintenance workflow omitted `fetch-depth: 0`).
+- **Independent GitHub comparison:** `897aed804901f9f49ad1d73ecfab6fa714d50098...ba442bbb05698d3d8d5ae7f52443a998ebc5aa01` reports `status=ahead`, `ahead_by=192`, `behind_by=0`, `merge_base=897aed804901f9f49ad1d73ecfab6fa714d50098`. Thus the historical candidate commit **is a real ancestor** on the repository server; its absence in the Actions clone is an environment checkout-depth problem, **NOT** a P6A criterion change or numerical-model failure.
+- Existing canonical `.github/workflows/regression.yml` ALREADY contains `fetch-depth: 0` and now uses `python -m pytest`, so these two import/history hazards are absent from the standard workflow. The temporary isolated maintenance full suite was corrected to `fetch-depth: 0` at commit `31ed206d194e799ff979a21b759d2c562f20e37d` for reproducibility, **without a third full-suite execution**. No tests were excluded and no P6A freeze rule was weakened.
+- **Execution cap respected:** one original full-suite attempt and one recorded infrastructure retry only; do **not** rerun the entire suite repeatedly to convert red to green. Current full CPU result for this separate maintenance workflow is `NOT_PASS / infrastructure-history-checkout failure`. A further explicit independent CI gate/authorization would be required for a new complete-suite run. The author may use the existing normal PR CI when the PR is ready and normal GitHub event authorization applies, but do not misrepresent it as an already completed PASS.
+
+## What remains confirmed
+
+- Original eHGF019 pre-fix source-only golden test **FAIL as expected** on development 1.1.0b1 [run 42799735544](https://github.com/ahmadkhanloo/hgfx/actions/runs/42799735544), 1 failed + 6 passed.
+- Minimal development-only `np.maximum` → `np.fmax` in eHGF update at `e6eb57fdc037aeb0d0c5776ed0fb07ee3cccbad6`, original published `v1.0.0` unchanged. Related CPU golden/HGF/eHGF/uHGF/compat fitting [run 42799998082](https://github.com/ahmadkhanloo/hgfx/actions/runs/42799998082): **22/22 PASS**, scoped source unit tests only.
+- Both 302/1 failures refer only to a historic P6A Git ancestry object missing from a shallow clone. This does **NOT** establish full-suite PASS. No independent human reference-oracle review; no paired scientific validation for development fix; eHGF family-specific objective gate not found; frozen Panel G/E original failure, D02 missing original HGFX endpoint, original M18/P3/63-of-64/PERF-01C and subject-7 failures preserved.
+
+**Final phase engineering classification:** `IMPLEMENTED_BUT_NOT_FULL_CI_VALIDATED` / `IMPLEMENTED_BUT_NOT_SCIENTIFICALLY_VALIDATED`. **REV-2.4 `NOT_GLOBAL_PASS`; D2/D3 BLOCKED**.
