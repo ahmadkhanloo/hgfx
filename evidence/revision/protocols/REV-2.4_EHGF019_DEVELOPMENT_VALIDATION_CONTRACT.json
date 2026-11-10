@@ -1,0 +1,68 @@
+{
+  "schema": "rev24-b08-development-maintenance-review-contract-v1",
+  "status": "PROPOSED_NOT_REVIEWED_NOT_AUTHORIZED",
+  "review_requirement": {
+    "human_domain_expert_report": "docs/research/reviews/REV24_EHGF019_HUMAN_REVIEW_2026-11-10.md",
+    "human_review_accepted": false,
+    "author_execution_approval": false,
+    "automatic_scientific_trigger_allowed": false
+  },
+  "source": {
+    "original_toolbox_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+    "original_toolbox_source": "building_blocks/hgf_volatility_update.m",
+    "original_toolbox_source_blob": "f5f50a160397de94f5f11545fdce4d74db6ca27b",
+    "original_hgfx_release_commit": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+    "original_hgfx_release_volatility_blob": "afdbdcb5b4ae15926a7526cc604f6ca8f6fe7a76",
+    "developer_patch_parent": "f198da34d39c5b071cc217dac516fa50d7ce2008",
+    "developer_patch_commit": "e6eb57fdc037aeb0d0c5776ed0fb07ee3cccbad6",
+    "developer_source_path": "src/hgfx/updates/volatility.py",
+    "developer_source_blob": "07f70bba0df945c6be8b378a5d0db63a0f4e9a18"
+  },
+  "experiment": {
+    "allowed_case_ids": [
+      "REV24-G-ehgf_binary-019"
+    ],
+    "case_sha256": "276d21f43a91fc8748438aafc6ec44f759f23dc2ae97dae8b4cc1274aba3fefb",
+    "original_600_grid_artifact_id": 13743694091,
+    "original_600_grid_zip_sha256": "faebd113e9ee050a2490d08e1d1fbc54ba589becd1015d41cab4e7879a785b1c",
+    "original_case_vector_source": "manifest.json",
+    "original_manifest_member_sha256": "59d86cb1687944841b802a2d6f4d4f9e2851eb59ba28abf9edbf332668718cec",
+    "original_manifest_semantic_sha256": "35e7c766d3f63cb53aa407c2e6563a34b1a5fd795b982d147475e4c3d409ea95",
+    "model": "ehgf_binary",
+    "observation": "unitsq_sgm",
+    "trial_count": 128,
+    "transformed_parameter_count": 15,
+    "free_indices_zero_based": [
+      12,
+      13,
+      14
+    ],
+    "no_fit": true,
+    "no_new_seeds_or_inputs": true,
+    "reference_trial_trace_artifact_id": 13754932663,
+    "reference_matlab_version": "26.2.0.3433840 (R2026b) Update 1"
+  },
+  "outcome_policy": {
+    "primary_measure": "all exported state and observation IEEE finite/NaN/+Inf/-Inf class matches",
+    "allowed_limited_outcomes": [
+      "TARGETED_ONE_CASE_STATUS_MATCH",
+      "TARGETED_ONE_CASE_STATUS_MISMATCH",
+      "EXECUTION_BLOCKED"
+    ],
+    "nonnumeric_validity_exclusions": 0,
+    "objective_family_gate": "NO_PREDECLARED_EHGF_OBJECTIVE_GATE",
+    "fit_parity_claim_allowed": false,
+    "global_parity_claim_allowed": false,
+    "original_release_reclassification_allowed": false,
+    "original_panel_g_or_e_replay_allowed": false,
+    "current_full_cpu_gate": "NOT_PASS",
+    "current_scientific_gate": "NOT_GLOBAL_PASS",
+    "d2_d3": "BLOCKED"
+  },
+  "documentation": {
+    "human_handoff": "docs/research/reviews/REV24_EHGF019_HUMAN_REVIEW_HANDOFF_2026-11-10.md",
+    "proposed_experiment": "evidence/revision/protocols/REV-2.4_EHGF019_DEVELOPMENT_VALIDATION_PROPOSAL_2026-11-10.md",
+    "frozen_failure": "docs/research/REV24_EHGF019_ORIGINAL_TRACE_RESULT_2026-11-10.md",
+    "maintenance_result": "docs/research/REV24_EHGF019_MAINTENANCE_RESULT_2026-11-10.md"
+  }
+}
