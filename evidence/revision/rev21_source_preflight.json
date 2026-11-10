@@ -1,0 +1,51 @@
+{
+  "audit": "PRE_EXECUTION_SOURCE_ONLY_2026_11_10",
+  "author_human_resolution_required_before_science": true,
+  "baseline_transform_check": {
+    "finite_inverse_logit_exists": false,
+    "inverse_logit_when_finite": null,
+    "is_free_under_original_hgf_prior": true,
+    "model_parameter_space": "original M12B vector native; HGF priors transformed",
+    "native_phi3_neighbor_value": 0.2,
+    "native_value": 0.0,
+    "native_vector_index_zero_based": 7,
+    "parameter": "phi2",
+    "transformed_prior_variance": 1.0
+  },
+  "fullcohort_original_run": 41809919116,
+  "fullcohort_original_run_head": "e09f72020dbab52f2d73b90ff4d9ee40999b9fae",
+  "mathematical_blocker": "Original native phi2=0 is FREE under the HGF transformed prior, but logit(0)=-Inf; no finite original M12B-centred transformed perturbation exists.",
+  "new_forward_cases_evaluated": 0,
+  "new_multivector_vectors_generated": 0,
+  "no_clipping_or_imputation": true,
+  "original_260_suthaharan_blocks": 260,
+  "original_324_cases": 324,
+  "original_64_reed_blocks": 64,
+  "original_REV24_and_D2_D3": "BLOCKED_UNCHANGED",
+  "original_archive_zip_sha256": "1adfd1cd69b6f7d7a89ba2c8b9d564e774fd8a8841fa7243d6972605bd9f7391",
+  "original_hgfx_release": "1.0.0",
+  "original_ignored_trials": 293,
+  "original_summary_member_sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70",
+  "original_warning_blocks": 48,
+  "original_warning_events": 86,
+  "original_warning_types_available": false,
+  "reference_hgf_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "scientific_or_model_executions": 0,
+  "selection": {
+    "all_original_reed_blocks": 64,
+    "raw_case_ids_exported": false,
+    "rule": "rank SHA256(ASCII(f'{seed}:{source_case_id}')); lowest 64 of 260",
+    "seed": 2026111021,
+    "selected_suthaharan_blocks": 64,
+    "selected_suthaharan_case_ids_sha256": "adcb0e8694e72c8c82e4ae3416d54d409273729dea0558b9c3e31043d5c06047",
+    "selection_independent_of_scientific_outcomes": true,
+    "total_multivector_source_blocks": 128
+  },
+  "source_git_blobs": {
+    "hgf_ar1_binary_mab_config_base.m": "c05a77f1c3b9a0b820120b9dcbd05c5a65857925",
+    "hgf_ar1_binary_mab_transp.m": "de46708de2d0af43e5fc26f12a4c27510743e725",
+    "original_compare_realdata_pair.py": "fd9ea7d1f1cd00eb0f9ea5aecbe37ae09d299275"
+  },
+  "status": "BLOCKED_M12B_TRANSFORMED_BASELINE_UNDEFINED",
+  "task": "REV-2.1"
+}
