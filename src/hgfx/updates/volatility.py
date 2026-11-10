@@ -84,7 +84,12 @@ def hgf_volatility_update(
                 - np.float64(1.0)
             )
             correction = np.float64(0.5) * ka**2 * ww * (ww + rr * dd)
-            pi = pihat + np.maximum(np.float64(0.0), correction)
+            # MATLAB HGF 8.2.0 uses max(0, correction), which omits NaN
+            # in the two-scalar comparison. NumPy.maximum propagates NaN;
+            # fmax matches the frozen MATLAB correction behavior when the
+            # intermediate posterior volatility calculation overflows.
+            # This fixes the maintenance worktree only, not released v1.0.0.
+            pi = pihat + np.fmax(np.float64(0.0), correction)
             return float(pi), float(mu), float(v_lower), float(w_lower)
 
         if update_type == "uhgf":
