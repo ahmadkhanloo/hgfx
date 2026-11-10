@@ -49,6 +49,37 @@ def classify(v):
     return "FINITE"
 
 
+def normalize_matlab_flattened_trace(trace):
+    """Decode MATLAB jsonencode of 128xN *cell* in column-major order.
+
+    Some MATLAB releases serialize a 128-by-3/2 cell matrix as 384/256
+    scalar JSON list items instead of nested rows. This is a transport
+    transformation ONLY: no numerical computation, editing or imputation.
+    Raw original MATLAB trace bytes remain archived unchanged.
+    """
+    from copy import deepcopy
+    check(trace.get("source")=="matlab", "Only original MATLAB trace may be reoriented")
+    doc=deepcopy(trace)
+    normalized_fields=[]
+    for family,names in (("inferred_states",STATE_FIELDS),
+                         ("trajectories",MATRIX_FIELDS)):
+        for name in names:
+            vals=doc[family][name]
+            cols=2 if family=="trajectories" and name=="w" else 3
+            if isinstance(vals,list) and len(vals)==128 and all(
+                isinstance(row,list) and len(row)==cols for row in vals):
+                continue
+            check(isinstance(vals,list) and len(vals)==128*cols
+                  and all(not isinstance(v,list) for v in vals),
+                  f"Unrecognized MATLAB trace layout: {family}.{name}")
+            doc[family][name]=[
+                [vals[col*128+trial] for col in range(cols)]
+                for trial in range(128)
+            ]
+            normalized_fields.append(family+"."+name)
+    return doc,normalized_fields
+
+
 def values_checked(trace, side):
     check(trace.get("diagnostic")==DIAGNOSTIC
           and trace.get("source")==side
@@ -142,6 +173,10 @@ def compare(manifest, matlab, hgfx, original_matlab, original_hgfx):
     validate_manifest(manifest)
     group,case=source_case(manifest)
     check(case["case_sha256"]==SOURCE_CASE_SHA,"Manifest case changed")
+    original_matlab_trace_sha=hashlib.sha256(json.dumps(
+        matlab,sort_keys=True,separators=(",",":"),allow_nan=False
+    ).encode()).hexdigest()
+    matlab,normalized_matlab_fields=normalize_matlab_flattened_trace(matlab)
     values_checked(matlab,"matlab")
     values_checked(hgfx,"hgfx")
     original_pair=[]
@@ -206,9 +241,13 @@ def compare(manifest, matlab, hgfx, original_matlab, original_hgfx):
         "case_sha256":SOURCE_CASE_SHA,
         "original_panel_g_manifest_sha256":SOURCE_MANIFEST_SHA,
         "original_panel_g_zip_sha256":ORIGINAL_ARCHIVE_SHA256,
-        "matlab_trace_sha256":hashlib.sha256(json.dumps(
-            matlab,sort_keys=True,separators=(",",":"),allow_nan=False
-            ).encode()).hexdigest(),
+        "matlab_trace_sha256":original_matlab_trace_sha,
+        "matlab_json_transport_normalization": {
+            "format": "MATLAB_COLUMN_MAJOR_FLATTENED_CELL_MATRIX",
+            "numeric_values_modified": False,
+            "fields_reoriented": normalized_matlab_fields,
+            "original_raw_trace_retained": True,
+        },
         "hgfx_trace_sha256":hashlib.sha256(json.dumps(
             hgfx,sort_keys=True,separators=(",",":"),allow_nan=False
             ).encode()).hexdigest(),
