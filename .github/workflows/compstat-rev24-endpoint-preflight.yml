@@ -11,6 +11,10 @@ on:
       - 'tools/compstat_rev24_endpoint_coverage.py'
       - 'tools/compstat_rev24_panel_e_inputs.py'
       - 'tests/paper/test_compstat_rev24_panel_e_inputs.py'
+      - 'tools/compstat_rev24_panel_e_hgfx.py'
+      - 'tools/compstat_rev24_panel_e_compare.py'
+      - 'tests/paper/test_compstat_rev24_panel_e_objectives.py'
+      - 'reference/matlab/run_compstat_rev24_panel_e_matlab.m'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -22,6 +26,10 @@ on:
       - 'tools/compstat_rev24_endpoint_coverage.py'
       - 'tools/compstat_rev24_panel_e_inputs.py'
       - 'tests/paper/test_compstat_rev24_panel_e_inputs.py'
+      - 'tools/compstat_rev24_panel_e_hgfx.py'
+      - 'tools/compstat_rev24_panel_e_compare.py'
+      - 'tests/paper/test_compstat_rev24_panel_e_objectives.py'
+      - 'reference/matlab/run_compstat_rev24_panel_e_matlab.m'
       - 'tests/paper/test_compstat_rev24_matlab_source_contract.py'
       - 'reference/matlab/run_compstat_rev24_matlab.m'
       - '.github/workflows/compstat-rev24-endpoint-preflight.yml'
@@ -40,6 +48,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install only NumPy contract dependency
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Test Panel E original endpoint output contracts (synthetic, NO science)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev24_panel_e_objectives.py' -v
       - name: Verify static endpoint and MATLAB dispatch contracts (NOT science)
         run: |
           python -m unittest discover -s tests/paper -p 'test_compstat_rev24_endpoint_sources.py' -v
