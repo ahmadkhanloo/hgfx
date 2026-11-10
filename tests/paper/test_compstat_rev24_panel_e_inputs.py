@@ -12,12 +12,16 @@ def synthetic_sources():
     d02 = {"cases": [{
         "id": "D02_fit", "model": "ehgf_binary",
         "observation": "unitsq_sgm", "seed": 123456789,
+        "obs_prior_variance": 0.5,
         "inputs": [0] * 320, "responses": [1] * 320,
-        "fit": {"final": {"shape": [1, 15], "data": [None] * 12 + [1., 2., 3.]}},
+        "fit": {"final": {"shape": [1, 15], "data": [None] * 12 + [1., 2., 3.]},
+                "prc_priorsas": {"shape": [1, 14], "data": [None] * 12 + [4., 4.]},
+                "obs_priorsas": 0.5},
     }]}
     d08 = {"case_id": "D08_fit", "model": "uhgf",
            "observation": "gaussian_obs", "inputs": [1.] * 614,
-           "responses": [0.] * 614, "final": [float(i) for i in range(11)]}
+           "responses": [0.] * 614, "final": [float(i) for i in range(11)],
+           "prc_priorsas": [0.] * 10, "obs_priorsas": 0.1}
     comparison = {"endpoint_parameters": [
         {"index": i, "matlab": float(i), "hgfx": float(i) + .01}
         for i in range(11)
@@ -49,6 +53,8 @@ class Rev24PanelEPrivateInputsContract(unittest.TestCase):
                          "INSUFFICIENT_REFERENCE_EVIDENCE")
         self.assertEqual(doc["cases"][1]["perceptual_model"], "uhgf")
         self.assertEqual(doc["cases"][1]["observation_model"], "gaussian_obs")
+        self.assertEqual(doc["cases"][0]["obs_prior_variance"], 0.5)
+        self.assertEqual(doc["cases"][1]["obs_prior_variance"], 0.1)
         self.assertEqual(doc["cases"][2]["trials"], 128)
 
     def test_sanitized_audit_does_not_leak_original_vectors(self):
