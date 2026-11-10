@@ -25,6 +25,7 @@ ORIGINAL_MEMBERS = {
     "manifest.json": "59d86cb1687944841b802a2d6f4d4f9e2851eb59ba28abf9edbf332668718cec",
     "matlab.json": "54df9fd43c1044f6a7dd6d2c485a9bd76c8da7757d1dee276a4003f31d5b2397",
     "hgfx.json": "70fd09db1efac4d8d4df2e441525216850d302bd9cd0ee315f5681597c701503",
+    "comparison.json": "cfd0c7e9f66890c2873706b77518a721119b725a04393ad99ef71e573c780430",
 }
 
 
