@@ -1,0 +1,127 @@
+name: PERF-01D subject-7 same-vector Ridders gradient (untimed diagnostic)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-gradient.yml'
+      - 'benchmarks/runtime_v1/subject7_gradient_probes_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_gradient_probes_matlab.m'
+      - 'benchmarks/runtime_v1/compare_subject7_gradient_probes.py'
+      - 'tests/test_perf01_subject7_gradient.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  paired-gradient:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      JAX_PLATFORMS: cpu
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Freeze source identities and verify exact canonical original inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_gradient.py' -v
+
+      - name: Download SHA-locked original pair of real 128-trial public-fitting traces
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42115887599 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-optimizer-trace-42115887599 --dir original
+          test -f original/summary.json
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+          echo '6fe10be1dd1860612859e6efbe7bee13717e4787aed4a62f0e6b67a2072aac7a  original/hgfx_raw.json' | sha256sum -c -
+          echo 'ce4a96e6eb2aad48ee08c39f0361c0cebd5d2306b048b9674c96a45a4570a40f  original/matlab_raw.json' | sha256sum -c -
+
+      - name: Frozen HGFX objective and Ridders gradient at ten archived anchors
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/subject7_gradient_probes_hgfx.py \
+            --input work/benchmarks/runtime_v1 \
+            --archive original \
+            --output work/benchmarks/runtime_v1/subject7_gradient_results/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Frozen reference-only MATLAB objective and Ridders at SAME anchored vectors
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_gradient_probes_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'original'),fullfile(pwd,'work','benchmarks','runtime_v1','subject7_gradient_results','matlab_raw.json'))"
+
+      - name: Compare all ten original same-vector objective and gradient pairs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_gradient_probes.py \
+            --hgfx work/benchmarks/runtime_v1/subject7_gradient_results/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/subject7_gradient_results/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/subject7_gradient_results/comparison.json
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os
+          folder=Path("work/benchmarks/runtime_v1/subject7_gradient_results")
+          report=json.loads((folder/"comparison.json").read_bytes())
+          report["run_id"]=os.environ["GITHUB_RUN_ID"]
+          report["candidate_sha"]=os.environ["GITHUB_SHA"]
+          report["raw_evidence_sha256"]={
+              n:hashlib.sha256((folder/n).read_bytes()).hexdigest()
+              for n in ("hgfx_raw.json","matlab_raw.json")}
+          report["original_artifact"]="perf01-subject7-optimizer-trace-42115887599"
+          report["artifact_name"]="perf01-subject7-gradient-"+os.environ["GITHUB_RUN_ID"]
+          (folder/"summary.json").write_text(
+              json.dumps(report,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          print(json.dumps({
+              "run_id":report["run_id"],
+              "candidate_sha":report["candidate_sha"],
+              "fully_evaluated_pairs":report["fully_evaluated_pairs"],
+              "gradient_discrepancy_count_descriptive":report["gradient_discrepancy_count_under_existing_final_tolerance_as_lens"],
+              "raw_evidence_sha256":report["raw_evidence_sha256"],
+              "status":report["status"],
+          },sort_keys=True))
+          assert report["fully_evaluated_pairs"]==10
+          assert report["status"]=="AUTHOR_SIDE_GRADIENT_DIAGNOSTIC_NO_SCIENTIFIC_PASS_NO_TIMING"
+          PY
+
+      - name: Preserve all full raw evaluated gradients and failed attempts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-gradient-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_gradient_results/
+          if-no-files-found: warn

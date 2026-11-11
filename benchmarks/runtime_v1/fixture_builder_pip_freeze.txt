@@ -1,0 +1,7 @@
+hgfx @ file:///home/runner/work/hgfx/hgfx/release_source
+jax==0.10.2
+jaxlib==0.10.2
+ml_dtypes==0.6.0
+numpy==2.3.5
+opt_einsum==3.4.0
+scipy==1.17.1

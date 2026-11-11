@@ -1,0 +1,405 @@
+{
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "github_candidate_sha": "81c0edf92f28d525f12ecae900527ebd45fe8946",
+  "github_run_id": "42199013326",
+  "identical_archived_input_config": true,
+  "limitations": [
+    "Both new runs reuse frozen HGFX v1.0.0 on one host; MATLAB has NOT been rerun on that same host/dispatch.",
+    "Original 63/64 public MATLAB vs HGFX fitting mismatch remains NON-PASS and no new release gate decision is made.",
+    "Comparisons with historical MATLAB or original HGFX are across different hosts/CI executions, not same-machine causal pairing.",
+    "No data, priors, starts, optimizer thresholds, code releases or scientific sample denominators were changed.",
+    "No CPU/GPU timing or speedup claim or independent approval is produced."
+  ],
+  "model": "hgf_binary",
+  "n_trials": 128,
+  "observation": "unitsq_sgm",
+  "original_64_fit_reference_run": "41863441006",
+  "original_BFGS_reference_run": "42187240378",
+  "original_bfgs_raw_sha256": {
+    "hgfx_raw.json": "060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce",
+    "matlab_raw.json": "4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a"
+  },
+  "raw_evidence_sha256": {
+    "Haswell_raw.json": "58a4db667706988257724cf3237bd261a1376e60a738eb5399debae9b2af2a1b",
+    "auto_raw.json": "848e2aaee266d772420231c4749268a8922b5a49e70da9b1eff8a4fefbf86246"
+  },
+  "results": {
+    "auto_vs_haswell": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 0.00018149043592075031,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 194,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 3.968255768427298e-08,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.875479618360323e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 66,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 2.6154653198773303e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 22,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.4914698094089545e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 65,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    },
+    "auto_vs_historical_hgfx": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 3.7527354379562894e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 202,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 1.4572520967703895e-10,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 9.728184091617464e-10,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 70,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 5.069153985459707e-10,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 23,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 9.060663330728858e-10,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 69,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    },
+    "auto_vs_historical_matlab": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 0.00015090827315589195,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 206,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 3.277081539465598e-08,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.053965132755355e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 75,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 2.1745260880834394e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 24,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 3.734656921494661e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 72,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    },
+    "haswell_vs_historical_hgfx": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 0.00018186570946454594,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 202,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 3.953683247459594e-08,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.885207802451941e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 70,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 2.62053447386279e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 23,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.5005304727396833e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 69,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    },
+    "haswell_vs_historical_matlab": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 0.00033239870907664226,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 206,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 7.245337307892896e-08,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 8.929444751115678e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 75,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 4.78999140796077e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 24,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 8.226126730903616e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 72,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    },
+    "original_hgfx_vs_matlab": {
+      "T": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 216,
+        "max_abs_diff": 0.00015053299961209632,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 206,
+        "shape": [
+          24,
+          3,
+          3
+        ]
+      },
+      "final": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 11,
+        "max_abs_diff": 3.291654060433302e-08,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 3,
+        "shape": [
+          15
+        ]
+      },
+      "grad": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 4.0442369486637375e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 75,
+        "shape": [
+          25,
+          3
+        ]
+      },
+      "v": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 25,
+        "max_abs_diff": 2.1694569340979797e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 24,
+        "shape": [
+          101
+        ]
+      },
+      "x": {
+        "bitwise_value_equality": false,
+        "finite_pairs": 75,
+        "max_abs_diff": 3.7255962581639324e-07,
+        "nonfinite_masks_match": true,
+        "number_nonzero_finite_coordinate_differences": 72,
+        "shape": [
+          101,
+          3
+        ]
+      }
+    }
+  },
+  "runner_environment": {
+    "Haswell": {
+      "github_sha": "81c0edf92f28d525f12ecae900527ebd45fe8946",
+      "machine": "x86_64",
+      "mode": "Haswell",
+      "numpy": "2.3.5",
+      "openblas_coretype": "Haswell",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "pools": [
+        {
+          "api": "openblas",
+          "architecture": "Haswell",
+          "num_threads": 4,
+          "version": "0.3.30"
+        }
+      ],
+      "run_id": "42199013326"
+    },
+    "auto": {
+      "github_sha": "81c0edf92f28d525f12ecae900527ebd45fe8946",
+      "machine": "x86_64",
+      "mode": "auto",
+      "numpy": "2.3.5",
+      "openblas_coretype": null,
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "pools": [
+        {
+          "api": "openblas",
+          "architecture": "SkylakeX",
+          "num_threads": 4,
+          "version": "0.3.30"
+        }
+      ],
+      "run_id": "42199013326"
+    }
+  },
+  "schema": "perf01d-issue90-public-fit-dispatch-sensitivity-v1",
+  "source_accepted_trials_altered": false,
+  "status": "AUTHOR_SIDE_UNTIMED_SAME_HOST_FULL_FIT_DIAGNOSTIC_NO_SCIENTIFIC_PASS",
+  "subject_index_zero_based": 7
+}

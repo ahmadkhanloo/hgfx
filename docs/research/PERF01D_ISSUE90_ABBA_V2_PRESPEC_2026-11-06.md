@@ -1,0 +1,11 @@
+# PERF-01D / Issue #90 — ABBA **v2** prespecified explicit-dispatch experiment (2026-11-06)
+
+**New prospective protocol revision; not a reinterpretation or correction of the failed v1 run.** The historical first [run 42248605099](https://github.com/ahmadkhanloo/hgfx/actions/runs/42248605099) remains an engineering environment-control failure because unset OpenBLAS selected Haswell in that execution, rather than the predeclared SkylakeX.
+
+The unchanged original scientific data/model/start/optimizer are specified by `PERF01D_ISSUE90_ABBA_PRESPEC_2026-11-06.md`: original 64-subject 128-trial MATLAB/HGFX run 41863441006, HGFX release `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, HGF MATLAB `2437f4dc241541072722a2695ddeca7b44d83dd3`, subject index 7; original 63/64 fitting NONPASS and 28 original numeric thresholds never altered.
+
+**Single controlled methodological change in v2:** v1's A was unforced OpenBLAS auto expected to resolve to SkylakeX. V2 replaces A with **explicit `OPENBLAS_CORETYPE=SkylakeX`**, B stays explicit `OPENBLAS_CORETYPE=Haswell`. Both resulting kernel architectures, OpenBLAS 0.3.30, four BLAS threads, same four pinned logical CPUs and CPU/runtime/software provenance must be proven per process. All four frozen public fits use distinct Python processes in fixed order **SkylakeX_1 → Haswell_1 → Haswell_2 → SkylakeX_2**.
+
+If the runner does not support SkylakeX or either mode fails the source-inventory/start checks, the whole run FAILS and keeps raw evidence. **Do not switch to another dispatch after reading output.** V2 reports within-mode bitwise and original-tolerance 28-field comparisons, all four cross-mode comparisons, and all four new fits versus immutable archived HGFX/MATLAB raw evidence. Two repeat observations per mode are descriptive only. No MATLAB re-execution, no timing, GPU validation, independent review or scientific PASS is asserted.
+
+The v1 comparator/workflow/tests and original 63/64 failing evidence remain intact. The new v2 script, tests and workflow are separate files with `_v2` suffixes. Independent review [#88](https://github.com/ahmadkhanloo/hgfx/issues/88), scientific [#89](https://github.com/ahmadkhanloo/hgfx/issues/89) and environment reproducibility [#90](https://github.com/ahmadkhanloo/hgfx/issues/90) remain OPEN; PERF-01C not frozen, PERF-01E-H not run; no speedup.

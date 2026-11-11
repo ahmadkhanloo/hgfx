@@ -1,0 +1,169 @@
+name: PERF-01D original subject7 crossed frozen same-vector HGF forward (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-crossed-forward.yml'
+      - 'benchmarks/runtime_v1/subject7_crossed_forward_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/subject7_crossed_forward_matlab.m'
+      - 'benchmarks/runtime_v1/compare_subject7_crossed_forward.py'
+      - 'tests/test_perf01_subject7_crossed_forward.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01d-original-crossed-forward-immutable-report
+  cancel-in-progress: false
+
+jobs:
+  original-same-vector-matlab-hgfx:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Source lock, canonical frozen data and science negative tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C matlab-reference rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install 'numpy==2.3.5' ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_crossed_forward.py -v
+          python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+
+      - name: Restore original complete frozen 64-case MATLAB and HGFX fitting
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 out
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path("original-64")
+          s=json.loads((p/"summary-41863441006.json").read_bytes())
+          assert s["hgfx_sha"]=="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          assert s["matlab_sha"]=="2437f4dc241541072722a2695ddeca7b44d83dd3"
+          assert s["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          assert s["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          for filename,digest in s["raw_evidence_sha256"].items():
+              assert hashlib.sha256((p/filename).read_bytes()).hexdigest()==digest
+          print("Exact original 63/64 scientific NON-PASS preserved")
+          PY
+
+      - name: Unmodified HGFX 1.0.0 forward at three identical frozen source anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_crossed_forward_hgfx.py \
+            --input work/benchmarks/runtime_v1 --original original-64 \
+            --output out/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: Unmodified MATLAB HGF 8.2.0 forward at same three original vectors
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_crossed_forward_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'original-64'),fullfile(pwd,'out','matlab_raw.json'))"
+
+      - name: Verify own-original public fit at own endpoint then compare all 11 cross-engine fields
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_crossed_forward.py \
+            --hgfx out/hgfx_raw.json --matlab out/matlab_raw.json \
+            --original original-64 --input work/benchmarks/runtime_v1 \
+            --output "out/derived-crossed-forward-${{ github.run_id }}.json"
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path("out")
+          path=root/"derived-crossed-forward-${{ github.run_id }}.json"
+          r=json.loads(path.read_bytes())
+          assert r["status"]=="AUTHOR_SIDE_FORWARD_SOURCE_ISOLATION_NOT_PUBLIC_FIT_PASS_NOT_TIMED"
+          assert r["original_public_fit_traj_cross_engine"]["mismatched_fields"]==["mu","muhat"]
+          assert r["anchor_origins"]==[
+              "original_hgfx_fitted_endpoint",
+              "original_matlab_fitted_endpoint",
+              "original_frozen_start"]
+          r["github_run_id"]=os.environ["GITHUB_RUN_ID"]
+          r["tested_sha"]=os.environ["GITHUB_SHA"]
+          r["raw_evidence_sha256"]={
+              name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+              for name in ("hgfx_raw.json","matlab_raw.json")}
+          path.write_text(json.dumps(r,indent=2,sort_keys=True,allow_nan=False)+"\n")
+          print(json.dumps({
+              "github_run_id":r["github_run_id"],
+              "tested_sha":r["tested_sha"],
+              "original_public_full_fit_nonpass":r["original_public_fit_traj_cross_engine"]["mismatched_fields"],
+              "matched_parameter_vector_failing_fields":{
+                  name:item["mismatched_fields"]
+                  for name,item in r["full_source_matched_vector_cross_engine_trajectories"].items()},
+              "matched_parameter_vector_failed_cells":{
+                  name:{field:len(points) for field,points in item["critical_coordinates"].items()}
+                  for name,item in r["full_source_matched_vector_cross_engine_trajectories"].items()},
+              "original_fit_self_reproduction":{
+                  name:item["mismatched_fields"]
+                  for name,item in r["reproduces_each_engine_original_full_fit_at_its_own_endpoint"].items()},
+              "new_raw_sha256":r["raw_evidence_sha256"],
+              "scientific_gate":"ORIGINAL 63/64 NON-PASS, NO TIMING",
+          },sort_keys=True))
+          PY
+
+      - name: Preserve both complete raw cross-engine trajectories on failures too
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-crossed-forward-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit only new separately classified machine-readable diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-crossed-forward-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-crossed-forward-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-crossed-forward-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): preserve exact matched-parameter forward MATLAB/HGFX source isolation'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures

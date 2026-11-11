@@ -1,0 +1,86 @@
+{
+  "schema": "perf01d-subject7-posthoc-local-laplace-scale-summary-v1",
+  "status": "AUTHOR_SIDE_DESCRIPTIVE_NOT_SCIENCE_PASS",
+  "original_subject_index_zero_based": 7,
+  "original_64_public_fit_result": "63/64 SCIENTIFIC NONPASS",
+  "source_real_fits_run_id": "42268256755",
+  "source_real_fits_sha": "331bb639dd65f3a3e2620b34f736a9b5156b8725",
+  "source_six_real_fits_artifact_id": 13528955307,
+  "source_six_zip_sha256": "ea9b37bd18b2fc25265268a0adf1002a504ddae278f627946f2976e5b4cc242c",
+  "source_original_eight_pair_run_id": "42268990557",
+  "source_original_eight_pair_report_sha256": "3c90a24b94921b90e80f1967dfaaaaff821b809d893b5939b5a314ed8635b327",
+  "posthoc_derived_run_id": "42282108311",
+  "posthoc_tested_source_sha": "fa6dcc0e77b244f483482b7ef8e01429d6884c4c",
+  "posthoc_artifact_id": 13536250592,
+  "posthoc_derived_report_sha256": "4ead097fe2958229176cdb3c610a02dd1b8746ca3b338e3c87bac3624b45c889",
+  "source_unchanged_tolerances": {
+    "traj_rtol": 3e-8,
+    "traj_atol": 3e-10
+  },
+  "source_matlab_fitted_H_eigenvalues_ascending": [
+    0.0625011697484243,
+    0.3830081431300112,
+    6.550456084744912
+  ],
+  "source_matlab_fitted_H_condition_number": 104.80533582189358,
+  "source_matlab_sqrt_Sigma_diagonal": [
+    1.6053630372752528,
+    3.9999625685259614,
+    0.43171887892654626
+  ],
+  "source_hgfx_groups": {
+    "SkylakeX": {
+      "n_raw_real_fits": 2,
+      "original_28_fields_outside_tolerance": [
+        "traj.mu",
+        "traj.muhat"
+      ],
+      "original_mismatch_cell_counts": {
+        "traj.mu": 4,
+        "traj.muhat": 4
+      },
+      "endpoint_euclidean_delta": 3.786386748128776e-8,
+      "conditional_fitted_matlab_H_quadratic_distance": 1.6019611997118923e-8,
+      "maximum_normalized_absolute_free_component": 1.1807147245360163e-8,
+      "H_eigenvalues": [
+        0.06250116975792266,
+        0.3830081371604459,
+        6.5504560466075965
+      ],
+      "H_condition_number": 104.80533519578198
+    },
+    "Haswell": {
+      "n_raw_real_fits": 2,
+      "original_28_fields_outside_tolerance": [
+        "traj.epsi",
+        "traj.mu",
+        "traj.muhat",
+        "traj.psi"
+      ],
+      "original_mismatch_cell_counts": {
+        "traj.epsi": 5,
+        "traj.mu": 14,
+        "traj.muhat": 14,
+        "traj.psi": 40
+      },
+      "endpoint_euclidean_delta": 8.363607269215879e-8,
+      "conditional_fitted_matlab_H_quadratic_distance": 3.5319701747337e-8,
+      "maximum_normalized_absolute_free_component": 2.600803525808169e-8,
+      "H_eigenvalues": [
+        0.06250116974668701,
+        0.38300813000039297,
+        6.550456000680086
+      ],
+      "H_condition_number": 104.80533447979886
+    }
+  },
+  "full_source_pair_denominator": 8,
+  "all_source_H_and_Sigma_positive_definite": true,
+  "original_fitting_parity": "NONPASS",
+  "independent_scientific_review": "NOT_RECEIVED",
+  "perf01c": "NOT_FROZEN",
+  "perf01e_to_h": "NOT_RUN",
+  "scientific_model_identifiability": "NOT_ADJUDICATED",
+  "timing": "NOT_RUN",
+  "interpretation": "Post-hoc descriptive fitted Laplace scale; no independent scientific signoff, new tolerances, target outcomes, statistical significance or reference limitation verdict."
+}

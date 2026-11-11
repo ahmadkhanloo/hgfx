@@ -1,0 +1,835 @@
+{
+  "classification": "OPTIMIZER_ENDPOINT_SENSITIVITY_CANDIDATE_NOT_SCIENTIFIC_PASS",
+  "different_vector_within_implementation": {
+    "hgfx": {
+      "inf_states": {
+        "finite_pair_count": 1536,
+        "first_mismatch_index_zero_based": [
+          83,
+          1,
+          2
+        ],
+        "first_mismatch_trial_one_based": 84,
+        "max_abs_delta": 1.0849550369229632e-08,
+        "mismatch_count": 8,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3,
+          4
+        ],
+        "status": "MISMATCH"
+      },
+      "residuals": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 7.411260494194494e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.da": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.epsi": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 2.614091547392672e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.mu": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": [
+          83,
+          1
+        ],
+        "first_mismatch_trial_one_based": 84,
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "MISMATCH"
+      },
+      "traj.muhat": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": [
+          84,
+          1
+        ],
+        "first_mismatch_trial_one_based": 85,
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "MISMATCH"
+      },
+      "traj.psi": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.99969465547656e-07,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sa": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.0849550369229632e-08,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sahat": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.084900924652743e-08,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.ud": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.v": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 8.346068280928876e-11,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.w": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.581336676187428e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          2
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.wt": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 4.662787517206723e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "trial_log_likelihoods": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 2.091624429212402e-09,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "yhat": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      }
+    },
+    "matlab": {
+      "inf_states": {
+        "finite_pair_count": 1536,
+        "first_mismatch_index_zero_based": [
+          83,
+          1,
+          2
+        ],
+        "first_mismatch_trial_one_based": 84,
+        "max_abs_delta": 1.0849538822910176e-08,
+        "mismatch_count": 8,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3,
+          4
+        ],
+        "status": "MISMATCH"
+      },
+      "residuals": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 7.411260494194494e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.da": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.epsi": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 2.614091547392672e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.mu": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": [
+          83,
+          1
+        ],
+        "first_mismatch_trial_one_based": 84,
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "MISMATCH"
+      },
+      "traj.muhat": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": [
+          84,
+          1
+        ],
+        "first_mismatch_trial_one_based": 85,
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "MISMATCH"
+      },
+      "traj.psi": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9996925949026263e-07,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sa": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.0849538822910176e-08,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sahat": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.0848997700207974e-08,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.ud": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.v": {
+        "finite_pair_count": 256,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 8.34606416096062e-11,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.w": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 1.581336676187428e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          2
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.wt": {
+        "finite_pair_count": 384,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 4.662787517206723e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128,
+          3
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "trial_log_likelihoods": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 2.091624429212402e-09,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      },
+      "yhat": {
+        "finite_pair_count": 128,
+        "first_mismatch_index_zero_based": null,
+        "first_mismatch_trial_one_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "nan_or_inf_mask_mismatch_count": 0,
+        "shape": [
+          128
+        ],
+        "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+      }
+    }
+  },
+  "endpoint_max_abs_delta": 3.277081539465598e-08,
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "github_run_id": "41868723514",
+  "interpretation": "Same-vector replay is distinct from the original failed cross-endpoint fitting comparison. No threshold, dataset, optimizer, start, or reference was modified.",
+  "raw_evidence_location": "GitHub Actions artifact perf01-subject7-same-vector-41868723514",
+  "raw_evidence_sha256": {
+    "hgfx_raw.json": "6a9f260117861cb266697ec00e5130ca0198adf333ea218544a6c491a97edc98",
+    "matlab_raw.json": "e401d85eda882387442e412e8ae1a274338e92836730551b66c84a5bfd9ecf05"
+  },
+  "same_vector_cross_implementation": [
+    {
+      "endpoint_source": "hgfx",
+      "failed_fields": [],
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1546319456101628e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.da": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.epsi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.3021142204224816e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.mu": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.muhat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.psi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.0605739337042905e-13,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sa": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1546319456101628e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sahat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.1546319456101628e-14,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.ud": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.v": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 2.2985086056692694e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.w": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.wt": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 7.632783294297951e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.440892098500626e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "hgfx_replay_status": "HGFX_REPLAY_COMPLETED",
+      "matlab_replay_status": "MATLAB_REPLAY_COMPLETED",
+      "status": "SAME_VECTOR_OUTPUT_CONCORDANT_DIAGNOSTIC"
+    },
+    {
+      "endpoint_source": "matlab",
+      "failed_fields": [],
+      "fields": {
+        "inf_states": {
+          "finite_pair_count": 1536,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3,
+            4
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "residuals": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.da": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.epsi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.mu": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.muhat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.psi": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sa": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.sahat": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.ud": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.v": {
+          "finite_pair_count": 256,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 1.8214596497756474e-17,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.w": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            2
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "traj.wt": {
+          "finite_pair_count": 384,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128,
+            3
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "trial_log_likelihoods": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 4.440892098500626e-16,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        },
+        "yhat": {
+          "finite_pair_count": 128,
+          "first_mismatch_index_zero_based": null,
+          "first_mismatch_trial_one_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "nan_or_inf_mask_mismatch_count": 0,
+          "shape": [
+            128
+          ],
+          "status": "WITHIN_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "hgfx_replay_status": "HGFX_REPLAY_COMPLETED",
+      "matlab_replay_status": "MATLAB_REPLAY_COMPLETED",
+      "status": "SAME_VECTOR_OUTPUT_CONCORDANT_DIAGNOSTIC"
+    }
+  ],
+  "schema": "perf01-subject7-cross-replay-comparison-v1",
+  "source_run_id": "41863441006",
+  "status": "DIAGNOSTIC_ONLY_NO_TIMING_NO_GATE_PROMOTION",
+  "subject_index_zero_based": 7
+}

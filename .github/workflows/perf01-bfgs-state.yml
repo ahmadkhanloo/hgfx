@@ -1,0 +1,137 @@
+name: PERF-01D BFGS inverse-Hessian and line-search forensic (NOT TIMED)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-bfgs-state.yml'
+      - 'benchmarks/runtime_v1/bfgs_state_subject7_hgfx.py'
+      - 'benchmarks/runtime_v1/matlab/bfgs_state_subject7_matlab.m'
+      - 'benchmarks/runtime_v1/compare_subject7_bfgs_state.py'
+      - 'tests/test_perf01_bfgs_state.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  full-bfgs-state:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      JAX_PLATFORMS: cpu
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: reference_toolbox
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: release_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Exact original scientific source and BFGS-state unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C release_source rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C reference_toolbox rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install "numpy==2.3.5" ./release_source
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+          python -m unittest discover -s work/tests -p 'test_perf01_bfgs_state.py' -v
+
+      - name: Restore immutable original complete 64-subject public fitting evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=work/benchmarks/runtime_v1/fit_cohort_results
+          mkdir -p "$root"
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir "$root"
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/fit_cohort_results")
+          s=json.loads((root/"summary-41863441006.json").read_bytes())
+          assert s["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          for name,expected in s["raw_evidence_sha256"].items():
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest()==expected,name
+          assert s["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          print("Original 63/64 failed scientific gate remains preserved")
+          PY
+
+      - name: New frozen public HGFX fit plus all populated BFGS matrices/gradients (untimed)
+        shell: bash
+        run: |
+          python work/benchmarks/runtime_v1/bfgs_state_subject7_hgfx.py \
+            --input work/benchmarks/runtime_v1 \
+            --original work/benchmarks/runtime_v1/fit_cohort_results \
+            --output work/benchmarks/runtime_v1/subject7_bfgs_results/hgfx_raw.json
+
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+
+      - name: New frozen public MATLAB fit plus all populated BFGS matrices/gradients (untimed)
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); bfgs_state_subject7_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'reference_toolbox'),fullfile(pwd,'work','benchmarks','runtime_v1','fit_cohort_results'),fullfile(pwd,'work','benchmarks','runtime_v1','subject7_bfgs_results','matlab_raw.json'))"
+
+      - name: Analyze whole BFGS state and line-search half-step reconstruction
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_subject7_bfgs_state.py \
+            --hgfx work/benchmarks/runtime_v1/subject7_bfgs_results/hgfx_raw.json \
+            --matlab work/benchmarks/runtime_v1/subject7_bfgs_results/matlab_raw.json \
+            --output work/benchmarks/runtime_v1/subject7_bfgs_results/comparison.json
+          python - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/subject7_bfgs_results")
+          result=json.loads((root/"comparison.json").read_bytes())
+          result["github_run_id"]=os.environ["GITHUB_RUN_ID"]
+          result["candidate_sha"]=os.environ["GITHUB_SHA"]
+          result["raw_evidence_sha256"]={
+              n:hashlib.sha256((root/n).read_bytes()).hexdigest()
+              for n in ("hgfx_raw.json","matlab_raw.json")}
+          result["raw_evidence_location"]="GitHub Actions artifact perf01-subject7-bfgs-"+os.environ["GITHUB_RUN_ID"]
+          (root/"summary.json").write_text(
+              json.dumps(result,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print(json.dumps({
+              "run_id":result["github_run_id"],
+              "candidate_sha":result["candidate_sha"],
+              "matrix_shared_slots":result["matrix_shared_slot_count"],
+              "first_nonzero_matrix_difference":result["first_nonzero_matrix_difference"],
+              "maximum_matrix_component_difference":result["maximum_matrix_component_difference"],
+              "n_step_candidates":len(result["line_search_candidates"]),
+              "original_science_failure_preserved":result["status"],
+              "sha256":result["raw_evidence_sha256"],
+          },sort_keys=True))
+          assert len(result["line_search_candidates"])==24
+          assert result["status"]=="AUTHOR_SIDE_BFGS_STATE_RECONSTRUCTION_NOT_SCIENTIFIC_PASS_NOT_TIMED"
+          PY
+
+      - name: Archive raw science and all failed attempts separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-bfgs-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/subject7_bfgs_results/
+          if-no-files-found: warn

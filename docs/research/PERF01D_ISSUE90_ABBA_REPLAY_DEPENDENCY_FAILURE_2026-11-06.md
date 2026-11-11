@@ -1,0 +1,5 @@
+# PERF-01D / Issue #90 — first archived-replay CI dependency preflight failure (2026-11-06)
+
+The first archived-only analysis workflow [42250386120](https://github.com/ahmadkhanloo/hgfx/actions/runs/42250386120) at exact candidate SHA `a21d8515aba7f104dcf1d00651dad838b18ddd39` failed **before any original evidence download or comparison**: its test module transitively imports `fit_cohort_hgfx.py`, which imports the frozen HGFX package, and the analysis-only runner installed only NumPy. Python raised `ModuleNotFoundError: No module named 'hgfx'`.
+
+This is an **engineering CI dependency omission**, not a model parity failure or a new performance result. The failed workflow/logs are preserved, and neither original four-source SHA, frozen scientific evidence nor the v2 prospective protocol is altered. The corrected *replay-only* workflow now checks out HGFX `v1.0.0`, checks exact release source SHA `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`, and installs that release solely for the import prerequisites; it still **does not execute new fitting, MATLAB, timing or GPU code**. Subsequent results require their own successful exact workflow run.

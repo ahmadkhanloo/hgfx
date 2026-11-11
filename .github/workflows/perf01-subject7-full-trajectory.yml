@@ -1,0 +1,193 @@
+name: PERF-01D subject7 full fitted trajectories compared to original MATLAB (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-full-trajectory.yml'
+      - 'benchmarks/runtime_v1/export_subject7_full_fit_trajectory.py'
+      - 'benchmarks/runtime_v1/compare_subject7_full_fit_trajectories.py'
+      - 'tests/test_perf01_subject7_full_trajectory.py'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: perf01-subject7-complete-traj-frozen-original
+  cancel-in-progress: false
+
+jobs:
+  original-scientific-trajectory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Lock untouched frozen HGFX source, 19 science guards, canonical data
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          python -m pip install 'numpy==2.3.5' threadpoolctl ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_full_trajectory.py -v
+          python -m unittest discover -s work/tests -p test_perf01_fit_cohort.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+
+      - name: Restore original complete 64-case MATLAB and HGFX source evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 out
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path("original-64")
+          s=json.loads((root/"summary-41863441006.json").read_bytes())
+          assert s["hgfx_sha"]=="4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          assert s["matlab_sha"]=="2437f4dc241541072722a2695ddeca7b44d83dd3"
+          assert s["classification_counts"]=={
+              "FIT_NUMERICAL_OR_TRAJECTORY_MISMATCH":1,
+              "FIT_OUTPUTS_WITHIN_EXISTING_DIAGNOSTIC_TOLERANCES":63}
+          assert s["cases"][7]["mismatched_fields"]==["traj.mu","traj.muhat"]
+          for name,d in s["raw_evidence_sha256"].items():
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest()==d,name
+          print("Original scientific NON-PASS and both exact original raw SHA256 retained")
+          PY
+
+      - name: Run both original full-public HGFX fits on ONE host, NO TIMERS
+        shell: bash
+        run: |
+          set -euo pipefail
+          for mode in auto Haswell; do
+            if [ "$mode" = auto ]; then
+              unset OPENBLAS_CORETYPE || true
+            else
+              export OPENBLAS_CORETYPE="$mode"
+            fi
+            export HGFX_TEST_BLAS_MODE="$mode"
+            python work/benchmarks/runtime_v1/export_subject7_full_fit_trajectory.py \
+              --input work/benchmarks/runtime_v1 --original original-64 \
+              --output "out/${mode}_raw.json"
+            python - <<'PY'
+          import json,os,platform,numpy as np
+          from pathlib import Path
+          from threadpoolctl import threadpool_info
+          mode=os.environ["HGFX_TEST_BLAS_MODE"]
+          raw=json.loads((Path("out")/f"{mode}_raw.json").read_bytes())
+          assert raw["status"]=="AUTHOR_SIDE_UNTIMED_COMPLETE_PUBLIC_FIT_NO_PARITY_DECISION"
+          info={
+              "run_id":os.environ["GITHUB_RUN_ID"],
+              "github_sha":os.environ["GITHUB_SHA"],
+              "platform":platform.platform(),
+              "machine":platform.machine(),
+              "mode":mode,
+              "numpy":np.__version__,
+              "openblas_coretype":os.environ.get("OPENBLAS_CORETYPE"),
+              "pools":[{"internal_api":x.get("internal_api"),
+                        "architecture":x.get("architecture"),
+                        "version":x.get("version"),
+                        "num_threads":x.get("num_threads")}
+                       for x in threadpool_info()],
+          }
+          (Path("out")/f"{mode}_environment.json").write_text(
+              json.dumps(info,indent=2,sort_keys=True)+"\n")
+          PY
+          done
+          unset OPENBLAS_CORETYPE || true
+
+      - name: Reapply ALL original 64-case fitting thresholds and preserve failures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("out")
+          e={k:json.loads((p/f"{k}_environment.json").read_bytes())
+             for k in ("auto","Haswell")}
+          assert e["auto"]["run_id"]==e["Haswell"]["run_id"]
+          assert e["auto"]["machine"]==e["Haswell"]["machine"]
+          assert e["auto"]["numpy"]==e["Haswell"]["numpy"]=="2.3.5"
+          assert e["auto"]["openblas_coretype"] is None
+          assert e["Haswell"]["openblas_coretype"]=="Haswell"
+          assert any(v["internal_api"]=="openblas" and v["architecture"]=="Haswell"
+                     for v in e["Haswell"]["pools"])
+          (p/"environments.json").write_text(json.dumps(e,sort_keys=True,indent=2)+"\n")
+          PY
+          python work/benchmarks/runtime_v1/compare_subject7_full_fit_trajectories.py \
+            --original original-64 --auto out/auto_raw.json \
+            --haswell out/Haswell_raw.json --environment out/environments.json \
+            --output "out/derived-full-trajectories-${{ github.run_id }}.json"
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          p=Path("out/derived-full-trajectories-${{ github.run_id }}.json")
+          r=json.loads(p.read_bytes())
+          assert r["status"]=="UNFROZEN_AUTHOR_SIDE_COMPLETE_TRAJECTORY_COMPARISON_NO_SCIENCE_PASS"
+          assert r["comparisons"]["original_hgfx_vs_original_matlab"]["mismatched_fields"]==[
+              "traj.mu","traj.muhat"]
+          r["source_run_id"]=os.environ["GITHUB_RUN_ID"]
+          r["tested_sha"]=os.environ["GITHUB_SHA"]
+          r["fresh_raw_sha256"]={
+              f:hashlib.sha256((Path("out")/f).read_bytes()).hexdigest()
+              for f in ("auto_raw.json","Haswell_raw.json")}
+          p.write_text(json.dumps(r,sort_keys=True,indent=2,allow_nan=False)+"\n")
+          print(json.dumps({
+              "run":r["source_run_id"],
+              "candidate":r["tested_sha"],
+              "original_failures":r["comparisons"]["original_hgfx_vs_original_matlab"]["mismatched_fields"],
+              "auto_failures":r["comparisons"]["new_auto_vs_original_matlab"]["mismatched_fields"],
+              "haswell_failures":r["comparisons"]["new_haswell_vs_original_matlab"]["mismatched_fields"],
+              "auto_vs_haswell_failures":r["comparisons"]["new_auto_vs_new_haswell"]["mismatched_fields"],
+              "critical_mismatch_counts":{
+                  k:{n:len(v) for n,v in entry["critical_field_mismatch_details"].items()}
+                  for k,entry in r["comparisons"].items()},
+              "raw_sha256":r["fresh_raw_sha256"],
+              "original_scientific_result":"63/64 NONPASS; NO TIMING",
+          },sort_keys=True))
+          PY
+
+      - name: Archive full raw trajectories even on experiment failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-subject7-full-trajectories-${{ github.run_id }}
+          path: out/*.json
+          if-no-files-found: warn
+
+      - name: Commit separate diagnostic only; immutable 64-case raw evidence untouched
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/benchmarks/runtime_v1/issue90_results
+          cp "out/derived-full-trajectories-${{ github.run_id }}.json" \
+            "work/benchmarks/runtime_v1/issue90_results/derived-full-trajectories-${{ github.run_id }}.json"
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add "benchmarks/runtime_v1/issue90_results/derived-full-trajectories-${{ github.run_id }}.json"
+          git -C work commit -m 'evidence(perf01d): retain original-threshold complete fitted subject-7 trialwise comparisons'
+          git -C work fetch origin research/perf-01-preflight-fixtures
+          git -C work rebase origin/research/perf-01-preflight-fixtures
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures

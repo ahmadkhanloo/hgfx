@@ -1,0 +1,876 @@
+{
+  "BFGS_T_frobenius_spike": {
+    "hgfx": {
+      "record_10_frobenius_norm": 281.76903538838,
+      "record_10_over_9_frobenius_norm_ratio": 183.5725489612489,
+      "record_9_frobenius_norm": 1.5349192293879397
+    },
+    "matlab": {
+      "record_10_frobenius_norm": 281.7688831325778,
+      "record_10_over_9_frobenius_norm_ratio": 183.57245203259478,
+      "record_9_frobenius_norm": 1.5349192104409404
+    }
+  },
+  "both_candidate_Armijo_count": 22,
+  "cross_implementation_T_max_component_diff": 0.00015053299961209632,
+  "cross_implementation_first_nonzero_T": {
+    "hgfx_matrix_frobenius_norm": 1.4142154490283405,
+    "matlab_matrix_frobenius_norm": 1.4142154490283405,
+    "matrix_max_abs_delta": 1.7252936275816144e-14,
+    "record_index_zero_based": 1
+  },
+  "derived_from_exact_candidate_sha": "5fdb627244c12d1ebd7582f83cc2c0783fb3cd5d",
+  "derived_from_github_run": "42187240378",
+  "excluded_terminal_ambiguous_transition_indices": [
+    22,
+    23
+  ],
+  "full_half_step_reconstruction_comparisons": [
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 0,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 1,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 8.881784197001252e-16,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 2,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 2.6645352591003757e-15,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 3,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 1.7763568394002505e-15,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 4,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 1.1102230246251565e-15,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 5,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 1.1102230246251565e-15,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 6,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 1.942890293094024e-16,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 7,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 5.551115123125783e-17,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 8,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 9,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 10,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 8.881784197001252e-16,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 11,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 12,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 13,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 14,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 2.7755575615628914e-17,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 15,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 8.326672684688674e-17,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 16,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 2.7755575615628914e-17,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 2.7755575615628914e-17,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 17,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 18,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 19,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 20,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    },
+    {
+      "both_candidate_armijo": true,
+      "both_candidate_full_steps": true,
+      "from_record_zero_based": 21,
+      "hgfx_candidate_armijo_from_stored_values": true,
+      "hgfx_candidate_halving_exponent": 0,
+      "hgfx_candidate_reconstruction_residual_max_abs": 0.0,
+      "matlab_candidate_armijo_from_stored_values": true,
+      "matlab_candidate_halving_exponent": 0,
+      "matlab_candidate_reconstruction_residual_max_abs": 0.0,
+      "same_candidate_halving_exponent": true
+    }
+  ],
+  "full_step_candidate_both_count": 22,
+  "limitations": [
+    "Source-derived BFGS curvature calculations reuse frozen post-fit Ridders gradients; not independently instrumented internal optimizer operations.",
+    "Full-step and Armijo decisions are compatible with reconstructed saved transitions, not a public MATLAB internal acceptance event log.",
+    "Frozen reference overwrites terminal history; record transitions 22 and 23 are excluded from source-branch/acceptance interpretations.",
+    "BFGS amplification is a candidate numerical mechanism, not proof of complete fitting scientific parity or a reference-only limitation.",
+    "All data, starts, thresholds and failed source evidence remain unchanged; no timing was executed."
+  ],
+  "maximum_reconstruction_residual_safe_transitions": 2.6645352591003757e-15,
+  "original_64_full_fit_scientific_result": "63/64 (subject 7 fails traj.mu/traj.muhat)",
+  "original_raw_sha256": {
+    "hgfx_raw.json": "060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce",
+    "matlab_raw.json": "4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a"
+  },
+  "safe_bfgs_decision_slots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "safe_line_search_transition_slots": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "schema": "perf01d-subject7-bfgs-branch-immutable-derived-v1",
+  "source_BFGS_decision_comparisons": [
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 949.1075072501786,
+        "curvature_source_threshold": 1.4142818882486142e-05,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 1,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.9140516386835419
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 949.1075072501227,
+        "curvature_source_threshold": 1.4142818882485307e-05,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 1,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.9140516386835393
+      },
+      "record_index_zero_based": 1,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 30.064680395967933,
+        "curvature_source_threshold": 1.772561240521646e-06,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 2,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.02796397973092979
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 30.06468039573815,
+        "curvature_source_threshold": 1.7725612405149789e-06,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 2,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.027963979732582134
+      },
+      "record_index_zero_based": 2,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 180.14625647347864,
+        "curvature_source_threshold": 2.762379977357236e-06,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 3,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.002113423324402189
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 180.1462564740014,
+        "curvature_source_threshold": 2.762379977328047e-06,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 3,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.002113423324613256
+      },
+      "record_index_zero_based": 3,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 39.76385903586251,
+        "curvature_source_threshold": 8.996693903890794e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 4,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.005996463600189364
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 39.76385903597903,
+        "curvature_source_threshold": 8.996693905263921e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 4,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.005996463599983806
+      },
+      "record_index_zero_based": 4,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 20.960659674638894,
+        "curvature_source_threshold": 5.352697176003946e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 5,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.010393200454072465
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 20.96065967466008,
+        "curvature_source_threshold": 5.352697175766083e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 5,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.010393200453470822
+      },
+      "record_index_zero_based": 5,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 7.135725310689241,
+        "curvature_source_threshold": 1.895843066754426e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 6,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.12651068563929568
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 7.135725316898202,
+        "curvature_source_threshold": 1.8958430663449609e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 6,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.12651068695110645
+      },
+      "record_index_zero_based": 6,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 3.3887872938577686,
+        "curvature_source_threshold": 1.2619364491147887e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 7,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.11673448792919539
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 3.3887872814037405,
+        "curvature_source_threshold": 1.2619364436385569e-07,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 7,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.11673449222896959
+      },
+      "record_index_zero_based": 7,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.4992863799548907,
+        "curvature_source_threshold": 7.759862306957855e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 8,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.03508177783105915
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.4992863864377173,
+        "curvature_source_threshold": 7.759862392887064e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 8,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.035081776703777545
+      },
+      "record_index_zero_based": 8,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.2114574855797005,
+        "curvature_source_threshold": 6.383269676587793e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 9,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.45711099998628224
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.21145748820538035,
+        "curvature_source_threshold": 6.3832696557467115e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 9,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.4571109818694922
+      },
+      "record_index_zero_based": 9,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.00726838473991692,
+        "curvature_source_threshold": 7.178858768975929e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 10,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 277.3463731828513
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.007268386605142568,
+        "curvature_source_threshold": 7.1788585359182755e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 10,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 277.3462226747112
+      },
+      "record_index_zero_based": 10,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": -0.046077686930810775,
+        "curvature_source_threshold": 2.167897659364725e-08,
+        "observed_saved_matrix_changed": false,
+        "record_index_zero_based": 11,
+        "source_condition_would_apply_update": false,
+        "stored_matrix_change_max_abs": 0.0
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": -0.04607769278688835,
+        "curvature_source_threshold": 2.1678976532527338e-08,
+        "observed_saved_matrix_changed": false,
+        "record_index_zero_based": 11,
+        "source_condition_would_apply_update": false,
+        "stored_matrix_change_max_abs": 0.0
+      },
+      "record_index_zero_based": 11,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.10469596297136832,
+        "curvature_source_threshold": 1.4722669025862362e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 12,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 268.5113927755641
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.10469595799436315,
+        "curvature_source_threshold": 1.472266904231248e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 12,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 268.5112416083358
+      },
+      "record_index_zero_based": 12,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.21191961352528843,
+        "curvature_source_threshold": 9.010250097577224e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 13,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 5.277118844716216
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.21191961037446916,
+        "curvature_source_threshold": 9.010250086003078e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 13,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 5.277119399678109
+      },
+      "record_index_zero_based": 13,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.163473234201562,
+        "curvature_source_threshold": 3.8113357984026635e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 14,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.7958865120321912
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.16347327056979985,
+        "curvature_source_threshold": 3.811336514408826e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 14,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.795886531577727
+      },
+      "record_index_zero_based": 14,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.05302114822353147,
+        "curvature_source_threshold": 8.013594096027432e-10,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 15,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 1.8622425915318175
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.05302116016247808,
+        "curvature_source_threshold": 8.013596240057963e-10,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 15,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 1.8622426434244925
+      },
+      "record_index_zero_based": 15,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.12475558452799534,
+        "curvature_source_threshold": 3.330881705674319e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 16,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.47032571774994647
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.12475558952845095,
+        "curvature_source_threshold": 3.330882258286583e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 16,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.47032528537735985
+      },
+      "record_index_zero_based": 16,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.1595630628800892,
+        "curvature_source_threshold": 6.0030595864477475e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 17,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 1.4416550768842749
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.1595630851431486,
+        "curvature_source_threshold": 6.003060572004204e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 17,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 1.4416555225157843
+      },
+      "record_index_zero_based": 17,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.33127938265262535,
+        "curvature_source_threshold": 1.2020791154890673e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 18,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 2.50302378351569
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.33127949137398427,
+        "curvature_source_threshold": 1.2020794282167526e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 18,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 2.5030237450621518
+      },
+      "record_index_zero_based": 18,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.6788035660390122,
+        "curvature_source_threshold": 1.1458528373588117e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 19,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.7617543310199655
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.6788033491420152,
+        "curvature_source_threshold": 1.1458520309378117e-08,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 19,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 0.761752965698689
+      },
+      "record_index_zero_based": 19,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.15200723896537205,
+        "curvature_source_threshold": 8.045640971009215e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 20,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 6.874330870699843
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.15200726421938518,
+        "curvature_source_threshold": 8.045641803199021e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 20,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 6.8743279647027755
+      },
+      "record_index_zero_based": 20,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.21202660124274267,
+        "curvature_source_threshold": 4.281973616257097e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 21,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 5.182027989707561
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.21202666537802795,
+        "curvature_source_threshold": 4.281974801311403e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 21,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 5.182027214669628
+      },
+      "record_index_zero_based": 21,
+      "same_curvature_decision": true
+    },
+    {
+      "both_source_branches_match_saved_T_changes": true,
+      "hgfx": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.17064967764391584,
+        "curvature_source_threshold": 3.058976362613795e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 22,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 2.2268581870340802
+      },
+      "matlab": {
+        "condition_vs_saved_matrix_change_agree": true,
+        "curvature_scalar_dgrad_dot_dx": 0.17064929159838585,
+        "curvature_source_threshold": 3.0589667747557746e-09,
+        "observed_saved_matrix_changed": true,
+        "record_index_zero_based": 22,
+        "source_condition_would_apply_update": true,
+        "stored_matrix_change_max_abs": 2.2268567210709533
+      },
+      "record_index_zero_based": 22,
+      "same_curvature_decision": true
+    }
+  ],
+  "source_BFGS_decision_disagreements": 0,
+  "source_BFGS_decision_vs_saved_matrix_disagreements": 0,
+  "source_BFGS_skip_slots_hgfx": [
+    11
+  ],
+  "source_BFGS_skip_slots_matlab": [
+    11
+  ],
+  "source_hgfx_reset_indices_one_based": [],
+  "source_matlab_reset_indices_one_based": [],
+  "status": "AUTHOR_SIDE_UNTIMED_SOURCE_DERIVED_NO_SCIENTIFIC_PASS"
+}

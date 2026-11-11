@@ -1,0 +1,77 @@
+{
+  "all_different_record_count": 9,
+  "allocated_slots_per_implementation": 101,
+  "classification": "OPTIMIZER_PATH_DIAGNOSTIC_ONLY_FULL_FIT_PARITY_NOT_PROMOTED",
+  "derived_from_original_candidate_sha": "b378fef6ff93f6efa041f4e8304dafba742ae4ab",
+  "derived_from_original_run": "42115887599",
+  "derived_only_no_fresh_optimizer_execution": true,
+  "final_fitted_vector": {
+    "atol": 3e-10,
+    "first_mismatch_index_zero_based": null,
+    "max_abs_delta": 3.291654060433302e-08,
+    "mismatch_count": 0,
+    "rtol": 3e-08,
+    "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+  },
+  "first_any_nonzero_double_difference": {
+    "note": "Exact/nonzero double differences, not a separate scientific gate.",
+    "objective_abs_delta": 1.1368683772161603e-13,
+    "parameter_max_abs_delta": 9.769962616701378e-15,
+    "record_index_zero_based": 1
+  },
+  "first_different_record": {
+    "free_parameter_difference_max_abs": 9.962832248078257e-08,
+    "free_parameters_outside_existing_final_tolerance": true,
+    "model_iteration_index_if_no_restart": 14,
+    "objective_difference_abs": 5.8638704558688914e-08,
+    "objective_outside_existing_final_tolerance": false,
+    "record_index_zero_based": 14
+  },
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_fresh_vs_original_fit": {
+    "atol": 3e-10,
+    "first_mismatch_index_zero_based": null,
+    "max_abs_delta": 1.4572520967703895e-10,
+    "mismatch_count": 0,
+    "rtol": 3e-08,
+    "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+  },
+  "interpretation": "Finite recorded slots are not guaranteed to equal the number of actual optimizer iterations because the frozen MATLAB implementation overwrites index i at stopping. A 101-slot buffer alone is never evidence of 100 completed iterations. Different fitted endpoints and the original subject-7 63/64 mismatch remain preserved.",
+  "matlab_fresh_vs_original_fit": {
+    "atol": 3e-10,
+    "first_mismatch_index_zero_based": null,
+    "max_abs_delta": 0.0,
+    "mismatch_count": 0,
+    "rtol": 3e-08,
+    "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+  },
+  "max_iter": 100,
+  "original_fit_neg_lj": {
+    "hgfx": 100.73136405853035,
+    "matlab": 100.73136405842156
+  },
+  "original_raw_sha256": {
+    "hgfx_raw.json": "6fe10be1dd1860612859e6efbe7bee13717e4787aed4a62f0e6b67a2072aac7a",
+    "matlab_raw.json": "ce4a96e6eb2aad48ee08c39f0361c0cebd5d2306b048b9674c96a45a4570a40f"
+  },
+  "recorded_finite_slots": {
+    "hgfx": 25,
+    "matlab": 25
+  },
+  "schema": "perf01-subject7-optimizer-trace-comparison-v1",
+  "scientific_disposition": "INDEPENDENT_REVIEW_REQUIRED_63_OF_64_FITTING_NONPASS",
+  "shared_finite_slot_count": 25,
+  "slot_mismatch_count": 0,
+  "source_run_id": "41863441006",
+  "status": "AUTHOR_SIDE_TRACE_DIAGNOSTIC_NOT_INDEPENDENTLY_REVIEWED_NOT_TIMED",
+  "subject_index_zero_based": 7,
+  "terminal_duplicate_finite_slots": {
+    "hgfx": true,
+    "matlab": true
+  },
+  "termination_reason": {
+    "hgfx": "NOT_INFERRED_FROM_PREALLOCATED_PUBLIC_ITER_ARRAY",
+    "matlab": "NOT_EXPOSED_BY_UNMODIFIED_PUBLIC_FITMODEL"
+  }
+}

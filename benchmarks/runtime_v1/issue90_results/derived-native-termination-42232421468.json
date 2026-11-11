@@ -1,0 +1,271 @@
+{
+  "fresh_raw_sha256": {
+    "hgfx_raw.json": "2dced38aa33bff545c1b1d36c3a0e866911e52271fcd22fcf1b357fc16cab0bf",
+    "matlab_raw.json": "c16736a221758d39b4ccef45a217798a3661dd6c78b75fec0d6f7f19869cbf48"
+  },
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "github_run_id": "42232421468",
+  "hgfx_direct_vs_same_host_public_all_optimizer_states_exact": true,
+  "hgfx_finite_history_slots": 25,
+  "hgfx_source_iterations": 24,
+  "hgfx_source_resets": 0,
+  "hgfx_source_termination_reason": "tol_grad",
+  "limitations": [
+    "MATLAB uses only source-native verbose option. No MATLAB source edited, no optimizer semantics changed.",
+    "HGFX exposed original source-native stop reason through direct optimizer with exact same-process public fit record verification.",
+    "MATLAB and HGFX source-native stop labels are diagnostic and not a whole-model fitting equivalence verdict.",
+    "Original complete 64-subject fitting remains 63/64 NONPASS; no thresholds, seeds, starts or dataset changed.",
+    "No timing, physical GPU or independent scientific peer review. PERF-01C NOT FROZEN."
+  ],
+  "matlab_finite_history_slots": 25,
+  "matlab_new_default_vs_original_archive_28_field_DIAGNOSTIC_ONLY": {
+    "classification": "FULL_FIT_OUTPUTS_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY",
+    "critical_field_mismatch_details": {
+      "traj.mu": [],
+      "traj.muhat": []
+    },
+    "field_count": 28,
+    "fields": {
+      "AIC": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "BIC": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "Corr": {
+        "atol": 5e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 5e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "H": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "LME": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "Sigma": {
+        "atol": 5e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 5e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "decompLME.freepars": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "decompLME.logjoint": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "decompLME.postpredcorr": {
+        "atol": 2e-08,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 2e-06,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "final": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "init": {
+        "atol": 0.0,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 0.0,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "negLj": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "negLl": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "res": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "resAC": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.da": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.epsi": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.mu": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.muhat": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.psi": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sa": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.sahat": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.ud": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.v": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.w": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "traj.wt": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "trialLogLlsplit": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "yhat": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      }
+    },
+    "mismatched_fields": []
+  },
+  "matlab_normal_verbose_all_outputs_exact": true,
+  "matlab_same_runner_only_verbose_flag_changed": true,
+  "matlab_source_termination_reason": "tol_grad",
+  "original_64_fit_run": "41863441006",
+  "original_64_raw_sha256": {
+    "hgfx_raw.json": "6c9a2598e12e0340a62d871011e8fd7652ec2d975d2c03395a37854052043abb",
+    "matlab_raw.json": "2ea074f97fd470149d0d871e06ed42bf8c2ab604ee38f340a3b18e6b4f81cd98"
+  },
+  "original_scientific_result": "63/64 NONPASS; original subject 7 mu/muhat fail",
+  "schema": "perf01d-subject7-source-native-termination-pair-v1",
+  "source_terminal_buffers_duplicated_in_original_do_not_prove_reason": true,
+  "status": "AUTHOR_SIDE_NATIVE_TERMINATION_RECORDED_NO_SCIENTIFIC_FIT_PASS",
+  "subject_index_zero_based": 7,
+  "tested_sha": "5d26ca719a2a3e996ca07edd2d29282fc3ca1173"
+}

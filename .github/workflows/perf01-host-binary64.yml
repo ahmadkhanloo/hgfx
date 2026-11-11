@@ -1,0 +1,101 @@
+name: PERF-01D issue90 cross-host BFGS binary64 audit (untimed)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-host-binary64.yml'
+      - 'benchmarks/runtime_v1/audit_subject7_host_binary64.py'
+      - 'tests/test_perf01_host_binary64.py'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  immutable-host-ulp:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: linux-auto
+            os: ubuntu-24.04
+            blas_core: auto
+          - label: linux-haswell
+            os: ubuntu-24.04
+            blas_core: Haswell
+          - label: windows-auto
+            os: windows-latest
+            blas_core: auto
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pin audit NumPy and verify 12 synthetic guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.3.5' threadpoolctl
+          python -m unittest discover -s work/tests -p test_perf01_host_binary64.py -v
+
+      - name: Restore immutable real BFGS public-fit artifact from run 42187240378
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original
+          test -f original/summary.json
+          test -f original/comparison.json
+          test -f original/hgfx_raw.json
+          test -f original/matlab_raw.json
+
+      - name: Audit exact scalar ULP differences without granting gate PASS
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ matrix.blas_core }}" = 'Haswell' ]; then
+            export OPENBLAS_CORETYPE='Haswell'
+          else
+            unset OPENBLAS_CORETYPE || true
+          fi
+          python work/benchmarks/runtime_v1/audit_subject7_host_binary64.py \
+            --archive original \
+            --output "out/issue90-${{ matrix.label }}.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          name="${{ matrix.label }}"
+          report=json.loads(Path(f"out/issue90-{name}.json").read_bytes())
+          assert report["status"] == "ENGINEERING_ULP_MEASUREMENTS_ONLY_NOT_EXACT_REPLAY_PASS"
+          assert report["original_fitting_science"] == "63/64 non-PASS, subject index 7 traj.mu/traj.muhat"
+          assert report["total_original_engine_history_rows"] == 48
+          assert len(report["rows"]) == 48
+          print(json.dumps({
+              "host":name,
+              "original_bfgs_run":report["original_bfgs_run"],
+              "norm_ulp_mismatches":report["archived_numpy_norm_ulp_mismatches"],
+              "slope_ulp_mismatches":report["archived_numpy_slope_ulp_mismatches"],
+              "max_norm_ulps":report["max_norm_ulp_distance"],
+              "max_slope_ulps":report["max_slope_ulp_distance"],
+              "source_science":"63/64 non-PASS"
+          },sort_keys=True))
+          PY
+
+      - name: Retain all raw-source-hash-verified host audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-issue90-host-${{ matrix.label }}-${{ github.run_id }}
+          path: out/issue90-${{ matrix.label }}.json
+          if-no-files-found: warn

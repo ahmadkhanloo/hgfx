@@ -1,0 +1,767 @@
+{
+  "anchor_origins": [
+    "original_hgfx_fitted_endpoint",
+    "original_matlab_fitted_endpoint",
+    "original_frozen_start"
+  ],
+  "frozen_hgfx_sha": "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27",
+  "frozen_matlab_sha": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "full_source_matched_vector_cross_engine_trajectories": {
+    "original_frozen_start": {
+      "critical_coordinates": {
+        "mu": [],
+        "muhat": []
+      },
+      "field_count": 11,
+      "fields": {
+        "da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.8214596497756474e-17,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "inference_states": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "mismatched_fields": [],
+      "status": "SOURCE_MATCHED_FORWARD_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY"
+    },
+    "original_hgfx_fitted_endpoint": {
+      "critical_coordinates": {
+        "mu": [],
+        "muhat": []
+      },
+      "field_count": 11,
+      "fields": {
+        "da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.220446049250313e-16,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 4.3021142204224816e-16,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.0605739337042905e-13,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.1546319456101628e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.1546319456101628e-14,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 2.2985086056692694e-17,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 7.632783294297951e-17,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "inference_states": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 1.1546319456101628e-14,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "mismatched_fields": [],
+      "status": "SOURCE_MATCHED_FORWARD_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY"
+    },
+    "original_matlab_fitted_endpoint": {
+      "critical_coordinates": {
+        "mu": [],
+        "muhat": []
+      },
+      "field_count": 11,
+      "fields": {
+        "da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 1.8214596497756474e-17,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "inference_states": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 0.0,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "mismatched_fields": [],
+      "status": "SOURCE_MATCHED_FORWARD_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY"
+    }
+  },
+  "github_run_id": "42204633161",
+  "limitations": [
+    "Matched-vector forward equality is IMPLEMENTATION PARITY for isolated forward calculation, not full optimizer/published scientific fitting parity.",
+    "Original 64 subject PUBLIC fitting 63/64 NON-PASS is unchanged.",
+    "Original full fit endpoints are different; same-vector forward probes intentionally remove optimizer path as a variable.",
+    "MATLAB reference 8.2.0 and HGFX 1.0.0 sources, original data/priors, all three vectors and unchanged tolerances are preserved.",
+    "Three anchors predeclared by frozen history; no retrospective exclusion or threshold change.",
+    "No timing, physical GPU results, external independent review or paper-ready speedup."
+  ],
+  "model": "hgf_binary",
+  "original_64_fit_run_id": "41863441006",
+  "original_public_fit_traj_cross_engine": {
+    "critical_coordinates": {
+      "mu": [
+        {
+          "absolute_difference": 7.841805399477764e-10,
+          "hgfx_value": 0.014332855205207846,
+          "index_zero_based": [
+            83,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.014332855989388386,
+          "trial_one_based": 84,
+          "unchanged_reference_bound": 7.299856796816515e-10
+        },
+        {
+          "absolute_difference": 7.501016509314784e-10,
+          "hgfx_value": 0.007609112221359793,
+          "index_zero_based": [
+            108,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.007609112971461444,
+          "trial_one_based": 109,
+          "unchanged_reference_bound": 5.282733891438433e-10
+        },
+        {
+          "absolute_difference": 5.624418569771805e-10,
+          "hgfx_value": 0.001280560330601383,
+          "index_zero_based": [
+            116,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.00128056089304324,
+          "trial_one_based": 117,
+          "unchanged_reference_bound": 3.384168267912972e-10
+        },
+        {
+          "absolute_difference": 6.203096508672346e-10,
+          "hgfx_value": 0.008281600808989275,
+          "index_zero_based": [
+            126,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.008281601429298926,
+          "trial_one_based": 127,
+          "unchanged_reference_bound": 5.484480428789678e-10
+        }
+      ],
+      "muhat": [
+        {
+          "absolute_difference": 7.841805399477764e-10,
+          "hgfx_value": 0.014332855205207846,
+          "index_zero_based": [
+            84,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.014332855989388386,
+          "trial_one_based": 85,
+          "unchanged_reference_bound": 7.299856796816515e-10
+        },
+        {
+          "absolute_difference": 7.501016509314784e-10,
+          "hgfx_value": 0.007609112221359793,
+          "index_zero_based": [
+            109,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.007609112971461444,
+          "trial_one_based": 110,
+          "unchanged_reference_bound": 5.282733891438433e-10
+        },
+        {
+          "absolute_difference": 5.624418569771805e-10,
+          "hgfx_value": 0.001280560330601383,
+          "index_zero_based": [
+            117,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.00128056089304324,
+          "trial_one_based": 118,
+          "unchanged_reference_bound": 3.384168267912972e-10
+        },
+        {
+          "absolute_difference": 6.203096508672346e-10,
+          "hgfx_value": 0.008281600808989275,
+          "index_zero_based": [
+            127,
+            1
+          ],
+          "level_one_based": 2,
+          "matlab_value": 0.008281601429298926,
+          "trial_one_based": 128,
+          "unchanged_reference_bound": 5.484480428789678e-10
+        }
+      ]
+    },
+    "field_count": 11,
+    "fields": {
+      "da": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "epsi": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 2.614091547392672e-10,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "mu": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": [
+          83,
+          1
+        ],
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "rtol": 3e-08,
+        "status": "MISMATCH"
+      },
+      "muhat": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": [
+          84,
+          1
+        ],
+        "max_abs_delta": 1.5704625655477145e-09,
+        "mismatch_count": 4,
+        "rtol": 3e-08,
+        "status": "MISMATCH"
+      },
+      "psi": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 3.99969465547656e-07,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "sa": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 1.0849550369229632e-08,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "sahat": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 1.084900924652743e-08,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "ud": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 3.9130654272412357e-10,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "v": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 8.346066459469226e-11,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "w": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 1.581336676187428e-10,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      },
+      "wt": {
+        "atol": 3e-10,
+        "first_mismatch_index_zero_based": null,
+        "max_abs_delta": 4.662787517206723e-10,
+        "mismatch_count": 0,
+        "rtol": 3e-08,
+        "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+      }
+    },
+    "mismatched_fields": [
+      "mu",
+      "muhat"
+    ],
+    "status": "SOURCE_MATCHED_FORWARD_NUMERIC_MISMATCH_DIAGNOSTIC_ONLY"
+  },
+  "original_raw_sha256": {
+    "hgfx_raw.json": "6c9a2598e12e0340a62d871011e8fd7652ec2d975d2c03395a37854052043abb",
+    "matlab_raw.json": "2ea074f97fd470149d0d871e06ed42bf8c2ab604ee38f340a3b18e6b4f81cd98"
+  },
+  "original_scientific_failure": "63/64 full public fits; subject 7 traj.mu and traj.muhat non-PASS",
+  "raw_evidence_sha256": {
+    "hgfx_raw.json": "dad3ab8dd47ceb855776be61cd5f160865d11455f18e506243337fb886bd0a30",
+    "matlab_raw.json": "750c1895fd64a852cc1430ca4abecd0922b89297435bbd9f82829f514c6c0c05"
+  },
+  "reproduces_each_engine_original_full_fit_at_its_own_endpoint": {
+    "hgfx_at_original_hgfx_endpoint_vs_original_hgfx_full_fit": {
+      "critical_coordinates": {
+        "mu": [],
+        "muhat": []
+      },
+      "field_count": 11,
+      "fields": {
+        "da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "mismatched_fields": [],
+      "status": "SOURCE_MATCHED_FORWARD_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY"
+    },
+    "matlab_at_original_matlab_endpoint_vs_original_matlab_full_fit": {
+      "critical_coordinates": {
+        "mu": [],
+        "muhat": []
+      },
+      "field_count": 11,
+      "fields": {
+        "da": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "epsi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "mu": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "muhat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "psi": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sa": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "sahat": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "ud": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "v": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "w": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        },
+        "wt": {
+          "atol": 3e-10,
+          "first_mismatch_index_zero_based": null,
+          "max_abs_delta": 0.0,
+          "mismatch_count": 0,
+          "rtol": 3e-08,
+          "status": "WITHIN_EXISTING_DIAGNOSTIC_TOLERANCE"
+        }
+      },
+      "mismatched_fields": [],
+      "status": "SOURCE_MATCHED_FORWARD_WITHIN_ORIGINAL_NUMERIC_TOLERANCES_DIAGNOSTIC_ONLY"
+    }
+  },
+  "schema": "perf01d-subject7-crossed-same-vector-trialwise-report-v1",
+  "status": "AUTHOR_SIDE_FORWARD_SOURCE_ISOLATION_NOT_PUBLIC_FIT_PASS_NOT_TIMED",
+  "subject_index_zero_based": 7,
+  "tested_sha": "690d00fcb1fcb3384aa23db92fba1df963be719e",
+  "trials": 128,
+  "unchanged_original_numeric_tolerances": {
+    "atol": 3e-10,
+    "rtol": 3e-08
+  }
+}

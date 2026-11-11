@@ -1,0 +1,64 @@
+name: PERF-01 paired preflight diagnostic (no timings)
+
+on:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-paired-preflight.yml'
+      - 'benchmarks/runtime_v1/compare_preflights.py'
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: true
+
+      - name: Verify both published independent preflight records exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f work/benchmarks/runtime_v1/preflight_runs/github-41851191076.json
+          test -f work/benchmarks/runtime_v1/matlab_preflight_runs/github-41852401008.json
+
+      - name: Generate paired diagnostic (no scientific PASS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/compare_preflights.py \
+            --hgfx work/benchmarks/runtime_v1/preflight_runs/github-41851191076.json \
+            --matlab work/benchmarks/runtime_v1/matlab_preflight_runs/github-41852401008.json \
+            --output work/benchmarks/runtime_v1/paired_preflight_runs/hgfx41851191076_matlab41852401008.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("work/benchmarks/runtime_v1/paired_preflight_runs/hgfx41851191076_matlab41852401008.json")
+          x = json.loads(p.read_text())
+          assert len(x["rows"]) == 28
+          assert all(r["classification"] != "UNASSESSED" for r in x["rows"])
+          assert not any("FASTER" in r["classification"] for r in x["rows"])
+          print("All 28 statuses accounted for; no performance claim.")
+          PY
+
+      - name: Commit paired diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add benchmarks/runtime_v1/paired_preflight_runs/hgfx41851191076_matlab41852401008.json
+          git -C work commit -m 'evidence(benchmark): add paired MATLAB-HGFX preflight classification'
+          git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perf01-paired-preflight
+          path: work/benchmarks/runtime_v1/paired_preflight_runs/hgfx41851191076_matlab41852401008.json
+          if-no-files-found: warn

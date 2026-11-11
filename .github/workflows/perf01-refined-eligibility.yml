@@ -1,0 +1,76 @@
+name: PERF-01C preserve revised 28-case eligibility after full-fit mismatch
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - 'benchmarks/runtime_v1/refine_eligibility_fit_cohort.py'
+      - '.github/workflows/perf01-refined-eligibility.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: perf01-refined-eligibility-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  preserve:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install required tool data dependencies
+        run: python -m pip install "numpy==2.3.5"
+      - name: Validate fail-closed author-side derived ledger tests
+        run: python -m unittest discover -s work/tests -p test_perf01_refine_eligibility.py -v
+      - name: Retain ORIGINAL 28-case candidate and derive new follow-up case ledger
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/refine_eligibility_fit_cohort.py \
+            --original work/benchmarks/runtime_v1/eligibility_candidates/trialwise41854644533_fit41855647245_cohort41860187774.json \
+            --fit work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json \
+            --output work/benchmarks/runtime_v1/eligibility_candidates/candidate_v2_fullfit41863441006.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("work/benchmarks/runtime_v1/eligibility_candidates")
+          original=json.loads((root/"trialwise41854644533_fit41855647245_cohort41860187774.json").read_bytes())
+          new=json.loads((root/"candidate_v2_fullfit41863441006.json").read_bytes())
+          assert len(original["cases"])==len(new["cases"])==28
+          assert {x["case_id"] for x in original["cases"]}=={x["case_id"] for x in new["cases"]}
+          assert new["independent_review"]=="NOT_RECEIVED" and new["no_timing"]
+          assert len(new["blocked_case_ids"])==12
+          assert new["classification_counts"]["BLOCKED_MULTISUBJECT_FIT_NUMERICAL_MISMATCH"]==2
+          assert new["classification_counts"]["DIAGNOSTIC_CONCORDANT_REVIEW_PENDING"]==16
+          print("Full denominator and frozen status preserved; no scientific timing PASS")
+          PY
+      - name: Upload new unapproved eligibility record (not a freeze)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01-refined-eligibility-${{ github.run_id }}
+          path: work/benchmarks/runtime_v1/eligibility_candidates/candidate_v2_fullfit41863441006.json
+          if-no-files-found: warn
+      - name: Commit newly derived ledger; retain historical one untouched
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C work config user.name 'github-actions[bot]'
+          git -C work config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C work add benchmarks/runtime_v1/eligibility_candidates/candidate_v2_fullfit41863441006.json
+          if git -C work diff --cached --quiet; then
+            echo 'Derived ledger already present; original remains unchanged'
+          else
+            git -C work commit -m 'evidence(perf01): retain 63-of-64 fitting result in new 28-case draft'
+            git -C work fetch origin research/perf-01-preflight-fixtures
+            git -C work rebase origin/research/perf-01-preflight-fixtures
+            git -C work push origin HEAD:refs/heads/research/perf-01-preflight-fixtures
+          fi

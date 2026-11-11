@@ -1,0 +1,108 @@
+name: "PERF-01D original x6/T6 single BFGS step sensitivity (POST-RESULT, UNTIMED)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-one-step-exact-same-state.yml'
+      - 'benchmarks/runtime_v1/subject7_one_step_exact_same_state.py'
+      - 'tests/test_perf01_subject7_one_step_exact_same_state.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  one-source-saved-state:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact frozen package and ten source-algebra synthetic controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = '4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27'
+          python -m pip install "numpy==2.3.5" ./frozen-release
+          python -m unittest discover -s work/tests -p 'test_perf01_subject7_one_step_exact_same_state.py' -v
+          python work/benchmarks/runtime_v1/generate_inputs.py --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py --output work/benchmarks/runtime_v1 --check
+      - name: Restore exact original HGFX/MATLAB BFGS matrix evidence and 50 real private gradients
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-bfgs private50 output
+          gh run download 42187240378 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-subject7-bfgs-42187240378 --dir original-bfgs
+          gh run download 42305573614 --repo "$GITHUB_REPOSITORY" \
+            --name perf01d-direct-nested-matlab-gradient-bfgs-42305573614 --dir private50
+          echo '060247be69f8542cf0c7e30d5cf12fb93e12411737452a308e489fef9e220fce  original-bfgs/hgfx_raw.json' | sha256sum -c -
+          echo '4816a4bf52c86d383363e6b957376e66e33a825be482de9ff3c75b557590ff2a  original-bfgs/matlab_raw.json' | sha256sum -c -
+          echo 'd92690111b2fa128c045f29b39aa95110b5e5cd838f90c48a733400a3e537913  private50/locked-50-bfgs-anchors.json' | sha256sum -c -
+          echo '90de6c75c13736fae95bc0645950ac0352546fd7262c4d5f70d97f8b9b14e978  private50/real-private-matlab-ridders.json' | sha256sum -c -
+          echo '2ff7dddac3892f1f7a6b7a78b20e5839315badebce60fd2d81c8847a3d4e2d2d  private50/paired-direct-private-gradient-bfgs-margins.json' | sha256sum -c -
+      - name: Evaluate source original x6 and T6 same-state clipped full-step candidates, no optimization and NO timing
+        shell: bash
+        run: |
+          set -euo pipefail
+          python work/benchmarks/runtime_v1/subject7_one_step_exact_same_state.py \
+            --root work/benchmarks/runtime_v1 --original original-bfgs \
+            --private50 private50 --output output/source-same-state-two-gradient-candidates.json
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('output/source-same-state-two-gradient-candidates.json')
+          d=json.loads(p.read_bytes())
+          assert d['post_result_selection'] is True
+          assert d['source_original_64_public_fit_science']=='63/64 SCIENTIFIC NONPASS'
+          assert d['independent_scientific_review']=='NOT_RECEIVED'
+          assert d['perf01c']=='NOT_FROZEN' and d['timing']=='NOT_RUN'
+          assert d['one_step_is_NOT_a_completed_fitting_result'] is True
+          assert d['one_step_is_NOT_an_unmodified_original_MATLAB_optimizer_branch_log'] is True
+          assert d['same_source_hgfx_objective_used_for_two_counterfactual_one_step_candidates'] is True
+          PY
+      - name: Preserve hashes and original scientific nonpass even on diagnostics failure
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,os
+          r=Path('output')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in r.glob('*.json') if p.name!='provenance.json'}
+          (r/'provenance.json').write_text(json.dumps({
+            'run':os.environ['GITHUB_RUN_ID'],'tested_commit_sha':os.environ['GITHUB_SHA'],
+            'post_result_selection':True,
+            'source_original_run':'42187240378',
+            'real_private_matlab_probe_run':'42305573614',
+            'original_science':'63/64 NONPASS',
+            'independent_scientific_review':'NOT_RECEIVED',
+            'perf01c':'NOT_FROZEN','no_timing':True,
+            'sha256':hashes},sort_keys=True,indent=2)+'\n')
+          print(json.dumps(hashes,sort_keys=True))
+          PY
+      - name: Upload complete source one-step sensitivity including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-source-same-state-x6-single-step-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn

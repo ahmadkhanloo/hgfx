@@ -1,0 +1,190 @@
+name: "PERF-01D same-runner frozen MATLAB-HGFX original subject7 (untimed)"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/perf-01-preflight-fixtures
+    paths:
+      - '.github/workflows/perf01-subject7-matched-runner-matlab-hgfx.yml'
+      - 'benchmarks/runtime_v1/matlab/subject7_same_runner_matlab.m'
+      - 'benchmarks/runtime_v1/compare_subject7_same_runner_matlab_hgfx.py'
+      - 'tests/test_perf01_subject7_same_runner_matlab_hgfx.py'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: perf01d-same-runner-frozen-reference-subject7-20261106
+  cancel-in-progress: false
+jobs:
+  same-runner-original-scientific-diagnostic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    env:
+      GH_TOKEN: ${{ github.token }}
+      JAX_PLATFORMS: cpu
+      OPENBLAS_NUM_THREADS: '4'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: work
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: v1.0.0
+          path: frozen-release
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: ComputationalPsychiatry/hgf-toolbox
+          ref: 2437f4dc241541072722a2695ddeca7b44d83dd3
+          path: matlab-reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate exact frozen source SHAs, 12 new fail-closed tests and canonical data
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C frozen-release rev-parse HEAD)" = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
+          test "$(git -C matlab-reference rev-parse HEAD)" = "2437f4dc241541072722a2695ddeca7b44d83dd3"
+          python -m pip install 'numpy==2.3.5' threadpoolctl ./frozen-release
+          python -m unittest discover -s work/tests -p test_perf01_subject7_same_runner_matlab_hgfx.py -v
+          python -m unittest discover -s work/tests -p test_perf01_subject7_same_host_repeatability_v2.py -v
+          python -m unittest discover -s work/tests -p test_perf01_subject7_full_trajectory.py -v
+          python work/benchmarks/runtime_v1/generate_inputs.py \
+            --output work/benchmarks/runtime_v1 --check
+          python work/benchmarks/runtime_v1/export_release_configs.py \
+            --output work/benchmarks/runtime_v1 --check
+      - name: Download original historical 64-fit RAW archives and verify both SHA256
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p original-64 out
+          gh run download 41863441006 --repo "$GITHUB_REPOSITORY" \
+            --name perf01-64-full-fits-41863441006 --dir original-64
+          cp work/benchmarks/runtime_v1/fit_cohort_results/summary-41863441006.json original-64/
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          sys.path.insert(0,str(Path("work/benchmarks/runtime_v1")))
+          from compare_subject7_full_fit_trajectories import load_original,compare_pair
+          summary,old_h,old_m=load_original(Path("original-64"))
+          x=compare_pair(old_h,old_m)
+          assert summary["cases"][7]["mismatched_fields"]==x["mismatched_fields"]==["traj.mu","traj.muhat"]
+          assert len(x["critical_field_mismatch_details"]["traj.mu"])==4
+          assert len(x["critical_field_mismatch_details"]["traj.muhat"])==4
+          print("Original full public fitting 63/64 NONPASS with SHA256 verified.")
+          PY
+      - name: Predeclare same fixed four logical cores for all HGFX refits
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v taskset
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          allowed=sorted(os.sched_getaffinity(0))
+          assert len(allowed)>=4, "Insufficient original four CPU cores; cannot shrink study"
+          chosen=allowed[:4]
+          Path("out/cpu.json").write_text(json.dumps({
+            "allowed_logical_cpus":allowed,"chosen_logical_cpus":chosen,
+            "hgfx_order":["SkylakeX_1","Haswell_1","Haswell_2","SkylakeX_2"],
+            "matlab_order":["MATLAB_1","MATLAB_2"]},sort_keys=True)+"\n")
+          with open(os.environ["GITHUB_ENV"],"a") as f:
+              f.write("PERF01_CPU_SET="+",".join(map(str,chosen))+"\n")
+          print("Original predeclared HGFX cores",chosen)
+          PY
+      - name: Execute all FOUR frozen public HGFX subject7 fits, no timers
+        shell: bash
+        run: |
+          set -euo pipefail
+          for sample in SkylakeX_1 Haswell_1 Haswell_2 SkylakeX_2; do
+            case "$sample" in
+              SkylakeX_*) export OPENBLAS_CORETYPE=SkylakeX ;;
+              Haswell_*) export OPENBLAS_CORETYPE=Haswell ;;
+              *) exit 1 ;;
+            esac
+            export ABBA_SAMPLE="$sample"
+            taskset -c "$PERF01_CPU_SET" python \
+              work/benchmarks/runtime_v1/export_subject7_full_fit_trajectory.py \
+              --input work/benchmarks/runtime_v1 --original original-64 \
+              --output "out/${sample}_raw.json"
+            taskset -c "$PERF01_CPU_SET" python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os,platform,sys
+          import numpy as np
+          from threadpoolctl import threadpool_info
+          sample=os.environ["ABBA_SAMPLE"]
+          cpu=json.loads(Path("out/cpu.json").read_text())["chosen_logical_cpus"]
+          raw=Path("out")/(sample+"_raw.json")
+          fit=json.loads(raw.read_bytes())
+          assert fit["status"]=="AUTHOR_SIDE_UNTIMED_COMPLETE_PUBLIC_FIT_NO_PARITY_DECISION"
+          assert fit["subject_index_zero_based"]==7 and fit["n_rand_init"]==0
+          affinity=sorted(os.sched_getaffinity(0))
+          assert affinity==cpu
+          model=next((line.partition(":")[2].strip()
+                      for line in Path("/proc/cpuinfo").read_text().splitlines()
+                      if line.lower().startswith("model name")),None)
+          report={
+            "mode":"SkylakeX" if sample.startswith("SkylakeX") else "Haswell",
+            "run_id":os.environ["GITHUB_RUN_ID"],"github_sha":os.environ["GITHUB_SHA"],
+            "platform":platform.platform(),"machine":platform.machine(),
+            "linux_cpu_model":model,"python":sys.version,"numpy":np.__version__,
+            "jax_platforms":os.environ["JAX_PLATFORMS"],
+            "cpu_set_requested":cpu,"affinity":affinity,
+            "openblas_threads":int(os.environ["OPENBLAS_NUM_THREADS"]),
+            "openblas_coretype":os.environ["OPENBLAS_CORETYPE"],
+            "raw_sha256":hashlib.sha256(raw.read_bytes()).hexdigest(),
+            "pools":[{"internal_api":p.get("internal_api"),
+                      "architecture":p.get("architecture"),"version":p.get("version"),
+                      "num_threads":p.get("num_threads")} for p in threadpool_info()],
+          }
+          (Path("out")/(sample+"_environment.json")).write_text(
+              json.dumps(report,sort_keys=True,indent=2)+"\n")
+          print("HGFX frozen original fit",sample,report["raw_sha256"],report["pools"])
+          PY
+          done
+          unset OPENBLAS_CORETYPE || true
+      - uses: matlab-actions/setup-matlab@v3
+        with:
+          release: R2026a
+      - name: MATLAB 8.2.0 public fitModel TWICE on the SAME runner, no performance timer
+        uses: matlab-actions/run-command@v3
+        with:
+          command: "addpath(fullfile(pwd,'work','benchmarks','runtime_v1','matlab')); subject7_same_runner_matlab(fullfile(pwd,'work','benchmarks','runtime_v1'),fullfile(pwd,'matlab-reference'),fullfile(pwd,'original-64'),fullfile(pwd,'out','matlab_raw.json'))"
+      - name: Derive all eight original-tolerance full 28-field SAME-RUNNER comparisons
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          names=("SkylakeX_1","Haswell_1","Haswell_2","SkylakeX_2")
+          d={name:json.loads((Path("out")/(name+"_environment.json")).read_bytes())
+             for name in names}
+          Path("out/environments.json").write_text(json.dumps(d,sort_keys=True,indent=2)+"\n")
+          PY
+          python work/benchmarks/runtime_v1/compare_subject7_same_runner_matlab_hgfx.py \
+            --original original-64 --matlab out/matlab_raw.json --hgfx out \
+            --environment out/environments.json --run-id "$GITHUB_RUN_ID" \
+            --sha "$GITHUB_SHA" --output out/derived.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("out/derived.json").read_bytes())
+          assert x["original_scientific"].startswith("63/64 NONPASS")
+          assert x["independent_scientific_review"]=="NOT_RECEIVED"
+          assert x["perf01c"]=="NOT_FROZEN" and x["performance_timing"]=="NOT_RUN"
+          assert len(x["all_eight_fresh_matlab_hgfx_28_field_comparisons"])==8
+          print("All original 8 new MATLAB/HGFX comparisons preserved, no new scientific PASS.")
+          PY
+      - name: Archive every fresh original public fit, environment and result, even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf01d-real-same-runner-matlab-hgfx-${{ github.run_id }}
+          path: out/
+          if-no-files-found: warn
