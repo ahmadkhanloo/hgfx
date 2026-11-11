@@ -62,12 +62,25 @@ def _submission_source(text: str) -> str:
     return body
 
 
-def _bib_titles(path: Path) -> list[str]:
+def _bib_records(path: Path) -> list[tuple[str, str]]:
+    """Return (display title, verification marker) for each BibTeX entry.
+
+    DOI is preferred because PDF text extraction can alter line-broken article
+    titles while the DOI remains a stable bibliographic identifier.
+    """
     text = path.read_text(encoding="utf-8")
-    titles = re.findall(r"(?mi)^\s*title\s*=\s*\{(.+?)\}\s*,?\s*$", text)
-    if not titles:
-        raise RuntimeError("no bibliography titles found")
-    return titles
+    records: list[tuple[str, str]] = []
+    for entry in re.split(r"(?m)(?=^@)", text):
+        title_match = re.search(r"(?mi)^\s*title\s*=\s*\{(.+?)\}\s*,?\s*$", entry)
+        if title_match is None:
+            continue
+        title = title_match.group(1)
+        doi_match = re.search(r"(?mi)^\s*doi\s*=\s*\{(.+?)\}\s*,?\s*$", entry)
+        marker = doi_match.group(1) if doi_match is not None else title
+        records.append((title, marker))
+    if not records:
+        raise RuntimeError("no bibliography entries found")
+    return records
 
 
 def _normalize_text(value: str) -> str:
@@ -75,6 +88,11 @@ def _normalize_text(value: str) -> str:
     value = re.sub(r"\\[A-Za-z]+\s*", "", value)
     value = re.sub(r"\s+", " ", value)
     return value.casefold().strip()
+
+
+def _bibliography_match_key(value: str) -> str:
+    """Normalize layout-only PDF/DOCX differences for title-presence checks."""
+    return re.sub(r"[^0-9a-z]+", "", _normalize_text(value))
 
 
 def _docx_text(path: Path) -> str:
@@ -126,12 +144,16 @@ def build(out_dir: Path) -> tuple[Path, Path]:
             "internal planning metadata leaked into journal DOCX: " + ", ".join(leaked)
         )
 
-    titles = _bib_titles(refs)
-    rendered_norm = _normalize_text(rendered)
-    missing = [title for title in titles if _normalize_text(title) not in rendered_norm]
+    records = _bib_records(refs)
+    rendered_norm = _bibliography_match_key(rendered)
+    missing = [
+        title
+        for title, marker in records
+        if _bibliography_match_key(marker) not in rendered_norm
+    ]
     if missing:
         raise RuntimeError(
-            f"citeproc bibliography verification failed ({len(titles) - len(missing)}/{len(titles)}): "
+            f"citeproc bibliography verification failed ({len(records) - len(missing)}/{len(records)}): "
             + ", ".join(missing)
         )
 
@@ -150,11 +172,15 @@ def build(out_dir: Path) -> tuple[Path, Path]:
     run("pdftotext", str(pdf), str(txt))
     pdf_text = txt.read_text(encoding="utf-8", errors="replace")
     txt.unlink(missing_ok=True)
-    pdf_norm = _normalize_text(pdf_text)
-    missing_pdf = [title for title in titles if _normalize_text(title) not in pdf_norm]
+    pdf_norm = _bibliography_match_key(pdf_text)
+    missing_pdf = [
+        title
+        for title, marker in records
+        if _bibliography_match_key(marker) not in pdf_norm
+    ]
     if missing_pdf:
         raise RuntimeError(
-            f"PDF bibliography verification failed ({len(titles) - len(missing_pdf)}/{len(titles)}): "
+            f"PDF bibliography verification failed ({len(records) - len(missing_pdf)}/{len(records)}): "
             + ", ".join(missing_pdf)
         )
 
