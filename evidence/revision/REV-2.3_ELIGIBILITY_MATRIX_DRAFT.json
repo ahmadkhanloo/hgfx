@@ -146,8 +146,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "perceptual/hgf_binary.m::hgf_binary(r,p,'trans') (candidate only; F family and r preparation not approved)",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_MODEL"
     },
     {
       "id": "F128:H-COMP",
@@ -214,8 +214,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "perceptual/hgf_binary.m::hgf_binary(r,p,'trans') (candidate only; F family and r preparation not approved)",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_MODEL"
     },
     {
       "id": "F1024:H-COMP",
@@ -282,8 +282,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "perceptual/hgf_binary.m::hgf_binary(r,p,'trans') (candidate only; F family and r preparation not approved)",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_MODEL"
     },
     {
       "id": "F8192:H-COMP",
@@ -350,8 +350,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "perceptual/hgf_binary.m::hgf_binary(r,p,'trans') (candidate only; F family and r preparation not approved)",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_MODEL"
     },
     {
       "id": "F65536:H-COMP",
@@ -418,8 +418,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "core/fitModel.m::fitModel(y,u,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config')",
+      "source_api_status": "PINNED_SOURCE_SIGNATURE_VERIFIED_NOT_PARITY_VALIDATED"
     },
     {
       "id": "S128:H-COMP",
@@ -486,8 +486,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "core/fitModel.m::fitModel(y,u,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config')",
+      "source_api_status": "PINNED_SOURCE_SIGNATURE_VERIFIED_NOT_PARITY_VALIDATED"
     },
     {
       "id": "S512:H-COMP",
@@ -554,8 +554,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "proposed serial loop of core/fitModel.m::fitModel(y_i,u_i,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config'); wrapper is not a native MATLAB batch function",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_BATCH_DESIGN"
     },
     {
       "id": "B1:H-COMP",
@@ -622,8 +622,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "proposed serial loop of core/fitModel.m::fitModel(y_i,u_i,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config'); wrapper is not a native MATLAB batch function",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_BATCH_DESIGN"
     },
     {
       "id": "B32:H-COMP",
@@ -690,8 +690,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "proposed serial loop of core/fitModel.m::fitModel(y_i,u_i,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config'); wrapper is not a native MATLAB batch function",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_BATCH_DESIGN"
     },
     {
       "id": "B256:H-COMP",
@@ -758,8 +758,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "proposed serial loop of core/fitModel.m::fitModel(y_i,u_i,'hgf_binary_config','unitsq_sgm_config','quasinewton_optim_config'); wrapper is not a native MATLAB batch function",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_UNAPPROVED_BATCH_DESIGN"
     },
     {
       "id": "B1024:H-COMP",
@@ -826,8 +826,8 @@
       "entrypoint": null,
       "parity_evidence": null,
       "timed_values_seconds": [],
-      "source_api_candidate": null,
-      "source_api_status": "PENDING_SOURCE_MAPPING"
+      "source_api_candidate": "core/fitModel.m::fitModel(s.y,x,pc,oc,'quasinewton_optim_config') (authentic historical D08 exporter); science run exhausted",
+      "source_api_status": "PINNED_SOURCE_CANDIDATE_BLOCKED_SCIENTIFIC_PARITY"
     },
     {
       "id": "D08:H-COMP",
@@ -881,5 +881,11 @@
       "source_api_status": "PENDING_SOURCE_MAPPING"
     }
   ],
-  "source_mapping_report": "docs/research/REV23_RELEASE_API_AND_FIXTURE_REQUIREMENTS_2026-11-11.md"
+  "source_mapping_report": "docs/research/REV23_RELEASE_API_AND_FIXTURE_REQUIREMENTS_2026-11-11.md",
+  "matlab_source_audit": "docs/research/REV23_PINNED_MATLAB_API_AND_DEFAULTS_AUDIT_2026-11-11.md",
+  "matlab_oracle_source_repo": "ComputationalPsychiatry/hgf-toolbox",
+  "matlab_oracle_source_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "matlab_default_model": "ehgf_binary",
+  "hgfx_v1_default_model": "hgf_binary",
+  "default_mismatch_rule": "Never compare bare fitModel(y,u) with bare fit_model(y,u); specify hgf_binary_config, unitsq_sgm_config and quasinewton_optim_config explicitly for S rows"
 }
