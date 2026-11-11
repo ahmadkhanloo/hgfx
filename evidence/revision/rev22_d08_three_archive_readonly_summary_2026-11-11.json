@@ -1,0 +1,94 @@
+{
+  "protocol": "REV22_D08_THREE_ARCHIVE_ORIGINAL_READONLY_2026_11_11",
+  "execution_mode": "ARCHIVED_READ_ONLY_NO_NEW_MODEL_OR_FIT",
+  "audit_workflow": {
+    "run_id": 42986788313,
+    "commit_sha": "7699100ce8cfc78c4952cc38390fc42df26eeed5",
+    "conclusion": "success",
+    "synthetic_unit_tests": {
+      "passed": 9,
+      "total": 9
+    },
+    "artifact_id": 13840375598,
+    "artifact_zip_sha256": "23fabb75ffe6ea0587b013379af393815bbf1483dd9b43f00f124cbaee728e49",
+    "derived_json_sha256": "79b5475f360fe0c23d451ad3a5519d83d2b31db5084047d48625f923392166ac"
+  },
+  "original_source_archive_sha256": {
+    "historical_m18": "c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de",
+    "rev22_A": "a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534",
+    "rev22_B": "ea577dc80b2194d1658eeb8c296a021f51332199be0ea7d4924608fe12891132"
+  },
+  "historical_matlab_reference": {
+    "old_runtime": "R2026a Update 5",
+    "new_runtime": "R2026b Update 1",
+    "inputs_614_exact": true,
+    "responses_614_exact": true,
+    "final_fit_transformed_exact": true,
+    "optimizer_trace_x_shape": [
+      101,
+      7
+    ],
+    "optimizer_trace_x_val_rst_exact": true,
+    "reset_indices_matlab": [
+      2,
+      19,
+      29,
+      38
+    ],
+    "old_hgfx_matlab_optimizer_first_exact_difference": {
+      "row_zero_based": 3,
+      "free_component_zero_based": 0,
+      "absolute_difference": 3.552713678800501e-15
+    },
+    "historical_optimizer_gate_level_x_mismatch": null
+  },
+  "matched_endpoint_trajectory_check": {
+    "parameter_vector": "ORIGINAL_HGFX_FITTED_ENDPOINT_IN_EACH_ARCHIVED_RUN",
+    "original_m18_rtol_descriptive": 3e-8,
+    "original_m18_atol_descriptive": 3e-10,
+    "named_fields": [
+      "mu",
+      "sa",
+      "muhat",
+      "sahat",
+      "v",
+      "w",
+      "da",
+      "dau",
+      "ud",
+      "psi",
+      "epsi",
+      "wt"
+    ],
+    "all_12_fields_evaluated": true,
+    "any_outside_descriptive_old_numeric_yardstick": false,
+    "ieee_status_disagreements": 0,
+    "run_A_eps_max_abs_diff": 1.382431946694851e-9,
+    "run_B_eps_max_abs_diff": 3.2741809263825417e-11,
+    "predeclared_uhgf_family_objective_gate": "NONE",
+    "scientific_family_parity_pass": false
+  },
+  "original_own_fit_trajectories": {
+    "rev22_A_eps_bad_1228": 4,
+    "rev22_B_eps_bad_1228": 3,
+    "first_bad_zero_based_trial": 178,
+    "first_bad_zero_based_level": 1,
+    "original_direct_fit_gate": "FAIL_PRESERVED",
+    "source_run_A": 42910756224,
+    "source_run_B": 42910835710,
+    "concurrent_execution_protocol_deviation": true,
+    "max_abs_fitted_parameter_between_run_A_and_B": 5.716338513650498e-10
+  },
+  "causal_attribution": {
+    "supported": "OBSERVED_OWN_FITTED_ENDPOINT_DIFFERENCE_WITH_SAME_VECTOR_NUMERIC_CONSISTENCY",
+    "first_new_run_BFGS_gradient_or_Armijo_decision": "NOT_OBSERVABLE_NO_HGFX_ITER_TRACE_IN_NEW_ARCHIVES",
+    "optimizer_or_model_ultimate_cause": "UNRESOLVED"
+  },
+  "science_status": {
+    "rev22": "IN_PROGRESS_UNRESOLVED_DISCREPANCY",
+    "rev24": "NOT_GLOBAL_PASS",
+    "d2_d3": "BLOCKED",
+    "original_M18_D08": "FAIL_PRESERVED",
+    "full_CPU": "NOT_PASS"
+  }
+}
