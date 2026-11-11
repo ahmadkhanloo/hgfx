@@ -1,0 +1,42 @@
+name: Neuroinformatics submission build
+
+on:
+  push:
+    branches:
+      - 'paper/neuroinformatics-submission-*'
+    paths:
+      - 'paper/submissions/neuroinformatics/**'
+      - '.github/workflows/neuroinformatics-submission.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-submission:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install document build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc latexmk poppler-utils texlive-latex-base texlive-latex-recommended texlive-fonts-recommended
+      - name: Compile and editorial preflight
+        run: |
+          python -m py_compile paper/submissions/neuroinformatics/preflight.py paper/submissions/neuroinformatics/build_submission.py
+          python paper/submissions/neuroinformatics/preflight.py
+      - name: Build manuscript, letter, title page, supplement, and sources
+        run: python paper/submissions/neuroinformatics/build_submission.py
+      - name: List and check all deliverables
+        run: |
+          ls -lh paper/dist/neuroinformatics
+          test "$(find paper/dist/neuroinformatics -maxdepth 1 -type f | wc -l)" -eq 7
+          unzip -t paper/dist/neuroinformatics/HGFX_Neuroinformatics_Source_Figures.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hgfx-neuroinformatics-submission
+          path: paper/dist/neuroinformatics/
+          if-no-files-found: error
