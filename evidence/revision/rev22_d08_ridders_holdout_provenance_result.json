@@ -1,0 +1,101 @@
+{
+  "D2_D3": "BLOCKED",
+  "archives": {
+    "likelihood": {
+      "id": 10346549885,
+      "seed": 314159265,
+      "zip_sha256": "4e763e9978cb409eca5c7b468d5798b3a832aa023e382731284b9af47fb61275"
+    },
+    "official": {
+      "id": 10339403480,
+      "seed": 123456789,
+      "zip_sha256": "c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de"
+    },
+    "optimizer": {
+      "id": 10347682339,
+      "seed": 314159265,
+      "zip_sha256": "3d94f74c71e5bf6bcdd8971d647ddba31f5a087cb4f3cb9a933c6a6e3c33518a"
+    },
+    "sensitivity": {
+      "id": 10348900752,
+      "seed": 314159265,
+      "zip_sha256": "42874a324ef408205452516f0abe7497b60d5f12b9f9bf2972df105845f907f6"
+    }
+  },
+  "cross_seed_policy": {
+    "classification": "HOLDOUT_EVIDENCE_NOT_TRANSFERABLE_TO_OFFICIAL_SEED",
+    "first_causal_official_A_B_Ridders_or_BFGS_decision": "OPEN_NO_NEW_STEPWISE_TRACE",
+    "holdout_reference_limitation_only_exact_seed_314159265": true,
+    "new_D08_fits_allowed": false,
+    "original_M18_D08_direct_fail_preserved": true,
+    "original_holdout_fail_preserved": true,
+    "published_original_own_fit_failures_A_B": [
+      4,
+      3
+    ]
+  },
+  "holdout_likelihood": {
+    "compat_sum_matlab_vector_abs_gap": 0.0,
+    "first_internal_state_difference_index": [
+      400,
+      1,
+      2
+    ],
+    "max_internal_state_abs_gap": 2.220446049250313e-16,
+    "normal_numpy_sum_matlab_vector_abs_gap": 3.637978807091713e-12,
+    "observation_and_per_trial_loglikelihoods_exact_for_selected_sample": true,
+    "original_classification": "FORWARD_STATE_DIVERGENCE",
+    "selected_off_center_sample_only": true
+  },
+  "holdout_matlab_reference_sensitivity": {
+    "baseline_replayed_exact": true,
+    "material_differences_one_ulp": 13,
+    "only_for_seed": 314159265,
+    "original_classification": "MATLAB_START_ULP_BASIN_SENSITIVE",
+    "total_one_ulp_start_variants": 14
+  },
+  "holdout_optimizer": {
+    "first_gate_val_index": [
+      56
+    ],
+    "first_gate_x_index": [
+      41,
+      4
+    ],
+    "original_classification": "SHARED_STATE_NUMERICS_PASS_PATH_DIVERGES",
+    "original_reset_trace_lengths_hgfx_matlab": [
+      9,
+      7
+    ],
+    "seed": 314159265,
+    "shared_state_matlab_rows_one_based": [
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "shared_state_max_gradient_abs_gap": 7.037925797703792e-11,
+    "shared_state_objectives_and_gradients_within_diagnostic_gate": true,
+    "step_and_BFGS_replays_within_gate": 6
+  },
+  "matlab_reference": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "official": {
+    "first_exact_abs_difference": 3.552713678800501e-15,
+    "first_exact_old_optimizer_x_index": [
+      3,
+      0
+    ],
+    "gate_level_optimizer_x_divergence": false,
+    "new_A_B_full_HGFX_trace_available": false,
+    "seed": 123456789
+  },
+  "protocol": "REV22_D08_RIDDERS_HOLDOUT_PROVENANCE_READONLY_2026_11_11",
+  "rev24": "NOT_GLOBAL_PASS",
+  "same_public_usdchf_input_614": true,
+  "same_simulated_responses_official_vs_holdout": false,
+  "science_models_or_fits_executed": 0,
+  "scientific_status": "REV22_UNRESOLVED_DISCREPANCY"
+}
