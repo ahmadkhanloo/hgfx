@@ -49,6 +49,14 @@ def safe_file(root: Path, rel: object) -> Path:
 def check(manifest_file: Path) -> dict:
     manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
     errors = []
+    if not isinstance(manifest, dict):
+        return {"schema": "rev23_fixture_integrity_preflight_v1",
+                "status": "BLOCKED_FIXTURE_INTEGRITY",
+                "rows_checked": len(ROWS),
+                "errors": ["manifest root must be a JSON object"],
+                "scientific_parity": "NOT_EVALUATED",
+                "independent_review": "NOT_EVALUATED",
+                "benchmark_authorized": False}
     if manifest.get("protocol_id") != "compstat-rev23-performance-1":
         errors.append("wrong protocol_id")
     if manifest.get("hgfx_source_commit") != EXPECTED_RELEASE:
@@ -100,10 +108,25 @@ def check(manifest_file: Path) -> dict:
                     # Explicit shape/dtype prevents silent flatten/recast/padding.
                     if not isinstance(arr, np.ndarray) or arr.shape != shape or arr.dtype != np.dtype("<f8"):
                         raise ValueError(f"array shape/dtype invalid; expected {shape}/float64")
-                elif field == "config" and source.suffix != ".json":
-                    raise ValueError("config must be a JSON file")
-                elif field == "start" and source.suffix != ".npy":
-                    raise ValueError("start must be an immutable .npy file")
+                elif field == "config":
+                    if source.suffix != ".json":
+                        raise ValueError("config must be a JSON file")
+                    try:
+                        config = json.loads(source.read_text(encoding="utf-8"))
+                    except (ValueError, UnicodeError) as exc:
+                        raise ValueError("invalid JSON config") from exc
+                    if not isinstance(config, dict):
+                        raise ValueError("config JSON root must be an object")
+                elif field == "start":
+                    if source.suffix != ".npy":
+                        raise ValueError("start must be an immutable .npy file")
+                    try:
+                        with source.open("rb") as stream:
+                            start = np.load(stream, allow_pickle=False)
+                    except (ValueError, OSError, EOFError) as exc:
+                        raise ValueError("invalid start .npy") from exc
+                    if not isinstance(start, np.ndarray) or start.dtype != np.dtype("<f8"):
+                        raise ValueError("start must be float64 .npy")
             except (ValueError, OSError, TypeError, EOFError) as exc:
                 errors.append(f"{ident}.{field}: {exc}")
     return {
