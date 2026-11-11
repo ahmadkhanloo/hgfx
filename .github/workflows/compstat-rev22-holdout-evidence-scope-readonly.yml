@@ -1,0 +1,87 @@
+name: REV-2.2 D08 original Ridders holdout-vs-official seed provenance (READ ONLY)
+
+# Never executes MATLAB, HGFX, JAX, Ridders, optimizer, or numerical fitting.
+# Original M18 sources are SHA-verified. Historic failures cannot be relabeled.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_RIDDERS_HOLDOUT_PROVENANCE_READONLY_PROTOCOL_2026-11-11.md'
+      - 'tools/compstat_rev22_holdout_evidence_scope.py'
+      - 'tests/paper/test_compstat_rev22_holdout_evidence_scope.py'
+      - '.github/workflows/compstat-rev22-holdout-evidence-scope-readonly.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  immutable-four-original-archive-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Eight synthetic unit tests (NO MODEL IMPORT)
+        run: python -m unittest discover -s tests/paper -p 'test_compstat_rev22_holdout_evidence_scope.py' -v
+      - name: Download exact four ORIGINAL GitHub archived sources only
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/d08_old"
+          for item in 'official:10339403480' 'optimizer:10347682339' 'likelihood:10346549885' 'sensitivity:10348900752'; do
+            label="${item%%:*}"
+            id="${item##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              -o "$RUNNER_TEMP/d08_old/${label}.zip"
+          done
+          echo 'c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de  '"$RUNNER_TEMP/d08_old/official.zip" | sha256sum -c
+          echo '3d94f74c71e5bf6bcdd8971d647ddba31f5a087cb4f3cb9a933c6a6e3c33518a  '"$RUNNER_TEMP/d08_old/optimizer.zip" | sha256sum -c
+          echo '4e763e9978cb409eca5c7b468d5798b3a832aa023e382731284b9af47fb61275  '"$RUNNER_TEMP/d08_old/likelihood.zip" | sha256sum -c
+          echo '42874a324ef408205452516f0abe7497b60d5f12b9f9bf2972df105845f907f6  '"$RUNNER_TEMP/d08_old/sensitivity.zip" | sha256sum -c
+      - name: Audit original official-vs-holdout Ridders/BFGS source applicability
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/compstat_rev22_holdout_evidence_scope.py \
+            --official "$RUNNER_TEMP/d08_old/official.zip" \
+            --optimizer "$RUNNER_TEMP/d08_old/optimizer.zip" \
+            --likelihood "$RUNNER_TEMP/d08_old/likelihood.zip" \
+            --sensitivity "$RUNNER_TEMP/d08_old/sensitivity.zip" \
+            --output evidence/revision/rev22_d08_ridders_holdout_provenance_result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('evidence/revision/rev22_d08_ridders_holdout_provenance_result.json').read_text())
+          assert d['science_models_or_fits_executed']==0
+          assert not d['same_simulated_responses_official_vs_holdout']
+          assert d['holdout_optimizer']['step_and_BFGS_replays_within_gate']==6
+          assert d['holdout_matlab_reference_sensitivity']['material_differences_one_ulp']==13
+          assert d['cross_seed_policy']['classification']=='HOLDOUT_EVIDENCE_NOT_TRANSFERABLE_TO_OFFICIAL_SEED'
+          assert d['cross_seed_policy']['first_causal_official_A_B_Ridders_or_BFGS_decision']=='OPEN_NO_NEW_STEPWISE_TRACE'
+          assert d['rev24']=='NOT_GLOBAL_PASS' and d['D2_D3']=='BLOCKED'
+          print('Cross-seed source evidence assessed; NO new MATLAB/HGFX numeric science')
+          PY
+          sha256sum evidence/revision/rev22_d08_ridders_holdout_provenance_result.json
+      - name: Delete transient 614-value historic source arrays; retain derived-only audit
+        if: always()
+        shell: bash
+        run: rm -rf "$RUNNER_TEMP/d08_old"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: REV22_D08_Ridders_BFGS_original_cross_seed_scope_READONLY
+          path: evidence/revision/rev22_d08_ridders_holdout_provenance_result.json
+          if-no-files-found: warn
+          retention-days: 90
