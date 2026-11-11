@@ -1,0 +1,90 @@
+name: REV-2.2 official-seed original Ridders Armijo five archives (READ ONLY)
+
+# NO MATLAB, HGFX, JAX, model, optimizer, Ridders evaluations or new science.
+# Read original archived sources with SHA-256 before interpreting evidence.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_OFFICIAL_RIDDERS_ARMIJO_ARCHIVE_AUDIT_PROTOCOL_2026-11-11.md'
+      - 'tools/compstat_rev22_official_ridders_archive_audit.py'
+      - 'tests/paper/test_rev22_official_ridders_archive_audit.py'
+      - '.github/workflows/compstat-rev22-official-ridders-archive-readonly.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify-five-official-source-artifacts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install only NumPy for archived arrays, not HGFX/JAX
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Synthetic-only invariant contracts
+        run: python -m unittest discover -s tests/paper -p 'test_rev22_official_ridders_archive_audit.py' -v
+      - name: Retrieve and SHA-check exact FIVE immutable historic official D08 artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/official_d08"
+          for item in 'endpoint:10339403480' 'ridders:10345886333' 'transition:10345846351' 'sensitivity:10346050821' 'new_A:13808150860'; do
+            label="${item%%:*}"
+            id="${item##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              -o "$RUNNER_TEMP/official_d08/${label}.zip"
+          done
+          echo 'c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de  '"$RUNNER_TEMP/official_d08/endpoint.zip" | sha256sum -c
+          echo '9ab1f959e8cc3b73db96876cdb0b5a909525e0290da475e9ea1e7c1904795441  '"$RUNNER_TEMP/official_d08/ridders.zip" | sha256sum -c
+          echo '2e501c383b6d07b38334088ae87b8bf633e9469d140f1c491d2fef98de386167  '"$RUNNER_TEMP/official_d08/transition.zip" | sha256sum -c
+          echo '6a913f5ac4646c44a056a9dba78deaf9db8aae5abc78c900e8451620c37cb4e4  '"$RUNNER_TEMP/official_d08/sensitivity.zip" | sha256sum -c
+          echo 'a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534  '"$RUNNER_TEMP/official_d08/new_A.zip" | sha256sum -c
+      - name: Independent read-only same-seed official selected-step audit (NO SCIENCE)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/compstat_rev22_official_ridders_archive_audit.py \
+            --endpoint "$RUNNER_TEMP/official_d08/endpoint.zip" \
+            --ridders "$RUNNER_TEMP/official_d08/ridders.zip" \
+            --transition "$RUNNER_TEMP/official_d08/transition.zip" \
+            --sensitivity "$RUNNER_TEMP/official_d08/sensitivity.zip" \
+            --new-a "$RUNNER_TEMP/official_d08/new_A.zip" \
+            --output evidence/revision/rev22_official_ridders_armijo_readonly_result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('evidence/revision/rev22_official_ridders_armijo_readonly_result.json').read_text())
+          assert x['new_scientific_evaluations']==0
+          assert x['official_historical_Ridders_single_selected_state']['exact_objective_plus_minus_samples']==22
+          assert x['official_historical_Armijo_BFGS_selected_transition']['exact_matlab_candidate_objectives']==17
+          assert x['official_historical_MATLAB_start_ULP']['material_outside_original_yardstick']==0
+          assert x['new_published_wheel']['first_causal_new_A_B_gradient_Armijo_BFGS_decision']=='NOT_OBSERVED'
+          assert x['rev24']=='NOT_GLOBAL_PASS' and x['d2_d3']=='BLOCKED'
+          print('Archived OFFICIAL same-seed Ridders/Armijo selected probes PASS; no new science, causal A/B open')
+          PY
+          sha256sum evidence/revision/rev22_official_ridders_armijo_readonly_result.json
+      - name: Delete transient original 614-response arrays
+        if: always()
+        shell: bash
+        run: rm -rf "$RUNNER_TEMP/official_d08"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: REV22_official_Ridders_Armijo_ULP_original_readonly_audit
+          path: evidence/revision/rev22_official_ridders_armijo_readonly_result.json
+          if-no-files-found: warn
+          retention-days: 90
