@@ -1,5 +1,5 @@
 Python reproduces a frozen reference toolbox across validated workflows
-All 36 paired model-selection winners agree across the two implementations
+Paired model-selection agreement is reported alongside a failed horizon gate
 Historical parameter-recovery failures remain visible rather than relabeled
 A scoped comparison separates matched quantities from non-comparable ones
 Validated workflows run without the proprietary reference runtime
