@@ -271,7 +271,8 @@ def audit(paths):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for label in SRC:
-        parser.add_argument("--" + label.replace("_", "-"), type=Path, required=True)
+        parser.add_argument("--" + label.replace("_", "-").lower(),
+                            dest=label, type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     check(not args.output.exists(), "Refuse overwrite of immutable derived audit")
