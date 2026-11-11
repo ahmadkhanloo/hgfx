@@ -1,0 +1,74 @@
+name: REV-2.2 historical M18 & concurrent D08 three archives READ ONLY
+
+# No MATLAB, hgfx, JAX, optimizer, Ridders or scientific forward model.
+# Source-only archived evidence verification and field comparison.
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - 'evidence/revision/protocols/REV-2.2_D08_THREE_ARCHIVE_READONLY_PROTOCOL_2026-11-11.md'
+      - 'tools/compstat_rev22_d08_three_archive_readonly.py'
+      - 'tests/paper/test_rev22_d08_three_archive_readonly.py'
+      - '.github/workflows/compstat-rev22-d08-three-archive-readonly.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify-three-original-d08-artifacts-readonly:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed NumPy ONLY, no HGFX/JAX/MATLAB
+        run: python -m pip install 'numpy==2.0.2'
+      - name: Nine synthetic source-only cross-audit invariants
+        run: python -m unittest discover -s tests/paper -p 'test_rev22_d08_three_archive_readonly.py' -v
+      - name: Retrieve exact existing historical/M18 and BOTH concurrent D08 archives
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/rev22_source_archives"
+          for entry in 'historical:10339403480' 'A:13808150860' 'B:13808625206'; do
+            key="${entry%%:*}"
+            id="${entry##*:}"
+            curl --fail --location --retry 2 --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${REPO}/actions/artifacts/${id}/zip" \
+              -o "$RUNNER_TEMP/rev22_source_archives/${key}.zip"
+          done
+          echo 'c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de  '"$RUNNER_TEMP/rev22_source_archives/historical.zip" | sha256sum -c
+          echo 'a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534  '"$RUNNER_TEMP/rev22_source_archives/A.zip" | sha256sum -c
+          echo 'ea577dc80b2194d1658eeb8c296a021f51332199be0ea7d4924608fe12891132  '"$RUNNER_TEMP/rev22_source_archives/B.zip" | sha256sum -c
+      - name: Independently inspect frozen M18 optimizer history and original A/B same-vector trajectories
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/compstat_rev22_d08_three_archive_readonly.py \
+            --historical "$RUNNER_TEMP/rev22_source_archives/historical.zip" \
+            --run-a "$RUNNER_TEMP/rev22_source_archives/A.zip" \
+            --run-b "$RUNNER_TEMP/rev22_source_archives/B.zip" \
+            --output evidence/revision/rev22_d08_three_archive_readonly_result.json
+          sha256sum evidence/revision/rev22_d08_three_archive_readonly_result.json
+      - name: Destroy transient original source archives, retain compact derived summary only
+        if: always()
+        shell: bash
+        run: rm -rf "$RUNNER_TEMP/rev22_source_archives"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: REV22_D08_original_M18_A_B_three_archive_readonly
+          path: evidence/revision/rev22_d08_three_archive_readonly_result.json
+          if-no-files-found: warn
+          retention-days: 90
