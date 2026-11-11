@@ -101,3 +101,28 @@ def test_no_fake_frozen_source(ledger):
 
 def test_root_must_be_json_object():
     assert_blocked([], "root must be object")
+
+
+def test_malformed_workload_id_rejected_without_exception(ledger):
+    ledger["workloads"][0]["id"] = ["F128"]
+    assert_blocked(ledger, "original 11 workload IDs")
+
+
+def test_malformed_cell_id_rejected_without_exception(ledger):
+    ledger["cells"][0]["id"] = ["F128:M-CPU"]
+    assert_blocked(ledger, "44-cell denominator")
+
+
+def test_malformed_workload_record_rejected_without_exception(ledger):
+    ledger["workloads"][0] = "F128"
+    assert_blocked(ledger, "original 11 workload IDs")
+
+
+def test_boolean_denominator_not_equal_to_zero(ledger):
+    ledger["eligible_cell_count"] = False
+    assert_blocked(ledger, "denominators inconsistent")
+
+
+def test_matlab_default_model_mismatch_stays_blocked(ledger):
+    ledger["workloads"][5]["model"] = "ehgf_binary"
+    assert_blocked(ledger, "original fit model changed")
