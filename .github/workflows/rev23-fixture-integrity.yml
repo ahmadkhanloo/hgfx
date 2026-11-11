@@ -1,0 +1,28 @@
+name: REV-2.3 fixture integrity — source-only tests
+
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - "tools/rev23_fixture_integrity.py"
+      - "tests/test_rev23_fixture_integrity.py"
+      - ".github/workflows/rev23-fixture-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fixture-integrity-contract:
+    name: Synthetic fixture contract (not benchmark)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install minimal test-only dependencies
+        run: python -m pip install numpy pytest
+      - name: Run only REV-2.3 synthetic fixture validation tests
+        run: python -m pytest -q tests/test_rev23_fixture_integrity.py
