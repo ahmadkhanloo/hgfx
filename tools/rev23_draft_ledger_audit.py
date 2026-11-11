@@ -62,10 +62,17 @@ def audit(manifest: object) -> dict:
         workloads = []
         errors.append("workloads must be a list")
     names = [w.get("id") for w in workloads if isinstance(w, dict)]
-    if len(workloads) != len(WORKLOADS) or len(set(names)) != len(WORKLOADS) or set(names) != set(WORKLOADS):
+    # Malformed JSON can contain list/dict IDs. Reject, never crash into an
+    # unhandled TypeError or mistake a partial set for a complete manifest.
+    if (len(workloads) != len(WORKLOADS)
+            or any(not isinstance(name, str) for name in names)
+            or set(name for name in names if isinstance(name, str)) != set(WORKLOADS)
+            or len(names) != len(set(name for name in names if isinstance(name, str)))):
+
         errors.append("original 11 workload IDs changed or duplicated")
     for work in workloads:
-        if not isinstance(work, dict) or work.get("id") not in WORKLOADS:
+        if (not isinstance(work, dict) or not isinstance(work.get("id"), str)
+                or work.get("id") not in WORKLOADS):
             errors.append("invalid workload object")
             continue
         op, trials, subjects = WORKLOADS[work["id"]]
@@ -85,7 +92,10 @@ def audit(manifest: object) -> dict:
         cells = []
         errors.append("cells must be a list")
     ids = [cell.get("id") for cell in cells if isinstance(cell, dict)]
-    if len(cells) != 44 or len(set(ids)) != 44 or set(ids) != expected:
+    if (len(cells) != 44
+            or any(not isinstance(ident, str) for ident in ids)
+            or len(ids) != len(set(ident for ident in ids if isinstance(ident, str)))
+            or set(ident for ident in ids if isinstance(ident, str)) != expected):
         errors.append("44-cell denominator changed, duplicated or removed")
     for cell in cells:
         if not isinstance(cell, dict):
@@ -104,7 +114,10 @@ def audit(manifest: object) -> dict:
             if cell.get(key) is not None:
                 errors.append(f"{ident}: unsupported {key} provenance inserted")
     if (manifest.get("candidate_cell_count"), manifest.get("eligible_cell_count"),
-        manifest.get("blocked_or_review_pending_cell_count")) != (44, 0, 44):
+        manifest.get("blocked_or_review_pending_cell_count")) != (44, 0, 44) or any(
+            type(manifest.get(key)) is not int for key in
+            ("candidate_cell_count", "eligible_cell_count", "blocked_or_review_pending_cell_count")
+        ):
         errors.append("denominators inconsistent with draft gates")
     return {"schema": "rev23_draft_ledger_audit_v1",
             "status": "DRAFT_STRUCTURE_CHECK_PASS" if not errors else "BLOCKED_DRAFT_LEDGER",
@@ -121,7 +134,7 @@ def main() -> int:
     try:
         data = json.loads(args.manifest.read_text(encoding="utf-8"))
         result = audit(data)
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         result = {"status": "BLOCKED_DRAFT_LEDGER", "errors": [str(exc)],
                   "scientific_validation": "NOT_EVALUATED", "timing_authorized": False}
     print(json.dumps(result, indent=2))
