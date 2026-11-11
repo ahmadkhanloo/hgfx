@@ -24,7 +24,7 @@ ROWS = {
     "D08": (614, 1),
 }
 ARRAY_KEYS = ("inputs", "responses")
-SHA_FIELDS = ("config_sha256", "start_sha256")
+FILE_FIELDS = ("config", "start", "inputs", "responses")
 EXPECTED_RELEASE = "4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27"
 EXPECTED_ORACLE = "2437f4dc241541072722a2695ddeca7b44d83dd3"
 
@@ -81,10 +81,7 @@ def check(manifest_file: Path) -> dict:
             errors.append("D08: original model/observation changed")
         if not w.get("provenance") or not w.get("selection_policy"):
             errors.append(f"{ident}: source provenance/selection policy missing")
-        for field in SHA_FIELDS:
-            if not isinstance(w.get(field), str) or len(w[field]) != 64:
-                errors.append(f"{ident}: {field} missing (real SHA256 required)")
-        for field in ARRAY_KEYS:
+        for field in FILE_FIELDS:
             item = w.get(field)
             if not isinstance(item, dict):
                 errors.append(f"{ident}: missing {field} file and SHA256")
@@ -94,13 +91,19 @@ def check(manifest_file: Path) -> dict:
                 actual = sha256(source)
                 if item.get("sha256") != actual:
                     raise ValueError(f"sha256 mismatch, actual {actual}")
-                with source.open("rb") as stream:
-                    arr = np.load(stream, allow_pickle=False)
-                shape = (trials,) if subjects == 1 else (subjects, trials)
-                # Explicit shape and dtype prevent silent flatten/recast/padding.
-                if arr.shape != shape or arr.dtype != np.dtype("<f8"):
-                    raise ValueError(f"array shape/dtype={arr.shape}/{arr.dtype}, "
-                                     f"expected {shape}/float64")
+                if field in ARRAY_KEYS:
+                    if source.suffix != ".npy":
+                        raise ValueError("arrays must be serialized as .npy")
+                    with source.open("rb") as stream:
+                        arr = np.load(stream, allow_pickle=False)
+                    shape = (trials,) if subjects == 1 else (subjects, trials)
+                    # Explicit shape/dtype prevents silent flatten/recast/padding.
+                    if not isinstance(arr, np.ndarray) or arr.shape != shape or arr.dtype != np.dtype("<f8"):
+                        raise ValueError(f"array shape/dtype invalid; expected {shape}/float64")
+                elif field == "config" and source.suffix != ".json":
+                    raise ValueError("config must be a JSON file")
+                elif field == "start" and source.suffix != ".npy":
+                    raise ValueError("start must be an immutable .npy file")
             except (ValueError, OSError, TypeError, EOFError) as exc:
                 errors.append(f"{ident}.{field}: {exc}")
     return {
