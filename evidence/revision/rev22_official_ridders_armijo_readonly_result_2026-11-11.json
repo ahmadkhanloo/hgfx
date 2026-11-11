@@ -1,0 +1,93 @@
+{
+  "d2_d3": "BLOCKED",
+  "historical_editable_development_source": {
+    "git_head_for_three_diagnostics": "d360fcd45c996c21ab482d1cd6b45dea6d65574f",
+    "not_the_published_v1_0_0_wheel": true,
+    "source_release_cross_version_inference_permitted": false
+  },
+  "new_published_wheel": {
+    "A_original_eps_bad_count": 4,
+    "A_own_fit_original_direct_status": "UNRESOLVED_DISCREPANCY",
+    "B_original_eps_bad_count": 3,
+    "first_causal_new_A_B_gradient_Armijo_BFGS_decision": "NOT_OBSERVED",
+    "new_A_B_full_stepwise_HGFX_optimizer_history_available": false,
+    "wheel_sha256": "5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90"
+  },
+  "new_scientific_evaluations": 0,
+  "official_historical_Armijo_BFGS_selected_transition": {
+    "accepted_points_and_values_exact": true,
+    "all_four_stored_transition_variants_accepted_j": 2,
+    "classification": "NO_TRANSITION_DIVERGENCE",
+    "exact_matlab_candidate_objectives": 17,
+    "some_intermediate_arithmetic_nonbitwise_possible": true,
+    "source_row_zero_based": 2,
+    "source_x_value_invH_gradient_and_error_exact": true,
+    "target_row_zero_based": 3
+  },
+  "official_historical_MATLAB_start_ULP": {
+    "classification": "NO_MATERIAL_START_ULP_SENSITIVITY_DETECTED",
+    "holdout_13_of_14_must_not_be_transferred_to_official_seed": true,
+    "material_outside_original_yardstick": 0,
+    "max_gate_ratio": 0.03996198988776443,
+    "variants": 14
+  },
+  "official_historical_Ridders_single_selected_state": {
+    "classification": "NO_RIDDERS_DIVERGENCE",
+    "exact_objective_plus_minus_samples": 22,
+    "max_abs_objective_sample_difference": 0.0,
+    "scope": "ONE_SELECTED_POINT_AND_ONE_FREE_COMPONENT_NOT_ALL_ITERATIONS",
+    "selected_derivative_and_error_exact": true,
+    "selected_free_component_zero_based": 0,
+    "selected_source_row_zero_based": 2,
+    "steps": 11
+  },
+  "original_M18_historical_first_exact_optimizer_x_diff": {
+    "abs_diff": 3.552713678800501e-15,
+    "different_original_archived_execution_from_selected_state_probe": true,
+    "gate_level_x_divergence": false,
+    "index_zero_based": [
+      3,
+      0
+    ]
+  },
+  "original_artifact_provenance": {
+    "endpoint": {
+      "artifact": 10339403480,
+      "run": 34823572192,
+      "zip_sha256": "c7bbc4f8b5ed9ae62b4f340e13297689112801af11683f4ac4cfae6490f3b3de"
+    },
+    "new_A": {
+      "artifact": 13808150860,
+      "run": 42910756224,
+      "zip_sha256": "a2864f8729d9e856eb3454cf1fbf4c26c08cd217695e58b79950cec2ac5b3534"
+    },
+    "ridders": {
+      "artifact": 10345886333,
+      "run": 34839730540,
+      "zip_sha256": "9ab1f959e8cc3b73db96876cdb0b5a909525e0290da475e9ea1e7c1904795441"
+    },
+    "sensitivity": {
+      "artifact": 10346050821,
+      "run": 34839730880,
+      "zip_sha256": "6a913f5ac4646c44a056a9dba78deaf9db8aae5abc78c900e8451620c37cb4e4"
+    },
+    "transition": {
+      "artifact": 10345846351,
+      "run": 34839730793,
+      "zip_sha256": "2e501c383b6d07b38334088ae87b8bf633e9469d140f1c491d2fef98de386167"
+    }
+  },
+  "protocol": "REV22_D08_OFFICIAL_RIDDERS_ARMIJO_ARCHIVES_READONLY_2026_11_11",
+  "rev22": "IN_PROGRESS_UNRESOLVED_DISCREPANCY",
+  "rev24": "NOT_GLOBAL_PASS",
+  "scientific_claim": "HISTORICAL_OFFICIAL_SELECTED_STEPS_MATCH_ONLY__NEW_BFGS_CAUSE_OPEN",
+  "source_data": {
+    "historical_matlab": "R2026a Update 5",
+    "input_sha256_binary64": "4516d5906a115817386e63ae8b4bb2a97618c90a867965176f6364833eb7d2bc",
+    "matlab_reference_commit": "2437f4dc241541072722a2695ddeca7b44d83dd3",
+    "n_inputs_responses": 614,
+    "new_A_matlab": "R2026b Update 1",
+    "official_seed": 123456789,
+    "response_sha256_binary64": "a9dbfefc6cabe51ef26f0669838d0d57b4ed8bf35e7c9d90b5cc8407c2347307"
+  }
+}
