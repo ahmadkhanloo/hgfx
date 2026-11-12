@@ -60,7 +60,8 @@ def audit(manifest: object) -> dict:
             or type(repeats.get("warmups")) is not int
             or type(repeats.get("timed_repeats")) is not int
             or (repeats.get("warmups"), repeats.get("timed_repeats"),
-                repeats.get("precision")) != (1, 5, "float64")):
+                repeats.get("precision")) != (1, 5, "float64")
+            or repeats.get("summary") != ["median", "IQR"]):
         errors.append("original repetition/precision design changed")
     workloads = manifest.get("workloads")
     if not isinstance(workloads, list):
