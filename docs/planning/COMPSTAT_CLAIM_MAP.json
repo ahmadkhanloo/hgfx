@@ -110,6 +110,108 @@
         }
       ],
       "sha256": "7d6fe31cd59186b6f749cc1b330f6c28a3cf3eff1bce95fa4ca4595d66a9ce82"
+    },
+    {
+      "id": "realdata_abstract_cases",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "all 324 source-defined",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/total_cases"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_abstract_warnings",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "warnings in 48 blocks",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/warning_case_count"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_result_cases_trials",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "324 source-defined blocks (25,920 trials)",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/total_cases"
+        },
+        {
+          "pointer": "/trials_in_source_grid"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_numeric_elements",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "2,540,160 numeric elements",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/total_elements_compared"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_abs_gap",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "3.1086244689504383e-15",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/worst_max_abs_diff"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_supp_comparable_fields",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "3,888 quantities",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/total_comparable_fields"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_supp_element_count",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "2,540,160 compared numeric elements",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/total_elements_compared"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
+    },
+    {
+      "id": "realdata_supp_warnings",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "48 of 324 blocks",
+      "evidence": "paper/computational_statistics/evidence/published_input_41809919116.json",
+      "values": [
+        {
+          "pointer": "/warning_case_count"
+        },
+        {
+          "pointer": "/total_cases"
+        }
+      ],
+      "sha256": "47432c35aa4914a652a8f1dc2aad81dc4d76fb5175dd0fc1fd47532b81756b70"
     }
   ]
 }
