@@ -35,6 +35,31 @@ A separate uHGF + Gaussian-observation holdout used a preselected seed and uncha
 
 The MATLAB reference is itself strongly start-sensitive in this exact workflow: 13 of 14 independent +/- one-local-spacing perturbations move the MATLAB optimizer endpoint outside the unchanged endpoint gate. The failed holdout therefore remains visible as a failure and is interpreted only as an exact-scope matched reference limitation. The result does not justify changing the seed, start, optimizer, data, or tolerance.
 
+### S2.3 Original published-release objective evaluation at shared parameters
+
+The original published-wheel REV-2.4 comparisons were performed against frozen MATLAB HGF Toolbox 8.2.0, not against the later development-only eHGF maintenance patch. The fixed-vector experiment contained **200 predeclared cases per family** at 128 trials and retained the complete valid/invalid denominator:
+
+| Perceptual family (binary observation) | Paired valid | Paired invalid | One-sided invalid | Interpretation |
+|---|---:|---:|---:|---|
+| Classic HGF | 164 | 36 | 0 | All 164 paired-valid objectives satisfy the **pre-existing classic-HGF criterion**; the 36 invalid cases are not successes |
+| Enhanced HGF | 198 | 1 | 1 | Numerical differences observed, **no preregistered enhanced-HGF objective gate** |
+| Unbounded HGF | 198 | 2 | 0 | Numerical differences observed, **no preregistered unbounded-HGF objective gate** |
+| **Total** | **560** | **39** | **1** | No global/parity verdict from this table |
+
+The classic-HGF criterion was `rtol=2e-11, atol=2e-13` for the applicable original shared-vector objective checks. Classic-HGF maximum absolute objective difference among valid comparisons was `7.275957614183426e-12`. The original enhanced-HGF case with a one-sided-invalid likelihood at zero-based trial 11 remains a **released-1.0.0 failure**, not a successful reference match. Subsequent development-only source changes are maintained separately and have not been scientifically accepted as a released-wheel correction.
+
+The original cross-evaluation experiment assessed **132 planned fitted-endpoint slots** from the two historical stress cases and 64 classic-HGF subjects: **128/128 classic-HGF slots** were paired-valid and within the original classic-HGF objective criterion (max negative-log-joint absolute difference `2.842170943040401e-14`), **2/2 unbounded-HGF slots** were paired-valid but had no registered family-specific objective threshold, and **1/2 enhanced-HGF slots** was evaluable because the archived HGFX endpoint vector was missing. The resulting **131/132 observable** endpoint slots do not establish global parity, fitted-endpoint equality, optimizer-path equivalence, trajectories, covariance or model-selection agreement. The historical **63/64** complete-fit discrepancy and subject-specific trajectory failure remain in force.
+
+The original scientific outputs and frozen execution identities are preserved in `docs/research/REV24_PANEL_G_ORIGINAL_RESULT_2026-11-10.md` and `docs/research/REV24_PANEL_E_ORIGINAL_RESULT_2026-11-10.md`; their GitHub Actions and raw artifact hashes appear there. These are cross-language objective experiments, **not runtime benchmarks**.
+
+### S2.4 Official USD/CHF full fitting: do not substitute holdout sensitivity for scientific parity
+
+The source-only historical 614-observation `uhgf + gaussian_obs` holdout described in S2.2 has a **different seed and simulated responses** from the official published-wheel paired USD/CHF study. Its MATLAB 13-of-14 start perturbation endpoint sensitivity cannot be transferred to the official study. Indeed, the separate *official* MATLAB seed `123456789` historical ±one-ULP source check did **not** show an analogous out-of-gate endpoint shift in its 14 probes. This is a difference in scope, not a reason to disregard either historical result.
+
+For the official published-wheel MATLAB/HGFX comparison, two independent concurrent one-shot workflows ran before either result was available, which was contrary to the planned single-invocation protocol. The two unchanged original-result records must be retained: against **1228** original own-fitted-endpoint `traj.epsi` entries, **4** were outside the original numerical gate in the first run and **3** were outside in the second, with zero-based first divergent trial **178** in both. Even though objectives evaluated at the *same* chosen parameter vectors were numerically close, the original complete HGFX optimizer traces were not archived, and the cause is not established. The official result is `UNRESOLVED_DISCREPANCY`, **not direct fit parity** and **not a proven model-identifiability limitation**. The runs were not a prospectively defined two-replicate design.
+
+Unmodified original protocols, source hashes, all numerical outcomes and run-specific artifacts are documented in `docs/research/REV22_D08_ORACLE_ORIGINAL_RESULT_2026-11-11.md`. This appendix does not apply a retrospective family objective threshold or change the old D08 or M18 failure classification.
+
 ## Appendix S3. Recovery and model-selection protocol
 
 The paired recovery program separates parameter recovery from model recovery.
