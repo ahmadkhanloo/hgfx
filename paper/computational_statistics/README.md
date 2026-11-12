@@ -2,6 +2,26 @@
 
 > **ACTIVE PUBLICATION DRAFT — 2026-11-12:** The primary objective is a defensible *Computational Statistics* software article, **not** speedup or synthetic CI throughput. The current [manuscript](manuscript.md), [ESM](../SUPPLEMENTARY_APPENDICES.md), [readiness gate](../../docs/planning/COMPSTAT_SUBMISSION_READINESS_2026-11-12.md) and [revision ledger](../../docs/planning/COMPSTAT_REVISION_LEDGER.md) supersede the 2026-11-10 progress snapshot below. New article evidence includes original published HGFX 1.0.0 / MATLAB 8.2.0 fixed-vector Panel G/E objective cases and **published-input 324-block/25,920-trial Forward compatibility**, with 48 warning-positive blocks and no original-study fitting/recovery claims. The five published-input evidence/protocol files were restored byte-identically from the current `main` tree. **NO generic fit parity, no scientific REV-2.4 PASS, no HGFX speedup claim.** The older 8-November **PDF/TeX package exists on `main` only** and belongs to a different manuscript draft; it must be rebuilt against this revision rather than submitted or copied unchanged. D2/D3 and article compilation/claim-audit gates remain OPEN.
 
+## Active source-to-PDF review build (2026-11-13)
+
+The source for this PR is `manuscript.md`, with `../SUPPLEMENTARY_APPENDICES.md`, `../references.bib`, and the six existing `../figures/*.pdf` files. **Do not submit the PDF/TeX source ZIP committed previously on `main`: it was produced from an older manuscript and cannot prove that this revision was typeset.**
+
+From an **actual checkout of `compstat-revision`** with `pandoc`, `pdflatex`, `pdfinfo`, and `pdftotext` installed:
+
+```bash
+python tools/check_manuscript_claims.py --allow-unmapped --json-out /tmp/compstat_claim_inventory.json
+python paper/computational_statistics/build_active_submission.py \
+  --root . --outdir paper/computational_statistics/active_preview
+```
+
+Outputs: `active_preview/source/HGFX_Main.{md,tex,pdf}`, `active_preview/source/HGFX_ESM.{md,tex,pdf}`, copied figure PDFs and BibTeX, `active_preview/HGFX_review_source.zip`, `active_preview/build_manifest.json`, and `active_preview/build.log`. The generated folder is gitignored; GitHub [active preview workflow](../../.github/workflows/compstat-active-preview.yml) uploads these outputs even on a failed page/compile gate. **Use the final rendered PDF to inspect all pages** for table overflow, long captions, missing references, math glyphs and figure placement before any author approval.
+
+This builder enforces the **existing** main ≤14 / ESM ≤10 planned page limits, six existing source tables/figures, 150–250-word abstract and defined bibliography keys. A build beyond the page gate exits nonzero with its manifest retained; page limits must not be silently relaxed. `--allow-unmapped` reports a **partial inventory**, not full scientific claim approval. The generic Pandoc article preview is **not the official Springer template** or a submission-ready deliverable.
+
+Verification boundary: the builder's *exact Git blob* `56bbbbca6a7e79032f867618e3d79d50af44997e` was reconstructed locally and executed successfully on an entirely **synthetic six-table/six-figure build fixture** (8-page test PDF, 1-page test ESM). Two negative local controls blocked an out-of-range abstract and a missing PDF figure. These checks **do not show the actual 2026-11-13 manuscript successfully compiles**: no full real-source checkout or official workflow-run ID has been obtained from this environment. The real manuscript is currently an **author-review draft, build not verified**, REV-2.4 scientific parity NOT_GLOBAL_PASS, D2/D3 BLOCKED.
+
+
+
 > **CURRENT ACTIVE COMPSTAT WORKSPACE — 2026-11-10 (LATEST AUTHOR D1=A):** author explicitly resumed Computational Statistics after the B retarget. The original [revision plan](../../docs/planning/COMPSTAT_REVISION_PLAN.md) is active; REV-1.4 stays `DOCUMENTED_LIMITATION`; next step REV-2.4. Earlier B/SWPUB supersession text below is **preserved historical context only**, not current authority. Working manuscript and evidence remain subject to D2/D3, independent review, cost/portal checks and full numeric claims audit. **NOT SUBMISSION-READY.**
 
 
