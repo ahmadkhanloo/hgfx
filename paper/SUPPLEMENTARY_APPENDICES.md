@@ -1,6 +1,6 @@
 # Supplementary Appendices
 
-These appendices accompany **HGFX: a validated Python/JAX reproduction of the Hierarchical Gaussian Filter toolbox**. They provide the numerical-policy, sensitivity, provenance, and traceability details that are intentionally summarized in the main text. Repository identifiers are confined to the final traceability appendix so the scientific narrative remains reader-facing.
+These appendices accompany **HGFX: a Python package for reference-compatible Hierarchical Gaussian Filter workflows**. They provide the numerical-policy, sensitivity, provenance, and traceability details that are intentionally summarized in the main text. Repository identifiers are confined to the final traceability appendix so the scientific narrative remains reader-facing.
 
 ## Appendix S1. Numerical compatibility policy and frozen acceptance rules
 
@@ -25,7 +25,7 @@ The paper distinguishes four reader-facing interpretations: direct parity, match
 
 In one official enhanced-HGF fitting workflow, MATLAB and HGFX can terminate in different optimizer basins even though shared-state numerical agreement remains at binary64 scale.
 
-The exact shared-vector objective checks pass under the unchanged numerical gate. At the first localized off-centre sample, the objective absolute difference is `2.842170943040401e-14`, localized to the observation log-likelihood. The first-trial log-likelihood absolute difference is `2.220446049250313e-16`, the maximum per-trial log-likelihood absolute difference is `8.881784197001252e-16`, and the MATLAB vector-sum versus scalar-loop reduction difference is `1.1368683772161603e-13`. The inference-state maximum absolute difference at the localized source-likelihood probe is exactly zero.
+In the **specific historical enhanced-HGF stress-case diagnostic**, the previously recorded shared-vector objective samples met that diagnostic's unchanged numerical comparison rule. This historical observation is **not** a newly established family-wide eHGF objective gate for the later 200-vector experiment. At the first localized off-centre sample, the objective absolute difference is `2.842170943040401e-14`, localized to the observation log-likelihood. The first-trial log-likelihood absolute difference is `2.220446049250313e-16`, the maximum per-trial log-likelihood absolute difference is `8.881784197001252e-16`, and the MATLAB vector-sum versus scalar-loop reduction difference is `1.1368683772161603e-13`. The inference-state maximum absolute difference at the localized source-likelihood probe is exactly zero.
 
 A MATLAB self-sensitivity probe perturbed the official transformed start by one local floating-point spacing. All 6 independent +/- one-spacing perturbations produced materially different optimizer endpoints, despite preserving the same model, data, optimizer, and scientific tolerances. The largest observed free-parameter shift was approximately 1.508. This demonstrates that the residual endpoint mismatch is consistent with a numerical-basin sensitivity also present in the frozen MATLAB reference; it is therefore reported as a matched reference limitation, not as inferential parity.
 
