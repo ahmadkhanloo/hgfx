@@ -20,3 +20,6 @@ benchmarks/results/
 *.npy
 *.npz
 !reference/golden/**/*.npz
+
+# Regenerated, draft-only Computational Statistics author-review package
+paper/computational_statistics/active_preview/
