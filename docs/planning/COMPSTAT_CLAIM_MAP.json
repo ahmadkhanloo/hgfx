@@ -5,7 +5,7 @@
     {
       "id": "s7_36_cases",
       "source": "paper/computational_statistics/manuscript.md",
-      "phrase": "all 36 cases",
+      "phrase": "all 36 Bayesian information criterion winners agreed",
       "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
       "values": [
         {
@@ -17,7 +17,7 @@
     {
       "id": "s7_balanced_accuracy_abstract",
       "source": "paper/computational_statistics/manuscript.md",
-      "phrase": "balanced accuracy of 0.583",
+      "phrase": "balanced accuracy for identifying the generating model was 0.583",
       "evidence": "reference/validation/m18_s7_reference_limitation/decision.json",
       "values": [
         {
