@@ -93,6 +93,16 @@ An earlier frozen parameter-recovery experiment failed its scientific acceptance
 
 CPU/backend equivalence was remeasured after remediation of the host-runtime numerical path, without changing the frozen criterion. Physical NVIDIA GPU applicability is retained from the recorded pre-release T4 run because the JAX GPU fitting path and its S9 runner are unchanged across the release; this retained GPU evidence is treated as applicability/correctness evidence only, not as a post-remediation performance measurement.
 
+To make the different validation claims explicit, let \(D=(u,y)\) denote the **same** frozen trial data and let \(\vartheta\) denote transformed free parameters under one fixed perceptual/observation model and prior configuration. For implementation \(b\), write \(Q_b(\vartheta;D)\) for its negative log joint. The fixed-parameter comparison is
+
+\[
+\Delta_{\mathrm{eval}}(\vartheta;D)
+=\left|Q_{\mathrm{HGFX}}(\vartheta;D)
+-Q_{\mathrm{MATLAB}}(\vartheta;D)\right|.
+\]
+
+The comparison is meaningful only when both sides evaluate the same scientific objective with matching numerical input semantics; observed nonfinite returns remain separately classified. For independently optimized endpoints \(\hat\vartheta_b\), a small \(\Delta_{\mathrm{eval}}\) at selected shared vectors does **not** imply \(\hat\vartheta_{\mathrm{HGFX}}=\hat\vartheta_{\mathrm{MATLAB}}\), matching inference trajectories, or equal Hessian-derived statistics. Nor does equality of an implementation's model-selection decision with the reference prove recovery of the data-generating model. Parameter recovery is a distinct experiment, defined only when a generating truth \(\vartheta^*\) is known. This separation is an interpretation framework for the reported tests, not a new estimator or a proof of numerical equivalence.
+
 ### 2.5 pyhgf common-scope protocol
 
 `pyhgf==0.3.2` was pinned before execution. Direct comparison was allowed only after model structure, update equations, parameters, initialization, input/masking semantics, reported quantities, precision mode, and numerical guards had been mapped. The authorized cell is a fixed-parameter, fully observed, three-level binary HGF (128 trials; standard/mean-field updates; unit coupling; zero drift; inverse temperature `ze = 48`). Trajectory quantities used `atol = 1e-10` and `rtol = 1e-8`; total response NLL used `atol = 1e-7` and `rtol = 1e-8`. Raw arrays were hashed before interpretation. A derived response-NLL boundary nonfinite was prospectively classified as NDC rather than triggering post-result clipping.
