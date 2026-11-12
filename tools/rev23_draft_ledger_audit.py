@@ -44,7 +44,9 @@ def audit(manifest: object) -> dict:
         errors.append("PERF-01C gate changed without independent approval")
     if manifest.get("independent_review") != "PENDING":
         errors.append("draft ledger must not claim independent approval")
-    if manifest.get("timing_executed") is not False or manifest.get("recorded_speedups") != 0:
+    if (manifest.get("timing_executed") is not False
+            or type(manifest.get("recorded_speedups")) is not int
+            or manifest.get("recorded_speedups") != 0):
         errors.append("draft ledger contains timing or speed claims")
     versions = manifest.get("source_versions")
     if not isinstance(versions, dict):
@@ -54,8 +56,11 @@ def audit(manifest: object) -> dict:
     if versions.get("hgfx_wheel_sha256") is not None or versions.get("matlab_release") is not None:
         errors.append("unverified runtime identity inserted into draft")
     repeats = manifest.get("study_repetition_policy")
-    if not isinstance(repeats, dict) or (repeats.get("warmups"), repeats.get("timed_repeats"),
-                                          repeats.get("precision")) != (1, 5, "float64"):
+    if (not isinstance(repeats, dict)
+            or type(repeats.get("warmups")) is not int
+            or type(repeats.get("timed_repeats")) is not int
+            or (repeats.get("warmups"), repeats.get("timed_repeats"),
+                repeats.get("precision")) != (1, 5, "float64")):
         errors.append("original repetition/precision design changed")
     workloads = manifest.get("workloads")
     if not isinstance(workloads, list):
@@ -76,7 +81,9 @@ def audit(manifest: object) -> dict:
             errors.append("invalid workload object")
             continue
         op, trials, subjects = WORKLOADS[work["id"]]
-        if (work.get("operation"), work.get("trials"), work.get("subjects")) != (op, trials, subjects):
+        if (type(work.get("trials")) is not int or type(work.get("subjects")) is not int
+                or (work.get("operation"), work.get("trials"), work.get("subjects"))
+                != (op, trials, subjects)):
             errors.append(f"{work['id']}: operation/trial/subject scope changed")
         if work["id"] in ("S128", "S512") and work.get("model") != "hgf_binary":
             errors.append(f"{work['id']}: original fit model changed")
