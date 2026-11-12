@@ -9,6 +9,8 @@ on:
       - "paper/references.bib"
       - "paper/figures/*.pdf"
       - "paper/computational_statistics/build_active_submission.py"
+      - "tools/check_manuscript_claims.py"
+      - "docs/planning/COMPSTAT_CLAIM_MAP.json"
       - ".github/workflows/compstat-active-preview.yml"
   pull_request:
     paths:
@@ -47,6 +49,10 @@ jobs:
           git hash-object paper/computational_statistics/manuscript.md \
             paper/SUPPLEMENTARY_APPENDICES.md paper/references.bib \
             paper/computational_statistics/build_active_submission.py
+      - name: Inventory scientific numeric claims without claiming complete coverage
+        run: |
+          mkdir -p paper/computational_statistics/active_preview
+          python tools/check_manuscript_claims.py --allow-unmapped             --json-out paper/computational_statistics/active_preview/claim_inventory.json
       - name: Build only the current draft (no HGFX numerical execution)
         run: |
           python paper/computational_statistics/build_active_submission.py \
