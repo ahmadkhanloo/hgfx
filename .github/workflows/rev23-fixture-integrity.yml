@@ -1,6 +1,14 @@
 name: REV-2.3 fixture integrity — source-only tests
 
 on:
+  pull_request:
+    paths:
+      - "tools/rev23_fixture_integrity.py"
+      - "tests/test_rev23_fixture_integrity.py"
+      - "tools/rev23_draft_ledger_audit.py"
+      - "tests/test_rev23_draft_ledger_audit.py"
+      - "evidence/revision/REV-2.3_ELIGIBILITY_MATRIX_DRAFT.json"
+      - ".github/workflows/rev23-fixture-integrity.yml"
   push:
     branches: [compstat-revision]
     paths:
