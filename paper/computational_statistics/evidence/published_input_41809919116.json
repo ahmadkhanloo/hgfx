@@ -1,0 +1,3272 @@
+{
+  "interpretation": "Two public published studies; matched 8.2.0 forward-model fixed-vector numeric parity, NOT original published model-fitting reproduction",
+  "matlab_oracle": "HGF 8.2.0 @2437f4dc241541072722a2695ddeca7b44d83dd3",
+  "hgfx_wheel": "1.0.0",
+  "jax_version": "0.10.2",
+  "device": [
+    "CPU"
+  ],
+  "criteria": {
+    "rtol": 2e-09,
+    "atol": 2e-11,
+    "inherited_from": "tools/check_m12bc_parity.py"
+  },
+  "expected_cases": 324,
+  "total_cases": 324,
+  "trials_in_source_grid": 25920,
+  "case_status_counts": {
+    "PASS_FIXED_VECTOR_FORWARD_PARITY": 324
+  },
+  "expected_fields_per_case": 12,
+  "total_comparable_fields": 3888,
+  "total_elements_compared": 2540160,
+  "total_failed_elements": 0,
+  "worst_max_abs_diff": 3.1086244689504383e-15,
+  "worst_max_rel_diff_descriptive": 5.603239773513641e-11,
+  "warning_case_count": 48,
+  "github_run_id": "41809919116",
+  "github_sha": "5d9142f903acce414657a35c78f626ebf0331310",
+  "overall_status": "PASS_FIXED_VECTOR_PARITY_ALL_CASES",
+  "per_case_statuses": [
+    {
+      "id": "suthaharan_2021_0001",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0002",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0003",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0004",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0005",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0006",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0007",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0008",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0009",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0010",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0011",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0012",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0013",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0014",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0015",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0016",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0017",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0018",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0019",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0020",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0021",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0022",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0023",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0024",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0025",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0026",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0027",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0028",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0029",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0030",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0031",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0032",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0033",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0034",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0035",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0036",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0037",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0038",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0039",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0040",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0041",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0042",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0043",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0044",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0045",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0046",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0047",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0048",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0049",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0050",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0051",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0052",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0053",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0054",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0055",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0056",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0057",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0058",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0059",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0060",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0061",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0062",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0063",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0064",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0065",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0066",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0067",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0068",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0069",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0070",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0071",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0072",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0073",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0074",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0075",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0076",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0077",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0078",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0079",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0080",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0081",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0082",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0083",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0084",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0085",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0086",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0087",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0088",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0089",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0090",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0091",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0092",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0093",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0094",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0095",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0096",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0097",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0098",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0099",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0100",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0101",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0102",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0103",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0104",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0105",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0106",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0107",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0108",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0109",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0110",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0111",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0112",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0113",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0114",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0115",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0116",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0117",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0118",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0119",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0120",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0121",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0122",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0123",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0124",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0125",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0126",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0127",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0128",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0129",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0130",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0131",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0132",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0133",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0134",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0135",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0136",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0137",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0138",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0139",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0140",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0141",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0142",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0143",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0144",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0145",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0146",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0147",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0148",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0149",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0150",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0151",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0152",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0153",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0154",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0155",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0156",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0157",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0158",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0159",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0160",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0161",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0162",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0163",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0164",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0165",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0166",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0167",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0168",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0169",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0170",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0171",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0172",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0173",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0174",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0175",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0176",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0177",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0178",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0179",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0180",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0181",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0182",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0183",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0184",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0185",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0186",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0187",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0188",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0189",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0190",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0191",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0192",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0193",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0194",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0195",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0196",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0197",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0198",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0199",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0200",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0201",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0202",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0203",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0204",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0205",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0206",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0207",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0208",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0209",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0210",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0211",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0212",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0213",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0214",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0215",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0216",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0217",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0218",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0219",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0220",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0221",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0222",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0223",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0224",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0225",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0226",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0227",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0228",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0229",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0230",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0231",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0232",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0233",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0234",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0235",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0236",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0237",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0238",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0239",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0240",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0241",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0242",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0243",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0244",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0245",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0246",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0247",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0248",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0249",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0250",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0251",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0252",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0253",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0254",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0255",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0256",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0257",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0258",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0259",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "suthaharan_2021_0260",
+      "study": "suthaharan_2021",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0001",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0002",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0003",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 22,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0004",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 19,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0005",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0006",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0007",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0008",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0009",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 28,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0010",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 24,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0011",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0012",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 5,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0013",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 7,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0014",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 5,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0015",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0016",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 7,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0017",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 9,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0018",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0019",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0020",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 5,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0021",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 16,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0022",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 8,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0023",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0024",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 4,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0025",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0026",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0027",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 5,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0028",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 5,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0029",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0030",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0031",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0032",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0033",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0034",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0035",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 14,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0036",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 18,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0037",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0038",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 4,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0039",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 17,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0040",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 7,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0041",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0042",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0043",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0044",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0045",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0046",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0047",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 4,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0048",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 4,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0049",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0050",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 3,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0051",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 6,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0052",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 6,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0053",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0054",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0055",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 2,
+      "warnings": 3,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0056",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0057",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0058",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0059",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0060",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0061",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0062",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 1,
+      "warnings": 1,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0063",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    },
+    {
+      "id": "reed_2020_0064",
+      "study": "reed_2020",
+      "status": "PASS_FIXED_VECTOR_FORWARD_PARITY",
+      "ignored_trials": 0,
+      "warnings": 0,
+      "failed_fields": [],
+      "first_divergence": null,
+      "reason": null
+    }
+  ]
+}
