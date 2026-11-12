@@ -35,5 +35,12 @@ jobs:
           python-version: "3.11"
       - name: Install minimal test-only dependencies
         run: python -m pip install numpy pytest
+      - name: Print checked-out source and interpreter provenance
+        run: |
+          git rev-parse HEAD
+          git hash-object tools/rev23_fixture_integrity.py tests/test_rev23_fixture_integrity.py tools/rev23_draft_ledger_audit.py tests/test_rev23_draft_ledger_audit.py evidence/revision/REV-2.3_ELIGIBILITY_MATRIX_DRAFT.json
+          python --version
+          python -m pytest --version
+          python -c "import numpy; print('numpy', numpy.__version__)"
       - name: Run REV-2.3 fixture and draft-ledger contract checks only
         run: python -m pytest -q tests/test_rev23_fixture_integrity.py tests/test_rev23_draft_ledger_audit.py
