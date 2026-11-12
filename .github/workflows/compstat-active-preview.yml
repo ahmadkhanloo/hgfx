@@ -1,0 +1,61 @@
+name: Computational Statistics active author-review PDF
+
+on:
+  push:
+    branches: [compstat-revision]
+    paths:
+      - "paper/computational_statistics/manuscript.md"
+      - "paper/SUPPLEMENTARY_APPENDICES.md"
+      - "paper/references.bib"
+      - "paper/figures/*.pdf"
+      - "paper/computational_statistics/build_active_submission.py"
+      - ".github/workflows/compstat-active-preview.yml"
+  pull_request:
+    paths:
+      - "paper/computational_statistics/manuscript.md"
+      - "paper/SUPPLEMENTARY_APPENDICES.md"
+      - "paper/references.bib"
+      - "paper/figures/*.pdf"
+      - "paper/computational_statistics/build_active_submission.py"
+      - ".github/workflows/compstat-active-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  author-review-preview:
+    name: Editable LaTeX, PDF, and evidence of page limits (not scientific approval)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install document build tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends pandoc \
+            texlive-latex-base texlive-latex-recommended \
+            texlive-latex-extra texlive-fonts-recommended \
+            lmodern poppler-utils
+      - name: Record precise source and build versions
+        run: |
+          git rev-parse HEAD
+          python --version
+          pandoc --version | head -2
+          pdflatex --version | head -2
+          pdfinfo -v 2>&1 | head -2
+          git hash-object paper/computational_statistics/manuscript.md \
+            paper/SUPPLEMENTARY_APPENDICES.md paper/references.bib \
+            paper/computational_statistics/build_active_submission.py
+      - name: Build only the current draft (no HGFX numerical execution)
+        run: |
+          python paper/computational_statistics/build_active_submission.py \
+            --root . --outdir paper/computational_statistics/active_preview
+      - name: Preserve generated source and logs even if page/compile gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compstat-active-author-review
+          path: paper/computational_statistics/active_preview/
+          retention-days: 30
+          if-no-files-found: warn
