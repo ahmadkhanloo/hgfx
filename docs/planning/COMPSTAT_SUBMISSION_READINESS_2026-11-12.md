@@ -1,3 +1,5 @@
+> **Publication-first authority (2026-11-13):** The author's primary objective is a defensible *Computational Statistics* submission and eventual publication. Follow the [publication-first objective and critical path](PUBLICATION_FIRST_OBJECTIVE_2026-11-13.md). Prioritize the **real** manuscript/ESM build, strict claim-evidence coverage, C1–C8 disposition, D2, journal/legal clearance, independent review, and D3. Do not represent synthetic build smoke tests as real-document build evidence or optional timing work as complete; REV-2.4 NOT_GLOBAL_PASS and PERF-01C BLOCK_FREEZE persist.
+
 # Computational Statistics — publication-readiness and claim disposition (2026-11-12)
 
 **Status: AUTHOR-REVIEW DRAFT; NOT A SUBMISSION / NOT A SCIENTIFIC PASS.**
