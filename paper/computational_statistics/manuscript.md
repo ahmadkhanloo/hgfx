@@ -207,15 +207,17 @@ For statistical practice, HGFX offers a way to reuse documented HGF workflows wi
 
 HGFX 1.0.0 is MIT-licensed [@hgfx100]. Source, tag, and package URLs are in Table 1. Paper tables regenerate with `python paper/scripts/generate_p2_tables.py`. Figures regenerate with `python paper/scripts/generate_p5_figures.py` (300 dpi PNG and PDF). The reviewer entry point is `paper/reproducibility/README.md`. MATLAB is required only to regenerate paired oracle evidence. Repository-facing case identifiers and claim-to-evidence traceability are intentionally confined to Supplementary Appendix S6.
 
-## Declaration of competing interest
+## Statements and Declarations
+
+### Competing interests
 
 The author is the developer and maintainer of HGFX and declares no other competing financial interests or personal relationships that could have appeared to influence the work.
 
-## CRediT authorship contribution statement
+### Author contributions
 
 Mohammad Ahmadkhanloo: Conceptualization, Software, Validation, Formal analysis, Data curation, Visualization, Writing – original draft, Writing – review & editing.
 
-## Funding
+### Funding
 
 This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
 
