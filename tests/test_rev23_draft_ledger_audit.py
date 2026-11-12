@@ -126,3 +126,26 @@ def test_boolean_denominator_not_equal_to_zero(ledger):
 def test_matlab_default_model_mismatch_stays_blocked(ledger):
     ledger["workloads"][5]["model"] = "ehgf_binary"
     assert_blocked(ledger, "original fit model changed")
+
+
+@pytest.mark.parametrize("field,value", [
+    ("trials", True), ("subjects", True), ("trials", 128.0),
+])
+def test_trial_subject_numeric_impostors_rejected(ledger, field, value):
+    row = next(w for w in ledger["workloads"] if w["id"] == "F128")
+    row[field] = value
+    assert_blocked(ledger, "scope changed")
+
+
+@pytest.mark.parametrize("field,value", [
+    ("warmups", True), ("timed_repeats", 5.0),
+])
+def test_repetition_numeric_impostors_rejected(ledger, field, value):
+    ledger["study_repetition_policy"][field] = value
+    assert_blocked(ledger, "repetition/precision")
+
+
+@pytest.mark.parametrize("value", [False, 0.0])
+def test_speedup_count_numeric_impostors_rejected(ledger, value):
+    ledger["recorded_speedups"] = value
+    assert_blocked(ledger, "draft ledger contains timing or speed claims")
