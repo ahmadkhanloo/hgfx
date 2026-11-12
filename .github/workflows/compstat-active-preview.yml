@@ -56,6 +56,23 @@ jobs:
           mkdir -p paper/computational_statistics/active_preview
           python tools/check_manuscript_claims.py --allow-unmapped \
             --json-out paper/computational_statistics/active_preview/claim_inventory.json
+      - name: Audit strict numerical claims and retain FAIL evidence without suppressing PDF build
+        shell: bash
+        run: |
+          set +e
+          python tools/check_manuscript_claims.py \
+            --source paper/computational_statistics/manuscript.md \
+            --source paper/SUPPLEMENTARY_APPENDICES.md \
+            --json-out paper/computational_statistics/active_preview/claim_strict.json \
+            > paper/computational_statistics/active_preview/claim_strict.log 2>&1
+          status=$?
+          set -e
+          printf '%s\\n' "$status" > paper/computational_statistics/active_preview/claim_strict_exit_code.txt
+          cat paper/computational_statistics/active_preview/claim_strict.log
+          echo "Strict claim audit exit: $status (0 only means token coverage/checks; independent scientific review still needed)"
+          if [ "$status" -ne 0 ]; then
+            echo "::warning::Strict manuscript numeric-claim coverage is NOT PASS; inspect claim_strict.json and claim_strict.log artifact."
+          fi
       - name: Build only the current draft (no HGFX numerical execution)
         run: |
           python paper/computational_statistics/build_active_submission.py \
