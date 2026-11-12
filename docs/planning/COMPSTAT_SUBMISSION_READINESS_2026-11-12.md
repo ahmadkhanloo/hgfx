@@ -34,6 +34,14 @@
 - [ ] Independent scientific adjudication of original eHGF one-sided-invalid, missing D02 endpoint, original D08 fit disagreement, and family-specific objective thresholds **without** rerunning exhausted protocols, widening thresholds or relabeling historical failures. Gate REV-2.4 remains `NOT_GLOBAL_PASS`.
 - [ ] Resolve redesigned recovery REV-2.5 and statistical-computing REV-2.6 as executed, explicitly blocked, or omitted from paper claims, before author D2. The current text **must not** advertise them as results.
 
+**Provisional build infrastructure progress — 2026-11-13:**
+
+- [x] Implemented an **active-source** six-table/six-figure draft Pandoc/LaTeX builder with explicit source checks, BibTeX, PDF, editable TeX, zipped sources, input/output SHA-256s, main ≤14/ESM ≤10 original page limits and fail-closed compilation logging. [Script](../../paper/computational_statistics/build_active_submission.py), [GitHub Actions](../../.github/workflows/compstat-active-preview.yml). This **does not establish actual-article build success**.
+- [x] Executed the **exact Git-blob** of the new script against a purely synthetic six-figure/six-table fixture: real pdfLaTeX compilation of two **mock** documents (8 and 1 pages); missing figure and bad abstract negative controls correctly blocked. [Method and limitations](../research/COMPSTAT_ACTIVE_PREVIEW_SMOKE_2026-11-13.md).
+- [x] Rechecked all 16 **existing registered numerical phrase-pointer values** by source-data inspection; no mismatches in that restricted subset. **Full manuscript/ESM numeric coverage remains unverified**.
+- [ ] Obtain actual successful or failed GitHub Actions preview run for current PR #107, with exact commit, author-review PDF and source ZIP, inspect every PDF page, confirm real page counts, and resolve any LaTeX/citation/layout errors. Zero PR-triggered runs are currently available to the connector; no false PASS.
+- [ ] Run strict `tools/check_manuscript_claims.py` against complete main and ESM inputs, map substantive unmapped numbers and independently verify claims. `--allow-unmapped` is inventory only.
+
 **P0 — reproducibility and journal formalities**
 - [ ] Disclose the already recorded bioRxiv preprint DOI `10.64898/2026.09.22.753415` (preprint identity **is not** a software version DOI) and check current version/overlap policies for journal submission.
 - [ ] Obtain a verified permanent software/archive identifier and confirm all source, evidence, and example archives can be retrieved for review. Verify the release software citation and license for both new code and third-party referenced materials.
