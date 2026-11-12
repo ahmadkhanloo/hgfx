@@ -113,15 +113,15 @@ A separate cross-evaluation used original fitted parameter vectors from two stre
 
 HGFX 1.0.0 was released from commit `4dd8fbd8239d05f2c7932a9a9b3b7795f0a9ab27`. Official demo reproductions execute the MATLAB oracle, execute the Python reproduction, compare complete release-relevant outputs, and archive machine-readable artifacts (Table 2).
 
-The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (direct model-selection parity).
+The first demo is a regime in which classic binary HGF encounters negative posterior precision while eHGF succeeds. HGFX reproduces this: `hgf_binary` fails in both implementations, `ehgf_binary` succeeds in both, and eHGF trajectories agree within the frozen tolerance (agreement in this documented workflow outcome, not a BIC model-selection experiment).
 
 The second demo reproduces the uHGF to uHGF-AR(1) transition, including the recorded third-level trajectory behavior in both implementations (direct uHGF-AR(1) workflow parity).
 
-**Table 2.** Official workflow and analysis-surface coverage. Exact machine-readable rows are in `paper/tables/`.
+**Table 2.** Documented release workflow and analysis-surface checks. Recorded passes apply **only to the listed reference cases and APIs**, not to general fitting or model-family parity. Exact machine-readable rows are in `paper/tables/`.
 
 | Surface | Classification |
 |---|---|
-| Core model/API compatibility (documented scopes) | PASS |
+| Core model/API compatibility (documented scopes) | scoped release checks passed; not a general fitting-parity verdict |
 | uHGF to AR(1) official workflow | PASS |
 | sampleModel / prior-predictive workflow | PASS |
 | Correlation/residual analysis surfaces | PASS |
@@ -129,7 +129,18 @@ The second demo reproduces the uHGF to uHGF-AR(1) transition, including the reco
 
 ### 3.2 Fixed-vector objective agreement and its limits
 
-In the original 600-case fixed-vector comparison, classic binary HGF yielded 164 paired-valid objective evaluations within its previously established numerical criterion and 36 jointly invalid cases. Joint invalidity is recorded as a separate outcome, not counted as parity. Enhanced binary HGF yielded 198 paired-valid, one jointly invalid, and one one-sided-invalid case; unbounded binary HGF yielded 198 paired-valid and two jointly invalid cases. Objective differences for the 396 paired-valid enhanced/unbounded cases are observations, **not family-level parity verdicts**, because no independent family-specific objective acceptance policy had been frozen before examining these results. In the enhanced-HGF one-sided-invalid case, MATLAB reported finite likelihood while HGFX yielded a nonfinite result in the released 1.0.0 version. The observed likelihood disagreement began at zero-based trial 11; a later isolated diagnostic localized an earlier latent discrepancy, but its maintenance correction is development-only and was not retroactively assigned to the released software.
+In the original 600-case fixed-vector comparison, classic binary HGF yielded 164 paired-valid objective evaluations within its previously established numerical criterion and 36 jointly invalid cases. Joint invalidity is recorded as a separate outcome, not counted as parity. Enhanced binary HGF yielded 198 paired-valid, one jointly invalid, and one one-sided-invalid case; unbounded binary HGF yielded 198 paired-valid and two jointly invalid cases. Objective differences for the 396 paired-valid enhanced/unbounded cases are observations, **not family-level parity verdicts**, because no independent family-specific objective acceptance policy had been frozen before examining these results. Table 4 preserves all original case outcomes.
+
+**Table 3.** Original published-release shared-vector objective comparison, with 128 trials per case and 200 cases in each family. Joint invalidity and one-sided invalidity are not counted as parity.
+
+| Binary-HGF family | Both valid | Both invalid | One-sided invalid | Evidence classification |
+|---|---:|---:|---:|---|
+| Classic | 164 | 36 | 0 | 164/164 paired-valid objectives meet existing HGF M8 criterion; 36 shared-invalid are not passes |
+| Enhanced | 198 | 1 | 1 | Raw objective values only; no prospectively frozen eHGF-family objective criterion |
+| Unbounded | 198 | 2 | 0 | Raw objective values only; no prospectively frozen uHGF-family objective criterion |
+| **Total** | **560** | **39** | **1** | **No global fit, optimizer or model-family parity conclusion** |
+
+ In the enhanced-HGF one-sided-invalid case, MATLAB reported finite likelihood while HGFX yielded a nonfinite result in the released 1.0.0 version. The observed likelihood disagreement began at zero-based trial 11; a later isolated diagnostic localized an earlier latent discrepancy, but its maintenance correction is development-only and was not retroactively assigned to the released software.
 
 The second fixed-vector experiment cross-evaluated historical fitted endpoints without rerunning optimization. For the original 64-subject classic-HGF cohort, all 128 available endpoints were paired-valid and satisfied the original HGF same-vector objective criterion; the maximum absolute negative-log-joint difference was `2.842170943040401e-14`. This is a narrower finding than full-fit parity: an earlier subject-specific trajectory disagreement and the historical 63-of-64 complete-fit nonpass remain unchanged. Two further uHGF endpoint objectives were valid numerically but lacked a preregistered family-specific gate. For the enhanced-HGF stress case, the original HGFX fitted endpoint was not archived; its missing comparison was neither imputed nor excluded from the planned denominator. Thus 131 of 132 endpoint slots were evaluable, with only the 128 classic-HGF slots meeting a pre-existing family acceptance rule.
 
@@ -137,11 +148,11 @@ These objective results support selective reproducibility of *evaluation at the 
 
 ### 3.3 Fitting statistics and scoped limitations
 
-The historical enhanced-HGF fitting stress case and a separately frozen unbounded-HGF Level-2 *holdout* exhibited endpoint sensitivity in MATLAB as well as between implementations; those observations are documented as **reference limitations in those specific tested scopes**, not as evidence of general fit equivalence (Table 3). The holdout's sensitivity cannot be transferred to a distinct official USD/CHF experiment merely because both use unbounded HGF.
+The historical enhanced-HGF fitting stress case and a separately frozen unbounded-HGF Level-2 *holdout* exhibited endpoint sensitivity in MATLAB as well as between implementations; those observations are documented as **reference limitations in those specific tested scopes**, not as evidence of general fit equivalence (Table 4). The holdout's sensitivity cannot be transferred to a distinct official USD/CHF experiment merely because both use unbounded HGF.
 
 In the official 614-observation USD/CHF `uhgf + gaussian_obs` comparison with MATLAB-generated responses, two unintended concurrent runs used the same original reference inputs and published HGFX 1.0.0 wheel. At independently fitted endpoints, `traj.epsi` violated the unchanged paired gate at **4 of 1228** and **3 of 1228** entries, respectively. Both scientific results remain `UNRESOLVED_DISCREPANCY`. Although objective totals evaluated at shared parameter vectors were numerically close, the full optimizer path was not archived and the cause of fitted-endpoint differences has not been established. These two executions are retained as a documented protocol deviation, not presented as a designed replication.
 
-**Table 3.** Fitting and recovery classifications. Direct failures are retained.
+**Table 4.** Fitting and recovery classifications. Direct failures are retained.
 
 | Surface | Direct result | Paper disposition |
 |---|---|---|
@@ -154,11 +165,11 @@ In the official 614-observation USD/CHF `uhgf + gaussian_obs` comparison with MA
 
 ### 3.4 Parameter recovery versus model selection
 
-The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 4 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
+The earlier historical M18 parameter-recovery failure remains preserved separately. Figure 2 and Table 5 report the subsequent paired S7 recovery grid, whose recovery criteria are also not fully met. Paired S7 model selection is stronger: 36/36 BIC winners match (Figure 3). Model-selection agreement is not used to imply strong parameter identifiability. Full grid dimensions, frozen thresholds, and the prospective trial-horizon extension are reported in Supplementary Appendix S3.
 
 The trial-horizon study (section 2.6) is complete as an executed protocol, not as a positive identifiability result. Because its paired-integrity gate failed, the available evidence is insufficient for a stronger recovery or identifiability conclusion. Diagnostic per-horizon numbers are archived with the paper materials and shown in Figure 6; they do not replace the earlier recovery evidence.
 
-**Table 4.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
+**Table 5.** Paired parameter recovery on the frozen three-model grid (both truth scales). Thresholds: convergence >= 0.80, median correlation >= 0.50, median standardized RMSE <= 1.00. Full precision: `paper/tables/recovery_model_selection.md`.
 
 | Model | MATLAB / HGFX convergence | MATLAB / HGFX median r | MATLAB / HGFX median sRMSE | Failed criteria |
 |---|---|---|---|---|
@@ -168,9 +179,9 @@ The trial-horizon study (section 2.6) is complete as an executed protocol, not a
 
 ### 3.5 Backend and physical-GPU applicability
 
-Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 5). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5.
+Compatibility CPU and JAX-backed CPU outputs agree under the frozen backend-equivalence criterion; the post-fix CPU value is remeasured from the released numerical path and is reported with Figure 4 provenance. Physical-GPU applicability is retained from source commit `07b45a569e04e8e71244c5310dd2cc53dbb2b0ec`: the hosted environment exposed two Tesla T4 devices (Python 3.12.13, JAX/JAXLIB 0.11.1), while the four required fitting cells executed on `cuda:0`. Residency was checked by JAX device placement, with `nvidia-smi -L` used only to enumerate the visible hardware. All four CPU-versus-GPU cells pass the frozen final-objective criterion <= 1e-7; the maximum gap is 1.4210854715202004e-14 (Figure 4; Table 6). The retained GPU result is applicability/correctness evidence, not a speed or scaling result. Exact hardware/runtime provenance, the retention basis, objective pairs, execution command, and raw-artifact checksum are reported in Supplementary Appendix S5.
 
-**Table 5.** Backend and GPU applicability.
+**Table 6.** Backend and GPU applicability.
 
 | Surface | Classification | Result |
 |---|---|---|
