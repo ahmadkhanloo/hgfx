@@ -149,3 +149,10 @@ def test_repetition_numeric_impostors_rejected(ledger, field, value):
 def test_speedup_count_numeric_impostors_rejected(ledger, value):
     ledger["recorded_speedups"] = value
     assert_blocked(ledger, "draft ledger contains timing or speed claims")
+
+@pytest.mark.parametrize("summary", [
+    ["mean", "IQR"], ["median"], ["median", "standard_deviation"],
+])
+def test_summary_statistics_cannot_change_while_protocol_draft(ledger, summary):
+    ledger["study_repetition_policy"]["summary"] = summary
+    assert_blocked(ledger, "repetition/precision")
