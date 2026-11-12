@@ -146,3 +146,27 @@ Primary reproducibility identities:
 - pyhgf comparison raw-result SHA-256: `202007865c78ba0b138eeda5f105a73399d74076a802edd2c422ddcf98e4696b`.
 
 Paper tables and figures are generated from committed machine-readable evidence by committed scripts. The reviewer entry point is `paper/reproducibility/README.md`. MATLAB is required only to regenerate paired oracle evidence; it is not required to install or use HGFX.
+
+## Appendix S7. Published-input forward-filter compatibility: external-source data, not published-study replication
+
+This is a separate **originally executed, predeclared fixed-parameter perceptual-filter comparison**, not a replication of the source papers or of their model-fitting workflows. Public stimulus and choice sequences were read from two source studies: Suthaharan et al. (2021), *Paranoia and belief updating during the COVID-19 crisis*, DOI `10.1038/s41562-021-01176-8`, and Reed et al. (2020), *Paranoia as a deficit in non-social belief updating*, DOI `10.7554/eLife.56345`. Original source file hashes are preserved in `paper/case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md`; participant-level input arrays and trajectories are not redistributed in this article.
+
+### S7.1 Prospective denominator correction
+
+The initial full-source inventory incorrectly counted an incidental MATLAB workspace variable `ans` as a Reed participant and specified 326 cases. Its source-integrity preflight [run 41809479255](https://github.com/ahmadkhanloo/hgfx/actions/runs/41809479255) stopped **before scientific model execution**. A source-only follow-up established the correct population: 130 Suthaharan people × two 80-trial blocks = 260 blocks; 32 Reed people × two 80-trial blocks = 64 blocks. Hence the amended complete source-defined workload was **324 blocks, 25,920 trials**, with no post-result deletion or model-based case exclusion. The [v2 corrected source protocol](../../paper/case_studies/PUBLISHED_REALDATA_FULLCOHORT_PROTOCOL_V2_2026-11-04.md) was recorded before the original full-grid science run. The original failed source gate and v1 plan remain intact.
+
+### S7.2 Frozen mathematical and execution scope
+
+- Reference: MATLAB HGF Toolbox 8.2.0 `hgf_ar1_binary_mab`, commit `2437f4dc241541072722a2695ddeca7b44d83dd3`, MATLAB R2025b Update 7.
+- Test implementation: **published HGFX 1.0.0 wheel**, Python 3.11.18, JAX/JAXLIB 0.10.2, NumPy 2.2.6, CPU binary64. This is not a development-branch JAX-run simulation.
+- One **native 17-element** parameter vector preselected from the earlier M12B source, shared across *all* 324 blocks: `[NaN,0,1,NaN,0.1,1,NaN,0,0.2,NaN,0,1,1,1,NaN,-2,-6]`. The NaN entries are native placeholder semantics, **not** failed numeric values.
+- Locked criterion: `rtol=2e-9`, `atol=2e-11`; matched masks and nonfinite conventions; 12 perceptual/inference output quantities per block, including `infStates`. No model fits, optimizer restarts, parameter search, or response-model transformations were evaluated.
+
+### S7.3 Original execution and scope of conclusions
+
+The paired genuine MATLAB/wheel run [41809919116](https://github.com/ahmadkhanloo/hgfx/actions/runs/41809919116) had 324 MATLAB forward successes and 324 HGFX within-criterion results. Complete comparison coverage was **3,888 quantities (324 × 12)** and **2,540,160 compared numeric elements**, with zero outside the frozen tolerance. Maximum absolute difference was `3.1086244689504383e-15`; maximum relative difference `5.603239773513641e-11` is **descriptive**, not an additional pass criterion. **48 of 324 blocks** emitted Python warnings; all were Reed blocks with ignored trials, but the original archive records warning counts only, so causal warning type was **not established**. The later warning source audit documents an association with ignored trials, not the warning mechanism.
+
+Machine-readable per-case **statuses, not participant-level array exports**, are retained byte-for-byte from the original repository in `paper/computational_statistics/evidence/published_input_41809919116.json`. The original final result `paper/case_studies/REALDATA_FORWARD_PARITY_RESULT_2026-11-04.md`, initial source protocol, failed 326-case source plan, and pre-execution corrected 324-case protocol are also preserved unchanged.
+
+**Interpretation:** This establishes **one-parameter-vector, classic HGF-AR(1) binary perceptual forward numerical compatibility on authentic published input sequences**. It does **not** establish reproduction of either original paper's fitted priors/parameters, choice likelihoods, full model-selection analysis, participant exclusions, substantive effects or original software configuration. The published HGFX v1.0.0 compatibility fitting dispatcher does not provide end-to-end `hgf_ar1_binary_mab` plus softmax fitting; this is an explicit implementation-scope gap, not an observed fit mismatch. No rate of scientific recovery, model identifiability, runtime acceleration or speed comparison follows from this source-only forward result.
+
