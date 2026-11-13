@@ -67,7 +67,7 @@ jobs:
             > paper/computational_statistics/active_preview/claim_strict.log 2>&1
           status=$?
           set -e
-          printf '%s\\n' "$status" > paper/computational_statistics/active_preview/claim_strict_exit_code.txt
+          printf '%s\n' "$status" > paper/computational_statistics/active_preview/claim_strict_exit_code.txt
           cat paper/computational_statistics/active_preview/claim_strict.log
           echo "Strict claim audit exit: $status (0 only means token coverage/checks; independent scientific review still needed)"
           if [ "$status" -ne 0 ]; then
