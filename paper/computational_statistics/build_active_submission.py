@@ -101,6 +101,13 @@ def build(root, out):
         extracted = (stage / (stem + '.txt')).read_text(encoding='utf-8')
         if any(x in extracted for x in ('[@', '??', '**Table')):
             raise RuntimeError('unresolved rendered citation/table marker')
+        if stem == 'HGFX_Main':
+            normalized_render = ' '.join(extracted.split())
+            if 'Keywords:' not in normalized_render:
+                raise RuntimeError('main PDF text is missing the Keywords label')
+            for keyword in keywords:
+                if keyword not in normalized_render:
+                    raise RuntimeError(f'main PDF text is missing a required keyword: {keyword}')
         result[stem] = {'pages': int(match[1]),
                         'pdf_sha256': sha(stage / (stem + '.pdf')),
                         'tex_sha256': sha(stage / (stem + '.tex'))}
