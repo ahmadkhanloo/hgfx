@@ -1,6 +1,6 @@
 # HGFX: a Python package for reference-compatible Hierarchical Gaussian Filter workflows
 
-**Status:** Working revision for author review; not submission-ready. Historical results are unchanged. The worked example, mathematical summary, figures, and submission package remain to be completed under the execution plan.
+**Status:** Author-review draft; not submission-ready. The manuscript includes a mathematical validation framework, archived worked examples, and six linked figures. Real-source PDF compilation, complete numeric-claim coverage, scientific D2 approval, independent manuscript review, and final submission packaging remain unverified or open. Historical scientific failures and frozen criteria are unchanged.
 **Target journal:** *Computational Statistics*; subscription route, subject to confirmation of zero mandatory author charges.
 **Contribution:** Research software / package paper; exact submission-system article type to be verified.
 **Plan:** `docs/superpowers/plans/2026-11-03-publication-revision.md`
