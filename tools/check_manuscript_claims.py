@@ -19,6 +19,17 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REGISTRY = "docs/planning/COMPSTAT_CLAIM_MAP.json"
 NUM_RE = re.compile(r"(?<![\w.])[-+]?\d+(?:,\d{3})*(?:\.\d+)?(?:[eE][-+]?\d+)?(?!\w)")
+TEXT_SUFFIXES = {".json", ".md", ".txt", ".log", ".bib", ".py", ".csv", ".csl",
+                 ".tex", ".tsv", ".m", ".xml", ".yml", ".yaml"}
+
+
+def evidence_sha256(path: Path) -> str:
+    """Hash evidence bytes; text files are CRLF-normalized so pins recorded
+    from LF blobs stay valid on Windows checkouts (binary files stay exact)."""
+    data = path.read_bytes()
+    if path.suffix.lower() in TEXT_SUFFIXES:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def numeric_spans(text: str) -> list[tuple[int, int, str]]:
@@ -69,8 +80,15 @@ def scan(root: Path, sources: list[str], registry: dict) -> dict:
     evidence_cache: dict[str, tuple[object, str]] = {}
     matches: dict[str, set[tuple[int, int]]] = {name: set() for name in source_contents}
     covered: list[dict] = []
+    labels: list[dict] = []
+    labelled: dict[str, int] = {}
+    seen_ids: set[str] = set()
     for claim in registry.get("claims", []):
         identifier = claim["id"]
+        if identifier in seen_ids:
+            errors.append(f"{identifier}: duplicate registry id")
+            continue
+        seen_ids.add(identifier)
         source = claim["source"]
         phrase = claim["phrase"]
         specs = claim["values"]
@@ -87,9 +105,9 @@ def scan(root: Path, sources: list[str], registry: dict) -> dict:
             if not evidence_file.is_relative_to(root.resolve()):
                 raise ValueError("evidence outside repository")
             if evidence_path not in evidence_cache:
-                data = evidence_file.read_bytes()
                 evidence_cache[evidence_path] = (
-                    json.loads(data.decode("utf-8")), hashlib.sha256(data).hexdigest()
+                    json.loads(evidence_file.read_bytes().decode("utf-8")),
+                    evidence_sha256(evidence_file),
                 )
             evidence, sha256 = evidence_cache[evidence_path]
             pinned = claim.get("sha256")
@@ -117,6 +135,39 @@ def scan(root: Path, sources: list[str], registry: dict) -> dict:
             "evidence_sha256": sha256,
         })
 
+    # Non-claim label entries: structural tokens (headings, table labels,
+    # version identifiers, run IDs, citation DOIs) covered by an exact phrase
+    # with a documented class and rationale. No evidence pointer is required,
+    # and a label never validates a scientific value.
+    for label in registry.get("labels", []):
+        identifier = label.get("id")
+        if not identifier or identifier in seen_ids:
+            errors.append(f"{identifier}: duplicate registry id")
+            continue
+        seen_ids.add(identifier)
+        source = label.get("source")
+        if source not in source_contents:
+            continue
+        phrase = label.get("phrase") or ""
+        phrase_spans = numeric_spans(phrase)
+        if not phrase_spans:
+            errors.append(f"{identifier}: label phrase contains no numeric token")
+            continue
+        text = source_contents[source]
+        positions = list(re.finditer(re.escape(phrase), text))
+        if not positions:
+            errors.append(f"{identifier}: exact label phrase not present in {source}")
+            continue
+        for position in positions:
+            for start, end, _ in phrase_spans:
+                matches[source].add((position.start() + start, position.start() + end))
+        labelled[source] = labelled.get(source, 0) + len(phrase_spans) * len(positions)
+        labels.append({
+            "id": identifier, "source": source, "occurrences": len(positions),
+            "class": label.get("class", "unclassified"),
+            "rationale": label.get("rationale", ""),
+        })
+
     unmapped: list[dict] = []
     counts: dict[str, dict[str, int]] = {}
     for source, text in source_contents.items():
@@ -138,7 +189,8 @@ def scan(root: Path, sources: list[str], registry: dict) -> dict:
             })
     return {
         "status": "ERROR" if errors else ("INCOMPLETE" if unmapped else "COVERED"),
-        "sources": counts, "mapped_claims": covered,
+        "sources": counts, "mapped_claims": covered, "labels": labels,
+        "labelled": labelled,
         "unmapped_count": len(unmapped), "unmapped": unmapped, "errors": errors,
     }
 
@@ -164,7 +216,8 @@ def main(argv: list[str] | None = None) -> int:
     result = scan(root, sources, registry)
     print("REV-0.4 numeric claims coverage (no scientific tolerance)")
     for source, count in result["sources"].items():
-        print(f"  {source}: {count['mapped']}/{count['total']} numeric tokens mapped")
+        print(f"  {source}: {count['mapped']}/{count['total']} numeric tokens "
+              f"mapped, {result['labelled'].get(source, 0)} labelled non-claim")
     for claim in result["mapped_claims"]:
         print(f"  MAP {claim['id']}: {claim['evidence']}#{','.join(claim['pointers'])} "
               f"sha256={claim['evidence_sha256']}")

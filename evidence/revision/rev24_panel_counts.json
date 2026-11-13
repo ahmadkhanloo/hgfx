@@ -1,0 +1,89 @@
+{
+  "schema": "compstat-rev24-panel-counts-v1",
+  "task": "REV-2.4 published-release objective counts for manuscript claim mapping",
+  "extraction": "Mechanically transcribed from the committed research records pinned below (Panel G table rows and totals; Panel E slot table and max negative-log-joint gap; classic-HGF gate constants; pyhgf mapped quantity count and min/max field error from p2a10_comparison field_results excluding participant_response_nll_*). No new experiment, fit or simulation; no frozen result reclassified.",
+  "sources": {
+    "panel_g": {
+      "path": "docs/research/REV24_PANEL_G_ORIGINAL_RESULT_2026-11-10.md",
+      "sha256": "46a67aa38f95f750c2582d8ba9c99ff0e886c31601235c6e73b3f689dcf54916"
+    },
+    "panel_e": {
+      "path": "docs/research/REV24_PANEL_E_ORIGINAL_RESULT_2026-11-10.md",
+      "sha256": "8a3dc51f1a3e888eda7c35fa2b3f3ca436baf5cb50c172328ce770fb314b7614"
+    },
+    "p2a10_comparison": {
+      "path": "paper/reproducibility/p2a10_comparison_35268575414.json",
+      "sha256": "6928e459419da76d0df5ae822f808bdd8a04cec68b8fe340aff6b91d6012bf14"
+    },
+    "rev22_d08_official": {
+      "path": "evidence/revision/rev22_d08_official_paired_summary_2026-11-11.json",
+      "sha256": "b44fcda0913251a447cf5df8def73061ea29da391cc97b8e7020232775b54cc3"
+    },
+    "rev22_d08_three_archive": {
+      "path": "evidence/revision/rev22_d08_three_archive_readonly_summary_2026-11-11.json",
+      "sha256": "2e745fe6262ce3c68c935c936162fd931a2cd8539daf03b97b7a8378a71fb358"
+    }
+  },
+  "grid": {
+    "cases_per_family": 200,
+    "trials": 128,
+    "total": 600
+  },
+  "classic_gate": {
+    "rtol": 2e-11,
+    "atol": 2e-13
+  },
+  "families": {
+    "hgf_binary": {
+      "paired_valid": 164,
+      "paired_invalid": 36,
+      "one_sided_invalid": 0,
+      "within_gate_max_abs_obj_diff": 7.275957614183426e-12
+    },
+    "ehgf_binary": {
+      "paired_valid": 198,
+      "paired_invalid": 1,
+      "one_sided_invalid": 1
+    },
+    "uhgf_binary": {
+      "paired_valid": 198,
+      "paired_invalid": 2,
+      "one_sided_invalid": 0
+    }
+  },
+  "totals": {
+    "paired_valid": 560,
+    "paired_invalid": 39,
+    "one_sided_invalid": 1,
+    "valid_without_family_gate": 396
+  },
+  "one_sided_ehgf_first_trial_zero_based": 11,
+  "cross_eval": {
+    "planned_slots": 132,
+    "evaluable_slots": 131,
+    "classic_slots": 128,
+    "classic_within_gate": 128,
+    "cohort_size": 64,
+    "unbounded_slots": 2,
+    "unbounded_within_gate": 2,
+    "enhanced_slots": 2,
+    "enhanced_evaluable": 1,
+    "max_classic_negLj_abs_diff": 2.842170943040401e-14
+  },
+  "historical": {
+    "complete_fit_nonpass": 63,
+    "cohort_size": 64
+  },
+  "d08_official": {
+    "extraction": "Merged unchanged fields from the two committed D08 official-run records.",
+    "epsi_elements": 1228,
+    "run_a_out_of_gate": 4,
+    "run_b_out_of_gate": 3,
+    "first_bad_trial_zero_based": 178
+  },
+  "pyhgf": {
+    "mapped_perceptual_quantities": 11,
+    "min_field_max_abs_error": 1.1102230246251565e-16,
+    "max_field_max_abs_error": 1.5543122344752192e-15
+  }
+}

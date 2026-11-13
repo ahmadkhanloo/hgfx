@@ -16,6 +16,7 @@ htmlcov/
 .idea/
 reference/generated/
 benchmarks/results/
+_archive/
 *.mat
 *.npy
 *.npz

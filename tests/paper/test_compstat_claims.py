@@ -84,3 +84,104 @@ def test_sha256_pin_detects_altered_evidence_even_when_values_match(tmp_path):
     result = _run(tmp_path, "--allow-unmapped")
     assert result.returncode != 0
     assert "evidence SHA-256 changed" in result.stderr
+
+
+def test_sha256_pin_uses_lf_normalized_text_hash(tmp_path):
+    """Pins recorded from LF blobs must not fail on CRLF checkouts (Windows)."""
+    import hashlib
+    _setup(tmp_path)
+    evidence = tmp_path / "evidence" / "values.json"
+    # rewrite with real line endings so normalization actually matters
+    payload = json.loads(evidence.read_text(encoding="utf-8"))
+    lf_bytes = (json.dumps(payload, indent=2) + "\n").encode("utf-8")
+    evidence.write_bytes(lf_bytes)
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    lf_hash = hashlib.sha256(lf_bytes).hexdigest()
+    registry["claims"][0]["sha256"] = lf_hash
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    # Windows checkout artifact: identical LF content stored with CRLF endings
+    evidence.write_bytes(lf_bytes.replace(b"\n", b"\r\n"))
+    ok = _run(tmp_path, "--allow-unmapped")
+    assert ok.returncode == 0, ok.stderr
+    # a real content change is still detected after normalization
+    evidence.write_bytes(lf_bytes.replace(b"\n", b"\r\n") + b"\r\n")
+    bad = _run(tmp_path, "--allow-unmapped")
+    assert bad.returncode != 0
+    assert "evidence SHA-256 changed" in bad.stderr
+
+
+def test_label_entries_cover_non_claim_tokens(tmp_path):
+    _setup(tmp_path)
+    source = tmp_path / "paper" / "computational_statistics" / "manuscript.md"
+    source.write_text(
+        source.read_text(encoding="utf-8") + "## 1 Introduction\n\nText.\n",
+        encoding="utf-8",
+    )
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    registry["labels"] = [{
+        "id": "sec_intro",
+        "source": "paper/computational_statistics/manuscript.md",
+        "phrase": "## 1 Introduction",
+        "class": "section_heading",
+        "rationale": "document structure, not a scientific claim",
+    }]
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    result = _run(tmp_path, "--json-out", str(tmp_path / "report.json"))
+    assert result.returncode == 0, result.stderr
+    report = json.loads((tmp_path / "report.json").read_text(encoding="utf-8"))
+    assert report["labelled"]["paper/computational_statistics/manuscript.md"] == 1
+    assert report["unmapped_count"] == 0
+    assert report["status"] == "COVERED"
+
+
+def test_label_phrase_missing_fails_strict(tmp_path):
+    _setup(tmp_path)
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    registry["labels"] = [{
+        "id": "absent_label",
+        "source": "paper/computational_statistics/manuscript.md",
+        "phrase": "## 9 Nowhere",
+        "class": "section_heading",
+        "rationale": "missing on purpose",
+    }]
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    result = _run(tmp_path, "--allow-unmapped")
+    assert result.returncode != 0
+    assert "absent_label" in result.stderr
+
+
+def test_label_without_numeric_tokens_is_an_error(tmp_path):
+    _setup(tmp_path)
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    registry["labels"] = [{
+        "id": "no_number",
+        "source": "paper/computational_statistics/manuscript.md",
+        "phrase": "no digits here",
+        "class": "section_heading",
+        "rationale": "invalid",
+    }]
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    result = _run(tmp_path, "--allow-unmapped")
+    assert result.returncode != 0
+    assert "no_number" in result.stderr
+
+
+def test_duplicate_registry_id_is_an_error(tmp_path):
+    _setup(tmp_path)
+    registry_file = tmp_path / "docs" / "planning" / "COMPSTAT_CLAIM_MAP.json"
+    registry = json.loads(registry_file.read_text(encoding="utf-8"))
+    registry["labels"] = [{
+        "id": "pair",
+        "source": "paper/computational_statistics/manuscript.md",
+        "phrase": "36/36",
+        "class": "table_label",
+        "rationale": "duplicate id on purpose",
+    }]
+    registry_file.write_text(json.dumps(registry), encoding="utf-8")
+    result = _run(tmp_path, "--allow-unmapped")
+    assert result.returncode != 0
+    assert "duplicate registry id" in result.stderr
