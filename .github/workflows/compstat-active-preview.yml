@@ -55,6 +55,8 @@ jobs:
         run: |
           mkdir -p paper/computational_statistics/active_preview
           python tools/check_manuscript_claims.py --allow-unmapped \
+            --source paper/computational_statistics/manuscript.md \
+            --source paper/SUPPLEMENTARY_APPENDICES.md \
             --json-out paper/computational_statistics/active_preview/claim_inventory.json
       - name: Audit strict numerical claims and retain FAIL evidence without suppressing PDF build
         shell: bash
