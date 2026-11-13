@@ -85,3 +85,18 @@ jobs:
           path: paper/computational_statistics/active_preview/
           retention-days: 30
           if-no-files-found: warn
+      - name: Enforce strict claim-audit result after preserving review artifacts
+        if: always()
+        shell: bash
+        run: |
+          status_file=paper/computational_statistics/active_preview/claim_strict_exit_code.txt
+          if [ ! -f "$status_file" ]; then
+            echo "::error::Strict claim audit did not produce an exit-status record."
+            exit 1
+          fi
+          status=$(cat "$status_file")
+          if [ "$status" != "0" ]; then
+            echo "::error::Strict numerical coverage is NOT PASS (exit $status). Review uploaded claim_strict.json and claim_strict.log."
+            exit 1
+          fi
+          echo "Strict numeric token mapping passed; this is NOT independent scientific acceptance."
