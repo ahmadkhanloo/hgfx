@@ -22,6 +22,22 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _allow_code_breaks(tex: str) -> str:
+    """Insert LaTeX line-break points inside \\texttt code spans after '/' and
+    escaped '_' so long repository paths can wrap instead of overflowing the
+    right margin. Purely a rendering transform of generated TeX; the Markdown
+    sources are untouched."""
+    pattern = re.compile(r'\\texttt\{([^{}]*)\}')
+
+    def repl(m):
+        body = m.group(1)
+        body = body.replace('/', '/\\allowbreak ')
+        body = body.replace('\\_', '\\_\\allowbreak ')
+        return '\\texttt{' + body + '}'
+
+    return pattern.sub(repl, tex)
+
+
 def run(args, cwd, log):
     p = subprocess.run(args, cwd=cwd, capture_output=True, text=True,
                        errors='replace', timeout=300)
@@ -88,8 +104,19 @@ def build(root, out):
              '-s', '--citeproc', '--bibliography=references.bib',
              '--metadata=title:' + title_arg, '--metadata=author:Mohammad Ahmadkhanloo',
              '--metadata=date:', '-V', 'geometry:margin=23mm', '-V', 'fontsize:10pt',
+             '-V', ('header-includes=\\usepackage{microtype}'
+                    '\\usepackage{etoolbox}'
+                    '\\AtBeginEnvironment{longtable}{\\small\\raggedright\\arraybackslash}'
+                    '\\usepackage{listings}'
+                    '\\lstset{breaklines=true, breakatwhitespace=false,'
+                    ' basicstyle=\\ttfamily\\footnotesize}'
+                    '\\emergencystretch=3em'),
+             '--listings',
              '-o', stem + '.tex'], stage, log)
-        if stem == 'HGFX_Main' and (stage / (stem + '.tex')).read_text().count('\\begin{longtable}') != 6:
+        tex_path = stage / (stem + '.tex')
+        tex_path.write_text(_allow_code_breaks(tex_path.read_text(encoding='utf-8')),
+                            encoding='utf-8')
+        if stem == 'HGFX_Main' and tex_path.read_text(encoding='utf-8').count('\\begin{longtable}') != 6:
             raise RuntimeError('Pandoc did not preserve all six tables')
         for _ in range(2):
             run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error', stem + '.tex'], stage, log)
@@ -97,7 +124,7 @@ def build(root, out):
         match = re.search(r'^Pages:\s*(\d+)\s*$', info, re.M)
         if not match:
             raise RuntimeError('pdfinfo page count missing')
-        run(['pdftotext', stem + '.pdf', stem + '.txt'], stage, log)
+        run(['pdftotext', '-enc', 'UTF-8', stem + '.pdf', stem + '.txt'], stage, log)
         extracted = (stage / (stem + '.txt')).read_text(encoding='utf-8')
         if any(x in extracted for x in ('[@', '??', '**Table')):
             raise RuntimeError('unresolved rendered citation/table marker')
