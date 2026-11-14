@@ -38,7 +38,7 @@ HORIZONS = (128, 256, 512)
 N_RECOVERY = 100
 N_MODELREC = 60
 BASE_SEED = 2026111500
-TASK_TIMEOUT_S = 240
+TASK_TIMEOUT_S = 600
 WHEEL_SHA256 = "5c63c16d93cb2f61d57dacf9b4ba0629215da7c88e61d227cdc0eb60d0d88b90"
 THRESHOLDS = {
     "convergence_rate_min": 0.80,
@@ -168,6 +168,8 @@ def _fit_record(y, u, model: str, model_idx: int, t_idx: int, d: int):
 
 
 def _start_vector(model: str, u: np.ndarray, kind_seed: int | None):
+    """Return a FREE-space start vector (the released fit expects one value
+    per free index, not the full combined vector)."""
     from hgfx.compat.configs import unitsq_sgm_config
     from hgfx.core.priors import optimization_indices
 
@@ -180,7 +182,7 @@ def _start_vector(model: str, u: np.ndarray, kind_seed: int | None):
     if kind_seed is not None:
         z = np.random.Generator(np.random.PCG64(kind_seed)).standard_normal(free.size)
         v[free] = mu0[free] + np.sqrt(sa0[free]) * z
-    return v
+    return v[free]
 
 
 def _config_for(model: str):
@@ -214,11 +216,15 @@ def environment_record() -> dict:
 
 
 def _execute(plan, tag: str):
-    """Submit dataset tasks to the worker pool with per-task deadlines."""
+    """Submit dataset tasks to the worker pool with per-task deadlines.
+
+    The deadline counts from submission; the worker pool is sized so that
+    worst-case queue wait stays far below the guard (hgfx does not import
+    jax, so worker processes are lightweight)."""
     CHUNKS.mkdir(parents=True, exist_ok=True)
     started = time.time()
     futures = {}
-    with concurrent.futures.ProcessPoolExecutor(max_workers=min(8, os.cpu_count() or 4)) as ex:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=min(12, os.cpu_count() or 4)) as ex:
         for payload in plan:
             fut = ex.submit(_dataset_task, payload)
             futures[fut] = (payload, time.time() + TASK_TIMEOUT_S)

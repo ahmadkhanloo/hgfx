@@ -16,26 +16,32 @@ its conclusions are scoped to released HGFX behavior
 (`hgfx==1.0.0` wheel, SHA-256 `5c63c16d...88b90`); implementation-independence
 across MATLAB/HGFX is a recorded DOCUMENTED_LIMITATION for this task.
 
-## Amendment before execution (reconnaissance findings, 2026-11-14)
+## Amendment 2 before execution (measured feasibility, 2026-11-14)
 
-A pre-run reconnaissance probe found two behaviors that would break the
-preregistered schedule if unhandled; this amendment is committed before the
-single run:
+Two runner-infrastructure defects were found and fixed before any scientific
+data existed (attempt 1: free-space start-vector shape error; attempt 2:
+submission-time deadline vs queue wait); both are logged in the ledger. A
+corrected timing measurement now establishes the real cost of the released
+compatibility optimizer: **~87 s per fit at T=128** (prior-mean start,
+tol_grad), scaling approximately linearly with horizon (T=512 fits exceed
+6 minutes), consistent with the 182 s USD/CHF (T=614) runtime recorded in the
+article. Consequences, committed before the run:
 
-1. **Simulation failures are real protocol data.** Prior-drawn truths place a
-   substantial fraction of classic-HGF datasets in the documented
-   negative-posterior-precision region (`ValueError: Negative posterior
-   precision. Parameters are in a region where model assumptions are
-   violated.`); these stay in denominators exactly as the protocol already
-   requires.
-2. **Pathological fits can exceed any reasonable wall-clock budget** (one
-   `uhgf_binary` T=512 prior-draw fit ran > 6 minutes without returning;
-   typical fits are ~5-10 ms). Each dataset task therefore runs in an
-   isolated worker process with a **240-second wall-clock guard**; a task
-   exceeding the guard is classified `timeout`, stays in the denominator as
-   a failure, and is checkpointed so a resumed run never re-hangs. The guard
-   is infrastructure, not a scientific criterion, and per-fit optimizer
-   settings are untouched.
+1. The preregistered fallback trigger fires (full design projects far beyond
+   6 h on this 12-core machine); the **uniform 50% fallback applies**
+   (`N = 50` recovery, `M = 30` model-recovery datasets per model per
+   horizon; all models, horizons, starts and the seed scheme retained).
+   Projected wall time is ~11 h on 12 worker processes.
+2. The wall-clock guard is raised from 240 s to **600 s** so typical T=512
+   fits (~380 s) complete; pathological fits above 600 s are classified
+   `timeout` and stay in the denominator.
+3. Chunk-level checkpoints (one file per model and horizon, updated per
+   dataset) make the run **resumable**: an interrupted execution continues
+   with the untouched datasets and never re-hangs on a timed-out one.
+4. Two earlier infrastructure-only attempts produced zero scientific rows
+   (attempt 1: zero fits succeeded; attempt 2: only timeouts before the
+   pool was resized); both are preserved in this ledger note and the
+   scientific run has not yet executed.
 
 ## Design
 
