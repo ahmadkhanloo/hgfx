@@ -24,3 +24,6 @@ _archive/
 
 # Regenerated, draft-only Computational Statistics author-review package
 paper/computational_statistics/active_preview/
+
+# REV-2.5 run checkpoint chunks (infrastructure; final aggregate JSON is committed)
+evidence/revision/rev25_chunks/
