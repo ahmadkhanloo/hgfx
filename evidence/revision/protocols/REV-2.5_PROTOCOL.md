@@ -16,6 +16,27 @@ its conclusions are scoped to released HGFX behavior
 (`hgfx==1.0.0` wheel, SHA-256 `5c63c16d...88b90`); implementation-independence
 across MATLAB/HGFX is a recorded DOCUMENTED_LIMITATION for this task.
 
+## Amendment before execution (reconnaissance findings, 2026-11-14)
+
+A pre-run reconnaissance probe found two behaviors that would break the
+preregistered schedule if unhandled; this amendment is committed before the
+single run:
+
+1. **Simulation failures are real protocol data.** Prior-drawn truths place a
+   substantial fraction of classic-HGF datasets in the documented
+   negative-posterior-precision region (`ValueError: Negative posterior
+   precision. Parameters are in a region where model assumptions are
+   violated.`); these stay in denominators exactly as the protocol already
+   requires.
+2. **Pathological fits can exceed any reasonable wall-clock budget** (one
+   `uhgf_binary` T=512 prior-draw fit ran > 6 minutes without returning;
+   typical fits are ~5-10 ms). Each dataset task therefore runs in an
+   isolated worker process with a **240-second wall-clock guard**; a task
+   exceeding the guard is classified `timeout`, stays in the denominator as
+   a failure, and is checkpointed so a resumed run never re-hangs. The guard
+   is infrastructure, not a scientific criterion, and per-fit optimizer
+   settings are untouched.
+
 ## Design
 
 - Models: `hgf_binary`, `ehgf_binary`, `uhgf_binary`, each with
