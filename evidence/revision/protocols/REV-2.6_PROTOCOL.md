@@ -48,13 +48,26 @@ layers, with practical guidance ("use float64; the failure region is X").
 ## Horizons, legs and pairing
 
 - Horizons: `T in {128, 4096, 65536}`.
-- Leg **R (reference)**: `JAX_ENABLE_X64=1`, CPU; float64 forward filter.
-- Leg **F (treatment)**: default JAX without x64 (the user mistake); the same
-  NumPy float64 input arrays are handed to the same runner code and are cast
-  down by JAX, exactly reproducing the mistake.
-- Both legs run the same runner script twice (separate processes; JAX x64
-  cannot be toggled in-process). Pairing is by `(T, draw index)`; `u` and
-  `theta` are bitwise identical across legs (exported once, hashed, reloaded).
+- Leg **R (reference)**: `jax.config.update('jax_enable_x64', True)`, CPU;
+  float64 forward filter via the released JAX engine (`fast_binary_hgf`).
+- Leg **F (treatment)**: `jax.config.update('jax_enable_x64', False)` (the
+  user mistake); the same NumPy float64 input arrays are handed to the same
+  runner code and are truncated to float32 by JAX (probe verified: explicit
+  `dtype=jnp.float64` requests are silently truncated with a UserWarning, so
+  the released engine runs entirely in float32 instead of raising).
+- **Amendment before execution (reconnaissance finding):** the frozen text
+  said the legs must run in separate processes because x64 "cannot be
+  toggled in-process". A pre-run probe showed `jax.config.update` toggling
+  works in-process on jax 0.10.2, and both legs must pair elementwise to
+  compute differences without storing full trajectories. The legs therefore
+  run in one process with the config toggled per leg, and the runner asserts
+  the trajectory dtype of each leg (`float64` for R, `float32` for F) before
+  recording anything. Pairing is by `(T, draw index)`; `u` and `theta` are
+  bitwise identical across legs (drawn once, hashed, reused).
+- Trajectory quantities: `mu` (posterior mean) and `sa` (posterior precision)
+  from `fast_binary_hgf`; the JAX `UserWarning` about truncated dtypes is
+  suppressed by the runner but its existence and count are recorded in the
+  JSON (the mistake is loudly warned by JAX, which is part of the finding).
 
 ## Metrics and failure classification (no tolerance invention)
 
