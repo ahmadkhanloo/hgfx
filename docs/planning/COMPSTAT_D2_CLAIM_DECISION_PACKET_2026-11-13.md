@@ -1,3 +1,5 @@
+> **2026-11-15 source gate only:** Exact REV-2.6A descriptive manuscript revision a3614ffa6186945b6cf7fe8c5794255a263a5167 passed [strict audit and real generic PDF build in run 43700925445](https://github.com/ahmadkhanloo/hgfx/actions/runs/43700925445). Main 265/265 and ESM 219/219 numeric tokens mapped, main 14 and ESM 6 pages. Venue/author decisions are in [preflight](COMPSTAT_VENUE_PREFLIGHT_2026-11-15.md). The author D2 signature is NOT GIVEN and the reviewed scientific claim envelope stays unchanged.
+
 # Computational Statistics — D2 scientific-claim decision packet (2026-11-13)
 
 **Decision status:** D2 **BLOCKED / AUTHOR NOT YET APPROVED**. This packet is an evidence-led editorial disposition, not an independent scientific acceptance, new protocol, retrospective threshold, or journal submission.
