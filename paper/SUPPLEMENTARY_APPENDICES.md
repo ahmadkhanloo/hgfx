@@ -170,3 +170,16 @@ Machine-readable per-case **statuses, not participant-level array exports**, are
 
 **Interpretation:** This establishes **one-parameter-vector, classic HGF-AR(1) binary perceptual forward numerical compatibility on authentic published input sequences**. It does **not** establish reproduction of either original paper's fitted priors/parameters, choice likelihoods, full model-selection analysis, participant exclusions, substantive effects or original software configuration. The published HGFX v1.0.0 compatibility fitting dispatcher does not provide end-to-end `hgf_ar1_binary_mab` plus softmax fitting; this is an explicit implementation-scope gap, not an observed fit mismatch. No rate of scientific recovery, model identifiability, runtime acceleration or speed comparison follows from this source-only forward result.
 
+## Appendix S8. Released-HGFX precision-mode sensitivity (descriptive; not MATLAB parity)
+
+The separately preregistered CPU-only precision experiment used the released classic binary-HGF forward routine, fixed prior-drawn transformed parameter vectors and one shared binary input sequence. Trial horizons were nested prefixes, allowing same-vector and same-input comparisons across JAX binary64 and binary32 trajectories. Every invalid simulation was retained; differences in the table below are computed only for draws with valid outputs in both modes. The study did not evaluate observation likelihoods, fitted parameters, MATLAB or GPU hardware.
+
+| Horizon (trials) | Paired valid draws | Binary64 negative-precision failures | Median of paired maximum absolute posterior-mean difference |
+|---:|---:|---:|---:|
+| 128 | 146 | 54 | 2.82e-7 |
+| 4096 | 123 | 77 | 1.65e-6 |
+| 65536 | 104 | 96 | 5.59e-6 |
+
+The underlying failed draw identities were the same in both precision modes at each horizon, although binary32 reclassified some failures as nonfinite outputs. Thus a smaller binary32 *negative-precision* count does not indicate greater validity. The maximum-gap statistic is descriptive and restricted to mutually valid trajectories; failures remain in the study denominator. The same fixed parameter and input draws must not be interpreted as independent observations for a statistical uncertainty interval. This experiment supports explicit x64 configuration and dtype checks for HGFX use, but does not prove numerical stability, reference equivalence, model identifiability or end-to-end fitting parity.
+
+The complete [preregistered study protocol](../evidence/revision/protocols/REV-2.6_PROTOCOL.md) and machine-readable [original result](../evidence/revision/rev26_precision_stability.json) include the frozen seed scheme, per-draw statuses, environment versions, hashes and quantiles. No values in the earlier MATLAB/HGFX experiments were modified by this descriptive study.

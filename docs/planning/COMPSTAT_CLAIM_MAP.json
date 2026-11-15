@@ -2112,6 +2112,72 @@
         }
       ],
       "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
+    },
+    {
+      "id": "rev26_esm_128",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "| 128 | 146 | 54 | 2.82e-7 |",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/environment/horizons/0"
+        },
+        {
+          "pointer": "/aggregate/128/max_abs_mu_diff/n_pairs"
+        },
+        {
+          "pointer": "/aggregate/128/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/aggregate/128/max_abs_mu_diff/median",
+          "significant_digits": 3
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
+    },
+    {
+      "id": "rev26_esm_4096",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "| 4096 | 123 | 77 | 1.65e-6 |",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/environment/horizons/1"
+        },
+        {
+          "pointer": "/aggregate/4096/max_abs_mu_diff/n_pairs"
+        },
+        {
+          "pointer": "/aggregate/4096/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/aggregate/4096/max_abs_mu_diff/median",
+          "significant_digits": 3
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
+    },
+    {
+      "id": "rev26_esm_65536",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "| 65536 | 104 | 96 | 5.59e-6 |",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/environment/horizons/2"
+        },
+        {
+          "pointer": "/aggregate/65536/max_abs_mu_diff/n_pairs"
+        },
+        {
+          "pointer": "/aggregate/65536/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/aggregate/65536/max_abs_mu_diff/median",
+          "significant_digits": 3
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
     }
   ],
   "labels": [
@@ -2473,9 +2539,9 @@
       "rationale": "document structure"
     },
     {
-      "id": "t4_preserves",
+      "id": "t3_preserves",
       "source": "paper/computational_statistics/manuscript.md",
-      "phrase": "Table 4 preserves all original case outcomes.",
+      "phrase": "Table 3 preserves all original case outcomes.",
       "class": "table_label",
       "rationale": "table cross-reference"
     },
@@ -2615,7 +2681,7 @@
     {
       "id": "sec_3_6",
       "source": "paper/computational_statistics/manuscript.md",
-      "phrase": "### 3.6 Common-scope comparison with pyhgf",
+      "phrase": "### 3.7 Common-scope comparison with pyhgf",
       "class": "section_heading",
       "rationale": "document structure"
     },
@@ -2629,7 +2695,7 @@
     {
       "id": "sec_3_7",
       "source": "paper/computational_statistics/manuscript.md",
-      "phrase": "### 3.7 Examples of use and current limitations",
+      "phrase": "### 3.8 Examples of use and current limitations",
       "class": "section_heading",
       "rationale": "document structure"
     },
@@ -3045,6 +3111,27 @@
       "phrase": "41809919116",
       "class": "run_identifier",
       "rationale": "Archived paired-run identifier; the machine record published_input_41809919116.json stores it as a string identity and its counts are separately claim-mapped."
+    },
+    {
+      "id": "sec_2_9",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "### 2.9 Precision-mode sensitivity protocol (HGFX-only)",
+      "class": "section_heading",
+      "rationale": "Numbered Methods subsection identifier, not measured result"
+    },
+    {
+      "id": "sec_3_6_precision",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "### 3.6 Precision-mode sensitivity and recursion failures",
+      "class": "section_heading",
+      "rationale": "Numbered Results subsection identifier, not measured result"
+    },
+    {
+      "id": "rev26_esm_protocol_path",
+      "source": "paper/SUPPLEMENTARY_APPENDICES.md",
+      "phrase": "REV-2.6_PROTOCOL.md",
+      "class": "identifier",
+      "rationale": "Preregistered protocol pathname, not a measured value"
     }
   ]
 }
