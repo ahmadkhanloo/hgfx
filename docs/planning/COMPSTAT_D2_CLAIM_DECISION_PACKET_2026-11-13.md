@@ -51,6 +51,8 @@ The stoplight above is updated by the following verified states; no claim-envelo
 
 Author must verify the exact final main manuscript and ESM against primary evidence, accept/reject the bounded claim envelope, classify any unresolved scientific contradiction as a limitation or narrow the claim, and explicitly approve scientific scope **before** final manuscript lock. Record the decision date and precise candidate commit in the REV ledger. This packet itself does **not** constitute D2 approval.
 
+> **2026-11-15 author-review editorial update (not a D2 approval):** The active manuscript now contains a tightly scoped descriptive paragraph from the already completed REV-2.6A released-wheel CPU precision study, with original source JSON pointers and pinned hash in the claims registry. The revised manuscript must pass fresh strict claim audit and current-source PDF compilation; this textual inclusion does not create a MATLAB comparison, a stability/parity gate, an author decision or a REV-2.5 recovery result.
+
 ## Next mechanical work
 
 Run actual-source preview on exact branch commit, archive run/job IDs, real PDF pages, source ZIP and manifest hashes; run strict `tools/check_manuscript_claims.py` (not only `--allow-unmapped`), reconcile unmapped scientific claims against source evidence while keeping non-result identifiers explicitly classified. Complete real rendered-PDF visual inspection and independent reviewer signoff. The updated workflow retains `claim_strict.json`, `claim_strict.log` and `claim_strict_exit_code.txt` even when strict coverage fails, without suppressing the PDF build. A nonzero strict check remains **NOT PASS**.

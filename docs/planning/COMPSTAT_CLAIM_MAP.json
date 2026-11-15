@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "REV-0.4 partial mapping against active Markdown; unmapped numeric tokens are retained for later work",
+  "scope": "Strict evidence-backed numerical coverage for the active Markdown manuscript and supplement (mechanical validation, not scientific approval)",
   "label_schema": "labels entries cover structural/non-claim numeric tokens by exact phrase; class + rationale document why the token is not a scientific measurement. Labels never validate a scientific value.",
   "claims": [
     {
@@ -2049,6 +2049,69 @@
         }
       ],
       "sha256": "630a099912bd6ed44d4ea88ed393ee0a3d412e64b8eb67858da6443c1aa60eb2"
+    },
+    {
+      "id": "rev26_cpu_precision_n_and_horizons",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "200 prior-sampled binary-HGF parameter draws across horizons of 128, 4096, and 65536 trials",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/environment/n_draws"
+        },
+        {
+          "pointer": "/environment/horizons/0"
+        },
+        {
+          "pointer": "/environment/horizons/1"
+        },
+        {
+          "pointer": "/environment/horizons/2"
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
+    },
+    {
+      "id": "rev26_cpu_negative_precision_counts",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "54, 77, and 96 out of 200 draws",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/aggregate/128/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/aggregate/4096/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/aggregate/65536/R/negative_posterior_precision"
+        },
+        {
+          "pointer": "/environment/n_draws"
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
+    },
+    {
+      "id": "rev26_cpu_median_max_mu_gaps",
+      "source": "paper/computational_statistics/manuscript.md",
+      "phrase": "2.82e-7, 1.65e-6, and 5.59e-6",
+      "evidence": "evidence/revision/rev26_precision_stability.json",
+      "values": [
+        {
+          "pointer": "/aggregate/128/max_abs_mu_diff/median",
+          "significant_digits": 3
+        },
+        {
+          "pointer": "/aggregate/4096/max_abs_mu_diff/median",
+          "significant_digits": 3
+        },
+        {
+          "pointer": "/aggregate/65536/max_abs_mu_diff/median",
+          "significant_digits": 3
+        }
+      ],
+      "sha256": "c936e883269af8ed568fedc67d36abba08faba6317050104d2cfbe5ecd1feb19"
     }
   ],
   "labels": [
